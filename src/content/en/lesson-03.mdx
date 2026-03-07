@@ -1,0 +1,167 @@
+# Lesson 3: Scope, Types, and Promotions
+
+<VideoEmbed videoId="mw4gUqsGPZw" title="Let's learn C: lesson 3" />
+
+Welcome to the third lesson! Today we continue to dig deeper into our "Hello World", exploring variable scope, how data is passed to functions, and how C handles different numeric types.
+
+<KeyConcepts title="What we'll learn today">
+  - The difference between **local**, **global**, and **static** variables
+  - Why C passes everything **by value** (copying)
+  - New types: `float`, `double`, `short`, and `unsigned`
+  - Automatic **type promotion** rules
+  - The risk of **overflow** and Undefined Behavior
+</KeyConcepts>
+
+---
+
+## Variable Scope: Where does your code "live"?
+
+In C, not all variables are created equal. Their "visibility" and "lifetime" depend on where they are declared.
+
+### 1. Local Variables
+Defined inside a function. They are born when the function is called and **die** when it returns. Every time you call the function, a new copy is created from scratch.
+
+### 2. Global Variables
+Defined outside all functions. They exist for the entire duration of the program and can be accessed from anywhere in the code.
+
+### 3. Static Variables
+By using the `static` keyword inside a function, we create a variable that is "global" in duration (it doesn't lose its value between calls) but "local" in visibility (only that function can see it).
+
+<ScopeExplorer />
+
+<Infographic 
+  src="/images/scope_visualizer.png" 
+  alt="Scope Visualizer" 
+  caption="Comparison between Local, Global, and Static scope in C."
+/>
+
+---
+
+## Pass by Value: The Silent Copy
+
+A fundamental concept in C is that function arguments are passed **by value**. This means the function receives a **copy** of the data, not the original.
+
+```c
+int incr(int x) {
+    x = x + 1;
+    return x;
+}
+
+int main() {
+    int a = 10;
+    incr(a); // We pass a COPY of 'a'
+    printf("%d", a); // Still prints 10!
+}
+```
+
+<Infographic 
+  src="/images/pass_by_value.png" 
+  alt="Pass by Value" 
+  caption="C copies the value onto the stack of the called function. The original remains unchanged."
+/>
+
+<Callout type="warning" title="Pointers on the horizon">
+  To modify the original value, we'll need to use **pointers**. We'll introduce them very soon because they are the soul of the C language.
+</Callout>
+
+---
+
+## Numeric Types and Promotions
+
+C offers a variety of types to save memory (crucial back in the '60s!).
+
+### Type Hierarchy
+- `char`: 1 byte (8 bits)
+- `short`: Typically 2 bytes
+- `int`: Typically 4 bytes (implementation-dependent)
+- `float`: Single-precision decimal numbers
+- `double`: Double-precision decimal numbers (64 bits)
+
+<TypeMatcher />
+
+<Infographic 
+  src="/images/integer_ranges.png" 
+  alt="Integer type ranges" 
+  caption="Cheat sheet of common types and their memory limits."
+/>
+
+### Automatic Promotions
+When performing operations between different types, C applies "promotion" rules. For example, in functions like `printf` (variadic functions):
+- `short` values are promoted to `int`.
+- `float` values are promoted to `double`.
+
+---
+
+## Beware of Overflow!
+
+What happens if you add 1 to the maximum possible value for a type?
+- **Unsigned**: The behavior is guaranteed. The value "wraps around" back to zero.
+- **Signed**: This is **Undefined Behavior**. The compiler can literally do anything. Never rely on signed integer overflow!
+
+<OverflowSimulator />
+
+<CodeEditor initialCode={`#include <stdio.h>\n\nint main() {\n    unsigned char c = 255;\n    c++;\n    printf("Guaranteed overflow (unsigned): %d\\n", c);\n    \n    signed char d = 127;\n    d++;\n    printf("Dangerous overflow (signed): %d\\n", d);\n    return 0;\n}`} />
+
+---
+
+<Quiz 
+  questions={[
+    {
+      id: 1,
+      question: "What happens to a local variable when the function ends?",
+      options: [
+        "It is saved to disk",
+        "It stays in memory for the next call",
+        "It is destroyed and its memory is freed",
+        "It becomes a global variable"
+      ],
+      correctAnswer: 2,
+      explanation: "Local variables live on the stack and have a lifetime limited to the function's execution."
+    },
+    {
+      id: 2,
+      question: "Which keyword makes a variable persistent between calls but only locally visible?",
+      options: ["extern", "static", "volatile", "persist"],
+      correctAnswer: 1,
+      explanation: "'static' allocates the variable in permanent memory but limits its scope to the current block."
+    },
+    {
+      id: 3,
+      question: "In C, if you pass a variable to a function, can the function modify the original directly?",
+      options: [
+        "Yes, always",
+        "No, it only receives a copy (Pass by Value)",
+        "Only if the variable is global",
+        "Only if we use 'static'"
+      ],
+      correctAnswer: 1,
+      explanation: "C is pass-by-value. To modify the original, pointers are required."
+    },
+    {
+      id: 4,
+      question: "In a variadic function like printf, what is a float promoted to?",
+      options: ["int", "double", "long", "It stays a float"],
+      correctAnswer: 1,
+      explanation: "Default argument promotion rules promote float to double."
+    },
+    {
+      id: 5,
+      question: "What happens if a SIGNED integer overflows?",
+      options: [
+        "It wraps around to zero",
+        "It becomes negative",
+        "It is Undefined Behavior",
+        "The program stops immediately"
+      ],
+      correctAnswer: 2,
+      explanation: "Unlike unsigned types, signed integer overflow is not defined by the C standard."
+    }
+  ]}
+/>
+
+<KeyConcepts title="Summary">
+  - **Scope** determines where and for how long a variable exists.
+  - C uses **Pass by Value** as its standard.
+  - Numeric types have specific limits and **Promotion** rules.
+  - Always avoid signed integer overflow!
+</KeyConcepts>

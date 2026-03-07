@@ -1,0 +1,1382 @@
+[
+  {
+    "start": 27.259999999999994,
+    "end": 29.98,
+    "text": " Devo dire, abbiamo fatto dei passi avanti anche se non è stato stato stato stato stato"
+  },
+  {
+    "start": 34.08,
+    "end": 37.72,
+    "text": " in ci, che apparendamente sono simili a quelle delle altre"
+  },
+  {
+    "start": 37.72,
+    "end": 39.8,
+    "text": " linguaggi ma sono in ci piuttosto diverse."
+  },
+  {
+    "start": 40.56,
+    "end": 43.54,
+    "text": " Poi, finalmente, siamo riusciti ad introdurre le stringhe."
+  },
+  {
+    "start": 43.74,
+    "end": 51.24,
+    "text": " Sarebbe ora il caso di fare il passaggio ai Pundatori che sono un prerequisito necessario"
+  },
+  {
+    "start": 51.24,
+    "end": 54.18,
+    "text": " per scrivere i programmi più complicati in ci."
+  },
+  {
+    "start": 54.18,
+    "end": 59.8,
+    "text": " però valutamente questo salto non lo possiamo fare e vi dico perché? perché non abbiamo"
+  },
+  {
+    "start": 59.8,
+    "end": 68.88,
+    "text": " introdotto le strutture di controllo in C ovvero le scelte condizionali con if che probabilmente"
+  },
+  {
+    "start": 68.88,
+    "end": 77.62,
+    "text": " conoscete da altri linguaggi e poi le strutture di ciclo che sono in C poche, lo switch, il"
+  },
+  {
+    "start": 77.62,
+    "end": 85.42,
+    "text": " while, il for, il do while che è una variante del del while è infine la ricorsione che può"
+  },
+  {
+    "start": 85.42,
+    "end": 94.64,
+    "text": " essere considerata tutti effetti un modo diciamo che permette di creare dei cicli senza queste"
+  },
+  {
+    "start": 94.64,
+    "end": 100.22,
+    "text": " cose non potremmo affrontare i puntatori perché ogni volta che ci sarebbe da fare qualcosa che"
+  },
+  {
+    "start": 100.22,
+    "end": 108.56,
+    "text": " richiede una if o di fare un loop per non lo so navigare con un puntatore una stringa dall'inizio"
+  },
+  {
+    "start": 108.56,
+    "end": 115.72,
+    "text": " alla fine cose di questo tipo non potremmo continuare perché violeremmo la propria deuticità che"
+  },
+  {
+    "start": 115.72,
+    "end": 122.92,
+    "text": " questo corso diciamo si è preposta ovvero quello di prima introdurre le cose che si useranno"
+  },
+  {
+    "start": 122.92,
+    "end": 130.2,
+    "text": " nelle prossime puntate e solo dopo utilizzarle per cui non ci resta che partire dalla più importantità"
+  },
+  {
+    "start": 133.14,
+    "end": 140.56,
+    "text": " delle strutture che controllano il flusso di un programma una scelta condizionale ovvero la"
+  },
+  {
+    "start": 140.56,
+    "end": 148.46,
+    "text": " keyboard if insiamo a scrivere il nostro programma includiamo standard io perché ci serve la printf"
+  },
+  {
+    "start": 149.77999999999997,
+    "end": 159.22,
+    "text": " definiamo una semplice main per avere una entry point del nostro programma e poi definiamo una"
+  },
+  {
+    "start": 159.22,
+    "end": 166.52,
+    "text": " variabile e gli assegniamo il valore di 5 poi scriviamo 6 e maggiore di 3 altrimenti"
+  },
+  {
+    "start": 166.52,
+    "end": 172.74,
+    "text": " qualcos'altro allora le if funziona così la if valuta questa condizione che è scritta tra le"
+  },
+  {
+    "start": 172.74,
+    "end": 180.32,
+    "text": " parentesi tonde e poi come vedete a un primo ramo e poi un secondo ramo dopo l'els che è"
+  },
+  {
+    "start": 180.32,
+    "end": 187.42,
+    "text": " opzionale l'els si può evitare e semplicemente se la condizione vera sarei seguito quello che c'è"
+  },
+  {
+    "start": 187.42,
+    "end": 194.52,
+    "text": " dentro le parentesi graffe le parentesi graffe aperte chiuse in c si chiamano un blocco se invece"
+  },
+  {
+    "start": 194.52,
+    "end": 202.82,
+    "text": " c'è l'els verrà eseguito se la condizione è falsa ciò che c'è dentro il blocco dell'els"
+  },
+  {
+    "start": 205.78,
+    "end": 214.72,
+    "text": " iniziamo direttamente con un eif els quindi se i è maggiore di 3 stampiamo i maggiore di 3"
+  },
+  {
+    "start": 215.52,
+    "end": 226.07999999999998,
+    "text": " altrimenti stampiamo i e minore o uguale a 3"
+  },
+  {
+    "start": 229.52,
+    "end": 235.1,
+    "text": " in mangabile il nostro ritazio zero per scrivere un programma corretto altrimenti avremo un warning"
+  },
+  {
+    "start": 235.1,
+    "end": 243.28,
+    "text": " e finalmente possiamo compilare il nostro programma attivando i warning all'autimizzazione ed"
+  },
+  {
+    "start": 243.28,
+    "end": 251.3,
+    "text": " eseguirlo l'output del programma e maggiore di 3 perché 5 maggiore di 3 se invece i è 2"
+  },
+  {
+    "start": 253.38,
+    "end": 261.52,
+    "text": " combino di nuovo il programma e vedo i minore uguale a 3 questo può sembrare molto semplice ma ci"
+  },
+  {
+    "start": 261.52,
+    "end": 269.66,
+    "text": " sono delle cose interessanti interessanti da notare per esempio i blocchi in ci tanto per"
+  },
+  {
+    "start": 269.66,
+    "end": 279.52,
+    "text": " iniziare non è necessario averceli qualora il mio programma faccia altro non faccia che"
+  },
+  {
+    "start": 280.78000000000003,
+    "end": 289.16,
+    "text": " eseguire una singolo statement quindi è composto da una sola diciamo chiamata di funzione o solo"
+  },
+  {
+    "start": 289.16,
+    "end": 295.3,
+    "text": " da una segnazione di variabile eccetera quindi abbiamo detto se la if è seguita da un'unica"
+  },
+  {
+    "start": 295.3,
+    "end": 304.32,
+    "text": " istruzione non serve diciamo mettere prendesi graffe facciamo la compilazione di questo programma"
+  },
+  {
+    "start": 304.32,
+    "end": 312.16,
+    "text": " e scrive non scrive niente perché non c'è l'else ma se io questo riporto a 5 4 5 ha un valore per"
+  },
+  {
+    "start": 312.16,
+    "end": 323.92,
+    "text": " cui l'espressione valida avrò l'output che mi aspetto e qua posso scrivere pure els i minore uguale a 3"
+  },
+  {
+    "start": 326.2,
+    "end": 332.42,
+    "text": " questo programma compila senza problemi non è cambiato niente una piccolo appunto stilistico a"
+  },
+  {
+    "start": 332.42,
+    "end": 338.62,
+    "text": " me quando ci sono delle if con delle condizioni molto brevi o anche dei chicli why le cetera"
+  },
+  {
+    "start": 338.62,
+    "end": 345.06,
+    "text": " eccetera piace scrivere tutto in una riga vi dico perché tanto perizioni mi sembra che è più"
+  },
+  {
+    "start": 345.06,
+    "end": 352.66,
+    "text": " comodo leggerlo tutto su una riga e poi semanticamente significa qualcosa di molto chiaro se se io"
+  },
+  {
+    "start": 352.66,
+    "end": 359.44,
+    "text": " maggiore di 3 allora scrivi maggiore di 3 non vedo nessun vantaggio nel nel dividere questa cosa"
+  },
+  {
+    "start": 359.44,
+    "end": 366.06,
+    "text": " qua in due righe c'è un altro vantaggio collaterale interessante così facendo noi riduciamo la"
+  },
+  {
+    "start": 366.06,
+    "end": 373.54,
+    "text": " lunghezza del nostro codice sorgente dal punto di vista diciamo dell'asse verticale e ciò fa"
+  },
+  {
+    "start": 373.54,
+    "end": 380.08,
+    "text": " sì che in una data pagina che io vedo nel mio terminale ci sia più codice e quindi che mi devo"
+  },
+  {
+    "start": 380.08,
+    "end": 386.96,
+    "text": " spostare meno per vedere il resto del codice per tali motivi ho molto molto spesso utilizzo"
+  },
+  {
+    "start": 386.96,
+    "end": 394.78,
+    "text": " questo questo stile ovviamente gli altri stili sono perfettamente coerenti e si può scrivere"
+  },
+  {
+    "start": 394.78,
+    "end": 400.38,
+    "text": " così così come se per ragione di chiarezza io credo che sia meglio posso scrivere anche le"
+  },
+  {
+    "start": 400.38,
+    "end": 406.34,
+    "text": " parentesi graffe perché vi dico ciò è molto importante quando si parla di programmazione"
+  },
+  {
+    "start": 406.34,
+    "end": 414.9,
+    "text": " quando si fa parte di una community non focalizzarsi su dettagli che sono poco determinanti che"
+  },
+  {
+    "start": 414.9,
+    "end": 421.28,
+    "text": " poco conta diciamo per quello che stiamo facendo è lanciarsi in accuse inutili verso gli altri"
+  },
+  {
+    "start": 421.28,
+    "end": 429.0,
+    "text": " programmatori ognuno ha il suo stile alla sua sensibilità estetica e ogni stile di programmazione"
+  },
+  {
+    "start": 429.0,
+    "end": 436.2,
+    "text": " coerente va bene quello che fa schifo è scrivere ciò ma è molto importante sapere che comunque"
+  },
+  {
+    "start": 436.2,
+    "end": 444.0,
+    "text": " funzionerà perché il c nel linguaggio di programmazione c l'intentazione non è in alcun modo"
+  },
+  {
+    "start": 444.0,
+    "end": 449.4,
+    "text": " semantica non significa niente serve solo per gli esseri umani e non per i computeri il"
+  },
+  {
+    "start": 449.4,
+    "end": 457.46,
+    "text": " computeri vedrà una if salterà gli spazi saprà che ora dovrà trovare una istruzione la trova"
+  },
+  {
+    "start": 457.46,
+    "end": 466.72,
+    "text": " e la compila per cui è solo una questione umana molto più interessante invece è istruttivo e"
+  },
+  {
+    "start": 466.72,
+    "end": 474.06,
+    "text": " capire che cos'è un blocco guardate dentro le parentesi graffe io posso dichiarare delle"
+  },
+  {
+    "start": 474.06,
+    "end": 479.06,
+    "text": " variabili che saranno visibili solo dentro questo blocco e posso fare altre cose che ora"
+  },
+  {
+    "start": 479.06,
+    "end": 486.02,
+    "text": " vedremo ma più che altro è ancora più interessante il fatto che io posso mettere un blocco ovunque"
+  },
+  {
+    "start": 486.78000000000003,
+    "end": 494.5,
+    "text": " guardate qui io apro le parentesi graffe le chiudo compilo questo programma e mi scrive"
+  },
+  {
+    "start": 494.5,
+    "end": 499.42,
+    "text": " io è maggiore di tre anche se io non esiste più ma è semplicemente una istruzione se io qui"
+  },
+  {
+    "start": 499.42,
+    "end": 513.64,
+    "text": " dichiaro io uguale 5 e scrivo i is percentuale di i il programma continuerà a compilare ma la cosa"
+  },
+  {
+    "start": 513.64,
+    "end": 520.82,
+    "text": " interessante è che io fuori da qui non posso avere di nuovo una printf che si riferiscefarà"
+  },
+  {
+    "start": 520.82,
+    "end": 536.28,
+    "text": " perché questa è il locale a questo blocco quindi lo scopo lecicale di questa non è altro che dentro"
+  },
+  {
+    "start": 536.28,
+    "end": 543.32,
+    "text": " il blocco fuori dal blocco questo il non non può essere risolto non esiste questo sarà importante"
+  },
+  {
+    "start": 543.32,
+    "end": 547.74,
+    "text": " poi più avanti per certe cose è molto è molto utile a volte vi capita vi"
+  },
+  {
+    "start": 547.74,
+    "end": 552.86,
+    "text": " capiterà di dover definire qualcosa che non ha allora vi faccio vedere anche"
+  },
+  {
+    "start": 552.86,
+    "end": 558.5,
+    "text": " un'altra cosa in realtà i può essere anche definito qui io uguale 8 guardate"
+  },
+  {
+    "start": 558.5,
+    "end": 564.88,
+    "text": " questo programma cosa fa prima stampa i5 poi stampa i8 perché qua definisco"
+  },
+  {
+    "start": 564.88,
+    "end": 570.64,
+    "text": " io uguale 8 qua c'è un blocco i viene definito in 5 con il valore di 5 ma non"
+  },
+  {
+    "start": 570.64,
+    "end": 576.8,
+    "text": " è la stessa i sono due i diverse completamente viene stampato che i è 5"
+  },
+  {
+    "start": 576.8,
+    "end": 583.3,
+    "text": " perché nello scopo lecicale di questo blocco i è questa variabile qua si esce"
+  },
+  {
+    "start": 583.3,
+    "end": 589.34,
+    "text": " poi dal blocco a questo punto i è quella che è stata definita fuori e quindi"
+  },
+  {
+    "start": 590.26,
+    "end": 599.4,
+    "text": " vedremo prima una i e poi un'altra a questo punto per un attimo violeremo la"
+  },
+  {
+    "start": 600.24,
+    "end": 604.56,
+    "text": " progressione di questo corso e introduciamo per un attimo il modo in"
+  },
+  {
+    "start": 604.56,
+    "end": 607.9,
+    "text": " cui si può stampare il valore di un puntatore"
+  },
+  {
+    "start": 608.6,
+    "end": 613.28,
+    "text": " allora questa e sarà registrata da qualche parte potrebbe essere un"
+  },
+  {
+    "start": 613.28,
+    "end": 618.46,
+    "text": " registro nello stack così via ma se noi vogliamo ottenere l'indirizzo di"
+  },
+  {
+    "start": 618.46,
+    "end": 622.32,
+    "text": " memoria di questa e forzeremo il combinator in realtà a utilizzare lo"
+  },
+  {
+    "start": 622.32,
+    "end": 626.36,
+    "text": " stack non lo può più mettere in un registro questo valore qui non può"
+  },
+  {
+    "start": 626.36,
+    "end": 629.88,
+    "text": " ottimizzare più oltre un certo livello perché noi vogliamo poter accedere a"
+  },
+  {
+    "start": 629.88,
+    "end": 632.96,
+    "text": " questa variabile anche tramite il puntatore ovvero tramite il suo"
+  },
+  {
+    "start": 632.96,
+    "end": 639.28,
+    "text": " indirizzo di memoria e lo stesso avverrà qua guardate io gli dico i"
+  },
+  {
+    "start": 639.28,
+    "end": 647.1,
+    "text": " istore d att p e così come lo specificatore di tipo"
+  },
+  {
+    "start": 647.1,
+    "end": 651.92,
+    "text": " percentuale s stampo una stringa così come lo specificatore di tipo percentuale"
+  },
+  {
+    "start": 651.92,
+    "end": 659.32,
+    "text": " stampo un intero e stampa un puntatore e per avere il puntatore cioè l'indirizzo"
+  },
+  {
+    "start": 659.32,
+    "end": 663.12,
+    "text": " di memoria al quale questo io è registrato devo usare prima della"
+  },
+  {
+    "start": 663.12,
+    "end": 676.58,
+    "text": " variabile l'e commerciale farò la stessa cosa qua istore p e di nuovo useremo e"
+  },
+  {
+    "start": 676.58,
+    "end": 680.92,
+    "text": " commerciale e probabilmente qui avremo un warning perché in realtà qui si"
+  },
+  {
+    "start": 680.92,
+    "end": 685.64,
+    "text": " aspetti un puntatore di tipo voi invece qua un puntatore di tipo intero non"
+  },
+  {
+    "start": 685.64,
+    "end": 690.24,
+    "text": " cambia niente dal nostro punto di vista vogliamo combiare questo programma non"
+  },
+  {
+    "start": 690.24,
+    "end": 694.68,
+    "text": " abbiamo ricevuto neanche il warning ecco vi faccio vedere una cosa guardate il"
+  },
+  {
+    "start": 694.68,
+    "end": 700.14,
+    "text": " primo e registrato nell'indirizzo di memoria 16 f 7 e in esade c male"
+  },
+  {
+    "start": 700.14,
+    "end": 708.24,
+    "text": " ovviamente ben 8 il secondo e è registrato molto vicino al primo 2 c"
+  },
+  {
+    "start": 708.96,
+    "end": 722.7,
+    "text": " quindi 9 a b c ci sono 4 byte di distanza tra uno e l'altro si ci sono 4 byte di distanza"
+  },
+  {
+    "start": 722.7,
+    "end": 727.48,
+    "text": " infatti se noi i"
+  },
+  {
+    "start": 733.5999999999999,
+    "end": 741.54,
+    "text": " allora z 1 byte se lo facciamo gli mettiamo pure un size of di qui copriamo"
+  },
+  {
+    "start": 741.54,
+    "end": 747.66,
+    "text": " esattamente la stessa riga allora io ora gli dico e che grande tot bite infatti"
+  },
+  {
+    "start": 747.66,
+    "end": 756.74,
+    "text": " guardate qua c'è size of z 1 e size t che è il tipo che ritorna size of ne"
+  },
+  {
+    "start": 756.74,
+    "end": 762.38,
+    "text": " abbiamo parlato di sei z t è un intero come un altro però è garantito essere"
+  },
+  {
+    "start": 762.38,
+    "end": 766.42,
+    "text": " abbastanza grande da poter registrare le dimensioni più grandi che possono esserci"
+  },
+  {
+    "start": 766.42,
+    "end": 771.28,
+    "text": " in questa architettura che noi stiamo utilizzando nel mio caso m d 64 perché"
+  },
+  {
+    "start": 771.28,
+    "end": 780.1,
+    "text": " questo è un macbook m3 compiliamo guardate e che 4 byte registrato a"
+  },
+  {
+    "start": 780.1,
+    "end": 785.14,
+    "text": " questo indirizzo qui l'altro e che pure 4 byte registrato a questo indirizzo 2 c"
+  },
+  {
+    "start": 785.14,
+    "end": 792.08,
+    "text": " non a caso da 28 a 2 c ci sono di distanza c'è una distanza di 4 byte quello che"
+  },
+  {
+    "start": 792.08,
+    "end": 797.32,
+    "text": " abbiamo mostrato ora ci permette di non crearci più troppi problemi quando si"
+  },
+  {
+    "start": 797.32,
+    "end": 802.64,
+    "text": " vendono le parentesi graff che si aprono essi chiudono nei nelle istruzioni"
+  },
+  {
+    "start": 802.64,
+    "end": 809.14,
+    "text": " diciamo così condizionali o di lup quindi quando ci sono why leaf si aprono essi"
+  },
+  {
+    "start": 809.14,
+    "end": 814.64,
+    "text": " chiudono e prendesi graff noi sappiamo che stiamo creando sostanzialmente"
+  },
+  {
+    "start": 815.24,
+    "end": 820.14,
+    "text": " un nuovo blocco inc e che questo blocco realtà fa parte del coge della"
+  },
+  {
+    "start": 820.14,
+    "end": 824.32,
+    "text": " funzione esattamente come tutti gli altri ma permette di avere delle variabili"
+  },
+  {
+    "start": 824.32,
+    "end": 830.6,
+    "text": " con uno scopo più locale un'altra cosa molto interessante è che comunque sia"
+  },
+  {
+    "start": 830.6,
+    "end": 834.02,
+    "text": " queste variabili che queste altre come abbiamo visto dagli indirizzi memoria"
+  },
+  {
+    "start": 834.02,
+    "end": 838.6,
+    "text": " molto vicini risiedono tutte e due nello stack della funzione quindi vengono"
+  },
+  {
+    "start": 838.6,
+    "end": 843.0,
+    "text": " create all'ingresso della funzione ma il combinatore potrebbe decidere anche a"
+  },
+  {
+    "start": 843.0,
+    "end": 848.34,
+    "text": " volte di creare questa funzione qua questa variabile qua dopo e poi vengono"
+  },
+  {
+    "start": 848.34,
+    "end": 854.74,
+    "text": " liberate quando si esce dalla funzione ma dal punto di vista poi congettuale noi"
+  },
+  {
+    "start": 854.74,
+    "end": 859.18,
+    "text": " dobbiamo pensare però che questa variabile qui esiste solo all'interno"
+  },
+  {
+    "start": 859.18,
+    "end": 863.38,
+    "text": " del blocco anche proprio come tempo di vita poi sarà il combinatore che gestirà"
+  },
+  {
+    "start": 863.38,
+    "end": 868.46,
+    "text": " lo stack come vuole a volte in realtà le allocherà all'inizio tutte e due"
+  },
+  {
+    "start": 869.1400000000001,
+    "end": 874.12,
+    "text": " decrementando lo stack pointer di 8 byte direttamente usando quegli offset a"
+  },
+  {
+    "start": 874.12,
+    "end": 880.2,
+    "text": " volte invece potrebbe decidere di utilizzare prima di creare prima una"
+  },
+  {
+    "start": 880.2,
+    "end": 883.54,
+    "text": " variabile nello stack decrementando lo stack pointer poi un'altra in realtà"
+  },
+  {
+    "start": 883.54,
+    "end": 887.52,
+    "text": " c'è un modo semplice per vedere questa cosa se io questa roba qui la faccio due"
+  },
+  {
+    "start": 887.52,
+    "end": 896.56,
+    "text": " volte e compilo vi faccio vedere una cosa guardate 18 14 1 c gli offset sono"
+  },
+  {
+    "start": 896.56,
+    "end": 901.5,
+    "text": " diversi cos'è che significa questo che in teoria il combinatore avrebbe potuto"
+  },
+  {
+    "start": 901.5,
+    "end": 905.42,
+    "text": " giocare con lo stack che allocare prima questa variabile poi quando si esce"
+  },
+  {
+    "start": 905.42,
+    "end": 909.9,
+    "text": " da qui non utilizzarla più è qui riutilizzare di nuovo la stessa allora"
+  },
+  {
+    "start": 909.9,
+    "end": 913.12,
+    "text": " qua c'è una discrepanza tra quello che il combinatore fa per essere"
+  },
+  {
+    "start": 914.16,
+    "end": 919.56,
+    "text": " efficiente è quella che è la semantica del ci questa i qui io fuori dal blocco"
+  },
+  {
+    "start": 919.56,
+    "end": 923.74,
+    "text": " devo considerare che non esiste più quindi non è che posso prendere un"
+  },
+  {
+    "start": 923.74,
+    "end": 928.12,
+    "text": " puntatore qua cioè posso qua creare un puntatore qua registro il puntatore ad"
+  },
+  {
+    "start": 928.12,
+    "end": 933.56,
+    "text": " i e poi l'utilizzo qui esattamente come io devo considerare le variabili che sono"
+  },
+  {
+    "start": 933.56,
+    "end": 938.0,
+    "text": " dentro una funzione in generale locali anche le variabili che sono dentro un"
+  },
+  {
+    "start": 938.0,
+    "end": 947.14,
+    "text": " blocco sono locali a quel blocco benissimo detto questo vediamo che"
+  },
+  {
+    "start": 947.14,
+    "end": 954.26,
+    "text": " cos'è che possiamo fare con la if per farciò ci serve introdurre un'altra"
+  },
+  {
+    "start": 954.26,
+    "end": 958.62,
+    "text": " idea interessante go tu"
+  },
+  {
+    "start": 962.74,
+    "end": 969.4,
+    "text": " ammettiamo di porre il fare un programma che conta da 0 a 9 quindi io parto con"
+  },
+  {
+    "start": 969.4,
+    "end": 976.96,
+    "text": " una variabile i che inizializzo a 0 e poi posso scrivere stampa mi il valore di"
+  },
+  {
+    "start": 976.96,
+    "end": 982.76,
+    "text": " questa variabile con la printf quindi printf percentuale di di poi io posso"
+  },
+  {
+    "start": 982.76,
+    "end": 993.6,
+    "text": " dire se i è minore di 10 go tu e gain e qui devo creare una etichetta che si"
+  },
+  {
+    "start": 993.6,
+    "end": 999.06,
+    "text": " chiama e gain allora guardate che fa questo programma viene creato una"
+  },
+  {
+    "start": 999.06,
+    "end": 1003.74,
+    "text": " variabile locale che si ama i qua serve solo al combinatore non fa niente"
+  },
+  {
+    "start": 1003.74,
+    "end": 1007.86,
+    "text": " questo e gain servirà poi solo al go tu a sapere a quale indirizzo di memoria il"
+  },
+  {
+    "start": 1007.86,
+    "end": 1013.38,
+    "text": " programma deve saltare quando incontrere il go tu viene stampato il numero 0"
+  },
+  {
+    "start": 1013.38,
+    "end": 1020.24,
+    "text": " perché in questo momento vale a 0 6 e minore di 10 in realtà qua devo scrivere"
+  },
+  {
+    "start": 1020.24,
+    "end": 1027.98,
+    "text": " i più più quindi incremento la mia e 6 e minore di 10 salto di nuovo a qua quindi"
+  },
+  {
+    "start": 1027.98,
+    "end": 1034.08,
+    "text": " il programma di ripasse il controllo l'istruzione printf è così via ora io"
+  },
+  {
+    "start": 1034.08,
+    "end": 1036.7,
+    "text": " convino questo programma"
+  },
+  {
+    "start": 1040.94,
+    "end": 1047.84,
+    "text": " che conta da 0 a 9 allora vi vorrei fare notare una cosa a qualcuno da"
+  },
+  {
+    "start": 1047.84,
+    "end": 1052.42,
+    "text": " ragazzino o l'avrà visto poi da grande avrà sicuramente visto il linguaggio"
+  },
+  {
+    "start": 1052.42,
+    "end": 1056.94,
+    "text": " basic in cui c'erano i numeri di linea per fare più o meno quello perché"
+  },
+  {
+    "start": 1056.94,
+    "end": 1061.42,
+    "text": " siccome qui possiamo saltare in 5 questo modo quando io scrivo in assembly"
+  },
+  {
+    "start": 1061.42,
+    "end": 1066.36,
+    "text": " oppure le etichette o altrimenti si scriva proprio in linguaggio matchina solo"
+  },
+  {
+    "start": 1066.36,
+    "end": 1071.02,
+    "text": " l'istruzione di memoria che offset è quando faccio una jump in assembly un"
+  },
+  {
+    "start": 1071.02,
+    "end": 1075.76,
+    "text": " salto salto a quello indirizzo in memoria invece invece si scrive a print"
+  },
+  {
+    "start": 1076.38,
+    "end": 1082.72,
+    "text": " ciao 20 go tu 10 per fare un ciclo infinito che stampa sempre ciao"
+  },
+  {
+    "start": 1082.72,
+    "end": 1087.2,
+    "text": " allora guardate come questa cosa la posso più o meno riprodurre qui in basic"
+  },
+  {
+    "start": 1087.2,
+    "end": 1091.28,
+    "text": " l 10 print ciao"
+  },
+  {
+    "start": 1094.0800000000002,
+    "end": 1098.18,
+    "text": " l 20 go tu l 10 sembra basic no?"
+  },
+  {
+    "start": 1098.7,
+    "end": 1102.58,
+    "text": " qua mettiamo il nostro ritazzo 0 perché siamo dei bravi delle bravi persone"
+  },
+  {
+    "start": 1104.3400000000001,
+    "end": 1108.56,
+    "text": " a ver qua non ho usato l 20 non l'ho usata perché non me ne frega niente"
+  },
+  {
+    "start": 1109.32,
+    "end": 1112.82,
+    "text": " questo programma va in un ciclo infinito e stampa sempre ciao"
+  },
+  {
+    "start": 1112.82,
+    "end": 1118.52,
+    "text": " quindi il basic altro non fa che dare ad ogni numero di riga ad ogni"
+  },
+  {
+    "start": 1118.52,
+    "end": 1125.04,
+    "text": " istruzione del programma in sostanza un numero al quale si può saltare o al"
+  },
+  {
+    "start": 1125.04,
+    "end": 1128.24,
+    "text": " quale poi il programmatore può riferirsi se vuole cangelare quella riga"
+  },
+  {
+    "start": 1128.24,
+    "end": 1131.8,
+    "text": " rimpiazzarla quindi in basic in realtà serve a due cose sia per il"
+  },
+  {
+    "start": 1131.8,
+    "end": 1138.76,
+    "text": " programmatore per referenziare una data riga del codice e modificarla o per"
+  },
+  {
+    "start": 1138.76,
+    "end": 1144.42,
+    "text": " fare i salti con go tu o go sub e così via quindi guardate a volte il c come può"
+  },
+  {
+    "start": 1144.42,
+    "end": 1148.34,
+    "text": " essere flessibile sembrare anche un'altra cosa rispetto a ciò che è"
+  },
+  {
+    "start": 1149.8,
+    "end": 1153.88,
+    "text": " questa si chiama 9 etichette non so se l ho già detto l 10 e le 20 non"
+  },
+  {
+    "start": 1153.88,
+    "end": 1158.62,
+    "text": " potremmo scrivere 10 20 questo è sin tasti in varie da deve iniziare con una"
+  },
+  {
+    "start": 1159.16,
+    "end": 1164.94,
+    "text": " lettera per questo scritto le 10 e le 20 invece di 10 e 20 ma la cosa interessante"
+  },
+  {
+    "start": 1164.94,
+    "end": 1171.06,
+    "text": " è che se noi appunto vogliamo che ne so così come abbiamo fatto contare da uno"
+  },
+  {
+    "start": 1171.06,
+    "end": 1176.56,
+    "text": " fino a 10 possiamo usare l e il go tu allora guardate ora vi faccio vedere vi"
+  },
+  {
+    "start": 1176.56,
+    "end": 1182.48,
+    "text": " voglio fare vedere ma di torneo al problema di prima e che è in in io"
+  },
+  {
+    "start": 1182.48,
+    "end": 1185.48,
+    "text": " vola il 0 print"
+  },
+  {
+    "start": 1188.34,
+    "end": 1196.78,
+    "text": " stanvo i incremento i di 1 6 e a minore di 10 vado di nuovo ad e gain rital zero"
+  },
+  {
+    "start": 1197.9,
+    "end": 1208.92,
+    "text": " compitiamo di nuovo 0 2 3 4 5 6 7 9 ok ora questa cosa qui non è tanto"
+  },
+  {
+    "start": 1208.92,
+    "end": 1213.18,
+    "text": " diversa da un ciclo while guardate io questo programma lo potevo scrivere"
+  },
+  {
+    "start": 1213.18,
+    "end": 1219.16,
+    "text": " così e o qual è 0 while e minore di 10"
+  },
+  {
+    "start": 1223.0,
+    "end": 1231.78,
+    "text": " print f e cosa che sbatte due bottiglie assieme scusate prima di diventare"
+  },
+  {
+    "start": 1231.78,
+    "end": 1236.34,
+    "text": " pazzo sposto queste bottiglie anzi addirittura verro"
+  },
+  {
+    "start": 1250.7,
+    "end": 1255.06,
+    "text": " allora scusate mi ha indicato i più più"
+  },
+  {
+    "start": 1262.36,
+    "end": 1267.8,
+    "text": " i più più dove essere messo sotto succedono due volte la stessa cosa da"
+  },
+  {
+    "start": 1267.8,
+    "end": 1275.18,
+    "text": " 0 fino a 9 da 0 fino a 9 esaminiamo il programma su anzi che angeliamo la"
+  },
+  {
+    "start": 1275.18,
+    "end": 1281.92,
+    "text": " prima versione e ci teniamo solo la seconda allora while i minore di 10"
+  },
+  {
+    "start": 1283.0,
+    "end": 1289.9,
+    "text": " sapete che significa questo che io posso entrare dentro il blocco soltanto se la"
+  },
+  {
+    "start": 1289.9,
+    "end": 1295.6,
+    "text": " condizione è vera io all'inizio è uguale a 0 perché while per chi non lo"
+  },
+  {
+    "start": 1295.6,
+    "end": 1299.62,
+    "text": " sapesse anche se questo corso ha come per il requisito avere un minimo di base"
+  },
+  {
+    "start": 1299.62,
+    "end": 1303.4,
+    "text": " programmazione diciamolo allora while è la struttura che è moltissima la"
+  },
+  {
+    "start": 1303.4,
+    "end": 1308.56,
+    "text": " struttura di looping di ciclo che in moltissimi linguaggi di programmazione"
+  },
+  {
+    "start": 1308.56,
+    "end": 1314.18,
+    "text": " esegue un pezzo di codice un blocco di codice fin quando la condizione è vera"
+  },
+  {
+    "start": 1314.18,
+    "end": 1319.22,
+    "text": " quindi prima diciamo al servizio di chi non sa queste cose diciamo cosa"
+  },
+  {
+    "start": 1319.22,
+    "end": 1323.52,
+    "text": " succede se i è minore di 10 è all'inizio vero perché i è 0 quindi"
+  },
+  {
+    "start": 1323.52,
+    "end": 1330.76,
+    "text": " è minore di 10 stampo i che è 0 incremento i di 1 e poi torno immediatamente"
+  },
+  {
+    "start": 1330.76,
+    "end": 1336.12,
+    "text": " di nuovo qua dentro io è ancora minore di 10 sì perché uno stampo i insomma"
+  },
+  {
+    "start": 1336.12,
+    "end": 1342.46,
+    "text": " alla fine poi dopo che i ha stampato 9 i più più significa io uguale i più 1"
+  },
+  {
+    "start": 1342.46,
+    "end": 1347.4,
+    "text": " quindi io uguale a 10 a questo punto io non è più maggiore di 10 minore di 10 e"
+  },
+  {
+    "start": 1347.4,
+    "end": 1353.86,
+    "text": " io proseguo qui fuori dal while guardate come io posso tradurre questo"
+  },
+  {
+    "start": 1353.86,
+    "end": 1364.68,
+    "text": " programma esattamente in go tu questo diventa if i minore di 10 go tu"
+  },
+  {
+    "start": 1366.82,
+    "end": 1372.78,
+    "text": " chiamiamolo next quindi qualsiasi cosa verrà dopo e qui mettiamo la nostra"
+  },
+  {
+    "start": 1372.78,
+    "end": 1381.82,
+    "text": " retichetta next ok se invece io sono arrivato qui allora"
+  },
+  {
+    "start": 1381.82,
+    "end": 1387.4,
+    "text": " qua mettiamo un'altra retichetta che le chiamiamo loop che è l'inizio della fase"
+  },
+  {
+    "start": 1387.4,
+    "end": 1392.72,
+    "text": " del while in cui si sente casa la condizione è vera e qui scrivo go tu"
+  },
+  {
+    "start": 1392.72,
+    "end": 1398.42,
+    "text": " loop questo è esattamente ciò che fa il while il modo in cui disiamo il while"
+  },
+  {
+    "start": 1398.5,
+    "end": 1403.14,
+    "text": " viene normalmente compilato quindi qua inizia il mio ciclo la prima cosa che"
+  },
+  {
+    "start": 1403.14,
+    "end": 1407.48,
+    "text": " faccio il check la condizione vera altrimenti io vado fuori dal ciclo"
+  },
+  {
+    "start": 1407.48,
+    "end": 1413.1,
+    "text": " perché qui è come se noi virtualmente abbiamo la nostra parentesi quadra"
+  },
+  {
+    "start": 1414.4,
+    "end": 1418.5,
+    "text": " aperta graffa per te la nostra parentesi graffa chiusa questi sono commenti"
+  },
+  {
+    "start": 1418.5,
+    "end": 1425.76,
+    "text": " quelli che ci sono dopo slash slash compiliamo questo programma vediamo che"
+  },
+  {
+    "start": 1425.76,
+    "end": 1429.3,
+    "text": " ho sbagliato perché ho sbagliato"
+  },
+  {
+    "start": 1430.8000000000002,
+    "end": 1436.12,
+    "text": " scusate qua ho invertito la condizione quindi questo qui per funzionare io"
+  },
+  {
+    "start": 1436.12,
+    "end": 1444.34,
+    "text": " devo dire sei minore uguale a 10 quando la condizione è falsa ok ora funziona"
+  },
+  {
+    "start": 1444.34,
+    "end": 1452.16,
+    "text": " perfettamente allora se io qua io scrive i minore di 10 devo negare questa"
+  },
+  {
+    "start": 1452.16,
+    "end": 1459.52,
+    "text": " condizione con un not questo qui nega la condizione è un operatore logico che se"
+  },
+  {
+    "start": 1459.52,
+    "end": 1465.22,
+    "text": " una cosa è vera diventa falsa se falsa diventa vera siccome il c non ha vero e"
+  },
+  {
+    "start": 1465.22,
+    "end": 1470.98,
+    "text": " falso è sostanzialmente un operatore che se una cosa è zero la fa diventare 1"
+  },
+  {
+    "start": 1470.98,
+    "end": 1475.68,
+    "text": " se una cosa è qualsiasi nuvono maggiore di zero la fa diventare zero perché il c"
+  },
+  {
+    "start": 1475.68,
+    "end": 1481.82,
+    "text": " nell'espressione valuta se una cosa è zero o no il c ha solo tipi interi l'abbiamo"
+  },
+  {
+    "start": 1481.82,
+    "end": 1487.38,
+    "text": " ritm detto tante volte compiliamo ora questo programma qui è quello che vediamo"
+  },
+  {
+    "start": 1487.38,
+    "end": 1491.5,
+    "text": " è questo che funziona ancora invece immaginiamo di voler"
+  },
+  {
+    "start": 1494.68,
+    "end": 1501.12,
+    "text": " utilizzare la condizione così come sei e minore di 10 significa che io"
+  },
+  {
+    "start": 1501.12,
+    "end": 1509.58,
+    "text": " effettivamente devo entrare nel loop ok quindi io qua potrei fare go to enter loop"
+  },
+  {
+    "start": 1509.58,
+    "end": 1522.7,
+    "text": " qua scrivere enter loop e qua invece scrivere go to next quindi quello che"
+  },
+  {
+    "start": 1522.7,
+    "end": 1533.8,
+    "text": " succede questo qua entro nel loop se la condizione è falsa cioè è vera io"
+  },
+  {
+    "start": 1533.8,
+    "end": 1537.86,
+    "text": " entro in questo loop altrimenti immediatamente dopo troverò il go to"
+  },
+  {
+    "start": 1537.86,
+    "end": 1544.28,
+    "text": " a next proviamo a compilare questo programma funziona ancora per tenere la"
+  },
+  {
+    "start": 1544.28,
+    "end": 1548.82,
+    "text": " condizione così come era l'abbiamo complicato un po però non è questo"
+  },
+  {
+    "start": 1548.82,
+    "end": 1551.74,
+    "text": " il punto questo lo sto facendo così è in passando senza cammellero neanche"
+  },
+  {
+    "start": 1551.74,
+    "end": 1554.98,
+    "text": " preparato ma credo che sia molto importante in realtà è una buona idea"
+  },
+  {
+    "start": 1554.98,
+    "end": 1562.2,
+    "text": " farvi vedere così come il if e go to assieme possono fare tutto quello che"
+  },
+  {
+    "start": 1562.2,
+    "end": 1567.44,
+    "text": " volete e se noi volessimo addirittura"
+  },
+  {
+    "start": 1569.6,
+    "end": 1575.12,
+    "text": " evitare il go to utilizzando la ricorsione e vogliamo lo stesso essere in"
+  },
+  {
+    "start": 1575.12,
+    "end": 1581.14,
+    "text": " grado di contare da 0 a 9 proviamoci"
+  },
+  {
+    "start": 1586.3,
+    "end": 1591.64,
+    "text": " allora utilizziamo però sta volta una funzione che chiamiamo conta"
+  },
+  {
+    "start": 1595.68,
+    "end": 1596.7,
+    "text": " conto"
+  },
+  {
+    "start": 1598.32,
+    "end": 1606.96,
+    "text": " e gli diciamo 0,9 dove deve iniziare a contare dove deve finire di contare"
+  },
+  {
+    "start": 1606.96,
+    "end": 1608.94,
+    "text": " allora questa funzione qua"
+  },
+  {
+    "start": 1614.56,
+    "end": 1624.02,
+    "text": " la dichiariamo voi non ci deve tornare niente conta in to start in to end"
+  },
+  {
+    "start": 1626.16,
+    "end": 1629.04,
+    "text": " allora if start"
+  },
+  {
+    "start": 1631.22,
+    "end": 1636.18,
+    "text": " se la condizione sei il numero da cui dobbiamo iniziare a contare è maggiore"
+  },
+  {
+    "start": 1636.18,
+    "end": 1638.72,
+    "text": " della numero in cui dobbiamo finire"
+  },
+  {
+    "start": 1640.7,
+    "end": 1645.48,
+    "text": " ritorniamo giusto non abbiamo più niente da fare perché non ha senso"
+  },
+  {
+    "start": 1645.48,
+    "end": 1652.38,
+    "text": " contare da noi non vogliamo contare al contrario in termini negativi altrimenti"
+  },
+  {
+    "start": 1652.38,
+    "end": 1660.0600000000002,
+    "text": " siamo ancora dentro l'intervallo massimo quindi stampiamo start perché il"
+  },
+  {
+    "start": 1660.3,
+    "end": 1667.66,
+    "text": " numero da cui vogliamo iniziare e poi chiamiamo di nuovo la stessa nostra"
+  },
+  {
+    "start": 1667.66,
+    "end": 1674.16,
+    "text": " funzione ma sta volta con start più 1, end perché noi vogliamo a questo"
+  },
+  {
+    "start": 1674.16,
+    "end": 1679.9,
+    "text": " punto abbiamo dovevamo contare da 0 a 9 bene abbiamo condato 0 e allora vogliamo"
+  },
+  {
+    "start": 1679.9,
+    "end": 1689.28,
+    "text": " contare da 1 a 9 proviamo a compilare questo programma e abbiamo"
+  },
+  {
+    "start": 1690.68,
+    "end": 1699.78,
+    "text": " contato da 0 fino a 9 che ne dite guardate non c'è più il go to abbiamo fatto"
+  },
+  {
+    "start": 1699.78,
+    "end": 1706.92,
+    "text": " tutto solo utilizzando leaf e la prossima volta vedremo una cosa molto"
+  },
+  {
+    "start": 1706.92,
+    "end": 1713.36,
+    "text": " interessante che si chiama tale call optimization l'ottimizzazione della"
+  },
+  {
+    "start": 1713.36,
+    "end": 1720.18,
+    "text": " chiamata che sta in coda una cosa che però dovete notare ora è che c'è una"
+  },
+  {
+    "start": 1720.18,
+    "end": 1724.8,
+    "text": " differenza rispetto al go to che avevamo utilizzato prima qui ogni volta"
+  },
+  {
+    "start": 1724.8,
+    "end": 1733.62,
+    "text": " viene chiamata di continuo una una funzione anche se s stessa viene"
+  },
+  {
+    "start": 1733.62,
+    "end": 1737.12,
+    "text": " comunque creato di uno stac frame vengono creato altre due variabili"
+  },
+  {
+    "start": 1737.12,
+    "end": 1742.8,
+    "text": " start ed end e io diccio ve ne voglio dare prova in un modo tanto noi ormai"
+  },
+  {
+    "start": 1742.8,
+    "end": 1745.76,
+    "text": " sappiamo stampare i puntatori delle variabili anche se non sappiamo cosa"
+  },
+  {
+    "start": 1745.76,
+    "end": 1751.3,
+    "text": " sono bene i puntatori sappiamo che con la printf mettiamo dollaro p e poi"
+  },
+  {
+    "start": 1751.3,
+    "end": 1758.38,
+    "text": " mettiamo end e commerciale prima del del nuovo di una variabile e ciò traduce"
+  },
+  {
+    "start": 1758.38,
+    "end": 1762.38,
+    "text": " la variabile nel suo indirizzo di memoria pizza stampare indirizzi memoria"
+  },
+  {
+    "start": 1762.38,
+    "end": 1768.3,
+    "text": " facciamo se distambare mamma ma questa funzione viene chiamata in maniera"
+  },
+  {
+    "start": 1768.3,
+    "end": 1771.56,
+    "text": " anidata allora guardate i questi indirizzi memoria"
+  },
+  {
+    "start": 1771.56,
+    "end": 1779.44,
+    "text": " vendotto e fe 8 c 8 9 8 68 etc etc etc cioè se io praticamente prendo bc"
+  },
+  {
+    "start": 1780.68,
+    "end": 1786.7800000000002,
+    "text": " i base uguale 16 non metto in esadecimale e io scrivo questo indirizzo"
+  },
+  {
+    "start": 1786.78,
+    "end": 1788.98,
+    "text": " meno indirizzo di partenza"
+  },
+  {
+    "start": 1794.1200000000001,
+    "end": 1799.0,
+    "text": " no scusate devo fare al contrario no no non è che devo fare al contrario per te"
+  },
+  {
+    "start": 1799.0,
+    "end": 1804.24,
+    "text": " devo fare al contrario ma poi lo devo scrivere maiusco perché bc fa cacare"
+  },
+  {
+    "start": 1805.52,
+    "end": 1812.12,
+    "text": " 480 byte io ho utilizzato mezzo k di memoria per un contatore che è 4 byte"
+  },
+  {
+    "start": 1812.76,
+    "end": 1817.74,
+    "text": " capite che questo modo di scrivere i programmi questa si chiama"
+  },
+  {
+    "start": 1817.74,
+    "end": 1823.78,
+    "text": " programmazione funzionale è elegante ma a qualcosa che non va utilizza tanta"
+  },
+  {
+    "start": 1823.78,
+    "end": 1829.16,
+    "text": " memoria di stack perché le chiamate anidate continuano in pila una sopra"
+  },
+  {
+    "start": 1829.16,
+    "end": 1833.98,
+    "text": " l'altra a consumare memoria bene ci vediamo la prossima volta ciao"
+  }
+]

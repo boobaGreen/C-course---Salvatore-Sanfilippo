@@ -18,5 +18,15 @@ export const lessons = [
         },
         videoId: 'Z84vlG1RRtg',
         duration: '25:00'
+    },
+    {
+        id: 3,
+        slug: 'lesson-03',
+        title: {
+            it: 'Lezione 3: Scope, Tipi e Promozioni',
+            en: 'Lesson 3: Scope, Types, and Promotions'
+        },
+        videoId: 'mw4gUqsGPZw',
+        duration: '25:38'
     }
 ];

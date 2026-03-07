@@ -1,0 +1,167 @@
+# Lezione 3: Scope, Tipi e Promozioni
+
+<VideoEmbed videoId="mw4gUqsGPZw" title="Let's learn C: lezione 3" />
+
+Benvenuti alla terza lezione! In questa puntata continueremo a esplorare il nostro "Hello World", ma scavando ancora più in profondità per capire lo scope delle variabili, come vengono passati i dati alle funzioni e come il C gestisce i diversi tipi numerici.
+
+<KeyConcepts title="Cosa impareremo oggi">
+  - La differenza tra variabili **locali**, **globali** e **statiche**
+  - Perché il C passa tutto **per valore** (copia)
+  - Nuovi tipi: `float`, `double`, `short` e `unsigned`
+  - Le regole di **promozione automatica** dei tipi
+  - Il rischio dell'**overflow** e l'Undefined Behavior
+</KeyConcepts>
+
+---
+
+## Lo Scope delle Variabili: Dove "vive" il tuo codice?
+
+In C, non tutte le variabili sono uguali. La loro "visibilità" e la loro "durata" dipendono da dove le dichiariamo.
+
+### 1. Variabili Locali
+Sono definite all'interno di una funzione. Nascono quando la funzione viene chiamata e **muoiono** quando la funzione termina. Se chiami la funzione più volte, ogni volta viene creata una nuova copia da zero.
+
+### 2. Variabili Globali
+Sono definite all'esterno di tutte le funzioni. Esistono per tutta la durata del programma e sono accessibili da qualsiasi punto del codice.
+
+### 3. Variabili Statiche
+Usando la keyword `static` dentro una funzione, creiamo una variabile che è "globale" nella durata (non perde il valore tra una chiamata e l'altra) ma "locale" nella visibilità (solo quella funzione può vederla).
+
+<ScopeExplorer />
+
+<Infographic 
+  src="/images/scope_visualizer.png" 
+  alt="Visualizzatore dello Scope" 
+  caption="Confronto tra Local, Global e Static scope in C."
+/>
+
+---
+
+## Passaggio per Valore: La Copia Silenziosa
+
+Un concetto fondamentale del C è che gli argomenti delle funzioni vengono passati **per valore**. Questo significa che la funzione riceve una **copia** del dato, non l'originale.
+
+```c
+int incr(int x) {
+    x = x + 1;
+    return x;
+}
+
+int main() {
+    int a = 10;
+    incr(a); // Passiamo una COPIA di 'a'
+    printf("%d", a); // Stampa ancora 10!
+}
+```
+
+<Infographic 
+  src="/images/pass_by_value.png" 
+  alt="Passaggio per Valore" 
+  caption="Il C copia il valore nello stack della funzione chiamata. L'originale rimane invariato."
+/>
+
+<Callout type="warning" title="Puntatori all'orizzonte">
+  Per modificare l'originale, dovremo usare i **puntatori**. Li vedremo prestissimo perché sono l'anima del linguaggio C.
+</Callout>
+
+---
+
+## Tipi Numerici e Promozioni
+
+Il C offre una grande varietà di tipi per risparmiare memoria (fondamentale negli anni '60!).
+
+### La "Gerarchia" dei Tipi
+- `char`: 1 byte (8 bit)
+- `short`: Tipicamente 2 byte
+- `int`: Tipicamente 4 byte (ma dipende dal sistema)
+- `float`: Numeri decimali a singola precisione
+- `double`: Numeri decimali a doppia precisione (64 bit)
+
+<TypeMatcher />
+
+<Infographic 
+  src="/images/integer_ranges.png" 
+  alt="Range dei tipi interi" 
+  caption="Cheat sheet dei tipi comuni e dei loro limiti di memoria."
+/>
+
+### Promozioni Automatiche
+Quando fai operazioni tra tipi diversi, il C applica delle regole di "promozione". Ad esempio, in funzioni come `printf` (funzioni variadiche):
+- Gli `short` vengono promossi a `int`.
+- I `float` vengono promossi a `double`.
+
+---
+
+## Attenzione all'Overflow!
+
+Cosa succede se aggiungi 1 al massimo valore possibile per un tipo?
+- **Unsigned (senza segno)**: Il comportamento è garantito. Il valore "riparte" da zero (wrapping).
+- **Signed (con segno)**: È un **Undefined Behavior**. Il compilatore potrebbe fare letteralmente qualsiasi cosa. Non fare mai affidamento sull'overflow dei numeri con segno!
+
+<OverflowSimulator />
+
+<CodeEditor initialCode={`#include <stdio.h>\n\nint main() {\n    unsigned char c = 255;\n    c++;\n    printf("Overflow garantito (unsigned): %d\\n", c);\n    \n    signed char d = 127;\n    d++;\n    printf("Overflow pericoloso (signed): %d\\n", d);\n    return 0;\n}`} />
+
+---
+
+<Quiz 
+  questions={[
+    {
+      id: 1,
+      question: "Cosa succede a una variabile locale quando la funzione termina?",
+      options: [
+        "Viene salvata sul disco",
+        "Resta in memoria per la prossima chiamata",
+        "Viene distrutta e la sua memoria liberata",
+        "Diventa una variabile globale"
+      ],
+      correctAnswer: 2,
+      explanation: "Le variabili locali vivono nello stack e hanno un lifetime limitato alla durata della funzione."
+    },
+    {
+      id: 2,
+      question: "Quale keyword rende una variabile persistente tra le chiamate ma visibile solo localmente?",
+      options: ["extern", "static", "volatile", "persist"],
+      correctAnswer: 1,
+      explanation: "'static' alloca la variabile in una zona di memoria permanente ma ne limita lo scope al blocco corrente."
+    },
+    {
+      id: 3,
+      question: "In C, se passo una variabile a una funzione, la funzione può modificarne l'originale direttamente?",
+      options: [
+        "Sì, sempre",
+        "No, riceve solo una copia (Pass by Value)",
+        "Solo se la variabile è globale",
+        "Solo se usiamo 'static'"
+      ],
+      correctAnswer: 1,
+      explanation: "Il C è pass-by-value. Per modificare l'originale servono i puntatori."
+    },
+    {
+      id: 4,
+      question: "In una funzione variadica come printf, a cosa viene promosso un float?",
+      options: ["int", "double", "long", "Resta float"],
+      correctAnswer: 1,
+      explanation: "Le regole di promozione del default argument promuovono float a double."
+    },
+    {
+      id: 5,
+      question: "Cosa succede se un intero SIGNED va in overflow?",
+      options: [
+        "Riparte da zero",
+        "Diventa negativo",
+        "È un Undefined Behavior (comportamento non garantito)",
+        "Il programma si ferma immediatamente"
+      ],
+      correctAnswer: 2,
+      explanation: "A differenza degli unsigned, l'overflow degli interi con segno non è definito dallo standard C."
+    }
+  ]}
+/>
+
+<KeyConcepts title="In sintesi">
+  - Lo **Scope** determina dove e per quanto tempo una variabile esiste.
+  - Il C usa il **Passaggio per Valore** come standard.
+  - I tipi numerici hanno limiti precisi e regole di **Promozione**.
+  - Evita sempre l'overflow dei tipi con segno!
+</KeyConcepts>

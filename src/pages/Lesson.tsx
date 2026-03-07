@@ -16,6 +16,8 @@ import AssemblyExplorer from '../components/content/AssemblyExplorer';
 import Infographic from '../components/content/Infographic';
 import StackVisualizer from '../components/content/StackVisualizer';
 import MicroRegisters from '../components/content/MicroRegisters';
+import OverflowSimulator from '../components/content/OverflowSimulator';
+import ScopeExplorer from '../components/content/ScopeExplorer';
 
 // Mappa componenti MDX
 const mdxComponents = {
@@ -54,6 +56,8 @@ const mdxComponents = {
     Infographic,
     StackVisualizer,
     MicroRegisters,
+    OverflowSimulator,
+    ScopeExplorer,
 };
 
 export default function Lesson() {

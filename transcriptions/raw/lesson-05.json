@@ -1,0 +1,182 @@
+[
+  {
+    "start": 0.0,
+    "end": 7.46,
+    "text": " Bene, bene, bene, ci addentriamo in un dei, diciamo, un po' nelle complicazioni e nelle"
+  },
+  {
+    "start": 7.46,
+    "end": 12.7,
+    "text": " peculiarità del C. Andiamo a vedere le cose di cui veramente è fatto, perché finora"
+  },
+  {
+    "start": 13.22,
+    "end": 18.78,
+    "text": " abbiamo visto i tipi, abbiamo visto la struttura sintattica dei programmi. Ora dobbiamo fare"
+  },
+  {
+    "start": 18.78,
+    "end": 26.9,
+    "text": " un salto in là. Chiamiamo questo programma Stringtozzi, ripartiamo dal nostro Hello World,"
+  },
+  {
+    "start": 26.9,
+    "end": 39.88,
+    "text": " che ci serve la sua struttura. Hello World. Allora, quando vi ricervi volevo fare vedere"
+  },
+  {
+    "start": 39.88,
+    "end": 48.26,
+    "text": " una cosa. Noi abbiamo visto che la printf come primo argomento prende una stringa di formato,"
+  },
+  {
+    "start": 48.52,
+    "end": 56.26,
+    "text": " dove ci sono dei caratteri che vengono stampati così come sono, poi ci possono essere dei segnaposto"
+  },
+  {
+    "start": 56.26,
+    "end": 63.8,
+    "text": " di chiamiamoli speciali che iniziano con la percentuale e poi una o più lettere, diciamo,"
+  },
+  {
+    "start": 63.86,
+    "end": 70.68,
+    "text": " con dei simboli che indicano cosa stamm... cos'è che daremo poi alla printf come argomenti e cosa"
+  },
+  {
+    "start": 70.68,
+    "end": 78.22,
+    "text": " la printf deve stampare per voi. Ricordate se facciamo printf, Hello World, percentuale di"
+  },
+  {
+    "start": 78.22,
+    "end": 84.42,
+    "text": " la printf si aspetta che può prelevare dagli argomenti che abbiamo dato alla printf un intero"
+  },
+  {
+    "start": 85.46000000000001,
+    "end": 93.22,
+    "text": " e può stamparlo. Quindi noi ora facciamo cc stringtozzi, di solito dovremmo fare anche,"
+  },
+  {
+    "start": 93.5,
+    "end": 97.62,
+    "text": " dovremmo aggiungere delle opzioni come vi ho visto. Con questi semplici programmi sono"
+  },
+  {
+    "start": 97.62,
+    "end": 102.72,
+    "text": " che aggiungiamo pazienza, non ci beccheremo i warning. A voi vi consiglio di aggiungere"
+  },
+  {
+    "start": 102.72,
+    "end": 108.86,
+    "text": " almeno queste due perché se avete sbagliato qualcosa il conviettore vi avvisa. Infatti mi"
+  },
+  {
+    "start": 108.86,
+    "end": 118.02,
+    "text": " avvisa anche a me perché qua doveva essere return zero. E seguiamo il nostro eseguibbio"
+  },
+  {
+    "start": 118.02,
+    "end": 123.48,
+    "text": " che si chiama appunto out nei sistemi Unix, di solito in altri sistemi con altri compiratori"
+  },
+  {
+    "start": 123.48,
+    "end": 130.34,
+    "text": " c. L'eseguibbio si può chiamare in una maniera diversa ma non importa, Hello World 10. Ora"
+  },
+  {
+    "start": 131.39999999999998,
+    "end": 136.88,
+    "text": " c'è un modo diverso per esprimere i numeri in c. Allora, tanto per iniziare vi ricordo"
+  },
+  {
+    "start": 136.88,
+    "end": 145.78,
+    "text": " che se noi facciamo un numero, dichiariamo un numero più piccolo di un int. Se io scrivo"
+  },
+  {
+    "start": 145.78,
+    "end": 155.9,
+    "text": " c nelle funzioni con un numero di argomenti variabile, i char vengono promossi al tipo"
+  },
+  {
+    "start": 156.60000000000002,
+    "end": 162.86,
+    "text": " intero, così come gli short. Quindi questo qui continuerà a funzionare. Continuerà a"
+  },
+  {
+    "start": 162.86,
+    "end": 170.22,
+    "text": " funzionare. Hello World 10. Ma c'è un modo diverso di poter indicare gli interi di tipo"
+  },
+  {
+    "start": 170.22,
+    "end": 176.92,
+    "text": " char con gli appicini. Questo qui è un intero di tipo char. Voi direte, ma come? Questa è"
+  },
+  {
+    "start": 176.92,
+    "end": 184.54,
+    "text": " una stringa che invece di usare le virgolette utilizza gli appici singoli. E non è così."
+  },
+  {
+    "start": 184.74,
+    "end": 191.56,
+    "text": " Questo è vero in Python per esempio. In Python io posso scrivere print ciao e funziona."
+  },
+  {
+    "start": 191.56,
+    "end": 202.96,
+    "text": " In c gli appici possono contenere solo un carattere singolo e questo carattere che è dentro"
+  },
+  {
+    "start": 202.96,
+    "end": 214.74,
+    "text": " gli appici verrà espanso a un numero che rappresenta la posizione di quel carattere nello standard"
+  },
+  {
+    "start": 214.74,
+    "end": 221.54,
+    "text": " ASCII, diciamo, quindi ASCII mappa. E' un carattere che è un carattere che è un carattere"
+  },
+  {
+    "start": 221.54,
+    "end": 230.2,
+    "text": " ogni carattere a un numero. Quindi per i sistemi che utilizzano l'ASCII praticamente quasi tutti per"
+  },
+  {
+    "start": 230.2,
+    "end": 235.84,
+    "text": " fortuna a questo punto potete aspettarmi una corrispondenza. Poi se inserite dei caratteri"
+  },
+  {
+    "start": 235.84,
+    "end": 241.72,
+    "text": " dentro gli appici che sono fuori dall'ASCII ma per a un byte che è specifico per l'architettura."
+  },
+  {
+    "start": 241.78,
+    "end": 250.24,
+    "text": " Non capita mai di andare di solito fuori dal seminato, quindi atteniamoci all'ASCII. Però"
+  },
+  {
+    "start": 250.24,
+    "end": 258.46,
+    "text": " possiamo poi fare pure una prova. Allora guardate questo qui la A maiuscola molti di voi ricorderanno"
+  },
+  {
+    "start": 259.08,
+    "end": 271.98,
+    "text": " che è 65. Guardate qui infatti decima al set la A maiuscola è 65 e infatti funziona perfettamente."
+  },
+  {
+    "start": 272.2,
+    "end": 278.08,
+    "text": " Per vedere in realtà quella cosa che vi ho detto non so se sapete che su VY se voi premete"
+  }
+]
