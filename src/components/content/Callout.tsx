@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { Lightbulb, AlertTriangle, Info, Terminal } from 'lucide-react';
 
 interface CalloutProps {

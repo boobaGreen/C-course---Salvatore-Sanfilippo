@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import type { ReactNode } from 'react';
 import { Terminal as TerminalIcon, Play, RefreshCw, CheckCircle2 } from 'lucide-react';
 import CodeBlock from './CodeBlock';
 import { useProgression } from '../../hooks/useProgression';
@@ -7,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 interface TerminalSimulationProps {
     command: string;
     output?: string;
-    children?: React.ReactNode;
+    children?: ReactNode;
     language?: string;
 }
 

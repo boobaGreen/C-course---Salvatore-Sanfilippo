@@ -4,6 +4,7 @@ import { codeToHtml } from 'shiki';
 interface CodeBlockProps {
     code: string;
     language?: string;
+    noLineNumbers?: boolean;
 }
 
 export default function CodeBlock({ code, language = 'c' }: CodeBlockProps) {
