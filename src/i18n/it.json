@@ -26,5 +26,20 @@
         "game": "Gioco Didattico",
         "prev": "Precedente",
         "next": "Successiva"
+    },
+    "home": {
+        "author_badge": "Scopri chi è l'autore: Salvatore Sanfilippo (antirez)",
+        "hero_title": "Impara il C sul serio.",
+        "hero_description": "Piattaforma interattiva per padroneggiare il linguaggio C tramite le lezioni di Salvatore Sanfilippo. Dalle basi all'Assembly, spiegato in modo brutale e pratico.",
+        "start_now": "Inizia ora",
+        "watch_youtube": "Guarda su YouTube",
+        "features": {
+            "editor_title": "Editor Integrato",
+            "editor_desc": "Scrivi codice C direttamente nel browser, la compilazione avviene tramite WebAssembly.",
+            "games_title": "Giochi Didattici",
+            "games_desc": "Impara divertendoti! Risolvi puzzle, predici gli output e assimila la sintassi senza sforzo.",
+            "bilingual_title": "Bilingue AI",
+            "bilingual_desc": "Lezioni trascritte e tradotte con IA (Italiano/Inglese). Impara il C ed espandi il tuo vocabolario tecnico."
+        }
     }
 }

@@ -26,5 +26,20 @@
         "game": "Educational Game",
         "prev": "Previous",
         "next": "Next"
+    },
+    "home": {
+        "author_badge": "Learn more about the author: Salvatore Sanfilippo (antirez)",
+        "hero_title": "Learn C for real.",
+        "hero_description": "Interactive platform to master the C language through Salvatore Sanfilippo's lessons. From basics to Assembly, explained in a brutal and practical way.",
+        "start_now": "Start now",
+        "watch_youtube": "Watch on YouTube",
+        "features": {
+            "editor_title": "Integrated Editor",
+            "editor_desc": "Write C code directly in the browser, compilation happens via WebAssembly.",
+            "games_title": "Educational Games",
+            "games_desc": "Learn while having fun! Solve puzzles, predict outputs, and master syntax effortlessly.",
+            "bilingual_title": "AI Bilingual",
+            "bilingual_desc": "Lessons transcribed and translated with AI (Italian/English). Learn C and expand your technical vocabulary."
+        }
     }
 }

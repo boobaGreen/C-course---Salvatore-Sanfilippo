@@ -493,17 +493,6 @@ Per ogni lezione, 1-3 infografiche generate con AI (`generate_image` tool) e/o S
 | Qualità `small` insufficiente | 🟡 Media | Testare su L1; se WER troppo alto → upgrade | `medium` su CPU (~5 GB RAM, più lento) oppure Whisper API cloud ($0.006/min) |
 | Audio con rumore di fondo | 🟢 Bassa | I video di Salvatore hanno audio pulito (microfono da studio) | — |
 
-### 7.2 Adattamento Testo
-
-| Problema | Severità | Soluzione | Esempio |
-|----------|----------|-----------|---------|
-| Digressioni (tipiche di Salvatore) | 🟡 Media | Riorganizzarle come callout "💡 Nota di Salvatore" | Aneddoti su Redis, consigli pratici |
-| Codice modificato live durante il video | 🔴 Alta | Ricostruire il codice finale; mostrare snapshot progressivi | Versione 1 → Versione 2 → Versione finale |
-| Tono/personalità da mantenere | 🟡 Media | Prompt LLM: "Mantieni il tono diretto e pratico, come se spiegassi a un amico programmatore" | — |
-| Riferimenti a lezioni precedenti | 🟡 Media | Sistema di cross-linking: `[vedi Lezione 9](/lesson/09)` | — |
-
-### 7.3 Esecuzione C nel Browser (WASM)
-
 | Problema | Severità | Soluzione |
 |----------|----------|-----------|
 | System calls non supportate | 🟡 Media | Output pre-calcolato con nota "Questo codice richiede un sistema operativo reale" per L19, L20, L26 |
