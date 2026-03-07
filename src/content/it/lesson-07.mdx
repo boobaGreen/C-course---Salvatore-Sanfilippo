@@ -1,0 +1,113 @@
+import VideoEmbed from '../../components/content/VideoEmbed';
+import Callout from '../../components/content/Callout';
+import KeyConcepts from '../../components/content/KeyConcepts';
+import RecursionVisualizer from '../../components/content/RecursionVisualizer';
+import SwitchBoard from '../../components/content/SwitchBoard';
+import CodeEditor from '../../components/exercises/CodeEditor';
+import Quiz from '../../components/exercises/Quiz';
+
+# Lezione 7: Cicli, Ricorsione e Switch
+
+A volte abbiamo bisogno di ripetere un'operazione migliaia di volte, o di scegliere tra molte opzioni diverse in modo elegante. Oggi esploriamo i cicli e la potenza della ricorsione.
+
+<VideoEmbed videoId="HCRthhjbfAg" title="Lezione 7: Cicli e Ricorsione" />
+
+<KeyConcepts 
+  concepts={[
+    {
+      title: "Cicli (for, while, do-while)",
+      description: "Tre modi diversi per ripetere il codice. Il 'for' è ideale quando sai quanti giri fare, il 'while' quando attendi una condizione."
+    },
+    {
+      title: "Ricorsione",
+      description: "Una funzione che chiama se stessa. È come una scatola russa (matrioska) di esecuzioni che si accumulano sullo stack."
+    },
+    {
+      title: "Switch",
+      description: "Un'alternativa pulita a molti 'if-else' concatenati. Funziona come una tabella di salto veloce."
+    }
+  ]} 
+/>
+
+## Cicli: for vs while
+Come spiega Salvatore, un ciclo `for` è spesso solo un modo più compatto di scrivere un `while`. 
+
+```c
+// Versione WHILE
+int i = 0;
+while (i < 5) {
+    // codice
+    i++;
+}
+
+// Versione FOR (più elegante)
+for (int i = 0; i < 5; i++) {
+    // codice
+}
+```
+
+Usiamo il `for` quando sappiamo già quante volte iterare, e il `while` quando la condizione dipende da qualcosa che accadrà nel codice.
+
+## La Ricorsione e lo Stack
+
+Quando una funzione chiama se stessa, il computer non ricomincia da zero. "Congela" la funzione attuale e ne apre una nuova sopra di essa.
+
+<RecursionVisualizer />
+
+<Callout type="warning" title="Stack Overflow">
+Se la ricorsione non ha una 'condizione di uscita' (base case), continuerà a creare nuovi frame fino a esaurire la memoria dedicata allo stack. Questo causa il famoso crash 'Stack Overflow'.
+</Callout>
+
+## Scegliere con Eleganza: lo Switch
+
+Se hai una variabile che può valere 1, 2, 3... invece di scrivere dieci `if`, usiamo lo `switch`. È più leggibile e spesso più veloce!
+
+<SwitchBoard />
+
+<Callout type="info" title="L'importanza del break">
+Nello `switch`, se dimentichi il `break;`, il codice continuerà a eseguire anche i casi successivi! Questo comportamento si chiama 'fall-through'.
+</Callout>
+
+## Laboratorio di Cicli
+
+Prova a trasformare questo ciclo `while` in un ciclo `for`.
+
+<CodeEditor 
+  initialCode={`#include <stdio.h>\n\nint main() {\n    int i = 0;\n    while (i < 5) {\n        printf("Giro numero %d\\n", i);\n        i++;\n    }\n    return 0;\n}`}
+  language="c"
+/>
+
+## Quiz di Verifica
+
+<Quiz 
+  questions={[
+    {
+      question: "Quale di questi cicli garantisce ALMENO un'esecuzione del codice al suo interno?",
+      options: ["for", "while", "do-while", "nessuno"],
+      correctAnswer: 2,
+      explanation: "Il ciclo do-while controlla la condizione alla FINE, quindi esegue il corpo almeno una volta."
+    },
+    {
+      question: "Cosa succede se dimentichi il 'break' in un case dello switch?",
+      options: [
+        "Viene generato un errore di compilazione",
+        "L'esecuzione si ferma",
+        "L'esecuzione continua nel caso successivo (fall-through)",
+        "Il computer si riavvia"
+      ],
+      correctAnswer: 2,
+      explanation: "Senza il break, il C continua a eseguire le istruzioni del caso successivo finché non ne incontra uno o finisce lo switch."
+    },
+    {
+      question: "Perché la ricorsione è utile?",
+      options: [
+        "È sempre più veloce dei cicli",
+        "Permette di risolvere problemi complessi dividendoli in sotto-problemi più semplici",
+        "Non usa memoria",
+        "È obbligatoria in C"
+      ],
+      correctAnswer: 1,
+      explanation: "La ricorsione è ideale per strutture dati ricorsive (come alberi) e per l'approccio 'divide et impera'."
+    }
+  ]}
+/>

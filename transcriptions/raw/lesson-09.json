@@ -1,0 +1,767 @@
+[
+  {
+    "start": 39.379999999999995,
+    "end": 42.64,
+    "text": " Prima o poi ci dovevamo arrivare ai puntatori."
+  },
+  {
+    "start": 44.88,
+    "end": 52.62,
+    "text": " Ci siamo andati finora vicini, le abbiamo sfiorati, le abbiamo salutati da lontano"
+  },
+  {
+    "start": 53.22,
+    "end": 54.44,
+    "text": " e oggi ci siamo arrivati."
+  },
+  {
+    "start": 54.44,
+    "end": 62.6,
+    "text": " Questa lezione sarà breve e servirà per comunicarvi l'idea fondamentale che c'è"
+  },
+  {
+    "start": 62.6,
+    "end": 68.4,
+    "text": " dietro i puntatori perché i puntatori sono facili ma vanno presi a piccole dosi e con"
+  },
+  {
+    "start": 68.4,
+    "end": 73.78,
+    "text": " una certa propria deuticità della trattazione altrimenti diventano un casino ma in realtà"
+  },
+  {
+    "start": 73.78,
+    "end": 74.58,
+    "text": " sono poche idee."
+  },
+  {
+    "start": 76.28,
+    "end": 82.76,
+    "text": " Iniziamo con il nostro main, con il nostro solito main."
+  },
+  {
+    "start": 82.76,
+    "end": 90.58,
+    "text": " Io dichiaro una variabile intera che chiamo x che assegno il valore di 5 e la stampa."
+  },
+  {
+    "start": 91.16,
+    "end": 99.9,
+    "text": " Quindi c'è la main, le termes 0, questa è una variabile locale intera, si chiama"
+  },
+  {
+    "start": 99.9,
+    "end": 101.44,
+    "text": " x, è vale 5."
+  },
+  {
+    "start": 101.44,
+    "end": 117.26,
+    "text": " Questa è una printf con la f però che stampa il valore di x, compilo e seguo, mi stampa"
+  },
+  {
+    "start": 117.26,
+    "end": 117.96,
+    "text": " 5."
+  },
+  {
+    "start": 120.82000000000001,
+    "end": 124.16,
+    "text": " Questo invece è un puntatore."
+  },
+  {
+    "start": 125.08,
+    "end": 133.06,
+    "text": " Per dichiarare un puntatore a un tipo intero, ora vedremo perché i puntatori hanno un tipo,"
+  },
+  {
+    "start": 134.22,
+    "end": 140.0,
+    "text": " io devo aggiungere l'asterisco prima del nome della variabile che sto dichiarando."
+  },
+  {
+    "start": 140.74,
+    "end": 145.64,
+    "text": " Ora questo è un puntatore, se fosse stato così era una variabile intera che si chiama"
+  },
+  {
+    "start": 145.64,
+    "end": 154.88,
+    "text": " y facendo precedere un'asterisco al nome, y è un puntatore, ma la variabile si chiamerà"
+  },
+  {
+    "start": 154.88,
+    "end": 156.82,
+    "text": " sempre y, ok?"
+  },
+  {
+    "start": 157.44,
+    "end": 159.72,
+    "text": " E y non è puntatore y."
+  },
+  {
+    "start": 160.36,
+    "end": 165.52,
+    "text": " Questo è solo un simbolo che modifica il tipo."
+  },
+  {
+    "start": 165.98,
+    "end": 172.32,
+    "text": " C'è chi preferisce Ça è il proposito mettere l'asterisco prima dell'ind."
+  },
+  {
+    "start": 172.32,
+    "end": 183.16,
+    "text": " Secondo me è un errore, vi dico perché se io faccio così int asterisco y, z e in realtà"
+  },
+  {
+    "start": 183.16,
+    "end": 188.6,
+    "text": " l'asterisco a livello grammaticale per il c si riferisceirlo alla singolo nome della variabile,"
+  },
+  {
+    "start": 189.16,
+    "end": 195.58,
+    "text": " questo sarà un puntatore a y, a y sarà un puntatore di tipo intero, z invece sarà un"
+  },
+  {
+    "start": 195.58,
+    "end": 198.26,
+    "text": " intero perché altrimenti dovrei mettere l'asterisco pure qua."
+  },
+  {
+    "start": 198.26,
+    "end": 203.9,
+    "text": " Quindi secondo me questa cosa di dire intero puntatore che sembra in qualche modo chiarire"
+  },
+  {
+    "start": 203.9,
+    "end": 206.66,
+    "text": " non è coerente con la grammatica del C."
+  },
+  {
+    "start": 206.8,
+    "end": 210.14,
+    "text": " Quindi se uno vuole dichiarare due puntatori invece scrive così, se ne vuole dichiarare"
+  },
+  {
+    "start": 210.14,
+    "end": 214.14,
+    "text": " uno scrive così questo è quello che io vi suggerisco di fare."
+  },
+  {
+    "start": 214.58,
+    "end": 217.1,
+    "text": " Poi decidete voi ciò che vorrete."
+  },
+  {
+    "start": 218.46,
+    "end": 227.38,
+    "text": " Così come io stampato X qui posso stampare Y ma non devo usare D, devo usare P."
+  },
+  {
+    "start": 227.38,
+    "end": 229.08,
+    "text": " Perché Y è un puntatore?"
+  },
+  {
+    "start": 229.84,
+    "end": 237.48,
+    "text": " Questo puntatore lo inizializzo a 0 che è un indirizzo speciale che viene detto nullo,"
+  },
+  {
+    "start": 237.58,
+    "end": 238.76,
+    "text": " l'indirizzo nullo."
+  },
+  {
+    "start": 239.18,
+    "end": 241.68,
+    "text": " Competiamo questo programma."
+  },
+  {
+    "start": 244.2,
+    "end": 249.22,
+    "text": " Quindi questo è la mia variabile che vale 5 e questo è il mio puntatore che viene stampato"
+  },
+  {
+    "start": 249.22,
+    "end": 251.64,
+    "text": " in S a decimale per questo vedete 0X0."
+  },
+  {
+    "start": 252.64,
+    "end": 263.28,
+    "text": " Ora il C quando un puntatore vale 0 ha una keyword specifica definita null che è il"
+  },
+  {
+    "start": 263.28,
+    "end": 264.52,
+    "text": " puntatore che vale 0."
+  },
+  {
+    "start": 264.66,
+    "end": 272.74,
+    "text": " Quindi quando lo vogliamo setare a 0 scriviamo null se compitiamo l'effetto identico."
+  },
+  {
+    "start": 273.08,
+    "end": 274.54,
+    "text": " Non cambia niente."
+  },
+  {
+    "start": 275.46000000000004,
+    "end": 277.5,
+    "text": " Eh ma qui viene il bello."
+  },
+  {
+    "start": 278.5,
+    "end": 286.5,
+    "text": " Così come io posso dichiarare un puntatore, la bella inizio le segno a null, poi stampo"
+  },
+  {
+    "start": 286.5,
+    "end": 291.12,
+    "text": " il valore della X, poi qua scrivo Y è uguale a ENDX."
+  },
+  {
+    "start": 292.32,
+    "end": 300.64,
+    "text": " L'operatore END prima del nome di una variabile significa non voglio la variabile, il valore"
+  },
+  {
+    "start": 300.64,
+    "end": 306.42,
+    "text": " della variabile voglio l'indirizzo di memoria alla quale la variabile è registrata."
+  },
+  {
+    "start": 306.86,
+    "end": 311.0,
+    "text": " Quindi voglio il puntatore alla variabile perché i puntatori sono indirizi di memoria."
+  },
+  {
+    "start": 311.54,
+    "end": 324.16,
+    "text": " Quindi ora possiamo scrivere qui X è EASTORED AT THE ADDRESS Y perché ora Y lo ha segnato"
+  },
+  {
+    "start": 324.16,
+    "end": 329.8,
+    "text": " all'indirizzo di memoria dove X è registrato perché questo X deve essere da qualche parte"
+  },
+  {
+    "start": 329.8,
+    "end": 334.02,
+    "text": " registrato o meglio potrebbe essere anche un registro del microprocessore come abbiamo"
+  },
+  {
+    "start": 334.02,
+    "end": 338.08,
+    "text": " visto nella puntata 2 e specialmente nella profondimento alla puntata 2."
+  },
+  {
+    "start": 338.7,
+    "end": 346.08,
+    "text": " Ma se io uso questo operatore il combinatoro sa che non lo può mettere X in un registro"
+  },
+  {
+    "start": 346.08,
+    "end": 350.38,
+    "text": " perché se io chiedo un puntatore X deve essere per forza da qualche parte nella memoria."
+  },
+  {
+    "start": 350.88,
+    "end": 351.46,
+    "text": " Vediamo dove."
+  },
+  {
+    "start": 353.29999999999995,
+    "end": 355.46,
+    "text": " Compilo e seguo."
+  },
+  {
+    "start": 356.34,
+    "end": 362.44,
+    "text": " X è registrato all'indirizzo questo indirizzo qua, un indirizzo di memoria come un altro"
+  },
+  {
+    "start": 362.44,
+    "end": 363.66,
+    "text": " del nostro processo."
+  },
+  {
+    "start": 365.59999999999997,
+    "end": 367.68,
+    "text": " Ora vi faccio vedere una cosa."
+  },
+  {
+    "start": 368.66,
+    "end": 376.04,
+    "text": " Così come l'asterisco serviva durante la definizione di un puntatore a dire che questo"
+  },
+  {
+    "start": 376.04,
+    "end": 379.68,
+    "text": " è un puntatore non una normale variabile intera."
+  },
+  {
+    "start": 379.96,
+    "end": 383.92,
+    "text": " Poi vedremo perché comunque i puntatori uno potrebbe dire sono indirizzi di memoria."
+  },
+  {
+    "start": 384.6,
+    "end": 389.7,
+    "text": " Indirizzi di memoria sono tutti uguali perché mi dici che devo perché mi fai specificare"
+  },
+  {
+    "start": 389.7,
+    "end": 394.16,
+    "text": " il tipo che differenza c'è tra un puntatore intero un puntatore caratteri un puntatore"
+  },
+  {
+    "start": 394.16,
+    "end": 394.92,
+    "text": " una struttura."
+  },
+  {
+    "start": 395.1,
+    "end": 399.78,
+    "text": " È sempre un indirizzo di memoria se questa è la macchina 64 bit è un indirizzo di memoria"
+  },
+  {
+    "start": 399.78,
+    "end": 400.74,
+    "text": " 64 bit."
+  },
+  {
+    "start": 401.54,
+    "end": 409.38,
+    "text": " In effetti è vero, però ora vi faccio vedere perché è utile anche se tutti i puntatori"
+  },
+  {
+    "start": 409.38,
+    "end": 411.58,
+    "text": " sono tutti numeri indirizzi di memoria."
+  },
+  {
+    "start": 412.02,
+    "end": 420.52,
+    "text": " Stavamo dicendo se invece io utilizzo l'asterisco in una espressione normale quindi non sono più"
+  },
+  {
+    "start": 420.52,
+    "end": 422.36,
+    "text": " qua che sto definendo una variabile."
+  },
+  {
+    "start": 422.76,
+    "end": 426.5,
+    "text": " Qui io dico asterisco Y è uguale a 10."
+  },
+  {
+    "start": 427.46,
+    "end": 432.46,
+    "text": " In questo momento io non sto scrivendo Y uguale a 10."
+  },
+  {
+    "start": 432.74,
+    "end": 439.34,
+    "text": " In questo caso Y che è un puntatore che quindi memorizza degli indirizzi di memoria."
+  },
+  {
+    "start": 439.64,
+    "end": 444.06,
+    "text": " Se io scrivo Y uguale a 10 vuol dire che il mio puntatore a questo punto punta l'indirizzo"
+  },
+  {
+    "start": 444.06,
+    "end": 444.88,
+    "text": " di memoria a 10."
+  },
+  {
+    "start": 445.76,
+    "end": 453.8,
+    "text": " No io gli dico con l'asterisco all'indirizzo di memoria che è contenuto in Y che abbiamo"
+  },
+  {
+    "start": 453.8,
+    "end": 455.3,
+    "text": " visto qual era questo qui."
+  },
+  {
+    "start": 456.52,
+    "end": 462.16,
+    "text": " A quell'indirizzo di memoria dove c'è un intero è questo come è che lo sai il compilatore"
+  },
+  {
+    "start": 462.16,
+    "end": 465.12,
+    "text": " che c'è un intero perché il puntatore è di tipo intero."
+  },
+  {
+    "start": 465.12,
+    "end": 468.44,
+    "text": " Ecco a cosa serve dichiarare il tipo del puntatore."
+  },
+  {
+    "start": 469.08,
+    "end": 474.76,
+    "text": " Quindi a questo indirizzo di memoria Y dove c'è un intero vagli a scrivere 10."
+  },
+  {
+    "start": 475.76,
+    "end": 484.78,
+    "text": " A questo punto se io scrivo a questo indirizzo di memoria 10 se io va a questo indirizzo"
+  },
+  {
+    "start": 484.78,
+    "end": 494.9,
+    "text": " di memoria cos'è che c'è registrata la variabile X quindi X vuos questo numero X"
+  },
+  {
+    "start": 494.9,
+    "end": 498.12,
+    "text": " now is questo altro numero."
+  },
+  {
+    "start": 498.32,
+    "end": 508.0,
+    "text": " Combiliamo X vuos 5 X istore da T address quello che è l'indirizzo di memoria qui"
+  },
+  {
+    "start": 508.0,
+    "end": 510.76,
+    "text": " è registrato ma ora X vale 10."
+  },
+  {
+    "start": 513.06,
+    "end": 521.38,
+    "text": " Io non milludo che voi avete capito completamente questo esempio immediatamente quindi ora"
+  },
+  {
+    "start": 521.38,
+    "end": 523.7,
+    "text": " noi lo ripercorreremo da capo."
+  },
+  {
+    "start": 524.5,
+    "end": 531.2,
+    "text": " X è una variabile intera che è registrata da qualche parte nella memoria Y invece è"
+  },
+  {
+    "start": 531.2,
+    "end": 541.94,
+    "text": " sempre una variabile intera ma che contiene l'indirizzo di memoria di una di un intero"
+  },
+  {
+    "start": 541.94,
+    "end": 547.52,
+    "text": " quindi attenzione che Y non è il largo quando un intero ma è il largo quando in the pointer"
+  },
+  {
+    "start": 547.52,
+    "end": 553.54,
+    "text": " T la grandezza di Codell numero per dire qua X probabilmente in il mio computer X"
+  },
+  {
+    "start": 553.54,
+    "end": 561.46,
+    "text": " sarà un numero a 32 bit invece Y è un numero a 64 bit cioè questo intero mi sta dicendo"
+  },
+  {
+    "start": 561.46,
+    "end": 568.44,
+    "text": " solo che questo indirizzo di memoria questo puntatore punta a un intero come tipo ok quindi"
+  },
+  {
+    "start": 568.44,
+    "end": 574.72,
+    "text": " l'indirizzo di memoria ha qualcosa che prende 4 byte in memoria ma esso stesso Y non è"
+  },
+  {
+    "start": 574.72,
+    "end": 581.52,
+    "text": " 4 byte 8 byte perché indirizzo questa mia macchina che è un Macbook sono 8 byte quindi"
+  },
+  {
+    "start": 581.52,
+    "end": 586.98,
+    "text": " io cio questo Y puntatore e lo setto alla null quindi all'indirizzo 0 che è un indirizzo"
+  },
+  {
+    "start": 586.98,
+    "end": 594.4,
+    "text": " speciale in C che significa che non c'è registrato niente per capirci qui stanpo il valore di X poi"
+  },
+  {
+    "start": 594.4,
+    "end": 604.38,
+    "text": " dico Y che può registrare indirizzi di memoria di tipi interi è uguale a l'indirizzo di memoria"
+  },
+  {
+    "start": 604.38,
+    "end": 611.34,
+    "text": " cui X è registrato quindi dove è che abita X dentro la memoria del mio computer con l'operatore"
+  },
+  {
+    "start": 611.34,
+    "end": 618.38,
+    "text": " and io posso estrarre questo indirizzo di memoria quindi Y ora vale un numero che è l'indirizzo"
+  },
+  {
+    "start": 618.38,
+    "end": 624.78,
+    "text": " di memoria a quale è registrato X e questo l'abbiamo visto qua guardate questo indirizzo di memoria a"
+  },
+  {
+    "start": 624.78,
+    "end": 632.62,
+    "text": " questo punto con l'asterisco prima di Y e con l'operatore di assegnamento io gli dico ora"
+  },
+  {
+    "start": 632.62,
+    "end": 642.62,
+    "text": " voglio che tu mi vai a scrivere il valore intero 10 nell'intero che nella memoria è"
+  },
+  {
+    "start": 642.62,
+    "end": 650.4,
+    "text": " memorizzato laddove ti dice Y questa stessa cosa io per rendere la cosa più chiara poi"
+  },
+  {
+    "start": 650.4,
+    "end": 658.84,
+    "text": " traiscriverla così perché c'è una strana equivalenza in C tra i puntatori e i rei quindi è come se Y"
+  },
+  {
+    "start": 659.72,
+    "end": 666.88,
+    "text": " condresse l'indirizzo base in cui c'è un rei di interi uno dopo l'altro quattro byte dopo l'altro"
+  },
+  {
+    "start": 666.88,
+    "end": 674.98,
+    "text": " ma in realtà siccome Y punta a un singolo intero perché qua X provvedino un solo intero io potrò"
+  },
+  {
+    "start": 674.98,
+    "end": 684.12,
+    "text": " usare solo l'indice zero ma questa operazione qua fa capire meglio la il modo in cui avviene in C"
+  },
+  {
+    "start": 684.12,
+    "end": 694.58,
+    "text": " questa operazione che identica a scrivere ciò quindi è a esterisco y quindi io ti dico y è"
+  },
+  {
+    "start": 694.58,
+    "end": 702.08,
+    "text": " un'indirizzo di memoria che avrà al suo indice zero un intero al suo indice uno un altro intero"
+  },
+  {
+    "start": 702.08,
+    "end": 713.0,
+    "text": " voglio scrivere 10 guardate funziona con lo stesso modo identico x era 5 x ora 10 se io avessi"
+  },
+  {
+    "start": 713.0,
+    "end": 724.2,
+    "text": " scritto così sto scrivendo fuori dalla memoria guardate x rimane 5 perché sto scrivendo nell'intero"
+  },
+  {
+    "start": 724.2,
+    "end": 731.72,
+    "text": " immediatamente dopo x che è chissà che c'è dentro poteva andare benissimo in cresce il programma"
+  },
+  {
+    "start": 733.24,
+    "end": 739.2,
+    "text": " e uno potrebbe essere tentato di dire ma questa cosa perché è utile perché io ho assegnato a"
+  },
+  {
+    "start": 739.2,
+    "end": 746.22,
+    "text": " y l'indirizzo di memoria in cui è registrato a x e poi ho utilizzato il puntatore per andare a"
+  },
+  {
+    "start": 746.22,
+    "end": 753.48,
+    "text": " modificare x non potevo scrivere x ora 10 beh in questo caso sì ma ci sono altri casi in cui ciò"
+  },
+  {
+    "start": 753.48,
+    "end": 761.44,
+    "text": " non è possibile e vi faccio un esempio per dire questo era il vecchio valore di x questo ora è il"
+  },
+  {
+    "start": 762.4000000000001,
+    "end": 768.88,
+    "text": " nuovo valore di x in questo caso è uguale perché non abbiamo fatto niente ora io scrivo una"
+  },
+  {
+    "start": 768.88,
+    "end": 777.08,
+    "text": " funzione in che incrementa a cui passo y questa funzione guardate come la definisco void quindi"
+  },
+  {
+    "start": 777.08,
+    "end": 788.22,
+    "text": " non ritorna niente in che prende come unico argomento un puntatore che chiamo p e scrivo p"
+  },
+  {
+    "start": 788.22,
+    "end": 796.28,
+    "text": " è uguale più quindi perché questo se risco pieno di p non funziona sono in scrittura funziona"
+  },
+  {
+    "start": 796.28,
+    "end": 802.34,
+    "text": " anche in lettura quindi quello che c'è all'indirizzo l'intero che c'è all'indirizzo p è uguale"
+  },
+  {
+    "start": 802.34,
+    "end": 809.26,
+    "text": " all'intero che c'è all'indirizzo p più uno non ritorno niente perché questa funzione void è"
+  },
+  {
+    "start": 809.26,
+    "end": 818.1,
+    "text": " praticamente incrementa il valore di x perché x però prima dobbiamo scrivere ovviamente"
+  },
+  {
+    "start": 818.1,
+    "end": 829.6,
+    "text": " y uguale a x quindi a y dobbiamo assegnare l'indirizzo di memoria di x allora poi"
+  },
+  {
+    "start": 829.6,
+    "end": 837.32,
+    "text": " increment passere a questa indirizzo di memoria questa chiamata alla funzione increment e la"
+  },
+  {
+    "start": 837.32,
+    "end": 841.3,
+    "text": " funzione increment prenderà quello che c'è attualmente a questa indirizzo di memoria"
+  },
+  {
+    "start": 841.3,
+    "end": 846.4,
+    "text": " ci aggiungerà uno e lo registrerà nello stesso indirizzo di memoria dovera prima"
+  },
+  {
+    "start": 850.0800000000002,
+    "end": 861.62,
+    "text": " compiliamo prima valera 5 e ora vale 6 questo funzione la posso chiamare più volte ora vale"
+  },
+  {
+    "start": 861.62,
+    "end": 870.22,
+    "text": " 9 guardate io qua non ho fatto più riferimenti a x eppure il valore aumenta c'è da dire una cosa"
+  },
+  {
+    "start": 870.22,
+    "end": 877.16,
+    "text": " io questa funzione qua increment la potrei anche chiamare così non è che il puntatore lo devo"
+  },
+  {
+    "start": 877.16,
+    "end": 884.14,
+    "text": " per forza prima mettere dentro una variabile puntatore intero posso visto che questo questa"
+  },
+  {
+    "start": 884.14,
+    "end": 892.74,
+    "text": " funzione che tipo di dato accetta in che parà che tipo è il parametro p è un puntatore a intero"
+  },
+  {
+    "start": 892.74,
+    "end": 899.66,
+    "text": " quindi lo prendo direttamente con e commerciale e il nome della variabile di cui io voglio ottenere"
+  },
+  {
+    "start": 899.66,
+    "end": 908.14,
+    "text": " il puntatore quindi se compilo questo programma l'effetto sarà esattamente uguale prima valeva 5"
+  },
+  {
+    "start": 908.14,
+    "end": 918.38,
+    "text": " e ora vale 6 secondo me per oggi è abbastanza provate a rivedere questo video ed ditemi se"
+  },
+  {
+    "start": 918.38,
+    "end": 924.14,
+    "text": " finora avete capito che cos'è che succede perché è molto importante quindi rivediamo"
+  },
+  {
+    "start": 924.14,
+    "end": 931.06,
+    "text": " l'ultima volta in questa nuova forma x è una variabile intera registrata da qualche volta da"
+  },
+  {
+    "start": 931.06,
+    "end": 938.16,
+    "text": " qualche parte memoria la stampiamo poi passiamo a la funzione inc l'indirizzo di memoria a cui è"
+  },
+  {
+    "start": 938.16,
+    "end": 945.66,
+    "text": " registrata x quindi saltiamo qui dentro il programma quindi ora p sarà l'indirizzo di memoria dove è"
+  },
+  {
+    "start": 945.66,
+    "end": 952.2,
+    "text": " registrato x ma il combinatora sa che questo indirizzo di memoria è l'indirizzo di memoria"
+  },
+  {
+    "start": 952.2,
+    "end": 957.38,
+    "text": " a cui è registrato un intero questo è il motivo per cui i puntatori in c hanno un tipo perché"
+  },
+  {
+    "start": 957.38,
+    "end": 963.5,
+    "text": " altrimenti sarebbero sempre numeri e 64 bit in questa piattaforma 30 bit di un altro questa"
+  },
+  {
+    "start": 963.5,
+    "end": 973.22,
+    "text": " espressione utilizzando l'asterisco dice prendi l'intero che è registrato all'indirizzo p ci"
+  },
+  {
+    "start": 973.22,
+    "end": 982.64,
+    "text": " aggiungi uno e poi assegni in quella locazione di memoria cui punta p il risultato di questa"
+  },
+  {
+    "start": 983.58,
+    "end": 991.64,
+    "text": " espressione ok abbiamo visto che funziona e abbiamo visto pure che potremmo scriverlo allo"
+  },
+  {
+    "start": 991.64,
+    "end": 999.74,
+    "text": " stesso identico modo così per questa bizzarra analogia che c'è in c tra i puntatori e i rei che è"
+  },
+  {
+    "start": 999.74,
+    "end": 1006.84,
+    "text": " un'analogia molto sim semplice e utile in realtà in questo caso è molto più chiaro quello che"
+  },
+  {
+    "start": 1006.84,
+    "end": 1015.48,
+    "text": " sta avvenendo secondo me perché p è l'indirizzo base di memoria e 0 sarà il primo intero che"
+  },
+  {
+    "start": 1015.48,
+    "end": 1020.48,
+    "text": " è registrato a partire da quell'indirizzo di memoria 1 sarà il secondo intero che è registrato a"
+  },
+  {
+    "start": 1020.48,
+    "end": 1026.5,
+    "text": " partire a quella indirizzo di memoria e così via compiliamo di nuovo funziona come prima"
+  }
+]

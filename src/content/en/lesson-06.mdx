@@ -1,0 +1,105 @@
+import VideoEmbed from '../../components/content/VideoEmbed';
+import Callout from '../../components/content/Callout';
+import KeyConcepts from '../../components/content/KeyConcepts';
+import BranchingSimulator from '../../components/content/BranchingSimulator';
+import ScopeExplorer from '../../components/content/ScopeExplorer';
+import Infographic from '../../components/content/Infographic';
+import CodeEditor from '../../components/exercises/CodeEditor';
+import Quiz from '../../components/exercises/Quiz';
+
+# Lesson 6: Control Flow & Blocks
+
+Until now, our programs have been linear: one line after another. Today we learn how to make the code take decisions!
+
+<VideoEmbed videoId="lc7aYXNl1T8" title="Lesson 6: Control Structures and If" />
+
+<KeyConcepts 
+  concepts={[
+    {
+      title: "if Statement",
+      description: "Allows executing a block of code only if a condition is true (non-zero)."
+    },
+    {
+      title: "Code Blocks {}",
+      description: "Curly braces define a local 'scope'. Variables created inside a block disappear when it closes."
+    },
+    {
+      title: "Shadowing",
+      description: "You can have two variables with the same name in different blocks! The inner one 'hides' the outer one."
+    }
+  ]} 
+/>
+
+## Making Decisions: if and else
+
+The heart of programming logic is the crossroads. If X happens, do Y; otherwise, do Z.
+
+<Callout type="info" title="What is True in C?">
+In C, there is no native `bool` type (at least in classic versions). For C:
+- **0** is False.
+- **Anything else** (1, -5, 42) is True.
+This is why you can write `if (count)` to check if a counter is non-zero!
+</Callout>
+
+<BranchingSimulator />
+
+<BranchingFlowchart />
+
+## The Power of Braces `{}`
+
+In C, you can open a block of code anywhere, not just after an `if`. Every block creates a new level of existence for variables.
+
+<ScopeExplorer />
+
+<Callout type="warning" title="Ghost Variables">
+If you declare `int x = 5;` inside a block, once you exit that block `x` no longer exists for the compiler. Trying to use it will cause an error!
+</Callout>
+
+## The Dark Goto
+
+Salvatore also shows us `goto`, a way to jump directly to a label in the code. While powerful (and the basis for how the processor runs loops), it's considered dangerous because it can make code hard to follow ("Spaghetti Code").
+
+<CodeEditor 
+  initialCode={`#include <stdio.h>\n\nint main() {\n    int i = 0;\n    loop:\n    printf("%d ", i);\n    i++;\n    if (i < 5) goto loop;\n    return 0;\n}`}
+  language="c"
+/>
+
+## Review Quiz
+
+<Quiz 
+  questions={[
+    {
+      question: "What happens if you declare a variable with the same name as an outer one inside a {} block?",
+      options: [
+        "The compiler throws an error",
+        "The outer variable is deleted",
+        "The inner variable 'hides' the outer one until the block is closed",
+        "The two variables are added together"
+      ],
+      correctAnswer: 2,
+      explanation: "This phenomenon is called 'shadowing'. The innermost variable takes precedence in local scope."
+    },
+    {
+      question: "In C, what is considered 'False' in an if condition?",
+      options: [
+        "Only the false keyword",
+        "Any negative number",
+        "Exactly the value 0",
+        "Only the '\\0' character"
+      ],
+      correctAnswer: 2,
+      explanation: "In C, there is no classic native boolean type; 0 is false, everything else is true."
+    },
+    {
+      question: "Why is the use of goto usually discouraged?",
+      options: [
+        "Because it's slow",
+        "Because it consumes too much RAM",
+        "Because it makes program flow hard to predict and debug",
+        "Because it doesn't work on modern systems"
+      ],
+      correctAnswer: 2,
+      explanation: "Goto can create 'tangled' flow (spaghetti code) that breaks the logical structure of the program."
+    }
+  ]}
+/>

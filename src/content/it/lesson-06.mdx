@@ -1,0 +1,105 @@
+import VideoEmbed from '../../components/content/VideoEmbed';
+import Callout from '../../components/content/Callout';
+import KeyConcepts from '../../components/content/KeyConcepts';
+import BranchingSimulator from '../../components/content/BranchingSimulator';
+import ScopeExplorer from '../../components/content/ScopeExplorer';
+import Infographic from '../../components/content/Infographic';
+import CodeEditor from '../../components/exercises/CodeEditor';
+import Quiz from '../../components/exercises/Quiz';
+
+# Lezione 6: Controllo del Flusso e Blocchi
+
+Fino ad ora i nostri programmi sono stati lineari: una riga dopo l'altra. Oggi impariamo a far prendere al codice delle decisioni!
+
+<VideoEmbed videoId="lc7aYXNl1T8" title="Lezione 6: Strutture di Controllo e If" />
+
+<KeyConcepts 
+  concepts={[
+    {
+      title: "Istruzione if",
+      description: "Permette di eseguire un blocco di codice solo se una condizione è vera (diversa da zero)."
+    },
+    {
+      title: "Blocchi di Codice {}",
+      description: "Le parentesi graffe definiscono uno 'scope' locale. Le variabili create dentro un blocco spariscono alla sua chiusura."
+    },
+    {
+      title: "Shadowing",
+      description: "Puoi avere due variabili con lo stesso nome in blocchi diversi! Quella più interna 'nasconde' quella esterna."
+    }
+  ]} 
+/>
+
+## Prendere Decisioni: if ed else
+
+Il cuore della logica di programmazione è il bivio. Se succede X, fai Y, altrimenti fai Z. 
+
+<Callout type="info" title="Cosa è Vero in C?">
+In C non esiste un tipo `bool` nativo (almeno nelle versioni classiche). Per il C:
+- **0** è Falso.
+- **Qualsiasi altra cosa** (1, -5, 42) è Vero.
+Questo è il motivo per cui puoi scrivere `if (count)` per controllare se un contatore non è zero!
+</Callout>
+
+<BranchingSimulator />
+
+<BranchingFlowchart />
+
+## Il Potere delle Graffe `{}`
+
+In C, puoi aprire un blocco di codice ovunque, non solo dopo un `if`. Ogni blocco crea un nuovo livello di esistenza per le variabili.
+
+<ScopeExplorer />
+
+<Callout type="warning" title="Variabili Fantasma">
+Se dichiari `int x = 5;` dentro un blocco, una volta uscito da quel blocco `x` non esiste più per il compilatore. Tentare di usarlo causerà un errore!
+</Callout>
+
+## L'Oscuro Goto
+
+Salvatore ci mostra anche il `goto`, un modo per saltare direttamente a un'etichetta nel codice. Sebbene potente (e alla base di come il processore esegue i loop), è considerato pericoloso perché può rendere il codice difficile da seguire ("Spaghetti Code").
+
+<CodeEditor 
+  initialCode={`#include <stdio.h>\n\nint main() {\n    int i = 0;\n    loop:\n    printf("%d ", i);\n    i++;\n    if (i < 5) goto loop;\n    return 0;\n}`}
+  language="c"
+/>
+
+## Quiz di Verifica
+
+<Quiz 
+  questions={[
+    {
+      question: "Cosa succede se dichiari una variabile con lo stesso nome di una esterna dentro un blocco {}?",
+      options: [
+        "Il compilatore dà errore",
+        "La variabile esterna viene cancellata",
+        "La variabile interna 'nasconde' quella esterna finché il blocco è aperto",
+        "Le due variabili si sommano"
+      ],
+      correctAnswer: 2,
+      explanation: "Questo fenomeno si chiama 'shadowing'. La variabile più interna ha la precedenza nello scope locale."
+    },
+    {
+      question: "In C, cosa è considerato 'Falso' in una condizione if?",
+      options: [
+        "Solo la parola chiave false",
+        "Qualsiasi numero negativo",
+        "Esattamente il valore 0",
+        "Solo il carattere '\\0'"
+      ],
+      correctAnswer: 2,
+      explanation: "In C non esiste un tipo booleano nativo classico; lo 0 è falso, tutto il resto è vero."
+    },
+    {
+      question: "Perché l'uso del goto è solitamente sconsigliato?",
+      options: [
+        "Perché è lento",
+        "Perché consuma troppa RAM",
+        "Perché rende il flusso del programma difficile da prevedere e debuggare",
+        "Perché non funziona sui sistemi moderni"
+      ],
+      correctAnswer: 2,
+      explanation: "Il goto può creare un flusso 'intrecciato' (spaghetti code) che rompe la struttura logica del programma."
+    }
+  ]}
+/>

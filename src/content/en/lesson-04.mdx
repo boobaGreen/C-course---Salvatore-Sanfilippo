@@ -1,0 +1,102 @@
+import VideoEmbed from '../../components/content/VideoEmbed';
+import Callout from '../../components/content/Callout';
+import KeyConcepts from '../../components/content/KeyConcepts';
+import LimitsExplorer from '../../components/content/LimitsExplorer';
+import BinaryVisualizer from '../../components/content/BinaryVisualizer';
+import Infographic from '../../components/content/Infographic';
+import CodeEditor from '../../components/exercises/CodeEditor';
+import Quiz from '../../components/exercises/Quiz';
+
+# Lesson 4: Integers, Memory & Limits
+
+Welcome to lesson four! Today we'll dig beneath the surface of C to understand how numbers are actually represented in computer memory and why sizes matter.
+
+<VideoEmbed videoId="YNsXyasn4R4" title="Lesson 4: Integer Types and Memory" />
+
+<KeyConcepts 
+  concepts={[
+    {
+      title: "sizeof",
+      description: "The fundamental operator to discover how many bytes a type occupies on your specific machine."
+    },
+    {
+      title: "limits.h",
+      description: "The standard library containing constants for the minimum and maximum values of each type."
+    },
+    {
+      title: "Architecture",
+      description: "Type sizes (like long) change depending on whether you are on a 32 or 64-bit system."
+    }
+  ]} 
+/>
+
+## How big is an integer?
+
+Unlike languages like Python, in C the size of an `int` is not fixed forever. It depends on your **platform**.
+
+<LimitsExplorer />
+
+<Callout type="warning" title="Watch the Warning!">
+When using `sizeof` in `printf`, use the `%lu` (long unsigned) specifier or cast to `(int)`, otherwise the compiler will warn you that the types don't match!
+</Callout>
+
+## The Dance of Bits
+
+Every number you write is converted into a sequence of **0**s and **1**s. A 32-bit `int` can represent over 4 billion different combinations.
+
+<BinaryVisualizer />
+
+<Infographic 
+  src="/images/limits_table.png" 
+  alt="C type limits table" 
+  caption="Quick comparison between various integer types and their typical ranges."
+/>
+
+## Memory and Alignment
+
+The computer doesn't just throw bytes randomly into RAM. It organizes them into cells, and often adds "padding" (empty space) to make access faster for the processor.
+
+<Infographic 
+  src="/images/memory_padding.png" 
+  alt="Memory visualization and padding" 
+  caption="How a mix of different types is stacked in RAM."
+/>
+
+## Code Lab
+
+Try experimenting with `sizeof` and the `limits.h` constants like `INT_MIN` and `INT_MAX`.
+
+<CodeEditor 
+  initialCode={`#include <stdio.h>\n#include <limits.h>\n\nint main() {\n    printf("int size: %lu bytes\\n", sizeof(int));\n    printf("int range: %d to %d\\n", INT_MIN, INT_MAX);\n    return 0;\n}`}
+  language="c"
+/>
+
+## Review Quiz
+
+<Quiz 
+  questions={[
+    {
+      question: "What does the sizeof operator return?",
+      options: [
+        "The maximum value of a variable",
+        "The size in bits of a type",
+        "The size in bytes of a type or variable",
+        "The memory address of the variable"
+      ],
+      correctAnswer: 2,
+      explanation: "sizeof always returns the number of bytes (groups of 8 bits) occupied in memory."
+    },
+    {
+      question: "Which header file contains the INT_MIN and INT_MAX constants?",
+      options: ["stdio.h", "limits.h", "stdint.h", "stdlib.h"],
+      correctAnswer: 1,
+      explanation: "limits.h defines the architecture-specific limits for standard integer types."
+    },
+    {
+      question: "On a 64-bit system, how large is a 'long' usually?",
+      options: ["2 bytes", "4 bytes", "8 bytes", "16 bytes"],
+      correctAnswer: 2,
+      explanation: "On modern 64-bit systems, the long type usually follows the processor's word size, which is 8 bytes."
+    }
+  ]}
+/>

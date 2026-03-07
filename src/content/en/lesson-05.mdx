@@ -1,0 +1,92 @@
+import VideoEmbed from '../../components/content/VideoEmbed';
+import Callout from '../../components/content/Callout';
+import KeyConcepts from '../../components/content/KeyConcepts';
+import ASCIIConverter from '../../components/content/ASCIIConverter';
+import Infographic from '../../components/content/Infographic';
+import CodeEditor from '../../components/exercises/CodeEditor';
+import Quiz from '../../components/exercises/Quiz';
+
+# Lesson 5: Strings & Characters (ASCII)
+
+In the last lesson, we looked at bits and numbers. But how do we represent text? In C, the answer is simple: characters **are** numbers.
+
+<VideoEmbed videoId="SWWHqgSwQFw" title="Lesson 5: Strings and Characters" />
+
+<KeyConcepts 
+  concepts={[
+    {
+      title: "The char type",
+      description: "An 8-bit integer that can hold a value from 0 to 255. In C, it's written inside single quotes, e.g., 'A'."
+    },
+    {
+      title: "ASCII Table",
+      description: "A standard that maps every number to a specific character. For example, 65 corresponds to 'A'."
+    },
+    {
+      title: "Format Strings",
+      description: "Placeholders like %d for numbers and %c for characters that we use in printf."
+    }
+  ]} 
+/>
+
+## The Truth Behind Characters
+
+When you write `char c = 'A';`, the computer doesn't save the letter "A", but the number **65**. This is the core of the ASCII system.
+
+<ASCIIConverter />
+
+<Infographic 
+  src="/images/ascii_visual.png" 
+  alt="ASCII conversion diagram" 
+  caption="From the letter to the number, down to the bits in the processor."
+/>
+
+<Callout type="info" title="Quotes vs Apostrophes">
+In C, there's a big difference:
+- `'A'` (single quotes) is a `char` type (a single number).
+- `"A"` (double quotes) is a string (a zero-terminated array of characters).
+</Callout>
+
+## Type Promotion
+
+Did you know that if you pass a `char` to a function with variable arguments (like `printf`), C automatically promotes it to an `int`? This is why `%d` works for printing the numeric code of a character too!
+
+<CodeEditor 
+  initialCode={`#include <stdio.h>\n\nint main() {\n    char letter = 'A';\n    printf("Character: %c\\n", letter);\n    printf("ASCII Code: %d\\n", letter);\n    return 0;\n}`}
+  language="c"
+/>
+
+## Review Quiz
+
+<Quiz 
+  questions={[
+    {
+      question: "What is the fundamental difference between 'X' and \"X\" in C?",
+      options: [
+        "None, they are interchangeable",
+        "'X' is a single character (number), \"X\" is a string (array)",
+        "'X' is faster than \"X\"",
+        "\"X\" is only used for Python"
+      ],
+      correctAnswer: 1,
+      explanation: "Single quotes indicate a single numeric ASCII value, while double quotes indicate an array of characters in memory."
+    },
+    {
+      question: "What happens if you print a char with %d?",
+      options: [
+        "The program crashes",
+        "The character is printed",
+        "Its numeric ASCII code is printed",
+        "A format error is printed"
+      ],
+      correctAnswer: 2,
+      explanation: "Since characters are represented as numbers, %d prints the corresponding integer value in the ASCII table."
+    },
+    {
+      question: "What number does capital 'A' usually correspond to?",
+      options: ["1", "32", "65", "97"],
+      correctAnswer: 2,
+      explanation: "65 is the standard code for capital 'A'. Lowercase 'a' is 97."
+    }
+  ]}
+/>

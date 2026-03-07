@@ -12,18 +12,37 @@ Ogni programma C inizia spesso con delle direttive al preprocessore. La più com
 `stdio.h` sta per **Standard Input/Output**. Contiene le definizioni di funzioni fondamentali come `printf`. Senza questo include, il compilatore non saprebbe come gestire l'output a video.
 </Callout>
 
-### La Funzione `main`
-La funzione `main` è il cuore del programma. È il punto di ingresso (entry point) da cui il sistema operativo inizia l'esecuzione.
+### La Funzione `main` e i Vincoli del C
+La funzione `main` è il cuore del programma. È il punto di ingresso (entry point) da cui il sistema operativo inizia l'esecuzione. In C, **tutto il codice eseguibile deve trovarsi all'interno di una funzione**. 
+
+<Callout type="warning" title="Niente Codice 'Volante'">
+A differenza di Python o Bash, non puoi scrivere una `printf` direttamente all'inizio del file. Se provi a farlo, il compilatore ti darà un errore del tipo `expected declaration or statement`.
+</Callout>
 
 ```c
 int main(void) {
-    // Il tuo codice qui
+    // Il tuo codice deve stare qui dentro!
     return 0;
 }
 ```
 
 - `int`: Indica che la funzione restituisce un numero intero al sistema operativo (0 significa successo).
 - `void`: Indica esplicitamente che la funzione non accetta argomenti in ingresso.
+
+---
+
+## printf: La Magia della Formattazione
+
+Il nome `printf` sta per **Print Formatted**. È una funzione estremamente potente perché è **variadica**: può accettare un numero variabile di argomenti.
+
+<Callout type="danger" title="Pericoli Variadici">
+Se dici alla `printf` che stamperai due interi (`%d %d`) ma gliene passi solo uno, il C non si fermerà! Leggerà "immondizia" dalla memoria o andrà in crash. Questo è il primo assaggio della cosiddetta **Undefined Behavior** (Comportamento Indefinito).
+</Callout>
+
+```c
+printf("Ciao %s, il risultato è %d\n", "User", 30);
+//      [FORMAT]           [ARG 1]     [ARG 2]
+```
 
 ---
 

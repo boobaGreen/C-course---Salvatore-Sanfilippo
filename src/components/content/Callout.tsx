@@ -3,7 +3,7 @@ import { Lightbulb, AlertTriangle, Info, Terminal } from 'lucide-react';
 
 interface CalloutProps {
     children: ReactNode;
-    type?: 'tip' | 'warning' | 'info' | 'hacker';
+    type?: 'tip' | 'warning' | 'info' | 'hacker' | 'danger';
     title?: string;
 }
 
@@ -17,11 +17,18 @@ export default function Callout({ children, type = 'tip', title }: CalloutProps)
             defaultTitle: 'Suggerimento'
         },
         warning: {
+            icon: <AlertTriangle className="text-orange-400" size={20} />,
+            bg: 'bg-orange-500/5',
+            border: 'border-orange-500/20',
+            titleColor: 'text-orange-400',
+            defaultTitle: 'Attenzione'
+        },
+        danger: {
             icon: <AlertTriangle className="text-red-400" size={20} />,
             bg: 'bg-red-500/5',
             border: 'border-red-500/20',
             titleColor: 'text-red-400',
-            defaultTitle: 'Attenzione'
+            defaultTitle: 'Pericolo'
         },
         info: {
             icon: <Info className="text-blue-400" size={20} />,
@@ -39,7 +46,7 @@ export default function Callout({ children, type = 'tip', title }: CalloutProps)
         }
     };
 
-    const current = styles[type];
+    const current = styles[type] || styles.info;
 
     return (
         <div className={`my-6 p-5 rounded-2xl border ${current.border} ${current.bg} backdrop-blur-sm shadow-lg`}>

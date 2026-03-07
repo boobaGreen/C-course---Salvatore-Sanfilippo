@@ -1,0 +1,1927 @@
+[
+  {
+    "start": 40.519999999999996,
+    "end": 50.82,
+    "text": " La puntata di oggi sarà per molti versi atipica rispetto alle elezioni del C fin qui presentate"
+  },
+  {
+    "start": 52.16,
+    "end": 53.42,
+    "text": " all'interno di questo corso."
+  },
+  {
+    "start": 53.42,
+    "end": 63.94,
+    "text": " Sarà diversa perché stavolta non introdurremo nuovi concetti se non lo stretto indispensabile"
+  },
+  {
+    "start": 63.94,
+    "end": 71.74,
+    "text": " affinché si possa scrivere il programma che scriverò con voi quest'oggi, ma più che"
+  },
+  {
+    "start": 71.74,
+    "end": 79.18,
+    "text": " altro dobbiamo fare il tentativo di prendere l'insieme dei concetti espressi finora intorno"
+  },
+  {
+    "start": 79.18,
+    "end": 84.52,
+    "text": " al linguaggio C è utilizzarli per scrivere un programma, non un programma qualsiasi,"
+  },
+  {
+    "start": 84.72,
+    "end": 94.52,
+    "text": " ma il programma The Game of Life, Game of Life che noi comunque andiamo a mettere in inglese"
+  },
+  {
+    "start": 94.52,
+    "end": 107.9,
+    "text": " per avere una qualità maggiore della voce di Wikipedia. Game of Life che è stato inventato"
+  },
+  {
+    "start": 107.9,
+    "end": 115.78,
+    "text": " negli anni settanta dal matematico John Conway, matematico inglese John Conway, è"
+  },
+  {
+    "start": 115.78,
+    "end": 126.0,
+    "text": " che ha delle semplicissime regole che però generano dei risultati sorprendenti. Allora"
+  },
+  {
+    "start": 126.0,
+    "end": 135.24,
+    "text": " sostanzialmente questo è un gioco diciamo ma in realtà è un universo bidimensionale"
+  },
+  {
+    "start": 135.24,
+    "end": 144.86,
+    "text": " come qua dicono composto da celle possiamo pensare a queste celle come a dei bitto in"
+  },
+  {
+    "start": 144.86,
+    "end": 152.12,
+    "text": " una griglia bidimensionale quindi x e y un po' come lo schermo di un computer sostanzialmente"
+  },
+  {
+    "start": 153.22000000000003,
+    "end": 160.72,
+    "text": " e queste celle della griglia possono essere vive quindi nere e accese allo stato uno o"
+  },
+  {
+    "start": 160.72,
+    "end": 172.58,
+    "text": " la morte quindi possono contenere invece una celle a bianca o zero ogni dato stato della"
+  },
+  {
+    "start": 173.82,
+    "end": 184.66,
+    "text": " griglia di gioco eseguendo sempre le stesse semplicissime regole su ogni celle d'abita al"
+  },
+  {
+    "start": 184.66,
+    "end": 192.26,
+    "text": " prossimo stato in particolare se voi immaginate uno uno stato ecco come questo questo è una"
+  },
+  {
+    "start": 192.26,
+    "end": 201.78,
+    "text": " simulazione sì esatto molto interessante rimettiamola all'inizio questo che cos'è questo"
+  },
+  {
+    "start": 201.78,
+    "end": 210.12,
+    "text": " toglie o reinserisce Mandela griglia quindi una cella viva quindi in questo caso bianca"
+  },
+  {
+    "start": 210.12,
+    "end": 216.36,
+    "text": " qua i colori sono invertiti però qua in questo caso la cella vive quella bianca"
+  },
+  {
+    "start": 216.36,
+    "end": 221.76,
+    "text": " nel caso invece di questa gif animata le celle vive sono nere"
+  },
+  {
+    "start": 223.64,
+    "end": 230.08,
+    "text": " una cella viva nella prossima iterazione ok che qua chiama generazione"
+  },
+  {
+    "start": 230.08,
+    "end": 241.76,
+    "text": " sarà sempre viva se ha due o tre vicini vivi allora quali sono le"
+  },
+  {
+    "start": 241.76,
+    "end": 250.16,
+    "text": " celle vicine a questa sono le nove celle che costituiscono il suo intorno e"
+  },
+  {
+    "start": 250.16,
+    "end": 257.64,
+    "text": " allora aspettiamo faccio vedere average cell interacts with its hate neighbors"
+  },
+  {
+    "start": 257.64,
+    "end": 263.94,
+    "text": " quindi i suoi nove vicini eccole qui nord est est sud est sud sud ovest ovest"
+  },
+  {
+    "start": 263.94,
+    "end": 269.7,
+    "text": " nord ovest nord ci siamo capiti quindi se praticamente nella pro nella"
+  },
+  {
+    "start": 270.78,
+    "end": 275.88,
+    "text": " generazione attuale la cella c'ha o due o tre"
+  },
+  {
+    "start": 277.79999999999995,
+    "end": 283.8,
+    "text": " celle vive come vicini allora sopra vive per esempio guardate questa"
+  },
+  {
+    "start": 283.8,
+    "end": 292.74,
+    "text": " cella qui uno due delle nove vicine a due celle vive e quindi sopravviverà"
+  },
+  {
+    "start": 293.78,
+    "end": 299.18,
+    "text": " se invece qua io posso togliere mettere celle ecco vi faccio un esempio per"
+  },
+  {
+    "start": 299.18,
+    "end": 304.88,
+    "text": " esempio molto tipico che questo qua questo è un più che continuamente"
+  },
+  {
+    "start": 304.88,
+    "end": 309.38,
+    "text": " diciamo forma un più perché c'è una linea che da orizzondale diventa"
+  },
+  {
+    "start": 309.38,
+    "end": 314.08,
+    "text": " verticale così via vi faccio vedere perché allora dicevo le regole sono"
+  },
+  {
+    "start": 314.08,
+    "end": 322.56,
+    "text": " quindi per esempio questa cella qui non ha nove vicini dentro ai nove vicini due o"
+  },
+  {
+    "start": 322.56,
+    "end": 329.94,
+    "text": " tre celle vive ne ha solo una questa qua tutta destra e quindi muore questa"
+  },
+  {
+    "start": 329.94,
+    "end": 336.24,
+    "text": " centrale invece sopravvive perché a due vicini vivi così come quella sinistra"
+  },
+  {
+    "start": 336.24,
+    "end": 341.2,
+    "text": " non sopravvive perché ha solo un vicino vivo che questo centrale mentre"
+  },
+  {
+    "start": 341.2,
+    "end": 348.3,
+    "text": " invece si applica un criterio diverso per le celle morte le celle morte diventano"
+  },
+  {
+    "start": 348.3,
+    "end": 356.26,
+    "text": " vive se hanno esattamente tre vicini vivi guardate questa celle qua a tre"
+  },
+  {
+    "start": 356.26,
+    "end": 360.98,
+    "text": " vicini vivi si uno due tre questa cella qua tre vicini vivi uno due tre quindi"
+  },
+  {
+    "start": 360.98,
+    "end": 366.22,
+    "text": " succede che nella rossa interazione i due le due celle estreme moriranno per"
+  },
+  {
+    "start": 366.22,
+    "end": 370.94,
+    "text": " sotto popolazione perché ci sono meno due o tre"
+  },
+  {
+    "start": 372.46000000000004,
+    "end": 377.4,
+    "text": " allo stesso modo se ha troppi vicino una cella muore per sovra popolazione"
+  },
+  {
+    "start": 377.4,
+    "end": 383.5,
+    "text": " mentre invece questa celle questa cella vivranno perché hanno tre vicini"
+  },
+  {
+    "start": 383.5,
+    "end": 387.18,
+    "text": " attivi esattamente tre vicini attivi siccome poi nello stato immediatamente"
+  },
+  {
+    "start": 387.18,
+    "end": 393.9,
+    "text": " successivo che si genera sia questa situazione contraria poi rivivranno"
+  },
+  {
+    "start": 393.9,
+    "end": 398.56,
+    "text": " quelle accanto orizzontali e quelle verticali non saranno moriranno e"
+  },
+  {
+    "start": 398.56,
+    "end": 403.68,
+    "text": " quindi si crea di continuo questa situazione alternante quindi questo è un"
+  },
+  {
+    "start": 403.68,
+    "end": 409.18,
+    "text": " gioco con delle regole molto semplici che noi possiamo simulare in c inoltre"
+  },
+  {
+    "start": 409.18,
+    "end": 413.38,
+    "text": " perché riusciamo a simularlo perché abbiamo visto in qualche lezione passata"
+  },
+  {
+    "start": 413.38,
+    "end": 419.04,
+    "text": " come si fa pulire lo schermo per simulare una griglia possiamo utilizzare gli"
+  },
+  {
+    "start": 419.04,
+    "end": 424.18,
+    "text": " spazi e gli asterischi o i puntini ma finché si vedano tutti tutti gli spazi"
+  },
+  {
+    "start": 424.18,
+    "end": 431.98,
+    "text": " della griglia e gli asterischi o i diesis i cangelletti o come volete chiamarli per"
+  },
+  {
+    "start": 431.98,
+    "end": 436.5,
+    "text": " fare invece le celle vive e quindi abbiamo anche a disposizione un ambiente"
+  },
+  {
+    "start": 436.5,
+    "end": 442.52,
+    "text": " chiamiamolo grafico testuale minimale per riuscire a simulare questa situazione"
+  },
+  {
+    "start": 442.52,
+    "end": 450.56,
+    "text": " qua qual è la parte veramente molto importante della lezione che faremo il"
+  },
+  {
+    "start": 450.56,
+    "end": 459.84,
+    "text": " modo in cui e lo vedrete presto scomporremo il problema in funzioni c e anche il modo"
+  },
+  {
+    "start": 459.84,
+    "end": 465.32,
+    "text": " in cui dobbiamo in qualche modo barcaminarci tra tutte le cose del c che"
+  },
+  {
+    "start": 465.32,
+    "end": 469.14,
+    "text": " non abbiamo fatto e che dovremmo utilizzare per scrivere un buon programma di"
+  },
+  {
+    "start": 469.14,
+    "end": 473.84,
+    "text": " game of life ma non abbiamo ancora studiato e quindi utilizzeremo degli"
+  },
+  {
+    "start": 473.84,
+    "end": 478.52,
+    "text": " escapotaggi che però saranno istruttivi ma più che altra la scomposizione del"
+  },
+  {
+    "start": 478.52,
+    "end": 484.72,
+    "text": " problema in funzioni vi ricordo sempre l'ho detto altre volte che in c è come se"
+  },
+  {
+    "start": 484.72,
+    "end": 488.6,
+    "text": " la prima parte del programma servisse a specializzare il linguaggio per il"
+  },
+  {
+    "start": 488.6,
+    "end": 493.26,
+    "text": " problema che vogliamo risolvere alzandoci di livello perché il c di solito è molto"
+  },
+  {
+    "start": 493.26,
+    "end": 498.48,
+    "text": " a basso livello noi scriviamo prima un primo set di funzioni che ci alzano di"
+  },
+  {
+    "start": 498.48,
+    "end": 502.42,
+    "text": " livello e poi con questo livello a volte ne costruiamo poi un altro un altro"
+  },
+  {
+    "start": 502.42,
+    "end": 509.48,
+    "text": " al fine scriviamo la nostra applicazione quindi è molto diciamo istruttivo da"
+  },
+  {
+    "start": 509.48,
+    "end": 515.06,
+    "text": " questo punto di vista una premessa importante io questo gioco non l'ho"
+  },
+  {
+    "start": 515.06,
+    "end": 521.64,
+    "text": " implemento forse da vent'anni e non ho fatto nessun tentativo di implementazione"
+  },
+  {
+    "start": 521.64,
+    "end": 526.72,
+    "text": " prima di fare questo video altrimenti avrei fatto una bellissima figura perché"
+  },
+  {
+    "start": 526.72,
+    "end": 532.66,
+    "text": " me lo sei me lo sarei preparato prima ma questo video mancherebbe di ogni"
+  },
+  {
+    "start": 532.66,
+    "end": 538.56,
+    "text": " spontaneità di quello che è il processo di problem solving perché mi vedrete"
+  },
+  {
+    "start": 538.56,
+    "end": 543.6,
+    "text": " sicuramente sbagliare aiuto anche il fatto che sono particolarmente stangone"
+  },
+  {
+    "start": 543.6,
+    "end": 548.64,
+    "text": " gli ultimi due giorni perché ho fatto un sacco di lavori di caso ho fatto anche"
+  },
+  {
+    "start": 548.64,
+    "end": 553.62,
+    "text": " dei lavori di profiling di redis e questa notte un ospite del bnb mi ha"
+  },
+  {
+    "start": 553.62,
+    "end": 557.82,
+    "text": " svegliato alle due e mezza quindi per una serie di motivi mi vedrete"
+  },
+  {
+    "start": 558.42,
+    "end": 564.4,
+    "text": " approcciare questo problema senza che io in questo momento alcuna idea di cos'è"
+  },
+  {
+    "start": 564.4,
+    "end": 565.32,
+    "text": " che farò"
+  },
+  {
+    "start": 568.12,
+    "end": 575.76,
+    "text": " andiamo dunque al nostro terminale chiamiamo life.c include standardio.h"
+  },
+  {
+    "start": 575.76,
+    "end": 581.98,
+    "text": " e io direi che la prima cosa che ci serve è non abbiamo le strutture vi"
+  },
+  {
+    "start": 581.98,
+    "end": 587.84,
+    "text": " ricordo non abbiamo fatto la define del del preprocessore per esempio io potrei"
+  },
+  {
+    "start": 587.84,
+    "end": 594.58,
+    "text": " scrivere define rows 50 define calls 50 in base alla"
+  },
+  {
+    "start": 594.58,
+    "end": 600.04,
+    "text": " grandezza che voglio della mia che sia la mia scacchiera niente useremo delle"
+  },
+  {
+    "start": 600.04,
+    "end": 604.5,
+    "text": " variabili globali int facciamo una cosa visto che sono con la variabili"
+  },
+  {
+    "start": 604.5,
+    "end": 610.58,
+    "text": " globali calls lo scrivo maiuscolo questo dovrebbe essere forse una"
+  },
+  {
+    "start": 610.58,
+    "end": 614.1,
+    "text": " proprietà della struttura che implementa la griglia ma noi non abbiamo fatto le"
+  },
+  {
+    "start": 614.1,
+    "end": 617.8,
+    "text": " strutture quindi andremo semplicemente utilizzare le variabili"
+  },
+  {
+    "start": 617.8,
+    "end": 625.38,
+    "text": " intere e gli array di numeri interi nient'altro quindi calls è uguale a"
+  },
+  {
+    "start": 625.38,
+    "end": 632.84,
+    "text": " facciamo non lo so una griglia 30 per 30 che ci dovrebbe andare abbastanza"
+  },
+  {
+    "start": 632.84,
+    "end": 638.66,
+    "text": " vediamo qua quando siamo qua al resaizo non c'è vediamo a quant'est di quante"
+  },
+  {
+    "start": 638.66,
+    "end": 648.88,
+    "text": " grandestoterminale a questo è 79 per 26 allora facciamo 25 per 25"
+  },
+  {
+    "start": 649.5799999999999,
+    "end": 660.36,
+    "text": " 25 nell'asse lx 25 nell'asse del y andiamo a fare a scrivere nostra funzione"
+  },
+  {
+    "start": 660.36,
+    "end": 666.1,
+    "text": " main allora la prima cosa che noi vogliamo fare è dichiarare un array che"
+  },
+  {
+    "start": 666.1,
+    "end": 671.7,
+    "text": " condenga tutte le nostre celle possiamo usare per questo array"
+  },
+  {
+    "start": 671.7,
+    "end": 676.82,
+    "text": " semplicemente char cioè il carattere perché tanto noi utilizzeremo per dire"
+  },
+  {
+    "start": 676.82,
+    "end": 685.34,
+    "text": " il punto è è l'asterisco per le celle morte per le celle vive quindi sono solo"
+  },
+  {
+    "start": 685.34,
+    "end": 691.88,
+    "text": " caratteri quindi io lo chiamerò questo grid chiamiamolo grid"
+  },
+  {
+    "start": 695.5600000000001,
+    "end": 705.54,
+    "text": " calls per rose esatto la mia griglia sarà grande 25 per 25 ora a me mi serve"
+  },
+  {
+    "start": 705.54,
+    "end": 712.04,
+    "text": " una funzione per inizializzare questa griglia affinché sia composta solo da"
+  },
+  {
+    "start": 712.04,
+    "end": 719.78,
+    "text": " celle da celle morte all'inizio e poi le celle vive che voglio settare quindi"
+  },
+  {
+    "start": 719.78,
+    "end": 723.92,
+    "text": " tanto per iniziare però prima di tutto veramente mi serve ancora prima di far"
+  },
+  {
+    "start": 723.92,
+    "end": 731.06,
+    "text": " questo mi serve una funzione che dato un punto x virgola y scusate c'ho telegram"
+  },
+  {
+    "start": 731.06,
+    "end": 739.16,
+    "text": " qua che mi balla io lo quitto che qualcuno mi scrive ma io me ne fotto mi"
+  },
+  {
+    "start": 739.16,
+    "end": 745.68,
+    "text": " serve qualcosa come set grid e get grid perché io devo poter dire per esempio"
+  },
+  {
+    "start": 745.68,
+    "end": 754.32,
+    "text": " setta questa griglia x virgola y al morto o vivo allora facciamo una cosa"
+  },
+  {
+    "start": 756.6,
+    "end": 758.6,
+    "text": " facciamo una cosa"
+  },
+  {
+    "start": 763.78,
+    "end": 773.0,
+    "text": " qua possiamo anche fare altri due altre due variabili globali che chiamo alive"
+  },
+  {
+    "start": 774.7199999999999,
+    "end": 785.74,
+    "text": " e l'asetto a questo carattere è dead e l'asetto a questo carattere ripeto avrei dovuto scrivere"
+  },
+  {
+    "start": 785.74,
+    "end": 797.92,
+    "text": " define live a sterisco define dead puntino ma in realtà guardate ragazzi ma lo"
+  },
+  {
+    "start": 798.34,
+    "end": 803.94,
+    "text": " benissimo fare facciamo perché vi dico come funziona define se qua ci sarà"
+  },
+  {
+    "start": 803.94,
+    "end": 809.96,
+    "text": " scritto in giro 2 punto e live questo il preprocessore del c sostituirà ad"
+  },
+  {
+    "start": 809.96,
+    "end": 813.52,
+    "text": " alive quello che c'è qua a destra quindi questo segna proprio una"
+  },
+  {
+    "start": 813.52,
+    "end": 817.64,
+    "text": " sostituzione testuale è troppo facile non me lo ricordo se già l'ho fatto"
+  },
+  {
+    "start": 817.64,
+    "end": 828.64,
+    "text": " quindi define grid calls 25 define grid rolls 25 lo stesso non è il massimo"
+  },
+  {
+    "start": 828.64,
+    "end": 834.0,
+    "text": " perché noi dovremmo avere una struttura che cattura queste proprietà ma ci lo"
+  },
+  {
+    "start": 834.0,
+    "end": 843.72,
+    "text": " faremo abbastare quindi char grid grid calls per grid rows andiamo a creare"
+  },
+  {
+    "start": 843.96,
+    "end": 856.86,
+    "text": " questa funzione set grid onzi set cell void perché non ci ritorna nulla set"
+  },
+  {
+    "start": 856.86,
+    "end": 860.58,
+    "text": " cell allora qua dobbiamo necessariamente usare un puntatore char grid"
+  },
+  {
+    "start": 860.58,
+    "end": 865.46,
+    "text": " scusatevi di questo sappiate solo che poi capiremo perché lo stiamo facendo"
+  },
+  {
+    "start": 865.46,
+    "end": 870.28,
+    "text": " nelle lezioni successive non abbiamo scampo per capir per farvi capire quanto il"
+  },
+  {
+    "start": 870.28,
+    "end": 876.84,
+    "text": " sci è profondamente interconnesso l'idea degli indirizzi memoria che"
+  },
+  {
+    "start": 876.84,
+    "end": 879.86,
+    "text": " siano passati da una parte all'altra c'è alcune cose proprio non si possono"
+  },
+  {
+    "start": 879.86,
+    "end": 887.0,
+    "text": " fare altrimenti quindi noi faremo char grid col puntatore e poi non vi preoccupate"
+  },
+  {
+    "start": 887.0,
+    "end": 893.78,
+    "text": " perché dentro questa funzione possiamo sempre differirci a grid con un indice"
+  },
+  {
+    "start": 894.64,
+    "end": 899.82,
+    "text": " e leggere lo scriverlo e fare quello che vogliamo quindi fregata me questo è il"
+  },
+  {
+    "start": 899.82,
+    "end": 904.64,
+    "text": " modo in cui noi passiamo questo è rei non per valore ma per riferimento quindi"
+  },
+  {
+    "start": 904.64,
+    "end": 913.62,
+    "text": " da questa funzione noi chiamiamo set cell grid virgola 10 virgola 10 virgola"
+  },
+  {
+    "start": 913.62,
+    "end": 924.76,
+    "text": " e live questa punto della griglia sarà settato e live ma poi la funzione main"
+  },
+  {
+    "start": 924.76,
+    "end": 929.72,
+    "text": " continuerà a vedere questa modifica che set cell ha operato perché grid viene"
+  },
+  {
+    "start": 929.72,
+    "end": 934.36,
+    "text": " passato per riferimento e quindi qualsiasi modifica viene fatta a grid"
+  },
+  {
+    "start": 934.36,
+    "end": 938.9,
+    "text": " io continuerò a vederla quindi io qua passo l'indirizzo in memoria a set cell"
+  },
+  {
+    "start": 938.9,
+    "end": 948.16,
+    "text": " ind x ind y ind state è il nuovo stato allora abituiamoci anche a fare le"
+  },
+  {
+    "start": 948.16,
+    "end": 957.0,
+    "text": " cose bene the function sets the specified cell at x y"
+  },
+  {
+    "start": 957.0,
+    "end": 962.76,
+    "text": " to the specified state anche se questa funzione semplicissima noi la"
+  },
+  {
+    "start": 962.76,
+    "end": 966.66,
+    "text": " commentiamo allora vi voglio anche dire una cosa ora noi dobbiamo andare a"
+  },
+  {
+    "start": 967.2,
+    "end": 977.36,
+    "text": " vedere la griglia che è a un particolare valore la dobbiamo andare a setare a"
+  },
+  {
+    "start": 979.94,
+    "end": 987.2,
+    "text": " cioè la griglia che corrisponde a x y dobbiamo risolverla a farla diventare un"
+  },
+  {
+    "start": 987.2,
+    "end": 992.0,
+    "text": " punto lineare nel nostro rei perché guardate me ammettiamo che io una"
+  },
+  {
+    "start": 992.0,
+    "end": 998.66,
+    "text": " griglia 3 per 3 gli indici del mio rei a cui io registrereò la griglia"
+  },
+  {
+    "start": 998.66,
+    "end": 1006.96,
+    "text": " saranno 0 1 2 3 4 5 6 7 e 8 ma a me l'utende mi sta passando x virgola y"
+  },
+  {
+    "start": 1006.96,
+    "end": 1012.98,
+    "text": " allora questa è molto facile da scomporre perché io devo fare y per il"
+  },
+  {
+    "start": 1012.98,
+    "end": 1020.32,
+    "text": " numero di colonne che ho quindi 3 quindi se se y praticamente è 0 io parto da qui"
+  },
+  {
+    "start": 1020.32,
+    "end": 1025.82,
+    "text": " 6 y è 1 voglio partire da qui quindi aggiungo 3 6 x non è 2 aggiungo 6 è così"
+  },
+  {
+    "start": 1025.82,
+    "end": 1032.84,
+    "text": " via più x che questo mi dà l'offset orizzontale quindi"
+  },
+  {
+    "start": 1036.2399999999998,
+    "end": 1048.68,
+    "text": " grid di y per il numero di colonne che ho più x è uguale a state"
+  },
+  {
+    "start": 1049.2,
+    "end": 1056.14,
+    "text": " basta la nostra funzione è tutta qua ma in realtà non è così facile ora"
+  },
+  {
+    "start": 1056.14,
+    "end": 1065.08,
+    "text": " vedremo perché io direi che è molto utile se noi abbiamo la libertà di"
+  },
+  {
+    "start": 1065.08,
+    "end": 1069.98,
+    "text": " poter specificare anche valori negativi per esempio meno 1 e la nostra"
+  },
+  {
+    "start": 1069.98,
+    "end": 1075.54,
+    "text": " funzione automaticamente riesce a capire che meno 1 vuol dire che deve partire"
+  },
+  {
+    "start": 1075.54,
+    "end": 1080.86,
+    "text": " dal lato destro ok dalla fine della griglia in modo che la griglia anche"
+  },
+  {
+    "start": 1080.86,
+    "end": 1085.34,
+    "text": " sei limitata è infinita perché come se si toccasse da una parte dall'altra"
+  },
+  {
+    "start": 1085.34,
+    "end": 1092.26,
+    "text": " però prima scriviamo la nostra char get cell che è la simmetrica di questa"
+  },
+  {
+    "start": 1092.26,
+    "end": 1095.42,
+    "text": " char grid index in di y"
+  },
+  {
+    "start": 1097.08,
+    "end": 1102.32,
+    "text": " the function returns the state of the grid at x y"
+  },
+  {
+    "start": 1104.58,
+    "end": 1116.18,
+    "text": " return grid y per grid calls più x e qui mi ritornano lo stato della mia"
+  },
+  {
+    "start": 1116.18,
+    "end": 1123.1,
+    "text": " griglia in quella specifica posizione facciamo una cosa che le dite se noi"
+  },
+  {
+    "start": 1123.1,
+    "end": 1128.42,
+    "text": " scriviamo una funzione che faccia questo per noi in modo anche se andiamo in"
+  },
+  {
+    "start": 1128.42,
+    "end": 1132.4,
+    "text": " overflow per esempio la nostra griglia di 25 se io scrivo qua 20 se io voglio"
+  },
+  {
+    "start": 1132.4,
+    "end": 1137.62,
+    "text": " accedere all'elemento x 25 che sarebbe in overflow perché sarebbe da 0 24"
+  },
+  {
+    "start": 1137.62,
+    "end": 1143.18,
+    "text": " l'indice se partiamo da 0 io voglio che 25 diventi 0 che faccia wrapper"
+  },
+  {
+    "start": 1143.18,
+    "end": 1148.4599999999998,
+    "text": " round quindi proviamo a scrivere una nostra funzione che faccia questa parte che c'è"
+  },
+  {
+    "start": 1148.73,
+    "end": 1155.27,
+    "text": " dentro che converta x e y nell'indice vediamo di vendere un nome decente per"
+  },
+  {
+    "start": 1155.27,
+    "end": 1161.57,
+    "text": " questa funzione sell to offset"
+  },
+  {
+    "start": 1165.29,
+    "end": 1183.71,
+    "text": " ci sta bene x y translate the specified x y grid point into the offset into the index"
+  },
+  {
+    "start": 1183.71,
+    "end": 1200.59,
+    "text": " index in the linear array this function implements wrapping so both negative and positive indexes"
+  },
+  {
+    "start": 1200.59,
+    "end": 1213.63,
+    "text": " coordinates that are out of the grid will wrap around e vediamo questa roba qui"
+  },
+  {
+    "start": 1213.63,
+    "end": 1226.49,
+    "text": " come che la dobbiamo fare allora questa roba qui in realtà non è difficile da fare e vi dico per"
+  },
+  {
+    "start": 1226.49,
+    "end": 1239.51,
+    "text": " quale motivo iniziamo con il caso positivo ok quindi io devo tanto iniziare scrivere questa"
+  },
+  {
+    "start": 1241.05,
+    "end": 1267.43,
+    "text": " cosa iniziamo con il caso positivo iniziamo con il caso positivo iniziamo con il caso"
+  },
+  {
+    "start": 1269.51,
+    "end": 1276.89,
+    "text": " però perché ho fatto così perché praticamente che cos'è percentuale percentuale l'operazione di"
+  },
+  {
+    "start": 1276.89,
+    "end": 1285.09,
+    "text": " modulo quindi il resto della divisione tra x e grid calls perché questa cosa qua funziona"
+  },
+  {
+    "start": 1286.67,
+    "end": 1296.03,
+    "text": " questa cosa qui funziona perché praticamente il resto della divisione per 25 sarà se io"
+  },
+  {
+    "start": 1296.03,
+    "end": 1303.01,
+    "text": " è come ogni volta che io vado in overflow vorrei sottrarre 25 fino a quando un numero"
+  },
+  {
+    "start": 1303.01,
+    "end": 1308.45,
+    "text": " imperiore a 25 per vedere di quando sono andato oltre è così implemento il wrapper a un di"
+  },
+  {
+    "start": 1308.45,
+    "end": 1316.61,
+    "text": " maniera corretta per esempio vi faccio un esempio se per caso io ho in 25 che è esattamente il"
+  },
+  {
+    "start": 1316.61,
+    "end": 1325.91,
+    "text": " primo che vai in overflow la divisione di 25 per 25 il resto zero ok se avessi 26 diventa"
+  },
+  {
+    "start": 1325.91,
+    "end": 1332.55,
+    "text": " 1 è così via quindi questa cosa lo risolta così stessa cosa qui x e fipson in maggiora"
+  },
+  {
+    "start": 1332.55,
+    "end": 1348.75,
+    "text": " quale grid rose y y monolo grid rose andiamo ora al negativo quando io c'ho il numero"
+  },
+  {
+    "start": 1348.75,
+    "end": 1359.13,
+    "text": " negativo quello che vorrei fare in teoria è aggiungere grid calls continuamente fino a"
+  },
+  {
+    "start": 1359.13,
+    "end": 1365.45,
+    "text": " quando finalmente il numero diventa positivo e a quel punto io praticamente ho risolto perché"
+  },
+  {
+    "start": 1365.45,
+    "end": 1372.47,
+    "text": " immaginate se ho meno uno meno uno che cos'è che corrisponderebbe il primo dall'altra parte quindi"
+  },
+  {
+    "start": 1372.47,
+    "end": 1387.15,
+    "text": " a 24 quindi meno uno più 25 fa esattamente 24 e sarebbe ok ma per riportare questa cosa negli"
+  },
+  {
+    "start": 1387.15,
+    "end": 1396.21,
+    "text": " ordini della matematica intera positiva io faccio una cosa tanto per iniziare trasformo"
+  },
+  {
+    "start": 1403.63,
+    "end": 1418.25,
+    "text": " allora immaginiamo quindi prima di non avere l'overflow quindi io potrei fare x è uguale a grid"
+  },
+  {
+    "start": 1418.25,
+    "end": 1431.15,
+    "text": " calls meno più x quindi immaginate che x sia meno uno grid calls è 25 più meno uno andiamo a 24"
+  },
+  {
+    "start": 1431.15,
+    "end": 1441.49,
+    "text": " che è il proprio quello che desideriamo però c'è un piccolo problema che io se ho meno 100 questo"
+  },
+  {
+    "start": 1441.49,
+    "end": 1447.43,
+    "text": " gioco non funziona più perché praticamente anche se poi c'è giungo grid calls non è sufficiente"
+  },
+  {
+    "start": 1447.46,
+    "end": 1462.92,
+    "text": " quindi io faccio una cosa prima faccio x è uguale a meno x lo rendo positivo modulo però grid"
+  },
+  {
+    "start": 1462.92,
+    "end": 1476.34,
+    "text": " calls quindi lo normalizzo di nuovo wrapparand ok esatto ora però l'ho fatto tornare positivo"
+  },
+  {
+    "start": 1476.34,
+    "end": 1483.76,
+    "text": " e l'ho normalizzato secondo la matematica dell'orologio per capirci e qui però scrivo meno"
+  },
+  {
+    "start": 1483.76,
+    "end": 1506.32,
+    "text": " perché ormai da negativo che era l'ho fatto di andare positivo ok facciamo una stessa cosa"
+  },
+  {
+    "start": 1506.32,
+    "end": 1511.2,
+    "text": " però ci dobbiamo rendere conto se questa cosa funziona allora vi faccio un esempio facciamo"
+  },
+  {
+    "start": 1511.2,
+    "end": 1518.04,
+    "text": " un esempio proprio pratico mettiamo che x sia meno 3 allora meno 3 significa se io ho la"
+  },
+  {
+    "start": 1518.04,
+    "end": 1530.6,
+    "text": " griglia da 24 ok quindi 24 sarebbe quindi 0 sarei a 0 meno 1 sarei a 24 meno 2 sarei a 23"
+  },
+  {
+    "start": 1530.6,
+    "end": 1542.12,
+    "text": " meno 3 sarei a 22 infatti qua verrebbe bc 25 più meno 3 e funziona il problema è che succede"
+  },
+  {
+    "start": 1542.12,
+    "end": 1555.5,
+    "text": " se io ho 25 più meno 50 così non va sono a 25 a meglio facciamo un esempio più più sensato che"
+  },
+  {
+    "start": 1555.5,
+    "end": 1562.18,
+    "text": " è più facile da capire allora meno 3 se io ci aggiungo a meno 3 25 meno 3 più 25 sarebbe"
+  },
+  {
+    "start": 1562.18,
+    "end": 1570.72,
+    "text": " meno 28 e qua vado a meno 3 e non va bene quindi guardate io che cos'è che ho fatto allora io ho"
+  },
+  {
+    "start": 1570.72,
+    "end": 1586.52,
+    "text": " scritto prima x uguale meno x modulo cols quindi 28 e quindi a meno 28 quindi meno x l'ho inverto"
+  },
+  {
+    "start": 1586.52,
+    "end": 1599.7,
+    "text": " modulo 25 e diventa 3 poi faccio 25 meno 3 e diventa 22 vedete che funziona almeno dovrebbe"
+  },
+  {
+    "start": 1599.7,
+    "end": 1606.4,
+    "text": " funzionare senza alcun problema che angeliamo qui va bene ora che abbiamo sell 2 index guardate"
+  },
+  {
+    "start": 1606.4,
+    "end": 1618.56,
+    "text": " noi andiamo a sostituire qui sell 2 index x virgola y e anche qua sell 2 index x virgola y"
+  },
+  {
+    "start": 1619.82,
+    "end": 1627.42,
+    "text": " è magica mond cioè guardate questa è proprio un'astrazione questa è una stazione di più basso"
+  },
+  {
+    "start": 1627.42,
+    "end": 1633.84,
+    "text": " livello che viene utilizzata da due astrazioni di più alto livello set sell che però sono la"
+  },
+  {
+    "start": 1633.84,
+    "end": 1641.58,
+    "text": " stessa attrazione un e setter una getter e ora la main può fare tutto quello che vuole però"
+  },
+  {
+    "start": 1641.58,
+    "end": 1646.1,
+    "text": " vi dico le virità c'è un problema con tutto ciò noi prima ci dobbiamo mettere nelle condizioni"
+  },
+  {
+    "start": 1646.1,
+    "end": 1652.62,
+    "text": " di osservare sta roba quindi quindi a noi ci serve una funzione che si chiama print grid"
+  },
+  {
+    "start": 1652.62,
+    "end": 1660.7,
+    "text": " quindi set sell get sell print grid"
+  },
+  {
+    "start": 1662.5,
+    "end": 1675.64,
+    "text": " va beh set sell però lo angeliamo print grid print grid show the grid on the screen clearing the"
+  },
+  {
+    "start": 1678.3799999999999,
+    "end": 1686.3,
+    "text": " terminal using the requested needed required"
+  },
+  {
+    "start": 1689.26,
+    "end": 1702.34,
+    "text": " utti 100 sk sequence ok print grid utilizzerò ovviamente che sell quindi è facile da scrivere"
+  },
+  {
+    "start": 1702.34,
+    "end": 1721.74,
+    "text": " chart grid for ind y 0 x y minore grid rose y più più for index 0 x minore grid calls x più"
+  },
+  {
+    "start": 1724.3400000000001,
+    "end": 1743.82,
+    "text": " print f carattere get sell grid virgola x virgola y qua dopo questo scritto la prima row mi serve"
+  },
+  {
+    "start": 1743.82,
+    "end": 1757.6,
+    "text": " a new line dopo andare a capo basta e qui è fatta la funzione mi serve pure set board chart"
+  },
+  {
+    "start": 1757.6,
+    "end": 1775.22,
+    "text": " grid allora set board che è una funzione la il commento set all the grid set grid set all the grid"
+  },
+  {
+    "start": 1775.22,
+    "end": 1789.6,
+    "text": " sales today specify state chart grid in star state qua state avevamo fatto abbiamo sbagliato questo"
+  },
+  {
+    "start": 1789.6,
+    "end": 1805.04,
+    "text": " è chart perché sempre di caratteri si tratta ok cat and based selvage del ciclo for set sell"
+  },
+  {
+    "start": 1805.04,
+    "end": 1813.72,
+    "text": " virgola state da notare che per utilizzare puntatori ma set tutte le funzioni in ci che avremmo dovuto"
+  },
+  {
+    "start": 1813.72,
+    "end": 1819.78,
+    "text": " utilizzare solo le vessimo già studiate noi stiamo scrivendo un programma poco efficiente"
+  },
+  {
+    "start": 1819.78,
+    "end": 1824.2,
+    "text": " ce ne freghiamo questo programma poco efficiente sarà comunque ordini di grandezza più veloce"
+  },
+  {
+    "start": 1824.2,
+    "end": 1832.14,
+    "text": " dello stesso programma scritto in python allora a questo punto guardate che possiamo fare"
+  },
+  {
+    "start": 1832.14,
+    "end": 1843.38,
+    "text": " abbiamo la nostra griglia bene set grid grid questo come si chiama el ai"
+  },
+  {
+    "start": 1848.36,
+    "end": 1859.38,
+    "text": " print grid grid breton zero mia abbiamo scritto un programma andiamo quanti warning ci sono ora"
+  },
+  {
+    "start": 1865.8799999999999,
+    "end": 1881.46,
+    "text": " che ho fatto 23 retarna qua abbiamo fatto ho fatto solo la la conversione y per grid rose"
+  },
+  {
+    "start": 1881.46,
+    "end": 1898.7,
+    "text": " più x grid cols ok qui alla fine devo calcolare l offset e questo era un problema poi 42"
+  },
+  {
+    "start": 1898.7,
+    "end": 1904.82,
+    "text": " qua non abbiamo chiuso la parente siamo meglio perché vi faccio anche a voi rei di una cosa che"
+  },
+  {
+    "start": 1904.82,
+    "end": 1915.82,
+    "text": " non avete fatto se sono stato io esatto 25 per 25 è già assale praticamente diciamo 20 per 20"
+  },
+  {
+    "start": 1915.82,
+    "end": 1922.86,
+    "text": " per i nostri fini ecco vedete per esempio come è stato facile ora modificare perché avevamo le"
+  },
+  {
+    "start": 1922.86,
+    "end": 1928.0,
+    "text": " define abbiamo usato sempre queste quindi abbiamo modificato vediamo se funziona pure la nostra"
+  },
+  {
+    "start": 1928.0,
+    "end": 1945.0,
+    "text": " set grid grid 10 virgola 10 virgola a qua dobbiamo fare dead live solo questa quindi abbiamo settato"
+  },
+  {
+    "start": 1946.84,
+    "end": 1962.5,
+    "text": " too many arguments gestanzo a set sell devo setter una sola cella e non ha funzionato attenzione attenzione"
+  },
+  {
+    "start": 1962.5,
+    "end": 1973.88,
+    "text": " che non ha funzionato sell to index x virgola y allora né può essere che x è minus di zero"
+  },
+  {
+    "start": 1973.88,
+    "end": 1979.88,
+    "text": " e né può essere che x è maggiore o uguale a questa roba qui perché le ho passate apposta"
+  },
+  {
+    "start": 1984.68,
+    "end": 1995.96,
+    "text": " corrette y per grid per questo è corretto set sell è corretto ma semplicemente la stampo prima di"
+  },
+  {
+    "start": 1995.96,
+    "end": 2003.62,
+    "text": " modificarlo stato ok come vedete alla nostra 10 virgola 10 è stata settata ora andiamo a fare"
+  },
+  {
+    "start": 2003.62,
+    "end": 2011.7,
+    "text": " una cosa più interessante allora noi ci mettiamo ora quando abbiamo detto che è 20 per 20 ci"
+  },
+  {
+    "start": 2011.7,
+    "end": 2022.92,
+    "text": " mettiamo a 19 virgola 10 quindi nel bordo proprio al limite andiamo oltre a vendi e passa l'altra parte"
+  },
+  {
+    "start": 2027.4200000000003,
+    "end": 2040.3600000000001,
+    "text": " esatto a 40 passa ancora dall'altra parte dovrebbe essere 41 è uno in più meno uno"
+  },
+  {
+    "start": 2046.3400000000001,
+    "end": 2068.6,
+    "text": " è proprio nell'angolo al limite meno 19 è giusto perché meno uno meno due meno tre meno"
+  },
+  {
+    "start": 2068.6,
+    "end": 2077.04,
+    "text": " il momento è proprio al limite meno 21 si torna dall'altra parte va bene sembra che le nostre"
+  },
+  {
+    "start": 2077.04,
+    "end": 2087.54,
+    "text": " funzioni di base ci siano tutte a questo punto io farò una cosa a me non mi serve in realtà solo"
+  },
+  {
+    "start": 2087.54,
+    "end": 2097.56,
+    "text": " una griglia a me mi serve old grid e char new grid grid calls per grid rose"
+  },
+  {
+    "start": 2101.2200000000003,
+    "end": 2108.24,
+    "text": " facciamo ancora un altro cosa quando perché abbiamo fatto di grid calls e grid rose define grid"
+  },
+  {
+    "start": 2109.44,
+    "end": 2118.44,
+    "text": " cells il numero di celle della griglia è grid calls per grid rose vi faccio vedere una cosa l'abbiamo"
+  },
+  {
+    "start": 2118.44,
+    "end": 2123.44,
+    "text": " messo tra parentesi perché così noi non abbiamo problemi colp'la precedenza degli operatori perché"
+  },
+  {
+    "start": 2123.44,
+    "end": 2129.16,
+    "text": " poi in base a come usiamo questo grid cell siccome viene proprio scompattato una trasformazione"
+  },
+  {
+    "start": 2129.16,
+    "end": 2135.34,
+    "text": " di testo che fa il preprocessore se poi ci sono più o meno diviso per non vogliamo problemi quindi"
+  },
+  {
+    "start": 2135.34,
+    "end": 2139.32,
+    "text": " mettiamo questo ulteriore parentesi e siamo sicuri che questa è un'espressione a sé che"
+  },
+  {
+    "start": 2139.32,
+    "end": 2157.34,
+    "text": " verrà valutata prima delle altre allora grid cells è leggermente più pulito allora"
+  },
+  {
+    "start": 2158.88,
+    "end": 2163.7400000000002,
+    "text": " old grid old grid old grid"
+  },
+  {
+    "start": 2168.86,
+    "end": 2176.1,
+    "text": " e vabbè variabili hanno utilizzata ce ne sbattiamo funziona ancora tutto a questo punto"
+  },
+  {
+    "start": 2176.1,
+    "end": 2186.0,
+    "text": " facciamo la funzione che è quella centrale new state la funzione new state prende l'old"
+  },
+  {
+    "start": 2187.8199999999997,
+    "end": 2197.44,
+    "text": " prende anche un puntatore al stato nuovo quindi qua ci terrò la versione vecchia e qua avrò la"
+  },
+  {
+    "start": 2197.44,
+    "end": 2211.22,
+    "text": " mia nuova versione della griglia quindi new state old virgola new e basta non mi serve nient'altro"
+  },
+  {
+    "start": 2211.22,
+    "end": 2219.68,
+    "text": " compute the new state of game of life according to its rules"
+  },
+  {
+    "start": 2223.2,
+    "end": 2230.6,
+    "text": " allora una figata che può sembrare stupid una stupidaggia ma importantissimo è che quando noi"
+  },
+  {
+    "start": 2230.6,
+    "end": 2238.14,
+    "text": " praticamente abbiamo fatto sta cosa ecco prendete qui ricarichiamo sta pagina questo è un glider"
+  },
+  {
+    "start": 2238.14,
+    "end": 2244.74,
+    "text": " guardatelo vedete qui praticamente le cose vanno a morire quando finiscono nei bordi dello schermo"
+  },
+  {
+    "start": 2245.3799999999997,
+    "end": 2250.96,
+    "text": " dovrebbero invece continuare dall'altra parte e il nostro gioco dovrebbe funzionare in questo modo"
+  },
+  {
+    "start": 2250.96,
+    "end": 2263.26,
+    "text": " qua invece tutto va a morire per esempio c'è una un glider che è molto molto utilizzato"
+  },
+  {
+    "start": 2263.26,
+    "end": 2272.28,
+    "text": " è semplice questo cosa funziona veramente male the offset è sfangulatissimo dovrebbe essere questo"
+  },
+  {
+    "start": 2272.28,
+    "end": 2280.04,
+    "text": " se non mi sbaglio esatto guardate questo è un glider cammina sempre ora io mi aspetto questa"
+  },
+  {
+    "start": 2280.04,
+    "end": 2288.08,
+    "text": " roba quando arriva qua all'angolo dello schermo passi dall'altra parte invece no perché qui la"
+  },
+  {
+    "start": 2288.08,
+    "end": 2294.98,
+    "text": " nostra logica a qui è a qui hanno fatto proprio una griglia infinita in realtà è molto più figo"
+  },
+  {
+    "start": 2294.98,
+    "end": 2301.44,
+    "text": " però diciamo devi seguire a lui noi invece vogliamo che così da solo passi dall'altra parte"
+  },
+  {
+    "start": 2301.44,
+    "end": 2306.62,
+    "text": " dovrebbe funzionare in teoria così il nostro il nostro robo tra l'altro per avere"
+  },
+  {
+    "start": 2311.28,
+    "end": 2315.44,
+    "text": " new state print grid noi ce l'abbiamo solo che non abbiamo fatto la cangellazione"
+  },
+  {
+    "start": 2316.32,
+    "end": 2324.1,
+    "text": " clear clear x dump meno c vediamo quali sono le sequenze di escape mele copio brutalmente"
+  },
+  {
+    "start": 2324.74,
+    "end": 2332.58,
+    "text": " da qua le escape 1b quindi print f"
+  },
+  {
+    "start": 2335.3399999999997,
+    "end": 2340.62,
+    "text": " e sarebbe 0x 1b 0x"
+  },
+  {
+    "start": 2343.94,
+    "end": 2348.12,
+    "text": " x 1b x 1b"
+  },
+  {
+    "start": 2349.2999999999997,
+    "end": 2353.92,
+    "text": " e ora funziona qua che ho fatto a new state"
+  },
+  {
+    "start": 2357.18,
+    "end": 2357.74,
+    "text": " che"
+  },
+  {
+    "start": 2357.74,
+    "end": 2362.04,
+    "text": " si vedete ora che ancella lo schermo e poi stampa va bene"
+  },
+  {
+    "start": 2368.18,
+    "end": 2375.48,
+    "text": " allora new state che dobbiamo fare noi però ogni cella ma ora noi facciamo una cosa figlissima"
+  },
+  {
+    "start": 2376.6800000000003,
+    "end": 2382.72,
+    "text": " guardate in noi ci serve ogni volta a sapere quanti vicini sto coso ha quanti sono vivi e"
+  },
+  {
+    "start": 2383.52,
+    "end": 2391.48,
+    "text": " quindi noi facciamo in count leaving naked borsi char grid"
+  },
+  {
+    "start": 2393.52,
+    "end": 2402.74,
+    "text": " in x in y quindi dato un x y mi conti per piacere quanti vicini vivi o return"
+  },
+  {
+    "start": 2402.74,
+    "end": 2408.1,
+    "text": " il numero di vivi di vivi celli"
+  },
+  {
+    "start": 2412.42,
+    "end": 2415.78,
+    "text": " naked borsi di x y"
+  },
+  {
+    "start": 2420.8199999999997,
+    "end": 2423.64,
+    "text": " allora e qua guardate che facciamo return"
+  },
+  {
+    "start": 2423.64,
+    "end": 2423.82,
+    "text": " no"
+  },
+  {
+    "start": 2426.1000000000004,
+    "end": 2427.38,
+    "text": " get grid"
+  },
+  {
+    "start": 2428.1800000000003,
+    "end": 2428.82,
+    "text": " grid"
+  },
+  {
+    "start": 2433.8,
+    "end": 2437.5,
+    "text": " x quindi iniziamo da x meno 1 virgola x in on"
+  },
+  {
+    "start": 2440.36,
+    "end": 2443.24,
+    "text": " uguale a live"
+  },
+  {
+    "start": 2446.5800000000004,
+    "end": 2453.32,
+    "text": " più get grid qui non c'è bisogno in realtà di questa roba qui la presenza dei operatori"
+  },
+  {
+    "start": 2453.32,
+    "end": 2460.64,
+    "text": " ci verrà ben contro ma noi vogliamo essere espliciti e non magici o particolarmente bravi grid"
+  },
+  {
+    "start": 2461.74,
+    "end": 2472.34,
+    "text": " virgola x meno 1 virgola y meno 1 e siamo qui nord ofest uguale live più"
+  },
+  {
+    "start": 2478.0199999999995,
+    "end": 2480.74,
+    "text": " x virgola y meno 1 nord"
+  },
+  {
+    "start": 2481.9399999999996,
+    "end": 2485.6,
+    "text": " x più 1 virgola y"
+  },
+  {
+    "start": 2487.6200000000003,
+    "end": 2492.06,
+    "text": " qua ovviamente io avrei potuto fare una cosa più figa facciamo un ciclo for"
+  },
+  {
+    "start": 2494.46,
+    "end": 2503.98,
+    "text": " si così è troppo basic in live uguale a zero for in x uguale a meno 1 x"
+  },
+  {
+    "start": 2504.62,
+    "end": 2512.78,
+    "text": " minore uguale a meno 1 x più più quindi x varrà meno 1 1 meno 1 0 1"
+  },
+  {
+    "start": 2523.0000000000005,
+    "end": 2525.44,
+    "text": " e qua facciamo con la y"
+  },
+  {
+    "start": 2531.26,
+    "end": 2539.86,
+    "text": " y più più in realtà i altri cicli di abbiamo invertiti qua abbiamo messo x y x continuiamo"
+  },
+  {
+    "start": 2539.86,
+    "end": 2546.62,
+    "text": " a seguire la stessa logica allora qui però c'è una una questione raga noi qui dovremmo fare ora"
+  },
+  {
+    "start": 2546.62,
+    "end": 2553.2,
+    "text": " if set get sell grid x virgola y virgola live"
+  },
+  {
+    "start": 2555.04,
+    "end": 2561.9,
+    "text": " scusatemi uguale uguale live se la ce l'è viva è live più più quindi è live uguale live più uno"
+  },
+  {
+    "start": 2562.78,
+    "end": 2569.66,
+    "text": " solo che noi vogliamo che se x uguale uguale a zero e y uguale a zero"
+  },
+  {
+    "start": 2571.06,
+    "end": 2574.78,
+    "text": " ora qua x e y non le possiamo utilizzare perché non c'è l'ergo in dire la funzione"
+  },
+  {
+    "start": 2574.78,
+    "end": 2582.32,
+    "text": " quindi ora quali chiamiamo x offset a qua ho sbagliato pure questi ho sbagliato un po tutto"
+  },
+  {
+    "start": 2583.26,
+    "end": 2591.74,
+    "text": " poi y offset y x offset y offset x offset x offset"
+  },
+  {
+    "start": 2595.5,
+    "end": 2602.34,
+    "text": " if x offset uguale a zero e y offset uguale a zero continuo questo ciclo lo voglio saltare perché"
+  },
+  {
+    "start": 2602.34,
+    "end": 2607.66,
+    "text": " io non voglio vedere se è viva la cella stessa che io specifico ma solo quella attorno le nove"
+  },
+  {
+    "start": 2607.66,
+    "end": 2618.78,
+    "text": " i nove vicini e qua in realtà è get sell x più x offset y più y offset"
+  },
+  {
+    "start": 2620.82,
+    "end": 2623.44,
+    "text": " e ora ci siamo e live"
+  },
+  {
+    "start": 2627.42,
+    "end": 2628.1,
+    "text": " e"
+  },
+  {
+    "start": 2628.1,
+    "end": 2634.62,
+    "text": " return alive guardate grazie al fatto che noi qui abbiamo gestito sta roba il frapping qui non è"
+  },
+  {
+    "start": 2634.62,
+    "end": 2640.62,
+    "text": " che ci abbiamo preoccupare che siamo al bordo della cella allora che succede no perché le nostre"
+  },
+  {
+    "start": 2640.62,
+    "end": 2647.26,
+    "text": " rastrazioni non state costruite in maniera robusta all'inizio è praticamente viviamo si può dire"
+  },
+  {
+    "start": 2647.9,
+    "end": 2653.26,
+    "text": " rendita count living neighbors vediamo se funziona"
+  },
+  {
+    "start": 2659.42,
+    "end": 2660.46,
+    "text": " vediamo se funziona"
+  },
+  {
+    "start": 2662.46,
+    "end": 2665.38,
+    "text": " quindi noi abbiamo fatto la set sell 10 virgola 10"
+  },
+  {
+    "start": 2667.6600000000003,
+    "end": 2670.28,
+    "text": " poi facciamo 10 virgola 11"
+  },
+  {
+    "start": 2671.52,
+    "end": 2674.7,
+    "text": " e abbiamo questa situazione qui 1 2"
+  },
+  {
+    "start": 2676.1600000000003,
+    "end": 2683.76,
+    "text": " esatto e allora io in questo momento secondo print"
+  },
+  {
+    "start": 2687.7200000000003,
+    "end": 2692.02,
+    "text": " count living neg boss"
+  },
+  {
+    "start": 2693.4400000000005,
+    "end": 2702.08,
+    "text": " crit virgola per dire 10 virgola 12 nel dovrebbe avere solo uno che sarebbe il 10 virgola 11"
+  },
+  {
+    "start": 2702.08,
+    "end": 2706.26,
+    "text": " perché stiamo andando ancora più sotto non c'è l'a"
+  },
+  {
+    "start": 2707.6600000000003,
+    "end": 2711.32,
+    "text": " aspe qua c'è stato un errore che errore c'è stato"
+  },
+  {
+    "start": 2713.44,
+    "end": 2715.3,
+    "text": " ah scusate alt grid"
+  },
+  {
+    "start": 2726.38,
+    "end": 2728.34,
+    "text": " 0 no"
+  },
+  {
+    "start": 2730.54,
+    "end": 2733.14,
+    "text": " c'è sbaglio"
+  },
+  {
+    "start": 2735.46,
+    "end": 2738.96,
+    "text": " perché qua ho scritto meno uno invece che uno"
+  },
+  {
+    "start": 2742.36,
+    "end": 2750.24,
+    "text": " esatto uno se invece vado qui che sarebbe anzi qua anche 9 virgola 10"
+  },
+  {
+    "start": 2754.6200000000003,
+    "end": 2759.76,
+    "text": " dovrebbe ritornare due esatto perché noi virgola 10 ne ha due"
+  },
+  {
+    "start": 2760.96,
+    "end": 2767.22,
+    "text": " se vado invece a 10 virgola 10 io dovrei vederne uno perché mi salta se stesso"
+  },
+  {
+    "start": 2767.98,
+    "end": 2770.48,
+    "text": " va bene sembra funzionare vedremo"
+  },
+  {
+    "start": 2772.86,
+    "end": 2778.0,
+    "text": " allora new state new state allora a questo punto facciamo una cosa guardate qua facciamo"
+  },
+  {
+    "start": 2778.0,
+    "end": 2782.18,
+    "text": " sapete quel più che abbiamo visto che alterna in quel modo e qua ci abbiamo"
+  },
+  {
+    "start": 2782.18,
+    "end": 2786.84,
+    "text": " sto trattino che poi dovete andare quello invece orizzontale"
+  },
+  {
+    "start": 2787.44,
+    "end": 2794.88,
+    "text": " allora new state new state allora qua andiamo a fare sembra stessa storia dello stesso ciclo forro"
+  },
+  {
+    "start": 2799.44,
+    "end": 2801.68,
+    "text": " allora che cos'è che decreterà"
+  },
+  {
+    "start": 2803.56,
+    "end": 2811.7,
+    "text": " lo stato nuovo in new state allora tanto iniziare prendiamo i vicini"
+  },
+  {
+    "start": 2814.08,
+    "end": 2822.7999999999997,
+    "text": " n live sono i vicini vivi count living neg borce"
+  },
+  {
+    "start": 2826.94,
+    "end": 2831.0,
+    "text": " grid old x virgola y"
+  },
+  {
+    "start": 2833.2000000000003,
+    "end": 2834.66,
+    "text": " ok ora if"
+  },
+  {
+    "start": 2837.52,
+    "end": 2841.78,
+    "text": " get sell old virgola x virgola y non"
+  },
+  {
+    "start": 2847.12,
+    "end": 2850.6,
+    "text": " è uguale a live"
+  },
+  {
+    "start": 2852.26,
+    "end": 2856.46,
+    "text": " facciamo una cosa altrimenti no quindi se viva"
+  },
+  {
+    "start": 2858.9,
+    "end": 2862.02,
+    "text": " qua chiamiamo new state"
+  },
+  {
+    "start": 2865.1,
+    "end": 2869.78,
+    "text": " se viva new state è uguale"
+  },
+  {
+    "start": 2871.9199999999996,
+    "end": 2876.96,
+    "text": " ora qui bisogna usare l'operatore terminario ma noi non l'abbiamo fatto quindi dobbiamo"
+  },
+  {
+    "start": 2876.96,
+    "end": 2885.06,
+    "text": " scrivere codice un po più meno elegante meno succindo ma pazienza if"
+  },
+  {
+    "start": 2887.7799999999997,
+    "end": 2903.86,
+    "text": " n live è 2 o n live è 3 new state uguale live else new state uguale dead"
+  },
+  {
+    "start": 2904.9199999999996,
+    "end": 2908.26,
+    "text": " se invece è morta"
+  },
+  {
+    "start": 2910.72,
+    "end": 2917.92,
+    "text": " allora facciamo una cosa guardate noi partiamo da dare il new state come è morto"
+  },
+  {
+    "start": 2918.98,
+    "end": 2922.7,
+    "text": " così non dobbiamo scrivere l'altro caso ogni volta quindi"
+  },
+  {
+    "start": 2924.3799999999997,
+    "end": 2931.96,
+    "text": " lo trasformiamo in vivo se effettivamente abbiamo questa condizione qua invece se per caso"
+  },
+  {
+    "start": 2931.96,
+    "end": 2941.86,
+    "text": " la celle è morta solo se ha esattamente 3 e live new state uguale uguale uguale e live"
+  },
+  {
+    "start": 2943.4,
+    "end": 2955.26,
+    "text": " una volta fatto chuo noi dobbiamo scrivere set sell new virgola x virgola y virgola new state"
+  },
+  {
+    "start": 2956.2200000000003,
+    "end": 2962.24,
+    "text": " ci dovremmo essere compute new state"
+  },
+  {
+    "start": 2965.7400000000002,
+    "end": 2977.64,
+    "text": " quindi facciamo qui compute new state old virgola old grid virgola new grid"
+  },
+  {
+    "start": 2978.44,
+    "end": 2989.62,
+    "text": " e ci facciamo stampare la new grid ombiliamo oh guardate sono diventati orizzontali"
+  },
+  {
+    "start": 2991.44,
+    "end": 2995.04,
+    "text": " facciamolo di nuovo ci facciamo computare"
+  },
+  {
+    "start": 2997.24,
+    "end": 3004.72,
+    "text": " dalla new alla old perché ora sono invertiti e ci facciamo stampare la old grid"
+  },
+  {
+    "start": 3007.82,
+    "end": 3015.08,
+    "text": " esatto in sostanza sembra proprio che il nostro programma stia funzionando a questo punto io credo"
+  },
+  {
+    "start": 3015.08,
+    "end": 3024.02,
+    "text": " che siamo andati ben oltre alla lunghezza massima che ce l'avamo dati e quindi non riusciremo a"
+  },
+  {
+    "start": 3024.02,
+    "end": 3031.16,
+    "text": " vedere forse il glider che va o in generale questa animazione che funziona ma io invece direi che"
+  },
+  {
+    "start": 3031.16,
+    "end": 3034.44,
+    "text": " ormai mancano due riche precise quindi io includo"
+  },
+  {
+    "start": 3038.8,
+    "end": 3048.22,
+    "text": " un istandard dot age perché mi serve slip per dormire while uno quindi il ciclo che dura per sempre"
+  },
+  {
+    "start": 3049.76,
+    "end": 3056.72,
+    "text": " compute lo stato nuovo e stampo la griglia slip uno compute lo stato nuovo e stampo la griglia slip"
+  },
+  {
+    "start": 3057.68,
+    "end": 3058.5,
+    "text": " ombiliamo"
+  },
+  {
+    "start": 3060.82,
+    "end": 3066.8,
+    "text": " esatto guardate ting ting facciamo il nostro glider quello lì figo"
+  },
+  {
+    "start": 3068.56,
+    "end": 3077.16,
+    "text": " allora 10 virgola 10 poi 9 virgola 10 e sono qui 10 11 virgola 10 e ho fatto una new orizzontale"
+  },
+  {
+    "start": 3077.16,
+    "end": 3090.36,
+    "text": " poi questo glider qui ce ne ha uno a 11 virgola 9 quindi che sarebbe questo e questo invece 10 virgola 8"
+  },
+  {
+    "start": 3093.3999999999996,
+    "end": 3095.76,
+    "text": " vediamo se ci ho beccato"
+  },
+  {
+    "start": 3098.7,
+    "end": 3102.68,
+    "text": " esatto guardate come si muove che figata"
+  },
+  {
+    "start": 3104.2,
+    "end": 3111.0,
+    "text": " tuttavia siccome non vogliamo di andare vecchi o slip"
+  },
+  {
+    "start": 3116.9399999999996,
+    "end": 3125.88,
+    "text": " dormiamo meno vediamo se funziona il wraparound o magic"
+  },
+  {
+    "start": 3128.6800000000003,
+    "end": 3134.36,
+    "text": " fantastico allora ragazzi grazie al fatto che abbiamo scritto sto semplice programmino"
+  },
+  {
+    "start": 3135.4,
+    "end": 3145.48,
+    "text": " ora facciamo una cosa va cut life dot si bibi copi gist it up punto com"
+  },
+  {
+    "start": 3147.98,
+    "end": 3154.7,
+    "text": " live dot si game of life as implemented in the youtube"
+  },
+  {
+    "start": 3155.96,
+    "end": 3159.4,
+    "text": " si video lessons"
+  },
+  {
+    "start": 3164.58,
+    "end": 3167.38,
+    "text": " create public"
+  },
+  {
+    "start": 3171.04,
+    "end": 3172.16,
+    "text": " gist"
+  },
+  {
+    "start": 3174.98,
+    "end": 3181.08,
+    "text": " warning this program is of see code because it"
+  },
+  {
+    "start": 3182.98,
+    "end": 3190.2,
+    "text": " it's an example using just a subset of things learned by my students"
+  },
+  {
+    "start": 3192.9,
+    "end": 3196.8,
+    "text": " so far in my youtube channel"
+  },
+  {
+    "start": 3202.52,
+    "end": 3207.48,
+    "text": " va bene la url di sto robbo qui poi io la metterò"
+  },
+  {
+    "start": 3208.2799999999997,
+    "end": 3213.26,
+    "text": " va beh ma credo a parte che lo trovate tra i miei così di kit tab"
+  },
+  {
+    "start": 3215.38,
+    "end": 3222.78,
+    "text": " nei miei gist ma io comunque metterò credo la url sembrano ricordo spero proprio di sì"
+  },
+  {
+    "start": 3223.48,
+    "end": 3225.56,
+    "text": " bene alla prossima allora ciao"
+  }
+]

@@ -17,7 +17,14 @@ import Infographic from '../components/content/Infographic';
 import StackVisualizer from '../components/content/StackVisualizer';
 import MicroRegisters from '../components/content/MicroRegisters';
 import OverflowSimulator from '../components/content/OverflowSimulator';
+import BranchingFlowchart from '../components/content/BranchingFlowchart';
 import ScopeExplorer from '../components/content/ScopeExplorer';
+import LimitsExplorer from '../components/content/LimitsExplorer';
+import BinaryVisualizer from '../components/content/BinaryVisualizer';
+import ASCIIConverter from '../components/content/ASCIIConverter';
+import BranchingSimulator from '../components/content/BranchingSimulator';
+import RecursionVisualizer from '../components/content/RecursionVisualizer';
+import SwitchBoard from '../components/content/SwitchBoard';
 
 // Mappa componenti MDX
 const mdxComponents = {
@@ -57,7 +64,14 @@ const mdxComponents = {
     StackVisualizer,
     MicroRegisters,
     OverflowSimulator,
+    BranchingFlowchart,
     ScopeExplorer,
+    LimitsExplorer,
+    BinaryVisualizer,
+    ASCIIConverter,
+    BranchingSimulator,
+    RecursionVisualizer,
+    SwitchBoard,
 };
 
 export default function Lesson() {

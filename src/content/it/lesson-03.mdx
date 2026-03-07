@@ -86,9 +86,26 @@ Il C offre una grande varietà di tipi per risparmiare memoria (fondamentale neg
 />
 
 ### Promozioni Automatiche
-Quando fai operazioni tra tipi diversi, il C applica delle regole di "promozione". Ad esempio, in funzioni come `printf` (funzioni variadiche):
-- Gli `short` vengono promossi a `int`.
+Quando fai operazioni tra tipi diversi, il C applica delle regole di "promozione". Questo accade perché il C cerca di rendere il calcolo più fluido (e perché negli anni '60 serviva a semplificare il lavoro del processore).
+
+Ad esempio, in funzioni come `printf` (funzioni variadiche):
+- Gli `short` e i `char` vengono promossi a `int`.
 - I `float` vengono promossi a `double`.
+
+## Esadecimale e Formattazione Avanzata
+Sapevi che puoi stampare un numero in base 16 (esadecimale) semplicemente cambiando una lettera?
+- `%d`: Decimale (base 10)
+- `%x`: Esadecimale (base 16)
+
+```c
+int a = 10;
+printf("Decimale: %d\n", a);   // Stampa 10
+printf("Esadecimale: %x\n", a); // Stampa a
+```
+
+<Callout type="danger" title="Mischiare i Tipi è Disastroso">
+Il C è un linguaggio "pericoloso": se dici alla `printf` di stampare un float (`%f`) ma gli passi un `int`, il programma leggerà la memoria in modo errato, stampando valori senza senso o crashando. Il compilatore ti darà un **warning**, ma ti lascerà compilare!
+</Callout>
 
 ---
 

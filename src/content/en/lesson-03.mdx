@@ -86,9 +86,26 @@ C offers a variety of types to save memory (crucial back in the '60s!).
 />
 
 ### Automatic Promotions
-When performing operations between different types, C applies "promotion" rules. For example, in functions like `printf` (variadic functions):
-- `short` values are promoted to `int`.
-- `float` values are promoted to `double`.
+When performing operations between different types, C applies "promotion" rules. This happens because C tries to make calculations smoother (and because in the '60s, it simplified the processor's job).
+
+For example, in functions like `printf` (variadic functions):
+- `short` and `char` are promoted to `int`.
+- `float` is promoted to `double`.
+
+## Hexadecimal and Advanced Formatting
+Did you know you can print a number in base 16 (hexadecimal) just by changing a letter?
+- `%d`: Decimal (base 10)
+- `%x`: Hexadecimal (base 16)
+
+```c
+int a = 10;
+printf("Decimal: %d\n", a);   // Prints 10
+printf("Hexadecimal: %x\n", a); // Prints a
+```
+
+<Callout type="danger" title="Mixing Types is Disastrous">
+C is a "dangerous" language: if you tell `printf` to print a float (`%f`) but pass an `int`, the program will read memory incorrectly, printing nonsense values or crashing. The compiler will give you a **warning**, but it will let you compile!
+</Callout>
 
 ---
 

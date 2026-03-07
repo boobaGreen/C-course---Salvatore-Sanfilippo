@@ -1,0 +1,1047 @@
+[
+  {
+    "start": 39.459999999999994,
+    "end": 46.68,
+    "text": " La scorsa volta avevamo visto le stringhe in stile Pascal, di solito le stringhe in"
+  },
+  {
+    "start": 46.68,
+    "end": 55.3,
+    "text": " C sono così, è Lowe World e poi c'è un carattere di terminazione 1-0, quindi ognuno"
+  },
+  {
+    "start": 55.3,
+    "end": 60.58,
+    "text": " di questi caratteri farà quello che vale nell'aschi e qui c'è un byte a 0 che indica"
+  },
+  {
+    "start": 60.58,
+    "end": 67.0,
+    "text": " quando la stringa finisce Rocca a finisceangese abbiamo visto che in una Pascal in realtà la string"
+  },
+  {
+    "start": 67.0,
+    "end": 72.28,
+    "text": " funziona in un altro modo e in altri in altri contesti ho un solo in Pascal qua c'è la lunghezza"
+  },
+  {
+    "start": 72.28,
+    "end": 78.98,
+    "text": " come primo byte quindi il Pascal potrebbe avere soltanto stringhe che vanno da 0 250 in 50"
+  },
+  {
+    "start": 78.98,
+    "end": 86.36,
+    "text": " i che fa sorridere ovviamente erano altri anni anche se io non sono sicuro che ci fosse questa"
+  },
+  {
+    "start": 86.36,
+    "end": 93.2,
+    "text": " limitazione in trinze come questa fosse una delle possibili rappresentazioni utilizzate come"
+  },
+  {
+    "start": 93.2,
+    "end": 100.52,
+    "text": " questa era la stringa la lunghezza la stringa e poi seguiva e lo world quindi questi condi"
+  },
+  {
+    "start": 100.52,
+    "end": 108.2,
+    "text": " bai sono 1 2 3 4 5 6 7 8 9 10 11 quindi questo bite che io ho chiamato l questo qui era 11 e"
+  },
+  {
+    "start": 108.2,
+    "end": 114.52,
+    "text": " poi c'era il bite corrispondente ad h che non so quando fosse 70 o quello che possiamo"
+  },
+  {
+    "start": 114.52,
+    "end": 129.76,
+    "text": " darlo qua era da bellaschi in decimale l a c è h 72 ci sono dato vicino quindi 72 e gli altri"
+  },
+  {
+    "start": 129.76,
+    "end": 144.5,
+    "text": " bite quelli che sono a questo punto non c'è il terminatore 0 alla fine perché io la lunghezza la"
+  },
+  {
+    "start": 144.5,
+    "end": 151.1,
+    "text": " prefissa ora immaginiamo ti vuole implementare in c un sistema di stringa del genere quindi"
+  },
+  {
+    "start": 151.1,
+    "end": 162.38,
+    "text": " lo chiamavo lo chiamo prefixed l e d string pl s disclaimer che fastidio sti capelli appiccicati"
+  },
+  {
+    "start": 162.38,
+    "end": 168.32,
+    "text": " e bagnati ma comunque disclaimer io questa implementazione la sto scrivendo ora diciamo live"
+  },
+  {
+    "start": 169.88,
+    "end": 176.16,
+    "text": " per cui non è preparata e quindi vedrete anche diciamo sì percorso logico che utilizzo vi"
+  },
+  {
+    "start": 176.16,
+    "end": 183.98,
+    "text": " dico da subito che prima utilizzerò un dato percorso errato diciamo o meglio limitato perché"
+  },
+  {
+    "start": 183.98,
+    "end": 189.52,
+    "text": " oggi voglio introdurre un argomento centrale e questo argomento lo dobbiamo introdurre prima"
+  },
+  {
+    "start": 189.52,
+    "end": 197.22,
+    "text": " mostrando quali sono le limitazioni della mancanza di una data funzione allora immaginiamo di avere"
+  },
+  {
+    "start": 197.22,
+    "end": 209.32,
+    "text": " include estetica io dotca e io ho la mia main e voglio fare non lo so una buffer di 256 caratteri"
+  },
+  {
+    "start": 209.32,
+    "end": 219.7,
+    "text": " mettiamo io voglio creare questa stringa che chiamo quindi pl s prefist prefixed langd string"
+  },
+  {
+    "start": 219.7,
+    "end": 230.9,
+    "text": " però è troppo lungo come come prefisso chiamiamola ps ps init gli passo a questa funzione il"
+  },
+  {
+    "start": 230.9,
+    "end": 238.12,
+    "text": " fundatore al mio buffer dove la stringa che io sto andando a generare sarà registrata e poi gli"
+  },
+  {
+    "start": 238.12,
+    "end": 247.84,
+    "text": " passo stavolta in allora noi in queste stringa vogliamo poter avere dei caratteri zero anche"
+  },
+  {
+    "start": 247.84,
+    "end": 252.66,
+    "text": " nel mezzo quindi questo può essere uno zero e lo stesso ma non non ho zero nel senso del carattere"
+  },
+  {
+    "start": 252.66,
+    "end": 259.12,
+    "text": " zero proprio che qui c'è zero zero nel bite esattamente come se fosse un null term e invece"
+  },
+  {
+    "start": 259.12,
+    "end": 267.08,
+    "text": " vogliamo che la stringa continui a funzionare quindi quando inizia il zona nuova stringa con"
+  },
+  {
+    "start": 267.08,
+    "end": 274.16,
+    "text": " lunghezza prefissa non posso semplicemente andare la stringa in c perché se io volessi rappresentare"
+  },
+  {
+    "start": 274.16,
+    "end": 284.6,
+    "text": " hello dove qua c'è uno zero nel senso proprio zero in questo senso un bite a zero e poi world"
+  },
+  {
+    "start": 285.64,
+    "end": 291.64,
+    "text": " non posso farlo perché se passo questa stringa alla mia funzione la mia funzione dovrebbe utilizzare"
+  },
+  {
+    "start": 291.64,
+    "end": 299.78,
+    "text": " strln per esempio che la funzione di libriere del c che dato una stringa torna a lunghezza ma"
+  },
+  {
+    "start": 299.78,
+    "end": 306.3,
+    "text": " questa lunghezza sarebbe il primo bite a zero quindi io devo avere anche un altro alcomento che"
+  },
+  {
+    "start": 306.3,
+    "end": 311.78,
+    "text": " specifica la lunghezza della stringa però la mettiamo io un normale hello world abbiamo detto"
+  },
+  {
+    "start": 311.78,
+    "end": 319.7,
+    "text": " che sono 11 caratteri allora andiamo a scrivere questa ps init void perché non ritorna niente ps"
+  },
+  {
+    "start": 319.7,
+    "end": 332.36,
+    "text": " init char buff char e s string quindi questo è un puntatore a una rei di caratteri poi char"
+  },
+  {
+    "start": 332.36,
+    "end": 342.04,
+    "text": " e init questa è la mia stringa di inizializzazione che devo copiare dentro diciamo lo spazio di me che"
+  },
+  {
+    "start": 342.04,
+    "end": 350.82,
+    "text": " ho questo pezzo di memoria che ho in s e poi size t va beh chiamiamolo ind per ora non è corretto"
+  },
+  {
+    "start": 350.82,
+    "end": 356.5,
+    "text": " al punto di vista dei tipi perché ind può essere più piccolo della spazio di massimo di una della"
+  },
+  {
+    "start": 356.5,
+    "end": 361.1,
+    "text": " grandezia massima di un oggetto di questo sistema unix che sto utilizzando ora di questo computer"
+  },
+  {
+    "start": 361.1,
+    "end": 366.74,
+    "text": " site t mi gallende i rebe di essere corretto ma per ora non facciamo cose complicate in te un intero"
+  },
+  {
+    "start": 366.74,
+    "end": 375.58,
+    "text": " l'en allora guardate io che cos'è che devo fare s di zero e l'en ok tanto per iniziare sappiate"
+  },
+  {
+    "start": 375.58,
+    "end": 385.0,
+    "text": " che qui se per caso l'en maggiore di 255 sarà troncato un bite questa cosa funzionerà diciamo"
+  },
+  {
+    "start": 385.0,
+    "end": 393.28,
+    "text": " malissimo addirittura in questo caso c'è anche il problema che io in realtà il primo bite lo"
+  },
+  {
+    "start": 393.28,
+    "end": 400.1,
+    "text": " voglio registrare come an signe d ok quindi in realtà la cosa che dovrei fare questa per essere"
+  },
+  {
+    "start": 400.1,
+    "end": 413.74,
+    "text": " completamente corretto charlain pointer è uguale a an signe d charlain pointer è uguale a s quindi"
+  },
+  {
+    "start": 413.74,
+    "end": 419.3,
+    "text": " io sempre l'en pointer è sempre l'indirizzo di memoria a cui punta s ma con un tipo diverso"
+  },
+  {
+    "start": 419.3,
+    "end": 424.06,
+    "text": " perché io voglio poter registrare in questo primo bite la lunghezza della mia stringa che va da"
+  },
+  {
+    "start": 424.06,
+    "end": 433.68,
+    "text": " zero a 255 altrimenti li avremmo numeri da meno 128 più 127 e io faccio l'en pointer di zero ma in"
+  },
+  {
+    "start": 433.68,
+    "end": 439.58,
+    "text": " questo caso siccome non è veramente una re c'è ne ho solo uno posso usare questa forma che ha più"
+  },
+  {
+    "start": 439.58,
+    "end": 447.14,
+    "text": " senso per di riferenziare il pondatore quindi asterisco l'en pointer uguale a l'en quindi ora"
+  },
+  {
+    "start": 447.14,
+    "end": 456.46,
+    "text": " io ho tenuto che avevo sto pezzo di memoria che è free memoria quindi facciamo fin da che si chiami"
+  },
+  {
+    "start": 456.46,
+    "end": 465.2,
+    "text": " fb 250 quando è la 250 in bite nel primo bite che questo dove sono posizionato io ho messo la mia"
+  },
+  {
+    "start": 465.2,
+    "end": 475.84,
+    "text": " lunghezza infatti gli scrivo l e l'ho settato il resto non si sa cosa contiene e ora faccio un ciclo for"
+  },
+  {
+    "start": 475.84,
+    "end": 485.66,
+    "text": " for in j uguale a 0 j minore di l'en j più più quindi questo j questa variabile j dentro il ciclo"
+  },
+  {
+    "start": 485.66,
+    "end": 496.34,
+    "text": " andrà da 0 fino all m1 s di j più 1 perché non posso scrivere a j che c'è la mia lunghezza"
+  },
+  {
+    "start": 496.34,
+    "end": 505.58,
+    "text": " devo iniziare dal bite dopo s di j più 1 è uguale a in it di j ci copio in pratica sto facendo"
+  },
+  {
+    "start": 505.58,
+    "end": 512.7,
+    "text": " una copia sto copiando alla questa stringa partendo da qui questo spazio di memoria partendo"
+  },
+  {
+    "start": 512.7,
+    "end": 522.1,
+    "text": " da qui la stringa d'inizializzazione che mi danno e lo world quindi io scusate la c'è la coppio"
+  },
+  {
+    "start": 522.1,
+    "end": 528.28,
+    "text": " qua la e la coppio qua la e la coppio qua anzi se togliamo le virgolette ha più senso che vedete"
+  },
+  {
+    "start": 528.28,
+    "end": 536.26,
+    "text": " perché sono sfalzati la l la coppio qui la o la coppio qui c'è uno spazio ecco quindi bene ma"
+  },
+  {
+    "start": 536.26,
+    "end": 543.6,
+    "text": " questa è la mia p s in it le tan zero il problema lo posso convilare ancora non fa una ciofeca"
+  },
+  {
+    "start": 543.6,
+    "end": 549.6,
+    "text": " a qua dovevo mettere il casting quindi io siccome sto segnando a questo l'end pointer che è un"
+  },
+  {
+    "start": 549.6,
+    "end": 554.98,
+    "text": " puntatore di tipo a zig dan ciar un puntatore a ciar lui mi dà il warning io qua devo fare"
+  },
+  {
+    "start": 555.9200000000001,
+    "end": 560.64,
+    "text": " una conversione di puntatore poi siccome sono sempre in dirizia memoria non succederà niente"
+  },
+  {
+    "start": 560.64,
+    "end": 566.38,
+    "text": " all'attopatico ma il problema non fa niente perché fa un qualcosa con la memoria ma noi"
+  },
+  {
+    "start": 566.38,
+    "end": 575.32,
+    "text": " non lo vediamo e se io essi un bel p s print a cui do la mia stringa di questo tipo beh perché"
+  },
+  {
+    "start": 575.32,
+    "end": 584.46,
+    "text": " non scrive lo questo p s print void p s print c'ha s questo p s print allora poi anche"
+  },
+  {
+    "start": 584.46,
+    "end": 590.42,
+    "text": " nei semplici problemi di questo tipo ci dobbiamo ricordare sempre di scrivere commenti di questo"
+  },
+  {
+    "start": 590.42,
+    "end": 608.2,
+    "text": " tipo inizialize a per fix l'end string with the specified string in it of length lan ok è"
+  },
+  {
+    "start": 608.2,
+    "end": 618.26,
+    "text": " veramente per questi per i nomi diciamo degli argomenti usò i apici singoli una cosa importante"
+  },
+  {
+    "start": 618.26,
+    "end": 626.22,
+    "text": " qua possiamo scrivere warning disfunction does not check for buffer over flows perché guardate"
+  },
+  {
+    "start": 626.22,
+    "end": 637.2,
+    "text": " questo programma ha un problema se la stringa s che passo qui che è qui buff che 256 byte se c'è"
+  },
+  {
+    "start": 637.2,
+    "end": 643.18,
+    "text": " meno spazio in s di quello dell'indell'inizializzazione allora io scrivo in della memoria che non è"
+  },
+  {
+    "start": 643.18,
+    "end": 649.84,
+    "text": " diciamo allucata correttamente quindi è un bug di sicurezza un sacco di problemi vari che non"
+  },
+  {
+    "start": 649.84,
+    "end": 656.74,
+    "text": " posso scrivere dentro questo buff che il 256 una stringa di mille bite mi devo limitare a ciò ma"
+  },
+  {
+    "start": 656.74,
+    "end": 663.74,
+    "text": " però a noi non ci interessa perché questo è un programma didatico questo invece display the string"
+  },
+  {
+    "start": 663.74,
+    "end": 679.38,
+    "text": " s on the screen allora come funzionerà questo programma signet charl and pointer uguale signet"
+  },
+  {
+    "start": 679.38,
+    "end": 691.66,
+    "text": " char s così c'ho la mia lunghezza e poi qua faccio for in j uguale a 0 j minore di l'end pointer di"
+  },
+  {
+    "start": 691.66,
+    "end": 699.98,
+    "text": " 0 stavolto siamo l'altra forma no siamo 40 j più più quindi io praticamente gelo faccio arrivare a"
+  },
+  {
+    "start": 699.98,
+    "end": 713.64,
+    "text": " l'end pointer che è la lunghezza della mia stringa put char s di j più uno perché sempre uno in più"
+  },
+  {
+    "start": 715.0999999999999,
+    "end": 722.26,
+    "text": " e qua io faccio che questa funzione scrive anche il new line l'invio in modo da vedere la mia"
+  },
+  {
+    "start": 722.26,
+    "end": 726.98,
+    "text": " stringa in maniera corretta a video chiamiamo la due volte questa funzione e che si è printa"
+  },
+  {
+    "start": 726.98,
+    "end": 733.92,
+    "text": " e che si è printa combiniamo il programma lo abbiamo e lo vuoled e l'ho vuoled ma qual è la"
+  },
+  {
+    "start": 733.92,
+    "end": 739.94,
+    "text": " differenza fondamentale di questo programma rispetto a quello di prima e che io qui posso"
+  },
+  {
+    "start": 739.94,
+    "end": 748.14,
+    "text": " scrivere un byte a 0 convino il programma e il programma funziona ancora non si ferma perché"
+  },
+  {
+    "start": 748.14,
+    "end": 756.08,
+    "text": " stavolta la lunghezza è prefissa beh tutto ciò è molto interessante ma c'è un problema"
+  },
+  {
+    "start": 756.08,
+    "end": 764.14,
+    "text": " enorme qua riprestiniamo hello o cioè se io voglio più stringa ne voglio creare diversa ma"
+  },
+  {
+    "start": 764.14,
+    "end": 769.54,
+    "text": " mica posso allocare qui staticamente ho addirittura mettere qua una variabile locale"
+  },
+  {
+    "start": 770.72,
+    "end": 778.18,
+    "text": " mai strings che al numero grande poi che faccio se la stringa viene non mi serve più liberata"
+  },
+  {
+    "start": 779.4399999999999,
+    "end": 787.34,
+    "text": " devo scrivere in maniera esatta cioè dopo passare dei puntatori in cui so quando sono lunghe le"
+  },
+  {
+    "start": 787.34,
+    "end": 792.78,
+    "text": " mie string è un incubo cioè io quando programma il linguaggio al livello più alto anche se so che"
+  },
+  {
+    "start": 792.78,
+    "end": 799.62,
+    "text": " queste stringhe sono locate in memoria da qualche parte tipo sono in python beh io faccio a uguale"
+  },
+  {
+    "start": 799.62,
+    "end": 808.74,
+    "text": " hello b uguale ciao e ho a e b ora anche se il c è un linguaggio a più basso livello è possibile"
+  },
+  {
+    "start": 808.74,
+    "end": 813.72,
+    "text": " arrivare a questo livello di estrazione con mostrato in python che ho diciamo i miei oggetti che vivono"
+  },
+  {
+    "start": 813.72,
+    "end": 819.98,
+    "text": " la memoria e che poi python li libera da solo quando non sono più referenziati da nessuno io lo"
+  },
+  {
+    "start": 820.19,
+    "end": 825.81,
+    "text": " liberare in c a mano perché il c ha l'allocazione manuale della memoria però diciamo si può"
+  },
+  {
+    "start": 827.23,
+    "end": 835.09,
+    "text": " questo ps init cambiamo i nome e chiamiamolo ps create e guardate io faccio char"
+  },
+  {
+    "start": 836.2099999999999,
+    "end": 844.43,
+    "text": " mai string mai str è uguale ps create e questo buff lo tolgo allora guardate che cos'è cambiato"
+  },
+  {
+    "start": 844.43,
+    "end": 850.93,
+    "text": " qua devo stampare mai str e qua devo stampare mai str quindi io qua dico a un puntatore"
+  },
+  {
+    "start": 852.1099999999999,
+    "end": 860.15,
+    "text": " char mai str per piacere funzione ps create crea questo oggetto di string a lunghezza"
+  },
+  {
+    "start": 860.15,
+    "end": 868.19,
+    "text": " prefissa e mi ritorni il puntatore a esso ora come si fa a tornare un puntatore perché io"
+  },
+  {
+    "start": 868.19,
+    "end": 875.13,
+    "text": " dalla funzione mica posso tornare non posso fare il jar buff erguado 256 e uso questo spazio qui"
+  },
+  {
+    "start": 876.15,
+    "end": 881.95,
+    "text": " perché è una variabile locale questa quando ps init che noi chiameremo ps create"
+  },
+  {
+    "start": 882.75,
+    "end": 890.03,
+    "text": " ritorna queste moveri non c'è più bene ci vengono in aiuto una funzione malloc è free due"
+  },
+  {
+    "start": 890.03,
+    "end": 896.75,
+    "text": " funzioni ma specialmente malloc nella creazione di un nuovo spazio di memoria allora facciamo"
+  },
+  {
+    "start": 896.75,
+    "end": 906.69,
+    "text": " parlare il manuale al manuale la parola dunque la funzione malloc alloca della memoria la memoria"
+  },
+  {
+    "start": 906.69,
+    "end": 914.95,
+    "text": " allocata è allineata così che può può essere utilizzata per qualsiasi tipo di dato poi parleremo"
+  },
+  {
+    "start": 914.95,
+    "end": 923.59,
+    "text": " di allineamento più avanti la funzione free libera le allopezioni che sono state creati da"
+  },
+  {
+    "start": 924.15,
+    "end": 931.35,
+    "text": " funzioni di allopezione precedenti quindi se io al loco della memoria con malloc la dovevo liberare"
+  },
+  {
+    "start": 931.35,
+    "end": 937.47,
+    "text": " poi con free quando questa memoria non mi serve più malloc che molto semplice prende come argomento"
+  },
+  {
+    "start": 937.47,
+    "end": 942.47,
+    "text": " la dimensione del del pezzo di memoria che io voglio e mi ritornano un puntatore e che puntatore"
+  },
+  {
+    "start": 942.47,
+    "end": 948.29,
+    "text": " mi ritorna mi ritornano un puntatore tipo void perché i puntatori di tipo void sono degli indrizi"
+  },
+  {
+    "start": 948.29,
+    "end": 954.35,
+    "text": " memoria generici non legate un tipo di oggetto non solo a puntatori a una precisa struttura o"
+  },
+  {
+    "start": 954.35,
+    "end": 962.29,
+    "text": " un preciso tipo di interi a un un re di caratteri niente sono dei puntatori che io posso assegnare"
+  },
+  {
+    "start": 962.29,
+    "end": 969.0899999999999,
+    "text": " a qualsiasi altro tipo di puntatore e quindi guardate il mio programma così come è trasformato"
+  },
+  {
+    "start": 969.09,
+    "end": 977.17,
+    "text": " la tendo per iniziare mi faccio notare che dobbiamo includere stdlib.h include stdlib.h"
+  },
+  {
+    "start": 977.17,
+    "end": 988.53,
+    "text": " ps create questa è la mia inizializzazione in it len ma non ho più s non ho più il mio buffer"
+  },
+  {
+    "start": 988.53,
+    "end": 997.19,
+    "text": " dove dove dove fare stare un bacò e guardate che faccio char s uguale malloc len più uno perché"
+  },
+  {
+    "start": 997.19,
+    "end": 1002.39,
+    "text": " io a me mi servono len bite per registrare la stringa ma mi serve anche un bite in più vi"
+  },
+  {
+    "start": 1002.39,
+    "end": 1008.33,
+    "text": " ricordo perché io devo averlo spazio dove metter il mio bite di lunghezza forse vi viene più"
+  },
+  {
+    "start": 1009.3299999999999,
+    "end": 1015.43,
+    "text": " naturale scrivere uno più len perché uno è il primo bite che io ho in più e poi len ma uno"
+  },
+  {
+    "start": 1015.43,
+    "end": 1021.23,
+    "text": " più len o len più uno fa la stessa la somme uguale però così ecco diciamo che in qualche modo"
+  },
+  {
+    "start": 1022.03,
+    "end": 1028.59,
+    "text": " è un po literate programming il modo in cui sto allocando documenta ciò che sta per accadere"
+  },
+  {
+    "start": 1030.11,
+    "end": 1036.41,
+    "text": " tra l'altro io sono il tipo di programmatore che poi scriverebbe questo nei commenti"
+  },
+  {
+    "start": 1036.41,
+    "end": 1040.77,
+    "text": " the created strings have the following layout"
+  },
+  {
+    "start": 1046.6499999999999,
+    "end": 1051.41,
+    "text": " scusate un po di aschi art l"
+  },
+  {
+    "start": 1060.93,
+    "end": 1062.99,
+    "text": " my string here"
+  },
+  {
+    "start": 1065.65,
+    "end": 1067.63,
+    "text": " quattro non distante il lungo"
+  },
+  {
+    "start": 1069.39,
+    "end": 1080.09,
+    "text": " where l is one un signet bite stating the the total length of my the string"
+  },
+  {
+    "start": 1081.91,
+    "end": 1087.2099999999998,
+    "text": " task to us non so neanche come si legge anche se usso sempre questa parola to us"
+  },
+  {
+    "start": 1088.67,
+    "end": 1092.65,
+    "text": " this strings are binary safe"
+  },
+  {
+    "start": 1094.25,
+    "end": 1103.87,
+    "text": " zero bites are permitted in the middle la mia capacità di scrivere in inglese di parlare"
+  },
+  {
+    "start": 1103.87,
+    "end": 1108.53,
+    "text": " in inglese è profondamente diverse io posso leggere scrivere senza pensarci"
+  },
+  {
+    "start": 1108.53,
+    "end": 1113.35,
+    "text": " non è che io penso prima in italiana però devo tradurre perché da quando avevo 20 anni"
+  },
+  {
+    "start": 1113.35,
+    "end": 1119.59,
+    "text": " che faccio che programma scrivendo in inglese dopo 30 anni diciamo diventa come se fossi"
+  },
+  {
+    "start": 1119.59,
+    "end": 1126.31,
+    "text": " nello scrive quasi madrelingua a parlare e invece non parlo mai non ascolto mai in inglese guardo"
+  },
+  {
+    "start": 1126.31,
+    "end": 1138.51,
+    "text": " le serie di cui in inglese però certo devo carburare molto di più la programmazione è"
+  },
+  {
+    "start": 1138.51,
+    "end": 1146.75,
+    "text": " normale quindi io uso malloc e c'è anche una differenza questo string deve tornare questo jar"
+  },
+  {
+    "start": 1146.75,
+    "end": 1156.83,
+    "text": " qui p s create e a questo punto possiamo fare qua ritarn s quindi dobbiamo anche aggiungere"
+  },
+  {
+    "start": 1156.83,
+    "end": 1163.37,
+    "text": " stuzione retar che mi ritorna il puntatore la memoria che io ho locato con malloc è ancora valida"
+  },
+  {
+    "start": 1163.37,
+    "end": 1170.65,
+    "text": " quando la funzione p s create ritorna per quale motivo beh perché con malloc la memoria creata"
+  },
+  {
+    "start": 1170.65,
+    "end": 1177.13,
+    "text": " rimane valida fino a quando non c'è una chiamata free contro il puntatore che ha ritornato malloc"
+  },
+  {
+    "start": 1177.13,
+    "end": 1183.13,
+    "text": " in una specifica chiamata per liberare quell'area di memoria che io avevo allocato quindi tutto"
+  },
+  {
+    "start": 1183.13,
+    "end": 1186.97,
+    "text": " funzionerà come uno si immagina se non lo sbagliato niente"
+  },
+  {
+    "start": 1186.97,
+    "end": 1200.19,
+    "text": " e ah scusate avevo lasciato l'esempio di variabili globale enorme che il combinatore"
+  },
+  {
+    "start": 1200.19,
+    "end": 1207.59,
+    "text": " non voleva come vedete funziona ancora tutto perfettamente però andiamo un attimo nella"
+  },
+  {
+    "start": 1207.59,
+    "end": 1217.69,
+    "text": " programmazione difensiva in una libreria del genere se io poi scrivo quella printf printf"
+  },
+  {
+    "start": 1217.69,
+    "end": 1229.21,
+    "text": " dollar os slash n mai str ovviamente questo roba qui non funzionerà per due motivi uno perché il"
+  },
+  {
+    "start": 1229.21,
+    "end": 1234.03,
+    "text": " primo bite della stringa non è un carattere a meno a lunghezza quindi vedremo un bite casualmente"
+  },
+  {
+    "start": 1234.03,
+    "end": 1242.41,
+    "text": " non si vede lo niente vedremo in bio cosa è a caso in base a schifere vediamo che cos'è 11 11"
+  },
+  {
+    "start": 1242.41,
+    "end": 1251.79,
+    "text": " e v t che non so che vertical tab quindi una spaziatura di qualche tipo poi vedremo"
+  },
+  {
+    "start": 1251.79,
+    "end": 1256.63,
+    "text": " stampare la stringa ma poi questa stringa non è terminata alla fine non c'è uno zero quindi"
+  },
+  {
+    "start": 1256.63,
+    "end": 1265.11,
+    "text": " vediamo che succede e lo vuole siamo stati fortunatissimi che guardate caldo c'è un bite"
+  },
+  {
+    "start": 1265.11,
+    "end": 1270.69,
+    "text": " a zero subito dopo ma non è per niente garantito che ci occorre tra l'altro è guardate il vertical"
+  },
+  {
+    "start": 1270.69,
+    "end": 1278.5900000000001,
+    "text": " tab l'abbiamo visto perché c'è questa spaziatura però potremmo fare una cosa tanto per iniziare"
+  },
+  {
+    "start": 1278.59,
+    "end": 1287.35,
+    "text": " invece di avere qui solo un bite in più ne allo chiamo uno alla fine inizio uno alla fine così"
+  },
+  {
+    "start": 1287.35,
+    "end": 1293.45,
+    "text": " la stringa noi alla fine la terminiamo qua scriviamo stj uguale a zero quindi alla fine"
+  },
+  {
+    "start": 1293.45,
+    "end": 1301.21,
+    "text": " questo questa stringa qui non solo avrà questo l qua la lunghezza come prima bite non ci"
+  },
+  {
+    "start": 1301.21,
+    "end": 1308.51,
+    "text": " ha scritto e lo vuolto e poi qua ci sarà un bite a zero quindi con le stringa con le stringa"
+  },
+  {
+    "start": 1308.51,
+    "end": 1314.95,
+    "text": " inci quelle funzioni che di solito usano le stringa inci che sono terminate le nostre"
+  },
+  {
+    "start": 1314.95,
+    "end": 1320.51,
+    "text": " string continueranno a funzionare tuttavia le nostre string iniziano un bite dopo quindi"
+  },
+  {
+    "start": 1320.51,
+    "end": 1330.85,
+    "text": " facciamo qua ps che si string che è una funzione che data una stringa del mia mai string da una mia"
+  },
+  {
+    "start": 1330.85,
+    "end": 1348.11,
+    "text": " stringa ps quindi ritorno un punto della caratteri ps che si string c'è s preterne s più quindi"
+  },
+  {
+    "start": 1348.11,
+    "end": 1354.91,
+    "text": " ritorno di solito la mia stringa prefixed and length punta la lunghezza al primo bite io invece"
+  },
+  {
+    "start": 1354.91,
+    "end": 1363.81,
+    "text": " ritorno il primo bite della stringa in questo modo guardate se io non usassi questo stampo mai"
+  },
+  {
+    "start": 1363.81,
+    "end": 1373.33,
+    "text": " str in una stringa più lunga quindi hello world hello world quindi ora è lunga 22 vediamo che"
+  },
+  {
+    "start": 1373.33,
+    "end": 1385.93,
+    "text": " succede allora è allora quindi allora qua io volevo usare j che ormai era esattamente la"
+  },
+  {
+    "start": 1385.93,
+    "end": 1394.83,
+    "text": " posizione qua j sarebbe alla fine del ciclo sarebbe stato esattamente lungo no no no ma era era"
+  },
+  {
+    "start": 1394.83,
+    "end": 1399.61,
+    "text": " sbagliato lo stesso avrei dovuto usare j più uno quindi avevo sbagliato tutto allora io doveva"
+  },
+  {
+    "start": 1399.61,
+    "end": 1407.05,
+    "text": " lo voglio mettere questo del mio tolhe lo voglio mettere a l'en più uno perché uno più l'en"
+  },
+  {
+    "start": 1407.05,
+    "end": 1412.85,
+    "text": " più uno sarebbe un bite oltre la fine della mia allocazione di memoria perché se io ho allocato"
+  },
+  {
+    "start": 1412.85,
+    "end": 1419.25,
+    "text": " 50 bite io c'ho il bite da 0 a 49 nell'indice quindi l'en più uno è esattamente dove lo voglio"
+  },
+  {
+    "start": 1419.9499999999998,
+    "end": 1431.39,
+    "text": " alla fine della mia stringa esattamente guardate sta volta guardate il primo il primo modo di"
+  },
+  {
+    "start": 1431.39,
+    "end": 1436.57,
+    "text": " di stampare la stringa mi stampa sto spazio qua se fosse ancora più lunga stamperebbe proprio"
+  },
+  {
+    "start": 1436.57,
+    "end": 1444.61,
+    "text": " un carattere ma infatti ci voglio anche provare quindi 22 33 hello world hello world vediamo che"
+  },
+  {
+    "start": 1444.61,
+    "end": 1451.87,
+    "text": " stampa ora ecco guarda stampa un punto esclamativo perché 33 è un punto esclamativo in aschi invece"
+  },
+  {
+    "start": 1451.87,
+    "end": 1457.87,
+    "text": " ora io c'ho la mia funzione che prende una stringa che però io per farvi capirlo chiamata"
+  },
+  {
+    "start": 1457.87,
+    "end": 1465.15,
+    "text": " così ma sarebbe veramente atroce in realtà p s e get si è più che sufficiente perché è un"
+  },
+  {
+    "start": 1465.15,
+    "end": 1475.39,
+    "text": " nome facile di ricordare si capisce � la stringa inc informato inc letal a null to de point"
+  },
+  {
+    "start": 1476.19,
+    "end": 1487.27,
+    "text": " to the null terminated si string embedded inside our ps string s quindi in questo modo io posso"
+  },
+  {
+    "start": 1487.27,
+    "end": 1492.99,
+    "text": " avere anche un layer di compatibilità tra le normali string e le string che invece io ho creato"
+  },
+  {
+    "start": 1492.99,
+    "end": 1497.91,
+    "text": " quindi vedete il C è molto flessibile, hai le stringer in un dato modo, ti scrive una"
+  },
+  {
+    "start": 1497.91,
+    "end": 1502.25,
+    "text": " libreria per avere stringer in un altro modo, quindi tu hai stand in linguaggio e poi programmi"
+  },
+  {
+    "start": 1502.25,
+    "end": 1505.69,
+    "text": " in questo nuovo linguaggio, guardate, qua noi stiamo programmandeli in un nuovo linguaggio"
+  },
+  {
+    "start": 1505.69,
+    "end": 1513.29,
+    "text": " in cui le stringer sono prefixed length, alla fine io devo liberare la mia memoria e chiamo"
+  },
+  {
+    "start": 1513.29,
+    "end": 1518.39,
+    "text": " free mine str, con bilo e ora il programma è corretto."
+  },
+  {
+    "start": 1519.67,
+    "end": 1523.27,
+    "text": " Una cosa molto importante, se non avessi liberato la memoria in questo caso specifico,"
+  },
+  {
+    "start": 1523.35,
+    "end": 1527.95,
+    "text": " siccome poi il processo muore perché esce il processo viene terminato, non è che la memoria"
+  },
+  {
+    "start": 1527.95,
+    "end": 1533.27,
+    "text": " resta pesa, quando il processo viene terminato tutta la memoria che ha allocato in qualsiasi"
+  },
+  {
+    "start": 1533.27,
+    "end": 1539.25,
+    "text": " modo tutti i file descriptor che è aperto vengono liberati, ma in questo caso specifico"
+  },
+  {
+    "start": 1539.25,
+    "end": 1542.87,
+    "text": " noi dobbiamo scrivere i programmi corretti e lo liberiamo anche se qua stiamo andando a"
+  },
+  {
+    "start": 1543.75,
+    "end": 1549.17,
+    "text": " uscire dal programma. Bene, guardate, prima di chiudere questa lezione io vi devo dire"
+  },
+  {
+    "start": 1549.17,
+    "end": 1556.69,
+    "text": " però che qua abbiamo fatto un saltologico che è enorme rispetto a prima. Noi ora abbiamo"
+  },
+  {
+    "start": 1556.69,
+    "end": 1561.33,
+    "text": " la possibilità di allocare dei pezzi memoria, parleremo di come sono fatti allocatori, ma"
+  },
+  {
+    "start": 1561.33,
+    "end": 1568.29,
+    "text": " per ora freghiamo ce ne perché è un vandaggio fregarse in questo momento. Noi non lo vogliamo"
+  },
+  {
+    "start": 1568.29,
+    "end": 1572.17,
+    "text": " sapere in questa fase dove è che è allocata questa memoria, come funziona l'allocatore al suo"
+  },
+  {
+    "start": 1572.17,
+    "end": 1577.85,
+    "text": " interno. Tiene traccio di ciò che è stato allocato, di ciò che è liberato. Se una cosa è stata liberata"
+  },
+  {
+    "start": 1577.85,
+    "end": 1584.65,
+    "text": " e mi viene richiesto uno spazio più o meno simile, mi ridà un puntatore a un'area precedente"
+  },
+  {
+    "start": 1584.65,
+    "end": 1590.05,
+    "text": " visto che è stato ormai liberato, quindi riutilizza la memoria, mica aumenta l'utilizzo"
+  },
+  {
+    "start": 1590.05,
+    "end": 1596.65,
+    "text": " di memoria sempre di più, quindi quella allocatore è una libreria furba, difficile da scrivere bene,"
+  },
+  {
+    "start": 1596.65,
+    "end": 1605.37,
+    "text": " facile da farne uno facile ed è molto istruttivo. Ma a me piace l'astrazione che questo tutto"
+  },
+  {
+    "start": 1605.37,
+    "end": 1612.37,
+    "text": " ciò comporta. Io d'un tratto utilizzando i puntatori del C posso creare degli oggetti, perché"
+  },
+  {
+    "start": 1612.37,
+    "end": 1617.57,
+    "text": " di fatto questo è un oggetto stringa che prima non esisteva, posso manipolarli, posso"
+  },
+  {
+    "start": 1617.57,
+    "end": 1623.39,
+    "text": " farci le cose, posso liberarli e posso immaginare queste stringe come se esistessero così"
+  },
+  {
+    "start": 1623.39,
+    "end": 1628.43,
+    "text": " diciamo in uno spazio virtuale non ben definito, so che sono limitate dalla memoria del mio"
+  },
+  {
+    "start": 1628.43,
+    "end": 1633.87,
+    "text": " computer, ma io posso creare questi pezzi di memoria, usarli, liberarli. E questo è un"
+  },
+  {
+    "start": 1633.87,
+    "end": 1639.61,
+    "text": " grandissimo vantaggio e ci permette in C di creare programmi molto più complessi di"
+  },
+  {
+    "start": 1639.61,
+    "end": 1642.91,
+    "text": " quelli che avremmo altrimenti potuto scrivere. Ciao!"
+  }
+]

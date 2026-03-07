@@ -1,0 +1,1182 @@
+[
+  {
+    "start": 3.3800000000000003,
+    "end": 5.86,
+    "text": " Korean Strawberry"
+  },
+  {
+    "start": 42.08,
+    "end": 48.86,
+    "text": " Benvenuti amici a questo corso di programmazione in linguaggio C. Questa è la decima lezione,"
+  },
+  {
+    "start": 49.68,
+    "end": 54.22,
+    "text": " la seconda lezione che parla di puntatori, non è l'ultima lezione che parla di puntatori,"
+  },
+  {
+    "start": 55.56,
+    "end": 64.32,
+    "text": " e che dire, forse questo è un corso di programmazione in linguaggio C, è più in generale un corso"
+  },
+  {
+    "start": 64.32,
+    "end": 73.96,
+    "text": " di programmazione che si occupa specialmente di programmazione a basso livello, di programmazione"
+  },
+  {
+    "start": 73.96,
+    "end": 80.62,
+    "text": " di sistema e poi anche dell'interfaccia di programmazione che ci dà Unix, l'interfaccia"
+  },
+  {
+    "start": 80.62,
+    "end": 88.18,
+    "text": " a POSIX, però per ora dobbiamo costruire le basi e l'ultima volta ci abbiamo provato con questo"
+  },
+  {
+    "start": 88.18,
+    "end": 96.46,
+    "text": " programma qua che dichiarava una variabile X di tipo intero passava alla funzione INCR,"
+  },
+  {
+    "start": 96.78,
+    "end": 101.98,
+    "text": " un puntatore alla variabile, quindi l'indirizzo di memoria della variabile invece che della variabile"
+  },
+  {
+    "start": 101.98,
+    "end": 108.54,
+    "text": " stessa, perché la variabile varia 5, il suo indirizzo di memoria varrà un numero 64 bit in"
+  },
+  {
+    "start": 108.54,
+    "end": 114.22,
+    "text": " questa macchina che è l'indirizzo di memoria e la funzione INCR utilizza l'indirizzo di memoria"
+  },
+  {
+    "start": 114.22,
+    "end": 121.06,
+    "text": " per accendere alla variabile e modificarla al posto della funzione chiamante, perché in teoria"
+  },
+  {
+    "start": 121.06,
+    "end": 129.42,
+    "text": " questo X dovrebbe essere visibile solo dalla main, perché è una variabile locale, quindi"
+  },
+  {
+    "start": 129.42,
+    "end": 135.32,
+    "text": " non dovrebbe avere visibilità fuori dalla main, ma se io passo l'indirizzo di memoria"
+  },
+  {
+    "start": 135.32,
+    "end": 139.36,
+    "text": " per avere un'altra funzione, la funzione tramite questo indirizzo di memoria può accedere"
+  },
+  {
+    "start": 139.36,
+    "end": 144.26,
+    "text": " effettivamente a dove è memorizzata questa variabile e fare quel che vuole, incrementarla"
+  },
+  {
+    "start": 144.26,
+    "end": 154.58,
+    "text": " in questo caso. Accennavamo l'ultima volta al fatto che sia la sindassi P di 0, che la"
+  },
+  {
+    "start": 154.58,
+    "end": 163.02,
+    "text": " sindassi asterisco P sono equivalenti e tutte e due leggono il valore della variabile memorizzata"
+  },
+  {
+    "start": 163.02,
+    "end": 174.18,
+    "text": " dentro P. Queste due operazioni P di 0 asterisco P si chiamano deferenziazione di P. Differenziare"
+  },
+  {
+    "start": 174.70000000000002,
+    "end": 182.28,
+    "text": " significa semplicemente accedere ad una valore attraverso il suo indirizzo di memoria. Questa"
+  },
+  {
+    "start": 182.28,
+    "end": 188.5,
+    "text": " operazione è possibile farla sia in lettura che in scrittura, per esempio io posso scrivere"
+  },
+  {
+    "start": 188.5,
+    "end": 205.02,
+    "text": " qui printf, qui posso scrivere prima di before ing e utilizziamo asterisco P, invece potremmo"
+  },
+  {
+    "start": 205.02,
+    "end": 208.82,
+    "text": " utilizzare pure joesto, sono equivalenti, ma per utilizzarle le due forme lo stesso"
+  },
+  {
+    "start": 208.82,
+    "end": 217.08,
+    "text": " problema uso questo e quindi sto accedendo in lettura al puntatore P per leggere nell'intero"
+  },
+  {
+    "start": 217.08,
+    "end": 224.34,
+    "text": " e vi ricordo che il tipo di dato che ritornerà l'operazione di deferenziazione è relativo"
+  },
+  {
+    "start": 224.88000000000002,
+    "end": 229.1,
+    "text": " al modo in cui è stato addicherato il puntatore, perché i puntatori sono tutti uguali, sono"
+  },
+  {
+    "start": 229.1,
+    "end": 235.28,
+    "text": " tutti interi della grandezza, del bass, degli indirizi del micropogestore che stiamo utilizzando,"
+  },
+  {
+    "start": 235.38,
+    "end": 240.44,
+    "text": " quindi in teoria sono tutti interi, quindi a che serve il tipo solo a capire il programma,"
+  },
+  {
+    "start": 240.64,
+    "end": 246.4,
+    "text": " il computer e ci deve capire cosa deve ritornare quando questi puntatori vengono diciamo manipolati"
+  },
+  {
+    "start": 246.4,
+    "end": 259.8,
+    "text": " o deferenziati e così via, quindi scrivo questa cosa qui, compilo before ing, five, after"
+  },
+  {
+    "start": 259.8,
+    "end": 272.56,
+    "text": " ing, six, ma scaviamo un po' perché questo a noi non ci basta, io dichiaro un puntatore"
+  },
+  {
+    "start": 272.56,
+    "end": 279.68,
+    "text": " a un intero e chiamo questa variabile y, y è un puntatore intero e scrivo è uguale"
+  },
+  {
+    "start": 279.68,
+    "end": 291.64,
+    "text": " a end x, cioè da x l'end come vi ricordate trasforma una variabile nel suo, è strida"
+  },
+  {
+    "start": 291.64,
+    "end": 297.88,
+    "text": " le variabili e l'indirizzo di memoria alla quale s è registrata, io quindi posso stampare"
+  },
+  {
+    "start": 297.88,
+    "end": 321.96,
+    "text": " x vive in p e vale dollaro di, quindi vive in y e vale x, compiliamo x vive nel senso"
+  },
+  {
+    "start": 322.42,
+    "end": 330.9,
+    "text": " registrata vive che stiamo scherzando, a questo indirizzo qui e vale 5, questo programma"
+  },
+  {
+    "start": 330.9,
+    "end": 335.56,
+    "text": " io potrei sostituirlo, cioè qui y in questo programma potrei sostituirlo scrivendo qui"
+  },
+  {
+    "start": 337.54,
+    "end": 342.6,
+    "text": " end x, questo lo commento se non mi dai il warning che la variabile non è utilizzata,"
+  },
+  {
+    "start": 342.6,
+    "end": 352.78,
+    "text": " il risultato sarà uguale, identico, ovviamente non è garantito che diverse esecuzioni dello"
+  },
+  {
+    "start": 352.78,
+    "end": 357.28,
+    "text": " stesso programma facciano sì che guarda caso di indirizzo di memoria uguale, in questo"
+  },
+  {
+    "start": 357.28,
+    "end": 363.94,
+    "text": " caso sì in altri sistemi non potrebbe non esserci questa garanzia, in particolare di"
+  },
+  {
+    "start": 363.94,
+    "end": 372.28,
+    "text": " solito complicare un po' gli indirizi memoria, fare lo stack ad una posizione casuale,"
+  },
+  {
+    "start": 372.28,
+    "end": 376.9,
+    "text": " le lippine ad una posizione casuale, i vari blocchi di memoria che è il sistema operativo"
+  },
+  {
+    "start": 376.9,
+    "end": 382.32,
+    "text": " alloca per un nuovo processo può essere anche una layer di sicurezza in più contro certe"
+  },
+  {
+    "start": 382.32,
+    "end": 389.82,
+    "text": " vulnerabilità di corruzione della memoria, ma ora noi faremo di più dichiariamo anche"
+  },
+  {
+    "start": 389.82,
+    "end": 399.72,
+    "text": " una variabile z che è un puntatore a un puntatore di tipo intero, perché la variabile y sarà"
+  },
+  {
+    "start": 399.72,
+    "end": 405.88,
+    "text": " anche essere registrata da qualche parte e io posso prendere l'indirizzo di y, quindi"
+  },
+  {
+    "start": 406.78,
+    "end": 412.82,
+    "text": " ma non posso usare il puntatore a un intero come questo, devo usare il puntatore a un"
+  },
+  {
+    "start": 412.82,
+    "end": 424.4,
+    "text": " puntatore a un intero, quindi x vive in p e y vive in questi commenti faccio nel tutto"
+  },
+  {
+    "start": 424.4,
+    "end": 444.52,
+    "text": " in inglese x is stored in p e y is stored in, quindi in y c'è registrato x in z c'è"
+  },
+  {
+    "start": 445.06,
+    "end": 456.12,
+    "text": " fatto l'indirizzo di memoria di y, convidiamo, quindi una variabile registrata qua e una"
+  },
+  {
+    "start": 456.12,
+    "end": 461.56,
+    "text": " variabile registrata qua, tutte e due queste variabili sono di tipo intero, cioè sono"
+  },
+  {
+    "start": 461.56,
+    "end": 465.66,
+    "text": " due numeri scusate, sono due puntatori, uno puntatore all'interno e uno puntatore all'interno"
+  },
+  {
+    "start": 465.66,
+    "end": 471.1,
+    "text": " ma tutti i puntatori saranno sempre dei numeri, numeri della dimensione del basso indirizzo"
+  },
+  {
+    "start": 471.1,
+    "end": 484.4,
+    "text": " del processore, andiamo a vedere la loro dimensione, sides of di y, sides of di z, facciamo il"
+  },
+  {
+    "start": 484.4,
+    "end": 491.24,
+    "text": " cast a intero, allora che cosa serve questa parentesi col tipo, gli dice al c di convertire"
+  },
+  {
+    "start": 491.24,
+    "end": 498.02,
+    "text": " il valore di ritorno di quello che c'è a destra, cioè l'espressione che c'è a destra"
+  },
+  {
+    "start": 498.02,
+    "end": 503.46,
+    "text": " gli dice di convertirla in un tipo intero, si chiama casting, poi lo vedremo in dettaglio,"
+  },
+  {
+    "start": 503.68,
+    "end": 513.54,
+    "text": " questo in questo caso ne scambotaci per evitare il warning qua della printf, ecco qui, 8 e"
+  },
+  {
+    "start": 513.54,
+    "end": 523.12,
+    "text": " 8 sono due numeri grandi 8 bit, quindi 64 bit, peraltro vi faccio vedere una cosa, se noi"
+  },
+  {
+    "start": 523.12,
+    "end": 542.1,
+    "text": " ci mettiamo qua pure x, x non è 64 bit e 32 bit, 4 byte, perché x è un intero, d'accordo,"
+  },
+  {
+    "start": 543.4,
+    "end": 550.04,
+    "text": " se fosse stato un long in questa macchina sarebbe stato pure esso 64 bit, ma noi quello che"
+  },
+  {
+    "start": 550.04,
+    "end": 556.1,
+    "text": " interessa è che tutti i puntatori sono grandi uguali, sono larghi uguali, poi se lo standard"
+  },
+  {
+    "start": 556.1,
+    "end": 562.34,
+    "text": " del C non garantisceзisce questa cosa in questo momento fregate, me ne sappiate che i puntatori"
+  },
+  {
+    "start": 562.34,
+    "end": 567.94,
+    "text": " normalmente sono sempre della stessa dimensione perché così che funziona C più che ci sta"
+  },
+  {
+    "start": 567.94,
+    "end": 568.34,
+    "text": " sotto."
+  },
+  {
+    "start": 572.46,
+    "end": 578.2,
+    "text": " Facciamo ora un altro esperimento interessante, noi abbiamo detto che le stringhe,"
+  },
+  {
+    "start": 584.48,
+    "end": 589.12,
+    "text": " MaiSTR sono array di caratteri."
+  },
+  {
+    "start": 589.18,
+    "end": 590.54,
+    "text": " Hello World."
+  },
+  {
+    "start": 591.32,
+    "end": 594.6800000000001,
+    "text": " Io posso stampare questa stringa."
+  },
+  {
+    "start": 599.8000000000001,
+    "end": 602.76,
+    "text": " E mi stampa Hello World."
+  },
+  {
+    "start": 603.62,
+    "end": 623.98,
+    "text": " Dopodiché io, siccome so che questa è un array di tipi char, potrei dire, quindi c'è una parte della memoria del mio processo, del mio programma, dove saranno registrati a partita da un certo indirizzo i memori a tutti questi caratteri, uno dopo l'altro."
+  },
+  {
+    "start": 624.94,
+    "end": 644.1,
+    "text": " E io, quindi, posso dichiarare un puntatore che chiamo Pi di tipo char, quindi questo Pi può contenere l'indirizzo di memoria di un carattere, di un tipo numerico con segno di un solo byte."
+  },
+  {
+    "start": 645.1,
+    "end": 657.04,
+    "text": " E, in quarta caso, in C il nome di un array è anche un puntatore, quindi io posso scrivere char asterisco Pi uguale a MaiSTR."
+  },
+  {
+    "start": 658.4000000000001,
+    "end": 667.28,
+    "text": " In C, tutte le variabili che sono dichiarate come array possono essere utilizzate anche direttamente come indirizzi di memoria, come puntatori di quel tipo."
+  },
+  {
+    "start": 667.28,
+    "end": 677.84,
+    "text": " Non mi serve a me scrivere and MaiSTR, anzi sarebbe un errore in questo caso, perché proprio il nome stesso dell'errei è il puntatore a quel array."
+  },
+  {
+    "start": 678.34,
+    "end": 687.0,
+    "text": " Quindi guardate, at Pi, I can see, Mai string."
+  },
+  {
+    "start": 688.64,
+    "end": 694.64,
+    "text": " Guardate, io utilizzo due volte qua MaiSTR, MaiSTR, prima di ancora di utilizzare Pi."
+  },
+  {
+    "start": 695.82,
+    "end": 709.92,
+    "text": " Una volta lo stampo come un puntatore, una volta lo stampo come una stringa, perché in realtà per cenduale S che stampa le stringe, prende proprio in questo caso la printf, un puntatore all'inizio della stringa."
+  },
+  {
+    "start": 709.92,
+    "end": 718.82,
+    "text": " Quindi io compiro questo programma, lo eseguo e io posso vedere che questa è la indirizzi di memoria a cui è registrata la stringa e questa è la stringa in C."
+  },
+  {
+    "start": 719.6800000000001,
+    "end": 727.28,
+    "text": " Ma a questo punto io potrei provare a scrivere la printf da me."
+  },
+  {
+    "start": 728.3000000000001,
+    "end": 730.34,
+    "text": " O meglio, tolgo la printf."
+  },
+  {
+    "start": 731.88,
+    "end": 748.94,
+    "text": " Anzi, la rimetto, vi ricordate che percenduale C stampava il carattere dell'intero, il corrispondente nella tabellaschi all'intero che io do qui, per esempio 65 è la maiuscola."
+  },
+  {
+    "start": 749.56,
+    "end": 751.38,
+    "text": " Quindi compilo e stampo, mi stampa là."
+  },
+  {
+    "start": 751.38,
+    "end": 754.3,
+    "text": " Ma a questo punto io posso stampare Pi di 0."
+  },
+  {
+    "start": 754.82,
+    "end": 760.78,
+    "text": " Beh, Pi di 0 che cos'è? Pi è il puntatore all'inizio di questa stringa."
+  },
+  {
+    "start": 760.78,
+    "end": 777.38,
+    "text": " Se io faccio la differenzazione del puntatore Pi, quindi se prendo praticamente il char che ci è registrato a questo puntatore qua, dovrei avere la H, il primo carattere."
+  },
+  {
+    "start": 777.38,
+    "end": 789.58,
+    "text": " Perché mai stringa, mai str è il puntatore all'inizio di questa stringa, quindi io vedrò nel primo byte l'h, nel secondo byte l'e, poi l'h, l'h, l'h, l'h, l'h e così via."
+  },
+  {
+    "start": 790.0,
+    "end": 790.92,
+    "text": " Quindi stampiamo."
+  },
+  {
+    "start": 792.74,
+    "end": 793.76,
+    "text": " Ed ecco l'h."
+  },
+  {
+    "start": 794.4,
+    "end": 800.4,
+    "text": " Ma c'è una cosa interessante, io posso fare anche percenduale C."
+  },
+  {
+    "start": 800.54,
+    "end": 803.72,
+    "text": " Percenduale C mi faccio stampare Pi di 0 e Pi di 1."
+  },
+  {
+    "start": 805.46,
+    "end": 809.52,
+    "text": " E vedrò l'h e l'h."
+  },
+  {
+    "start": 810.06,
+    "end": 820.7,
+    "text": " Quindi quando io praticamente accendo al dato contenuto in un puntatore utilizzando a stelisco Pi, io posso accendere solo al primo degli elementi."
+  },
+  {
+    "start": 821.28,
+    "end": 830.22,
+    "text": " Se invece io utilizzo questa notazione qua, quella con le parentesi quadre, io posso accendere al primo, al secondo, al terzo, il che è molto comodo."
+  },
+  {
+    "start": 830.22,
+    "end": 841.1,
+    "text": " Ma ci sarebbe un modo per me per accedere utilizzando questa notazione qua al primo e questo si è facile, così funziona."
+  },
+  {
+    "start": 841.86,
+    "end": 855.72,
+    "text": " E poi al secondo, beh, sì, io posso fare Pi più 1, perché i puntatori, essendo che sono interi numeri, io li posso incrementare, li posso decrementare."
+  },
+  {
+    "start": 855.72,
+    "end": 857.72,
+    "text": " Posso fare ciò che farei con i numeri."
+  },
+  {
+    "start": 858.38,
+    "end": 869.98,
+    "text": " E quindi se io prima di fare l'operazione che estrae il valore a cui punte il puntatore, io prima aggiungo uno al puntatore."
+  },
+  {
+    "start": 870.1,
+    "end": 873.08,
+    "text": " Questo puntatore punterà esattamente un byte dopo."
+  },
+  {
+    "start": 875.52,
+    "end": 876.48,
+    "text": " Faccio così."
+  },
+  {
+    "start": 877.3,
+    "end": 879.8,
+    "text": " E ancora mi stampa H."
+  },
+  {
+    "start": 880.74,
+    "end": 885.04,
+    "text": " Quindi sono due modi assolutamente equivalenti per fare questa cosa qua."
+  },
+  {
+    "start": 886.04,
+    "end": 888.14,
+    "text": " Ora però vi voglio fare vedere una cosa."
+  },
+  {
+    "start": 888.4,
+    "end": 889.84,
+    "text": " Vi voglio fare vedere una cosa."
+  },
+  {
+    "start": 892.62,
+    "end": 902.28,
+    "text": " Io potrei fare una pazzia e dichiarare un puntatore short P."
+  },
+  {
+    "start": 902.86,
+    "end": 907.88,
+    "text": " I short sono interi a 16 bit, grandi due byte."
+  },
+  {
+    "start": 909.6800000000001,
+    "end": 912.18,
+    "text": " E faccio short P uguale my string."
+  },
+  {
+    "start": 913.12,
+    "end": 921.46,
+    "text": " E io qua mi faccio stampare come intero P, quello che c'è dentro P."
+  },
+  {
+    "start": 922.62,
+    "end": 935.34,
+    "text": " Quindi i primi due byte sono l'H e l'E, ma io per comodità qua ci metto AA, a, a, a, anzi B, B, C, C, D, D, E, F, F."
+  },
+  {
+    "start": 936.38,
+    "end": 938.82,
+    "text": " Vediamo che mi stampa questo programma, quindi guardate che faccio."
+  },
+  {
+    "start": 938.86,
+    "end": 947.78,
+    "text": " Io dichiaro un array di interi di tipo char, di caratteri insomma, ma noi sappiamo che in C, i caratteri non sono altro che interi,"
+  },
+  {
+    "start": 947.8,
+    "end": 953.88,
+    "text": " consegno di 8 bit, da meno 128 a più 127, il loro range."
+  },
+  {
+    "start": 954.9599999999999,
+    "end": 959.32,
+    "text": " Poi dichiaro un puntatore però a un tipo non davvero del tipo base."
+  },
+  {
+    "start": 959.32,
+    "end": 961.98,
+    "text": " Qua sbaglio diciamo, ma lo faccio apposta."
+  },
+  {
+    "start": 962.36,
+    "end": 969.04,
+    "text": " Infatti ho creato che riceverò un bel warning, perché scusa mi dice il compilatore C,"
+  },
+  {
+    "start": 969.46,
+    "end": 975.98,
+    "text": " ma tra l'altro da bravo Mario Uolo quale è, mica mi dà un errore e non mi permette di compilarlo,"
+  },
+  {
+    "start": 976.0,
+    "end": 982.74,
+    "text": " non mi dà un warning, mi ha detto lo vuoi fare? Fallo, per citare sempre lo stesso meme."
+  },
+  {
+    "start": 983.6800000000001,
+    "end": 990.48,
+    "text": " Ma guarda che qua c'è sbaglio, perché sono due tipi diversi, allora io per zittirlo uso quel famoso casting."
+  },
+  {
+    "start": 992.34,
+    "end": 997.44,
+    "text": " Quindi io, io dico questo, lo so, è un puntatore a un tipo char."
+  },
+  {
+    "start": 997.7,
+    "end": 1001.1,
+    "text": " Io voglio però che tu me lo trasformi, un puntatore di tipo short, peraltro,"
+  },
+  {
+    "start": 1001.38,
+    "end": 1007.16,
+    "text": " questa sarà un'operazione nulla, perché il puntatore di tipo short, il puntatore di tipo char,"
+  },
+  {
+    "start": 1007.16,
+    "end": 1010.28,
+    "text": " sono sempre in dirizzi memoria numero e sonda 4-bit."
+  },
+  {
+    "start": 1010.44,
+    "end": 1016.62,
+    "text": " È lo stesso in dirizzo di memoria, perché sempre maestring è, quindi non farà niente questa operazione,"
+  },
+  {
+    "start": 1016.7,
+    "end": 1021.12,
+    "text": " se non quello di, di silenziare il mio warning."
+  },
+  {
+    "start": 1021.62,
+    "end": 1027.02,
+    "text": " E guardate, mi stampa 16705."
+  },
+  {
+    "start": 1028.16,
+    "end": 1033.72,
+    "text": " Guarda caso, se io apro papayton 0xAAAA,"
+  },
+  {
+    "start": 1036.74,
+    "end": 1046.8,
+    "text": " no scusate, 0x6565, no devo andare a vedere quanto vale, ah beh posso fare 65 più,"
+  },
+  {
+    "start": 1047.6200000000001,
+    "end": 1055.48,
+    "text": " 65 per 256 per capirci, quindi io ho convertito i 2 65 che c'ho nel primo byte e il secondo byte"
+  },
+  {
+    "start": 1055.48,
+    "end": 1059.44,
+    "text": " nel numero 16-bit che rappresentano, d'accordo?"
+  },
+  {
+    "start": 1059.54,
+    "end": 1061.74,
+    "text": " Quindi praticamente a me mi è stampato questa cosa qui."
+  },
+  {
+    "start": 1064.5200000000002,
+    "end": 1070.74,
+    "text": " Ora andiamo al nostro roll-up, che succede se io prima di stampare questo intero faccio P++?"
+  },
+  {
+    "start": 1071.94,
+    "end": 1075.54,
+    "text": " Quindi ho incremento di 1 il puntatore P."
+  },
+  {
+    "start": 1076.44,
+    "end": 1080.6,
+    "text": " In teoria sono qui col puntatore, perché al inizio il puntatore punta a maestring,"
+  },
+  {
+    "start": 1081.06,
+    "end": 1086.5,
+    "text": " se ho incremento di 1 dovrei essere qui, e quindi dovrei vedere l'intero AB."
+  },
+  {
+    "start": 1087.5,
+    "end": 1096.58,
+    "text": " Quindi dovrei vedere, per capirci dovrei vedere, quindi il numero meno significativo,"
+  },
+  {
+    "start": 1096.66,
+    "end": 1100.34,
+    "text": " il byte meno significativo è 65, 66 per 256."
+  },
+  {
+    "start": 1102.04,
+    "end": 1110.28,
+    "text": " Dovrei vedere 16961, e invece no cari amici, io non vedrò questo numero, ne vedrò un altro,"
+  },
+  {
+    "start": 1110.28,
+    "end": 1111.92,
+    "text": " compiliamo ed eseguiamo."
+  },
+  {
+    "start": 1113.94,
+    "end": 1119.54,
+    "text": " Io vedo invece di 16961, 16962."
+  },
+  {
+    "start": 1119.74,
+    "end": 1125.22,
+    "text": " Sapete perché? Perché questo è 66 più 66 per 256."
+  },
+  {
+    "start": 1126.72,
+    "end": 1133.08,
+    "text": " E sapete perché? Perché la matematica dei puntatori segue una regola molto particolare e utile,"
+  },
+  {
+    "start": 1134.6,
+    "end": 1138.78,
+    "text": " ovvero quando io incremento o decremento un puntatore di 1,"
+  },
+  {
+    "start": 1139.64,
+    "end": 1144.62,
+    "text": " in realtà questo 1 prima verrà moltiplicato per la grandezza del tipo base del puntatore."
+  },
+  {
+    "start": 1145.1,
+    "end": 1150.14,
+    "text": " Allora, se short vale 2 bytes, ogni volta che io incremento il puntatore sono qui,"
+  },
+  {
+    "start": 1150.56,
+    "end": 1153.92,
+    "text": " quindi all'inizio di questi 2 bytes, se io incremento di 1 vado qui,"
+  },
+  {
+    "start": 1154.32,
+    "end": 1157.08,
+    "text": " perché uno short è 2 bytes, lo incremento ancora, vado qui,"
+  },
+  {
+    "start": 1157.08,
+    "end": 1163.14,
+    "text": " lo incremento di 4 vado 1, 2, 3, 4, vado dove c'è la E, proviamoci."
+  },
+  {
+    "start": 1163.58,
+    "end": 1169.08,
+    "text": " P più uguale a 4, più uguale è un modo breve in C di scrivere, più uguale a P più 4."
+  },
+  {
+    "start": 1169.52,
+    "end": 1174.34,
+    "text": " Ma noi abituiamoci a queste cose comode, è uguale,"
+  },
+  {
+    "start": 1174.38,
+    "end": 1177.1,
+    "text": " non si può usare col perco, il diviso, c'è anche in altre linguaggi di promozione,"
+  },
+  {
+    "start": 1177.18,
+    "end": 1178.34,
+    "text": " probabilmente lo sapete già."
+  },
+  {
+    "start": 1180.52,
+    "end": 1181.24,
+    "text": " Compiliamo."
+  },
+  {
+    "start": 1181.6,
+    "end": 1187.84,
+    "text": " Oh, questo è il numero che becco, che è abiccidi, eravamo alla E, stavamo puntando alla E giusto,"
+  },
+  {
+    "start": 1188.4,
+    "end": 1200.48,
+    "text": " quindi 65, 66, 67, 68, 69, 69 per più 69 per 256, può essere..."
+  },
+  {
+    "start": 1200.48,
+    "end": 1203.32,
+    "text": " Esatto, 17, 733."
+  },
+  {
+    "start": 1204.98,
+    "end": 1209.62,
+    "text": " Inutile dire che questo trucchetto vale pure, togliamo questo incremento,"
+  },
+  {
+    "start": 1209.62,
+    "end": 1213.18,
+    "text": " scriviamo P di 4, vale pure in questo caso,"
+  },
+  {
+    "start": 1213.64,
+    "end": 1217.28,
+    "text": " cioè io P di 4 è quasi capiscia meglio, perché è così utile che sia così."
+  },
+  {
+    "start": 1218.04,
+    "end": 1223.98,
+    "text": " Io, se qua ho dei short, quindi dei numeri a 16 bits, 1 dopo l'altro,"
+  },
+  {
+    "start": 1224.14,
+    "end": 1231.68,
+    "text": " non è che voi se scrivo P di 4, voglio andare 1, 0, 1, 2, 3, 4 qua, no, io voglio andare qua,"
+  },
+  {
+    "start": 1231.68,
+    "end": 1245.74,
+    "text": " perché ognuno è un numero da 16 bit e 2 byte, quindi prima i due byte sono il primo, pd0, pd1, pd2, pd3, pd4, d'accordo?"
+  },
+  {
+    "start": 1247.34,
+    "end": 1255.3,
+    "text": " Non divendicate mai che il cilzene forte di voi, e se scrivete pd40 che è completamente sbagliato,"
+  },
+  {
+    "start": 1255.78,
+    "end": 1260.68,
+    "text": " perché fuori dalla nostra memoria scriverà la memoria qualcosa che trova la in quella memoria,"
+  },
+  {
+    "start": 1260.68,
+    "end": 1269.22,
+    "text": " o andrà in Segmentation Fold, se andiamo fuori dallo spazio di indirizzo del programma, però dobbiamo trovare come andarci."
+  },
+  {
+    "start": 1269.78,
+    "end": 1274.02,
+    "text": " Andiamoci con un numero negativo qua, eccoci qua, Segmentation Fold."
+  },
+  {
+    "start": 1280.22,
+    "end": 1281.06,
+    "text": " Benissimo!"
+  },
+  {
+    "start": 1282.3600000000001,
+    "end": 1297.52,
+    "text": " Io tutto questo lo posso usare per dichiarare un puntatore di tipo Char a my string e scrivo, while p non è 0,"
+  },
+  {
+    "start": 1297.68,
+    "end": 1302.1,
+    "text": " vi ricordate che al termine di una stringa c'è sempre un byte che vale 0?"
+  },
+  {
+    "start": 1302.7,
+    "end": 1306.16,
+    "text": " Si chiama nullterm e segnala la fine della stringa."
+  },
+  {
+    "start": 1306.16,
+    "end": 1314.58,
+    "text": " Quindi fin quando io non incontro il carattere di terminazione della stringa, che mi dice che la mia stringa c'è finita,"
+  },
+  {
+    "start": 1320.52,
+    "end": 1326.78,
+    "text": " uso questa funzione che è la funzione plus... no scusate si chiama Putjar,"
+  },
+  {
+    "start": 1328.36,
+    "end": 1333.58,
+    "text": " Putjar che prende soltanto un carattere e lo stampa, senza nulline, senza niente."
+  },
+  {
+    "start": 1335.18,
+    "end": 1339.22,
+    "text": " Quindi lo sto più utilizzando la printf e sto utilizzando una funzione molto più semplice."
+  },
+  {
+    "start": 1340.48,
+    "end": 1347.18,
+    "text": " Putjar di quello che c'è in questo momento in P, P++, quindi io incremento il puntatore,"
+  },
+  {
+    "start": 1347.88,
+    "end": 1355.58,
+    "text": " alla fine devo stampare un newline così vado a capo, anzi però non ce lo mettiamo,"
+  },
+  {
+    "start": 1355.78,
+    "end": 1363.22,
+    "text": " vado alla mia scella e furbe, quando è così me lo fa vedere, gli mette una percentuale alla fine,"
+  },
+  {
+    "start": 1363.3,
+    "end": 1366.26,
+    "text": " mi fa vedere guarda che questo auto putto non aveva il newline alla fine."
+  },
+  {
+    "start": 1368.1,
+    "end": 1375.42,
+    "text": " Com piliamo, guardate, mi stampa la mia stringa e qui mi stampa, guarda che ti manca l'invio,"
+  },
+  {
+    "start": 1375.42,
+    "end": 1382.2,
+    "text": " mi dice la mia scella. Ma a questo punto io posso scrivere,"
+  },
+  {
+    "start": 1382.96,
+    "end": 1394.3,
+    "text": " at the beginning, P is il valore del puntatore, at the end, P is,"
+  },
+  {
+    "start": 1395.8999999999999,
+    "end": 1405.3,
+    "text": " compiliamo, guardate il mio puntatore inizia a e28 e finisceavescia a e34,"
+  },
+  {
+    "start": 1406.46,
+    "end": 1410.3,
+    "text": " perché mentre io continuavo a incrementarlo man mano a mano che stampavo i miei caratteri."
+  },
+  {
+    "start": 1410.96,
+    "end": 1419.08,
+    "text": " E' qui c'è il messaggio che è appiccicato qui perché qui mi manca la mia printf del newline,"
+  },
+  {
+    "start": 1419.08,
+    "end": 1424.08,
+    "text": " così si capisce specia. Andiamo a vedere di nuovo che fa questo programma."
+  },
+  {
+    "start": 1426.06,
+    "end": 1432.34,
+    "text": " Dicchia un errei di caratteri, lo inizializza a un dato valore,"
+  },
+  {
+    "start": 1433.44,
+    "end": 1440.82,
+    "text": " usa il fatto che si può dichiarare un errei senza specificare la grandezza e il cielo, capirà dall'inizializzazione,"
+  },
+  {
+    "start": 1441.74,
+    "end": 1447.6,
+    "text": " poi dichiara un puntatore che punta all'inizio di questo errei di piccoli interi di un byte,"
+  },
+  {
+    "start": 1448.6599999999999,
+    "end": 1455.18,
+    "text": " poi stampa qual è l'indirizzo di memoria a cui il puntatore P punta,"
+  },
+  {
+    "start": 1456.22,
+    "end": 1459.68,
+    "text": " il puntatore è un numero, quindi io avrò un numero,"
+  },
+  {
+    "start": 1459.78,
+    "end": 1464.44,
+    "text": " la unica cosa è che percentuale P stampa il numero in esadecimale."
+  },
+  {
+    "start": 1465.26,
+    "end": 1472.3,
+    "text": " Ma io tra l'altro potrei anche farmelo stampare in come un siglet long."
+  },
+  {
+    "start": 1472.78,
+    "end": 1480.36,
+    "text": " Ora faccio questo casting mostruoso anche qui, anzi no, basta su un esempio ci basta."
+  },
+  {
+    "start": 1481.66,
+    "end": 1484.62,
+    "text": " Ecco qui, io qua lo vedo in esadecimale in indirizzo di memoria,"
+  },
+  {
+    "start": 1484.66,
+    "end": 1488.1,
+    "text": " ma in indirizzo di memoria è un numero, quindi lo puoi stampare come te pare,"
+  },
+  {
+    "start": 1488.74,
+    "end": 1490.98,
+    "text": " però di solito si stampano in esadecimale."
+  },
+  {
+    "start": 1492.3,
+    "end": 1498.38,
+    "text": " Quindi io poi dico fino a quando il valore che tu puoi estrarre dal puntatore P in questo momento,"
+  },
+  {
+    "start": 1498.5,
+    "end": 1503.46,
+    "text": " quindi fino a quando l'imbatore memorizzato all'indirizzo di memoria P non è zero,"
+  },
+  {
+    "start": 1504.18,
+    "end": 1507.14,
+    "text": " stampami questo valore memorizzato all'indirizzo di memoria P"
+  },
+  {
+    "start": 1507.14,
+    "end": 1510.06,
+    "text": " e tra l'altro che valore è il puntatore di tipo char,"
+  },
+  {
+    "start": 1510.22,
+    "end": 1514.94,
+    "text": " quindi quando io scrivo a sterisco P o quando scrivo P parendesi quadra,"
+  },
+  {
+    "start": 1515.04,
+    "end": 1518.42,
+    "text": " il numero mi vedrò ritornare il tipo base, un char."
+  },
+  {
+    "start": 1518.42,
+    "end": 1524.4,
+    "text": " Se questo fosse stato puntatore di puntatore a P, io mi vedevo ritornare un puntatore a P,"
+  },
+  {
+    "start": 1524.54,
+    "end": 1530.58,
+    "text": " quindi in pratica ogni volta che voi fate differenziate il puntatore"
+  },
+  {
+    "start": 1530.58,
+    "end": 1537.34,
+    "text": " è come se toglieste un asterisco, quindi se puntatore di puntatore di puntatore,"
+  },
+  {
+    "start": 1537.5,
+    "end": 1539.96,
+    "text": " allora il tipo che ritorna è un puntatore a puntatore a P."
+  },
+  {
+    "start": 1540.5,
+    "end": 1546.62,
+    "text": " Siccome era già un puntatore a P, vi ritorna P che è cosa un char."
+  },
+  {
+    "start": 1547.8600000000001,
+    "end": 1553.42,
+    "text": " Quindi io stampo il carattere, potrei sostituire con questo, non cambia niente"
+  },
+  {
+    "start": 1553.42,
+    "end": 1558.5,
+    "text": " e poi scrivo P più più per incrementare il puntatore, quindi prima puntava all'inizio"
+  },
+  {
+    "start": 1558.5,
+    "end": 1562.72,
+    "text": " e la stringa poi punta il prossimo carattere e così via fino a quando poi alla fine"
+  },
+  {
+    "start": 1562.72,
+    "end": 1565.82,
+    "text": " punta a dove c'è il byte zero e il wild hash."
+  },
+  {
+    "start": 1567.02,
+    "end": 1573.34,
+    "text": " Così ora che abbiamo messo l'altra forma P di zero funziona lo stesso modo,"
+  },
+  {
+    "start": 1573.34,
+    "end": 1578.02,
+    "text": " ovviamente a me nulla mi vieta per esempio di stampare P di uno, se uno use case"
+  },
+  {
+    "start": 1578.02,
+    "end": 1581.96,
+    "text": " in cui io voglio stampare sempre quello che c'è oltre il puntatore"
+  },
+  {
+    "start": 1581.96,
+    "end": 1586.74,
+    "text": " e qua per rendere il problema con il retto gli dico continuo fino a quando"
+  },
+  {
+    "start": 1589.2600000000002,
+    "end": 1594.84,
+    "text": " il valore non è per esempio qua, mettiamoci un punto, fino a quando non è punto"
+  },
+  {
+    "start": 1594.84,
+    "end": 1600.1,
+    "text": " il carattere nel quale sei, stampami il carattere dopo."
+  },
+  {
+    "start": 1600.1,
+    "end": 1604.68,
+    "text": " Quindi io compiro questo programma e guardate mi stampa tutto fino al punto"
+  },
+  {
+    "start": 1604.68,
+    "end": 1609.5,
+    "text": " perché quando c'è il punto in realtà esce, ma siccome quando ancora era sulla E"
+  },
+  {
+    "start": 1610.3,
+    "end": 1614.9,
+    "text": " entrava nel loop e poi stampava il carattere successivo mi stampa il punto."
+  },
+  {
+    "start": 1615.66,
+    "end": 1621.24,
+    "text": " Bene, io direi che con questa lezione abbiamo messo abbastanza carne sul fuoco"
+  },
+  {
+    "start": 1621.24,
+    "end": 1624.96,
+    "text": " e abbiamo visto i puntatori un po' meglio rispetto all'altra volta,"
+  },
+  {
+    "start": 1624.96,
+    "end": 1630.02,
+    "text": " nella loro reale potenza, è in maniera un po' più applicata, perché per esempio io"
+  },
+  {
+    "start": 1630.02,
+    "end": 1634.3,
+    "text": " grazie a questo ciclo che contiene un puntatore sono riuscito effettivamente"
+  },
+  {
+    "start": 1634.3,
+    "end": 1639.52,
+    "text": " a stampare una stringa. Per finire, vi voglio dire una cosa che nulla"
+  },
+  {
+    "start": 1639.52,
+    "end": 1645.18,
+    "text": " vieta di prendere questa roba qua e mettere in una funzione che si chiama"
+  },
+  {
+    "start": 1649.1000000000001,
+    "end": 1654.48,
+    "text": " printstr che prende un puntatore a P, io non cambio di una virgola il codice"
+  },
+  {
+    "start": 1654.48,
+    "end": 1658.7,
+    "text": " che c'è dentro, ma qua rimetto lo zero perché se no non va bene"
+  },
+  {
+    "start": 1659.92,
+    "end": 1665.92,
+    "text": " e io qualchiamo printstrp e posso chiamare pure printstr mystring"
+  },
+  {
+    "start": 1665.92,
+    "end": 1670.1,
+    "text": " perché sono la stessa roba, sono sempre puntatori a un tipo di carattere"
+  },
+  {
+    "start": 1671.48,
+    "end": 1676.06,
+    "text": " e io vedo stampare la mia stringa due volte, ma nulla mi vieta anche di scrivere"
+  },
+  {
+    "start": 1676.06,
+    "end": 1678.38,
+    "text": " printstr mystring più tre."
+  },
+  {
+    "start": 1679.4399999999998,
+    "end": 1686.6,
+    "text": " Quindi la terza volta io prima stampo a bcde a bcde bcde perché parto da tre caratteri dopo"
+  },
+  {
+    "start": 1686.6,
+    "end": 1691.38,
+    "text": " perché in questo modo ho passato il mio indirizzo in memoria però tre byte avanti"
+  },
+  {
+    "start": 1691.94,
+    "end": 1695.38,
+    "text": " l'ho incrementato prima di passarlo. Spero di essere stato chiaro."
+  },
+  {
+    "start": 1695.96,
+    "end": 1697.36,
+    "text": " Un salutone, ciao!"
+  }
+]

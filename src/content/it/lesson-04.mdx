@@ -1,0 +1,102 @@
+import VideoEmbed from '../../components/content/VideoEmbed';
+import Callout from '../../components/content/Callout';
+import KeyConcepts from '../../components/content/KeyConcepts';
+import LimitsExplorer from '../../components/content/LimitsExplorer';
+import BinaryVisualizer from '../../components/content/BinaryVisualizer';
+import Infographic from '../../components/content/Infographic';
+import CodeEditor from '../../components/exercises/CodeEditor';
+import Quiz from '../../components/exercises/Quiz';
+
+# Lezione 4: Interi, Memoria e Limiti
+
+Benvenuti alla quarta lezione! Oggi scaveremo sotto la superficie del C per capire come i numeri vengono effettivamente rappresentati nella memoria del computer e perché le dimensioni contano.
+
+<VideoEmbed videoId="YNsXyasn4R4" title="Lezione 4: Tipi Interi e Memoria" />
+
+<KeyConcepts 
+  concepts={[
+    {
+      title: "sizeof",
+      description: "L'operatore fondamentale per scoprire quanti byte occupa un tipo sulla tua macchina specifica."
+    },
+    {
+      title: "limits.h",
+      description: "La libreria standard che contiene le costanti per i valori minimi e massimi di ogni tipo."
+    },
+    {
+      title: "Architettura",
+      description: "Le dimensioni dei tipi (come long) cambiano a seconda che tu sia su un sistema a 32 o 64 bit."
+    }
+  ]} 
+/>
+
+## Quanto è grande un intero?
+
+A differenza di linguaggi come Python, in C la dimensione di un `int` non è fissa per sempre. Dipende dalla tua **piattaforma**.
+
+<LimitsExplorer />
+
+<Callout type="warning" title="Attenzione al Warning!">
+Quando usi `sizeof` nella `printf`, usa lo specificatore `%lu` (long unsigned) o fai un casting a `(int)`, altrimenti il compilatore ti avviserà che i tipi non corrispondono!
+</Callout>
+
+## La Danza dei Bit
+
+Ogni numero che scrivi viene convertito in una sequenza di **0** e **1**. Un `int` a 32 bit può rappresentare oltre 4 miliardi di combinazioni diverse.
+
+<BinaryVisualizer />
+
+<Infographic 
+  src="/images/limits_table.png" 
+  alt="Tabella dei limiti dei tipi in C" 
+  caption="Confronto rapido tra i vari tipi interi e i loro range tipici."
+/>
+
+## Memoria e Allineamento
+
+Il computer non lancia i byte a caso nella RAM. Li organizza in celle, e spesso aggiunge del "padding" (spazio vuoto) per rendere l'accesso più veloce per il processore.
+
+<Infographic 
+  src="/images/memory_padding.png" 
+  alt="Visualizzazione della memoria e padding" 
+  caption="Come un mix di tipi diversi viene impilato nella RAM."
+/>
+
+## Laboratorio di Codice
+
+Prova a sperimentare con `sizeof` e le costanti di `limits.h` come `INT_MIN` e `INT_MAX`.
+
+<CodeEditor 
+  initialCode={`#include <stdio.h>\n#include <limits.h>\n\nint main() {\n    printf("Dimensione int: %lu byte\\n", sizeof(int));\n    printf("Range int: %d a %d\\n", INT_MIN, INT_MAX);\n    return 0;\n}`}
+  language="c"
+/>
+
+## Quiz di Verifica
+
+<Quiz 
+  questions={[
+    {
+      question: "Cosa ritorna l'operatore sizeof?",
+      options: [
+        "Il valore massimo di una variabile",
+        "La dimensione in bit di un tipo",
+        "La dimensione in byte di un tipo o variabile",
+        "L'indirizzo di memoria della variabile"
+      ],
+      correctAnswer: 2,
+      explanation: "sizeof ritorna sempre il numero di byte (gruppi di 8 bit) occupati in memoria."
+    },
+    {
+      question: "Quale file header contiene le costanti INT_MIN e INT_MAX?",
+      options: ["stdio.h", "limits.h", "stdint.h", "stdlib.h"],
+      correctAnswer: 1,
+      explanation: "limits.h definisce i limiti specifici dell'architettura per i tipi interi standard."
+    },
+    {
+      question: "In un sistema a 64 bit, quanto è grande solitamente un 'long'?",
+      options: ["2 byte", "4 byte", "8 byte", "16 byte"],
+      correctAnswer: 2,
+      explanation: "Sui sistemi moderni a 64 bit, il tipo long solitamente segue la dimensione della parola del processore, ovvero 8 byte."
+    }
+  ]}
+/>

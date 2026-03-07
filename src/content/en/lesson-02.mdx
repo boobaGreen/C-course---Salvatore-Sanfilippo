@@ -12,18 +12,37 @@ Every C program often starts with preprocessor directives. The most common one i
 `stdio.h` stands for **Standard Input/Output**. It contains the definitions of fundamental functions like `printf`. Without this include, the compiler wouldn't know how to handle screen output.
 </Callout>
 
-### The `main` Function
-The `main` function is the heart of the program. It's the entry point from which the operating system starts execution.
+### The main Function and C Constraints
+The `main` function is the heart of the program. It is the entry point from which the operating system begins execution. In C, **all executable code must reside within a function**.
+
+<Callout type="warning" title="No 'Free-Floating' Code">
+Unlike Python or Bash, you cannot write a `printf` directly at the top of the file. If you try, the compiler will give you an error like `expected declaration or statement`.
+</Callout>
 
 ```c
 int main(void) {
-    // Your code here
+    // Your code must stay inside here!
     return 0;
 }
 ```
 
 - `int`: Indicates that the function returns an integer to the operating system (0 means success).
-- `void`: Explicitly indicates that the function accepts no input arguments.
+- `void`: Explicitly indicates that the function takes no input arguments.
+
+---
+
+## printf: The Magic of Formatting
+
+The name `printf` stands for **Print Formatted**. It is an extremely powerful function because it is **variadic**: it can accept a variable number of arguments.
+
+<Callout type="danger" title="Variadic Dangers">
+If you tell `printf` you will print two integers (`%d %d`) but only pass one, C will not stop you! It will read "garbage" from memory or crash. This is your first taste of **Undefined Behavior**.
+</Callout>
+
+```c
+printf("Hello %s, result is %d\n", "User", 30);
+//      [FORMAT]         [ARG 1]    [ARG 2]
+```
 
 ---
 

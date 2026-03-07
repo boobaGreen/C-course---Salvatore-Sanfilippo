@@ -1,0 +1,1452 @@
+[
+  {
+    "start": 0.8599999999999977,
+    "end": 7.36,
+    "text": " Bene, bene, bene. Ecco, ci è arrivato addirittura l'undicesima puntata di questo corso di programmazione in C."
+  },
+  {
+    "start": 7.88,
+    "end": 14.54,
+    "text": " Un'undicesima puntata vuol dire che sono già trascorsi quasi tre mesi dall'inizio del corso."
+  },
+  {
+    "start": 15.22,
+    "end": 24.42,
+    "text": " Il che è interessante significa che questo tipo di tentativo, di divulgativo, dell'informatica sta producendo dei frutti,"
+  },
+  {
+    "start": 24.7,
+    "end": 29.3,
+    "text": " perché il corso è seguito, perché io continuo ad avere voglia di fare queste lezioni."
+  },
+  {
+    "start": 29.3,
+    "end": 39.84,
+    "text": " E quindi qualcosa sta funzionando. Nella scorsa puntata avevamo visto un programma,"
+  },
+  {
+    "start": 39.9,
+    "end": 44.9,
+    "text": " allora questo è quello che avevamo fatto alla fine, ma le cose che avevano creato delle perplessità,"
+  },
+  {
+    "start": 45.2,
+    "end": 52.52,
+    "text": " e l'ho letto poi nei commenti, è in effetti vituato che chi ha espresso queste perplessità ha avuto ragione,"
+  },
+  {
+    "start": 55.28,
+    "end": 60.14,
+    "text": " erano dovute queste perplessità a questo tipo di programma."
+  },
+  {
+    "start": 60.3,
+    "end": 71.22,
+    "text": " Per esempio io dichiaravo un rei di caratteri, quindi una stringa in C, dove c'è scritto,"
+  },
+  {
+    "start": 71.22,
+    "end": 82.88,
+    "text": " per esempio, A a Bb, poi dichiaravo un puntatore short che assegnavo, quindi il puntatore short"
+  },
+  {
+    "start": 82.88,
+    "end": 86.12,
+    "text": " è un indirizzo in memoria, a numeri che sono di 2 by 2 o 1."
+  },
+  {
+    "start": 88.03999999999999,
+    "end": 96.26,
+    "text": " Ci assegnavo in realtà l'indirizzo in memoria della stringa, quindi ora sia str che s puntano la stessa indirizzo in memoria,"
+  },
+  {
+    "start": 96.26,
+    "end": 108.28,
+    "text": " ma quando io ci accedo col puntatore str, perché vi ricordo che per l'aliasi, per l'equivalenza che c'è tra puntatori e nomi degli rei in C,"
+  },
+  {
+    "start": 108.82,
+    "end": 117.74,
+    "text": " questo è anche un puntatore, oltre a essere il nome dell'errei, quindi sia s che str puntano allo stesso indirizzo in memoria,"
+  },
+  {
+    "start": 117.84,
+    "end": 124.08,
+    "text": " ma quando io accedo a questo indirizzo in memoria attraverso str, ci accedo prendendo caratteri,"
+  },
+  {
+    "start": 124.08,
+    "end": 129.18,
+    "text": " quindi str di 0 sarà il primo carattere, str di 1 il secondo, il terzo, il quarto, il quinto, eccetera,"
+  },
+  {
+    "start": 130.06,
+    "end": 136.42,
+    "text": " mentre invece quando ci accedo tramite il puntatore s che è di tipo short, prene però ad str di 0"
+  },
+  {
+    "start": 136.42,
+    "end": 143.88,
+    "text": " l'intero 16-bit che c'è nei primi 2 byte, quindi A a A e poi con str di 1 il secondo intero che c'è a Bb."
+  },
+  {
+    "start": 144.32,
+    "end": 151.7,
+    "text": " Questa cosa lo possiamo verificare in maniera molto semplice, facendoci stampare prima i due short,"
+  },
+  {
+    "start": 163.24,
+    "end": 165.3,
+    "text": " e quindi la cosa che è importante è che, quando scrivere short,"
+  },
+  {
+    "start": 165.74,
+    "end": 174.12,
+    "text": " perché il casting, quello che si mette tra parentesi, che vuol dire voglio che tu converti l'espressione a destra"
+  },
+  {
+    "start": 174.12,
+    "end": 181.64,
+    "text": " in questo tipo di C, in questo tipo di dato C, ovviamente deve essere uno short,"
+  },
+  {
+    "start": 181.66,
+    "end": 184.06,
+    "text": " perché io poi assegno che uno short. Ma io non vi ho detto che c'è un short,"
+  },
+  {
+    "start": 184.06,
+    "end": 187.8,
+    "text": " quindi questo warning ci aiuta a non commettere questi errori."
+  },
+  {
+    "start": 188.14,
+    "end": 195.36,
+    "text": " Quindi, come vedete, prima praticamente qui c'ho lo short che è equivale ad A a e qui c'ho lo short che equivale a Bb."
+  },
+  {
+    "start": 195.78,
+    "end": 199.98,
+    "text": " Tra l'altro questa cosa qui possiamo meglio vederla."
+  },
+  {
+    "start": 201.82,
+    "end": 209.74,
+    "text": " Allora io qua ho scritto A a e Bb. Ma, ma."
+  },
+  {
+    "start": 211.86,
+    "end": 219.82,
+    "text": " Voi vi dovete ricordare che questi caratteri corrispondono a determinati caratteri nel charset ASCII."
+  },
+  {
+    "start": 220.5,
+    "end": 233.16,
+    "text": " Allora, guardate, se io vado nel charset decimale, la A a che numero corrisponde a 97 e la B a 98."
+  },
+  {
+    "start": 233.74,
+    "end": 238.66,
+    "text": " Quindi, anzi, facciamo una cosa più interessante, guardiamolo in N a decimale."
+  },
+  {
+    "start": 239.28,
+    "end": 241.96,
+    "text": " La minuscola è 61 e la meiuscola è 62."
+  },
+  {
+    "start": 242.78,
+    "end": 249.68,
+    "text": " Se io l'angelo interpreta a Python scrivo 0x61 e 0x62."
+  },
+  {
+    "start": 250.78,
+    "end": 254.3,
+    "text": " Qui ho dato esattamente i due byte che compongono il numero,"
+  },
+  {
+    "start": 254.58,
+    "end": 258.02,
+    "text": " perché ho scritto il numero in N a decimale, quindi in base 16."
+  },
+  {
+    "start": 258.96,
+    "end": 264.16,
+    "text": " Guardate, non è assolutamente un caso che questi due numeri coincidano."
+  },
+  {
+    "start": 264.72,
+    "end": 271.46,
+    "text": " Allora, facciamo ora un altro test un po' diverso."
+  },
+  {
+    "start": 272.12,
+    "end": 279.12,
+    "text": " Quando io ora inizializzo questa R di caratteri, io in realtà ci scrivo 1, 1, 2, 2."
+  },
+  {
+    "start": 279.46,
+    "end": 282.24,
+    "text": " Attenzione, non sono più caratteri, sono numeri."
+  },
+  {
+    "start": 282.24,
+    "end": 287.72,
+    "text": " Quindi ora veramente i byte varranno 1, 1, 2, 2 che possiamo vederlo con in Python."
+  },
+  {
+    "start": 289.21999999999997,
+    "end": 295.62,
+    "text": " 0x01, 01, 0x02, 02 equivalgono a questo numero di 16 bit."
+  },
+  {
+    "start": 296.7,
+    "end": 301.98,
+    "text": " Infatti, se io compiro il mio programma, vedrete che mi schiava 257 e 514."
+  },
+  {
+    "start": 302.8,
+    "end": 305.4,
+    "text": " Ma questo, perché accade?"
+  },
+  {
+    "start": 307.32000000000005,
+    "end": 315.4,
+    "text": " Allora, io qui mi sposto dal C e vado a, diciamo, così a tartare un argomento di programmazione"
+  },
+  {
+    "start": 315.4,
+    "end": 316.8,
+    "text": " che è veramente basilare."
+  },
+  {
+    "start": 318.4,
+    "end": 322.7,
+    "text": " Allora, se io ho un numero auto bit, quindi un char,"
+  },
+  {
+    "start": 323.66,
+    "end": 329.64,
+    "text": " avrò dei bit, il bit set 6, 5, 4, 3, 2, 1, 0."
+  },
+  {
+    "start": 330.29999999999995,
+    "end": 330.9,
+    "text": " Ok?"
+  },
+  {
+    "start": 331.88,
+    "end": 337.86,
+    "text": " Ora, se io per dire, c'ho, questi, ognuno di questi bit possono valere 0 o 1."
+  },
+  {
+    "start": 338.24,
+    "end": 340.24,
+    "text": " Ma mettiamo che io c'ho questi bit qui."
+  },
+  {
+    "start": 341.91999999999996,
+    "end": 346.9,
+    "text": " Allora, il bit meno significativo può valere 0 o 1."
+  },
+  {
+    "start": 347.4,
+    "end": 354.14,
+    "text": " Il bit, un, più, leggermente più significativo, può valere 0 o 2."
+  },
+  {
+    "start": 354.5,
+    "end": 358.64,
+    "text": " 0 o 4, 0 o 8, ognuno valgono una potenza del 2."
+  },
+  {
+    "start": 358.64,
+    "end": 363.4,
+    "text": " Questa cosa è molto semplice da vedere con i numeri, che tutti conosciamo in numeri decimali."
+  },
+  {
+    "start": 364.0,
+    "end": 369.5,
+    "text": " Allora, 2, 2332 è lo stesso di scrivere."
+  },
+  {
+    "start": 369.78,
+    "end": 384.96,
+    "text": " 2 per 10 elevato a 0, più 3 per 10 elevato a 1, più 0 per 10 elevato a 2, più 2 per 10 elevato a 3."
+  },
+  {
+    "start": 384.96,
+    "end": 389.56,
+    "text": " Che è uguale a 10 elevato a 0, fa 1."
+  },
+  {
+    "start": 389.92,
+    "end": 403.2,
+    "text": " Quindi è uguale a 2 più 10 elevato a 1, fa 10, più 30, più, vabbè, 0 per qualsiasi cosa fa 0, più 2.000."
+  },
+  {
+    "start": 404.0,
+    "end": 405.92,
+    "text": " Perché 10 elevato a 3 fa 2.000."
+  },
+  {
+    "start": 406.4,
+    "end": 409.08,
+    "text": " Quindi 2.000, più 30, più 2, fa 2.000 e 32."
+  },
+  {
+    "start": 409.8,
+    "end": 412.06,
+    "text": " Questa cosa vale per tutte le basi."
+  },
+  {
+    "start": 412.06,
+    "end": 414.3,
+    "text": " E' una cosa speciale della base 10."
+  },
+  {
+    "start": 415.04,
+    "end": 423.74,
+    "text": " Allora, tanto per iniziare, se io ho un certo numero dei simboli, per esempio, nei numeri normali in base 10,"
+  },
+  {
+    "start": 423.86,
+    "end": 429.34,
+    "text": " quelli che scriviamo tutti per capirci, perché non avesse la congezione di che cos'è la base nei sistemi numerici,"
+  },
+  {
+    "start": 430.56,
+    "end": 431.9,
+    "text": " ho 10 numeri da 0 a 9."
+  },
+  {
+    "start": 432.38,
+    "end": 438.46,
+    "text": " Se io ho 10 simboli e ho 4 posizioni in tutto, come nel caso di 2.000 e 32,"
+  },
+  {
+    "start": 438.94,
+    "end": 443.74,
+    "text": " io posso rappresentare massimo 10.000 simboli, ma siccome c'è anche lo 0,"
+  },
+  {
+    "start": 444.28,
+    "end": 447.9,
+    "text": " il range numerico che poterò rappresentare da 0 a 9.999."
+  },
+  {
+    "start": 449.22,
+    "end": 449.44,
+    "text": " Ok?"
+  },
+  {
+    "start": 450.82,
+    "end": 454.6,
+    "text": " Vabbè, qua scusate, come se fosse fatta una situazione, volevo scrivere l'interpala."
+  },
+  {
+    "start": 455.6,
+    "end": 461.56,
+    "text": " Se io ho dei numeri in base a 2, quindi se ho 2 simboli, 0 e 1,"
+  },
+  {
+    "start": 461.56,
+    "end": 469.66,
+    "text": " e ho 8 posizioni, posso rappresentare 256 diverse pattern,"
+  },
+  {
+    "start": 470.42,
+    "end": 475.4,
+    "text": " quindi diversi elementi unici composti a questi 8 bit,"
+  },
+  {
+    "start": 476.06,
+    "end": 479.64,
+    "text": " e quindi posso rappresentare il numero che vada a 0 a 255."
+  },
+  {
+    "start": 480.34,
+    "end": 482.98,
+    "text": " Infatti, questa cosa la si può vedere molto facilmente,"
+  },
+  {
+    "start": 483.46,
+    "end": 486.24,
+    "text": " che se tutti questi numeri sono posti a 1,"
+  },
+  {
+    "start": 486.24,
+    "end": 495.28,
+    "text": " allora il valore di questo bit sarebbe 1, più 2, più 4, più 8, più 16, più 32, più 64, più 108."
+  },
+  {
+    "start": 496.54,
+    "end": 504.0,
+    "text": " 100 e 8, più 64, più 32, più 16, più 8, più 4, più 2, più 1, fa 250."
+  },
+  {
+    "start": 507.76,
+    "end": 514.32,
+    "text": " Ma, che succede nel caso in cui io ho 2 byte, un byte qui e un byte qui?"
+  },
+  {
+    "start": 514.32,
+    "end": 520.66,
+    "text": " In questo caso, praticamente io ho questo intero che è rappresentato da 2 byte, 0, 1, 0, 1."
+  },
+  {
+    "start": 520.78,
+    "end": 525.7,
+    "text": " Allora questo vale un valore da 0 a 255."
+  },
+  {
+    "start": 526.5600000000001,
+    "end": 532.56,
+    "text": " Anche questo vale un valore da 0 a 255, ma moltiplicato per 256."
+  },
+  {
+    "start": 533.26,
+    "end": 534.1,
+    "text": " E vi dico perché?"
+  },
+  {
+    "start": 535.9,
+    "end": 538.92,
+    "text": " Uno dei tanti modi in cui uno può capire perché?"
+  },
+  {
+    "start": 539.86,
+    "end": 544.48,
+    "text": " Perché, praticamente noi abbiamo detto, quando io ho il numero adotto bit,"
+  },
+  {
+    "start": 545.2,
+    "end": 550.2,
+    "text": " quindi questo vale in generale se io ho una sequenza di bit,"
+  },
+  {
+    "start": 550.34,
+    "end": 555.02,
+    "text": " se la moltiplico per 2 è come aggiungere uno 0 qui e far andare quindi sulla sinistra,"
+  },
+  {
+    "start": 555.58,
+    "end": 561.3,
+    "text": " tutti gli altri bit, perché varrebbe come, siccome sono tutte potenze di 2 che si sommano,"
+  },
+  {
+    "start": 561.44,
+    "end": 566.68,
+    "text": " se io moltiplico per 2 quella che era nel bit che vale 2 diventa 4,"
+  },
+  {
+    "start": 566.68,
+    "end": 569.92,
+    "text": " quella che era nel bit che vale 4 diventa 8 e così via."
+  },
+  {
+    "start": 570.02,
+    "end": 571.7,
+    "text": " Quindi è come shiftare tutto a sinistra."
+  },
+  {
+    "start": 572.12,
+    "end": 579.06,
+    "text": " Ora evidentemente se questo bit qua vale da 0 a 128 come potenze del 2,"
+  },
+  {
+    "start": 579.56,
+    "end": 587.66,
+    "text": " se io lo sposto questo bit qua che è spostato 8 posizioni dopo a sinistra,"
+  },
+  {
+    "start": 588.14,
+    "end": 593.54,
+    "text": " ogni bit lo devo moltiplicare per 2 elevato ad 8 che vale che è 256."
+  },
+  {
+    "start": 595.12,
+    "end": 598.86,
+    "text": " Quindi se io praticamente ho 0 1 0 1,"
+  },
+  {
+    "start": 599.64,
+    "end": 606.4,
+    "text": " allora io avrò 0 1 per 256 più 0 1 che fa 257."
+  },
+  {
+    "start": 606.7,
+    "end": 614.44,
+    "text": " Se ho 0 2 0 2 avrò 514 che sono come potete vedere,"
+  },
+  {
+    "start": 615.3,
+    "end": 618.04,
+    "text": " forse non l'ho convidato, non me lo ricordo,"
+  },
+  {
+    "start": 618.8,
+    "end": 621.36,
+    "text": " ah scusate, lo devo togliere questi commenti qui."
+  },
+  {
+    "start": 624.7,
+    "end": 628.64,
+    "text": " Come vedete sono i numeri appunto che avevamo detto."
+  },
+  {
+    "start": 628.8,
+    "end": 633.36,
+    "text": " Quindi da lì veniva questo 0 2 per 256 eccetera eccetera."
+  },
+  {
+    "start": 633.84,
+    "end": 637.84,
+    "text": " Questa cosa qui probabilmente a chi non ha idea di cosa siano le basi numeriche,"
+  },
+  {
+    "start": 637.96,
+    "end": 641.02,
+    "text": " che è un argomento che si fa credo all'attirittura delle scuole vendali ormai"
+  },
+  {
+    "start": 641.02,
+    "end": 643.34,
+    "text": " e poi si forse di rifare scuole medi."
+  },
+  {
+    "start": 643.66,
+    "end": 645.06,
+    "text": " Un argomento molto semplice,"
+  },
+  {
+    "start": 645.5,
+    "end": 649.18,
+    "text": " però siccome è fuori degli scopi di questa rezione,"
+  },
+  {
+    "start": 649.48,
+    "end": 656.6,
+    "text": " l'ho spiegato giusto per darvi l'aggancio dal punto di vista di quello che succede nel computer,"
+  },
+  {
+    "start": 657.08,
+    "end": 660.1,
+    "text": " però è un argomento che se non conoscete vi dovete andare a studiare"
+  },
+  {
+    "start": 660.1,
+    "end": 663.82,
+    "text": " in un video su YouTube di qualcuno che si occupa di matematica."
+  },
+  {
+    "start": 664.22,
+    "end": 668.62,
+    "text": " Mi sembra invece più interessante soffermarsi su un altro dubbio."
+  },
+  {
+    "start": 668.62,
+    "end": 673.38,
+    "text": " Se io c'ho questa stringa che vale hello 0000123,"
+  },
+  {
+    "start": 674.62,
+    "end": 679.6,
+    "text": " avevo poi fatto una funzione che mi stambava tutti i caratteri."
+  },
+  {
+    "start": 679.68,
+    "end": 686.98,
+    "text": " Allora io dicevo, jar p uguale str, quindi un mutatore di tipo jar ci assegno un mutatore di tipo jar,"
+  },
+  {
+    "start": 687.1,
+    "end": 691.76,
+    "text": " non mi serve il casting qui, sono il stesso tipo, non sto violando niente."
+  },
+  {
+    "start": 691.76,
+    "end": 702.9,
+    "text": " P, ok, guardate, fino a quando il carattere a cui p punta non è uguale a zero,"
+  },
+  {
+    "start": 703.18,
+    "end": 705.56,
+    "text": " quindi dovrei scrivere così, ma è uguale."
+  },
+  {
+    "start": 705.9,
+    "end": 713.2,
+    "text": " In c, se scrivo solo yx, significa yx, not equal zero, non è uguale a zero."
+  },
+  {
+    "start": 713.2,
+    "end": 727.04,
+    "text": " Quindi yp, put jar, yp, più più, e incremento l'indirizzo al quale sta puntando p."
+  },
+  {
+    "start": 727.94,
+    "end": 734.42,
+    "text": " E poi faccio stambare un carattere di invio per terminare il programma in maniera pulita."
+  },
+  {
+    "start": 735.32,
+    "end": 741.38,
+    "text": " Allora, qualcuno diceva, scusate, ma come è mai qua che ci sono i zero, il programma non si ferma?"
+  },
+  {
+    "start": 741.38,
+    "end": 744.48,
+    "text": " Ma questi non sono un zero, ve lo faccio vedere subito."
+  },
+  {
+    "start": 744.56,
+    "end": 753.76,
+    "text": " Ora invece di fare put jar, li faccio stambare il valore numerico di p."
+  },
+  {
+    "start": 755.86,
+    "end": 757.94,
+    "text": " Non me lo faccio stambare come carattere."
+  },
+  {
+    "start": 759.6,
+    "end": 766.36,
+    "text": " Vi faccio stambare l'intero che quel jar rappresenta, perché il jar, ricordatevi, sono caratteri,"
+  },
+  {
+    "start": 766.36,
+    "end": 770.14,
+    "text": " ma è un tipo numerico, da meno 127 a più 128."
+  },
+  {
+    "start": 771.5600000000001,
+    "end": 774.88,
+    "text": " Ricordate quelli 256 simboli che ho a disposizione."
+  },
+  {
+    "start": 775.42,
+    "end": 780.44,
+    "text": " Se un intero senza segno, li uso per andare da zero a 255."
+  },
+  {
+    "start": 781.04,
+    "end": 786.92,
+    "text": " Se un intero con segno viene rappresentato in complemento a 2,"
+  },
+  {
+    "start": 787.44,
+    "end": 790.22,
+    "text": " e quindi da meno 127 a più 128."
+  },
+  {
+    "start": 790.62,
+    "end": 793.46,
+    "text": " Come vedete questi 48 sono i zero."
+  },
+  {
+    "start": 794.72,
+    "end": 800.72,
+    "text": " Quindi io vado a modificare il mio programma, e dove qua io vedo 0000,"
+  },
+  {
+    "start": 801.68,
+    "end": 804.16,
+    "text": " a un certo punto ci metto davvero uno zero."
+  },
+  {
+    "start": 804.34,
+    "end": 806.36,
+    "text": " Allora questo zero come io lo posso mettere?"
+  },
+  {
+    "start": 806.82,
+    "end": 809.06,
+    "text": " Qua io lo posso mettere in optale."
+  },
+  {
+    "start": 809.78,
+    "end": 814.4,
+    "text": " Quindi gli tolgo uno zero e lo trasformo in backslash 0000."
+  },
+  {
+    "start": 820.74,
+    "end": 823.1,
+    "text": " Stavolta si è bloccato il programma."
+  },
+  {
+    "start": 823.1,
+    "end": 825.62,
+    "text": " Qua mettiamoci di nuovo putschar."
+  },
+  {
+    "start": 828.4799999999999,
+    "end": 836.28,
+    "text": " Ehi, guardate, appena arriviamo velo si blocca."
+  },
+  {
+    "start": 836.4,
+    "end": 839.34,
+    "text": " Qua ci posso mettere altri 00, che però sono caratteri,"
+  },
+  {
+    "start": 839.6,
+    "end": 841.18,
+    "text": " e non un byte a zero."
+  },
+  {
+    "start": 843.22,
+    "end": 845.06,
+    "text": " E si fermerà dopo i 2500,"
+  },
+  {
+    "start": 845.16,
+    "end": 846.82,
+    "text": " perché un conto è il caratteri a zero,"
+  },
+  {
+    "start": 846.88,
+    "end": 849.0,
+    "text": " che non vale a zero, dal punto di vista dell'intero,"
+  },
+  {
+    "start": 850.4599999999999,
+    "end": 853.8,
+    "text": " rappresentato dentro il mio R di numeri."
+  },
+  {
+    "start": 853.96,
+    "end": 856.28,
+    "text": " Quindi numeri da meno 127 a più 128,"
+  },
+  {
+    "start": 856.68,
+    "end": 857.92,
+    "text": " questo è davvero un zero."
+  },
+  {
+    "start": 858.42,
+    "end": 859.4,
+    "text": " E qui si ferma tutto."
+  },
+  {
+    "start": 859.9,
+    "end": 863.14,
+    "text": " Come potremmo avere delle stringe che invece sono safe,"
+  },
+  {
+    "start": 863.38,
+    "end": 864.8,
+    "text": " dal punto di vista della lunghezza?"
+  },
+  {
+    "start": 865.82,
+    "end": 868.24,
+    "text": " Per dire, ecco, teniamoci questa stringa."
+  },
+  {
+    "start": 868.34,
+    "end": 875.9,
+    "text": " Quando i bytes sono 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15."
+  },
+  {
+    "start": 876.58,
+    "end": 877.44,
+    "text": " 15 bytes."
+  },
+  {
+    "start": 879.0,
+    "end": 879.84,
+    "text": " Benissimo."
+  },
+  {
+    "start": 880.22,
+    "end": 885.06,
+    "text": " Un byte che ha il valore di 15."
+  },
+  {
+    "start": 886.28,
+    "end": 890.34,
+    "text": " Quale sarebbe qui in decimale?"
+  },
+  {
+    "start": 892.5,
+    "end": 895.5,
+    "text": " Questa è un byte speciale, quindi ne facciamo una cosa."
+  },
+  {
+    "start": 897.14,
+    "end": 901.44,
+    "text": " Convertiamolo in base 8 con bc."
+  },
+  {
+    "start": 902.24,
+    "end": 903.84,
+    "text": " Quindi o base quale 8?"
+  },
+  {
+    "start": 904.4,
+    "end": 906.92,
+    "text": " 15 è a 17."
+  },
+  {
+    "start": 906.92,
+    "end": 911.02,
+    "text": " Quindi qua ci mettiamo 0, 17."
+  },
+  {
+    "start": 912.1,
+    "end": 918.22,
+    "text": " Qui ci ho messo un byte che vale 15, in base 8."
+  },
+  {
+    "start": 920.14,
+    "end": 925.86,
+    "text": " Quindi ora trasformiamo la nostra funzione che stampa la stringa in questo modo."
+  },
+  {
+    "start": 926.3,
+    "end": 931.98,
+    "text": " Quindi si prende prima int, len, si prende la lunghezza da p."
+  },
+  {
+    "start": 931.98,
+    "end": 937.76,
+    "text": " E avrà quindi dentro len il numero di byte che ci sono dentro."
+  },
+  {
+    "start": 938.72,
+    "end": 940.56,
+    "text": " A questo punto facciamo un ciclo for."
+  },
+  {
+    "start": 940.7,
+    "end": 947.0,
+    "text": " For in j uguale a 0, j minore di len, j++."
+  },
+  {
+    "start": 948.52,
+    "end": 954.8,
+    "text": " Print, putciare p di j e poi stampo il new line."
+  },
+  {
+    "start": 955.78,
+    "end": 959.9,
+    "text": " Quindi io prima mi prendo la lunghezza, e però devo avanzare il puntatore p."
+  },
+  {
+    "start": 959.9,
+    "end": 965.72,
+    "text": " Quindi guardate, qua posso fare sia la def referensazione del puntatore p,"
+  },
+  {
+    "start": 966.02,
+    "end": 969.2,
+    "text": " quindi mi prendo il valore, e poi anche come effetto collaterale,"
+  },
+  {
+    "start": 969.72,
+    "end": 973.46,
+    "text": " lo incremento di 1, quindi sono già qua nell'h."
+  },
+  {
+    "start": 974.6,
+    "end": 977.58,
+    "text": " E poi in base alla lunghezza che ci era scritta all'inizio della stringa,"
+  },
+  {
+    "start": 977.62,
+    "end": 980.62,
+    "text": " nel primo byte, quindi io posso scrivere qui,"
+  },
+  {
+    "start": 981.94,
+    "end": 989.1,
+    "text": " my string len is strd0."
+  },
+  {
+    "start": 990.0,
+    "end": 993.92,
+    "text": " Anzi mettiamo p0, mi sarei ciolemente andatore."
+  },
+  {
+    "start": 995.62,
+    "end": 999.58,
+    "text": " Combiniamo, guardate, my string len dis 15,"
+  },
+  {
+    "start": 999.98,
+    "end": 1001.5,
+    "text": " e ora guardate mi stampa tutto."
+  },
+  {
+    "start": 1002.4,
+    "end": 1007.24,
+    "text": " Ovviamente io qui vedrò 1, 2, 3, 4, 5, 6,"
+  },
+  {
+    "start": 1007.56,
+    "end": 1011.6,
+    "text": " vedrò solo 6, 0, 1, 2, 3, 4, 5, 6, non 7,"
+  },
+  {
+    "start": 1011.92,
+    "end": 1016.92,
+    "text": " perché questo 0 qui è proprio un byte nullo, non è uno 0 aschi,"
+  },
+  {
+    "start": 1016.92,
+    "end": 1020.36,
+    "text": " quindi non me lo stampa neanche la bootsharp non lo stampa,"
+  },
+  {
+    "start": 1020.36,
+    "end": 1021.66,
+    "text": " non produce alcun output."
+  },
+  {
+    "start": 1022.28,
+    "end": 1027.5,
+    "text": " Ma stavolta ho impreventato quelle che si chiamano prefixed len strings,"
+  },
+  {
+    "start": 1028.3,
+    "end": 1030.86,
+    "text": " quindi le stringe con lunghezza prefissa."
+  },
+  {
+    "start": 1031.54,
+    "end": 1036.36,
+    "text": " La lunghezza non è più parte della stringa in sé"
+  },
+  {
+    "start": 1036.36,
+    "end": 1039.6,
+    "text": " segnalata da un carattere speciale, il null term,"
+  },
+  {
+    "start": 1039.9,
+    "end": 1044.76,
+    "text": " cioè da un byte 0, ma è prefissa proprio qui"
+  },
+  {
+    "start": 1044.76,
+    "end": 1047.64,
+    "text": " all'inizio della stringa."
+  },
+  {
+    "start": 1047.82,
+    "end": 1051.2,
+    "text": " Ovviamente le stringe prefisse fatte così"
+  },
+  {
+    "start": 1052.08,
+    "end": 1055.78,
+    "text": " avrebbero soltanto la possibilità di essere lunghe 255 byte,"
+  },
+  {
+    "start": 1056.52,
+    "end": 1058.2,
+    "text": " perché io ho usato un solo byte."
+  },
+  {
+    "start": 1058.66,
+    "end": 1063.34,
+    "text": " Se avessi usato 2 byte avevo string fino a 65.000 di lunghezza,"
+  },
+  {
+    "start": 1063.48,
+    "end": 1064.16,
+    "text": " e così via."
+  },
+  {
+    "start": 1065.16,
+    "end": 1068.68,
+    "text": " Quindi c'è questa possibilità."
+  },
+  {
+    "start": 1069.3,
+    "end": 1071.96,
+    "text": " In realtà pensavo di parlare di tutto altro"
+  },
+  {
+    "start": 1071.96,
+    "end": 1074.94,
+    "text": " in questa puntata del corso C,"
+  },
+  {
+    "start": 1075.58,
+    "end": 1078.04,
+    "text": " ma è andata così."
+  },
+  {
+    "start": 1078.66,
+    "end": 1081.48,
+    "text": " Possiamo però fare una cosa in più."
+  },
+  {
+    "start": 1082.82,
+    "end": 1084.62,
+    "text": " Questo era il programma che noi avevamo scritto"
+  },
+  {
+    "start": 1084.62,
+    "end": 1087.74,
+    "text": " in una lezione precedente per fare vedere almeno"
+  },
+  {
+    "start": 1087.74,
+    "end": 1090.92,
+    "text": " un utilizzo dei puntatori."
+  },
+  {
+    "start": 1092.28,
+    "end": 1093.72,
+    "text": " Allora, tanto per iniziare qua vi ricordo"
+  },
+  {
+    "start": 1093.72,
+    "end": 1096.44,
+    "text": " che noi abbiamo avuto bisogno di utilizzare i puntatori,"
+  },
+  {
+    "start": 1096.62,
+    "end": 1099.94,
+    "text": " perché noi passavamo la nostra griglia con un puntatore,"
+  },
+  {
+    "start": 1099.94,
+    "end": 1102.9,
+    "text": " allora ancora non li avevamo studiati i puntatori in C."
+  },
+  {
+    "start": 1103.32,
+    "end": 1105.86,
+    "text": " Ma mi è sembrato utile introdurli."
+  },
+  {
+    "start": 1105.96,
+    "end": 1108.82,
+    "text": " Ora possiamo capire finalmente perché queste cose funzionano."
+  },
+  {
+    "start": 1108.9,
+    "end": 1112.08,
+    "text": " Guardate, set cell prende un puntatore alla griglia."
+  },
+  {
+    "start": 1112.46,
+    "end": 1115.5,
+    "text": " E siccome c'è questa interessante equivalenza"
+  },
+  {
+    "start": 1115.5,
+    "end": 1117.0,
+    "text": " tra i rei e i puntatori,"
+  },
+  {
+    "start": 1117.16,
+    "end": 1119.82,
+    "text": " io quando il puntatore a grid posso utilizzare"
+  },
+  {
+    "start": 1119.82,
+    "end": 1122.04,
+    "text": " l'operatore delle parentesi quadre"
+  },
+  {
+    "start": 1122.04,
+    "end": 1123.48,
+    "text": " per accedere agli elementi,"
+  },
+  {
+    "start": 1123.5,
+    "end": 1124.7,
+    "text": " mettendo dentro l'indice."
+  },
+  {
+    "start": 1125.08,
+    "end": 1126.22,
+    "text": " L'indice in quel stucaso,"
+  },
+  {
+    "start": 1127.18,
+    "end": 1129.0,
+    "text": " diciamo, è processato una funzione"
+  },
+  {
+    "start": 1129.0,
+    "end": 1130.2,
+    "text": " cell to index."
+  },
+  {
+    "start": 1132.52,
+    "end": 1134.86,
+    "text": " Quindi posso utilizzare i puntatori,"
+  },
+  {
+    "start": 1135.14,
+    "end": 1138.14,
+    "text": " ma allora io non volevo utilizzarli fino in fondo."
+  },
+  {
+    "start": 1138.86,
+    "end": 1140.56,
+    "text": " Cosa che invece ora potrei fare?"
+  },
+  {
+    "start": 1140.98,
+    "end": 1143.24,
+    "text": " Per esempio, fatemi vedere."
+  },
+  {
+    "start": 1144.44,
+    "end": 1145.46,
+    "text": " Fatemi vedere."
+  },
+  {
+    "start": 1147.76,
+    "end": 1151.78,
+    "text": " Con W2 state..."
+  },
+  {
+    "start": 1151.78,
+    "end": 1155.38,
+    "text": " Allora io qua avevo queste due griglie."
+  },
+  {
+    "start": 1155.38,
+    "end": 1156.92,
+    "text": " Guardate cosa mi toccava fare."
+  },
+  {
+    "start": 1157.0,
+    "end": 1159.54,
+    "text": " Mi toccava raddoppiare la computazione"
+  },
+  {
+    "start": 1159.54,
+    "end": 1159.88,
+    "text": " qui."
+  },
+  {
+    "start": 1160.46,
+    "end": 1162.84,
+    "text": " Computing state, print grid e la slip."
+  },
+  {
+    "start": 1163.66,
+    "end": 1164.98,
+    "text": " E se io questa cosa la voglio fare"
+  },
+  {
+    "start": 1164.98,
+    "end": 1165.92,
+    "text": " solo una volta invece,"
+  },
+  {
+    "start": 1166.1,
+    "end": 1167.8,
+    "text": " perché devo ripetere oggi il programma?"
+  },
+  {
+    "start": 1168.18,
+    "end": 1169.78,
+    "text": " Solo perché poi il nuovo stato"
+  },
+  {
+    "start": 1169.78,
+    "end": 1171.72,
+    "text": " diventa qui, il secondo re"
+  },
+  {
+    "start": 1171.72,
+    "end": 1174.9,
+    "text": " e lo stato di out divende il primo."
+  },
+  {
+    "start": 1175.12,
+    "end": 1176.38,
+    "text": " Guardate, qua avevo old grid"
+  },
+  {
+    "start": 1176.38,
+    "end": 1177.64,
+    "text": " e poi avevo new grid."
+  },
+  {
+    "start": 1178.0,
+    "end": 1179.8,
+    "text": " Poi mi è toccato fare new grid e old grid."
+  },
+  {
+    "start": 1179.96,
+    "end": 1181.56,
+    "text": " Ma se la logica fosse stata più complessa,"
+  },
+  {
+    "start": 1181.62,
+    "end": 1183.88,
+    "text": " mi facevo, mi mettevo a replicare"
+  },
+  {
+    "start": 1183.88,
+    "end": 1185.74,
+    "text": " due volte una logica complicata."
+  },
+  {
+    "start": 1186.4,
+    "end": 1187.3,
+    "text": " Non mi pare il caso."
+  },
+  {
+    "start": 1187.9,
+    "end": 1189.4,
+    "text": " E allora vi faccio vedere una cosa."
+  },
+  {
+    "start": 1191.04,
+    "end": 1192.3,
+    "text": " Allora io avrei potuto fare"
+  },
+  {
+    "start": 1192.3,
+    "end": 1193.92,
+    "text": " char old"
+  },
+  {
+    "start": 1194.68,
+    "end": 1196.6,
+    "text": " è uguale a old grid."
+  },
+  {
+    "start": 1197.22,
+    "end": 1198.34,
+    "text": " Char puntatore"
+  },
+  {
+    "start": 1198.34,
+    "end": 1199.12,
+    "text": " a new"
+  },
+  {
+    "start": 1200.14,
+    "end": 1201.26,
+    "text": " new grid."
+  },
+  {
+    "start": 1203.5,
+    "end": 1204.44,
+    "text": " Quindi guardate,"
+  },
+  {
+    "start": 1204.5,
+    "end": 1205.54,
+    "text": " ora c'ho due puntatori."
+  },
+  {
+    "start": 1205.78,
+    "end": 1207.82,
+    "text": " Un puntatore old e un puntatore new"
+  },
+  {
+    "start": 1207.82,
+    "end": 1210.3,
+    "text": " che mi puntano all'inizio alla vecchia griglia."
+  },
+  {
+    "start": 1210.34,
+    "end": 1212.3,
+    "text": " La vecchia versione della griglia,"
+  },
+  {
+    "start": 1212.3,
+    "end": 1214.52,
+    "text": " a questo punto compute new state"
+  },
+  {
+    "start": 1214.52,
+    "end": 1216.54,
+    "text": " io lo faccio da old"
+  },
+  {
+    "start": 1216.54,
+    "end": 1218.02,
+    "text": " a new"
+  },
+  {
+    "start": 1218.02,
+    "end": 1219.76,
+    "text": " puntano alla stessa cosa"
+  },
+  {
+    "start": 1219.76,
+    "end": 1221.5,
+    "text": " e stampo la nuova griglia."
+  },
+  {
+    "start": 1221.78,
+    "end": 1223.04,
+    "text": " Poi faccio la slip"
+  },
+  {
+    "start": 1224.42,
+    "end": 1226.22,
+    "text": " cancello quello che c'è sotto"
+  },
+  {
+    "start": 1226.22,
+    "end": 1227.76,
+    "text": " e avrò che cosa posso fare"
+  },
+  {
+    "start": 1227.76,
+    "end": 1230.06,
+    "text": " su the two pointers."
+  },
+  {
+    "start": 1230.44,
+    "end": 1231.32,
+    "text": " L'inverto."
+  },
+  {
+    "start": 1232.16,
+    "end": 1233.56,
+    "text": " Quindi guardate, ora faccio"
+  },
+  {
+    "start": 1233.56,
+    "end": 1234.36,
+    "text": " char"
+  },
+  {
+    "start": 1235.44,
+    "end": 1237.46,
+    "text": " ten mi serve un puntatore"
+  },
+  {
+    "start": 1237.46,
+    "end": 1239.0,
+    "text": " per registrarmi old."
+  },
+  {
+    "start": 1239.0,
+    "end": 1241.42,
+    "text": " Così old uguale a new"
+  },
+  {
+    "start": 1241.42,
+    "end": 1244.28,
+    "text": " e new uguale a tempo."
+  },
+  {
+    "start": 1245.06,
+    "end": 1245.8,
+    "text": " Questo è lo swap"
+  },
+  {
+    "start": 1246.4799999999998,
+    "end": 1248.72,
+    "text": " banalissimo tra due variabili."
+  },
+  {
+    "start": 1249.44,
+    "end": 1250.1,
+    "text": " In questo modo"
+  },
+  {
+    "start": 1250.1,
+    "end": 1251.04,
+    "text": " io la mia computazione"
+  },
+  {
+    "start": 1251.04,
+    "end": 1253.1,
+    "text": " lo reso unica, perché siccome c'ho la potenza"
+  },
+  {
+    "start": 1253.74,
+    "end": 1254.84,
+    "text": " l'astrazione"
+  },
+  {
+    "start": 1254.84,
+    "end": 1256.5,
+    "text": " dei puntatori che è molto potente"
+  },
+  {
+    "start": 1256.5,
+    "end": 1258.82,
+    "text": " io posso puntare con le mie variabili"
+  },
+  {
+    "start": 1258.82,
+    "end": 1260.86,
+    "text": " qualsiasi parte della memoria che voglio"
+  },
+  {
+    "start": 1260.86,
+    "end": 1263.2,
+    "text": " l'inverto e quindi la mia logica"
+  },
+  {
+    "start": 1263.2,
+    "end": 1264.64,
+    "text": " è sempre uguale, ma ogni volta"
+  },
+  {
+    "start": 1264.64,
+    "end": 1266.66,
+    "text": " questi due saranno swapati"
+  },
+  {
+    "start": 1266.66,
+    "end": 1267.82,
+    "text": " uno rispetto all'altro."
+  },
+  {
+    "start": 1269.26,
+    "end": 1269.94,
+    "text": " Combiliamo"
+  },
+  {
+    "start": 1269.94,
+    "end": 1271.28,
+    "text": " il programma"
+  },
+  {
+    "start": 1271.28,
+    "end": 1274.5,
+    "text": " e il programma funziona come prima, ma ho evitato"
+  },
+  {
+    "start": 1274.5,
+    "end": 1275.8,
+    "text": " quella duplicazione."
+  },
+  {
+    "start": 1277.74,
+    "end": 1279.38,
+    "text": " Bene, volevo parlare di altro"
+  },
+  {
+    "start": 1279.38,
+    "end": 1280.48,
+    "text": " ho parlato di questo"
+  },
+  {
+    "start": 1280.48,
+    "end": 1282.42,
+    "text": " spero che comunque sia utile"
+  },
+  {
+    "start": 1282.42,
+    "end": 1283.54,
+    "text": " a presto."
+  },
+  {
+    "start": 1283.66,
+    "end": 1283.7,
+    "text": " Ciao."
+  }
+]

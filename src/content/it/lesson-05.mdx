@@ -1,0 +1,92 @@
+import VideoEmbed from '../../components/content/VideoEmbed';
+import Callout from '../../components/content/Callout';
+import KeyConcepts from '../../components/content/KeyConcepts';
+import ASCIIConverter from '../../components/content/ASCIIConverter';
+import Infographic from '../../components/content/Infographic';
+import CodeEditor from '../../components/exercises/CodeEditor';
+import Quiz from '../../components/exercises/Quiz';
+
+# Lezione 5: Stringhe e Caratteri (ASCII)
+
+Nella scorsa lezione abbiamo visto i bit e i numeri. Ma come facciamo a rappresentare il testo? In C, la risposta è semplice: i caratteri **sono** numeri.
+
+<VideoEmbed videoId="SWWHqgSwQFw" title="Lezione 5: Stringhe e Caratteri" />
+
+<KeyConcepts 
+  concepts={[
+    {
+      title: "Il tipo char",
+      description: "Un intero a 8 bit che può contenere un valore da 0 a 255. In C si scrive tra apici singoli, es: 'A'."
+    },
+    {
+      title: "Tabella ASCII",
+      description: "Uno standard che mappa ogni numero a un carattere specifico. Ad esempio, il 65 corrisponde alla 'A'."
+    },
+    {
+      title: "Format String",
+      description: "I segnaposto come %d per i numeri e %c per i caratteri che usiamo nella printf."
+    }
+  ]} 
+/>
+
+## La verità dietro i caratteri
+
+Quando scrivi `char c = 'A';`, il computer non salva la lettera "A", ma il numero **65**. Questo è il cuore del sistema ASCII.
+
+<ASCIIConverter />
+
+<Infographic 
+  src="/images/ascii_visual.png" 
+  alt="Schema conversione ASCII" 
+  caption="Dalla lettera al numero, fino ai bit nel processore."
+/>
+
+<Callout type="info" title="Apici vs Virgolette">
+In C c'è una grande differenza:
+- `'A'` (apici singoli) è un tipo `char` (un singolo numero).
+- `"A"` (virgolette) è una stringa (un array di caratteri terminato da uno zero).
+</Callout>
+
+## Promozione dei Tipi
+
+Sapevi che se passi un `char` a una funzione con argomenti variabili (come `printf`), il C lo promuove automaticamente a `int`? Ecco perché `%d` funziona anche per stampare il codice numerico di un carattere!
+
+<CodeEditor 
+  initialCode={`#include <stdio.h>\n\nint main() {\n    char lettera = 'A';\n    printf("Carattere: %c\\n", lettera);\n    printf("Codice ASCII: %d\\n", lettera);\n    return 0;\n}`}
+  language="c"
+/>
+
+## Quiz di Verifica
+
+<Quiz 
+  questions={[
+    {
+      question: "Qual è la differenza fondamentale tra 'X' e \"X\" in C?",
+      options: [
+        "Nessuna, sono intercambiabili",
+        "'X' è un singolo carattere (numero), \"X\" è una stringa (array)",
+        "'X' è più veloce di \"X\"",
+        "\"X\" è usato solo per Python"
+      ],
+      correctAnswer: 1,
+      explanation: "Gli apici singoli indicano un singolo valore numerico ASCII, mentre le virgolette indicano un array di caratteri nella memoria."
+    },
+    {
+      question: "Cosa succede se stampi un char con %d?",
+      options: [
+        "Il programma crasha",
+        "Viene stampato il carattere",
+        "Viene stampato il suo codice numerico ASCII",
+        "Viene stampato un errore di formato"
+      ],
+      correctAnswer: 2,
+      explanation: "Essendo i caratteri rappresentati come numeri, %d stampa il valore intero corrispondente nella tabella ASCII."
+    },
+    {
+      question: "A quale numero corrisponde solitamente la 'A' maiuscola?",
+      options: ["1", "32", "65", "97"],
+      correctAnswer: 2,
+      explanation: "65 è il codice standard per 'A' maiuscola. 'a' minuscola è invece 97."
+    }
+  ]}
+/>
