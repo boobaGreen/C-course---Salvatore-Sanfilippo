@@ -1,0 +1,174 @@
+# Lesson 2: Variables, Functions, and Memory
+
+Welcome to the second lesson! Today we'll go deep into the structure of a C program, finally understanding what happens "under the hood" when we declare a variable or call a function.
+
+<VideoEmbed videoId="Z84vlG1RRtg" title="Let's learn C: lesson 2" />
+
+## Program Structure and `#include`
+
+Every C program often starts with preprocessor directives. The most common one is `#include <stdio.h>`.
+
+<Callout type="info" title="Standard I/O">
+`stdio.h` stands for **Standard Input/Output**. It contains the definitions of fundamental functions like `printf`. Without this include, the compiler wouldn't know how to handle screen output.
+</Callout>
+
+### The `main` Function
+The `main` function is the heart of the program. It's the entry point from which the operating system starts execution.
+
+```c
+int main(void) {
+    // Your code here
+    return 0;
+}
+```
+
+- `int`: Indicates that the function returns an integer to the operating system (0 means success).
+- `void`: Explicitly indicates that the function accepts no input arguments.
+
+---
+
+## Functions: Prototype vs. Definition
+
+Salvatore showed us how to define a function to sum two numbers. It's important to distinguish between how the function is "announced" and how it is "written."
+
+<ComparisonTable 
+  title="Function Anatomy"
+  headers={["Element", "Example", "Description"]}
+  rows={[
+    ["Return Type", "int", "The type of data the function 'returns'."],
+    ["Name", "sum", "The identifier used to call the function."],
+    ["Parameters", "(int a, int b)", "The data the function receives as input."],
+    ["Body", "{ return a + b; }", "The instructions enclosed in curly braces."]
+  ]}
+/>
+
+---
+
+## Variables and Explicit Types
+
+In C, unlike languages like Python or JavaScript, you must **explicitly declare** the type of every variable. The compiler does not perform automatic "inference."
+
+```c
+int a = 10;   // Declaration and Initialization
+int b;        // Declaration only
+b = 20;       // Subsequent assignment
+```
+
+<Callout type="hacker" title="Hacker Mindset">
+Specifying the type (e.g., `int`) allows the compiler to know exactly how many bytes to reserve in memory and how to interpret them. This is the secret to C's performance!
+</Callout>
+
+---
+
+## The "Lifecycle" in Memory (The Stack)
+
+What happens when you call a function? Where do local variables end up?
+Variables defined inside a function live in a memory area called the **Stack**.
+
+<StackVisualizer />
+
+When a function is called, a **Stack Frame** is created. When the function ends (`return`), its frame is "destroyed" and the memory is freed.
+
+---
+
+## Registers and Microprocessor (Appendix)
+
+In this appendix, Salvatore takes us back in time with the **6502** microprocessor to explain the difference between registers and RAM.
+
+<VideoEmbed videoId="r6mU_IHXEps" title="Appendix Lesson 2: The life of local variables" />
+
+<MicroRegisters />
+
+<Callout type="tip">
+**Registers** are tiny, lightning-fast "variables" inside the CPU. **RAM** is larger but slower. The C compiler tries to use registers as much as possible to speed up your code.
+</Callout>
+
+---
+
+## Verification Exercises
+
+<Quiz 
+  questions={[
+    {
+      id: 1,
+      question: "What does the 'void' in int main(void) signify?",
+      options: [
+        "The function returns nothing",
+        "The function accepts no parameters",
+        "The program is empty",
+        "The function is an error"
+      ],
+      correctAnswer: 1,
+      explanation: "Using 'void' explicitly indicates that the main function receives no arguments."
+    },
+    {
+      id: 2,
+      question: "Where are a function's local variables stored?",
+      options: [
+        "In the Hard Disk",
+        "In the Video Memory",
+        "On the Stack",
+        "In Global Registers"
+      ],
+      correctAnswer: 2,
+      explanation: "Local variables live on the Stack and are removed when the function concludes."
+    },
+    {
+      id: 3,
+      question: "Which compiler flag enables all common warnings?",
+      options: [
+        "-Werror",
+        "-O3",
+        "-Wall",
+        "-all"
+      ],
+      correctAnswer: 2,
+      explanation: "-Wall (Warn All) is essential for catching potential bugs before running the program."
+    },
+    {
+      id: 4,
+      question: "What is the main difference between a Register and RAM?",
+      options: [
+        "Registers are slower",
+        "RAM is inside the CPU",
+        "Registers are inside the CPU and ultra-fast, RAM is external and larger",
+        "There is no difference"
+      ],
+      correctAnswer: 2,
+      explanation: "Registers are small memory units inside the CPU used for immediate operations. RAM is the system's main memory."
+    },
+    {
+      id: 5,
+      question: "Why do we initialize variables (e.g., int a = 0)?",
+      options: [
+        "Because C always requires it",
+        "To prevent the variable from containing 'garbage' (old values left on the stack)",
+        "To make the code longer",
+        "To help the linker"
+      ],
+      correctAnswer: 1,
+      explanation: "In C, uninitialized local variables contain random values (garbage) left in that stack memory location."
+    }
+  ]}
+/>
+
+---
+
+## Hacker Key Concepts
+
+<KeyConcepts 
+  concepts={[
+    {
+        title: "Explicit Typing",
+        description: "In C, every variable has a fixed type. This ensures safety and total control over memory."
+    },
+    {
+        title: "Stack Frames",
+        description: "Function memory is organized like a stack: the last call is the first to be removed."
+    },
+    {
+        title: "Compiler Warnings",
+        description: "Always use -Wall. A 'complaining' compiler is a compiler that is helping you."
+    }
+  ]}
+/>

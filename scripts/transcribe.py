@@ -46,19 +46,25 @@ def transcribe_lesson(audio_path, output_path):
     return result["text"]
 
 if __name__ == "__main__":
-    url = "https://www.youtube.com/watch?v=HjXBXBgfKyk"
-    video_id = "lesson-01"
+    lessons = [
+        {"url": "https://www.youtube.com/watch?v=Z84vlG1RRtg", "id": "lesson-02"},
+        {"url": "https://www.youtube.com/watch?v=r6mU_IHXEps", "id": "lesson-02-appendix"}
+    ]
     
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    target_mp3 = os.path.join(base_dir, "transcriptions", "raw", f"{video_id}.mp3")
-    target_base = os.path.join(base_dir, "transcriptions", "raw", video_id)
     
-    # Check if download is needed
-    if not os.path.exists(target_mp3):
-        download_audio(url, target_base) # yt-dlp adds .mp3
-    
-    if os.path.exists(target_mp3):
-        transcribe_lesson(target_mp3, target_base)
-    else:
-        print("Error: MP3 file not found after download attempt.")
-        sys.exit(1)
+    for lesson in lessons:
+        url = lesson["url"]
+        video_id = lesson["id"]
+        
+        target_mp3 = os.path.join(base_dir, "transcriptions", "raw", f"{video_id}.mp3")
+        target_base = os.path.join(base_dir, "transcriptions", "raw", video_id)
+        
+        # Check if download is needed
+        if not os.path.exists(target_mp3):
+            download_audio(url, target_base) # yt-dlp adds .mp3
+        
+        if os.path.exists(target_mp3):
+            transcribe_lesson(target_mp3, target_base)
+        else:
+            print(f"Error: MP3 file for {video_id} not found after download attempt.")

@@ -46,6 +46,15 @@
             "retry": "Riprova il Quiz",
             "completed": "Quiz Completato!",
             "score_msg": "Hai risposto correttamente a {{score}} su {{total}} domande."
+        },
+        "stack": {
+            "title": "Visualizzatore Memoria Stack",
+            "start": "Inizia Simulazione",
+            "next": "Prossimo Passo",
+            "ready": "Pronto per iniziare..."
+        },
+        "micro": {
+            "title": "Micro-Emulatore 6502"
         }
     },
     "home": {

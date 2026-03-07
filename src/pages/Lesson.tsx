@@ -14,6 +14,8 @@ import ComparisonTable from '../components/content/ComparisonTable';
 import Callout from '../components/content/Callout';
 import AssemblyExplorer from '../components/content/AssemblyExplorer';
 import Infographic from '../components/content/Infographic';
+import StackVisualizer from '../components/content/StackVisualizer';
+import MicroRegisters from '../components/content/MicroRegisters';
 
 // Mappa componenti MDX
 const mdxComponents = {
@@ -50,6 +52,8 @@ const mdxComponents = {
     Callout,
     AssemblyExplorer,
     Infographic,
+    StackVisualizer,
+    MicroRegisters,
 };
 
 export default function Lesson() {

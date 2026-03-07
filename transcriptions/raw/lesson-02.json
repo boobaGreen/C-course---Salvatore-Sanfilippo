@@ -1,0 +1,942 @@
+[
+  {
+    "start": 0.0,
+    "end": 9.38,
+    "text": " bella tranquillità qua nel centro uffici di sabato senza nessuno bene è proprio il momento giusto per"
+  },
+  {
+    "start": 9.38,
+    "end": 17.68,
+    "text": " iniziare la seconda puntata del corso in C allora ce l'hanno lasciati facendo vedere il prototipo"
+  },
+  {
+    "start": 17.68,
+    "end": 25.4,
+    "text": " della funzione che potevamo sostituire all'include ma ho rimpiazzato di nuovo quel prototipo con"
+  },
+  {
+    "start": 25.4,
+    "end": 33.22,
+    "text": " l'include perché questo è il modo canonico col quale si scrive il C allora dentro stdio.h"
+  },
+  {
+    "start": 33.22,
+    "end": 39.94,
+    "text": " cos'è che ci sono le funzioni dello standard della libreria standard dc che si occupano di input"
+  },
+  {
+    "start": 39.94,
+    "end": 46.52,
+    "text": " output quindi questa è una brevedezione di standard io l'include diciamo che ce lo siamo"
+  },
+  {
+    "start": 46.52,
+    "end": 54.4,
+    "text": " tolti dal di torno ma come potrete ma vedrete che in questo programma ancora ci sono un sacco di"
+  },
+  {
+    "start": 54.4,
+    "end": 60.62,
+    "text": " misteri anche solo per capire questo hella world dobbiamo affrontare altri concetti tanto per"
+  },
+  {
+    "start": 60.62,
+    "end": 69.84,
+    "text": " iniziare vediamo come è definita questa funzione main int main aperta parentesi void che usa parentesi"
+  },
+  {
+    "start": 69.84,
+    "end": 76.42,
+    "text": " e poi si aprono le graffe e dentro c'è la definizione della funzione la sua implementazione allora"
+  },
+  {
+    "start": 76.42,
+    "end": 83.02,
+    "text": " int è il valore di ritorno quindi si mette prima del nome della funzione ci dice che la funzione main"
+  },
+  {
+    "start": 83.02,
+    "end": 94.12,
+    "text": " ritorna un valore intero poi si aprono le parentesi e qua ci sono gli argomenti di input che la"
+  },
+  {
+    "start": 94.12,
+    "end": 100.48,
+    "text": " funzione main accetta in questo caso la funzione main non accetta nulla ma io non posso scrivere"
+  },
+  {
+    "start": 100.48,
+    "end": 108.6,
+    "text": " così in teoria forse nel c moderno dal c 99 in poi probabilmente si può fare infatti guardiamo"
+  },
+  {
+    "start": 108.6,
+    "end": 116.64,
+    "text": " cosa succede se io faccio meno o 2 meravu meravu all world si non mi dan alcun warning una cosa"
+  },
+  {
+    "start": 116.64,
+    "end": 124.96,
+    "text": " importante questi due switch che io ho dato il compiratore abilitano i warning d'accordo quindi"
+  },
+  {
+    "start": 124.96,
+    "end": 130.54,
+    "text": " anche se il compiratore non incontra un errore come quello che ha incontrato qui che blocca"
+  },
+  {
+    "start": 130.54,
+    "end": 138.04,
+    "text": " la compirazione e lo costringe a dirci che così non va e che non è che dobbiamo modificare il"
+  },
+  {
+    "start": 138.04,
+    "end": 144.9,
+    "text": " programma altrimenti non possiamo compilarlo i warning ci danno degli avvertimenti anche se"
+  },
+  {
+    "start": 144.9,
+    "end": 150.6,
+    "text": " il programma risulta compilabile tuttavia il compiratore si accoglie che ci sono dei problemi"
+  },
+  {
+    "start": 150.6,
+    "end": 159.32,
+    "text": " che potrebbero presaggere a un errore di programmazione quindi ci dà queste indicazioni per evitare"
+  },
+  {
+    "start": 159.32,
+    "end": 167.84,
+    "text": " che ci siano degli errori ma io preferisco scriverlo in maniera esplicita voi perché la"
+  },
+  {
+    "start": 167.84,
+    "end": 180.5,
+    "text": " funzione non ha argomenti facciamo un esempio diverso in insomma anzi siccome io ho la scrivo"
+  },
+  {
+    "start": 180.5,
+    "end": 187.28,
+    "text": " da sempre quando programmo sia i nomi delle funzioni che i commenti in inglese secondo me è buona"
+  },
+  {
+    "start": 187.28,
+    "end": 193.98,
+    "text": " pratica quindi anche all'interno di questo corso noi lo faremo quindi insammo in ei in b"
+  },
+  {
+    "start": 195.38,
+    "end": 205.62,
+    "text": " retarna ei plus b ritardano a più b quindi la funzione insomma ritorna un intero perché"
+  },
+  {
+    "start": 205.62,
+    "end": 214.64,
+    "text": " int è scritto prima di sam prima del nome della funzione poi i tipi di dato che che il c ci offre"
+  },
+  {
+    "start": 214.64,
+    "end": 223.6,
+    "text": " li vedremo ma sappiate che li int è un intero e poi prende come input un intero a virgola per"
+  },
+  {
+    "start": 223.6,
+    "end": 228.86,
+    "text": " separare gli argomenti si usa la virgola un intero di e poi l'implementazione di questa"
+  },
+  {
+    "start": 229.94,
+    "end": 238.48,
+    "text": " funzione sam non è altro che un unico un unico statement un unico retar che dentro però"
+  },
+  {
+    "start": 238.48,
+    "end": 244.74,
+    "text": " un'espressione allora ritarne fa ritornare la funzione immediatamente al chiamante e"
+  },
+  {
+    "start": 246.14000000000001,
+    "end": 251.5,
+    "text": " ritorna deve ritornare ovviamente questo ritardo un tipo coerente col valore di"
+  },
+  {
+    "start": 251.5,
+    "end": 258.18,
+    "text": " ritorno della funzione ma siccome la funzione ritorna un intero e a più b è un intero perché"
+  },
+  {
+    "start": 258.18,
+    "end": 265.46,
+    "text": " la somma tra due interi allora tutto funziona ed è ed è ok questa funzione è ben scritta vorrei"
+  },
+  {
+    "start": 265.46,
+    "end": 272.1,
+    "text": " che poneste la vostra attenzione su questo a più b a più b è un'espressione quindi ci sono"
+  },
+  {
+    "start": 272.1,
+    "end": 277.44,
+    "text": " dei momenti in cui il c accetta delle espressioni questa somma è un'espressione molto semplice"
+  },
+  {
+    "start": 277.44,
+    "end": 283.52,
+    "text": " ce ne possono essere più complicate a maggiore di 10 così via sono tutte espressioni e ritarne"
+  },
+  {
+    "start": 283.52,
+    "end": 291.54,
+    "text": " accetta espressioni così come accetta un'espressione per esempio una if o una while quindi le"
+  },
+  {
+    "start": 291.54,
+    "end": 296.7,
+    "text": " espressioni le vedremo in diversi contesti una cosa che possiamo fare è utilizzare questa funzione"
+  },
+  {
+    "start": 296.7,
+    "end": 302.38,
+    "text": " sam dentro il nostro programma quindi qua o in questo momento facciamo stampare semplicemente"
+  },
+  {
+    "start": 302.38,
+    "end": 312.8,
+    "text": " lo world invece io qua posso scrivere percentuale di e qui scrivere sam di 10 virgola 20 convidiamo"
+  },
+  {
+    "start": 312.8,
+    "end": 321.1,
+    "text": " il programma e vediamo cosa fa e poi spieghiamo come lo fa e lo world 30 effettivamente la funzione"
+  },
+  {
+    "start": 321.1,
+    "end": 328.58,
+    "text": " somma ha ritornato un intero che è la somma di 10 e 20 allora tanto per iniziare la printf è"
+  },
+  {
+    "start": 328.58,
+    "end": 335.6,
+    "text": " la previazione il nome della funzione printf è la previazione di print formatted quindi stampa"
+  },
+  {
+    "start": 335.6,
+    "end": 342.66,
+    "text": " delle cose in maniera formatata in questo caso io come primo argomento do il formato e nel formato"
+  },
+  {
+    "start": 342.66,
+    "end": 349.66,
+    "text": " c'è scritto che ci devono essere i caratteri allo world e poi ci deve essere un intero questo"
+  },
+  {
+    "start": 349.66,
+    "end": 355.64,
+    "text": " percentuale di indica che poi seguirà un intero infatti io siccome la funzione printf è una"
+  },
+  {
+    "start": 355.64,
+    "end": 364.16,
+    "text": " funzione variadica cioè che prende un numero non determinato di argomenti ma variabile l'implementazione"
+  },
+  {
+    "start": 364.16,
+    "end": 372.22,
+    "text": " della printf si accorgerà che in effetti qui sembra gli serve un altro argomento e farà richiesta di"
+  },
+  {
+    "start": 372.22,
+    "end": 377.22,
+    "text": " quell'argomento che l'utente effettivamente aveva aveva chiamato ma considerate una cosa siccome"
+  },
+  {
+    "start": 377.22,
+    "end": 382.96,
+    "text": " ci che l'utente aveva passato alla funzione considerate una cosa tutto ciò avviene"
+  },
+  {
+    "start": 384.53999999999996,
+    "end": 391.46,
+    "text": " in un linguaggio compilato e quindi queste cose avverranno tramite la manipolazione interna della"
+  },
+  {
+    "start": 391.46,
+    "end": 398.74,
+    "text": " memoria però in realtà non è che diciamo alla printf verrà passato che ne sono tipo python o"
+  },
+  {
+    "start": 398.74,
+    "end": 403.98,
+    "text": " altre linguaggi di alto livello un r in cui ci sono tutti argomenti che la printf ricevuto non"
+  },
+  {
+    "start": 403.98,
+    "end": 409.64,
+    "text": " funziona così poi le funzioni variadiche in cile vedremo però il punto in questo caso è"
+  },
+  {
+    "start": 409.64,
+    "end": 415.36,
+    "text": " simpico la printf ne dobbiamo fare per forza uso durante il corso la dobbiamo per forza introdurre"
+  },
+  {
+    "start": 415.36,
+    "end": 419.92,
+    "text": " anche se è una funzione più complicata delle altre in questo momento a voi vi interessa capire"
+  },
+  {
+    "start": 419.92,
+    "end": 424.32,
+    "text": " che è una funzione variadica quindi accetta più argomenti io qua ne potrei mettere un altro"
+  },
+  {
+    "start": 424.32,
+    "end": 433.4,
+    "text": " ancora e poi devo scrivere qua per dire 50 io scrivo cc invece di gcc invece di cc ma sono"
+  },
+  {
+    "start": 433.4,
+    "end": 440.06,
+    "text": " degli alias non cambia quindi mi ha scritto e 30 50 per ora vi faccio vedere una cosa che"
+  },
+  {
+    "start": 440.06,
+    "end": 449.1,
+    "text": " succede se io alla printf passo una string un formato quindi una stringa di formato che in"
+  },
+  {
+    "start": 449.1,
+    "end": 456.56,
+    "text": " realtà dice che servono due interi ma poi gli passo solo il valore di ritorno di sam 10.20"
+  },
+  {
+    "start": 456.56,
+    "end": 465.12,
+    "text": " quindi viene da solo uno tanto per iniziare quando io compiro questa funzione mi dà un warning"
+  },
+  {
+    "start": 465.12,
+    "end": 472.86,
+    "text": " il gcc addirittura senza neanche aver scritto meno v meno v o l già ottengo un warning e mi"
+  },
+  {
+    "start": 472.86,
+    "end": 479.86,
+    "text": " dici attenzione c'è una conversione che poi non è onorata dal numero di argomenti che seguono"
+  },
+  {
+    "start": 479.86,
+    "end": 487.62,
+    "text": " se io lo stesso seguo questo programma scrive zermo potrebbe scrivere qualsiasi cosa e non è"
+  },
+  {
+    "start": 487.62,
+    "end": 492.5,
+    "text": " definito il modo in cui il programma funzionerà perché c'è un errore potrebbe benissimo anche"
+  },
+  {
+    "start": 492.5,
+    "end": 499.82,
+    "text": " andare in crash per capirci ma c'è una cosa molto interessante in questo piccolo programma per"
+  },
+  {
+    "start": 499.82,
+    "end": 505.98,
+    "text": " quando semplice c'è un dettaglio che può all'inizio non essere banale questa funzione che si chiama"
+  },
+  {
+    "start": 505.98,
+    "end": 513.26,
+    "text": " main è speciale perché non serve che qualcuno la chiami la nostra funzione sam l'abbiamo dovuta"
+  },
+  {
+    "start": 513.26,
+    "end": 519.1,
+    "text": " chiamare in maniera esplicita perché altrimenti nessuno l'avrebbe invocata bene main invece è"
+  },
+  {
+    "start": 519.1,
+    "end": 525.56,
+    "text": " il punto di partenza di ogni programma c quando io compilo un programma c il punto di partenza"
+  },
+  {
+    "start": 525.56,
+    "end": 533.32,
+    "text": " sarà main per cui questa funzione ricopre un ruolo speciale in c peraltro una cosa molto"
+  },
+  {
+    "start": 533.32,
+    "end": 540.36,
+    "text": " importante da dire è che io non posso scrivere degli statement at top level qua senza che non"
+  },
+  {
+    "start": 540.36,
+    "end": 547.58,
+    "text": " siano dentro una funzione qua io non posso scrivere printf ciao qualcosa funziona guardate"
+  },
+  {
+    "start": 547.58,
+    "end": 554.3,
+    "text": " che succede errore a parte che qui si aspetta una dichiarazione invece lui vede una funzione che"
+  },
+  {
+    "start": 554.3,
+    "end": 561.3,
+    "text": " in questo scopo non è non è in nessun modo definita ma vi dico di più se io invece di main"
+  },
+  {
+    "start": 561.3,
+    "end": 573.92,
+    "text": " scrivo pipo esattamente come ho scritto la mia main retar n zero e la compilo qua mi dice non c'è"
+  },
+  {
+    "start": 573.92,
+    "end": 580.74,
+    "text": " il simbolo main e io vorrei iniziare a eseguire il programma da main quindi come si fa per forse"
+  },
+  {
+    "start": 580.74,
+    "end": 588.0,
+    "text": " ci deve essere una nostra funzione main ma non è finita qui anche in questo programma così piccolo"
+  },
+  {
+    "start": 588.0,
+    "end": 594.1,
+    "text": " ci sono ancora moltissime altre elementi che dobbiamo scoprire ad esempio in d è il tipo"
+  },
+  {
+    "start": 594.1,
+    "end": 601.08,
+    "text": " intero e dobbiamo provare a usare questi interi in maniera più significativa poco fa noi avevamo"
+  },
+  {
+    "start": 601.08,
+    "end": 607.26,
+    "text": " fatto la funzione somma invece proviamo a scrivere la somma di due numeri in termini diversi scrivo"
+  },
+  {
+    "start": 607.26,
+    "end": 617.8,
+    "text": " in da uguale a 10 in d b uguale a 20 in d c uguale a più b e poi scrivo ciao due punti qua"
+  },
+  {
+    "start": 617.8,
+    "end": 625.74,
+    "text": " specifico che seguirà un intero e scrivo effettivamente e documentero c compilo questo"
+  },
+  {
+    "start": 625.74,
+    "end": 635.44,
+    "text": " programma lo eseguo e l'output è un accedere così che è più chiaro ciao 30 vediamo che"
+  },
+  {
+    "start": 635.44,
+    "end": 641.62,
+    "text": " cos'è successo come vedete in che qui e in che qui però sono due ind diversi in questo caso"
+  },
+  {
+    "start": 641.62,
+    "end": 647.74,
+    "text": " dico che il ritorno della funzione main è un intero in questo caso invece sto definendo una"
+  },
+  {
+    "start": 647.74,
+    "end": 654.42,
+    "text": " variabile qua un altra variabile e qua un altra variabile le variabili nel linguaggio ci si devono"
+  },
+  {
+    "start": 654.42,
+    "end": 660.96,
+    "text": " dichiarare tutte e si deve dichiarare il tipo il loro tipo non è sufficiente scrivere a uguale a"
+  },
+  {
+    "start": 660.96,
+    "end": 669.92,
+    "text": " 10 e il ci capirà da solo che è una variabbia di tipo intero per il fatto che l'ho assegnata a"
+  },
+  {
+    "start": 669.92,
+    "end": 676.22,
+    "text": " 10 questo tipo di inferenza il ci non lo fa vi dico la verità ci sono linguaggi più moderni"
+  },
+  {
+    "start": 676.22,
+    "end": 683.08,
+    "text": " che fanno questa inferenza di tipo non sono mai stato convinto che è una funzionalità particolarmente"
+  },
+  {
+    "start": 683.08,
+    "end": 690.38,
+    "text": " utile dei linguaggi scrivere di meno a volte è più ottimale però a me i tipi espliciti mi"
+  },
+  {
+    "start": 690.38,
+    "end": 695.32,
+    "text": " piacciono di più questo che si capisce blending che cosa che sta succedendo secondo me dal punto"
+  },
+  {
+    "start": 695.32,
+    "end": 700.92,
+    "text": " di vista dell'amende del programmatore della programmatrice c'è uno sforzo cognitivo inferiore"
+  },
+  {
+    "start": 700.92,
+    "end": 707.78,
+    "text": " nel vedere il tipo il nome della variabile e poi l'assegnazione ovviamente quindi io creo"
+  },
+  {
+    "start": 707.78,
+    "end": 713.4,
+    "text": " qua una variabile che si chiama crea una variabile che si chiama un p e una c che ha la somma qua ci"
+  },
+  {
+    "start": 713.4,
+    "end": 718.8,
+    "text": " sono due diversi tipi di inizializzazione una variabile dopo che la dichiaro la inizializzo al"
+  },
+  {
+    "start": 718.8,
+    "end": 724.2,
+    "text": " valore 10 tramite l'uguale. La seconda usa lo stesso tipo di inizializzazione,"
+  },
+  {
+    "start": 724.46,
+    "end": 731.14,
+    "text": " nella terza invece usa una espressione. Quindi questo ci dice che è l'espressione"
+  },
+  {
+    "start": 731.14,
+    "end": 737.08,
+    "text": " c, le abbiamo incontrate nel return che può ritornare un'espressione, ma si"
+  },
+  {
+    "start": 737.08,
+    "end": 740.62,
+    "text": " possono utilizzare anche durante le inizializzazioni delle variabili."
+  },
+  {
+    "start": 740.62,
+    "end": 751.92,
+    "text": " Per altro potrei anche scrivere int a bc, quindi creo tre diverse variabili intere ad"
+  },
+  {
+    "start": 751.92,
+    "end": 761.64,
+    "text": " a a segno 10, a b segno 20, a c segno a più b. Il programma continua a funzionare, ma"
+  },
+  {
+    "start": 762.76,
+    "end": 768.18,
+    "text": " abbiamo fatto una cosa un po' diversa, compiliamolo, scusate, convinciamoci del"
+  },
+  {
+    "start": 768.18,
+    "end": 772.84,
+    "text": " fatto che è ancora tutto uguale ed è ancora tutto uguale, ma qui sono"
+  },
+  {
+    "start": 772.84,
+    "end": 778.58,
+    "text": " successi le cose in maniera un po' diversa. Quindi prima ho creato tre variabili, poi"
+  },
+  {
+    "start": 778.58,
+    "end": 783.1,
+    "text": " questa non è più un'inizializzazione della variabile, nell'inizializzazione"
+  },
+  {
+    "start": 783.1,
+    "end": 788.88,
+    "text": " la segnazione del valore abbiene durante la definizione della variabile, qui invece"
+  },
+  {
+    "start": 788.88,
+    "end": 794.26,
+    "text": " è un fatto a sé, è la differenza che io, dopo che ho segnato a 10 posso"
+  },
+  {
+    "start": 794.26,
+    "end": 801.98,
+    "text": " segnare a pure a 11 e poi posso segnare a a 5 più 7 e il combinatore non avrà"
+  },
+  {
+    "start": 801.98,
+    "end": 806.24,
+    "text": " nulla da ridire anche quei warming attivi. Esatto."
+  },
+  {
+    "start": 809.48,
+    "end": 813.7,
+    "text": " Queste variabili qui che io ho creato, queste tre variabili qui, sono delle"
+  },
+  {
+    "start": 813.7,
+    "end": 820.08,
+    "text": " variabili locali, ciò è molto importante, vi faccio un esempio diverso."
+  },
+  {
+    "start": 820.9599999999999,
+    "end": 828.48,
+    "text": " Torniamo alla funzione sum 10.20 int sum int a int b."
+  },
+  {
+    "start": 830.18,
+    "end": 840.02,
+    "text": " int c, qua crea una variabile e assegno alla variabile a più b e poi ritorno il"
+  },
+  {
+    "start": 840.02,
+    "end": 840.82,
+    "text": " valore di c."
+  },
+  {
+    "start": 843.6800000000001,
+    "end": 851.2,
+    "text": " Il mio programma continua a funzionare bene e mi scrive 30, tuttavia guardate"
+  },
+  {
+    "start": 851.2,
+    "end": 857.56,
+    "text": " qua cosa è successo, quindi la printf prima di essere seguita deve risolvere i"
+  },
+  {
+    "start": 857.56,
+    "end": 861.96,
+    "text": " suoi argomenti e siccome io non so qual è il valore di ritorno di sum, il"
+  },
+  {
+    "start": 861.96,
+    "end": 867.04,
+    "text": " combinatore c prima eseguirà sum e poi eseguirà printf."
+  },
+  {
+    "start": 867.04,
+    "end": 877.44,
+    "text": " Sto posso vedere, se scrivo, se faccio generare l'assembly, guardate, bl è"
+  },
+  {
+    "start": 877.44,
+    "end": 883.28,
+    "text": " la istruzione assembli che chiama sum, poi quando finalmente ho ottenuto il valore"
+  },
+  {
+    "start": 883.28,
+    "end": 885.76,
+    "text": " della somma chiamo anche la printf."
+  },
+  {
+    "start": 888.3000000000001,
+    "end": 892.74,
+    "text": " Cioè chiare non potrebbe essere altrimenti perché io prima ho necessità di"
+  },
+  {
+    "start": 892.74,
+    "end": 896.24,
+    "text": " sapere qual è il valore di ritorno di questa funzione qua. Bene, una cosa da"
+  },
+  {
+    "start": 896.24,
+    "end": 901.56,
+    "text": " capire è che la variabile c è una variabile locale, significa che viene"
+  },
+  {
+    "start": 901.56,
+    "end": 906.78,
+    "text": " creata quando la funzione sum viene chiamata ogni volta che la funzione sum"
+  },
+  {
+    "start": 906.78,
+    "end": 910.74,
+    "text": " viene chiamata, quindi io sono qui, chiamiamo questa funzione due volte,"
+  },
+  {
+    "start": 913.58,
+    "end": 917.48,
+    "text": " quindi scriverà due volte cio 30, cio 30, ogni singola volta io chiamo sum,"
+  },
+  {
+    "start": 918.5,
+    "end": 924.78,
+    "text": " durante l'inizializzazione della chiamata viene fatto spazio per c, a c"
+  },
+  {
+    "start": 924.78,
+    "end": 930.4,
+    "text": " quindi viene assegnato il valore di a più b, ritorno questo valore di c e a"
+  },
+  {
+    "start": 930.4,
+    "end": 937.32,
+    "text": " questo punto da quando sum ripasse il controllo alla funzione main, la variabile c"
+  },
+  {
+    "start": 937.32,
+    "end": 941.66,
+    "text": " non esiste più, il suo valore viene distrutto, viene perso, non esiste più,"
+  },
+  {
+    "start": 941.72,
+    "end": 947.04,
+    "text": " viene utilizzato per altre, sarà poi riutilizzato per altre chiamate a"
+  },
+  {
+    "start": 947.04,
+    "end": 951.3,
+    "text": " funzione, quindi questa è una variabile locale in c, è una variabile che viene"
+  },
+  {
+    "start": 951.82,
+    "end": 957.06,
+    "text": " creata quando la funzione viene chiamata, per tutto il tempo di"
+  },
+  {
+    "start": 957.06,
+    "end": 961.44,
+    "text": " esecuzione della funzione la variabile c continuerà a esistere come variabile"
+  },
+  {
+    "start": 961.44,
+    "end": 966.52,
+    "text": " locale quando la funzione ritorna, non ci sarà più questa variabile c e non ci"
+  },
+  {
+    "start": 966.52,
+    "end": 971.62,
+    "text": " possiamo più fare affidamento se noi in qualche modo abbiamo catturato il suo"
+  },
+  {
+    "start": 971.62,
+    "end": 975.52,
+    "text": " valore tramite un puntatore, una cosa che vedremo dopo che è più avanzata,"
+  },
+  {
+    "start": 975.62,
+    "end": 981.02,
+    "text": " ma in questo momento quello che conta è capire qual è il tempo di vita di c"
+  },
+  {
+    "start": 981.74,
+    "end": 987.82,
+    "text": " inoltre vi vorrei far notare una cosa, questi due argomenti della funzione sum a e b"
+  },
+  {
+    "start": 987.82,
+    "end": 992.84,
+    "text": " non sono altro che variabili pure l'oro, qual è la differenza che siccome sono"
+  },
+  {
+    "start": 992.84,
+    "end": 997.42,
+    "text": " degli argomenti della funzione, la funzione praticamente crea in realtà"
+  },
+  {
+    "start": 997.42,
+    "end": 1003.24,
+    "text": " tre variabili quando viene chiamata ad a e b gli assegna automaticamente il valore"
+  },
+  {
+    "start": 1003.24,
+    "end": 1007.64,
+    "text": " di 10 e 20 perché questi sono gli argomenti della funzione con cui"
+  },
+  {
+    "start": 1009.0,
+    "end": 1014.0,
+    "text": " è chiamata la funzione, io qua posso avere 33,66"
+  },
+  {
+    "start": 1014.0,
+    "end": 1019.48,
+    "text": " alla seconda chiamata di sum ovviamente a e b saranno create e"
+  },
+  {
+    "start": 1019.48,
+    "end": 1024.06,
+    "text": " verrà assegnato un valore diverso, c invece viene creata inizialmente"
+  },
+  {
+    "start": 1024.06,
+    "end": 1028.58,
+    "text": " vuota dal punto di vista concettuale poi il conviettore può fare sui giochi che vuole"
+  },
+  {
+    "start": 1028.58,
+    "end": 1033.48,
+    "text": " e poi a c viene assegnato a e b quindi quando questa funzione sum ritorna in"
+  },
+  {
+    "start": 1033.48,
+    "end": 1039.38,
+    "text": " realtà vengono distrutte tre variabili a b e c di cui due sono argomenti della"
+  },
+  {
+    "start": 1039.38,
+    "end": 1046.28,
+    "text": " funzione e invece c era una variambia che io ho creato da appoggio"
+  },
+  {
+    "start": 1047.72,
+    "end": 1052.66,
+    "text": " questo è molto molto importante bene torniamo per un attimo però alla nostra"
+  },
+  {
+    "start": 1053.76,
+    "end": 1056.74,
+    "text": " al nostro programma di hello world"
+  },
+  {
+    "start": 1059.2800000000002,
+    "end": 1064.84,
+    "text": " come potete vedere anche la funzione main a un valore di ritorno il che a"
+  },
+  {
+    "start": 1064.84,
+    "end": 1069.6,
+    "text": " prima vista può sembrare diciamoccero un po strano perché comunque il programma"
+  },
+  {
+    "start": 1069.6,
+    "end": 1074.88,
+    "text": " ha come ingresso main e main non viene chiamato da nessuno quindi che senso"
+  },
+  {
+    "start": 1074.88,
+    "end": 1079.38,
+    "text": " avere un valore di ritorno in realtà serve il valore di ritorno di main a"
+  },
+  {
+    "start": 1079.38,
+    "end": 1087.06,
+    "text": " segnalare al sistema operativo se il programma ha avuto buonesito o meno di"
+  },
+  {
+    "start": 1087.06,
+    "end": 1093.88,
+    "text": " solito la convenzione su unix è che il programma se ritorna a zero ha avuto"
+  },
+  {
+    "start": 1093.88,
+    "end": 1099.44,
+    "text": " successo se ritorna invece un valore che è diverso da zero per esempio 1 2 3 per"
+  },
+  {
+    "start": 1099.44,
+    "end": 1103.56,
+    "text": " segnalare diversi tipi di errore ha avuto un problema e la sua esecuzione"
+  },
+  {
+    "start": 1103.56,
+    "end": 1109.18,
+    "text": " è fallita vi dico perché questo è utile allora io convino questo programma"
+  },
+  {
+    "start": 1109.18,
+    "end": 1115.1,
+    "text": " e lo seguo e apparentemente io non vedo il valore di ritorno però apparte il"
+  },
+  {
+    "start": 1115.1,
+    "end": 1119.54,
+    "text": " fatto che in realtà lo posso stampare dovrebbe essere questo esattamente"
+  },
+  {
+    "start": 1122.5600000000002,
+    "end": 1127.62,
+    "text": " dollaro punto interrogativo nella shell di unix vediamo se è vero io qua"
+  },
+  {
+    "start": 1127.62,
+    "end": 1134.88,
+    "text": " ora scrivo le tal uno e poi faccio appunto out ecco esattamente vedete che"
+  },
+  {
+    "start": 1134.88,
+    "end": 1138.5,
+    "text": " ora scrive uno invece che zero quindi questo è un valore accessibile ma vi"
+  },
+  {
+    "start": 1138.5,
+    "end": 1144.84,
+    "text": " dico di più rimettiamo di nuovo zero a volte sui unix si scrive qualcosa come"
+  },
+  {
+    "start": 1144.84,
+    "end": 1149.12,
+    "text": " tipo app io dico per esempio un programma e poi scrivo"
+  },
+  {
+    "start": 1150.98,
+    "end": 1162.9,
+    "text": " n n l s ok guardate che succede siccome praticamente e d viene si è come l"
+  },
+  {
+    "start": 1162.9,
+    "end": 1167.26,
+    "text": " and logico di qualsiasi programma di linguaggio di programmazione cioè questo"
+  },
+  {
+    "start": 1167.26,
+    "end": 1172.2,
+    "text": " è quello siccome di solito viene implementato ciò che si chiama uno"
+  },
+  {
+    "start": 1172.2,
+    "end": 1180.08,
+    "text": " short circuit ovvero se siccome questo qui è una espressione che mi dice l'uno"
+  },
+  {
+    "start": 1180.08,
+    "end": 1185.16,
+    "text": " l'altro quando io già ho eseguito il primo la prima parte è vera non mi serve"
+  },
+  {
+    "start": 1185.16,
+    "end": 1188.96,
+    "text": " seguire la seconda parte perché basta che vero la prima il risultato"
+  },
+  {
+    "start": 1188.96,
+    "end": 1193.86,
+    "text": " complessivo di questa espressione sarà vero quindi praticamente se appunto"
+  },
+  {
+    "start": 1193.86,
+    "end": 1202.46,
+    "text": " out non avesse ritornato zero ma se avesse ritornato uno guardate l s non"
+  },
+  {
+    "start": 1202.46,
+    "end": 1208.18,
+    "text": " viene più eseguito io prima qua avevo l'esecuzione di appunto out e poi avevo"
+  },
+  {
+    "start": 1208.18,
+    "end": 1212.66,
+    "text": " anche l'esecuzione di l s quindi in unix a volte capita che i diversi"
+  },
+  {
+    "start": 1213.6799999999998,
+    "end": 1219.3,
+    "text": " comandi vengono legati assieme con questo con gli end perché si sa che fino a"
+  },
+  {
+    "start": 1219.3,
+    "end": 1223.26,
+    "text": " quando non c'è un errore i comandi successivi saranno eseguiti davvero se"
+  },
+  {
+    "start": 1223.26,
+    "end": 1228.08,
+    "text": " c'è un errore ci blocchiamo subito quindi è questa è una dei motivi per cui"
+  },
+  {
+    "start": 1228.08,
+    "end": 1233.68,
+    "text": " per cui serve avere un valore di ritorno vedete ora per esempio che appunto"
+  },
+  {
+    "start": 1233.68,
+    "end": 1239.12,
+    "text": " out ritorna che ha eseguito l'operazione con successo io posso anche fare l s"
+  }
+]

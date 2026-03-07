@@ -1,0 +1,174 @@
+# Lezione 2: Variabili, Funzioni e Memoria
+
+Benvenuti alla seconda lezione! Oggi andremo a fondo nella struttura di un programma C, capendo finalmente cosa succede "sotto il cofano" quando dichiariamo una variabile o chiamiamo una funzione.
+
+<VideoEmbed videoId="Z84vlG1RRtg" title="Let's learn C: lezione 2" />
+
+## Struttura del Programma e `#include`
+
+Ogni programma C inizia spesso con delle direttive al preprocessore. La più comune è `#include <stdio.h>`.
+
+<Callout type="info" title="Standard I/O">
+`stdio.h` sta per **Standard Input/Output**. Contiene le definizioni di funzioni fondamentali come `printf`. Senza questo include, il compilatore non saprebbe come gestire l'output a video.
+</Callout>
+
+### La Funzione `main`
+La funzione `main` è il cuore del programma. È il punto di ingresso (entry point) da cui il sistema operativo inizia l'esecuzione.
+
+```c
+int main(void) {
+    // Il tuo codice qui
+    return 0;
+}
+```
+
+- `int`: Indica che la funzione restituisce un numero intero al sistema operativo (0 significa successo).
+- `void`: Indica esplicitamente che la funzione non accetta argomenti in ingresso.
+
+---
+
+## Funzioni: Prototipo vs Definizione
+
+Salvatore ci ha mostrato come definire una funzione per sommare due numeri. È importante distinguere tra come la funzione viene "annunciata" e come viene "scritta".
+
+<ComparisonTable 
+  title="Anatomia di una Funzione"
+  headers={["Elemento", "Esempio", "Descrizione"]}
+  rows={[
+    ["Tipo Ritorno", "int", "Il tipo di dato che la funzione 'restituisce'."],
+    ["Nome", "sum", "L'identificatore usato per chiamare la funzione."],
+    ["Parametri", "(int a, int b)", "I dati che la funzione riceve in input."],
+    ["Corpo", "{ return a + b; }", "Le istruzioni racchiuse tra parentesi graffe."]
+  ]}
+/>
+
+---
+
+## Variabili e Tipi Espliciti
+
+In C, a differenza di linguaggi come Python o JavaScript, devi **dichiarare esplicitamente** il tipo di ogni variabile. Il compilatore non fa "inferenza" automatica.
+
+```c
+int a = 10;   // Dichiarazione e Inizializzazione
+int b;        // Sola Dichiarazione
+b = 20;       // Assegnazione successiva
+```
+
+<Callout type="hacker" title="Hacker Mindset">
+Specificare il tipo (es. `int`) permette al compilatore di sapere esattamente quanti byte riservare in memoria e come interpretarli. Questo è il segreto delle performance del C!
+</Callout>
+
+---
+
+## Il "Ciclo di Vita" nella Memoria (Lo Stack)
+
+Cosa succede quando chiami una funzione? Dove finiscono le variabili locali?
+Le variabili definite dentro una funzione vivono in una zona di memoria chiamata **Stack** (Pila).
+
+<StackVisualizer />
+
+Quando una funzione viene chiamata, viene creato un **Stack Frame**. Quando la funzione termina (`return`), il suo frame viene "distrutto" e la memoria liberata.
+
+---
+
+## Registri e Microprocessore (Appendice)
+
+In questa appendice, Salvatore ci porta indietro nel tempo con il microprocessore **6502** per spiegarci la differenza tra registri e memoria RAM.
+
+<VideoEmbed videoId="r6mU_IHXEps" title="Appendice Lezione 2: La vita delle variabili locali" />
+
+<MicroRegisters />
+
+<Callout type="tip">
+I **Registri** sono piccole "variabili" dentro la CPU, velocissime. La **RAM** è più grande ma più lenta. Il compilatore C cerca di usare i registri il più possibile per velocizzare il tuo codice.
+</Callout>
+
+---
+
+## Esercizi di Verifica
+
+<Quiz 
+  questions={[
+    {
+      id: 1,
+      question: "Cosa significa il 'void' tra le parentesi di int main(void)?",
+      options: [
+        "Che la funzione non restituisce nulla",
+        "Che la funzione non accetta parametri",
+        "Che il programma è vuoto",
+        "Che la funzione è un errore"
+      ],
+      correctAnswer: 1,
+      explanation: "L'uso di 'void' indica esplicitamente che la funzione main non riceve argomenti."
+    },
+    {
+      id: 2,
+      question: "Dove vengono memorizzate le variabili locali di una funzione?",
+      options: [
+        "Nell'Hard Disk",
+        "Nella memoria Video",
+        "Nello Stack (Pila)",
+        "Nei Registri Globali"
+      ],
+      correctAnswer: 2,
+      explanation: "Le variabili locali vivono nello Stack e vengono rimosse quando la funzione termina."
+    },
+    {
+      id: 3,
+      question: "Quale flag del compilatore abilita tutti i warning comuni?",
+      options: [
+        "-Werror",
+        "-O3",
+        "-Wall",
+        "-all"
+      ],
+      correctAnswer: 2,
+      explanation: "-Wall (Warn All) è fondamentale per individuare potenziali bug prima di eseguire il programma."
+    },
+    {
+      id: 4,
+      question: "Qual è la differenza principale tra un Registro e la RAM?",
+      options: [
+        "I registri sono più lenti",
+        "La RAM è dentro la CPU",
+        "I registri sono vicini alla CPU e velocissimi, la RAM è esterna e più capiente",
+        "Non c'è differenza"
+      ],
+      correctAnswer: 2,
+      explanation: "I registri sono piccole unità di memoria interne alla CPU, usate per operazioni immediate. La RAM è la memoria principale del sistema."
+    },
+    {
+      id: 5,
+      question: "Perché inizializziamo le variabili (es. int a = 0)?",
+      options: [
+        "Perché il C lo richiede sempre",
+        "Per evitare che la variabile contenga 'immondizia' (vecchi valori rimasti nello stack)",
+        "Per rendere il codice più lungo",
+        "Per aiutare il linker"
+      ],
+      correctAnswer: 1,
+      explanation: "In C, le variabili locali non inizializzate contengono valori casuali (garbage) rimasti in quella posizione di memoria dello stack."
+    }
+  ]}
+/>
+
+---
+
+## Hacker Key Concepts
+
+<KeyConcepts 
+  concepts={[
+    {
+        title: "Explicit Typing",
+        description: "In C ogni variabile ha un tipo fisso. Questo garantisce sicurezza e controllo totale sulla memoria."
+    },
+    {
+        title: "Stack Frames",
+        description: "La memoria delle funzioni è organizzata come una pila: l'ultima chiamata è la prima ad essere rimossa."
+    },
+    {
+        title: "Compiler Warnings",
+        description: "Usa sempre -Wall. Un compilatore che 'si lamenta' è un compilatore che ti sta aiutando."
+    }
+  ]}
+/>

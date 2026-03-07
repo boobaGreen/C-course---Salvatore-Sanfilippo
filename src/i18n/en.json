@@ -46,6 +46,15 @@
             "retry": "Retry Quiz",
             "completed": "Quiz Completed!",
             "score_msg": "You answered correctly to {{score}} out of {{total}} questions."
+        },
+        "stack": {
+            "title": "Stack Memory Visualizer",
+            "start": "Start Simulation",
+            "next": "Next Step",
+            "ready": "Ready to start..."
+        },
+        "micro": {
+            "title": "6502 Micro-Emulator"
         }
     },
     "home": {

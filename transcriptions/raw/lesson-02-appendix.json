@@ -1,0 +1,1057 @@
+[
+  {
+    "start": 15.639999999999997,
+    "end": 23.48,
+    "text": " Questo video è un contenuto aggiuntivo della serie di programmazione in C e andrebbe visto"
+  },
+  {
+    "start": 24.080000000000002,
+    "end": 26.32,
+    "text": " dopo aver visto la seconda lezione del corso."
+  },
+  {
+    "start": 26.32,
+    "end": 35.46,
+    "text": " Il fatto è che i più esigenti di voi, quando abbiamo parlato nella seconda lezione che i"
+  },
+  {
+    "start": 35.46,
+    "end": 41.08,
+    "text": " parametri sono variabili locali, ci possono essere altre variabili locali che io definisco,"
+  },
+  {
+    "start": 42.02,
+    "end": 47.0,
+    "text": " ma poi noi abbiamo detto che le variabili locali vengono create durante la chiamata"
+  },
+  {
+    "start": 47.0,
+    "end": 50.66,
+    "text": " la funzione e distrutte quando noi ritorniamo dalla funzione."
+  },
+  {
+    "start": 51.980000000000004,
+    "end": 59.66,
+    "text": " Questa idea che le variabili vengono create e poi distrutte ha molto senso se noi parliamo"
+  },
+  {
+    "start": 59.66,
+    "end": 65.72,
+    "text": " di linguaggi ad alto livello, cioè non è che non abbia senso in C, ma è facile da visualizzare"
+  },
+  {
+    "start": 65.72,
+    "end": 72.1,
+    "text": " come idea se noi parliamo di per esempio JavaScript. Immagineremo che quando la funzione"
+  },
+  {
+    "start": 72.1,
+    "end": 79.32,
+    "text": " ritorna gli oggetti che erano assegnati a quelle variabili perdono una referenza e se"
+  },
+  {
+    "start": 79.32,
+    "end": 84.96,
+    "text": " il conto delle referenze è zero, cioè gli oggetti non sono più referenziati da nessuna"
+  },
+  {
+    "start": 84.96,
+    "end": 93.98,
+    "text": " variabile globale, da nessuna variabile locale, da nessuna... in nessun modo, il garbage collector"
+  },
+  {
+    "start": 95.17999999999999,
+    "end": 100.94,
+    "text": " cancellerà il nostro oggetto perché non è più raggiungibile in alcun modo. Ma il"
+  },
+  {
+    "start": 100.94,
+    "end": 106.7,
+    "text": " C manipola sostanzialmente numeri, almeno questo è quello che abbiamo visto fino a"
+  },
+  {
+    "start": 106.7,
+    "end": 111.68,
+    "text": " la funzione, quindi che significa che una variabile locale viene creata e viene distrutta."
+  },
+  {
+    "start": 112.66,
+    "end": 117.62,
+    "text": " Allora, per capire questa cosa bisogna capire un po' come funziona il microprocessore."
+  },
+  {
+    "start": 118.18,
+    "end": 123.58,
+    "text": " Anzi noi saremo completamente folli oggi e vedremo cosa succede in due diversi microprocessori."
+  },
+  {
+    "start": 123.68,
+    "end": 132.76,
+    "text": " Prima iniziamo con il 6502 che io ho... vediamo dove ho... ho qui, eccolo qua. Allora il"
+  },
+  {
+    "start": 132.76,
+    "end": 141.34,
+    "text": " 6502 è il microprocessore del Commodore 64, quindi un processore di più di 40 anni fa,"
+  },
+  {
+    "start": 141.46,
+    "end": 147.24,
+    "text": " ovviamente, ma è proprio particolarmente utile proprio per la sua esterema semplicità per"
+  },
+  {
+    "start": 147.24,
+    "end": 150.82,
+    "text": " capire un po' che cosa è che sta succedendo. Peraltro questo programma che io vi faccio vedere"
+  },
+  {
+    "start": 150.82,
+    "end": 156.24,
+    "text": " che ho scritto oggi pomeriggio non è un programma compilato dal C, l'ho scritto direttamente in"
+  },
+  {
+    "start": 156.24,
+    "end": 162.36,
+    "text": " assembly. Un microprocessore ha due possibilità di operare nei dati. Tutti microprocessori,"
+  },
+  {
+    "start": 162.36,
+    "end": 170.46,
+    "text": " sia il 6502 che il mio MacBook, del mio M3 che c'è dentro il mio MacBook, hanno i microprocessori,"
+  },
+  {
+    "start": 170.5,
+    "end": 177.32,
+    "text": " un set di registri e i registri che cosa sono. Sono sostanzialmente delle piccole variabili"
+  },
+  {
+    "start": 177.32,
+    "end": 182.14,
+    "text": " velocissime che possono contenere solo numeri o interi nei microprocessori moderni, anche"
+  },
+  {
+    "start": 182.14,
+    "end": 187.02,
+    "text": " numeri in virgola mobile, e sono proprio dentro il core del processore. Le istruzioni possono"
+  },
+  {
+    "start": 187.02,
+    "end": 192.52,
+    "text": " riferirsi direttamente a queste piccole variabili che di solito si chiamano con le lettere dell'alphabeto,"
+  },
+  {
+    "start": 192.56,
+    "end": 198.78,
+    "text": " per esempio, A, B, C, D, o a volte una lettere, un numero sequenziale, dipende dal tipo di"
+  },
+  {
+    "start": 198.78,
+    "end": 205.26,
+    "text": " processore e dall'immaginazione del progettista di tale processore. E poi, oltre a operare sui"
+  },
+  {
+    "start": 205.26,
+    "end": 209.6,
+    "text": " registri, che sono quindi queste piccole variabili, che si chiamano i registri e microprocessore,"
+  },
+  {
+    "start": 210.2,
+    "end": 214.94,
+    "text": " possono utilizzare delle istruzioni che muovono contenuti di una data allocazione di memoria"
+  },
+  {
+    "start": 214.94,
+    "end": 221.58,
+    "text": " della RAM, dall'RAM a uno dei registri o da un registro alla RAM. Quindi si opera dentro"
+  },
+  {
+    "start": 221.58,
+    "end": 226.62,
+    "text": " i registri, ma a volte si opera anche attraverso la memoria alcuni processori più evoluti,"
+  },
+  {
+    "start": 226.7,
+    "end": 232.62,
+    "text": " in particolare i CHISC, che hanno quindi un set di istruzioni e una capacità di indirizzare"
+  },
+  {
+    "start": 232.62,
+    "end": 238.32,
+    "text": " la memoria molto ampia, possono direttamente utilizzare delle istruzioni complicate, che"
+  },
+  {
+    "start": 238.32,
+    "end": 242.8,
+    "text": " ad esempio prendono un dato da una locazione di memoria, lo scrivono in un'altra locazione"
+  },
+  {
+    "start": 242.8,
+    "end": 247.24,
+    "text": " di memoria senza passare dai registri come step intermediate e così via. Però in generale,"
+  },
+  {
+    "start": 247.26,
+    "end": 253.64,
+    "text": " ecco, i registri sono delle piccole variabili dentro il microprocessore, mentre invece l'altra"
+  },
+  {
+    "start": 253.64,
+    "end": 260.5,
+    "text": " modalità in cui il microprocessore può salvare, caricare roba è attraverso la memoria, registrando"
+  },
+  {
+    "start": 260.5,
+    "end": 266.12,
+    "text": " il valore dei registri in memoria o caricando il valore della memoria nei registri."
+  },
+  {
+    "start": 267.44,
+    "end": 275.26,
+    "text": " Il 6502 ha pochissimi registri. Il registro A, che viene chiamato l'accumulatore, è per"
+  },
+  {
+    "start": 275.26,
+    "end": 282.18,
+    "text": " esempio questa istruzione LDA50, significa carica il valore 50 dentro il registro A,"
+  },
+  {
+    "start": 282.32,
+    "end": 289.62,
+    "text": " quindi LOD A. Dopo aver caricato il valore 50 che è il parametro della funzione fill"
+  },
+  {
+    "start": 289.62,
+    "end": 295.42,
+    "text": " 5 sostanzialmente, salta alla funzione GSR fill file. Allora, che cosa fa questo fill"
+  },
+  {
+    "start": 295.42,
+    "end": 301.54,
+    "text": " 5? Guarda che c'è scritto nel registro A e scriverà nella memoria video di questo"
+  },
+  {
+    "start": 301.54,
+    "end": 310.44,
+    "text": " simulatore per A volte, quindi 50 volte, un byte di colore 5. In pratica questo schermetto"
+  },
+  {
+    "start": 310.44,
+    "end": 314.86,
+    "text": " che vedete qui è memory mapped, quindi è mappato in memoria. Se uno scrive dalle"
+  },
+  {
+    "start": 314.86,
+    "end": 321.24,
+    "text": " locazioni 200 e 21, ogni byte che scrive corrisponde un pixel in base alla valore del"
+  },
+  {
+    "start": 321.24,
+    "end": 326.88,
+    "text": " byte il pixel sarà di colore diverso. Scrivere 5 in locazioni di memoria successive significa"
+  },
+  {
+    "start": 326.88,
+    "end": 333.96,
+    "text": " riempire di colori di pixel verde, infatti esegua questo codice, guardate, stampa 50 pixel"
+  },
+  {
+    "start": 333.96,
+    "end": 339.68,
+    "text": " verde in sequenza. Quindi la funzione fill 5 parte da 200 che è questo pixel qua, 200"
+  },
+  {
+    "start": 339.68,
+    "end": 346.96,
+    "text": " e 21, è incrementa per 50 volte l'allocazione di memoria e ci scrive sempre 5 dentro e"
+  },
+  {
+    "start": 346.96,
+    "end": 351.24,
+    "text": " questo sarà il risultato. Ma vediamo di vedere come che funziona."
+  },
+  {
+    "start": 351.72,
+    "end": 360.98,
+    "text": " Quindi questo parametro A della funzione fill 5, il numero di pixel da scrivere, viene"
+  },
+  {
+    "start": 360.98,
+    "end": 367.28,
+    "text": " gestito attraverso un registro del micro processore che appunto si chiama A. La prima cosa che"
+  },
+  {
+    "start": 367.28,
+    "end": 375.34,
+    "text": " fa la funzione fill 5 è di trasferire A in X. Tax significa transfer A in X, quindi"
+  },
+  {
+    "start": 375.34,
+    "end": 382.26,
+    "text": " trasferisci il valore del registro A nel registro X perché X è un registro del 65"
+  },
+  {
+    "start": 382.26,
+    "end": 390.82,
+    "text": " e 0,2. Se per caso già vale 0, allora abbiamo finito. Quindi va qui e finisce kicks il programma"
+  },
+  {
+    "start": 390.82,
+    "end": 396.84,
+    "text": " per il fatto che questo programma si protegge dal fatto che potrei passare un count zero."
+  },
+  {
+    "start": 396.84,
+    "end": 402.26,
+    "text": " in questo caso è 50 quindi questa è la seconda istruzione verrà completamente ignorata."
+  },
+  {
+    "start": 402.84,
+    "end": 407.58,
+    "text": " Però trasferirà effettivamente il valore del registro A nel registro X."
+  },
+  {
+    "start": 408.48,
+    "end": 415.46,
+    "text": " A questo punto carica nel registro Y il valore di 0 e nel registro A il valore di 5."
+  },
+  {
+    "start": 416.4,
+    "end": 421.94,
+    "text": " Guardate già questa variabile A questo registro ma noi chiamiamo le variabili per capirci."
+  },
+  {
+    "start": 423.0,
+    "end": 429.24,
+    "text": " Viene caricato col valore di 5 distruggendo quello che c'è all'inizio che è le 50 volte in cui deve tirare."
+  },
+  {
+    "start": 429.72,
+    "end": 432.94,
+    "text": " Ma perché questo è stato salvato già in X con l'istruzione TAX."
+  },
+  {
+    "start": 433.76,
+    "end": 437.08,
+    "text": " Quindi vedete che i registri si possono facilmente sovrascrivere"
+  },
+  {
+    "start": 437.08,
+    "end": 440.68,
+    "text": " appunto perché sono locali nella loro funzione."
+  },
+  {
+    "start": 440.88,
+    "end": 446.28,
+    "text": " Quindi si può usare un registro per fare qualcosa però poi può essere sovrascritto da un altro."
+  },
+  {
+    "start": 446.28,
+    "end": 450.54,
+    "text": " Bisogna ben stare attenti a salvare quindi i registri che noi utilizziamo"
+  },
+  {
+    "start": 450.54,
+    "end": 453.02,
+    "text": " e che hanno valori che ci servono ancora da qualche altra parte."
+  },
+  {
+    "start": 453.6,
+    "end": 456.84,
+    "text": " La cosa più interessante è questo loop, il loop principale."
+  },
+  {
+    "start": 458.22,
+    "end": 462.96,
+    "text": " Allora il registro Y è molto importante perché può servire per registrare"
+  },
+  {
+    "start": 465.1,
+    "end": 469.96,
+    "text": " dei valori in indici successivi di una locazione di memoria."
+  },
+  {
+    "start": 470.04,
+    "end": 473.78,
+    "text": " Guardate questo è l'indirizzo di base 200 e questo è l'offset."
+  },
+  {
+    "start": 473.78,
+    "end": 474.88,
+    "text": " Quindi è come se"
+  },
+  {
+    "start": 478.66,
+    "end": 484.96,
+    "text": " se io ho la mia vid mem e io voglio fare vid mem di 0 è uguale a 5"
+  },
+  {
+    "start": 484.96,
+    "end": 491.78,
+    "text": " permetteci il pixel verde vid mem di 1 uguale a 5 vid mem di 2 uguale a 5"
+  },
+  {
+    "start": 491.78,
+    "end": 494.82,
+    "text": " e così via fino a 50 meno 1 fino a 49."
+  },
+  {
+    "start": 495.76,
+    "end": 498.92,
+    "text": " E io faccio esattamente questo quindi st significa store,"
+  },
+  {
+    "start": 499.14,
+    "end": 503.34,
+    "text": " store il valore di A quindi registre il valore del registro A"
+  },
+  {
+    "start": 503.78,
+    "end": 511.2,
+    "text": " all'allocazione 200 più Y e quindi la prima volta sarà di Y a 0 e andrà qui."
+  },
+  {
+    "start": 511.54,
+    "end": 516.04,
+    "text": " Poi incrementa Y in Y, decrementa X,"
+  },
+  {
+    "start": 516.24,
+    "end": 518.1,
+    "text": " X vi ricordo, allora incremento Y,"
+  },
+  {
+    "start": 518.28,
+    "end": 523.0,
+    "text": " Y perché la prossima volta voglio registrare il mio pixel verde al valore successivo"
+  },
+  {
+    "start": 523.0,
+    "end": 527.14,
+    "text": " quindi 200 più Y 200 più 1 200 più 2 200 più 3."
+  },
+  {
+    "start": 527.46,
+    "end": 531.88,
+    "text": " Decremento X perché nel registro X c'è scritto quante volte io"
+  },
+  {
+    "start": 534.6600000000001,
+    "end": 539.1,
+    "text": " voglio continuare a fare questo ciclo, a iterare questo ciclo."
+  },
+  {
+    "start": 539.66,
+    "end": 542.78,
+    "text": " Quando io decremendo X se X arriva al valore di 0,"
+  },
+  {
+    "start": 542.88,
+    "end": 543.9,
+    "text": " guardate che c'è scritto qui,"
+  },
+  {
+    "start": 544.22,
+    "end": 554.02,
+    "text": " salt, se non è uguale a 0 allora salta di nuovo al loop."
+  },
+  {
+    "start": 555.08,
+    "end": 555.08,
+    "text": ""
+  },
+  {
+    "start": 555.76,
+    "end": 558.22,
+    "text": " Altrimenti se X è uguale a 0,"
+  },
+  {
+    "start": 558.22,
+    "end": 562.34,
+    "text": " noi continuiamo a ceddan, si ritorne il programma e è finito qui."
+  },
+  {
+    "start": 562.86,
+    "end": 569.18,
+    "text": " Ok quindi guardate se io praticamente eseguo gli step,"
+  },
+  {
+    "start": 570.0,
+    "end": 574.26,
+    "text": " guardate qua vedo il program counter che dice qual'estruzione e processare,"
+  },
+  {
+    "start": 574.68,
+    "end": 577.28,
+    "text": " guardate che con baia uno i pixel se continuo a premere,"
+  },
+  {
+    "start": 577.72,
+    "end": 579.78,
+    "text": " perché continuo a essere dentro questo loop."
+  },
+  {
+    "start": 580.18,
+    "end": 583.46,
+    "text": " Perché vi faccio vedere questa cosa in relazione alle variabili locali?"
+  },
+  {
+    "start": 583.46,
+    "end": 587.42,
+    "text": " Ma perché quello che sta succedendo qui in sostanza in questo programma"
+  },
+  {
+    "start": 587.42,
+    "end": 592.62,
+    "text": " è che io ho utilizzato la variabile il registro A come sostanzialmente"
+  },
+  {
+    "start": 592.62,
+    "end": 594.04,
+    "text": " argomento della funzione,"
+  },
+  {
+    "start": 594.48,
+    "end": 598.24,
+    "text": " ma poi se questo start chiama un'altra funzione,"
+  },
+  {
+    "start": 598.68,
+    "end": 602.28,
+    "text": " il registro A verrà utilizzato per qualcos'altro quindi questo valore si perde."
+  },
+  {
+    "start": 602.82,
+    "end": 606.98,
+    "text": " Vedete dunque come si perdono i valori delle variabili locali in C,"
+  },
+  {
+    "start": 607.14,
+    "end": 610.42,
+    "text": " perché il C usa spesso i registri per fare le proprie computazioni,"
+  },
+  {
+    "start": 610.42,
+    "end": 613.92,
+    "text": " quindi proprio quella variabile non esiste più in nessun modo."
+  },
+  {
+    "start": 614.36,
+    "end": 619.5,
+    "text": " Ora per carità col 6502 abbiamo visto il discorso dei registri come piccole variabili"
+  },
+  {
+    "start": 619.5,
+    "end": 623.3,
+    "text": " da un modello mentale interessante del fatto che siano così effimeri"
+  },
+  {
+    "start": 623.3,
+    "end": 628.26,
+    "text": " a volte il passaggio degli argomenti alle funzioni e così via."
+  },
+  {
+    "start": 629.28,
+    "end": 634.78,
+    "text": " Peraltro a volte capita che poi quelle stesse funzioni scritte in assembly in questo caso"
+  },
+  {
+    "start": 634.78,
+    "end": 638.76,
+    "text": " ne chiameranno delle alter che useranno gli stessi registri e allora come si fa."
+  },
+  {
+    "start": 638.76,
+    "end": 645.38,
+    "text": " Bisogna salvare questi registri per poi ripristinarli da qualche parte,"
+  },
+  {
+    "start": 645.52,
+    "end": 646.82,
+    "text": " di solito si usa lo stack."
+  },
+  {
+    "start": 647.72,
+    "end": 653.8,
+    "text": " E ci sono altre architettura in particolare il 386 32 bit che è quello secondo me più adatto"
+  },
+  {
+    "start": 653.8,
+    "end": 661.16,
+    "text": " per vedere come che funziona la compilazione C in un programma assembly e come vengono"
+  },
+  {
+    "start": 661.16,
+    "end": 667.96,
+    "text": " create, gestite le variabili locali che usano lo stack invece in maniera principale come"
+  },
+  {
+    "start": 669.02,
+    "end": 673.26,
+    "text": " convenzione della chiamata delle funzioni perché dovete sapere che è una convenzione."
+  },
+  {
+    "start": 673.94,
+    "end": 679.12,
+    "text": " Cioè i combinatori C in una data architettura devono garantire che le funzioni accettano"
+  },
+  {
+    "start": 679.12,
+    "end": 684.3,
+    "text": " gli argomenti in un dato modo, passati in un dato modo, cioè anche se una funzione l'ha"
+  },
+  {
+    "start": 684.3,
+    "end": 690.84,
+    "text": " combinata un altro programma un altro combinatore io devo poterla usare da un programma combinato"
+  },
+  {
+    "start": 690.84,
+    "end": 695.18,
+    "text": " con qualsiasi altro combinatore che segue lo standard per quella architettura."
+  },
+  {
+    "start": 696.16,
+    "end": 701.52,
+    "text": " Per cui altro che quando io vi facevo vedere nella prima lezione del C che io potremmo"
+  },
+  {
+    "start": 701.52,
+    "end": 705.48,
+    "text": " mettere semplicemente il prototipo della funzione già funzionava tutto è perché il C"
+  },
+  {
+    "start": 705.48,
+    "end": 712.1,
+    "text": " sa dato il prototipo di una funzione come dovrà chiamare quella funzione"
+  },
+  {
+    "start": 712.72,
+    "end": 718.3,
+    "text": " basta che ne conosca l'indirizzo dove è registrata quindi al runtime si possono linkare"
+  },
+  {
+    "start": 718.3,
+    "end": 721.34,
+    "text": " cose combinate con combinatori diversi e tutto funziona."
+  },
+  {
+    "start": 722.04,
+    "end": 728.24,
+    "text": " Ecco il 386 ha una convenzione di chiamata delle funzioni che è particolarmente"
+  },
+  {
+    "start": 728.24,
+    "end": 732.38,
+    "text": " chiara per capire che cose che sono queste variabili locali in C."
+  },
+  {
+    "start": 734.3000000000001,
+    "end": 738.44,
+    "text": " Prima vi faccio capire che cos'è uno stack, allora uno stack è semplicemente un pezzo"
+  },
+  {
+    "start": 738.44,
+    "end": 743.22,
+    "text": " della memoria del computer che non è diverso dagli altri semplicemente noi un pezzo lo"
+  },
+  {
+    "start": 743.22,
+    "end": 749.36,
+    "text": " vi serviamo lo chiamiamo stack che è diviso immaginatevelo in nel caso del 386"
+  },
+  {
+    "start": 750.7,
+    "end": 757.58,
+    "text": " spazi da per dire per semplificare da 4 byte ognuno 32 bit e che ha un registro speciale"
+  },
+  {
+    "start": 757.58,
+    "end": 764.74,
+    "text": " che si chiama stack pointer sp che punta in un dato in una data posizione dello stack allora"
+  },
+  {
+    "start": 764.74,
+    "end": 770.06,
+    "text": " ci sono delle istruzioni molto interessanti che si chiamano push e pop che possono prendere un"
+  },
+  {
+    "start": 770.06,
+    "end": 776.16,
+    "text": " registro delle microprocessore e salvarlo direttamente nello stack in un'unica istruzione molto"
+  },
+  {
+    "start": 776.16,
+    "end": 783.14,
+    "text": " veloce e anche fare il contrario prendere il valore di che c'è in questo momento nello stack"
+  },
+  {
+    "start": 783.14,
+    "end": 796.34,
+    "text": " e trasportarlo nel in un registro allora l'istruzione push tipo push a registra il registro a quindi"
+  },
+  {
+    "start": 796.34,
+    "end": 802.76,
+    "text": " memorizza il registro a nello stack significa guardate che fa lo stack pointer che è un"
+  },
+  {
+    "start": 802.76,
+    "end": 808.36,
+    "text": " puntatore quindi un registro che condiene un indirizzo di memoria quello appuntato in cui"
+  },
+  {
+    "start": 808.36,
+    "end": 816.26,
+    "text": " angle momento arrivato lo stack viene decrementato di 4 quindi ora punta qua ok se più appuntava"
+  },
+  {
+    "start": 816.26,
+    "end": 822.9,
+    "text": " qua e scrive qua dentro il valore di a mettiamo che avva leva 1 2 3 lo scrive qua se io poi"
+  },
+  {
+    "start": 822.9,
+    "end": 828.76,
+    "text": " faccio push b e b condineva 5 lo stack pointer di nuovo si incrementa si decrementa di 4 quindi"
+  },
+  {
+    "start": 828.76,
+    "end": 837.06,
+    "text": " parli troppo e qua ci scrive 5 ok quindi uso la questa memoria per memorizzare l'enegistro"
+  },
+  {
+    "start": 837.06,
+    "end": 845.66,
+    "text": " poi c'è una istruzione contraria che si chiama pop che io posso usare per dire gli dico pop b lui"
+  },
+  {
+    "start": 845.66,
+    "end": 851.94,
+    "text": " prendere il valore che c'è in quel momento pun nella memoria nel reggì nella locazione di"
+  },
+  {
+    "start": 851.94,
+    "end": 858.44,
+    "text": " memoria a cui lo stack pointer punta e che c'è dentro 5 lo mette dentro b e incrementa lo stack"
+  },
+  {
+    "start": 858.44,
+    "end": 864.7,
+    "text": " pointer esattamente di 4 quindi siamo qua quindi abbiamo pop push che possono registrare robbe"
+  },
+  {
+    "start": 864.7,
+    "end": 871.08,
+    "text": " in un nello stack e riprendere robbe dallo stack allora ora andiamo a vedere quindi come è stato"
+  },
+  {
+    "start": 871.08,
+    "end": 878.28,
+    "text": " trasformato il nostro programma in c guardate retarne sam 10 i venti retarne a più b come è"
+  },
+  {
+    "start": 878.28,
+    "end": 886.48,
+    "text": " stato compilato andiamo alla main allora la main si salva con push le bp quindi decrementa lo stack"
+  },
+  {
+    "start": 886.48,
+    "end": 894.1,
+    "text": " pointer e ci salva dentro le bp poi dentro le bp che ormai ha salvato che bp si chiama base"
+  },
+  {
+    "start": 894.1,
+    "end": 901.14,
+    "text": " pointer serve questo registro un po come abbiamo visto nel 6502 qua vi ricordate questo st che"
+  },
+  {
+    "start": 901.14,
+    "end": 907.34,
+    "text": " questo era il rindirizzo di base e poi io qua avevo l'indice del mio re e ci aggiungeva 200 123"
+  },
+  {
+    "start": 907.34,
+    "end": 914.88,
+    "text": " eccetera bene il bp funziona alla stessa funzione di questo 200 qui è un base pointer un"
+  },
+  {
+    "start": 914.88,
+    "end": 920.28,
+    "text": " bundatore di base ma che può variare qua io invece l'ho dovuto scrivere come valore invece"
+  },
+  {
+    "start": 920.28,
+    "end": 931.48,
+    "text": " lì è scrittoni nel bp base pointer quindi salvo le bp poi vado a registrare nel e bp il valore"
+  },
+  {
+    "start": 931.48,
+    "end": 937.7,
+    "text": " attuale delle sp quindi praticamente move la distruzione move copia un registro in un altro"
+  },
+  {
+    "start": 937.7,
+    "end": 943.38,
+    "text": " copia il registro a destra nel registro a sinistra a questo punto faccio il push di venti faccio il"
+  },
+  {
+    "start": 943.38,
+    "end": 949.86,
+    "text": " push di 10 e chiamo sam allora andiamo a vedere nel mentre che cos'è che è successo nel nostro"
+  },
+  {
+    "start": 949.86,
+    "end": 960.46,
+    "text": " stack pointer svuota la tela ci servono solo noi quattro word quindi quattro parole di 32 bit"
+  },
+  {
+    "start": 962.94,
+    "end": 970.28,
+    "text": " questa era quindi che non sappiamo che cosa c'è all'inizio il nostro stack pointer all'inizio"
+  },
+  {
+    "start": 970.28,
+    "end": 979.98,
+    "text": " ponderà qui questo è il nostro sv ma noi questa locazione di memoria non la utilizzeremo anzi"
+  },
+  {
+    "start": 979.98,
+    "end": 986.54,
+    "text": " forse qua ce ne serve un'altra in realtà ora vi faccio vedere perché andiamo a vedere la sequenza"
+  },
+  {
+    "start": 986.54,
+    "end": 992.7,
+    "text": " di istruzioni sullo stack allora prima istruzione push e bp quindi che succede questo stack pointer"
+  },
+  {
+    "start": 992.7,
+    "end": 997.74,
+    "text": " viene decrementato quindi ora punta qui viene decrementato di quattro e qua ci salva le bp"
+  },
+  {
+    "start": 999.5,
+    "end": 1009.72,
+    "text": " il vecchio bp che poi ripristinerà poi succede che ci sono altre due push push venti e push 10"
+  },
+  {
+    "start": 1009.72,
+    "end": 1017.36,
+    "text": " quindi ancora decrementa e ci scrive qua venti decrementa e punta qui ora e qua ci scrive"
+  },
+  {
+    "start": 1017.36,
+    "end": 1024.02,
+    "text": " 10 poi c'è una cosa interessante qua c'è l'istruzione call sam questa call è un salto a"
+  },
+  {
+    "start": 1024.02,
+    "end": 1029.26,
+    "text": " questo punto del programma ma fa anche un'altra cosa si deve registrare l'indirizzo di"
+  },
+  {
+    "start": 1029.26,
+    "end": 1034.2,
+    "text": " ritorno che sarebbe questo qui cioè si deve ricordare la call che quando poi questa funzione"
+  },
+  {
+    "start": 1034.2,
+    "end": 1039.02,
+    "text": " ritornerà con ret deve tornare a eseguire il programma da dove era arrivato perché questa"
+  },
+  {
+    "start": 1039.02,
+    "end": 1044.32,
+    "text": " funzione sam potrebbe essere chiamata da tante parti del programma e poi come lo sa dove deve"
+  },
+  {
+    "start": 1044.32,
+    "end": 1051.36,
+    "text": " tornare bene sappiate che c'è un registro che si chiama pc program counter che dice dove siamo"
+  },
+  {
+    "start": 1051.36,
+    "end": 1057.94,
+    "text": " arrivati con l'esecuzione del programma call registra sullo stack questo pc e ret lo ripristina"
+  },
+  {
+    "start": 1057.94,
+    "end": 1063.66,
+    "text": " quindi sostanzialmente quello che succede è che qui c'è andrà il program counter dal momento in"
+  },
+  {
+    "start": 1063.66,
+    "end": 1077.74,
+    "text": " cui io chiamo call andiamo dentro la funzione somma la funzione somma salva di nuovo e bp"
+  },
+  {
+    "start": 1079.54,
+    "end": 1093.94,
+    "text": " quindi ora siamo qui appiamo qui e bp dopo aver salvato le bp memorizza lo stack pointer"
+  },
+  {
+    "start": 1093.94,
+    "end": 1098.34,
+    "text": " allora qua c'è un po di ridondanza ma è sempre per la call il call convenger che tutte le funzioni"
+  },
+  {
+    "start": 1098.34,
+    "end": 1103.18,
+    "text": " devono sapere che devono salvare tutto quello che usano e così via quindi lei salva di nuovo e bp"
+  },
+  {
+    "start": 1103.18,
+    "end": 1108.14,
+    "text": " anche la main faceva la stessa cosa eccetera quindi vedete che questo è il prologo della funzione"
+  },
+  {
+    "start": 1108.14,
+    "end": 1114.26,
+    "text": " salvare e bp memorizzare lo stack pointer su e bp quindi questo è un modus operandi che questa"
+  },
+  {
+    "start": 1114.26,
+    "end": 1119.3,
+    "text": " con il convengio tra l'altro siamo con l'ottimizzazione a 0 e quindi tutte le funzioni sovviveranno"
+  },
+  {
+    "start": 1120.1,
+    "end": 1126.84,
+    "text": " la chiamata in maniera molto molto chiara ora lo stack le bp siccome poi c'è scritto questo"
+  },
+  {
+    "start": 1126.84,
+    "end": 1132.36,
+    "text": " è l'ebp salvato ma le bp vero punterà qui quindi sia lo stack pointer che le bp punteranno qui"
+  },
+  {
+    "start": 1132.36,
+    "end": 1147.62,
+    "text": " allora guardate questo offset qua è 0 questo è 4 questo è 8 e questo è 12 infatti vedete qui"
+  },
+  {
+    "start": 1147.62,
+    "end": 1158.9,
+    "text": " qua c'è 8 e qua c'è 12 quindi rispetto alle bp nuovo che ora è stato di nuovo modificato"
+  },
+  {
+    "start": 1158.9,
+    "end": 1164.34,
+    "text": " dal programma perché guardate questa move move sp e bp quindi in questo momento perché lo stack"
+  },
+  {
+    "start": 1164.34,
+    "end": 1170.34,
+    "text": " pointer era qui quindi ora le bp uguale a questo ci abbiamo il primo valore che rispetto a questo"
+  },
+  {
+    "start": 1170.34,
+    "end": 1177.96,
+    "text": " by base pointer è all offset 8 e qua è il secondo argomento della mia funzione che è all offset"
+  },
+  {
+    "start": 1177.96,
+    "end": 1186.28,
+    "text": " 12 per questo qua ci sono queste due costanti a uguale a 8 e b uguale a 12 da e b che cos'è che"
+  },
+  {
+    "start": 1186.28,
+    "end": 1194.64,
+    "text": " sono sono i argomenti della mia funzione in da e in da b ok a questo punto praticamente finalmente"
+  },
+  {
+    "start": 1194.64,
+    "end": 1203.8,
+    "text": " muoverà la word c'è la parola che è puntata da ebp più a questa sintasi è così scusate la"
+  },
+  {
+    "start": 1203.8,
+    "end": 1212.42,
+    "text": " muovere il registro e a x poi aggiunge ad e a x la word che c'è all offset b quindi farà"
+  },
+  {
+    "start": 1212.42,
+    "end": 1218.86,
+    "text": " sostanzialmente a più b a questo punto fa il pop delle bp quindi non ripristina ebp"
+  },
+  {
+    "start": 1218.86,
+    "end": 1226.28,
+    "text": " ritorna e consumiamo anche il program program counter e saltiamo quindi saremo arrivati qui"
+  },
+  {
+    "start": 1228.8200000000002,
+    "end": 1237.84,
+    "text": " e poi guardate aggiunge le sp 8 per toglierci da dalle scatole anche le nostre variabili"
+  },
+  {
+    "start": 1237.84,
+    "end": 1244.08,
+    "text": " globali che erano là ora se poi questo programma chiamerà un'altra un'altra funzione dopo la la"
+  },
+  {
+    "start": 1244.08,
+    "end": 1250.2,
+    "text": " la sam immaginate di nuovo questa roba qui dello stack andanno cioè le variabili saranno"
+  },
+  {
+    "start": 1250.2,
+    "end": 1255.78,
+    "text": " sovrascritte quelle che queste blocazioni memoria che abbiamo usato per chiamare per mettere i"
+  },
+  {
+    "start": 1255.78,
+    "end": 1261.32,
+    "text": " parametri della nostra funzione saranno sovrascritte da da da altri robbe dalle i parametri dei"
+  },
+  {
+    "start": 1261.32,
+    "end": 1268.78,
+    "text": " nuovi funzioni quindi queste sono in c le variabili locali vedete sono o registri temporanei o"
+  },
+  {
+    "start": 1268.78,
+    "end": 1275.16,
+    "text": " valori temporanei nello stock lo so questo video è stato lunghissimo forse anche noioso per capire"
+  },
+  {
+    "start": 1275.16,
+    "end": 1281.42,
+    "text": " una cosa del genere ma è fondamentale memorizzare ciò che succede segnatevi questo meraviglioso"
+  },
+  {
+    "start": 1281.42,
+    "end": 1290.1,
+    "text": " sito si chiama isi 65 02 per fare i vostri esperimenti segnatevi questo compiler explorer che è una"
+  },
+  {
+    "start": 1290.1,
+    "end": 1296.44,
+    "text": " figata bestiale e con queste due cose potete scoprire un sacco di roba scrivendo il codice qui"
+  },
+  {
+    "start": 1297.3400000000001,
+    "end": 1302.9,
+    "text": " convinandolo e andando a guardare l'assembly generato lo potete fare pure con gcc minuscolo ma"
+  },
+  {
+    "start": 1302.9,
+    "end": 1306.74,
+    "text": " solo per la vostra architettura la vostra architettura potrebbe essere molto complicata da"
+  },
+  {
+    "start": 1306.74,
+    "end": 1314.26,
+    "text": " capire invece il 386 aveva un assembly a volte criticato cdc la ma secondo me sarà che quello"
+  },
+  {
+    "start": 1314.26,
+    "end": 1322.1,
+    "text": " che ho imparato quando avevo 10 anni a me sembra assoluto il più chiaro tra i più chiari rispetto"
+  },
+  {
+    "start": 1322.1,
+    "end": 1324.82,
+    "text": " per esempio da md 64 è più chiaro ciao raga"
+  }
+]
