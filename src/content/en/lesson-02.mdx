@@ -77,7 +77,19 @@ In this appendix, Salvatore takes us back in time with the **6502** microprocess
 
 <VideoEmbed videoId="r6mU_IHXEps" title="Appendix Lesson 2: The life of local variables" />
 
-<MicroRegisters />
+<Callout type="hacker" title="Memory Mapped I/O">
+  In the screen above, we are writing directly to RAM at address `$0200`. The microprocessor doesn't "know" it's drawing: it's just moving bytes. It's the video hardware that interprets those bytes as pixel colors. This is the foundation of embedded systems and old consoles.
+</Callout>
+
+## The `main` Return Value
+
+Why does `main` return an `int`? It's used to tell the **Operating System** if the program finished successfully.
+- `return 0;` means "Success".
+- `return 1;` (or others) signals an error.
+
+<Callout type="tip">
+On Linux, you can see the return value of the last command by typing `echo $?` in the terminal.
+</Callout>
 
 <Callout type="tip">
 **Registers** are tiny, lightning-fast "variables" inside the CPU. **RAM** is larger but slower. The C compiler tries to use registers as much as possible to speed up your code.
@@ -157,6 +169,7 @@ In this appendix, Salvatore takes us back in time with the **6502** microprocess
 ## Hacker Key Concepts
 
 <KeyConcepts 
+  title="Recap"
   concepts={[
     {
         title: "Explicit Typing",
@@ -169,6 +182,10 @@ In this appendix, Salvatore takes us back in time with the **6502** microprocess
     {
         title: "Compiler Warnings",
         description: "Always use -Wall. A 'complaining' compiler is a compiler that is helping you."
+    },
+    {
+        title: "Registers vs RAM",
+        description: "Registers are internal to the CPU and ultra-fast; RAM is external and larger."
     }
   ]}
 />

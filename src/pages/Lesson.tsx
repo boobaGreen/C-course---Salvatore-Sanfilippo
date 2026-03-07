@@ -72,11 +72,18 @@ export default function Lesson() {
 
         // Lazy load the MDX content based on language and slug
         const loadContent = async () => {
+            const mainElement = document.querySelector('main');
+            const currentScroll = mainElement?.scrollTop || 0;
             try {
                 // Usa import dinamico: Vite supporta variabili nei paths parzialmente
                 // Dobbiamo dirgli dove cercare esplicitamente
                 const module = await import(`../content/${i18n.language}/${slug}.mdx`);
                 setLessonContent(() => module.default);
+                if (mainElement) {
+                    setTimeout(() => {
+                        mainElement.scrollTop = currentScroll;
+                    }, 0);
+                }
             } catch (err) {
                 console.error("Error loading lesson:", err);
                 setError(true);

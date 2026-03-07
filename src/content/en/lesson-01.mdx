@@ -123,13 +123,6 @@ Thanks to the prototype, the compiler knows exactly how to prepare data in memor
 
 ---
 
-<KeyConcepts title="Recap">
-  - C is not executed, but **compiled**.
-  - The compiler can optimize code intelligently (e.g., turning `printf` into `puts`).
-  - The **preprocessor** prepares the file before compilation.
-  - **Header files (`.h`)** contain function **prototypes**.
-</KeyConcepts>
-
 <Quiz 
   questions={[
     {
@@ -167,19 +160,9 @@ Thanks to the prototype, the compiler knows exactly how to prepare data in memor
       ],
       correctAnswer: 0,
       explanation: "puts prints the string and adds a newline at the end. printf prints exactly what is passed to it."
-    }
-  ]} 
-/>
-
-### 🏆 Extra Challenge (Optional)
-
-If you really want to test yourself, here are a couple of advanced questions:
-
-<Quiz 
-  title="Veteran Challenge"
-  questions={[
+    },
     {
-      id: 1,
+      id: 4,
       question: "Why does the compiler turn printf(\"Hello\\n\") into puts(\"Hello\") but NOT printf(\"Score: %d\\n\", 10)?",
       options: [
         "Because puts doesn't support numbers",
@@ -191,7 +174,7 @@ If you really want to test yourself, here are a couple of advanced questions:
       explanation: "puts only prints static strings. printf has a whole parsing engine to handle placeholders (%d, %s, etc.)."
     },
     {
-      id: 2,
+      id: 5,
       question: "What happens if you forget the semicolon at the end of a prototype in a .h file?",
       options: [
         "The program crashes at runtime",
@@ -206,3 +189,10 @@ If you really want to test yourself, here are a couple of advanced questions:
 />
 
 See you in the next lesson!
+
+<KeyConcepts title="Recap">
+  - C is not executed, but **compiled**.
+  - The compiler can optimize code intelligently (e.g., turning `printf` into `puts`).
+  - The **preprocessor** prepares the file before compilation.
+  - **Header files (`.h`)** contain function **prototypes**.
+</KeyConcepts>

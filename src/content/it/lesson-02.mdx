@@ -77,7 +77,19 @@ In questa appendice, Salvatore ci porta indietro nel tempo con il microprocessor
 
 <VideoEmbed videoId="r6mU_IHXEps" title="Appendice Lezione 2: La vita delle variabili locali" />
 
-<MicroRegisters />
+<Callout type="hacker" title="Memory Mapped I/O">
+  Nello schermo qui sopra, stiamo scrivendo direttamente in memoria RAM all'indirizzo `$0200`. Il microprocessore non "sa" di stare disegnando: sta solo muovendo byte. È l'hardware video che interpreta quei byte come colori di pixel. Questa è la base dei sistemi embedded e delle vecchie console.
+</Callout>
+
+## Il valore di ritorno di `main`
+
+Perché `main` ritorna un `int`? Serve a comunicare al **Sistema Operativo** se il programma è terminato correttamente.
+- `return 0;` significa "Tutto ok".
+- `return 1;` (o altro) segnala un errore.
+
+<Callout type="tip">
+Su Linux, puoi vedere il valore di ritorno dell'ultimo comando digitando `echo $?` nel terminale.
+</Callout>
 
 <Callout type="tip">
 I **Registri** sono piccole "variabili" dentro la CPU, velocissime. La **RAM** è più grande ma più lenta. Il compilatore C cerca di usare i registri il più possibile per velocizzare il tuo codice.
@@ -157,9 +169,10 @@ I **Registri** sono piccole "variabili" dentro la CPU, velocissime. La **RAM** �
 ## Hacker Key Concepts
 
 <KeyConcepts 
+  title="Ricapitolando"
   concepts={[
     {
-        title: "Explicit Typing",
+        title: "Tipizzazione Esplicita",
         description: "In C ogni variabile ha un tipo fisso. Questo garantisce sicurezza e controllo totale sulla memoria."
     },
     {
@@ -169,6 +182,10 @@ I **Registri** sono piccole "variabili" dentro la CPU, velocissime. La **RAM** �
     {
         title: "Compiler Warnings",
         description: "Usa sempre -Wall. Un compilatore che 'si lamenta' è un compilatore che ti sta aiutando."
+    },
+    {
+        title: "Registri vs RAM",
+        description: "I registri sono interni alla CPU e velocissimi; la RAM è esterna e più capiente."
     }
   ]}
 />

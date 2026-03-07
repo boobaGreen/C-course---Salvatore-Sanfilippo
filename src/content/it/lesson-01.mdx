@@ -113,13 +113,6 @@ Il prototipo serve a dire al compilatore: *"Esiste una funzione chiamata `printf
 
 ---
 
-<KeyConcepts title="Ricapitolando">
-  - Il C non è eseguito, ma **compilato**.
-  - Il compilatore sa ottimizzare il codice in modo intelligente (es. trasformando `printf` in `puts`).
-  - Il **preprocessore** prepara il file prima della compilazione.
-  - I file **Header (`.h`)** contengono i **prototipi** delle funzioni.
-</KeyConcepts>
-
 <Quiz 
   questions={[
     {
@@ -157,19 +150,9 @@ Il prototipo serve a dire al compilatore: *"Esiste una funzione chiamata `printf
       ],
       correctAnswer: 0,
       explanation: "puts stampa la stringa e aggiunge un newline alla fine. printf stampa esattamente ciò che gli viene passato."
-    }
-  ]} 
-/>
-
-### 🏆 Sfida Extra (Facoltativa)
-
-Se vuoi metterti davvero alla prova, ecco un paio di domande avanzate:
-
-<Quiz 
-  title="Sfida per Veterani"
-  questions={[
+    },
     {
-      id: 1,
+      id: 4,
       question: "Perché il compilatore trasforma printf(\"Hello\\n\") in puts(\"Hello\") ma NON trasforma printf(\"Voto: % d\\n\", 10) in puts?",
       options: [
         "Perché puts non supporta i numeri",
@@ -181,7 +164,7 @@ Se vuoi metterti davvero alla prova, ecco un paio di domande avanzate:
       explanation: "puts stampa solo stringhe statiche. printf ha un intero motore di parsing per gestire i placeholder (%d, %s, etc.)."
     },
     {
-      id: 2,
+      id: 5,
       question: "Cosa succede se dimentichi il punto e virgola alla fine di un prototipo in un file .h?",
       options: [
         "Il programma crasha all'esecuzione",
@@ -194,5 +177,14 @@ Se vuoi metterti davvero alla prova, ecco un paio di domande avanzate:
     }
   ]} 
 />
+
+---
+
+<KeyConcepts title="Ricapitolando">
+  - Il C non è eseguito, ma **compilato**.
+  - Il compilatore sa ottimizzare il codice in modo intelligente (es. trasformando `printf` in `puts`).
+  - Il **preprocessore** prepara il file prima della compilazione.
+  - I file **Header (`.h`)** contengono i **prototipi** delle funzioni.
+</KeyConcepts>
 
 Ci vediamo alla prossima lezione!
