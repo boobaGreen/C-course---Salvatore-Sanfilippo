@@ -1,0 +1,110 @@
+# Lezione 1: Introduzione al C e "Hello World"
+
+<VideoEmbed videoId="HjXBXBgfKyk" title="Introduzione al C - antirez" />
+
+Benvenuti! In questa prima lezione inauguriamo il corso sul linguaggio C. Questo corso ha uno stile molto istintivo e pratico. 
+
+> [!WARNING] Prerequisiti
+> Questo corso è pensato per chi **sa già programmare** in altri linguaggi (JavaScript, Python, Go, Ruby, ecc.). Non è richiesta esperienza pregressa con linguaggi a basso livello, ma è utile avere un'idea di come funzionano i computer sotto il cofano.
+
+L'approccio sarà **estremamente operativo**: impareremo a programmare, programmando. Le spiegazioni teoriche arriveranno come "effetto collaterale" della scrittura del codice.
+
+<KeyConcepts title="Cosa impareremo oggi">
+  - Scrivere il primo programma "Hello World"
+  - Capire il processo di **compilazione**
+  - Esplorare cosa fa il compilatore (anche a livello di Assembly)
+  - Comprendere le direttive del **preprocessore** (`#include`)
+  - Scoprire i **prototipi di funzione**
+</KeyConcepts>
+
+---
+
+## Il "Hello World" in C
+
+Il C è un linguaggio molto vecchio che si è evoluto relativamente poco nella sintassi base, ma moltissimo nei **compilatori**. Rimane un linguaggio fatto di "poche idee", che vanno però assimilate a fondo. Essendo un **linguaggio compilato**, non possiamo eseguire direttamente il codice sorgente: dobbiamo prima tradurlo in linguaggio macchina.
+
+Ecco il classico programma di partenza, in sole 5 righe:
+
+```c
+#include <stdio.h>
+
+int main() {
+    printf("Hello, World!\n");
+    return 0;
+}
+```
+
+<TypeMatcher />
+
+### Come si compila ed esegue?
+
+Se salviamo questo codice in un file chiamato `hello.c`, non possiamo eseguirlo così com'è. Dobbiamo usare il **compilatore C** (come `cc`, `gcc` o `clang`):
+
+```bash
+cc hello.c
+```
+
+Questo comando genera un nuovo file eseguibile (tipicamente chiamato `a.out` su sistemi Unix). Questo file è un **binario** contenente il linguaggio macchina e alcune intestazioni specifiche del sistema operativo (Linux, macOS, Windows). Possiamo eseguirlo digitando:
+
+```bash
+./a.out
+```
+
+<CodeEditor initialCode={`#include <stdio.h>\n\nint main() {\n    printf("Hello, World!\\n");\n    return 0;\n}`} />
+
+---
+
+## Dietro le quinte: l'Assembly e le Ottimizzazioni
+
+Possiamo chiedere al compilatore di fermarsi prima di generare il binario finale, facendoci mostrare il codice **Assembly** intermedio, usando il flag `-S`:
+
+```bash
+cc -S hello.c
+```
+
+Guardando l'Assembly, possiamo notare che viene definita la stringa "Hello, World!" e viene chiamata la funzione `printf`. Il bello del C moderno sta però nei **livelli di ottimizzazione**. 
+
+Se compiliamo con il flag `-O2` (ottimizzazione di livello 2):
+```bash
+cc -O2 -S hello.c
+```
+
+Noteremo una cosa sorprendente: **la funzione `printf` scompare**! Il compilatore, accorgendosi che stiamo stampando una stringa semplice seguita da un ritorno a capo (`\n`), sostituisce automaticamente la `printf` con la funzione `puts`, che è più veloce ed efficiente per questo scopo specifico, rimuovendo il `\n` originale perché `puts` lo aggiunge da sola.
+Questa è solo una "goccia nell'oceano" delle ottimizzazioni che un compilatore maturo può fare.
+
+---
+
+## Facciamo a pezzi il programma
+
+Analizziamo ogni riga per capire cosa succede realmente:
+
+### 1. Il Preprocessore e `#include`
+```c
+#include <stdio.h>
+```
+Questa riga non fa parte del linguaggio C vero e proprio, ma è una **direttiva per il preprocessore** (tutte le direttive iniziano con il `#`). Prima della compilazione vera e propria, il preprocessore prende il contenuto del file `stdio.h` (un file di libreria standard) e lo "scompatta" direttamente all'interno del nostro file. 
+
+Perché ne abbiamo bisogno? Il linguaggio C in sé ha pochissime parole chiave (`return`, `int`, `while`). Funzioni come `printf` non fanno parte del linguaggio, ma della **Libreria Standard**. Se non includessimo `stdio.h` (Standard Input/Output Header), il compilatore non saprebbe cosa sia `printf`!
+
+### 2. File Header (`.h`) e Prototipi di Funzione
+
+Nei file header (come `stdio.h`) non c'è il codice che *esegue* la `printf`, ma ci sono i **prototipi di funzione**.
+
+Un prototipo è simile alla definizione di una funzione, ma invece di avere un blocco di codice tra parentesi graffe `{}`, termina subito con un punto e virgola `;`:
+
+```c
+int printf(const char *format, ...);
+```
+
+Il prototipo serve a dire al compilatore: *"Esiste una funzione chiamata `printf` che accetta questi parametri e restituisce un numero intero. Fidati, la troverai più tardi"*. 
+
+Grazie al prototipo, il compilatore sa esattamente come preparare i dati in memoria (Assembly) per chimarla correttamente, anche senza conoscerne il codice interno. Infatti, potremmo anche non usare `#include <stdio.h>` e scrivere a mano il prototipo nel nostro file per far funzionare il programma!
+
+<KeyConcepts title="Ricapitolando">
+  - Il C non è eseguito, ma **compilato**.
+  - Il compilatore sa ottimizzare il codice in modo intelligente (es. trasformando `printf` in `puts`).
+  - Il **preprocessore** prepara il file prima della compilazione.
+  - I file **Header (`.h`)** contengono i **prototipi** delle funzioni, essenziali per dire al compilatore come chiamare funzioni scritte altrove.
+</KeyConcepts>
+
+Ci vediamo alla prossima lezione!

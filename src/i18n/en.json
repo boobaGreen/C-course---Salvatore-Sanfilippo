@@ -1,0 +1,29 @@
+{
+    "nav": {
+        "home": "Home",
+        "lessons": "Lessons",
+        "theme_light": "Light Theme",
+        "theme_dark": "Dark Theme"
+    },
+    "course": {
+        "title": "Learn C with antirez",
+        "description": "An interactive journey based on Salvatore Sanfilippo's lessons",
+        "subtitle": "Bilingual educational platform (IT/EN)"
+    },
+    "author": {
+        "title": "Who is Salvatore Sanfilippo (antirez)?",
+        "bio_1": "Salvatore Sanfilippo, known in the hacker community as <strong class=\"text-white\">antirez</strong>, is one of the most globally influential Italian and worldwide programmers.",
+        "bio_2": "He is internationally renowned for creating <strong class=\"text-[var(--color-brand-primary)]\">Redis</strong>, one of the most widely used open-source in-memory databases in the world (powering Twitter, GitHub, StackOverflow, and countless other companies).",
+        "bio_3": "An absolute master of the <strong class=\"text-[var(--color-brand-secondary)]\">C language</strong>, his code is universally studied for its incredible elegance, extreme performance, and pragmatism. Reading the Redis source code is considered a rite of passage and a formative experience for any aspiring C developer.",
+        "bio_4": "This course was conceived and published by Salvatore <strong class=\"text-white\">completely for free</strong> for the community on YouTube. In these lessons, he conveys not just the C syntax, but the true <em>hacker mindset</em>: deeply understanding what happens \"under the hood\", from source code, to CPU architecture, to Assembly, all the way to Linux kernel interactions.",
+        "close": "Close",
+        "badge": "Learn more about the author"
+    },
+    "lesson": {
+        "key_concepts": "Key Concepts",
+        "exercises": "Exercises",
+        "game": "Educational Game",
+        "prev": "Previous",
+        "next": "Next"
+    }
+}

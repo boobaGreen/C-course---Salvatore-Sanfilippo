@@ -1,0 +1,897 @@
+[
+  {
+    "start": 0.9400000000000002,
+    "end": 7.3,
+    "text": " Benissimo! L'acqua ce l'ho, il microfono ce l'ho, sono venuto in ufficio oggi e sabato"
+  },
+  {
+    "start": 8.0,
+    "end": 15.18,
+    "text": " per inaugurare il corso sul C. Questo corso, voglio brevemente presentarlo,"
+  },
+  {
+    "start": 15.78,
+    "end": 22.08,
+    "text": " sarà fatto un po' come nello stile di tutto il canale in maniera piuttosto istintiva,"
+  },
+  {
+    "start": 22.08,
+    "end": 32.0,
+    "text": " nel senso che non c'è una grande preparazione dei contenuti a monte, sarebbe meglio se ci fosse,"
+  },
+  {
+    "start": 32.12,
+    "end": 37.7,
+    "text": " lo dico subito, ma di solito io i video li faccio in macchina e ciò mi porta via a pochissimo"
+  },
+  {
+    "start": 37.7,
+    "end": 44.7,
+    "text": " tempo, se dovesse fare la minuta di ogni episodio e poi montare tutto assieme ci metterei moltissimo"
+  },
+  {
+    "start": 44.7,
+    "end": 49.5,
+    "text": " tempo. Però la buona notizia è che questa modalità così istintiva con la quale sto"
+  },
+  {
+    "start": 49.5,
+    "end": 55.8,
+    "text": " registrando da certi punti di vista si porta presso anche quella che è normalmente la freschezza"
+  },
+  {
+    "start": 55.8,
+    "end": 63.22,
+    "text": " di stintività di questo canale. Breve disclaimer, questo corso è adatto solo a coloro che già"
+  },
+  {
+    "start": 63.22,
+    "end": 69.56,
+    "text": " sanno programmare almeno un po', non è richiesta una esperienza con il linguaggio a basso livello"
+  },
+  {
+    "start": 69.56,
+    "end": 77.12,
+    "text": " di nessun tipo, però se si sa programmare in JavaScript, in Ruby, in Python, in Go,"
+  },
+  {
+    "start": 77.12,
+    "end": 83.98,
+    "text": " in qualsiasi linguaggio sarà possibile seguire questo corso, altrimenti si avranno probabilmente"
+  },
+  {
+    "start": 83.98,
+    "end": 91.26,
+    "text": " delle difficoltà. Inoltre bisogna avere un minimo di idea, diciamo, del modo in cui funzionano i"
+  },
+  {
+    "start": 91.26,
+    "end": 98.36,
+    "text": " computer dal punto di vista più di basso livello. Io queste informazioni le darò durante il corso,"
+  },
+  {
+    "start": 98.7,
+    "end": 105.38,
+    "text": " se ci fosse qualcosa che non, qualche concetto che non è sufficientemente chiaro, affidatevi a"
+  },
+  {
+    "start": 105.38,
+    "end": 113.46,
+    "text": " Claude o al vostro LLM di riferimento per chiudere i buchi che io lascio necessariamente aperti."
+  },
+  {
+    "start": 114.12,
+    "end": 120.5,
+    "text": " Un'altra cosa molto importante, una delle degli errori che si fanno a volte quando si creano"
+  },
+  {
+    "start": 120.5,
+    "end": 129.04,
+    "text": " delle video lezioni su alcuni argomenti è di non pensare alle persone che sono le destinatarie"
+  },
+  {
+    "start": 129.04,
+    "end": 136.94,
+    "text": " del corso che si sta intraprendendo, ma di pensare ai propri pari. Nel tandativo di semplificazione,"
+  },
+  {
+    "start": 137.34,
+    "end": 143.18,
+    "text": " ovviamente qualche dettaglio necessariamente bisogna limarlo e roderlo, fare delle imprecisioni,"
+  },
+  {
+    "start": 143.34,
+    "end": 148.86,
+    "text": " nelle spiegazioni delle cose, delle imprecisioni che poi potranno essere colmate o nelle lezioni"
+  },
+  {
+    "start": 148.86,
+    "end": 157.72,
+    "text": " successive o ognuno di voi, andando ad approfondire determinati campi della specifica del C che poi"
+  },
+  {
+    "start": 157.72,
+    "end": 165.42,
+    "text": " io mamma non spiegherò. Se invece di pensare alle persone che sono le destinatarie di questo corso,"
+  },
+  {
+    "start": 165.54,
+    "end": 170.8,
+    "text": " io pensassi alle persone che poi nei commenti mi diranno, ah ma guarda che hai commesso questa"
+  },
+  {
+    "start": 170.8,
+    "end": 176.9,
+    "text": " piccola mancanza di precisione nello spiegare questo dettaglio, farei veramente un cattivissimo"
+  },
+  {
+    "start": 176.9,
+    "end": 183.16,
+    "text": " servizio aiutanti di questo canale, per cui io mi accontenterò di mentre parlo,"
+  },
+  {
+    "start": 183.16,
+    "end": 189.96,
+    "text": " sapere e di commettere delle imprecisioni per amore della chiarezza espositiva dei concetti"
+  },
+  {
+    "start": 189.96,
+    "end": 194.98,
+    "text": " che voglio qui affrontare. Questo corso, inoltre, come ultima e finale,"
+  },
+  {
+    "start": 195.94,
+    "end": 204.66,
+    "text": " ha una declinazione estremamente operativa, pratica, perché credo che si impari a"
+  },
+  {
+    "start": 204.66,
+    "end": 210.36,
+    "text": " programmare, programmando, quindi noi, piano piano nel corso delle varie lezioni,"
+  },
+  {
+    "start": 210.36,
+    "end": 216.6,
+    "text": " scriveremo dei piccoli programmi e spiegherò delle parti del C come effetto collaterale che ci"
+  },
+  {
+    "start": 216.6,
+    "end": 222.72,
+    "text": " serve scrivere dei programmi e usare dei costrutti. Quindi invece di spiegare le cose nel vuoto"
+  },
+  {
+    "start": 222.72,
+    "end": 228.56,
+    "text": " cosmico e poi provare a trovare delle applicazioni, certe cose sanno si spiegati in termini un po'"
+  },
+  {
+    "start": 228.64,
+    "end": 234.98,
+    "text": " più teorici, molte altre cose saranno frutto della pratica e saranno viste man mano nella loro brutale"
+  },
+  {
+    "start": 234.98,
+    "end": 244.64,
+    "text": " pratica. Detto questo possiamo iniziare. Allora il C è un linguaggio molto vecchio che si è"
+  },
+  {
+    "start": 244.64,
+    "end": 251.82,
+    "text": " evoluto relativamente poco negli anni, ma neanche così poco, diciamo che si è evoluto poco dal punto"
+  },
+  {
+    "start": 251.82,
+    "end": 257.84,
+    "text": " di vista della sintassita ai costrutti e della libreria di base del C, però ha avuto una grande"
+  },
+  {
+    "start": 258.97999999999996,
+    "end": 265.8,
+    "text": " evoluzione nei termini del compilatore, delle assunzioni che possono essere fatte sulla macchina"
+  },
+  {
+    "start": 265.8,
+    "end": 272.82,
+    "text": " che ci sta sotto e così via. Comunque rimane un linguaggio relativamente semplice da imparare"
+  },
+  {
+    "start": 272.82,
+    "end": 279.88,
+    "text": " nel senso che è composto da poche idee e rimane un linguaggio relativamente difficile"
+  },
+  {
+    "start": 279.88,
+    "end": 287.46,
+    "text": " da applicare nel senso che queste idee si devono prima assorbire del tutto e poi effettivamente"
+  },
+  {
+    "start": 287.46,
+    "end": 294.72,
+    "text": " mettere in pratica e servirà a allenare la nostra mente man mano affinché è dato un problema,"
+  },
+  {
+    "start": 295.04,
+    "end": 301.66,
+    "text": " si crei dentro di noi d'immagine di come si possa risolvere utilizzando il linguaggio C. La buona"
+  },
+  {
+    "start": 301.66,
+    "end": 309.26,
+    "text": " notizia è che una volta creata questa capacità c'è un trasferimento non banale di questa capacità"
+  },
+  {
+    "start": 309.26,
+    "end": 314.0,
+    "text": " agli altri linguaggi di programmazione e viceversa chi ha esperienza con gli altri linguaggi di"
+  },
+  {
+    "start": 314.0,
+    "end": 321.72,
+    "text": " programmazione potrà fare buon uso della pregressa esperienza acquisita. Il C è un linguaggio compilato"
+  },
+  {
+    "start": 324.06,
+    "end": 331.1,
+    "text": " scriviamo il classico programma di Hello World per capire che succede"
+  },
+  {
+    "start": 338.7,
+    "end": 348.56,
+    "text": " 5 righe di codice 1 2 3 4 5. Lo scopo di questo programma è quello di scrivere Hello World sul"
+  },
+  {
+    "start": 348.56,
+    "end": 356.54,
+    "text": " terminale ma il programma non può essere eseguito in maniera diretta io ora c'ho dentro la mia"
+  },
+  {
+    "start": 356.54,
+    "end": 363.86,
+    "text": " directory un file che si chiama Hello World dot si se io questo file provo a eseguirlo anche se"
+  },
+  {
+    "start": 363.86,
+    "end": 372.5,
+    "text": " io lo faccio diventare un eseguibile ovviamente non sarà possibile eseguirlo perché è un file"
+  },
+  {
+    "start": 372.5,
+    "end": 381.52,
+    "text": " che prima devo compilare quindi lo facciamo tornare un file normale per compilarlo devo usare il"
+  },
+  {
+    "start": 381.52,
+    "end": 390.96,
+    "text": " compilatore c che è un programma di solito scritto in c che si chiama cc poi in realtà poi potete"
+  },
+  {
+    "start": 390.96,
+    "end": 399.76,
+    "text": " vedere voi qual è il vero perché in i sistemi linux avrete magari gcc o silang diverse ci sono"
+  },
+  {
+    "start": 399.76,
+    "end": 408.22,
+    "text": " diversi compilatori in c c'è ne è stato uno nella storia molto famoso per della intel di indelsi"
+  },
+  {
+    "start": 408.22,
+    "end": 417.82,
+    "text": " compiler ma quello che ha dato un compilatore c potente gratuito alle masse è stato il gcc credo"
+  },
+  {
+    "start": 417.82,
+    "end": 429.88,
+    "text": " che questa è una cosa da approfondire per capire come è stato democratizzato il linguaggio c l'autore"
+  },
+  {
+    "start": 429.88,
+    "end": 439.06,
+    "text": " originale è rigid stallman che molti conosceranno per il suo grandissimo impatto sul free software"
+  },
+  {
+    "start": 439.06,
+    "end": 443.98,
+    "text": " è stato sostanzialmente la singola persona che ha avuto un influenza più grande sul software"
+  },
+  {
+    "start": 443.98,
+    "end": 452.46,
+    "text": " free nella storia quindi ringraziamo stallman mentre ci siamo e utilizziamo il compilatore c nella forma"
+  },
+  {
+    "start": 452.46,
+    "end": 462.18,
+    "text": " più semplice io scrivo cc che è il nome del compilatore delle seguibili del compilatore con il nome"
+  },
+  {
+    "start": 462.18,
+    "end": 472.06,
+    "text": " del file di testo che contiene all'interno il programma c il programma viene compilato e se io ora"
+  },
+  {
+    "start": 472.06,
+    "end": 479.76,
+    "text": " mostro il contenuto della directori c'è un nuovo file che si chiama appunto out e che è un eseguibile"
+  },
+  {
+    "start": 480.92,
+    "end": 488.76,
+    "text": " questo eseguibile se lo seguo è un file binario quindi ormai il linguaggio c è stato trasformato"
+  },
+  {
+    "start": 488.76,
+    "end": 494.86,
+    "text": " in linguaggio macchina e può essere eseguito ovviamente oltre a linguaggio macchina dentro"
+  },
+  {
+    "start": 494.86,
+    "end": 500.64,
+    "text": " questo file ci sono delle delle intestazioni che sono proprie degli eseguibili delle diverse"
+  },
+  {
+    "start": 500.64,
+    "end": 506.28,
+    "text": " piattaforme su windows ci sarà scritto una cosa su linux ci sarà scritto un'altra cosa possiamo"
+  },
+  {
+    "start": 506.28,
+    "end": 514.7,
+    "text": " anche usare x dump per vedere il contenuto del file e come vedete qui ci sono anche delle"
+  },
+  {
+    "start": 514.7,
+    "end": 520.92,
+    "text": " string dentro altra tante altre cose comunque tutto sommato rimane un programma abbastanza"
+  },
+  {
+    "start": 520.92,
+    "end": 526.24,
+    "text": " piccolo comunque in questi 33k ci saranno molti segosi inutili in realtà la parte eseguibile"
+  },
+  {
+    "start": 526.24,
+    "end": 537.18,
+    "text": " è minima è possibile pure utilizzare con certi convidatori ci l'opzione meno s per vedere l'assembler"
+  },
+  {
+    "start": 537.18,
+    "end": 547.42,
+    "text": " che viene generato partendo dal dal programma in ci ecco questa è la traduzione del ci in"
+  },
+  {
+    "start": 547.42,
+    "end": 559.8,
+    "text": " assembly e qui potete vedere praticamente quello che succede in termini complessivi ecco qua"
+  },
+  {
+    "start": 559.8,
+    "end": 566.28,
+    "text": " viene definita una string ecco qua viene chiamata la funzione printf così via se a noi"
+  },
+  {
+    "start": 566.28,
+    "end": 573.34,
+    "text": " interessa scrivere ci perché io mi soffermo su una cosa così peculiare come appunto la"
+  },
+  {
+    "start": 573.34,
+    "end": 581.48,
+    "text": " generazione dell'assembly attraverso la compilazione diciamo intermedia quindi fermarmi alla"
+  },
+  {
+    "start": 581.48,
+    "end": 588.16,
+    "text": " compilazione alla trasformazione del codice ci in assembly e poi fermare il processo prima"
+  },
+  {
+    "start": 588.16,
+    "end": 596.04,
+    "text": " che l'assembly venga effettivamente compilato in codice macchina perché vi voglio dire che il"
+  },
+  {
+    "start": 596.04,
+    "end": 601.06,
+    "text": " compilatore ci può essere invocato in maniera diversa e in base al modo in cui noi lo chiamiamo"
+  },
+  {
+    "start": 601.06,
+    "end": 608.12,
+    "text": " genererà diversi livelli di assembli con diversi livelli di ottimizzazione livelli diverse performance"
+  },
+  {
+    "start": 608.12,
+    "end": 614.7,
+    "text": " e la differenza è veramente abbissale tra una tipo di ottimizzazione che io posso abilitare"
+  },
+  {
+    "start": 614.7,
+    "end": 622.56,
+    "text": " un altro tipo per esempio vi faccio vedere una cosa come vedete qui viene chiamata la"
+  },
+  {
+    "start": 622.56,
+    "end": 631.04,
+    "text": " funzione printf e infatti nel mio programma in ci io avevo la chiamata alla funzione printf"
+  },
+  {
+    "start": 631.8199999999999,
+    "end": 638.6,
+    "text": " tuttavia di solito quando io compilo un programma in ci utilizzerò l'ottimizzazione di livello 2"
+  },
+  {
+    "start": 638.6,
+    "end": 643.96,
+    "text": " questa ottimizzazione già un'ottimizzazione piuttosto spinta che fa sì farassì che il"
+  },
+  {
+    "start": 643.96,
+    "end": 648.96,
+    "text": " compilatore si accorgerà di cose che si possono scrivere molto meglio di come io le ho scritte"
+  },
+  {
+    "start": 648.96,
+    "end": 655.2199999999999,
+    "text": " e tradurrà il programma in un programma più efficiente che però ha la stessa identica semantica"
+  },
+  {
+    "start": 655.22,
+    "end": 662.08,
+    "text": " lo stesso identico comportamento del mio programma originale se io stavolta uso meno ovviamente"
+  },
+  {
+    "start": 662.08,
+    "end": 667.4,
+    "text": " se io uso meno o due compiro il programma in un programma del genere non cambia nulla"
+  },
+  {
+    "start": 667.4,
+    "end": 672.58,
+    "text": " ello world scrivea prima ello world scrive ora la dimensione più o meno uguale non è cambiato"
+  },
+  {
+    "start": 672.58,
+    "end": 681.18,
+    "text": " niente ma se io utilizzo meno s per creare il programma assembly stavolta possiamo vedere parte"
+  },
+  {
+    "start": 681.18,
+    "end": 685.06,
+    "text": " il fatto che ci sono molte meno istruzioni di prima ma una cosa molto interessante che sta"
+  },
+  {
+    "start": 685.06,
+    "end": 691.4,
+    "text": " volta non viene chiamata più la funzione printf ma viene chiamata la funzione puts che serve"
+  },
+  {
+    "start": 691.4,
+    "end": 698.0,
+    "text": " pure per scrivere delle cose sul terminale quindi per produrre un output come la funzione print del"
+  },
+  {
+    "start": 698.0,
+    "end": 706.58,
+    "text": " basic come la funzione print di python come console out di javascript così via ma la differenza che"
+  },
+  {
+    "start": 706.58,
+    "end": 713.62,
+    "text": " la funzione puts è effettivamente più veloce possiamo quella pagina del manuale vedere la"
+  },
+  {
+    "start": 713.62,
+    "end": 722.3,
+    "text": " funzione puts la funzione è molto semplice prende come input una stringa in del c che ora"
+  },
+  {
+    "start": 722.3,
+    "end": 727.74,
+    "text": " vedremo che cos'è e la stampa video infatti guardate qua nel manuale voi se avete un sistema"
+  },
+  {
+    "start": 727.74,
+    "end": 736.08,
+    "text": " unix o se installate il sottosistema linux per windows quindi o maccos o linux o windows con"
+  },
+  {
+    "start": 736.08,
+    "end": 745.3,
+    "text": " il sottosistema linux potete in ogni caso scrivere man e printf o quello che volete attenzione però"
+  },
+  {
+    "start": 745.3,
+    "end": 750.58,
+    "text": " che per esempio guardate qui qua mi ha aperto il manuale della printf però della shell io voglio"
+  },
+  {
+    "start": 750.58,
+    "end": 759.22,
+    "text": " le cose del c quindi devo scrivere man 3 printf e ora sì che è veramente la roba del c posso leggere"
+  },
+  {
+    "start": 759.22,
+    "end": 764.8,
+    "text": " cos'è che il comportamento di queste funzioni guardate la complessità della funzione printf"
+  },
+  {
+    "start": 764.8,
+    "end": 770.32,
+    "text": " anche del manuale stesso invece la putz è molto più semplice c'è una documentazione più piccola"
+  },
+  {
+    "start": 770.32,
+    "end": 777.8,
+    "text": " e il manuale ci dice questa funzione scrive la stringa a cui far riferimento il puntatore s"
+  },
+  {
+    "start": 777.8,
+    "end": 786.08,
+    "text": " allo stream ha in questo caso scusate effe puts la funzione puts scrive la stringa s nel"
+  },
+  {
+    "start": 786.08,
+    "end": 797.6,
+    "text": " terminale seguito da una carattere di in bio ok quindi ecco qui tra l'altro siccome la funzione"
+  },
+  {
+    "start": 797.6,
+    "end": 806.3,
+    "text": " printf alli fi alla fine io non aggiunge da sola il new il new line cioè l'ha andata a capo invece"
+  },
+  {
+    "start": 806.3,
+    "end": 815.48,
+    "text": " puts la aggiunge se noi andiamo a vedere il programma compilato che ho qui e se vado a cercare lo"
+  },
+  {
+    "start": 815.48,
+    "end": 822.62,
+    "text": " guardate non c'è più il carattere new line l'ha tolto perché voleva utilizzare il compilatore"
+  },
+  {
+    "start": 822.62,
+    "end": 828.38,
+    "text": " invece di printf volevo utilizzare puts e quindi andato a togliere l'andata a capo dalla fine"
+  },
+  {
+    "start": 828.38,
+    "end": 835.96,
+    "text": " della stringa io vi faccio vedere di nuovo che se chiamo gcc senza l'ottimizzazione guardiamo di"
+  },
+  {
+    "start": 835.96,
+    "end": 842.8,
+    "text": " nuovo il programma che genera sta volta chiamala la printf qui e il new line c'è questo per farvi"
+  },
+  {
+    "start": 842.8,
+    "end": 847.16,
+    "text": " capire questa è una goccia nell'oceano poi quello che riesce a fare il compilatore dal punto"
+  },
+  {
+    "start": 847.16,
+    "end": 853.88,
+    "text": " di vista delle ottimizzazioni non avete neanche idea di cosa possa fare ma già anche in questo"
+  },
+  {
+    "start": 853.88,
+    "end": 860.24,
+    "text": " esempio così semplice si nota la raffinatezza delle ottimizzazioni che un compilatore c maturo"
+  },
+  {
+    "start": 860.24,
+    "end": 866.08,
+    "text": " riesce a fare cioè addirittura modificare l'input in base al fatto che cambia la funzione che è una"
+  },
+  {
+    "start": 866.08,
+    "end": 872.68,
+    "text": " semantica diversa tra printf puts c'è una differenza e quindi sa che deve cambiare l'input non è cosa"
+  },
+  {
+    "start": 872.68,
+    "end": 882.58,
+    "text": " da poco è molto interessante andiamo ora a fare a pezzi questo piccolo programma per capire"
+  },
+  {
+    "start": 883.2,
+    "end": 889.88,
+    "text": " che cos'è che fa ogni rica in ogni rica succedono molte più cose di ciò che si possa pensare"
+  },
+  {
+    "start": 889.88,
+    "end": 897.84,
+    "text": " allora questa direttiva che allora le direttive del preprocessore del c iniziano con il cancelletto"
+  },
+  {
+    "start": 897.84,
+    "end": 903.12,
+    "text": " cos'è una direttiva in pratica prima di compilare il programma"
+  },
+  {
+    "start": 904.66,
+    "end": 909.86,
+    "text": " il compilatore chiama un altro programma che spesso è semplicemente parte del compilatore"
+  },
+  {
+    "start": 909.86,
+    "end": 916.0,
+    "text": " stesso ma potete immaginarlo come un programma distinto e a volte è un programma distinto che"
+  },
+  {
+    "start": 916.72,
+    "end": 921.16,
+    "text": " processa queste direttive qua quindi è come se queste direttive non fossero parte"
+  },
+  {
+    "start": 921.9599999999999,
+    "end": 929.08,
+    "text": " del c del linguaggio reale ma fossero una parte che appunto preprocessore che avviene prima"
+  },
+  {
+    "start": 929.08,
+    "end": 936.04,
+    "text": " dalla stessa parola si capisce spe che è una fase precedente la compilazione e il preprocessore"
+  },
+  {
+    "start": 936.04,
+    "end": 941.16,
+    "text": " fa quelle che sembrano delle trasformate più o meno del te di testo cioè queste trasformate"
+  },
+  {
+    "start": 941.16,
+    "end": 949.34,
+    "text": " abvengono nel sorgente stesso del programma in c include significa di includere un file cioè"
+  },
+  {
+    "start": 950.26,
+    "end": 955.56,
+    "text": " prendere questo file e trasformare in un file che è la somma di questa inclusione qui,"
+  },
+  {
+    "start": 955.82,
+    "end": 961.16,
+    "text": " quindi immaginate di scompattare dentro questo file che io ho scritto e lo word.c,"
+  },
+  {
+    "start": 961.58,
+    "end": 967.38,
+    "text": " il contenuto del file stdo.h che è un file di libreria piazzato da qualche parte, ok?"
+  },
+  {
+    "start": 968.34,
+    "end": 974.06,
+    "text": " In questo file di libreria che ci sono, ci sono tutte le intestazioni di tutte le funzioni che io"
+  },
+  {
+    "start": 974.06,
+    "end": 979.5,
+    "text": " man mano devo usare nel mio programma, perché altrimenti il mio programma come fa a sapere"
+  },
+  {
+    "start": 979.5,
+    "end": 986.5,
+    "text": " printf cos'è? Dovete sapere che printf è sì una funzione che fa parte della libreria standard"
+  },
+  {
+    "start": 986.5,
+    "end": 992.76,
+    "text": " del c, ma non fa parte del linguaggio stesso. Il linguaggio in sé ha solo poche keyword come"
+  },
+  {
+    "start": 992.76,
+    "end": 1007.0,
+    "text": " return, int, void e così via, ma in realtà o se no, o se no pure while vedete che diventano"
+  },
+  {
+    "start": 1007.0,
+    "end": 1014.46,
+    "text": " gialle if eccetera, ma printf è una funzione che è definita nella libreria del c, ma non è parte"
+  },
+  {
+    "start": 1014.46,
+    "end": 1021.04,
+    "text": " del c in sé, non è parte del linguaggio stesso, quindi chi gli deve dire che noi abbiamo in effetti"
+  },
+  {
+    "start": 1021.04,
+    "end": 1026.6,
+    "text": " una funzione che possiamo utilizzare che prende determinati parametri, io lo dice proprio questo"
+  },
+  {
+    "start": 1026.6,
+    "end": 1033.44,
+    "text": " file h che si chiama un file di intestazione, infatti punto h è la previazione di header,"
+  },
+  {
+    "start": 1034.24,
+    "end": 1040.24,
+    "text": " quindi i file incidi solito vedrete che si chiamano o punto c e contengono proprio il"
+  },
+  {
+    "start": 1040.24,
+    "end": 1048.18,
+    "text": " programma in sé o punto h e contengono sempre sorgente c, ma che non è la vera logica di"
+  },
+  {
+    "start": 1048.18,
+    "end": 1055.24,
+    "text": " esecuzione del programma, ma che sono delle informazioni diciamo necessarie, ma che di contorno"
+  },
+  {
+    "start": 1055.24,
+    "end": 1060.64,
+    "text": " è che la differenza è questa che di solito un file header io posso volerlo includere in diversi"
+  },
+  {
+    "start": 1060.64,
+    "end": 1068.4,
+    "text": " file punto c attraverso appunto il preprocessore, poi potete includere anche un file inc io posso"
+  },
+  {
+    "start": 1068.4,
+    "end": 1076.66,
+    "text": " scrivere include file dot c, dot c e funziona perfettamente, allora per capirci io posso prendere"
+  },
+  {
+    "start": 1076.66,
+    "end": 1087.26,
+    "text": " questa rica di programma, la scrivo qua in file dot c e qua scrivo invece di scrivere printf"
+  },
+  {
+    "start": 1087.26,
+    "end": 1095.14,
+    "text": " lo word, scrivo include file dot c, se convilo io questo programma funziona tutto esattamente"
+  },
+  {
+    "start": 1095.14,
+    "end": 1101.6,
+    "text": " come prima ok non è cambiato nulla perché quello che accade è che il preprocessore prima di"
+  },
+  {
+    "start": 1101.6,
+    "end": 1107.1,
+    "text": " compilare prende il contenuto del file punto c e lo scompatta dentro la mia funzione main proprio"
+  },
+  {
+    "start": 1107.1,
+    "end": 1115.42,
+    "text": " al posto dell'include, qualsiasi con sia il contenuto del file punto c fa questa sostituzione un po'"
+  },
+  {
+    "start": 1115.58,
+    "end": 1127.24,
+    "text": " come nell'editor di testi se fate trove e sostituisci, ripristiniamo il nostro programma qua e vi"
+  },
+  {
+    "start": 1127.24,
+    "end": 1132.74,
+    "text": " dico di preciso in questo caso che cos'è che c'è dentro stdio punto h che a noi serve,"
+  },
+  {
+    "start": 1133.08,
+    "end": 1141.0,
+    "text": " semplicemente eliminiamo questa chiamata, questo direttivo del preprocessore, quando noi andiamo"
+  },
+  {
+    "start": 1141.0,
+    "end": 1148.74,
+    "text": " a compilare il programma fallisceразio con un errore, ci dice alla linea 2 alla posizione"
+  },
+  {
+    "start": 1148.74,
+    "end": 1158.44,
+    "text": " del carattere 5, diiamo a vedere se è vero, linea 2, z 1 e 2, poi 1, 2, 3, 4, 5, come vedete con"
+  },
+  {
+    "start": 1158.44,
+    "end": 1168.18,
+    "text": " faccia, c'è un errore perché è stata chiamata una funzione di libreria printf e lo standard non supporta"
+  },
+  {
+    "start": 1168.18,
+    "end": 1172.54,
+    "text": " di chiamare la funzione di libreria senza, allora in teoria dovrebbe dire se invece una funzione"
+  },
+  {
+    "start": 1172.54,
+    "end": 1180.72,
+    "text": " non conosco non conosciuta, siccome questo è un compilatore e voluto, sa che io ho fatto un errore perché"
+  },
+  {
+    "start": 1180.72,
+    "end": 1186.78,
+    "text": " avrei dovuto dichiararlo ma mi dice anche perché, guarda che io la printf so magari come è"
+  },
+  {
+    "start": 1187.6799999999998,
+    "end": 1194.32,
+    "text": " definita è un intero con stagiarre così via, ma siccome io sono un compilatore c99 non mi puoi"
+  },
+  {
+    "start": 1194.32,
+    "end": 1201.08,
+    "text": " chiamare in maniera implicita, ora vi faccio vedere una cosa, se andiamo a vedere la definizione"
+  },
+  {
+    "start": 1201.08,
+    "end": 1212.8,
+    "text": " della mia funzione printf io me la vado a copiare e la vado a scrivere qui, questa funzione qui come"
+  },
+  {
+    "start": 1212.8,
+    "end": 1219.54,
+    "text": " vedete al contrario delle main che pure una funzione ma poi a apre la prendesi graffa e chiudela prendesi"
+  },
+  {
+    "start": 1220.24,
+    "end": 1227.2,
+    "text": " graffa e in effetti contiene dentro la ciccia della funzione, cioè il codice che la implementa,"
+  },
+  {
+    "start": 1227.2,
+    "end": 1232.68,
+    "text": " questa invece dopo aver definito la funzione con poi vedremo queste cose che cosa sono int,"
+  },
+  {
+    "start": 1232.9,
+    "end": 1238.52,
+    "text": " const, cioè così via, ma dopo aver definito il nome della funzione invece termina immediatamente"
+  },
+  {
+    "start": 1238.52,
+    "end": 1246.0,
+    "text": " con un punto e birgua, questo si chiama il prototipo di una funzione, a cosa serve? serve a definire"
+  },
+  {
+    "start": 1246.0,
+    "end": 1252.98,
+    "text": " solo il tipo di ritorno e gli argomenti che la funzione prende, prende affinché poi un altro"
+  },
+  {
+    "start": 1252.98,
+    "end": 1260.42,
+    "text": " programma che chiama la printf anche se non sa questa printf così o qualsiasi altra funzione"
+  },
+  {
+    "start": 1260.42,
+    "end": 1267.78,
+    "text": " qualunque sia il suo nome come è definita al suo interno come funziona e così via sa perfettamente"
+  },
+  {
+    "start": 1267.78,
+    "end": 1275.48,
+    "text": " però che tipo ritorna e che argomenti prenderà, quindi se io invece di includere standard io dot"
+  },
+  {
+    "start": 1275.48,
+    "end": 1285.76,
+    "text": " h, includo semplicemente questo prototipo, già il mio compiratore sa abbastanza di come dovrà"
+  },
+  {
+    "start": 1285.76,
+    "end": 1291.54,
+    "text": " chiamare la funzione printf ed è in grado quindi di generalare l'assembly e poi il codice macchina"
+  },
+  {
+    "start": 1291.54,
+    "end": 1298.6,
+    "text": " per fare funzionare il programma, quindi se io ora compilo il mio programma funziona anche senza"
+  },
+  {
+    "start": 1299.1599999999999,
+    "end": 1307.46,
+    "text": " che ci sia un include specifico. Bene, io queste lezioni le manterrò brevi perché"
+  },
+  {
+    "start": 1307.46,
+    "end": 1314.86,
+    "text": " se no, paura che è facile fare confusione dopo 20 minuti si sono digeriti abbastanza concetti"
+  },
+  {
+    "start": 1314.86,
+    "end": 1316.78,
+    "text": " e quindi ci vediamo alla prossima."
+  }
+]
