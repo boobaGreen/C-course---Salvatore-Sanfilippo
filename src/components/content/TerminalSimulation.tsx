@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Terminal as TerminalIcon, Play, RefreshCw, CheckCircle2 } from 'lucide-react';
 import CodeBlock from './CodeBlock';
 import { useProgression } from '../../hooks/useProgression';
+import { useTranslation } from 'react-i18next';
 
 interface TerminalSimulationProps {
     command: string;
@@ -14,6 +15,7 @@ export default function TerminalSimulation({ command, output = '', children, lan
     const [hasRun, setHasRun] = useState(false);
     const [isRunning, setIsRunning] = useState(false);
     const { addXP } = useProgression();
+    const { t } = useTranslation();
 
     // Determine final output string
     let finalOutput = output;
@@ -53,67 +55,48 @@ export default function TerminalSimulation({ command, output = '', children, lan
                 </div>
                 <div className="text-xs font-mono text-zinc-500 flex items-center gap-2">
                     <TerminalIcon size={14} />
-                    <span>bash — simulation</span>
+                    <span>{t('lesson.terminal.status_simulation')}</span>
                 </div>
-                <div className="w-12"></div> {/* Spacer for symmetry */}
+                <div className="w-12"></div>
             </div>
 
-            {/* Terminal Content */}
-            <div className="p-4 font-mono text-sm leading-relaxed overflow-x-auto">
-                <div className="flex items-center gap-3 mb-2">
-                    <span className="text-[#10b981] font-bold">~/project$</span>
-                    <span className="text-zinc-100">{command}</span>
+            <div className="p-6">
+                <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center gap-3 font-mono text-sm">
+                        <span className="text-green-500">$</span>
+                        <span className="text-zinc-200">{command}</span>
+                    </div>
+                    {!hasRun ? (
+                        <button
+                            onClick={handleRun}
+                            disabled={isRunning}
+                            className="flex items-center gap-2 px-4 py-1.5 bg-[var(--color-brand-primary)] text-black rounded-lg font-bold text-xs transition-all hover:scale-105 disabled:opacity-50"
+                        >
+                            {isRunning ? (
+                                <RefreshCw size={14} className="animate-spin" />
+                            ) : (
+                                <Play size={14} />
+                            )}
+                            {t('lesson.terminal.run')}
+                        </button>
+                    ) : (
+                        <button
+                            onClick={handleReset}
+                            className="flex items-center gap-2 px-4 py-1.5 bg-zinc-800 text-zinc-400 rounded-lg font-bold text-xs transition-all hover:bg-zinc-700"
+                        >
+                            <RefreshCw size={14} />
+                            {t('lesson.terminal.reset')}
+                        </button>
+                    )}
                 </div>
 
-                {/* Actions */}
-                {!hasRun && !isRunning && (
-                    <button
-                        onClick={handleRun}
-                        className="mt-4 flex items-center gap-2 px-4 py-2 bg-[#10b981]/10 hover:bg-[#10b981]/20 text-[#10b981] rounded-lg border border-[#10b981]/20 transition-colors font-sans text-sm font-medium"
-                    >
-                        <Play size={16} />
-                        Esegui Comando
-                    </button>
-                )}
-
-                {isRunning && (
-                    <div className="mt-4 flex items-center gap-3 text-zinc-400">
-                        <RefreshCw size={16} className="animate-spin" />
-                        <span className="animate-pulse">Esecuzione in corso...</span>
-                    </div>
-                )}
-
                 {hasRun && (
-                    <div className="mt-4 animate-in fade-in slide-in-from-top-2 duration-500">
-                        {/* If the language is specific, we use CodeBlock for highlighting, otherwise plain text */}
-                        {language !== 'text' && language !== 'bash' ? (
-                            <div className="border border-white/5 rounded-lg overflow-hidden mt-2">
-                                <CodeBlock code={finalOutput.trim()} language={language} />
-                            </div>
-                        ) : (
-                            <pre className="text-zinc-300 mt-2 p-3 bg-white/5 rounded-lg border border-white/5 whitespace-pre-wrap">
-                                {finalOutput.trim()}
-                            </pre>
-                        )}
-
-                        <div className="mt-4 flex items-center justify-between">
-                            <div className="flex items-center gap-2 text-[#0ea5e9] text-xs font-sans">
-                                <CheckCircle2 size={14} />
-                                Comando completato.
-                            </div>
-                            <button
-                                onClick={handleReset}
-                                className="flex items-center gap-1.5 px-3 py-1.5 hover:bg-white/10 text-zinc-400 hover:text-white rounded-md transition-colors font-sans text-xs"
-                            >
-                                <RefreshCw size={12} />
-                                Riavvia
-                            </button>
+                    <div className="mt-4 rounded-lg bg-black/50 p-4 border border-white/5 font-mono text-sm animate-in fade-in slide-in-from-top-2 duration-300">
+                        <div className="flex items-center gap-2 mb-2 text-[var(--color-brand-primary)] opacity-50">
+                            <CheckCircle2 size={12} />
+                            <span className="text-[10px] uppercase font-bold tracking-tighter text-zinc-500">Output</span>
                         </div>
-
-                        <div className="flex items-center gap-3 mt-4">
-                            <span className="text-[#10b981] font-bold">~/project$</span>
-                            <span className="w-2 h-4 bg-zinc-400 animate-pulse"></span>
-                        </div>
+                        <CodeBlock code={finalOutput} language={language} noLineNumbers />
                     </div>
                 )}
             </div>

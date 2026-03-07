@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Check, X, HelpCircle, ChevronRight, RotateCcw } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useProgression } from '../../hooks/useProgression';
+import { useTranslation } from 'react-i18next';
 
 interface Question {
     id: number;
@@ -16,13 +17,16 @@ interface QuizProps {
     title?: string;
 }
 
-export default function Quiz({ questions, title = "Verifica le tue conoscenze" }: QuizProps) {
+export default function Quiz({ questions, title }: QuizProps) {
     const [currentStep, setCurrentStep] = useState(0);
     const [selectedOption, setSelectedOption] = useState<number | null>(null);
     const [isAnswered, setIsAnswered] = useState(false);
     const [score, setScore] = useState(0);
     const [showResults, setShowResults] = useState(false);
     const { addXP } = useProgression();
+    const { t } = useTranslation();
+
+    const quizTitle = title || t('lesson.exercises');
 
     const handleOptionSelect = (index: number) => {
         if (isAnswered) return;
@@ -46,7 +50,7 @@ export default function Quiz({ questions, title = "Verifica le tue conoscenze" }
             setIsAnswered(false);
         } else {
             setShowResults(true);
-            addXP(200, `quiz-${title}`);
+            addXP(200, `quiz-${quizTitle}`);
         }
     };
 
@@ -60,20 +64,20 @@ export default function Quiz({ questions, title = "Verifica le tue conoscenze" }
 
     if (showResults) {
         return (
-            <div className="my-8 glass-panel p-8 rounded-2xl border-white/10 text-center">
+            <div className="my-8 glass-panel p-8 rounded-2xl border-white/10 text-center text-zinc-300">
                 <div className="w-20 h-20 bg-[var(--color-brand-primary)]/20 text-[var(--color-brand-primary)] rounded-full flex items-center justify-center mx-auto mb-6">
                     <Check size={40} />
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-2">Quiz Completato!</h3>
+                <h3 className="text-2xl font-bold text-white mb-2">{t('lesson.quiz.completed')}</h3>
                 <p className="text-zinc-400 mb-6 font-medium">
-                    Hai risposto correttamente a <span className="text-white">{score}</span> su <span className="text-white">{questions.length}</span> domande.
+                    {t('lesson.quiz.score_msg', { score, total: questions.length })}
                 </p>
                 <button
                     onClick={handleReset}
                     className="px-6 py-2.5 bg-white/5 hover:bg-white/10 text-white rounded-xl border border-white/10 transition-colors flex items-center gap-2 mx-auto"
                 >
                     <RotateCcw size={18} />
-                    Riprova il Quiz
+                    {t('lesson.quiz.retry')}
                 </button>
             </div>
         );
@@ -82,15 +86,15 @@ export default function Quiz({ questions, title = "Verifica le tue conoscenze" }
     const currentQuestion = questions[currentStep];
 
     return (
-        <div className="my-8 glass-panel rounded-2xl border-white/10 overflow-hidden shadow-2xl shadow-black/20">
+        <div className="my-8 glass-panel rounded-2xl border-white/10 overflow-hidden shadow-2xl shadow-black/20 text-zinc-300">
             {/* Header */}
             <div className="bg-white/5 px-6 py-4 flex items-center justify-between border-b border-white/5">
                 <div className="flex items-center gap-2 text-[var(--color-brand-primary)]">
                     <HelpCircle size={18} />
-                    <span className="font-bold text-sm uppercase tracking-wider">{title}</span>
+                    <span className="font-bold text-sm uppercase tracking-wider">{quizTitle}</span>
                 </div>
                 <div className="text-xs font-mono text-zinc-500">
-                    Domanda {currentStep + 1} di {questions.length}
+                    {currentStep + 1} / {questions.length}
                 </div>
             </div>
 
@@ -147,7 +151,7 @@ export default function Quiz({ questions, title = "Verifica le tue conoscenze" }
                             animate={{ height: 'auto', opacity: 1 }}
                             className="mt-6 p-4 rounded-xl bg-white/5 border border-white/5 text-sm leading-relaxed text-zinc-400"
                         >
-                            <strong className="text-white block mb-1">Spiegazione:</strong>
+                            <strong className="text-white block mb-1">{t('lesson.quiz.explanation')}:</strong>
                             {currentQuestion.explanation}
                         </motion.div>
                     )}
@@ -163,14 +167,14 @@ export default function Quiz({ questions, title = "Verifica le tue conoscenze" }
                                 : 'bg-[var(--color-brand-primary)] text-black shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:scale-105'
                                 }`}
                         >
-                            Conferma Risposta
+                            {t('lesson.quiz.confirm')}
                         </button>
                     ) : (
                         <button
                             onClick={handleNext}
                             className="px-6 py-2.5 bg-white/10 hover:bg-white/20 text-white rounded-xl border border-white/10 font-bold transition-all flex items-center gap-2"
                         >
-                            {currentStep < questions.length - 1 ? 'Prossima Domanda' : 'Vedi Risultati'}
+                            {currentStep < questions.length - 1 ? t('lesson.quiz.next') : t('lesson.quiz.results')}
                             <ChevronRight size={18} />
                         </button>
                     )}
