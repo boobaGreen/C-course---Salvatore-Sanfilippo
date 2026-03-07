@@ -67,9 +67,9 @@
             "editor_title": "Editor Integrato",
             "editor_desc": "Scrivi codice C direttamente nel browser, la compilazione avviene tramite WebAssembly.",
             "games_title": "Giochi Didattici",
-            "games_desc": "Impara divertendoti! Risolvi puzzle, predici gli output e assimila la sintassi senza sforzo.",
-            "bilingual_title": "Bilingue AI",
-            "bilingual_desc": "Lezioni trascritte e tradotte con IA (Italiano/Inglese). Impara il C ed espandi il tuo vocabolario tecnico."
+            "games_desc": "Mettiti alla prova con giochi interattivi progettati per testare le tue conoscenze divertendoti.",
+            "simulations_title": "Simulazioni Interattive",
+            "simulations_desc": "Visualizza concetti di basso livello attraverso simulazioni animate ad alta fedeltà."
         }
     }
 }

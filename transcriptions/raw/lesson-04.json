@@ -1,0 +1,1172 @@
+[
+  {
+    "start": 1.9000000000000017,
+    "end": 10.62,
+    "text": " Benissimo, rieccocci qui per la quarta lezione in C. Continueremo il nostro discorso sui tipi"
+  },
+  {
+    "start": 10.62,
+    "end": 20.26,
+    "text": " per iniziare, sui tipi interi. Una volta affrontato questo argomento faremo un salto"
+  },
+  {
+    "start": 20.26,
+    "end": 27.28,
+    "text": " indietro per affrontare nuovamente il nostro programma, questo semplicissimo Hello World"
+  },
+  {
+    "start": 27.28,
+    "end": 32.76,
+    "text": " e smontarlo una volta di più. Ma prima soffermiamoci un po' sui tipi perché il discorso dei tipi in"
+  },
+  {
+    "start": 32.76,
+    "end": 38.36,
+    "text": " C è molto interessante. Negli altri linguaggi di programmazione, nella maggior parte degli"
+  },
+  {
+    "start": 38.36,
+    "end": 45.4,
+    "text": " altri linguaggi di programmazione, un dato tipo intero ha un determinato range, ha un determinato"
+  },
+  {
+    "start": 45.4,
+    "end": 51.36,
+    "text": " numero di bit, un valore minimo e massimo che voi potete segnare alle variabili di quel tipo"
+  },
+  {
+    "start": 51.36,
+    "end": 59.0,
+    "text": " che è fisso. In Python, se io ho una data versione di Python, sia che lo compilo per un sistema"
+  },
+  {
+    "start": 59.0,
+    "end": 65.74,
+    "text": " e lo seguo in quel sistema, sia che lo utilizzo in un sistema completamente diverso, vedrò persino"
+  },
+  {
+    "start": 65.74,
+    "end": 70.64,
+    "text": " dentro Micro Python che è un'implementazione a parte così via, vedrò che c'è una certa"
+  },
+  {
+    "start": 70.64,
+    "end": 75.84,
+    "text": " consistenza nei tipi numerici, ciò che rappresentabile da Python in un sistema è rappresentabile"
+  },
+  {
+    "start": 75.84,
+    "end": 84.82,
+    "text": " in un altro. Ed è così anche per altri linguaggi, persino a basso livello, che sono però più"
+  },
+  {
+    "start": 84.82,
+    "end": 93.22,
+    "text": " moderni e che partono da principi un po' diversi. Il C è un linguaggio degli anni 60, inoltre"
+  },
+  {
+    "start": 93.22,
+    "end": 99.3,
+    "text": " è un linguaggio con una specifica ambizione. L'ambizione è quella che il C doveva essere"
+  },
+  {
+    "start": 99.3,
+    "end": 106.84,
+    "text": " compatibile con tutti i sistemi disponibili. Da il computer più piccolo con un processore"
+  },
+  {
+    "start": 106.84,
+    "end": 114.96,
+    "text": " 8-bit, con uno Z80 io potevo avere un compilatore C funzionante per quel processore fino a una,"
+  },
+  {
+    "start": 116.16,
+    "end": 124.64,
+    "text": " non lo so, un super computer a 64-bit io dovevo avere una versione del C capace di girare in quel"
+  },
+  {
+    "start": 124.64,
+    "end": 133.84,
+    "text": " computer. Per tale motivo i tipi, per esempio il tipo int, int x uguale a 5, a 5 non è specificato"
+  },
+  {
+    "start": 133.84,
+    "end": 140.82,
+    "text": " nella specifica C questo int quanto è grande, se è un numero attento a 2-bit, se è 64-bit,"
+  },
+  {
+    "start": 141.02,
+    "end": 147.96,
+    "text": " se è 16-bit questo varia da piattaforma a piattaforma. Però una cosa che vale per"
+  },
+  {
+    "start": 147.96,
+    "end": 156.62,
+    "text": " tutte le implementazioni di C è che se non è preceduta la dichiarazione del tipo da unsigned"
+  },
+  {
+    "start": 156.62,
+    "end": 163.44,
+    "text": " allora l'intero è col segno, cioè è capace di rappresentare questa variabile x intera sia"
+  },
+  {
+    "start": 163.44,
+    "end": 171.96,
+    "text": " numeri negativi che numeri positivi. Ma quanto è grande, non lo sappiamo, ci viene però in"
+  },
+  {
+    "start": 172.2,
+    "end": 189.72,
+    "text": " questo corso, side off. Qui scriviamo con la nostra FIDA printf, hello world, int is, dollaro,"
+  },
+  {
+    "start": 190.48,
+    "end": 197.34,
+    "text": " percentuale, deep bytes, e qua scriveremo, side off, dx. Tra l'altro quando compileremo questo"
+  },
+  {
+    "start": 197.34,
+    "end": 202.72,
+    "text": " programma vi faccio vedere che esce sicuramente un warning perché io qui ho detto alla printf che"
+  },
+  {
+    "start": 202.72,
+    "end": 209.38,
+    "text": " il tipo è intero ma poi in realtà non ho dato un intero e guardate che ci sarà un warning."
+  },
+  {
+    "start": 210.26,
+    "end": 217.98000000000002,
+    "text": " Combilo il programma, esatto. Format specify, stip, int, but, di argument, est, stip, unsigned,"
+  },
+  {
+    "start": 218.61999999999998,
+    "end": 225.22,
+    "text": " quindi tu mi hai detto che mi passi un intero ma il tipo che mi ritorna, side off, è un intero"
+  },
+  {
+    "start": 226.44000000000003,
+    "end": 233.16,
+    "text": " lungo senza segno. Allora io potrei fare questo problema, si può risolvere in diversi modi. Uno"
+  },
+  {
+    "start": 233.16,
+    "end": 239.56,
+    "text": " è, si chiama, una tecnica che si chiama casting, cioè mettere prima di una qualsiasi espressione C"
+  },
+  {
+    "start": 240.76,
+    "end": 245.82,
+    "text": " teraparente, sia un tipo, vuol dire convertimi quello che viene a destra in questo tipo qua,"
+  },
+  {
+    "start": 246.24,
+    "end": 251.42,
+    "text": " guardate, ora il problema non c'è più perché io effettivamente ho chiesto una conversione"
+  },
+  {
+    "start": 251.42,
+    "end": 257.24,
+    "text": " a un tipo intero. In questo caso, siccome poi il casting magari lo vedremo più avanti, possiamo"
+  },
+  {
+    "start": 257.24,
+    "end": 264.44,
+    "text": " utilizzare lo specificatore di tipo della printf.lu che significa long unsigned e siccome side off"
+  },
+  {
+    "start": 264.44,
+    "end": 274.82,
+    "text": " mi ritorna un long unsigned, i due tipi sono ora compatibili, quindi ora farò così e scopro che"
+  },
+  {
+    "start": 274.82,
+    "end": 284.74,
+    "text": " il mio intero è di 4 byte. Cosa ci va in un intero di 4 byte? 2 elevato a 32 mi consentirebbe di"
+  },
+  {
+    "start": 284.74,
+    "end": 292.22,
+    "text": " rappresentare questo numero di simboli, quindi se il tipo fosse unsigned int potrei rappresentare da"
+  },
+  {
+    "start": 292.22,
+    "end": 303.7,
+    "text": " 0 a questo numero meno 1, quindi 5, perché lo 0 è uno dei simboli, ma siccome il tipo è unsigned,"
+  },
+  {
+    "start": 304.6,
+    "end": 315.64,
+    "text": " io posso rappresentare soltanto da meno questo numero qua fino a più questo numero qua meno 1"
+  },
+  {
+    "start": 315.64,
+    "end": 324.94,
+    "text": " perché c'è lo 0 che prende un simbolo da questa parte. D'accordo? Se torniamo un attimo al nostro"
+  },
+  {
+    "start": 324.94,
+    "end": 332.58,
+    "text": " programma ci potremmo chiedere, ma questo tipo int oltre io a fare i conti a manina con side"
+  },
+  {
+    "start": 332.58,
+    "end": 338.92,
+    "text": " off e poi farmi le potenze, ma c'è un modo per vedere qual è il numero minimo e il numero massimo"
+  },
+  {
+    "start": 338.92,
+    "end": 348.14,
+    "text": " che può gestire. Ci viene da questo punto di vista molto in aiuto limits.h, un altro include,"
+  },
+  {
+    "start": 348.96,
+    "end": 355.18,
+    "text": " includiamo questo file H che ha dentro un sacco di definizioni diverse e ora posso scrivere"
+  },
+  {
+    "start": 355.18,
+    "end": 362.84,
+    "text": " qualcosa come del genere int min per cento'ore di int max per cento'ore di e guardate uso due"
+  },
+  {
+    "start": 365.16,
+    "end": 373.78,
+    "text": " costanti, definite, poi vi dirò di preciso come che si fa queste cose in C, ma voi per ora"
+  },
+  {
+    "start": 373.78,
+    "end": 380.26,
+    "text": " immaginate semplicemente che una volta che io includo limits il preprocessore trasformerà"
+  },
+  {
+    "start": 380.26,
+    "end": 388.16,
+    "text": " questo int min nel intero minimo che può essere rappresentato in questa piattaforma dal tipo"
+  },
+  {
+    "start": 388.16,
+    "end": 392.92,
+    "text": " int e dall'intero massimo che può essere rappresentato, tutte e due i valori saranno"
+  },
+  {
+    "start": 392.92,
+    "end": 399.3,
+    "text": " interi quindi ho messo percentuale di e compiliamo il nostro programma che in effetti compila e"
+  },
+  {
+    "start": 399.3,
+    "end": 408.64,
+    "text": " guardate sono esattamente i numeri che c'eravamo detti noi con bc. Tuttavia a volte si devono"
+  },
+  {
+    "start": 408.64,
+    "end": 417.66,
+    "text": " scrivere dei programmi che hanno una determinata dimensione e i tipi di C non ci garantiscono"
+  },
+  {
+    "start": 417.66,
+    "end": 423.88,
+    "text": " delle dimensioni anche se però è bene sapere alcune cose anche se non c'è alcuna garanzia vi"
+  },
+  {
+    "start": 423.88,
+    "end": 430.96,
+    "text": " dico che cos'è che vi potete aspettare dai moderni sistemi a 32 e 64 bit come vi ho detto"
+  },
+  {
+    "start": 430.96,
+    "end": 439.96,
+    "text": " nei sistemi passati neanche una c'è a volte neanche il bit erano effettivamente di neanche un"
+  },
+  {
+    "start": 439.96,
+    "end": 446.62,
+    "text": " bitere effettivamente di 8 bit a volte c'erano sistemi dove il bitere di 9 bit sistemi in cui"
+  },
+  {
+    "start": 446.62,
+    "end": 453.66,
+    "text": " l'intero era di 36 bit era tutto molto complicato ora c'è una certa standardizzazione ripeto lo"
+  },
+  {
+    "start": 453.66,
+    "end": 461.3,
+    "text": " standard c non vi garantisceensa le cose che sto per dirvi però vi faccio vedere come nel 99%"
+  },
+  {
+    "start": 461.3,
+    "end": 467.36,
+    "text": " dei casi appariranno i tipi standard del c i tipi interi allora tanto per iniziare noi abbiamo"
+  },
+  {
+    "start": 467.36,
+    "end": 480.74,
+    "text": " c'è un caccio che è un 0 a 8 bit, solitamente un byte, quindi definisco tutti con segno"
+  },
+  {
+    "start": 480.74,
+    "end": 489.26,
+    "text": " quindi non uso unsigned, poi abbiamo short s2000 questo qua si ci possono registrare valori"
+  },
+  {
+    "start": 489.26,
+    "end": 496.64,
+    "text": " da meno 128 più 127, qua da meno 32.000 è rotta più 32.000 perché di solito è 16"
+  },
+  {
+    "start": 496.64,
+    "end": 505.56,
+    "text": " bit, 2 byte, lo short, poi c'è l'intero che di solito è 4 byte ovvero 32 bit, poi c'è il"
+  },
+  {
+    "start": 505.56,
+    "end": 512.74,
+    "text": " long e qui è molto interessante, chiamiamo la lul a 10, vi faccio vedere quanto è grande il long"
+  },
+  {
+    "start": 515.44,
+    "end": 521.3,
+    "text": " in questo sistema qua, di nuovo utilizziamo l'operatore size off quindi qua devo scrivere lul"
+  },
+  {
+    "start": 529.86,
+    "end": 543.66,
+    "text": " 8 byte, 8x864 quindi il nostro tipo long è 64 bit, ora vi dico una cosa, solitamente il tipo"
+  },
+  {
+    "start": 543.66,
+    "end": 549.56,
+    "text": " long allora sapete qua vi ho detto di solito il char, un byte praticamente universalmente,"
+  },
+  {
+    "start": 550.3199999999999,
+    "end": 559.12,
+    "text": " lo short è più o meno universalmente 2 byte l'int è normalmente 4 byte in alcune macchina 64 bit"
+  },
+  {
+    "start": 559.12,
+    "end": 566.86,
+    "text": " capita che è 8 byte quindi 64 bit però di solito è 32 bit, il tipo intero, ripeto queste sono"
+  },
+  {
+    "start": 566.86,
+    "end": 574.88,
+    "text": " cose che non garantisce Uganda non garantisce amplified ma che io vi dico il long è quasi sempre"
+  },
+  {
+    "start": 574.88,
+    "end": 580.62,
+    "text": " nel 99% dei casi la stessa grandezza della parola del microprocessore. Quindi in un"
+  },
+  {
+    "start": 580.62,
+    "end": 588.64,
+    "text": " processore di 64 bit sarà un processore di 32 bit sarà 32 bit e"
+  },
+  {
+    "start": 588.64,
+    "end": 596.74,
+    "text": " ci dice una cosa assai interessante. A volte ci sono dei programmi in C specialmente"
+  },
+  {
+    "start": 596.74,
+    "end": 602.26,
+    "text": " scritti nel passato che assumevano di poter registrare un indirizzo di memoria"
+  },
+  {
+    "start": 602.26,
+    "end": 609.14,
+    "text": " in un int. Quando l'int è grande così quando è grande un indirizzo di memoria"
+  },
+  {
+    "start": 609.9200000000001,
+    "end": 614.54,
+    "text": " questa cosa funziona. Se per caso l'int è più piccolo di un indirizzo di memoria"
+  },
+  {
+    "start": 614.54,
+    "end": 620.06,
+    "text": " come in tutte le macchine moderne 64 bit di solito l'indirizzo di memoria è 64 bit"
+  },
+  {
+    "start": 620.06,
+    "end": 624.08,
+    "text": " 8 byte l'int è a 32 bit e quindi se ci sono vecchi"
+  },
+  {
+    "start": 624.08,
+    "end": 629.32,
+    "text": " programmi che assumono che possono registrare in un int un indirizzo di"
+  },
+  {
+    "start": 629.32,
+    "end": 634.18,
+    "text": " memoria il programmi poi non funzioneranno nelle macchine nuove con faranno"
+  },
+  {
+    "start": 634.18,
+    "end": 639.62,
+    "text": " tra l'altro delle cose subdole perché possibilmente magari dipende molto dal"
+  },
+  {
+    "start": 639.62,
+    "end": 643.62,
+    "text": " modo in cui diciamo lo spazio del programma degli indirizi del programma viene"
+  },
+  {
+    "start": 643.62,
+    "end": 647.4,
+    "text": " mappato una volta che possono funzionare fino a un certo punto o non funzionare"
+  },
+  {
+    "start": 647.4,
+    "end": 652.42,
+    "text": " da subito. È più facile che vanno in cresce immediatamente e poi vedremo"
+  },
+  {
+    "start": 652.42,
+    "end": 659.3,
+    "text": " anche perché più avanti in questo corso. Però invece il long anche se non c'è"
+  },
+  {
+    "start": 660.02,
+    "end": 664.34,
+    "text": " di ciò solitamente può registrare un indirizzo di memoria"
+  },
+  {
+    "start": 665.12,
+    "end": 672.74,
+    "text": " infatti è molto più grande. Vedremo poi che c'è"
+  },
+  {
+    "start": 673.76,
+    "end": 678.86,
+    "text": " ci sono dei tipi avanzati del C che si chiamano che sono inclusi con standard"
+  },
+  {
+    "start": 678.86,
+    "end": 683.5,
+    "text": " int che prima non erano parte della specifica in cui posso specificare"
+  },
+  {
+    "start": 683.5,
+    "end": 689.16,
+    "text": " esattamente la grandezza che voglio Win64T è un intero senza segno di"
+  },
+  {
+    "start": 689.16,
+    "end": 696.3,
+    "text": " 64 bit in 64 t ciò size t che è un tipo che può rappresentare una"
+  },
+  {
+    "start": 698.52,
+    "end": 701.98,
+    "text": " grandezza in base alla target del processore che sta"
+  },
+  {
+    "start": 701.98,
+    "end": 706.8,
+    "text": " per cui sto compirando quel programma quella grandezza può essere massima di"
+  },
+  {
+    "start": 706.8,
+    "end": 711.84,
+    "text": " 16 bit può essere massima di 32 bit di 64 bit tipo per esempio un pezzo di"
+  },
+  {
+    "start": 711.84,
+    "end": 717.92,
+    "text": " memoria allocato la grandezza di un file o quello che volete ma più che altro"
+  },
+  {
+    "start": 717.92,
+    "end": 726.42,
+    "text": " size t si riferisceakesce normalmente, guardate cerchiamolo, maximum size di un"
+  },
+  {
+    "start": 726.42,
+    "end": 732.38,
+    "text": " oggetto di qualsiasi tipo, il reio o quello che volete ma poi abbiamo pure dei tipi"
+  },
+  {
+    "start": 732.38,
+    "end": 736.38,
+    "text": " specifici nelle implementazioni nuove del C, ma tipo in delle implementazioni"
+  },
+  {
+    "start": 736.38,
+    "end": 741.42,
+    "text": " nuove che credo che si parli del C99. Quindi implementazioni di 25 anni fa"
+  },
+  {
+    "start": 741.42,
+    "end": 746.24,
+    "text": " ma sappiate che a volte alcuni programmi non vogliono neanche supportare il C99"
+  },
+  {
+    "start": 746.24,
+    "end": 754.46,
+    "text": " 9. C'è per esempio pure int pointer t che è un intero che ha una grandezza che ci assicura"
+  },
+  {
+    "start": 754.46,
+    "end": 760.38,
+    "text": " che là dentro ci entra un indirizzo di memoria, ovvero un puntatore. Uno peraltro si potrebbe"
+  },
+  {
+    "start": 760.38,
+    "end": 767.32,
+    "text": " chiedere ma come mai perché c'è pure un int pointer t? Ora indirizzo di memoria. Mica"
+  },
+  {
+    "start": 767.32,
+    "end": 772.16,
+    "text": " sono negativi, sono positivi da, possiamo immaginare tipo la memoria un blocco contigo"
+  },
+  {
+    "start": 773.4399999999999,
+    "end": 781.68,
+    "text": " da zero fino a, non lo so, quel che volete voi, nel caso estremo da zero a 2 elevata 64. Perché c'è"
+  },
+  {
+    "start": 781.68,
+    "end": 786.46,
+    "text": " anche un tipo compatibile con la grandezza dei puntatori, cioè degli indirizzi di memoria"
+  },
+  {
+    "start": 787.0,
+    "end": 795.9,
+    "text": " con un segno? Eh perché io a volte i puntatori li voglio sottrarre tra di loro e questa sottrazione"
+  },
+  {
+    "start": 795.9,
+    "end": 803.64,
+    "text": " poter vita a una valore negativo per dire se io non so se un puntatore è prima di un altro,"
+  },
+  {
+    "start": 803.78,
+    "end": 810.52,
+    "text": " posso sottrarre un puntatore da un altro e voglio poter essere sicuro poi di avere un tipo"
+  },
+  {
+    "start": 810.52,
+    "end": 816.54,
+    "text": " che mi permette di fare questo tipo di differenza e di avere anche dei valori negativi. Bene,"
+  },
+  {
+    "start": 818.16,
+    "end": 825.8,
+    "text": " ora che abbiamo dimestichezza con i tipi base del c possiamo chiederci perché ce ne sono così"
+  },
+  {
+    "start": 825.8,
+    "end": 832.56,
+    "text": " tanti e per cosa usare diversi tipi, perché usare un tipo a posto di un altro. Allora vedremo"
+  },
+  {
+    "start": 832.56,
+    "end": 838.98,
+    "text": " che i caratteri, il tipo car o jar, io ho detto sempre jar, credo che sia normale dire car perché"
+  },
+  {
+    "start": 838.98,
+    "end": 845.42,
+    "text": " l'abbreviazione di caracter è utilissimo perché è centrale in c perché il modo in cui vengono"
+  },
+  {
+    "start": 845.42,
+    "end": 851.58,
+    "text": " rappresentate le string, quindi le string, ovvero i testi, tipo questa è una string, questa è"
+  },
+  {
+    "start": 851.58,
+    "end": 857.96,
+    "text": " parte con le virgolette, si chiude con le virgolette vengono rappresentati da elementi da"
+  },
+  {
+    "start": 857.96,
+    "end": 865.8,
+    "text": " R-ray di tipo jar, quindi singoli R-ray di questa dimensione. Lo short 16-bit, quando io voglio"
+  },
+  {
+    "start": 865.8,
+    "end": 870.74,
+    "text": " rappresentare numeri abbastanza piccoli, se utilizzo uno short salvo moltissimo a memoria"
+  },
+  {
+    "start": 870.74,
+    "end": 878.08,
+    "text": " rispetto a utilizzare un long. Nello spazio di un long, se la macchina 64-bit ci entrano ben"
+  },
+  {
+    "start": 878.08,
+    "end": 885.88,
+    "text": " 4 short, se la macchina 32-bit ce ne entrano due, comunque la differenza è notevole, è così via."
+  },
+  {
+    "start": 886.48,
+    "end": 893.54,
+    "text": " Quindi invece in tipo long ma specialmente un tipo wind 64-t, così noi lo specificchiamo,"
+  },
+  {
+    "start": 893.66,
+    "end": 899.88,
+    "text": " se includiamo standard int, abbiamo i tipi a 64-bit, siamo sicuri tanto per iniziare che"
+  },
+  {
+    "start": 899.88,
+    "end": 907.14,
+    "text": " possiamo fare della matematica su numeri per esempio di input a 32-bit e non succederà mai"
+  },
+  {
+    "start": 907.14,
+    "end": 914.44,
+    "text": " che vanno in overflow. Quindi ho uno spazio maggiore di bit per fare matematica con numeri più"
+  },
+  {
+    "start": 914.44,
+    "end": 921.82,
+    "text": " grandi. Ma un'altra cosa molto importante è che io posso incrementare questi numeri a 64-bit"
+  },
+  {
+    "start": 921.82,
+    "end": 928.64,
+    "text": " con la tranquillità che non andranno in overflow, perché se facciamo i conti, due arevate a 64,"
+  },
+  {
+    "start": 928.64,
+    "end": 938.14,
+    "text": " fa questo numero, scritto a 65. Se io lo divido per, mettiamo che ho un milione di eventi al"
+  },
+  {
+    "start": 938.14,
+    "end": 947.24,
+    "text": " secondo, quindi 1, 2, 3, 1, 2, 3, 1, 2, 3. Per quanti secondi ci sono in un'ora a 3600, per 24 ore,"
+  },
+  {
+    "start": 947.46,
+    "end": 958.02,
+    "text": " per 365 giorni posso continuare a incrementare per 584 anni. Quindi sostanzialmente per molte"
+  },
+  {
+    "start": 958.02,
+    "end": 966.4,
+    "text": " applicazioni un tipo di 64-bit si può considerare come un tipo che non andrà mai in overflow in"
+  },
+  {
+    "start": 966.4,
+    "end": 973.16,
+    "text": " tempi, diciamo, normali di esecuzione del programma. Magari a questo punto voi state eludendo che"
+  },
+  {
+    "start": 973.16,
+    "end": 982.16,
+    "text": " finalmente andremo avanti con il nostro percorso nelle cose magari più avanzate che riguardo"
+  },
+  {
+    "start": 982.16,
+    "end": 988.46,
+    "text": " nel linguaggio C e invece no mi dispiace, ma andiamo di nuovo al nostro Hello World."
+  },
+  {
+    "start": 989.56,
+    "end": 994.9,
+    "text": " Torniamo al nostro programma e ripartiamo un po' da capo da quello che avrei dovuto dire all'inizio,"
+  },
+  {
+    "start": 995.24,
+    "end": 999.6,
+    "text": " ma che sarebbe stato mortalmente noioso dire all'inizio che non ho detto all'inizio."
+  },
+  {
+    "start": 1000.7,
+    "end": 1007.88,
+    "text": " Allora, i include li abbiamo spiegati, quindi questa parte qui scombatterà il file.h,"
+  },
+  {
+    "start": 1007.88,
+    "end": 1012.76,
+    "text": " ma andiamo a vedere la struttura del nostro programma. Questa è una definizione di una"
+  },
+  {
+    "start": 1012.76,
+    "end": 1019.3,
+    "text": " funzione. C'è il tipo di ritorno che può essere int short o quello che volete o void se non ha,"
+  },
+  {
+    "start": 1019.8,
+    "end": 1026.36,
+    "text": " se non ritorna niente. Il nome della funzione è, tra parentesi, ci sono espressi i parametri"
+  },
+  {
+    "start": 1026.36,
+    "end": 1032.12,
+    "text": " della funzione con i loro tipi, per esempio index, float, ips, lon e così via, separati da"
+  },
+  {
+    "start": 1032.12,
+    "end": 1043.34,
+    "text": " vircole. In questo caso la funzione non accetta nulla. Dopodiché c'è un nome di un simbolo di"
+  },
+  {
+    "start": 1043.34,
+    "end": 1049.46,
+    "text": " qualcosa, printf. Bene, possiamo vedere dal fatto che subito dopo printf c'è la parentesi tonda,"
+  },
+  {
+    "start": 1049.74,
+    "end": 1056.32,
+    "text": " che si tratta di una funzione che noi stiamo chiamando. In pratica in C le funzioni si chiamano,"
+  },
+  {
+    "start": 1056.32,
+    "end": 1063.16,
+    "text": " scrivendo il loro nome, aprendo la parentesi tonda e dando una lista di argomenti. A volte la"
+  },
+  {
+    "start": 1063.16,
+    "end": 1071.72,
+    "text": " funzione potrebbe non avere alcun argomento e in tal caso sarà qualcosa come, per esempio,"
+  },
+  {
+    "start": 1072.22,
+    "end": 1078.62,
+    "text": " clear. Ora scriviamo questa funzione clear per altro. Ora vi faccio vedere un trucco. Io non mi"
+  },
+  {
+    "start": 1078.62,
+    "end": 1086.28,
+    "text": " ricordo in questo momento le sequenze di escape da dare al terminale per pulire lo schermo. Ok,"
+  },
+  {
+    "start": 1086.28,
+    "end": 1090.82,
+    "text": " guardate cosa facciamo. Siccome noi abbiamo il comando Unix che spara queste sequenze,"
+  },
+  {
+    "start": 1091.44,
+    "end": 1099.76,
+    "text": " noi lo spariamo in pipeUnix, una pipeUnix questa ex dando meno c. E lui ci fa vedere esattamente"
+  },
+  {
+    "start": 1099.76,
+    "end": 1105.6,
+    "text": " che cos'è che esce da questo programma. Quindi guardate qua, uno b è escape, escape,"
+  },
+  {
+    "start": 1105.6,
+    "end": 1119.42,
+    "text": " parenda si quadra aperta 3g, 3j e poi escape quadra h escape 2g, 2j. Questo è un po' complicato"
+  },
+  {
+    "start": 1119.42,
+    "end": 1125.74,
+    "text": " come sequenza di escape. Allora void, clear, void, quindi questa funzione, definiamo una"
+  },
+  {
+    "start": 1125.74,
+    "end": 1135.32,
+    "text": " funzione void, non ritorna niente. Si chiama clear, non accetta alcun argomento printf,"
+  },
+  {
+    "start": 1139.2,
+    "end": 1152.1,
+    "text": " 0x, 0, 0, 33. Questo è un modo in cui posso descrivere i byte in ottale, 0, 33 che sarebbe"
+  },
+  {
+    "start": 1153.8000000000002,
+    "end": 1165.02,
+    "text": " 27 in, guardate questa è la tabella ascii. Questo qui è ottale, 0, 33, guardate es, escape."
+  },
+  {
+    "start": 1167.02,
+    "end": 1175.92,
+    "text": " Questo è esadecimale, l'escape in questo caso lo vado a trovare qua, uno b. Vi ricordate qui"
+  },
+  {
+    "start": 1175.92,
+    "end": 1181.32,
+    "text": " che abbiamo visto uno b, perché questi sono, questo è un dump, ex dump è un programma che"
+  },
+  {
+    "start": 1181.32,
+    "end": 1187.72,
+    "text": " fa il dump esadecimale, meno c maiusco, la significa che vogliamo vedere un dump canonico con gli"
+  },
+  {
+    "start": 1187.72,
+    "end": 1196.1,
+    "text": " indirizzi di memoria, cioè l'offset dei vari byte che mi restituisce Java, il contenuto di quello"
+  },
+  {
+    "start": 1196.1,
+    "end": 1203.14,
+    "text": " che ex dump sta vedendo in esadecimale byte dopo byte è qui la sua rappresentazione di"
+  },
+  {
+    "start": 1203.14,
+    "end": 1210.78,
+    "text": " a stringa legibile per l'essere umano. Se volete che io sia più chiaro, xdamp-c,"
+  },
+  {
+    "start": 1211.16,
+    "end": 1216.58,
+    "text": " guardate il mio programma low world, quello che ho scritto poco fa, eccolo qui,"
+  },
+  {
+    "start": 1216.76,
+    "end": 1221.3,
+    "text": " qua come vedete è legibile, qua ci sono i byte 16 male e qui gli offset del file."
+  },
+  {
+    "start": 1224.4,
+    "end": 1230.26,
+    "text": " Quindi io in ottale scrivo questa cosa qua, poto scrivere volendo x1obb,"
+  },
+  {
+    "start": 1230.26,
+    "end": 1236.08,
+    "text": " voi credo che siete più avvezi a vedere questa sintasse qua, e poi ok,"
+  },
+  {
+    "start": 1236.16,
+    "end": 1240.98,
+    "text": " lui mi dice di usare quella sequenza di escape, ma è un po' complicatuccia, io magari"
+  },
+  {
+    "start": 1240.98,
+    "end": 1247.96,
+    "text": " proverò a usare questa, che credo pulirà lo stesso lo schermo, vediamo se vero..."
+  },
+  {
+    "start": 1251.76,
+    "end": 1254.88,
+    "text": " Esatto, guardate, pulisce Allez, pulisce purposes, lo schermo prima di scrivere"
+  },
+  {
+    "start": 1254.88,
+    "end": 1262.5,
+    "text": " Hello World allora qui io avrei dovuto scrivere fflash std out ma siccome noi"
+  },
+  {
+    "start": 1262.5,
+    "end": 1268.26,
+    "text": " ancora non abbiamo parlato degli standard input output della modo standard di fare"
+  },
+  {
+    "start": 1268.26,
+    "end": 1274.9,
+    "text": " io della libreria del c, la libreria quella di default, noi ce ne fregheremo e vi dico che"
+  },
+  {
+    "start": 1274.9,
+    "end": 1279.8,
+    "text": " questo programma funziona lo stesso perché siccome dopo che scrivo hello c'è un new line"
+  },
+  {
+    "start": 1281.1200000000001,
+    "end": 1287.22,
+    "text": " comunque il gioco funziona ve lo dico solo in soldoni in sostanza la printf invece di"
+  },
+  {
+    "start": 1287.22,
+    "end": 1293.06,
+    "text": " scrivere davvero sul terminale accumula in un buffer interno nella memoria fino a quando"
+  },
+  {
+    "start": 1293.06,
+    "end": 1299.66,
+    "text": " non vede un new line o fino a quando io non chiamo una chiamata che si chiama fflash questo"
+  },
+  {
+    "start": 1299.66,
+    "end": 1305.8,
+    "text": " per ottimizzare perché se non dovrebbe fare un sacco di io ciò rende le cose più più veloci più"
+  },
+  {
+    "start": 1305.8,
+    "end": 1311.72,
+    "text": " performanti ma siccome poi quando vede il new line fflash scrivere un del terminale io"
+  },
+  {
+    "start": 1311.72,
+    "end": 1316.34,
+    "text": " prima ho scritto questo che rimarrà solo nella memoria perché non c'è la chiamata fflash poi"
+  },
+  {
+    "start": 1316.34,
+    "end": 1322.2,
+    "text": " in realtà faccio la printf quindi la cosa funziona allora guardate questa è una chiamata a"
+  },
+  {
+    "start": 1322.2,
+    "end": 1330.6,
+    "text": " funzione nome aperta prendesi tonda chi usa prendesi tonda avrete anche notato cose che"
+  },
+  {
+    "start": 1330.72,
+    "end": 1335.58,
+    "text": " non ho detto all'inizio perché semplicemente certo cosa posso essere facilmente assorbite"
+  },
+  {
+    "start": 1336.18,
+    "end": 1343.42,
+    "text": " guardando e quindi le posso dire anche più tardi che le diverse parti del programma i diversi"
+  },
+  {
+    "start": 1343.42,
+    "end": 1354.48,
+    "text": " statement del mio programma sono divisi da un punto e virgola il c si può scrivere nel modo in cui"
+  },
+  {
+    "start": 1354.48,
+    "end": 1360.14,
+    "text": " volete l'indentazione serve solo all'essere umano che legge il programma ma non al programma"
+  },
+  {
+    "start": 1360.14,
+    "end": 1367.64,
+    "text": " che continua a funzionare e se ne impipa posso scrivere come ne mi pare compilera sempre lo"
+  },
+  {
+    "start": 1367.64,
+    "end": 1375.1,
+    "text": " stesso funzionerà tutto quindi è una questione di gusti io vi consiglio di non solo di organizzare"
+  },
+  {
+    "start": 1375.1,
+    "end": 1381.16,
+    "text": " il programma in maniera leggibile ma anche di farlo a mano senza usare gli editor che lo facciano"
+  },
+  {
+    "start": 1381.16,
+    "end": 1387.58,
+    "text": " per voi perché c'è tanto di noi nel modo in cui scriviamo certe cose per esempio vi faccio un"
+  },
+  {
+    "start": 1387.58,
+    "end": 1393.74,
+    "text": " esempio io ho il vezzo che è se la una condizione è molto breve per esempio if not"
+  },
+  {
+    "start": 1393.74,
+    "end": 1403.46,
+    "text": " x exit zero questa qua la metto su una linea un indendatore automatico scriverebbe questa cosa"
+  },
+  {
+    "start": 1403.46,
+    "end": 1411.28,
+    "text": " qui ma ci metto un po del mio un po di stile ok ed è ed è anche questa parte della programmazione"
+  },
+  {
+    "start": 1411.28,
+    "end": 1417.72,
+    "text": " ma anche imparare a fare queste cose a mano non è tempo perso perché vi aiuta anche a livello"
+  },
+  {
+    "start": 1417.72,
+    "end": 1424.18,
+    "text": " mentale secondo me nella nel creare una struttura mentale il fatto che dovete fare le cose a manina"
+  },
+  {
+    "start": 1425.44,
+    "end": 1431.72,
+    "text": " allora dicevo qua c'è una che una seconda chiamata funzione e guardate cosa incontriamo qui una"
+  },
+  {
+    "start": 1431.72,
+    "end": 1443.28,
+    "text": " stringa hallo world e poi retar n zero in realtà questa stringa non è altro che un insieme di"
+  },
+  {
+    "start": 1445.42,
+    "end": 1451.92,
+    "text": " tipi char n nella prossima puntata perché ormai questa puntata è al raggiunto il tempo limite vedremo"
+  },
+  {
+    "start": 1451.92,
+    "end": 1460.92,
+    "text": " che cosa sono le stringe inci per continuare il nostro viaggio stavolta grammaticale dentro il"
+  },
+  {
+    "start": 1460.92,
+    "end": 1468.06,
+    "text": " hello world ora vediamo che qua c'è lo statement allora tutto questo programma è composto da una"
+  },
+  {
+    "start": 1468.06,
+    "end": 1475.2,
+    "text": " sola parola chiave che in questo statement qui ritard n zero ritard ne una parola chiave zero è"
+  },
+  {
+    "start": 1475.2,
+    "end": 1480.58,
+    "text": " un'espressione perché io potremmo scrivere qui una qualsiasi espressione come uno più due più"
+  },
+  {
+    "start": 1480.58,
+    "end": 1487.22,
+    "text": " tre in realtà prima di chiudere volevo spiegare qualcosa perché qualcuno di voi si sarà chiesto"
+  },
+  {
+    "start": 1487.22,
+    "end": 1492.9,
+    "text": " ma che cosa è che succede in questa printf perché pulisce vaig lo schermo che significa allora in"
+  },
+  {
+    "start": 1492.9,
+    "end": 1499.32,
+    "text": " pratica i terminali io sto usando un programma che è di moduzione di terminale ok quando aprite"
+  },
+  {
+    "start": 1499.32,
+    "end": 1506.08,
+    "text": " voi non lo so qualsiasi terminal in cui scrivete i comandi vedete l'autoputuello in termine e siccome"
+  },
+  {
+    "start": 1506.08,
+    "end": 1513.26,
+    "text": " potete scrivere clear o alcuni programmi magari possono muovere il cursore questi programmi hanno"
+  },
+  {
+    "start": 1513.26,
+    "end": 1516.98,
+    "text": " la necessità di distinguere quando noi vogliamo semplicemente stampare delle cose"
+  },
+  {
+    "start": 1516.98,
+    "end": 1521.12,
+    "text": " sullo schermo o quando vogliamo spedire dei caratteri che sono delle sequenze di"
+  },
+  {
+    "start": 1521.8600000000001,
+    "end": 1528.74,
+    "text": " controllo. Bene le sequenze di controllo dal terminale v100 in poi v100"
+  },
+  {
+    "start": 1528.74,
+    "end": 1534.34,
+    "text": " in terminale e terminano in v100 78 per capirci da questa roba qua, guardate per"
+  },
+  {
+    "start": 1534.34,
+    "end": 1540.48,
+    "text": " altro che design industriale meraviglioso ma comunque parte questo. Funzionano così"
+  },
+  {
+    "start": 1540.48,
+    "end": 1545.02,
+    "text": " primo spedisce dalam Rhodesiv come esaborazione e quindi una sweets"
+  },
+  {
+    "start": 1545.02,
+    "end": 1554.6,
+    "text": " specifico byte, poi scrive un'apparendesi quadra e poi altre lettere che indicano che"
+  },
+  {
+    "start": 1554.6,
+    "end": 1559.44,
+    "text": " cosa fare. In realtà peraltro questa sequenza qui non sarebbe quella che veramente pulisce kon"
+  },
+  {
+    "start": 1559.44,
+    "end": 1566.54,
+    "text": " schermo. H significa home e dovrebbe semplicemente fare andare il cursore qui, ma dipende dalla"
+  },
+  {
+    "start": 1566.54,
+    "end": 1572.64,
+    "text": " modalità in cui è il terminale. Proviamo con Python per dire io anche qui posso scrivere"
+  },
+  {
+    "start": 1572.64,
+    "end": 1581.86,
+    "text": " la stessa cosa, quindi era così, guardate qua fa solo lo homing, fa andare il"
+  },
+  {
+    "start": 1581.86,
+    "end": 1590.86,
+    "text": " cursore lì, per una sequenza di escape che davvero pulisca lo schermo io"
+  },
+  {
+    "start": 1590.86,
+    "end": 1604.98,
+    "text": " dovrei fare probabilmente prima lanciare l'escape e fare 2j la quadra, esatto ora sta funzionando"
+  },
+  {
+    "start": 1604.98,
+    "end": 1606.54,
+    "text": " guardate ora pulisceIndo, guardate ora pulisce lui appolisce lo schermo"
+  },
+  {
+    "start": 1606.54,
+    "end": 1615.3,
+    "text": " perché qui è necessario come dovrebbe essere produrre anche questo escape, invece nel nostro"
+  },
+  {
+    "start": 1615.3,
+    "end": 1622.56,
+    "text": " program in C, funzionava tutto benissimo, non è sicuramente perché è il program in C, io"
+  },
+  {
+    "start": 1622.56,
+    "end": 1634.72,
+    "text": " scrivo test.pytone, faccio produco solo questo, ecco come potete vedere pulisce, probabilmente"
+  },
+  {
+    "start": 1634.72,
+    "end": 1643.3,
+    "text": " perché quando sono dentro la rappel il terminal è in row, per leggere i caratteri in maniera row"
+  },
+  {
+    "start": 1643.36,
+    "end": 1647.4,
+    "text": " da stiera, imbalanced from the key and let shutdown function to get Oz, i buffs value infer dries"
+  },
+  {
+    "start": 1647.4,
+    "end": 1651.96,
+    "text": " funzion in more pure mode, so when the termuschip is not in raw mode and when we are with"
+  },
+  {
+    "start": 1651.96,
+    "end": 1654.86,
+    "text": " C Airport leading it modally or if you're not in the raw mode, you expect my"
+  },
+  {
+    "start": 1654.86,
+    "end": 1654.86,
+    "text": ""
+  },
+  {
+    "start": 1654.86,
+    "end": 1656.64,
+    "text": " to enter the same."
+  },
+  {
+    "start": 1656.64,
+    "end": 1658.74,
+    "text": " arrange the state"
+  },
+  {
+    "start": 1658.74,
+    "end": 1660.56,
+    "text": " ok if you add back the sketch in worst case, the function"
+  },
+  {
+    "start": 1660.56,
+    "end": 1664.54,
+    "text": " conservates within the simple define running in the case is to learn if the program is still"
+  },
+  {
+    "start": 1664.54,
+    "end": 1668.4,
+    "text": "��na in this case is fine, the end, wacacc."
+  },
+  {
+    "start": 1668.4,
+    "end": 1668.78,
+    "text": " Sottotitoli e revisione a cura di QTSS"
+  }
+]

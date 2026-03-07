@@ -67,9 +67,9 @@
             "editor_title": "Integrated Editor",
             "editor_desc": "Write C code directly in the browser, compilation happens via WebAssembly.",
             "games_title": "Educational Games",
-            "games_desc": "Learn while having fun! Solve puzzles, predict outputs, and master syntax effortlessly.",
-            "bilingual_title": "AI Bilingual",
-            "bilingual_desc": "Lessons transcribed and translated with AI (Italian/English). Learn C and expand your technical vocabulary."
+            "games_desc": "Challenge yourself with interactive games designed to test your knowledge in a fun way.",
+            "simulations_title": "Interactive Simulations",
+            "simulations_desc": "Visualize low-level concepts through high-fidelity animated simulations."
         }
     }
 }

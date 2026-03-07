@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Terminal, Code2, Zap, Info } from 'lucide-react';
+import { Terminal, Code2, Info, BookOpen } from 'lucide-react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { lessons } from '../data/lessons';
@@ -16,10 +16,10 @@ export default function Home() {
             <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[var(--color-brand-primary)]/10 rounded-full blur-[120px] pointer-events-none" />
             <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[var(--color-brand-secondary)]/10 rounded-full blur-[120px] pointer-events-none" />
 
-            <div className="max-w-4xl mx-auto w-full z-10">
+            <div className="max-w-5xl mx-auto w-full z-10">
 
                 {/* Hero Section */}
-                <div className="text-center mb-16 space-y-6">
+                <div className="text-center mb-24 space-y-6">
                     <button
                         onClick={() => setIsModalOpen(true)}
                         className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel border-[var(--color-brand-primary)]/30 text-[var(--color-brand-primary)] text-sm font-medium mb-4 hover:bg-[var(--color-brand-primary)]/10 transition-colors shadow-[0_0_15px_rgba(16,185,129,0.15)] hover:shadow-[0_0_20px_rgba(16,185,129,0.3)] cursor-pointer"
@@ -58,30 +58,33 @@ export default function Home() {
                     </div>
                 </div>
 
-                {/* Features Grid */}
+                {/* Features Grid - Restored to 3 cards as requested */}
                 <div className="grid md:grid-cols-3 gap-6 mt-20">
-                    <div className="glass-panel p-6 rounded-2xl hover:-translate-y-1 transition-transform duration-300">
-                        <div className="w-12 h-12 rounded-lg bg-[var(--color-brand-secondary)]/10 text-[var(--color-brand-secondary)] flex items-center justify-center mb-4">
+                    {/* Card 1: Terminal */}
+                    <div className="glass-panel p-6 rounded-2xl hover:-translate-y-1 transition-transform duration-300 group">
+                        <div className="w-12 h-12 rounded-lg bg-[var(--color-brand-secondary)]/10 text-[var(--color-brand-secondary)] flex items-center justify-center mb-4 group-hover:bg-[var(--color-brand-secondary)]/20 transition-colors">
                             <Terminal size={24} />
                         </div>
                         <h3 className="text-lg font-bold text-slate-900 dark:text-zinc-100 mb-2">{t('home.features.editor_title')}</h3>
                         <p className="text-slate-500 dark:text-zinc-400 text-sm leading-relaxed">{t('home.features.editor_desc')}</p>
                     </div>
 
-                    <div className="glass-panel p-6 rounded-2xl border-[var(--color-brand-primary)]/20 shadow-[0_4px_24px_-12px_rgba(16,185,129,0.2)] hover:-translate-y-1 transition-transform duration-300">
-                        <div className="w-12 h-12 rounded-lg bg-[var(--color-brand-primary)]/10 text-[var(--color-brand-primary)] flex items-center justify-center mb-4">
+                    {/* Card 2: Games */}
+                    <div className="glass-panel p-6 rounded-2xl border-[var(--color-brand-primary)]/20 shadow-[0_4px_24px_-12px_rgba(16,185,129,0.2)] hover:-translate-y-1 transition-transform duration-300 group">
+                        <div className="w-12 h-12 rounded-lg bg-[var(--color-brand-primary)]/10 text-[var(--color-brand-primary)] flex items-center justify-center mb-4 group-hover:bg-[var(--color-brand-primary)]/20 transition-colors">
                             <Code2 size={24} />
                         </div>
                         <h3 className="text-lg font-bold text-slate-900 dark:text-zinc-100 mb-2">{t('home.features.games_title')}</h3>
                         <p className="text-slate-500 dark:text-zinc-400 text-sm leading-relaxed">{t('home.features.games_desc')}</p>
                     </div>
 
-                    <div className="glass-panel p-6 rounded-2xl hover:-translate-y-1 transition-transform duration-300">
-                        <div className="w-12 h-12 rounded-lg bg-[var(--color-brand-accent)]/10 text-[var(--color-brand-accent)] flex items-center justify-center mb-4">
-                            <Zap size={24} />
+                    {/* Card 3: Simulations (Replaces Bilingual) */}
+                    <div className="glass-panel p-6 rounded-2xl border-[var(--color-brand-accent)]/10 hover:-translate-y-1 transition-transform duration-300 group">
+                        <div className="w-12 h-12 rounded-lg bg-[var(--color-brand-accent)]/10 text-[var(--color-brand-accent)] flex items-center justify-center mb-4 group-hover:bg-[var(--color-brand-accent)]/20 transition-colors">
+                            <BookOpen size={24} />
                         </div>
-                        <h3 className="text-lg font-bold text-slate-900 dark:text-zinc-100 mb-2">{t('home.features.bilingual_title')}</h3>
-                        <p className="text-slate-500 dark:text-zinc-400 text-sm leading-relaxed">{t('home.features.bilingual_desc')}</p>
+                        <h3 className="text-lg font-bold text-slate-900 dark:text-zinc-100 mb-2">{t('home.features.simulations_title')}</h3>
+                        <p className="text-slate-500 dark:text-zinc-400 text-sm leading-relaxed">{t('home.features.simulations_desc')}</p>
                     </div>
                 </div>
             </div>

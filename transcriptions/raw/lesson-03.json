@@ -1,0 +1,1247 @@
+[
+  {
+    "start": 0.0,
+    "end": 5.46,
+    "text": " alla terza puntata del nostro corso sul C è paradossalmente alla terza puntata"
+  },
+  {
+    "start": 5.46,
+    "end": 9.42,
+    "text": " siamo ancora all'Ellow World ma proveremo sempre di più a scavare"
+  },
+  {
+    "start": 9.42,
+    "end": 16.18,
+    "text": " dentro questo Ellow World per capire qualcosa. Allora abbiamo visto, abbiamo"
+  },
+  {
+    "start": 16.18,
+    "end": 21.56,
+    "text": " fatto una funzione che si chiama SAM, invece questa volta faremo una"
+  },
+  {
+    "start": 21.56,
+    "end": 26.24,
+    "text": " funzione che si chiama INCR che significa incremento"
+  },
+  {
+    "start": 27.66,
+    "end": 31.6,
+    "text": " che guardate, questa volta riutilizziamo come in main il void cioè"
+  },
+  {
+    "start": 31.6,
+    "end": 37.06,
+    "text": " praticamente questa funzione è il torno intero ma non prende nulla in input"
+  },
+  {
+    "start": 37.06,
+    "end": 44.44,
+    "text": " dichiaro una variabile x che vale 1 poi incrementa questa variabile x di 1"
+  },
+  {
+    "start": 44.44,
+    "end": 51.04,
+    "text": " facendo x uguale a x più 1 quindi questa qua alla destra dell'uguale è un'espressione"
+  },
+  {
+    "start": 51.04,
+    "end": 55.78,
+    "text": " questa alla sinistra è un nome di una variabile è l'uguale è il segno di"
+  },
+  {
+    "start": 57.72,
+    "end": 63.48,
+    "text": " assegnamento alla variabile quindi praticamente io assegno ad x x più 1"
+  },
+  {
+    "start": 63.48,
+    "end": 69.34,
+    "text": " se x è 1 diventerà 2 se x è 2 diventerà 3 attenzione che uguale non è"
+  },
+  {
+    "start": 69.34,
+    "end": 74.68,
+    "text": " il simbolo di ugualianza se io dentro una ifo voglio scrivere se x è uguale 5"
+  },
+  {
+    "start": 74.68,
+    "end": 80.7,
+    "text": " ne metto 2 sono due operatori diversi un uguale è trasferimento del valore che"
+  },
+  {
+    "start": 80.7,
+    "end": 85.22,
+    "text": " c'è a destra verso il nome della variabile che c'è a sinistra uguale uguale"
+  },
+  {
+    "start": 86.42,
+    "end": 92.78,
+    "text": " uguale uguale uguale è comparazione quindi in questo caso noi x è 1 quindi"
+  },
+  {
+    "start": 92.78,
+    "end": 95.62,
+    "text": " diventerà 2 stampiamo il valore di x"
+  },
+  {
+    "start": 96.48,
+    "end": 102.8,
+    "text": " sembra con la nostra printf che questa strana funzione che prende un formato"
+  },
+  {
+    "start": 102.8,
+    "end": 110.0,
+    "text": " e poi le cose da stampare se ci pensate non è che tanto diverso dalle f string"
+  },
+  {
+    "start": 110.0,
+    "end": 125.02,
+    "text": " di python ok io qua scrivo qualcosa e poi qua scrivo una espressione ok questo"
+  },
+  {
+    "start": 125.02,
+    "end": 131.64,
+    "text": " qui siccome il cinem potrebbe avere le veramente in teoria riedisegnando la"
+  },
+  {
+    "start": 131.64,
+    "end": 137.26,
+    "text": " capo si potrebbe pure fare però il punto è questo siccome la printf non è ne ne"
+  },
+  {
+    "start": 137.26,
+    "end": 143.3,
+    "text": " in altro che una funzione che utilizza le funzionalità di base di ci e non è stata"
+  },
+  {
+    "start": 143.3,
+    "end": 147.52,
+    "text": " pensata in maniera speciale rispetto al linguaggio si deve adeguare quindi uscirà"
+  },
+  {
+    "start": 147.52,
+    "end": 151.84,
+    "text": " gli specificatori di tipo quindi posso scrivere quello che voglio ogni volta che voglio"
+  },
+  {
+    "start": 151.84,
+    "end": 156.72,
+    "text": " stampare un tipo di dato che ce ne sono diversi per i floating point così via"
+  },
+  {
+    "start": 156.72,
+    "end": 160.46,
+    "text": " qua metterò la lista gli argomenti però ecco con la printf in questo caso"
+  },
+  {
+    "start": 160.46,
+    "end": 165.28,
+    "text": " stampiamo questo anzi questa qui facciamo che void anche il valore di"
+  },
+  {
+    "start": 165.28,
+    "end": 171.16,
+    "text": " ritorno quindi questa funzione non torna niente e non prende niente come input"
+  },
+  {
+    "start": 171.16,
+    "end": 178.52,
+    "text": " nel campionato dei linguaggi imperativi questa funzione ha il massimo valore"
+  },
+  {
+    "start": 178.52,
+    "end": 184.32,
+    "text": " perché è una funzione che non che ha soltanto un side effect un effetto"
+  },
+  {
+    "start": 184.32,
+    "end": 189.4,
+    "text": " collaterale quindi come effetto collaterale stamperà qualcosa sullo"
+  },
+  {
+    "start": 189.4,
+    "end": 195.42,
+    "text": " schermo ma non processa dati esterni non ha nessuna effetto dal punto di vista"
+  },
+  {
+    "start": 195.42,
+    "end": 199.36,
+    "text": " della programmazione funzionale non prende niente non ritorna niente l'unico"
+  },
+  {
+    "start": 199.36,
+    "end": 204.3,
+    "text": " valore che ha è che come effetto collaterale di chiamarla succede qualcosa"
+  },
+  {
+    "start": 204.3,
+    "end": 209.28,
+    "text": " ma se utilizzate qualsiasi altro linguaggio imperativo sicuramente se"
+  },
+  {
+    "start": 209.28,
+    "end": 214.44,
+    "text": " usate go python javascript sono tutti i linguaggi che anche se hanno anche"
+  },
+  {
+    "start": 214.44,
+    "end": 218.32,
+    "text": " altri paradigmi sono fortemente imperativi il fatto che una funzione"
+  },
+  {
+    "start": 218.32,
+    "end": 222.2,
+    "text": " faccia solo qualcosa come effetto collaterale che si è chiamata non ritorni"
+  },
+  {
+    "start": 222.2,
+    "end": 228.52,
+    "text": " nulla non vi fa sicuramente strano bene la main gli togliamo la printf"
+  },
+  {
+    "start": 228.52,
+    "end": 235.08,
+    "text": " chiamiamo questo incro guardate incro lo chiamo con aperta e chiusa parentesi"
+  },
+  {
+    "start": 235.08,
+    "end": 241.0,
+    "text": " per esempio è fatto che non prende nessun argomento quindi ora io compilo"
+  },
+  {
+    "start": 241.02,
+    "end": 250.54,
+    "text": " questo programma lo eseguo e lui stampa 2 se io incro lo chiamo diverse volte"
+  },
+  {
+    "start": 250.54,
+    "end": 254.78,
+    "text": " quindi io lo sto chiamando 4 volte ogni volta che chiamo incro viene creata"
+  },
+  {
+    "start": 254.78,
+    "end": 259.5,
+    "text": " questa variabile x che è una variabile locale quindi si crea il momento della"
+  },
+  {
+    "start": 259.5,
+    "end": 265.92,
+    "text": " chiamata ad incro di ogni chiamata di incro incro x o quella x più 1 quindi x"
+  },
+  {
+    "start": 265.92,
+    "end": 270.6,
+    "text": " diventa 2 viene stampata x e la variabbia viene distrutta non ha più"
+  },
+  {
+    "start": 270.6,
+    "end": 275.4,
+    "text": " memoria del valore che aveva prima e ci sarà la nuova chiamata e succederà"
+  },
+  {
+    "start": 275.4,
+    "end": 283.06,
+    "text": " sempre la stessa cosa guardate 22222 ma ciò ci permette di"
+  },
+  {
+    "start": 283.06,
+    "end": 288.72,
+    "text": " introdurre il congetto di variabile globale guardate io definisco una"
+  },
+  {
+    "start": 288.72,
+    "end": 298.98,
+    "text": " variabile globale x qua gli assegno anche il valore di 0 e tolgo questo int x"
+  },
+  {
+    "start": 298.98,
+    "end": 304.54,
+    "text": " per il suo valore a 1 da lì a questo punto nella funzione inc si come non"
+  },
+  {
+    "start": 304.54,
+    "end": 309.94,
+    "text": " esiste una variabile locale che si chiama x il combinatore quando si incontra"
+  },
+  {
+    "start": 309.94,
+    "end": 315.22,
+    "text": " questo x mentre sta combinando la nostra funzione inc dirà ma non è che magari"
+  },
+  {
+    "start": 315.22,
+    "end": 320.02,
+    "text": " visto che non c'è una variabile locale con quel nome c'è una variabile globale"
+  },
+  {
+    "start": 320.02,
+    "end": 326.28,
+    "text": " con quel nome e troverà che in effetti c'è x e quindi utilizzerà x globale"
+  },
+  {
+    "start": 326.28,
+    "end": 331.24,
+    "text": " qual è la differenza che la variabile globale x in realtà non perderò stato"
+  },
+  {
+    "start": 331.24,
+    "end": 336.9,
+    "text": " viene creata all'inizio dell'esecuzione del programma ed esisterà per tutto il"
+  },
+  {
+    "start": 336.9,
+    "end": 341.26,
+    "text": " tempo in cui il programma continua a girare fino a quando il processo esiste"
+  },
+  {
+    "start": 341.26,
+    "end": 347.3,
+    "text": " la variabile x esisterà e quindi ogni volta io incrementerò la stessa x e"
+  },
+  {
+    "start": 347.3,
+    "end": 353.18,
+    "text": " vedrò il valore che si incrementa sempre di più perché chiamo inc x sarà"
+  },
+  {
+    "start": 353.18,
+    "end": 359.38,
+    "text": " zero la prima volta x o x più 1 diventa 1 e stampa 1 chiamo incro di nuovo vado di"
+  },
+  {
+    "start": 359.38,
+    "end": 363.74,
+    "text": " nuovo qui x o x più 1 diventa 2 perché era 1 e stampo"
+  },
+  {
+    "start": 364.97999999999996,
+    "end": 376.2,
+    "text": " compiliamolo e seguiamolo 1 2 3 e 4 ok quindi le variabili locali e le variabili"
+  },
+  {
+    "start": 376.2,
+    "end": 383.1,
+    "text": " globali non sono le uniche due variabili che ha il c bene faccio vedere un'altra"
+  },
+  {
+    "start": 384.06,
+    "end": 391.96,
+    "text": " un altro tipo che in realtà è una variabile globale ma che è definita dentro la funzione"
+  },
+  {
+    "start": 391.96,
+    "end": 397.46,
+    "text": " se io prima di definire la mia variabile che di solito sarebbe locale gli dico prima static"
+  },
+  {
+    "start": 398.14000000000004,
+    "end": 403.8,
+    "text": " questa variabile diventa una variabile globale che però vede solo la funzione"
+  },
+  {
+    "start": 403.8,
+    "end": 411.94,
+    "text": " guardate io combino il programma funzione esattamente come se io stessi utilizzando"
+  },
+  {
+    "start": 411.94,
+    "end": 416.7,
+    "text": " una variabile globale ma se io qua scrivo printf"
+  },
+  {
+    "start": 418.64,
+    "end": 429.26,
+    "text": " e la scenduale di di x il programma non compila perché x non può essere visto dalla"
+  },
+  {
+    "start": 429.26,
+    "end": 435.88,
+    "text": " funzione mail perché mail perché globale dal punto di vista della sua vita del suo"
+  },
+  {
+    "start": 435.88,
+    "end": 443.2,
+    "text": " lifetime ma è locale dal punto di vista della visibilità del simbolo x che si vede solo"
+  },
+  {
+    "start": 443.2,
+    "end": 449.84,
+    "text": " dentro questa funzione però è a tutti effetti una variabile globale con tutti i limiti delle"
+  },
+  {
+    "start": 449.84,
+    "end": 456.44,
+    "text": " variabili globali tra cui il fatto che non possiamo lavorare con diversi credit una funzione"
+  },
+  {
+    "start": 456.44,
+    "end": 462.78,
+    "text": " in dw scritta così non sarebbe sicura da utilizzare su diversi tradi del linguaggio c"
+  },
+  {
+    "start": 462.78,
+    "end": 468.16,
+    "text": " perché diversi thread che cedono a questa variabile potrebbero avere problemi di"
+  },
+  {
+    "start": 468.16,
+    "end": 472.42,
+    "text": " sincronizzazione perché lo stesso stato globale condiviso dovremmo proteggerlo"
+  },
+  {
+    "start": 472.42,
+    "end": 477.02,
+    "text": " con un mutex o qualcosa del genere ma per ora di questo non ci importa."
+  },
+  {
+    "start": 477.44,
+    "end": 482.52,
+    "text": " Bene bene ora che abbiamo visto che ci sono variabili locali e variabili"
+  },
+  {
+    "start": 482.52,
+    "end": 487.74,
+    "text": " globali dobbiamo affrontare un'altra questione questa variabile x."
+  },
+  {
+    "start": 488.26,
+    "end": 492.88,
+    "text": " Ecco ora trasformiamo la nostra funzione in una funzione che prende un"
+  },
+  {
+    "start": 493.67999999999995,
+    "end": 500.36,
+    "text": " intero e che c prende un intero in input che è x il parametro della funzione e"
+  },
+  {
+    "start": 500.36,
+    "end": 505.3,
+    "text": " ritorna un intero quindi io posso ritornare posso fare x uguale x più"
+  },
+  {
+    "start": 505.3,
+    "end": 517.3,
+    "text": " 1 ritorn x a questo punto io posso qua dichiarare una variabile a che vale 10"
+  },
+  {
+    "start": 517.3,
+    "end": 522.1,
+    "text": " farò incr di a e poi vi faccio stampare il valore di a."
+  },
+  {
+    "start": 522.46,
+    "end": 527.24,
+    "text": " Secondo voi che succede in questo programma guardate qua a è uguale a 10"
+  },
+  {
+    "start": 527.76,
+    "end": 533.22,
+    "text": " qua incr a il valore di a lo passo alla funzione incr."
+  },
+  {
+    "start": 534.82,
+    "end": 541.6,
+    "text": " Qua viene creato una variabile che si chiama x che ha come valore quello che ha a ma attenzione non è a"
+  },
+  {
+    "start": 541.6,
+    "end": 547.04,
+    "text": " queste sono due variabili locali questa è una variabile locale che si chiama"
+  },
+  {
+    "start": 547.04,
+    "end": 551.6,
+    "text": " della funzione main questa è una variabile locale di incr perché il"
+  },
+  {
+    "start": 551.6,
+    "end": 555.42,
+    "text": " parametro della funzione quindi abbiamo visto che a tutti effetti è una"
+  },
+  {
+    "start": 555.42,
+    "end": 560.06,
+    "text": " variabile locale anche se viene segnata al valore all'argomento che io passa la"
+  },
+  {
+    "start": 560.06,
+    "end": 566.46,
+    "text": " funzione quindi quello che succederà è che qua io vedrò 10 non vedrò 11 in a"
+  },
+  {
+    "start": 569.5600000000001,
+    "end": 573.22,
+    "text": " convidiamo guardate questo vale sempre 10 perché io guardate che ho fatto qui"
+  },
+  {
+    "start": 573.22,
+    "end": 577.52,
+    "text": " ho passato 10 a incr incr che è una variabile locale che si chiama x la"
+  },
+  {
+    "start": 577.52,
+    "end": 581.76,
+    "text": " incrementa di 1 la ritorna il valore di ritorno peraltro come vedete è"
+  },
+  {
+    "start": 581.76,
+    "end": 587.74,
+    "text": " ignorato perché nessuno ci fa niente e quindi la non varrà altro che 10"
+  },
+  {
+    "start": 587.74,
+    "end": 595.2,
+    "text": " altra cosa è se io invece scrivo a è uguale a incr di a a questo punto io"
+  },
+  {
+    "start": 595.2,
+    "end": 600.76,
+    "text": " passo un valore la funzione questo valore viene elaborato incrementato di 1"
+  },
+  {
+    "start": 600.76,
+    "end": 606.84,
+    "text": " ritornato dalla funzione e io a quel punto il valore di ritorno lo assegno ad a"
+  },
+  {
+    "start": 606.84,
+    "end": 616.52,
+    "text": " sta volta a sarà 11 e se io questa cosa la faccio diverse volte il valore di a"
+  },
+  {
+    "start": 617.5,
+    "end": 626.06,
+    "text": " incrementerà sempre di più questo è un modo molto più funzionale di fare un"
+  },
+  {
+    "start": 626.06,
+    "end": 631.3,
+    "text": " incremento per capirci ma qui a noi ci interessa mettere a fuoco un'altra cosa"
+  },
+  {
+    "start": 631.3,
+    "end": 639.32,
+    "text": " ovvero che in ci per default di norma gli argomenti vengono passati alle"
+  },
+  {
+    "start": 639.32,
+    "end": 649.06,
+    "text": " funzioni per valore e non per riferimento cioè le funzioni ricevono una copia e non"
+  },
+  {
+    "start": 649.06,
+    "end": 655.16,
+    "text": " un riferimento ai valori che noi passiamo alla funzione quindi se io qua gli"
+  },
+  {
+    "start": 655.16,
+    "end": 662.26,
+    "text": " passò a barra x sempre 10 ma non è il 10 che io avevo dentro là è una copia"
+  },
+  {
+    "start": 662.26,
+    "end": 670.24,
+    "text": " del 10 d'accordo in realtà il ci è tutto completamente pass by value cioè io"
+  },
+  {
+    "start": 670.24,
+    "end": 675.84,
+    "text": " sempre copio le cop anche se io definisco una struttura ogni usa una struttura"
+  },
+  {
+    "start": 675.84,
+    "end": 679.78,
+    "text": " del ci che poi vedremo le strutture ovviamente con grande approfondimento"
+  },
+  {
+    "start": 679.78,
+    "end": 684.14,
+    "text": " perché una delle cose più importanti ma per dire che un tipo di dato aggregato"
+  },
+  {
+    "start": 684.14,
+    "end": 688.56,
+    "text": " che può avere più campi un po come un oggetto per capirci viene sempre passata"
+  },
+  {
+    "start": 688.56,
+    "end": 696.42,
+    "text": " per copia l'unico modo in ci per mutare le cose per passare un riferimento a"
+  },
+  {
+    "start": 696.42,
+    "end": 703.8,
+    "text": " un oggetto una funzione a un numero quello che volete è di utilizzare i puntatori sui"
+  },
+  {
+    "start": 703.8,
+    "end": 708.42,
+    "text": " puntatori bisogna dire anche un'altra cosa molto importante in sostanza non ci"
+  },
+  {
+    "start": 708.42,
+    "end": 712.78,
+    "text": " non si può fare nulla di buono col ci senza i puntatori quindi i puntatori li"
+  },
+  {
+    "start": 712.78,
+    "end": 717.98,
+    "text": " introdurremo prestissimo probabilmente nella prossima lezione non è una buona"
+  },
+  {
+    "start": 717.98,
+    "end": 722.58,
+    "text": " cosa dire a ma siccome i puntatori incisono una cosa avanzata vanno"
+  },
+  {
+    "start": 722.58,
+    "end": 728.28,
+    "text": " introdotti in là nel corso alla decima la ventesima la quindicesima puntata"
+  },
+  {
+    "start": 728.28,
+    "end": 732.82,
+    "text": " altrimenti tutto il corso del ci è tutta la comprensione del ci ne risulta in"
+  },
+  {
+    "start": 732.82,
+    "end": 738.22,
+    "text": " qualche modo limitata dal fatto che non c'è modo di esprimere anche quando si"
+  },
+  {
+    "start": 738.22,
+    "end": 742.74,
+    "text": " fanno esempi semplici delle cose che sono profondamente idiomatiche del ci"
+  },
+  {
+    "start": 744.54,
+    "end": 749.52,
+    "text": " bene abbiamo visto che le cose sono passate per valore andiamo a un'altra"
+  },
+  {
+    "start": 750.4399999999999,
+    "end": 755.16,
+    "text": " questione noi però abbiamo visto un solo tipo di dato in vediamo ne un altro"
+  },
+  {
+    "start": 755.16,
+    "end": 764.2,
+    "text": " facile flott numero in virgola mobile flott y uguale 1.234 a questo punto"
+  },
+  {
+    "start": 764.2,
+    "end": 771.62,
+    "text": " gli oggetico di stamparmi un intero è un flott intero a flott y"
+  },
+  {
+    "start": 771.62,
+    "end": 778.74,
+    "text": " convidiamo ed eseguiamo quindi ho vedo 10 e vedo 1.234"
+  },
+  {
+    "start": 778.74,
+    "end": 784.78,
+    "text": " 000 perché per default stampa con una precisione diversa se scrivo guardate"
+  },
+  {
+    "start": 784.78,
+    "end": 790.92,
+    "text": " ora scrivo 1 2 3 4 per scritto qua percentuale punto 3f questa la printf"
+  },
+  {
+    "start": 790.92,
+    "end": 797.38,
+    "text": " è un linguaggio molto molto ricco con cui io posso chiedere di formattare i"
+  },
+  {
+    "start": 797.38,
+    "end": 802.22,
+    "text": " numeri in un determinato modo addirittura guardate qui per dire posso dire di"
+  },
+  {
+    "start": 802.22,
+    "end": 809.34,
+    "text": " formattarmi l'intero come un numero esadecimale e quindi a 10 diventa a e così"
+  },
+  {
+    "start": 809.34,
+    "end": 813.86,
+    "text": " via x maiuscula dovrebbe essere il maiuscula quindi a diventava maiuscula così"
+  },
+  {
+    "start": 813.86,
+    "end": 818.98,
+    "text": " via quindi la printf è molto ricca ma qua non ci interessa la sua ricchezza"
+  },
+  {
+    "start": 818.98,
+    "end": 822.46,
+    "text": " meglio ci interessa molto però era così un'informazione in bassa poi la"
+  },
+  {
+    "start": 822.46,
+    "end": 827.12,
+    "text": " vedremo probabilmente se c'è il tempo più da vicino altrimenti non diventicate"
+  },
+  {
+    "start": 827.12,
+    "end": 834.78,
+    "text": " mai che manna 3 printf è il vostro più grande aiuto assieme a clod o lm che"
+  },
+  {
+    "start": 834.78,
+    "end": 840.4,
+    "text": " utilizzate che queste cose lm le sanno bene ed è uno stack overflow con tu da"
+  },
+  {
+    "start": 840.4,
+    "end": 844.52,
+    "text": " questo punto di vista non in generale che lm siano solo degli stack overflow non"
+  },
+  {
+    "start": 844.52,
+    "end": 848.3,
+    "text": " credo che sia così però si possono utilizzare anche come degli stack"
+  },
+  {
+    "start": 848.3,
+    "end": 850.48,
+    "text": " overflow e voluti a cui si possono fare domande"
+  },
+  {
+    "start": 852.9399999999999,
+    "end": 859.12,
+    "text": " allora vi faccio vedere una cosa iniziamo anche a prendere confidenza col"
+  },
+  {
+    "start": 859.12,
+    "end": 867.1,
+    "text": " fatto che ci è un linguaggio pericoloso se io questi quali inverto e compilo mi"
+  },
+  {
+    "start": 867.1,
+    "end": 873.02,
+    "text": " becco dei warning ma il programma ha convidato lo stesso guarda mi dice nel"
+  },
+  {
+    "start": 873.02,
+    "end": 878.22,
+    "text": " formato dove ci volevo un int tu mi hai dato la y nel formato dove ci volevo"
+  },
+  {
+    "start": 878.22,
+    "end": 886.02,
+    "text": " le f un flott tu mi hai dato una intero perché qua vi dice dabbola non flott"
+  },
+  {
+    "start": 886.02,
+    "end": 893.52,
+    "text": " lo approfondiremo presto però il programma si può eseguire e vedrò"
+  },
+  {
+    "start": 893.52,
+    "end": 898.18,
+    "text": " delle cose diciamo senza senso perché in questo momento sto leggendo nella"
+  },
+  {
+    "start": 898.18,
+    "end": 902.74,
+    "text": " memoria nella rappresentazione della memoria di un numero che poi viene però"
+  },
+  {
+    "start": 902.74,
+    "end": 907.56,
+    "text": " che ha un altro tipo e quindi succedono disastri ma per dire che il c mica si"
+  },
+  {
+    "start": 907.56,
+    "end": 912.64,
+    "text": " non vi permette di compilare lui vi permette lo stesso a compilazione poi"
+  },
+  {
+    "start": 913.3599999999999,
+    "end": 919.86,
+    "text": " fatti vostri ciò che succederà poco fa se avete visto nel warning c'era"
+  },
+  {
+    "start": 919.86,
+    "end": 924.32,
+    "text": " qualcosa di strano lui mi ha detto ma non puoi mettere a posto di un intero un"
+  },
+  {
+    "start": 924.32,
+    "end": 932.1199999999999,
+    "text": " dabbol perché mi ha detto un dabbolo se questo è un flott allora la questione"
+  },
+  {
+    "start": 932.12,
+    "end": 938.6,
+    "text": " è questa allora quando iniziare facciamo il distinguo tra questi due tipi di dato"
+  },
+  {
+    "start": 938.6,
+    "end": 943.16,
+    "text": " c che abbiamo visto fino ora ne abbiamo visti solo due ma già la complessità"
+  },
+  {
+    "start": 943.16,
+    "end": 948.98,
+    "text": " può essere maggiore di quella che può apparire un intero è un numero"
+  },
+  {
+    "start": 950.16,
+    "end": 956.02,
+    "text": " intero quindi senza parte decimale positivo o negativo volendo l'intero può"
+  },
+  {
+    "start": 956.02,
+    "end": 962.6,
+    "text": " essere pure da 0 a un certo limite quindi solo positivo e in tal caso si"
+  },
+  {
+    "start": 962.6,
+    "end": 971.06,
+    "text": " definisceavingci come un signet in B è uguale a 20 ok invece il flott è un"
+  },
+  {
+    "start": 971.06,
+    "end": 975.8,
+    "text": " numero un floating point quindi un numero in virgola mobile che rappresente un"
+  },
+  {
+    "start": 975.8,
+    "end": 980.34,
+    "text": " numero decimale con una certa precisione quindi io posso mettere certi"
+  },
+  {
+    "start": 980.34,
+    "end": 984.14,
+    "text": " numeri dopo la virgola un certo punto ovviamente la precisione non sarà più"
+  },
+  {
+    "start": 984.14,
+    "end": 989.76,
+    "text": " sufficiente il numero verrà approssimato. Il bello dei flott è che"
+  },
+  {
+    "start": 989.76,
+    "end": 996.92,
+    "text": " utilizza una rappresentazione che io vi invito di andare a studiare che è"
+  },
+  {
+    "start": 998.04,
+    "end": 1001.54,
+    "text": " praticamente standard in tutti i linguaggi e il permacione in tutti i micro"
+  },
+  {
+    "start": 1001.54,
+    "end": 1007.64,
+    "text": " accessori ormai. FPTrenda 2 è invece i double che ora li vedremo pure che è il"
+  },
+  {
+    "start": 1007.64,
+    "end": 1016.4,
+    "text": " warning che mi dava la printf sono invece 64-bit ma questa rappresentazione"
+  },
+  {
+    "start": 1016.4,
+    "end": 1021.52,
+    "text": " consiste di una mantisse di un esponente per cui praticamente è possibile"
+  },
+  {
+    "start": 1022.68,
+    "end": 1026.82,
+    "text": " utilizzare lo stesso formato di numero per rappresentare sia numeri molto"
+  },
+  {
+    "start": 1026.82,
+    "end": 1032.76,
+    "text": " piccoli che numeri molto grandi. È un modo molto interessante di rappresentare"
+  },
+  {
+    "start": 1032.76,
+    "end": 1038.66,
+    "text": " il numero è diventato uno standard mondiale da decati per cui bisogna anche"
+  },
+  {
+    "start": 1038.66,
+    "end": 1044.0,
+    "text": " si commettere o l'altro fa delle implicazioni inaspettate io vi consiglio"
+  },
+  {
+    "start": 1044.0,
+    "end": 1048.16,
+    "text": " di studiare questa parte qua ma noi in questo caso ci interessa come mai il"
+  },
+  {
+    "start": 1048.16,
+    "end": 1055.66,
+    "text": " warning è sui double bene allora il C è già un sacco di tipi l'intero è uno ma"
+  },
+  {
+    "start": 1055.66,
+    "end": 1060.62,
+    "text": " poi c'è anche il char che è un tipo d'intero più piccolo che va di solito"
+  },
+  {
+    "start": 1060.62,
+    "end": 1067.14,
+    "text": " da meno 127 a più 128 anche se non è garantito ora sulle garanzie faremo un"
+  },
+  {
+    "start": 1067.14,
+    "end": 1072.56,
+    "text": " discorso c'ha gli short quindi il char sostanzialmente è un byte o to-bit"
+  },
+  {
+    "start": 1072.56,
+    "end": 1080.14,
+    "text": " lo short è tradizionalmente ma non è garantito ripeto da specifica è da 16"
+  },
+  {
+    "start": 1080.14,
+    "end": 1089.26,
+    "text": " bit o 2 byte quindi short uguale 234 è così via ora immaginate se la printf"
+  },
+  {
+    "start": 1089.26,
+    "end": 1094.54,
+    "text": " dovesse avere tanto per iniziare un formato per ognuno di questi tipi"
+  },
+  {
+    "start": 1094.54,
+    "end": 1100.1,
+    "text": " numerici e in più poi in base al formato le funzioni variadi che cioè che"
+  },
+  {
+    "start": 1100.1,
+    "end": 1106.24,
+    "text": " accettano più argomenti dopo dopo un c'è un numero variabili"
+  },
+  {
+    "start": 1106.24,
+    "end": 1111.88,
+    "text": " argomenti dovrebbe avere poi una funzione per accedere a ognuno di questi"
+  },
+  {
+    "start": 1111.88,
+    "end": 1117.84,
+    "text": " argomenti passati diversa per riuscire a fare perché avviene a runtime questo"
+  },
+  {
+    "start": 1117.84,
+    "end": 1121.98,
+    "text": " accesso allo stack dove le funzioni variadi che si vedono arrivare i loro"
+  },
+  {
+    "start": 1121.98,
+    "end": 1126.94,
+    "text": " argomenti che non si sa in che numero sono dovrebbe riuscire a gestire mi"
+  },
+  {
+    "start": 1126.94,
+    "end": 1131.32,
+    "text": " dovrebbe dire dalla coda di argomenti che ti hanno dato prendi a volte un int, a volte"
+  },
+  {
+    "start": 1131.32,
+    "end": 1134.58,
+    "text": " un char, a volte uno short si complicerebbe troppo."
+  },
+  {
+    "start": 1134.74,
+    "end": 1142.82,
+    "text": " Succede questa cosa che il C ha delle regole di promozione automatiche se io"
+  },
+  {
+    "start": 1142.82,
+    "end": 1149.7,
+    "text": " passi a una funzione variadica un numero intero che è più piccolo di un int come per"
+  },
+  {
+    "start": 1149.7,
+    "end": 1156.28,
+    "text": " esempio un uno short 400."
+  },
+  {
+    "start": 1159.7399999999998,
+    "end": 1165.22,
+    "text": " Lui in realtà prima di passare il mio short alla funzione printf lo converte"
+  },
+  {
+    "start": 1165.22,
+    "end": 1170.8,
+    "text": " prima ad int e poi io lo passa quindi io compilo questo programma non mi dà"
+  },
+  {
+    "start": 1170.8,
+    "end": 1174.3,
+    "text": " nessun warning funziona perfettamente perché questo S anche se uno short"
+  },
+  {
+    "start": 1174.3,
+    "end": 1175.8,
+    "text": " prima viene promosso ad int."
+  },
+  {
+    "start": 1176.4,
+    "end": 1183.34,
+    "text": " I flott invece quando sono argomenti di funzioni variadiche vengono promossi a"
+  },
+  {
+    "start": 1183.34,
+    "end": 1189.3,
+    "text": " double quindi la printf non sa stampare uno flott, sa stampare solo un double"
+  },
+  {
+    "start": 1189.3,
+    "end": 1191.6,
+    "text": " perché i flott vengono promossi a double."
+  },
+  {
+    "start": 1192.0,
+    "end": 1196.54,
+    "text": " Quindi non ci sono problemi da questo punto di vista ma bisogna imparare a"
+  },
+  {
+    "start": 1196.54,
+    "end": 1198.96,
+    "text": " riconoscere che ci sono queste conversioni implicite."
+  },
+  {
+    "start": 1199.6000000000001,
+    "end": 1204.94,
+    "text": " Queste conversioni ci sono anche in altri casi vi faccio vedere allora"
+  },
+  {
+    "start": 1207.98,
+    "end": 1214.6,
+    "text": " charci uguale 127 il numero il valore massimo che può assumere nella maggior"
+  },
+  {
+    "start": 1214.6,
+    "end": 1220.14,
+    "text": " parte dei sistemi e me lo faccio stampare 127."
+  },
+  {
+    "start": 1220.74,
+    "end": 1227.76,
+    "text": " Ora qua scrivo charci 128 già 128 è fuori da quello che puoi rappresentare in un intero"
+  },
+  {
+    "start": 1227.76,
+    "end": 1234.34,
+    "text": " con segno di 8 bit perché vale meno 128 a più 127."
+  },
+  {
+    "start": 1235.28,
+    "end": 1241.28,
+    "text": " Partirmi del warning io lo stampo e voilà il suo valore è meno 128."
+  },
+  {
+    "start": 1242.32,
+    "end": 1247.34,
+    "text": " In sostanza quello che è successo è come se fosse andato dall'altro dall'altro"
+  },
+  {
+    "start": 1247.34,
+    "end": 1254.78,
+    "text": " lato ma ora vedremo che in C il wrapping dopo l'overflow quindi l'overflow è quando"
+  },
+  {
+    "start": 1254.78,
+    "end": 1260.9,
+    "text": " un valore troppo grande per un dato numero è garantito solo negli interi con segno"
+  },
+  {
+    "start": 1260.9,
+    "end": 1269.88,
+    "text": " negli interi senza segno è una UB undefined behavior una comportamento non specificato."
+  },
+  {
+    "start": 1270.6,
+    "end": 1276.82,
+    "text": " Però qua è successa sta cosa come vedete non funziona tuttavia guardate qui se io scrivo"
+  },
+  {
+    "start": 1276.82,
+    "end": 1285.8,
+    "text": " in C uguale a 127 in C uguale a C più 1 uno potrebbe immaginare che siccome C e char"
+  },
+  {
+    "start": 1285.8,
+    "end": 1294.32,
+    "text": " allo C più 1 di nuovo ci riporta meno 128 o qualsiasi non aspettata un qualsiasi comportamento"
+  },
+  {
+    "start": 1294.32,
+    "end": 1302.76,
+    "text": " non aspettato invece magia magia ne abbiamo un warning e ne anche abbiamo un comportamento"
+  },
+  {
+    "start": 1302.76,
+    "end": 1311.56,
+    "text": " non aspettato questo perché le regole di conversione automatica si applicano pure alle"
+  },
+  {
+    "start": 1311.56,
+    "end": 1318.14,
+    "text": " espressioni quindi quando io faccio matematica tra i interi ci sono delle regole in cui praticamente"
+  },
+  {
+    "start": 1318.14,
+    "end": 1324.02,
+    "text": " di solito i signet vengono convertiti in unsignet i numeri più piccoli di ind vengono"
+  },
+  {
+    "start": 1324.02,
+    "end": 1331.62,
+    "text": " convertiti in ind e così via poi per i tipi ancora più grandi questa cosa è facile sbagliare"
+  },
+  {
+    "start": 1331.62,
+    "end": 1340.1,
+    "text": " allora pensate come che avrebbe dovuto fare il ci alcuni linguaggi più safe preferiscono in"
+  },
+  {
+    "start": 1340.1,
+    "end": 1346.44,
+    "text": " realtà avere delle regole ferre e dire tu mi devi dichiarare un tipo dei tipi e poi i tipi"
+  },
+  {
+    "start": 1346.44,
+    "end": 1351.84,
+    "text": " devono devi fare matematica sempre sui tra gli stessi tipi non ci sono regole automatiche"
+  },
+  {
+    "start": 1351.84,
+    "end": 1356.6,
+    "text": " in bici di conversione il ci siccome il linguaggio che è stato fatto negli anni sessanta e voleva"
+  },
+  {
+    "start": 1356.6,
+    "end": 1362.66,
+    "text": " essere più pratico era molto importante negli anni sessanta risparmiare spazio quindi cioè gli"
+  },
+  {
+    "start": 1362.66,
+    "end": 1369.52,
+    "text": " ind gli ciari i short era saggio non utilizzare mai un tipo più grande di quello che era necessario"
+  },
+  {
+    "start": 1370.12,
+    "end": 1378.44,
+    "text": " è per tale motivo ci c'è questa grande variabilità di tipi e questi tipi poi però per funzionare"
+  },
+  {
+    "start": 1378.44,
+    "end": 1386.54,
+    "text": " bene assieme hanno delle regole di conversione in modo che sia facile usarli uno con l'altro dicevo"
+  },
+  {
+    "start": 1386.54,
+    "end": 1395.4,
+    "text": " che c'è questa and the fine behavior cioè non è definito il fatto che in interi con il segno cosa"
+  },
+  {
+    "start": 1395.4,
+    "end": 1402.12,
+    "text": " succede se vanno in overflow quindi faccio un esempio quindi ci arci uguale a 127 e ora vi"
+  },
+  {
+    "start": 1402.12,
+    "end": 1409.42,
+    "text": " faccio vedere una cosa bellissima in c per incrementare un intero si può scrivere c uguale c"
+  },
+  {
+    "start": 1409.42,
+    "end": 1416.6,
+    "text": " più uno altrimenti si può utilizzare l'operatore più più l'operatore più più che si può mettere"
+  },
+  {
+    "start": 1416.6,
+    "end": 1420.48,
+    "text": " sia prima che dopo la variabile c'è una piccola differenza che vedremo più avanti quando"
+  },
+  {
+    "start": 1420.48,
+    "end": 1425.62,
+    "text": " trattermo tutti i operatori ma sostanzialmente prende la variabile l'incremento di uno e"
+  },
+  {
+    "start": 1425.62,
+    "end": 1430.58,
+    "text": " salva il risultato dentro la variabilità di nuovo è proprio equivalente abbastanza"
+  },
+  {
+    "start": 1430.58,
+    "end": 1440.52,
+    "text": " c uguale a c più uno ma il nome del c++ viene proprio da qui perché volrebbe essere un c"
+  },
+  {
+    "start": 1441.24,
+    "end": 1446.74,
+    "text": " incrementato e quindi l'hanno chiamato in maniera molto scherzato dal c++ ora noi ci facciamo"
+  },
+  {
+    "start": 1446.74,
+    "end": 1452.8,
+    "text": " stampare questo c guardate che succede quindi abbiamo detto va meno 128 ma in realtà poteva"
+  },
+  {
+    "start": 1452.8,
+    "end": 1459.1,
+    "text": " succedere qualsiasi cosa il problema poteva andare in crescione poteva risultare zero perché sui"
+  },
+  {
+    "start": 1459.1,
+    "end": 1467.24,
+    "text": " i interi con segno purtroppo questa è una sonora cazzata il c non definisce prende una"
+  },
+  {
+    "start": 1468.8600000000001,
+    "end": 1475.58,
+    "text": " comportamento standard quindi uno deve stare attento a non creare overflow negli interi con segno se invece"
+  },
+  {
+    "start": 1475.58,
+    "end": 1483.72,
+    "text": " l'intero è senza segno, qualsiasi tipo numerico del c si può trasformare da un intero con segno con"
+  },
+  {
+    "start": 1483.72,
+    "end": 1493.32,
+    "text": " un prefitto unsignet, questa volta noi per essere al limite dobbiamo mettere 254 255, 254,"
+  },
+  {
+    "start": 1493.54,
+    "end": 1501.66,
+    "text": " così faccio c++ punto e virgola printfc e poi lo faccio di nuovo la prima volta mi diventa 255"
+  },
+  {
+    "start": 1501.66,
+    "end": 1509.9,
+    "text": " la seconda volta vai in overflow e quando vai in overflow prima diventa 255 poi vai in overflow"
+  },
+  {
+    "start": 1509.9,
+    "end": 1516.14,
+    "text": " e mi torna a 0 però questa volta siccome un intero senza segno io posso essere certo ho la"
+  },
+  {
+    "start": 1516.14,
+    "end": 1521.14,
+    "text": " garanzia da parte del compilatore da parte della specifica del c che quando arrivo al numero massimo"
+  },
+  {
+    "start": 1521.14,
+    "end": 1529.24,
+    "text": " che un intero con segno può memorizzare si riparte da 0 bene per questa puntata è abbastanza"
+  },
+  {
+    "start": 1529.24,
+    "end": 1535.66,
+    "text": " ci vediamo alla prossima sempre a parlare dei tipi di in che il linguaggio ci fornisce"
+  }
+]
