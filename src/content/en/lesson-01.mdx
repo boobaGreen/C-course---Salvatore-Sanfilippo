@@ -40,15 +40,11 @@ int main() {
 
 If we save this code in a file called `hello.c`, we cannot execute it as it is. We must use the **C compiler** (like `cc`, `gcc`, or `clang`):
 
-```bash
-cc hello.c
-```
+<TerminalSimulation command="cc hello.c" output="" />
 
 This command generates a new executable file (typically called `a.out` on Unix systems). This file is a **binary** containing the machine language and some specific headers of the operating system. We can execute it by typing:
 
-```bash
-./a.out
-```
+<TerminalSimulation command="./a.out" output="Hello, World!" />
 
 <CodeEditor initialCode={`#include <stdio.h>\n\nint main() {\n    printf("Hello, World!\\n");\n    return 0;\n}`} />
 
@@ -58,16 +54,64 @@ This command generates a new executable file (typically called `a.out` on Unix s
 
 We can ask the compiler to stop before generating the final binary, allowing us to see the intermediate **Assembly** code, using the `-S` flag:
 
-```bash
-cc -S hello.c
-```
+<TerminalSimulation 
+  command="cc -S hello.c" 
+  language="asm"
+>
+{`	.file	"hello.c"
+	.text
+	.section	.rodata
+.LC0:
+	.string	"Hello, World!"
+	.text
+	.globl	main
+	.type	main, @function
+main:
+.LFB0:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	leaq	.LC0(%rip), %rdi
+	call	puts@PLT
+	movl	$0, %eax
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc`}
+</TerminalSimulation>
 
 Looking at the Assembly, we can notice that the string "Hello, World!" is defined and the `printf` function is called. The beauty of modern C, however, lies in the **optimization levels**.
 
 If we compile with the `-O2` flag (level 2 optimization):
-```bash
-cc -O2 -S hello.c
-```
+<TerminalSimulation 
+  command="cc -O2 -S hello.c" 
+  language="asm"
+>
+{`	.file	"hello.c"
+	.text
+	.section	.rodata.str1.1,"aMS",@progbits,1
+.LC0:
+	.string	"Hello, World!"
+	.section	.text.startup,"ax",@progbits
+	.p2align 4
+	.globl	main
+	.type	main, @function
+main:
+.LFB23:
+	.cfi_startproc
+	subq	$8, %rsp
+	.cfi_def_cfa_offset 16
+	leaq	.LC0(%rip), %rdi
+	call	puts@PLT
+	xorl	%eax, %eax
+	addq	$8, %rsp
+	.cfi_def_cfa_offset 8
+	ret
+	.cfi_endproc`}
+</TerminalSimulation>
 
 We will notice something surprising: **the `printf` function disappears**! The compiler, realizing that we are printing a simple string followed by a newline (`\n`), automatically substitutes `printf` with the `puts` function, which is faster and more efficient for this specific purpose, removing the original `\n` because `puts` adds it by itself.
 This is just a "drop in the ocean" of the optimizations that a mature compiler can do.
@@ -106,5 +150,46 @@ Thanks to the prototype, the compiler knows exactly how to prepare data in memor
   - The **preprocessor** prepares the file before compilation.
   - **Header (`.h`)** files contain function **prototypes**, essential to tell the compiler how to call functions written elsewhere.
 </KeyConcepts>
+
+<Quiz 
+  questions={[
+    {
+      id: 1,
+      question: "What happens when you compile with the -O2 flag if the code contains a simple printf with \\n?",
+      options: [
+        "A compilation error is generated",
+        "The compiler replaces printf with puts to optimize performance",
+        "The string is not printed",
+        "The program becomes slower"
+      ],
+      correctAnswer: 1,
+      explanation: "Modern compilers like GCC or Clang recognize simple patterns. puts is more efficient than printf for simple static strings, so the compiler performs the switch automatically."
+    },
+    {
+      id: 2,
+      question: "What is the purpose of the #include <stdio.h> directive?",
+      options: [
+        "To define the main function",
+        "To import the binary files of the standard library",
+        "To provide the compiler with Input/Output function prototypes",
+        "To write the Assembly code for us"
+      ],
+      correctAnswer: 2,
+      explanation: "The directive informs the preprocessor to include the header containing the function prototypes (signatures), allowing the compiler to call them correctly."
+    },
+    {
+      id: 3,
+      question: "What is the main difference between printf and puts?",
+      options: [
+        "puts automatically adds a newline (\\n), printf does not",
+        "printf is faster than puts",
+        "Only printf can print strings",
+        "None, they are exactly the same"
+      ],
+      correctAnswer: 0,
+      explanation: "puts prints the string and adds a newline at the end. printf prints exactly what is passed in the specified format."
+    }
+  ]} 
+/>
 
 See you in the next lesson!

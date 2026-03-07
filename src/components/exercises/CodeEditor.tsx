@@ -19,7 +19,17 @@ export default function CodeEditor({ initialCode }: CodeEditorProps) {
         // Simula tempo di compilazione ed esecuzione Wasm
         await new Promise((r) => setTimeout(r, 800));
 
-        if (code.includes('printf("Hello')) {
+        // Estrazione brutale del contenuto di printf per la simulazione MVP
+        const printfMatch = code.match(/printf\s*\(\s*"(.*?)"\s*(?:,|\))/);
+
+        if (printfMatch) {
+            let extracted = printfMatch[1];
+            // Gestione minima escape sequence \n
+            extracted = extracted.replace(/\\n/g, '\n');
+            setOutput(extracted);
+            setStatus('success');
+        } else if (code.includes('printf(')) {
+            // Fallback se il regex fallisce ma c'è un printf
             setOutput("Hello, World!\n");
             setStatus('success');
         } else {

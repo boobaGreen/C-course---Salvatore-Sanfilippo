@@ -12,16 +12,26 @@ export default function CodeBlock({ code, language = 'c' }: CodeBlockProps) {
 
     useEffect(() => {
         async function highlight() {
-            const isDark = document.documentElement.classList.contains('dark');
-            const theme = isDark ? 'github-dark' : 'github-light';
+            try {
+                const isDark = document.documentElement.classList.contains('dark');
+                const theme = isDark ? 'github-dark' : 'github-light';
 
-            const out = await codeToHtml(code, {
-                lang: language,
-                theme: theme,
-            });
-            setHtml(out);
+                const out = await codeToHtml(code, {
+                    lang: language,
+                    theme: theme,
+                });
+                setHtml(out);
+            } catch (err) {
+                console.error('Highlighting error:', err);
+                // Fallback to plain text if highlighting fails
+                setHtml(`<pre>${code}</pre>`);
+            }
         }
-        highlight();
+        if (code) {
+            highlight();
+        } else {
+            setHtml('');
+        }
     }, [code, language]);
 
     const handleCopy = () => {

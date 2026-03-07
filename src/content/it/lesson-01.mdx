@@ -38,17 +38,13 @@ int main() {
 
 ### Come si compila ed esegue?
 
-Se salviamo questo codice in un file chiamato `hello.c`, non possiamo eseguirlo così com'è. Dobbiamo usare il **compilatore C** (come `cc`, `gcc` o `clang`):
+Dobbiamo usare il **compilatore C** (come `cc`, `gcc` o `clang`):
 
-```bash
-cc hello.c
-```
+<TerminalSimulation command="cc hello.c" output="" />
 
 Questo comando genera un nuovo file eseguibile (tipicamente chiamato `a.out` su sistemi Unix). Questo file è un **binario** contenente il linguaggio macchina e alcune intestazioni specifiche del sistema operativo (Linux, macOS, Windows). Possiamo eseguirlo digitando:
 
-```bash
-./a.out
-```
+<TerminalSimulation command="./a.out" output="Hello, World!" />
 
 <CodeEditor initialCode={`#include <stdio.h>\n\nint main() {\n    printf("Hello, World!\\n");\n    return 0;\n}`} />
 
@@ -58,16 +54,65 @@ Questo comando genera un nuovo file eseguibile (tipicamente chiamato `a.out` su 
 
 Possiamo chiedere al compilatore di fermarsi prima di generare il binario finale, facendoci mostrare il codice **Assembly** intermedio, usando il flag `-S`:
 
-```bash
-cc -S hello.c
-```
+<TerminalSimulation 
+  command="cc -S hello.c" 
+  language="asm"
+>
+{`	.file	"hello.c"
+	.text
+	.section	.rodata
+.LC0:
+	.string	"Hello, World!"
+	.text
+	.globl	main
+	.type	main, @function
+main:
+.LFB0:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	leaq	.LC0(%rip), %rdi
+	call	puts@PLT
+	movl	$0, %eax
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc`}
+</TerminalSimulation>
 
 Guardando l'Assembly, possiamo notare che viene definita la stringa "Hello, World!" e viene chiamata la funzione `printf`. Il bello del C moderno sta però nei **livelli di ottimizzazione**. 
 
 Se compiliamo con il flag `-O2` (ottimizzazione di livello 2):
-```bash
-cc -O2 -S hello.c
-```
+
+<TerminalSimulation 
+  command="cc -O2 -S hello.c" 
+  language="asm"
+>
+{`	.file	"hello.c"
+	.text
+	.section	.rodata.str1.1,"aMS",@progbits,1
+.LC0:
+	.string	"Hello, World!"
+	.section	.text.startup,"ax",@progbits
+	.p2align 4
+	.globl	main
+	.type	main, @function
+main:
+.LFB23:
+	.cfi_startproc
+	subq	$8, %rsp
+	.cfi_def_cfa_offset 16
+	leaq	.LC0(%rip), %rdi
+	call	puts@PLT
+	xorl	%eax, %eax
+	addq	$8, %rsp
+	.cfi_def_cfa_offset 8
+	ret
+	.cfi_endproc`}
+</TerminalSimulation>
 
 Noteremo una cosa sorprendente: **la funzione `printf` scompare**! Il compilatore, accorgendosi che stiamo stampando una stringa semplice seguita da un ritorno a capo (`\n`), sostituisce automaticamente la `printf` con la funzione `puts`, che è più veloce ed efficiente per questo scopo specifico, rimuovendo il `\n` originale perché `puts` lo aggiunge da sola.
 Questa è solo una "goccia nell'oceano" delle ottimizzazioni che un compilatore maturo può fare.
@@ -106,5 +151,46 @@ Grazie al prototipo, il compilatore sa esattamente come preparare i dati in memo
   - Il **preprocessore** prepara il file prima della compilazione.
   - I file **Header (`.h`)** contengono i **prototipi** delle funzioni, essenziali per dire al compilatore come chiamare funzioni scritte altrove.
 </KeyConcepts>
+
+<Quiz 
+  questions={[
+    {
+      id: 1,
+      question: "Cosa succede quando compili con il flag -O2 se il codice contiene un semplice printf con \\n?",
+      options: [
+        "Viene generato un errore di compilazione",
+        "Il compilatore sostituisce printf con puts per ottimizzare le performance",
+        "La stringa non viene stampata",
+        "Il programma diventa più lento"
+      ],
+      correctAnswer: 1,
+      explanation: "I compilatori moderni come GCC o Clang riconoscono pattern semplici. puts è più efficiente di printf per stringhe statiche semplici, quindi il compilatore fa lo switch automaticamente."
+    },
+    {
+      id: 2,
+      question: "A cosa serve una direttiva #include <stdio.h>?",
+      options: [
+        "A definire la funzione main",
+        "A importare i file binari della libreria standard",
+        "A fornire al compilatore i prototipi delle funzioni di Input/Output",
+        "A scrivere il codice Assembly per noi"
+      ],
+      correctAnswer: 2,
+      explanation: "La direttiva informa il preprocessore di includere l'header che contiene i prototipi (firme) delle funzioni, permettendo al compilatore di chiamarle correttamente."
+    },
+    {
+      id: 3,
+      question: "Qual è la differenza principale tra printf e puts?",
+      options: [
+        "puts aggiunge automaticamente un ritorno a capo (\\n), printf no",
+        "printf è più veloce di puts",
+        "Solo printf può stampare stringhe",
+        "Nessuna, sono esattamente uguali"
+      ],
+      correctAnswer: 0,
+      explanation: "puts stampa la stringa e aggiunge un newline alla fine. printf stampa esattamente ciò che gli viene passato nel formato specificato."
+    }
+  ]} 
+/>
 
 Ci vediamo alla prossima lezione!

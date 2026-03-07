@@ -7,6 +7,8 @@ import VideoEmbed from '../components/content/VideoEmbed';
 import KeyConcepts from '../components/content/KeyConcepts';
 import CodeEditor from '../components/exercises/CodeEditor';
 import TypeMatcher from '../components/games/TypeMatcher';
+import TerminalSimulation from '../components/content/TerminalSimulation';
+import Quiz from '../components/exercises/Quiz';
 
 // Mappa componenti MDX
 const mdxComponents = {
@@ -36,6 +38,8 @@ const mdxComponents = {
     KeyConcepts,
     CodeEditor,
     TypeMatcher,
+    TerminalSimulation,
+    Quiz,
 };
 
 export default function Lesson() {

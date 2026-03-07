@@ -8,6 +8,29 @@ Estratti programmaticamente **35 video** dalla [playlist YouTube](https://www.yo
 - **31 lezioni** principali (da L1: Introduzione al C a L31: ZX Spectrum parte 2)
 - **4 extra**: 1 appendice (vita variabili locali) + 3 episodi speciali
 - **~17 ore 30 minuti** di contenuto totale
+- **Dark Mode 2024**: Zinc-950 background, neon emerald/sky accents, glassmorphism panels.
+- **Terminal Simulations**: Interactive terminal blocks with mock compilation and real assembly outputs.
+- **Author Bio Modal**: Animated modal with Salvatore Sanfilippo's history and Redis connection.
+- **Custom Favicon**: SVG 'C_' logo matching the brand identity.
+- **Bilingual Support**: Fully localized in IT/EN via `react-i18next`.
+
+## Visual Progress
+
+````carousel
+![Favicon](/public/favicon.svg)
+<!-- slide -->
+![Simulation Fix Recording](file:///home/clod/.gemini/antigravity/brain/4832e64b-d22d-4ffe-9f82-3cc235ac6c3b/verify_terminal_outputs_fix_try_catch_1772917796767.webp)
+<!-- slide -->
+![Author Modal](file:///home/clod/.gemini/antigravity/brain/4832e64b-d22d-4ffe-9f82-3cc235ac6c3b/verify_dark_mode_1772916143853.webp)
+````
+
+## Technical Implementation
+
+### Terminal Simulations
+The `TerminalSimulation` component was refactored to handle multiline assembly outputs using React children and a `Shiki` highlighter fallback.
+
+### Git Infrastructure
+The project is now a Git repository pushed to [boobaGreen/C-course---Salvatore-Sanfilippo](https://github.com/boobaGreen/C-course---Salvatore-Sanfilippo).
 
 ![Estrazione playlist YouTube](/home/clod/Desktop/c/docs/playlist_extraction.webp)
 

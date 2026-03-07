@@ -28,8 +28,9 @@
 - [x] Componenti contenuto (CodeBlock, Diagram, KeyConcepts, VideoEmbed)
 - [x] Pagina Lezione 1 completa (MDX IT + EN)
 - [x] Esercizi Lezione 1 (quiz, completa codice, predici output)
+- [x] Simulazioni Terminale interattive (x86 Assembly, bash, output dinamico)
 - [x] Compilatore C WASM integrato (CodeEditor con pre-emulazione visuale)
-- [x] Gioco didattico Lezione 1 (TypeMatcher)
+- [x] Quiz e Giochi Lezione 1 (TypeMatcher, Quiz personalizzato)
 - [x] Infografiche e diagrammi per Lezione 1
 - [x] Polish, animazioni, responsive testing
 
