@@ -13,6 +13,7 @@ import Diagram from '../components/content/Diagram';
 import ComparisonTable from '../components/content/ComparisonTable';
 import Callout from '../components/content/Callout';
 import AssemblyExplorer from '../components/content/AssemblyExplorer';
+import Infographic from '../components/content/Infographic';
 
 // Mappa componenti MDX
 const mdxComponents = {
@@ -48,6 +49,7 @@ const mdxComponents = {
     ComparisonTable,
     Callout,
     AssemblyExplorer,
+    Infographic,
 };
 
 export default function Lesson() {

@@ -14,7 +14,9 @@ export default function ComparisonTable({ headers, rows, title }: ComparisonTabl
                     <h4 className="text-sm font-bold uppercase tracking-widest text-[#10b981]">{title}</h4>
                 </div>
             )}
-            <div className="overflow-x-auto">
+
+            {/* Desktop Table: visible on md and up */}
+            <div className="hidden md:block overflow-x-auto">
                 <table className="w-full text-left text-sm border-collapse">
                     <thead>
                         <tr className="bg-white/5 border-b border-white/10">
@@ -44,6 +46,32 @@ export default function ComparisonTable({ headers, rows, title }: ComparisonTabl
                         ))}
                     </tbody>
                 </table>
+            </div>
+
+            {/* Mobile Stacked Layout: visible on screens smaller than md */}
+            <div className="md:hidden divide-y divide-white/5">
+                {rows.map((row, i) => (
+                    <motion.div
+                        key={i}
+                        initial={{ opacity: 0, x: -10 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ delay: i * 0.1 }}
+                        viewport={{ once: true }}
+                        className="p-6 space-y-4"
+                    >
+                        {row.map((cell, j) => (
+                            <div key={j} className="space-y-1">
+                                <span className="text-[10px] uppercase font-bold tracking-tighter text-zinc-500 block">
+                                    {headers[j]}
+                                </span>
+                                <div
+                                    className="text-white text-sm leading-relaxed"
+                                    dangerouslySetInnerHTML={{ __html: cell }}
+                                />
+                            </div>
+                        ))}
+                    </motion.div>
+                ))}
             </div>
         </div>
     );
