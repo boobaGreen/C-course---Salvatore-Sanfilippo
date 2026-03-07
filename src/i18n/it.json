@@ -32,6 +32,20 @@
             "output_label": "Output Linux x86-64",
             "desc_o0": "Senza ottimizzazioni, il codice è verboso. Vediamo l'allocazione dello stack e la chiamata a puts (sostituito dal compilatore per efficienza).",
             "desc_o2": "Con -O2, il compilatore 'pulisce' tutto. Usa un 'tail call optimization' trasformando la chiamata in un semplice salto (jmp)."
+        },
+        "terminal": {
+            "run": "Esegui comando",
+            "reset": "Reset",
+            "status_simulation": "bash — simulazione"
+        },
+        "quiz": {
+            "confirm": "Conferma Risposta",
+            "next": "Prossima Domanda",
+            "results": "Vedi Risultati",
+            "explanation": "Spiegazione",
+            "retry": "Riprova il Quiz",
+            "completed": "Quiz Completato!",
+            "score_msg": "Hai risposto correttamente a {{score}} su {{total}} domande."
         }
     },
     "home": {
