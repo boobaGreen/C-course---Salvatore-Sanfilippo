@@ -9,6 +9,8 @@ import CodeEditor from '../components/exercises/CodeEditor';
 import TypeMatcher from '../components/games/TypeMatcher';
 import TerminalSimulation from '../components/content/TerminalSimulation';
 import Quiz from '../components/exercises/Quiz';
+import Diagram from '../components/content/Diagram';
+import ComparisonTable from '../components/content/ComparisonTable';
 
 // Mappa componenti MDX
 const mdxComponents = {
@@ -40,6 +42,8 @@ const mdxComponents = {
     TypeMatcher,
     TerminalSimulation,
     Quiz,
+    Diagram,
+    ComparisonTable,
 };
 
 export default function Lesson() {

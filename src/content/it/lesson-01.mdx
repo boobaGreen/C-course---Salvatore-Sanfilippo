@@ -38,6 +38,20 @@ int main() {
 
 ### Come si compila ed esegue?
 
+C è un linguaggio **compilato**. Questo significa che il codice che scriviamo non viene letto riga per riga da un interprete (come Python o JS), ma trasformato integralmente in un file binario prima di poter essere lanciato.
+
+<Diagram 
+  id="compilation-flow"
+  definition={`graph LR
+    A[Sorgente .c] --> B(Preprocessore)
+    B --> C(Compilatore)
+    C --> D(Assembler)
+    D --> E(Linker)
+    E --> F[Eseguibile .out]
+    style A fill:#10b981,stroke:#09090b,color:#000
+    style F fill:#0ea5e9,stroke:#09090b,color:#000`} 
+/>
+
 Dobbiamo usare il **compilatore C** (come `cc`, `gcc` o `clang`):
 
 <TerminalSimulation command="cc hello.c" output="" />
@@ -133,9 +147,19 @@ Perché ne abbiamo bisogno? Il linguaggio C in sé ha pochissime parole chiave (
 
 ### 2. File Header (`.h`) e Prototipi di Funzione
 
-Nei file header (come `stdio.h`) non c'è il codice che *esegue* la `printf`, ma ci sono i **prototipi di funzione**.
+In un file header (come `stdio.h`) non c'è il codice che *esegue* la `printf`, ma ci sono i **prototipi di funzione**.
 
-Un prototipo è simile alla definizione di una funzione, ma invece di avere un blocco di codice tra parentesi graffe `{}`, termina subito con un punto e virgola `;`:
+<ComparisonTable 
+  title="Prototipo vs Definizione"
+  headers={["Caratteristica", "Prototipo (.h)", "Definizione (.c)"]}
+  rows={[
+    ["Scopo", "Dichiara l'esistenza e la firma della funzione", "Contiene l'implementazione reale del codice"],
+    ["Sintassi", "Termina con un punto e virgola: <br/><code>int sum(int a, int b);</code>", "Contiene il corpo tra graffe: <br/><code>int sum(int a, int b) { ... }</code>"],
+    ["Visibilità", "Permette ad altri file di sapere come chiamare la funzione", "Viene compilata nell'oggetto binario finale"]
+  ]}
+/>
+
+Un prototipo è simile a una definizione di funzione, ma invece di avere un blocco di codice tra parentesi graffe `{}`, finisce subito con un punto e virgola `;`:
 
 ```c
 int printf(const char *format, ...);
@@ -189,6 +213,40 @@ Grazie al prototipo, il compilatore sa esattamente come preparare i dati in memo
       ],
       correctAnswer: 0,
       explanation: "puts stampa la stringa e aggiunge un newline alla fine. printf stampa esattamente ciò che gli viene passato nel formato specificato."
+    }
+  ]} 
+/>
+
+### 🏆 Sfida Extra (Facoltativa)
+
+Se vuoi metterti davvero alla prova, ecco un paio di domande avanzate:
+
+<Quiz 
+  title="Sfida per Veterani"
+  questions={[
+    {
+      id: 1,
+      question: "Perché il compilatore trasforma printf(\"Hello\\n\") in puts(\"Hello\") ma NON trasforma printf(\"Voto: % d\\n\", 10) in puts?",
+      options: [
+        "Perché puts non supporta i numeri",
+        "Perché puts non supporta le stringhe di formato (come %d)",
+        "Perché printf è più moderno",
+        "Perché non c'è spazio nell'eseguibile"
+      ],
+      correctAnswer: 1,
+      explanation: "puts è una funzione semplicissima che stampa solo stringhe statiche. printf ha un intero motore di parsing per gestire i placeholder (%d, %s, etc.), quindi è molto più complessa e non sostituibile da puts quando ci sono variabili."
+    },
+    {
+      id: 2,
+      question: "Cosa succede se dimentichi il punto e virgola alla fine di un prototipo in un file .h?",
+      options: [
+        "Il programma crasha all'esecuzione",
+        "Il preprocessore ignora il problema",
+        "Errore di compilazione: il compilatore non capisce dove finisce la firma",
+        "Il computer si spegne"
+      ],
+      correctAnswer: 2,
+      explanation: "Il punto e virgola è obbligatorio nei prototipi per separare le dichiarazioni. Senza di esso, il compilatore cercherà un corpo di funzione (graffe) o continuerà a leggere la riga successiva come parte del prototipo, generando errori di sintassi."
     }
   ]} 
 />

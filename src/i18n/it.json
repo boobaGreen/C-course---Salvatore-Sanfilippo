@@ -1,6 +1,7 @@
 {
     "nav": {
         "home": "Home",
+        "course_index": "Indice Corso",
         "lessons": "Lezioni",
         "theme_light": "Tema Chiaro",
         "theme_dark": "Tema Scuro"

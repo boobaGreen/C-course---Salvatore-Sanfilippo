@@ -9,6 +9,10 @@ Estratti programmaticamente **35 video** dalla [playlist YouTube](https://www.yo
 - **4 extra**: 1 appendice (vita variabili locali) + 3 episodi speciali
 - **~17 ore 30 minuti** di contenuto totale
 - **Dark Mode 2024**: Zinc-950 background, neon emerald/sky accents, glassmorphism panels.
+- **Serverless Progression**: React Context + `localStorage`.
+- **Mermaid.js Integrations**: Reactive diagrams with dynamic resizing.
+- **SPA Routing Fix**: Added `vercel.json` to handle 404s on browser refresh for clean URLs.
+- **Micro-interactions**: Framer Motion for smooth state transitions.
 - **Terminal Simulations**: Interactive terminal blocks with mock compilation and real assembly outputs.
 - **Author Bio Modal**: Animated modal with Salvatore Sanfilippo's history and Redis connection.
 - **Custom Favicon**: SVG 'C_' logo matching the brand identity.
@@ -17,11 +21,13 @@ Estratti programmaticamente **35 video** dalla [playlist YouTube](https://www.yo
 ## Visual Progress
 
 ````carousel
-![Favicon](/public/favicon.svg)
+![TypeMatcher Randomization](file:///home/clod/.gemini/antigravity/brain/4832e64b-d22d-4ffe-9f82-3cc235ac6c3b/verify_typematcher_randomization_1772919097550.webp)
 <!-- slide -->
-![Simulation Fix Recording](file:///home/clod/.gemini/antigravity/brain/4832e64b-d22d-4ffe-9f82-3cc235ac6c3b/verify_terminal_outputs_fix_try_catch_1772917796767.webp)
+![Progression System](file:///home/clod/.gemini/antigravity/brain/4832e64b-d22d-4ffe-9f82-3cc235ac6c3b/lesson_01_top_1772918861965.png)
 <!-- slide -->
-![Author Modal](file:///home/clod/.gemini/antigravity/brain/4832e64b-d22d-4ffe-9f82-3cc235ac6c3b/verify_dark_mode_1772916143853.webp)
+![TypeMatcher XP](file:///home/clod/.gemini/antigravity/brain/4832e64b-d22d-4ffe-9f82-3cc235ac6c3b/lesson_01_middle_1_1772918442985.png)
+<!-- slide -->
+![Localization Fix](file:///home/clod/.gemini/antigravity/brain/4832e64b-d22d-4ffe-9f82-3cc235ac6c3b/lesson_01_top_1772918435623.png)
 ````
 
 ## Technical Implementation

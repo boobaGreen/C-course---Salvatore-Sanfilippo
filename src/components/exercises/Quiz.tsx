@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Check, X, HelpCircle, ChevronRight, RotateCcw } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useProgression } from '../../hooks/useProgression';
 
 interface Question {
     id: number;
@@ -21,6 +22,7 @@ export default function Quiz({ questions, title = "Verifica le tue conoscenze" }
     const [isAnswered, setIsAnswered] = useState(false);
     const [score, setScore] = useState(0);
     const [showResults, setShowResults] = useState(false);
+    const { addXP } = useProgression();
 
     const handleOptionSelect = (index: number) => {
         if (isAnswered) return;
@@ -33,6 +35,7 @@ export default function Quiz({ questions, title = "Verifica le tue conoscenze" }
         setIsAnswered(true);
         if (selectedOption === questions[currentStep].correctAnswer) {
             setScore(score + 1);
+            addXP(100);
         }
     };
 
@@ -43,6 +46,7 @@ export default function Quiz({ questions, title = "Verifica le tue conoscenze" }
             setIsAnswered(false);
         } else {
             setShowResults(true);
+            addXP(200, `quiz-${title}`);
         }
     };
 
@@ -155,8 +159,8 @@ export default function Quiz({ questions, title = "Verifica le tue conoscenze" }
                             disabled={selectedOption === null}
                             onClick={handleConfirm}
                             className={`px-6 py-2.5 rounded-xl font-bold transition-all flex items-center gap-2 ${selectedOption === null
-                                    ? 'bg-zinc-800 text-zinc-500 cursor-not-allowed'
-                                    : 'bg-[var(--color-brand-primary)] text-black shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:scale-105'
+                                ? 'bg-zinc-800 text-zinc-500 cursor-not-allowed'
+                                : 'bg-[var(--color-brand-primary)] text-black shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:scale-105'
                                 }`}
                         >
                             Conferma Risposta

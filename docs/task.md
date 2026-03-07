@@ -47,13 +47,17 @@
 
 ## Fase 5: Deploy
 - [ ] Build production (`npm run build` → /dist)
+- [x] Fix 404 NOT_FOUND su refresh Vercel (vercel.json)
+- [x] Supporto multilingua completo (Header, Sidebar, Contenuti)
+- [x] Sistema di Progressione "Cyber-C Master" (XP, Livelli, Gradi)
+- [x] Persistenza locale (localStorage) per tracking serverlesstà alta
+- [ ] Dark/Light/System theme (prefers-color-scheme) — priorità alta
+- [ ] Ricerca full-text (FlexSearch/Fuse.js) — priorità media
 - [ ] Deploy su hosting (GitHub Pages / Netlify / Vercel)
 
 ## Miglioramenti Futuri (parcheggiati)
-- [ ] Progresso persistente (localStorage) — priorità alta
-- [ ] Dark/Light/System theme (prefers-color-scheme) — priorità alta
-- [ ] Ricerca full-text (FlexSearch/Fuse.js) — priorità media
-- [ ] Più giochi didattici per argomenti avanzati — priorità media
+- [x] Più giochi didattici per argomenti avanzati — priorità media
+- [x] Randomizzazione esercizi e giochi (TypeMatcher)
 - [ ] Whisper upgrade (medium CPU / API cloud) se small non basta
 - [ ] Fallback API (Wandbox/Judge0) se WASM non basta
 - [ ] PWA offline (service worker)

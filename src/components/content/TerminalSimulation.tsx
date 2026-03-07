@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Terminal as TerminalIcon, Play, RefreshCw, CheckCircle2 } from 'lucide-react';
 import CodeBlock from './CodeBlock';
+import { useProgression } from '../../hooks/useProgression';
 
 interface TerminalSimulationProps {
     command: string;
@@ -12,6 +13,7 @@ interface TerminalSimulationProps {
 export default function TerminalSimulation({ command, output = '', children, language = 'bash' }: TerminalSimulationProps) {
     const [hasRun, setHasRun] = useState(false);
     const [isRunning, setIsRunning] = useState(false);
+    const { addXP } = useProgression();
 
     // Determine final output string
     let finalOutput = output;
@@ -31,6 +33,7 @@ export default function TerminalSimulation({ command, output = '', children, lan
         setTimeout(() => {
             setIsRunning(false);
             setHasRun(true);
+            addXP(50, `terminal-${command}`);
         }, 800);
     };
 

@@ -511,6 +511,29 @@ Per ogni lezione, 1-3 infografiche generate con AI (`generate_image` tool) e/o S
 | Tempo compilazione nel browser | 🟢 Bassa | Per snippet piccoli (<100 righe) è quasi istantaneo; mostrare spinner per compilazioni più lunghe |
 | Errori del compilatore poco chiari | 🟡 Media | Mappare errori comuni a messaggi user-friendly in IT/EN |
 
+## Proposed Changes
+
+### Visual Components
+
+#### [NEW] Diagram.tsx (file:///home/clod/Desktop/c/src/components/content/Diagram.tsx)
+A component that renders Mermaid.js diagrams to visualize flows (like the compilation process).
+
+#### [NEW] ComparisonTable.tsx (file:///home/clod/Desktop/c/src/components/content/ComparisonTable.tsx)
+A styled table component for comparing concepts (e.g., `printf` vs `puts`, or `Header` vs `Source`).
+
+### Content Integration
+
+#### [MODIFY] lesson-01.mdx (file:///home/clod/Desktop/c/src/content/it/lesson-01.mdx)
+- Add a compilation flowchart.
+- Add a comparison table for function prototypes vs definitions.
+- Add an infographic-style block for the preprocessor.
+
+## Verification Plan
+
+### Automated Tests
+- Browser verification of diagram rendering.
+- Responsive check for tables.
+
 ### 7.4 Contenuti Bilingue
 
 | Problema | Severità | Soluzione |

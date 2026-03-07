@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Play } from 'lucide-react';
+import { useProgression } from '../../hooks/useProgression';
 
 interface CodeEditorProps {
     initialCode: string;
@@ -9,6 +10,7 @@ export default function CodeEditor({ initialCode }: CodeEditorProps) {
     const [code, setCode] = useState(initialCode);
     const [output, setOutput] = useState<string | null>(null);
     const [status, setStatus] = useState<'idle' | 'compiling' | 'success' | 'error'>('idle');
+    const { addXP } = useProgression();
 
     // Per il momento simuliamo l'esecutore WASM per procedere velocemente con l'MVP visuale
     // In futuro qui chiameremo instance.ccall('compile_and_run', ...) 
@@ -28,6 +30,7 @@ export default function CodeEditor({ initialCode }: CodeEditorProps) {
             extracted = extracted.replace(/\\n/g, '\n');
             setOutput(extracted);
             setStatus('success');
+            addXP(100, 'code-editor-run');
         } else if (code.includes('printf(')) {
             // Fallback se il regex fallisce ma c'è un printf
             setOutput("Hello, World!\n");

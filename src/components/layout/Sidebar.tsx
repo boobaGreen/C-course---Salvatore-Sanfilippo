@@ -2,16 +2,17 @@ import { NavLink } from 'react-router-dom';
 import { BookOpen } from 'lucide-react';
 import { lessons } from '../../data/lessons';
 import { useTranslation } from 'react-i18next';
+import ProgressionSidebar from './ProgressionSidebar';
 
 export default function Sidebar() {
-    const { i18n } = useTranslation();
+    const { t, i18n } = useTranslation();
 
     return (
         <aside className="w-72 hidden md:block border-r border-black/10 dark:border-white/10 bg-white/50 dark:bg-[#18181b]/50 backdrop-blur-sm h-[calc(100vh-4rem)] overflow-y-auto sticky top-16 shadow-[4px_0_24px_-12px_rgba(0,0,0,0.5)] z-40">
             <div className="p-6">
                 <h3 className="font-semibold text-xs uppercase tracking-[0.2em] text-slate-500 dark:text-zinc-400 mb-6 flex items-center gap-2">
                     <BookOpen size={14} />
-                    Indice Corso
+                    {t('nav.course_index')}
                 </h3>
                 <nav className="space-y-2 relative">
                     {/* Decorative line */}
@@ -50,6 +51,7 @@ export default function Sidebar() {
                         </NavLink>
                     ))}
                 </nav>
+                <ProgressionSidebar />
             </div>
         </aside>
     );

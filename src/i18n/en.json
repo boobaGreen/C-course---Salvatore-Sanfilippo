@@ -1,6 +1,7 @@
 {
     "nav": {
         "home": "Home",
+        "course_index": "Course Index",
         "lessons": "Lessons",
         "theme_light": "Light Theme",
         "theme_dark": "Dark Theme"
