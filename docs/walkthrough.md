@@ -10,6 +10,7 @@ Estratti programmaticamente **35 video** dalla [playlist YouTube](https://www.yo
 - **~17 ore 30 minuti** di contenuto totale
 - **Dark Mode 2024**: Zinc-950 background, neon emerald/sky accents, glassmorphism panels.
 - **Serverless Progression**: React Context + `localStorage`.
+- **Full Localization**: Centralized i18n for Landing Page, Sidebar, and Content.
 - **Mermaid.js Integrations**: Reactive diagrams with dynamic resizing.
 - **SPA Routing Fix**: Added `vercel.json` to handle 404s on browser refresh for clean URLs.
 - **Micro-interactions**: Framer Motion for smooth state transitions.
@@ -21,6 +22,8 @@ Estratti programmaticamente **35 video** dalla [playlist YouTube](https://www.yo
 ## Visual Progress
 
 ````carousel
+![Landing Page Localization](file:///home/clod/.gemini/antigravity/brain/4832e64b-d22d-4ffe-9f82-3cc235ac6c3b/full_page_lesson_01_1772919200106.png)
+<!-- slide -->
 ![TypeMatcher Randomization](file:///home/clod/.gemini/antigravity/brain/4832e64b-d22d-4ffe-9f82-3cc235ac6c3b/verify_typematcher_randomization_1772919097550.webp)
 <!-- slide -->
 ![Progression System](file:///home/clod/.gemini/antigravity/brain/4832e64b-d22d-4ffe-9f82-3cc235ac6c3b/lesson_01_top_1772918861965.png)

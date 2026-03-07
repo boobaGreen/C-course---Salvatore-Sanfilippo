@@ -48,7 +48,7 @@
 ## Fase 5: Deploy
 - [ ] Build production (`npm run build` → /dist)
 - [x] Fix 404 NOT_FOUND su refresh Vercel (vercel.json)
-- [x] Supporto multilingua completo (Header, Sidebar, Contenuti)
+- [x] Supporto multilingua completo (Header, Sidebar, Content, Home)
 - [x] Sistema di Progressione "Cyber-C Master" (XP, Livelli, Gradi)
 - [x] Persistenza locale (localStorage) per tracking serverlesstà alta
 - [ ] Dark/Light/System theme (prefers-color-scheme) — priorità alta

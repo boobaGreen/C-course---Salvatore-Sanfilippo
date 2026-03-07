@@ -25,7 +25,14 @@
         "exercises": "Esercizi",
         "game": "Gioco Didattico",
         "prev": "Precedente",
-        "next": "Successiva"
+        "next": "Successiva",
+        "asm_explorer": {
+            "title": "Assembly Explorer",
+            "c_code": "Codice C",
+            "output_label": "Output Linux x86-64",
+            "desc_o0": "Senza ottimizzazioni, il codice è verboso. Vediamo l'allocazione dello stack e la chiamata a puts (sostituito dal compilatore per efficienza).",
+            "desc_o2": "Con -O2, il compilatore 'pulisce' tutto. Usa un 'tail call optimization' trasformando la chiamata in un semplice salto (jmp)."
+        }
     },
     "home": {
         "author_badge": "Scopri chi è l'autore: Salvatore Sanfilippo (antirez)",

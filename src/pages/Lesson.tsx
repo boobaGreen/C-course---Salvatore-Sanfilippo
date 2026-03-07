@@ -11,6 +11,8 @@ import TerminalSimulation from '../components/content/TerminalSimulation';
 import Quiz from '../components/exercises/Quiz';
 import Diagram from '../components/content/Diagram';
 import ComparisonTable from '../components/content/ComparisonTable';
+import Callout from '../components/content/Callout';
+import AssemblyExplorer from '../components/content/AssemblyExplorer';
 
 // Mappa componenti MDX
 const mdxComponents = {
@@ -44,6 +46,8 @@ const mdxComponents = {
     Quiz,
     Diagram,
     ComparisonTable,
+    Callout,
+    AssemblyExplorer,
 };
 
 export default function Lesson() {

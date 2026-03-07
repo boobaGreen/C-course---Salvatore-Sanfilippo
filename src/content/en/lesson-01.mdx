@@ -2,26 +2,27 @@
 
 <VideoEmbed videoId="HjXBXBgfKyk" title="Introduction to C - antirez" />
 
-Welcome! In this first lesson, we inaugurate the course on the C programming language. This course has a very instinctive and practical style.
+Welcome! In this first lesson, we launch our journey through the C language. This course follows a very intuitive and practical style.
 
-> [!WARNING] Prerequisites
-> This course is designed for those who **already know how to program** in other languages (JavaScript, Python, Go, Ruby, etc.). Prior experience with low-level languages is not required, but it is useful to have an idea of how computers work under the hood.
+<Callout type="warning" title="Prerequisites">
+  This course is designed for those who **already know how to program** in other languages (JavaScript, Python, Go, Ruby, etc.). Previous low-level experience is not required, but it's helpful to have an idea of how computers work under the hood.
+</Callout>
 
-The approach will be **extremely operational**: we will learn to program by programming. Theoretical explanations will come as a "side effect" of writing code.
+The approach will be **extremely operational**: we'll learn to program by programming. Theoretical explanations will come as a "side effect" of writing the code.
 
-<KeyConcepts title="What we will learn today">
-  - Write the first "Hello World" program
-  - Understand the **compilation** process
-  - Explore what the compiler does (even at the Assembly level)
-  - Understand **preprocessor** directives (`#include`)
-  - Discover **function prototypes**
+<KeyConcepts title="What we'll learn today">
+  - Writing your first "Hello World" program
+  - Understanding the **compilation** process
+  - Exploring what the compiler does (down to the Assembly level)
+  - Understanding **preprocessor** directives (#include)
+  - Discovering **function prototypes**
 </KeyConcepts>
 
 ---
 
-## The "Hello World" in C
+## "Hello World" in C
 
-C is a very old language that has evolved relatively little in its core syntax, but immensely in its **compilers**. It remains a language made of "few ideas", which must however be assimilated thoroughly. Being a **compiled language**, we cannot execute the source code directly: we must first translate it into machine language.
+C is a very old language that has evolved relatively little in its basic syntax, but tremendously in its **compilers**. It remains a language of "few ideas" that must be deeply assimilated. Being a **compiled language**, we cannot execute the source code directly: we must first translate it into machine language.
 
 Here is the classic starting program, in just 5 lines:
 
@@ -34,29 +35,23 @@ int main() {
 }
 ```
 
+<Callout type="tip" title="Salvatore's Tip">
+  Don't try to understand everything at once. In C, many concepts become clear only when we go a level deeper and see what happens in RAM or the CPU.
+</Callout>
+
 <TypeMatcher />
 
-### How is it compiled and executed?
+### How to compile and execute?
 
-C is a **compiled** language. This means that the code we write is not read line by line by an interpreter (like Python or JS), but transformed entirely into a binary file before it can be launched.
+C is a **compiled** language. This means the code we write isn't read line-by-line by an interpreter (like Python or JS), but fully transformed into a binary file before it can be run.
 
-<Diagram
-  id="compilation-flow-en"
-  definition={`graph LR
-    A[Source .c] --> B(Preprocessor)
-    B --> C(Compiler)
-    C --> D(Assembler)
-    D --> E(Linker)
-    E --> F[Executable .out]
-    style A fill:#10b981,stroke:#09090b,color:#000
-    style F fill:#0ea5e9,stroke:#09090b,color:#000`}
-/>
+![The Compilation Pipeline](/images/c_compilation_pipeline_infographic.png)
 
-If we save this code in a file called `hello.c`, we cannot execute it as it is. We must use the **C compiler** (like `cc`, `gcc`, or `clang`):
+If we save this code in a file called `hello.c`, we cannot execute it as it is. We need to use the **C compiler** (like `cc`, `gcc`, or `clang`):
 
 <TerminalSimulation command="cc hello.c" output="" />
 
-This command generates a new executable file (typically called `a.out` on Unix systems). This file is a **binary** containing the machine language and some specific headers of the operating system. We can execute it by typing:
+This command generates a new executable file (typically named `a.out` on Unix systems). This file is a **binary** containing machine language and some operating system-specific headers (Linux, macOS, Windows). We can run it by typing:
 
 <TerminalSimulation command="./a.out" output="Hello, World!" />
 
@@ -64,97 +59,51 @@ This command generates a new executable file (typically called `a.out` on Unix s
 
 ---
 
-## Behind the scenes: Assembly and Optimizations
+## Behind the Scenes: Assembly and Optimizations
 
-We can ask the compiler to stop before generating the final binary, allowing us to see the intermediate **Assembly** code, using the `-S` flag:
+We can ask the compiler to stop before generating the final binary, showing us the intermediate **Assembly** code using the `-S` flag.
 
-<TerminalSimulation 
-  command="cc -S hello.c" 
-  language="asm"
->
-{`	.file	"hello.c"
-	.text
-	.section	.rodata
-.LC0:
-	.string	"Hello, World!"
-	.text
-	.globl	main
-	.type	main, @function
-main:
-.LFB0:
-	.cfi_startproc
-	pushq	%rbp
-	.cfi_def_cfa_offset 16
-	.cfi_offset 6, -16
-	movq	%rsp, %rbp
-	.cfi_def_cfa_register 6
-	leaq	.LC0(%rip), %rdi
-	call	puts@PLT
-	movl	$0, %eax
-	popq	%rbp
-	.cfi_def_cfa 7, 8
-	ret
-	.cfi_endproc`}
-</TerminalSimulation>
+Assembly is the "near-machine" language: it's readable by humans but corresponds 1:1 to the instructions the CPU will execute.
 
-Looking at the Assembly, we can notice that the string "Hello, World!" is defined and the `printf` function is called. The beauty of modern C, however, lies in the **optimization levels**.
+<AssemblyExplorer />
 
-If we compile with the `-O2` flag (level 2 optimization):
-<TerminalSimulation 
-  command="cc -O2 -S hello.c" 
-  language="asm"
->
-{`	.file	"hello.c"
-	.text
-	.section	.rodata.str1.1,"aMS",@progbits,1
-.LC0:
-	.string	"Hello, World!"
-	.section	.text.startup,"ax",@progbits
-	.p2align 4
-	.globl	main
-	.type	main, @function
-main:
-.LFB23:
-	.cfi_startproc
-	subq	$8, %rsp
-	.cfi_def_cfa_offset 16
-	leaq	.LC0(%rip), %rdi
-	call	puts@PLT
-	xorl	%eax, %eax
-	addq	$8, %rsp
-	.cfi_def_cfa_offset 8
-	ret
-	.cfi_endproc`}
-</TerminalSimulation>
+<Callout type="hacker" title="Hacker Mindset">
+  Looking at Assembly isn't an academic exercise. It's the only way to *truly* understand how efficient your code is and what the compiler is doing behind your back.
+</Callout>
 
-We will notice something surprising: **the `printf` function disappears**! The compiler, realizing that we are printing a simple string followed by a newline (`\n`), automatically substitutes `printf` with the `puts` function, which is faster and more efficient for this specific purpose, removing the original `\n` because `puts` adds it by itself.
-This is just a "drop in the ocean" of the optimizations that a mature compiler can do.
+As you saw in the explorer above, if we compile with the `-O2` flag (optimization level 2), we'll notice something surprising: **the `printf` function disappears**!
+
+The compiler, realizing we are printing a simple string followed by a newline (`\n`), automatically replaces `printf` with the `puts` function, which is faster and more efficient for this specific purpose. This is just a "drop in the ocean" of the optimizations that a mature compiler can do.
 
 ---
 
-## Tearing down the program
+## Breaking Down the Program
 
-Let's analyze each line to understand what really happens:
+Let's analyze each line to understand what's really happening:
 
 ### 1. The Preprocessor and `#include`
 ```c
 #include <stdio.h>
 ```
-This line is not strictly part of the C language itself, but is a **preprocessor directive** (all directives start with `#`). Before the actual compilation, the preprocessor takes the content of the `stdio.h` file (a standard library file) and "unpacks" it directly inside our file.
+This line is not part of the C language itself, but a **preprocessor directive** (all directives start with `#`). Before actual compilation, the preprocessor takes the content of the `stdio.h` file (a standard library file) and "unpacks" it directly into our file.
 
 Why do we need it? The C language itself has very few keywords (`return`, `int`, `while`). Functions like `printf` are not part of the language, but of the **Standard Library**. If we didn't include `stdio.h` (Standard Input/Output Header), the compiler wouldn't know what `printf` is!
 
+<Callout type="info">
+  C is a "naked" language. Without libraries, it doesn't even know how to print a character to the screen. Everything "useful" is found in the Standard Library.
+</Callout>
+
 ### 2. Header Files (`.h`) and Function Prototypes
 
-In header files (like `stdio.h`) there is no code that *executes* the `printf`, but there are **function prototypes**.
+In a header file (like `stdio.h`), there isn't the code that *executes* `printf`, but there are **function prototypes**.
 
 <ComparisonTable 
   title="Prototype vs Definition"
   headers={["Feature", "Prototype (.h)", "Definition (.c)"]}
   rows={[
     ["Purpose", "Declares the existence and signature of the function", "Contains the actual code implementation"],
-    ["Syntax", "Ends with a semicolon: <br/><code>int sum(int a, int b);</code>", "Contains the body in braces: <br/><code>int sum(int a, int b) { ... }</code>"],
-    ["Visibility", "Allows other files to know how to call the function", "Gets compiled into the final binary object"]
+    ["Syntax", "Ends with a semicolon: <br/><code>int sum(int a, int b);</code>", "Contains the body between braces: <br/><code>int sum(int a, int b) { ... }</code>"],
+    ["Visibility", "Allows other files to know how to call the function", "Compiled into the final binary object"]
   ]}
 />
 
@@ -164,15 +113,17 @@ A prototype is similar to a function definition, but instead of having a block o
 int printf(const char *format, ...);
 ```
 
-The prototype tells the compiler: *"There is a function called `printf` that accepts these parameters and returns an integer. Trust me, you'll find it later"*.
+A prototype tells the compiler: *"There exists a function called `printf` that accepts these parameters and returns an integer. Trust me, you'll find it later"*.
 
 Thanks to the prototype, the compiler knows exactly how to prepare data in memory (Assembly) to call it correctly, even without knowing its internal code. In fact, we could even skip `#include <stdio.h>` and write the prototype by hand in our file to make the program work!
 
-<KeyConcepts title="To recap">
-  - C is not interpreted, but **compiled**.
-  - The compiler can optimize code intelligently (e.g., transforming `printf` into `puts`).
+---
+
+<KeyConcepts title="Recap">
+  - C is not executed, but **compiled**.
+  - The compiler can optimize code intelligently (e.g., turning `printf` into `puts`).
   - The **preprocessor** prepares the file before compilation.
-  - **Header (`.h`)** files contain function **prototypes**, essential to tell the compiler how to call functions written elsewhere.
+  - **Header files (`.h`)** contain function **prototypes**.
 </KeyConcepts>
 
 <Quiz 
@@ -187,19 +138,19 @@ Thanks to the prototype, the compiler knows exactly how to prepare data in memor
         "The program becomes slower"
       ],
       correctAnswer: 1,
-      explanation: "Modern compilers like GCC or Clang recognize simple patterns. puts is more efficient than printf for simple static strings, so the compiler performs the switch automatically."
+      explanation: "Modern compilers like GCC or Clang recognize simple patterns. puts is more efficient than printf for simple static strings."
     },
     {
       id: 2,
-      question: "What is the purpose of the #include <stdio.h> directive?",
+      question: "What is a #include <stdio.h> directive for?",
       options: [
         "To define the main function",
-        "To import the binary files of the standard library",
+        "To import standard library binary files",
         "To provide the compiler with Input/Output function prototypes",
         "To write the Assembly code for us"
       ],
       correctAnswer: 2,
-      explanation: "The directive informs the preprocessor to include the header containing the function prototypes (signatures), allowing the compiler to call them correctly."
+      explanation: "The directive tells the preprocessor to include the header containing function prototypes (signatures)."
     },
     {
       id: 3,
@@ -211,7 +162,7 @@ Thanks to the prototype, the compiler knows exactly how to prepare data in memor
         "None, they are exactly the same"
       ],
       correctAnswer: 0,
-      explanation: "puts prints the string and adds a newline at the end. printf prints exactly what is passed in the specified format."
+      explanation: "puts prints the string and adds a newline at the end. printf prints exactly what is passed to it."
     }
   ]} 
 />
@@ -225,27 +176,27 @@ If you really want to test yourself, here are a couple of advanced questions:
   questions={[
     {
       id: 1,
-      question: "Why does the compiler transform printf(\"Hello\\n\") into puts(\"Hello\") but does NOT transform printf(\"Score: %d\\n\", 10) into puts?",
+      question: "Why does the compiler turn printf(\"Hello\\n\") into puts(\"Hello\") but NOT printf(\"Score: %d\\n\", 10)?",
       options: [
-        "Because puts does not support numbers",
-        "Because puts does not support format strings (like %d)",
+        "Because puts doesn't support numbers",
+        "Because puts doesn't support format strings (like %d)",
         "Because printf is more modern",
         "Because there is no space in the executable"
       ],
       correctAnswer: 1,
-      explanation: "puts is a very simple function that only prints static strings. printf has an entire parsing engine to handle placeholders (%d, %s, etc.), so it is much more complex and not replaceable by puts when there are variables."
+      explanation: "puts only prints static strings. printf has a whole parsing engine to handle placeholders (%d, %s, etc.)."
     },
     {
       id: 2,
       question: "What happens if you forget the semicolon at the end of a prototype in a .h file?",
       options: [
         "The program crashes at runtime",
-        "The preprocessor ignores the problem",
-        "Compilation error: the compiler doesn't understand where the signature ends",
-        "The computer shuts down"
+        "The preprocessor ignores the issue",
+        "Compilation error: the compiler doesn't know where the signature ends",
+        "The computer turns off"
       ],
       correctAnswer: 2,
-      explanation: "The semicolon is mandatory in prototypes to separate declarations. Without it, the compiler will look for a function body (braces) or continue reading the next line as part of the prototype, generating syntax errors."
+      explanation: "The semicolon is mandatory in prototypes to separate declarations."
     }
   ]} 
 />
