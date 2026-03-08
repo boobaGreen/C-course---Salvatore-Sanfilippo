@@ -42,7 +42,7 @@ export default function AboutAuthorModal({ isOpen, onClose }: AboutAuthorModalPr
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.95, y: 20 }}
                         transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-                        className="relative w-full max-w-2xl overflow-hidden rounded-2xl border border-white/10 bg-[#18181b] shadow-2xl shadow-black/50"
+                        className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl border border-white/10 bg-[#18181b] shadow-2xl shadow-black/50"
                     >
                         {/* Header / Banner */}
                         <div className="relative h-32 w-full bg-gradient-to-br from-[#10b981]/20 via-[#0ea5e9]/20 to-[#8b5cf6]/20 overflow-hidden">

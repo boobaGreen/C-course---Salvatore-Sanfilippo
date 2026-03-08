@@ -88,12 +88,12 @@ export default function Quiz({ questions, title }: QuizProps) {
     return (
         <div className="my-8 glass-panel rounded-2xl border-white/10 overflow-hidden shadow-2xl shadow-black/20 text-zinc-300">
             {/* Header */}
-            <div className="bg-white/5 px-6 py-4 flex items-center justify-between border-b border-white/5">
-                <div className="flex items-center gap-2 text-[var(--color-brand-primary)]">
-                    <HelpCircle size={18} />
-                    <span className="font-bold text-sm uppercase tracking-wider">{quizTitle}</span>
+            <div className="bg-white/5 px-3 sm:px-6 py-3 sm:py-4 flex items-center justify-between gap-2 border-b border-white/5">
+                <div className="flex items-center gap-2 text-[var(--color-brand-primary)] min-w-0">
+                    <HelpCircle size={18} className="shrink-0" />
+                    <span className="font-bold text-sm uppercase tracking-wider truncate">{quizTitle}</span>
                 </div>
-                <div className="text-xs font-mono text-zinc-500">
+                <div className="text-xs font-mono text-zinc-500 shrink-0 whitespace-nowrap">
                     {currentStep + 1} / {questions.length}
                 </div>
             </div>

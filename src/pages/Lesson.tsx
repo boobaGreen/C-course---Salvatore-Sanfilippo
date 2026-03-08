@@ -38,6 +38,9 @@ import AttributeGrid from '../components/content/AttributeGrid';
 import EvoSimulator from '../components/content/EvoSimulator';
 import PerformanceChart from '../components/content/PerformanceChart';
 import WorkflowDiagram from '../components/content/WorkflowDiagram';
+import RefcountCycleSim from '../components/content/RefcountCycleSim';
+import BSTBalanceSim from '../components/content/BSTBalanceSim';
+import ZXPalette from '../components/content/ZXPalette';
 
 // Mappa componenti MDX
 const mdxComponents = {
@@ -98,6 +101,9 @@ const mdxComponents = {
     EvoSimulator,
     PerformanceChart,
     WorkflowDiagram,
+    RefcountCycleSim,
+    BSTBalanceSim,
+    ZXPalette,
 };
 
 export default function Lesson() {

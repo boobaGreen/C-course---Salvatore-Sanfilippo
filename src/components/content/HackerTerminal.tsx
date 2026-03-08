@@ -55,7 +55,7 @@ export default function HackerTerminal({ challenges }: HackerTerminalProps) {
     return (
         <div className="my-10 glass-panel rounded-2xl border-white/10 overflow-hidden shadow-2xl shadow-black/40">
             {/* Header */}
-            <div className="bg-zinc-900/80 px-6 py-4 flex items-center justify-between border-b border-white/5">
+            <div className="bg-zinc-900/80 px-3 sm:px-6 py-3 sm:py-4 flex flex-wrap items-center justify-between gap-2 border-b border-white/5">
                 <div className="flex items-center gap-3 text-red-400">
                     <ShieldAlert size={20} className="animate-pulse" />
                     <span className="font-black text-xs uppercase tracking-[0.2em]">Hacker Terminal Challenge</span>
@@ -94,7 +94,7 @@ export default function HackerTerminal({ challenges }: HackerTerminalProps) {
             <div className="p-6 sm:p-8 bg-[#0c0c0e]">
                 <div className="mb-6">
                     <div className="flex items-center gap-2 mb-2">
-                        <span className="px-2 py-0.5 rounded bg-red-500/10 text-red-500 text-[10px] font-bold uppercase tracking-wider border border-red-500/20">
+                        <span className="px-2 py-0.5 rounded bg-red-500/10 text-red-500 text-[10px] font-bold uppercase tracking-wider border border-red-500/20 whitespace-nowrap shrink-0">
                             Task {currentStep + 1} of {challenges.length}
                         </span>
                         {completedTasks[currentChallenge.id] && (
@@ -128,7 +128,7 @@ export default function HackerTerminal({ challenges }: HackerTerminalProps) {
                     <label className="block text-xs font-bold text-zinc-500 uppercase tracking-widest mb-2 ml-1">
                         Predict System Output:
                     </label>
-                    <div className="flex gap-2">
+                    <div className="flex flex-col sm:flex-row gap-2">
                         <input
                             type="text"
                             value={inputValue}
@@ -144,13 +144,13 @@ export default function HackerTerminal({ challenges }: HackerTerminalProps) {
                             <button
                                 type="submit"
                                 disabled={!inputValue.trim()}
-                                className="px-6 bg-[var(--color-brand-primary)] text-black rounded-xl font-bold flex items-center gap-2 hover:scale-105 transition-all disabled:opacity-50 disabled:scale-100"
+                                className="w-full sm:w-auto px-6 py-3 sm:py-0 bg-[var(--color-brand-primary)] text-black rounded-xl font-bold flex items-center justify-center gap-2 hover:scale-105 transition-all disabled:opacity-50 disabled:scale-100"
                             >
                                 <Send size={18} />
                                 {t('common.submit', 'Submit')}
                             </button>
                         ) : (
-                            <div className="px-6 bg-green-500/10 text-green-500 border border-green-500/20 rounded-xl font-bold flex items-center gap-2">
+                            <div className="w-full sm:w-auto px-6 py-3 sm:py-0 bg-green-500/10 text-green-500 border border-green-500/20 rounded-xl font-bold flex items-center justify-center gap-2">
                                 <CheckCircle2 size={18} /> SUCCESS
                             </div>
                         )}
