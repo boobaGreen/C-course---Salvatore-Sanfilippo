@@ -176,9 +176,93 @@ Cosa succede se aggiungi 1 al massimo valore possibile per un tipo?
   ]}
 />
 
-<KeyConcepts title="In sintesi">
+<KeyConcepts title="Hacker Key Concepts">
   - Lo **Scope** determina dove e per quanto tempo una variabile esiste.
   - Il C usa il **Passaggio per Valore** come standard.
   - I tipi numerici hanno limiti precisi e regole di **Promozione**.
   - Evita sempre l'overflow dei tipi con segno!
 </KeyConcepts>
+
+### Hacker Challenge 🏆
+
+<Quiz 
+  title="Hacker Challenge: Final Quiz"
+  questions={[
+    {
+      id: 1,
+      question: "Cosa succede se esegui questo confronto: `if (-1 > 1u)` (dove `1u` è un intero senza segno)?",
+      options: [
+        "Il risultato è Falso (0), come ci si aspetterebbe in matematica",
+        "Il risultato è Vero (1), perché -1 viene promosso a un numero unsigned enorme",
+        "Il compilatore dà errore e non compila",
+        "Il programma crasha immediatamente"
+      ],
+      correctAnswer: 1,
+      explanation: "Questa è una delle trappole più famose del C. Quando si confrontano un signed e un unsigned, il signed viene 'promosso' a unsigned. Il bit di segno di -1 (tutti 1 in binario) viene interpretato come il valore massimo possibile per un unsigned (es. 4 miliardi), risultando quindi maggiore di 1."
+    },
+    {
+      id: 2,
+      question: "Cosa succede se sottrai un numero da un puntatore (es. `p - 1`) in C?",
+      options: [
+        "Sottrae esattamente 1 dall'indirizzo di memoria",
+        "Sottrae la dimensione del tipo a cui punta il puntatore (es. 4 byte per un int*)",
+        "Genera sempre un errore di segmentazione",
+        "Il puntatore diventa nullo"
+      ],
+      correctAnswer: 1,
+      explanation: "L'aritmetica dei puntatori è 'consapevole' del tipo. Sottraendo 1 da un puntatore a intero, il C sottrae 4 byte (su sistemi a 32/64 bit), spostandoti all'elemento precedente in un array."
+    },
+    {
+      id: 3,
+      question: "Qual è la differenza fondamentale tra lo stack e l'area delle variabili statiche/globali?",
+      options: [
+        "Nessuna, sono la stessa cosa",
+        "Lo stack è temporaneo e gestito automaticamente (LIFO), le variabili statiche vivono per tutta la durata del programma",
+        "Le variabili statiche sono più veloci",
+        "Lo stack non può contenere numeri interi"
+      ],
+      correctAnswer: 1,
+      explanation: "Lo Stack è dinamico: cresce e cala man mano che chiami funzioni. Le variabili statiche e globali invece occupano un posto fisso in memoria che non cambia mai dall'inizio alla fine dell'esecuzione."
+    }
+  ]}
+/>
+
+### Terminal Challenge: Promotion Hunting 🏹
+
+<HackerTerminal 
+  title="Hacker Challenge: Level 3 - Task 1"
+  description="Abbiamo visto che le promozioni possono essere subdole. Se vuoi forzare il compilatore a trattare una costante come un intero 'senza segno' (unsigned), quale suffisso devi aggiungere al numero?"
+  command="echo 'int x = 100...;' > test.c"
+  expectedOutput="u"
+  inputLabel="Suffisso:"
+  placeholder="es. f, l, u..."
+  hint="È una sola lettera, la prima della parola 'unsigned'."
+  explanation="Esatto! Il suffisso 'u' (es. `100u`) o 'U' istruisce il compilatore a trattare il letterale come `unsigned int`, prevenendo o forzando determinate promozioni durante i calcoli."
+  xpReward={150}
+/>
+
+<HackerTerminal 
+  title="Hacker Challenge: Level 3 - Task 2"
+  description="Vuoi verificare quanto spazio occupa un 'long' su un sistema a 32 bit mentre sei su una macchina a 64 bit. Quale flag di GCC useresti per forzare la compilazione a 32 bit?"
+  command="gcc main.c ..."
+  expectedOutput="-m32"
+  inputLabel="Flag GCC:"
+  placeholder="es. -m..."
+  hint="Si riferisce al 'modello' (model) di architettura a 32 bit."
+  explanation="Ottimo! `-m32` istruisce il compilatore a generare codice per architetture x86 a 32 bit, dove i puntatori e i 'long' sono solitamente di 4 byte invece di 8."
+  xpReward={200}
+/>
+
+<HackerTerminal 
+  title="Hacker Challenge: Level 3 - Task 3"
+  description="Ogni programma compilato è diviso in sezioni: .text (codice), .data (variabili inizializzate) e .bss (variabili a zero). Quale comando useresti per vedere le dimensioni di queste sezioni nel tuo file a.out?"
+  command="ls -l a.out"
+  expectedOutput="size a.out"
+  inputLabel="Comando:"
+  placeholder="es. size nomefile"
+  hint="È lo strumento per conoscere la 'taglia' delle sezioni."
+  explanation="Bravissimo! Il comando `size` è fondamentale per chi lavora in sistemi embedded per capire quanta RAM e quanta Flash occuperà il programma."
+  xpReward={250}
+/>
+
+Ci vediamo alla prossima lezione!

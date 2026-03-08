@@ -25,6 +25,7 @@ import ASCIIConverter from '../components/content/ASCIIConverter';
 import BranchingSimulator from '../components/content/BranchingSimulator';
 import RecursionVisualizer from '../components/content/RecursionVisualizer';
 import SwitchBoard from '../components/content/SwitchBoard';
+import HackerTerminal from '../components/content/HackerTerminal';
 
 // Mappa componenti MDX
 const mdxComponents = {
@@ -72,6 +73,7 @@ const mdxComponents = {
     BranchingSimulator,
     RecursionVisualizer,
     SwitchBoard,
+    HackerTerminal,
 };
 
 export default function Lesson() {

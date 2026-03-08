@@ -48,9 +48,45 @@ for (int i = 0; i < 5; i++) {
 
 We use `for` when we already know how many times to iterate, and `while` when the condition depends on something that will happen in the code.
 
+<Callout type="hacker" title="For: Total Flexibility">
+In C, the three parts of the `for` loop (initialization, condition, increment) are optional!
+- `for(;;)` is an idiomatic way to write an **infinite loop**.
+- You can omit the increment if you handle it inside the loop body.
+</Callout>
+
+### Practical Example: Array Search
+Salvatore shows how to use `break` to stop a loop as soon as we find what we're looking for.
+
+```c
+int a[] = {1, 5, 8, 4, 0}; // 0 is the terminator
+int i;
+for (i = 0; a[i] != 0; i++) {
+    if (a[i] == 8) break; // Found it! Exit immediately.
+}
+
+if (a[i] == 0) printf("Not found\n");
+else printf("Found at position %d\n", i);
+```
+
+<Callout type="warning" title="Variable Scope of i">
+If you declare `for (int i = 0; ...)` inside the loop, the variable `i` disappears as soon as the loop ends. If you need to know where the loop stopped (like in the example above), you must declare `i` **outside** the `for`.
+</Callout>
+
+---
+
 ## Recursion and the Stack
 
-When a function calls itself, the computer doesn't start from scratch. It "freezes" the current function and opens a new one on top of it.
+When a function calls itself, the computer doesn't start from scratch. It "freezes" the current function and opens a new one on top of it (a new "frame").
+
+<Callout type="hacker" title="Tail Call Optimization (TCO)">
+If the last thing a function does is call itself, a good compiler can optimize it by turning it into a jump (`goto`), saving memory. If you don't trust the compiler, you can do it manually:
+```c
+loop:
+    // ... do something ...
+    start = start + 1;
+    goto loop; // Manual recursion!
+```
+</Callout>
 
 <RecursionVisualizer />
 
@@ -64,9 +100,34 @@ If you have a variable that can be 1, 2, 3... instead of writing ten `if`s, we u
 
 <SwitchBoard />
 
+<Callout type="hacker" title="Jump Tables">
+Under the hood, if the cases are close together (e.g., 1, 2, 3), the compiler doesn't do many `if` checks. It creates a **Jump Table**: a table of addresses where the processor "jumps" instantly to the correct case. It's incredibly fast!
+</Callout>
+
 <Callout type="info" title="The Importance of Break">
 In a `switch`, if you forget the `break;`, the code will continue to execute subsequent cases as well! This behavior is called 'fall-through'.
 </Callout>
+
+---
+
+## Real Code: Redis Glob Matching
+Salvatore shows how he uses these concepts in real production code. His string matching function (e.g., handles `*`, `?`, `[a-z]`) uses both `switch` and recursion to handle various pattern characters.
+
+```c
+// Simplified version of Salvatore's glob matching
+int glob_match(const char *pattern, const char *string) {
+    switch (pattern[0]) {
+        case '*': // Recursion to handle the asterisk
+            // ... complex logic ...
+            break;
+        case '?': // Skip one character
+            // ...
+            break;
+        default: // Literal match
+            if (pattern[0] != string[0]) return 0;
+    }
+}
+```
 
 ## Loops Lab
 
@@ -111,3 +172,58 @@ Try transforming this `while` loop into a `for` loop.
     }
   ]}
 />
+
+---
+
+<KeyConcepts title="Hacker Key Concepts">
+  - **for = while**: The `for` loop is just a more compact way to write a `while` with initialization and increment.
+  - **Stack vs Recursion**: Every recursive call occupies space on the Stack (frame). Be careful not to exhaust it!
+  - **Jump Tables**: The `switch` is ultra-fast because it uses jump tables instead of a long series of individual comparisons.
+</KeyConcepts>
+
+### Hacker Challenge 🏆
+
+<Quiz 
+  title="Hacker Challenge: Final Quiz"
+  questions={[
+    {
+      id: 1,
+      question: "What is the fundamental difference between an infinite loop (`while(1);`) and infinite recursion (a function that calls itself without ever stopping)?",
+      options: [
+        "None, both lock up the computer in the same way",
+        "The infinite loop only consumes CPU, while recursion consumes memory (Stack) until it causes a crash (Stack Overflow)",
+        "Recursion is faster",
+        "The infinite loop is more dangerous for the hardware"
+      ],
+      correctAnswer: 1,
+      explanation: "Every time a function calls itself, a new 'Stack Frame' is created, occupying RAM. If the recursion is infinite, the space dedicated to the Stack is quickly exhausted, leading to a program crash. A `while` loop, however, does not create new frames and can run forever without consuming additional memory."
+    },
+    {
+      id: 2,
+      question: "Why is `switch` often preferred over a long chain of `if-else` statements?",
+      options: [
+        "Because it is shorter to write",
+        "Because the compiler can generate a 'Jump Table', making the jump to the correct case instantaneous (O(1)) regardless of the number of cases",
+        "Because `switch` cannot go wrong",
+        "Because `if-else` does not work with numbers"
+      ],
+      correctAnswer: 1,
+      explanation: "Stellar efficiency! With `if-else`, the CPU must check every condition one by one. With `switch`, the compiler creates an address table: the CPU looks at the value, calculates the index in the table, and jumps directly to the right code in one go."
+    }
+  ]}
+/>
+
+### Terminal Challenge: Pattern Searching 🔎
+
+<HackerTerminal 
+  title="Hacker Challenge: Level 7"
+  description="We saw that Salvatore often analyzes source code to find patterns. If you wanted to search for all occurrences of the word 'while' within all .c files in your folder, which command would you use?"
+  command="find while ..."
+  expectedOutput="grep while *.c"
+  inputLabel="Complete Command:"
+  placeholder="e.g. grep pattern file"
+  hint="It is the standard command for searching for text in files."
+  explanation="Exactly! `grep` is the primary tool for manual static analysis. It allows you to quickly find where you are using certain constructs or variables throughout your project."
+/>
+
+See you in the next lesson!

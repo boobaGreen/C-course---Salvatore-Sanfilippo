@@ -188,7 +188,7 @@ I **Registri** sono piccole "variabili" dentro la CPU, velocissime. La **RAM** �
 ## Hacker Key Concepts
 
 <KeyConcepts 
-  title="Ricapitolando"
+  title="Hacker Key Concepts"
   concepts={[
     {
         title: "Tipizzazione Esplicita",
@@ -208,3 +208,87 @@ I **Registri** sono piccole "variabili" dentro la CPU, velocissime. La **RAM** �
     }
   ]}
 />
+
+### Hacker Challenge 🏆
+
+<Quiz 
+  title="Hacker Challenge: Final Quiz"
+  questions={[
+    {
+      id: 1,
+      question: "Perché una variabile locale non inizializzata (es. `int x;`) è considerata pericolosa anche se il programma sembra funzionare inizialmente?",
+      options: [
+        "Perché occupa più RAM",
+        "Perché contiene 'spazzatura', ovvero il valore rimasuglio di chi ha usato quel pezzetto di Stack precedentemente (Stack Reuse)",
+        "Perché il compilatore cancella il file se la trova",
+        "Perché rende il computer più caldo"
+      ],
+      correctAnswer: 1,
+      explanation: "Lo Stack è una zona di memoria che viene continuamente riutilizzata. Quando una funzione finisce, il suo spazio viene liberato ma i dati non vengono cancellati (per velocità). La funzione successiva che usa quello spazio troverà i 'fantasmi' della funzione precedente."
+    },
+    {
+      id: 2,
+      question: "Cosa accade fisicamente quando chiamiamo una funzione in C?",
+      options: [
+        "Il codice della funzione viene copiato nel punto di chiamata",
+        "Viene creato un nuovo 'Stack Frame' che contiene i parametri e le variabili locali della funzione",
+        "La CPU smette di funzionare finché la funzione non termina",
+        "Le variabili vengono salvate sul disco fisso"
+      ],
+      correctAnswer: 1,
+      explanation: "La chiamata a funzione crea una struttura nello Stack chiamata 'Frame'. È come un cassetto temporaneo dove la funzione mette tutto ciò che le serve. Quando la funzione 'ritorna', il cassetto viene svuotato (o meglio, rimosso dalla pila)."
+    },
+    {
+      id: 3,
+      question: "Perché a volte usiamo la parola chiave `volatile` davanti a una variabile?",
+      options: [
+        "Per renderla più veloce",
+        "Per dire al compilatore di non ottimizzarla (es. non metterla in un registro), perché il suo valore potrebbe cambiare inaspettatamente (es. hardware esterno)",
+        "Per cancellarla dalla memoria dopo l'uso",
+        "Per proteggerla dai virus"
+      ],
+      correctAnswer: 1,
+      explanation: "Il compilatore C è molto aggressivo. Se vede che leggi una variabile due volte senza scriverci nulla in mezzo, potrebbe pensare che il valore sia lo stesso e non rileggerlo dalla RAM. `volatile` forza il compilatore a rileggere il valore ogni singola volta, essenziale per interagire con l'hardware o con i thread."
+    }
+  ]}
+/>
+
+### Terminal Challenge: Investigating Memory 🔍
+
+<HackerTerminal 
+  title="Hacker Challenge: Level 2 - Task 1"
+  description="Salvatore ha menzionato uno strumento per guardare 'dentro' gli eseguibili e vedere le stringhe e altri dati binari. Se volessi vedere il contenuto binario del file 'a.out', quale comando useresti?"
+  command="ls -l a.out"
+  expectedOutput="xxd a.out"
+  inputLabel="Comando completo:"
+  placeholder="es. xxd nomefile"
+  hint="Inizia con 'x' e viene usato per fare il dump esadecimale."
+  explanation="Ottimo! `xxd` (o `hexdump`) è lo strumento fondamentale per ogni hacker C. Ti permette di vedere esattamente cosa c'è dentro un file binario, inclusi i byte che compongono le tue istruzioni e le tue stringhe."
+  xpReward={150}
+/>
+
+<HackerTerminal 
+  title="Hacker Challenge: Level 2 - Task 2"
+  description="Ogni funzione che scrivi (come main o sum) diventa un 'simbolo' dentro il file binario. Quale comando useresti per elencare tutti i simboli presenti in a.out?"
+  command="ls a.out"
+  expectedOutput="nm a.out"
+  inputLabel="Comando:"
+  placeholder="es. nm nomefile"
+  hint="È un comando di due lettere, l'abbreviazione di 'names' o 'symbol names'."
+  explanation="Esatto! `nm` ti mostra la lista dei simboli. Vedrai 'T' per le funzioni nel segmento di testo e 'U' per quelle non definite (come printf, che si trova in una libreria esterna)."
+  xpReward={200}
+/>
+
+<HackerTerminal 
+  title="Hacker Challenge: Level 2 - Task 3"
+  description="Hai bisogno di vedere l'entry point (il punto di inizio) del tuo programma e altre informazioni sull'header del file. Quale comando useresti per visualizzare l'header dell'eseguibile?"
+  command="cat a.out"
+  expectedOutput="objdump -f a.out"
+  inputLabel="Comando:"
+  placeholder="es. objdump -f nomefile"
+  hint="Inizia con 'obj' e serve per fare il dump degli oggetti."
+  explanation="Perfetto! `objdump -f` ti mostra l'indirizzo di memoria dell'istruzione di partenza (start address). Questo è il primissimo passo quando si fa analisi di malware o debugging a basso livello."
+  xpReward={250}
+/>
+
+Ci vediamo alla prossima lezione!

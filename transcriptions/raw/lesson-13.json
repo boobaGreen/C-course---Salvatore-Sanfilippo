@@ -1,0 +1,602 @@
+[
+  {
+    "start": 41.85999999999999,
+    "end": 46.88,
+    "text": " Ciao amici, benvenuti a questo corso di programmazione in C."
+  },
+  {
+    "start": 47.58,
+    "end": 52.08,
+    "text": " Vi ricordate che avevamo fatto l'ultima volta le nostre string a lunghezza prefissa?"
+  },
+  {
+    "start": 54.279999999999994,
+    "end": 60.28,
+    "text": " Andavamo benissimo, abbiamo fatto anche una funzione che si chiamava PS, prefixed string,"
+  },
+  {
+    "start": 61.099999999999994,
+    "end": 67.84,
+    "text": " getC, che era la breviezione di dammi il puntatore a una stringa in C."
+  },
+  {
+    "start": 68.54,
+    "end": 71.4,
+    "text": " Perché la cosa interessante di questa stringa è la lunghezza prefissa,"
+  },
+  {
+    "start": 72.04,
+    "end": 77.28,
+    "text": " è che se io salto la lunghezza prefissa, quello che viene dopo ha anche per il fatto che io"
+  },
+  {
+    "start": 77.28,
+    "end": 82.28,
+    "text": " ho appunto non a caso messo un terminatore nulla alla fine della stringa."
+  },
+  {
+    "start": 82.76,
+    "end": 90.76,
+    "text": " Se la stringa non contiene byte zero a metà, io ho anche una stringa C normale embeddata"
+  },
+  {
+    "start": 90.76,
+    "end": 94.38,
+    "text": " dentro la mia rappresentazione, contenuta dentro la mia rappresentazione."
+  },
+  {
+    "start": 94.96,
+    "end": 100.2,
+    "text": " E allora perché non consentire l'intero operabilità che vi assicuro è importantissima,"
+  },
+  {
+    "start": 100.4,
+    "end": 105.94,
+    "text": " perché in C ci sono una quantità enorme di funzioni di vario tipo per la manipurazione"
+  },
+  {
+    "start": 105.94,
+    "end": 112.04,
+    "text": " delle stringa, a volte io utilizzo la mia libreria delle stringa e prefisse altre librerie"
+  },
+  {
+    "start": 112.04,
+    "end": 117.5,
+    "text": " che si aspettano funzioni in C e quindi è importantissimo che ci sia questa interoperabilità."
+  },
+  {
+    "start": 118.2,
+    "end": 126.08,
+    "text": " Per farciò io avevo preso la mia funzione PS, getC che mi ritornava appunto il puntatore"
+  },
+  {
+    "start": 126.08,
+    "end": 131.12,
+    "text": " alla stringa semplicemente aggiungendo uno al puntatore, saltando il prefisso."
+  },
+  {
+    "start": 132.79999999999998,
+    "end": 136.38,
+    "text": " Ma io vi dico che noi possiamo fare di più. Allora tanto per iniziare facciamo una cosa,"
+  },
+  {
+    "start": 136.54,
+    "end": 144.08,
+    "text": " giustiamo questa stringa in modo che possa contenere una lunghezza di 4 byte, perché così è troppo poco."
+  },
+  {
+    "start": 144.83999999999997,
+    "end": 154.8,
+    "text": " Quindi include stdint.h quando io include stdint o windows 32t, windows, stdint, tutti questi tipi in cui"
+  },
+  {
+    "start": 154.8,
+    "end": 163.5,
+    "text": " specifico il numero di byte, bit, il che è molto utile. E io posso fare 4 byte, scusate 32bit,"
+  },
+  {
+    "start": 164.76,
+    "end": 171.94,
+    "text": " due levate 32, meno uno, questa sarà la dimensione massima della mia stringa quando ci 4 GB."
+  },
+  {
+    "start": 173.86,
+    "end": 180.86,
+    "text": " Diciamo per questo esempio è sufficiente, normalmente avrei potuto utilizzare size t,"
+  },
+  {
+    "start": 182.1,
+    "end": 188.92,
+    "text": " e sarebbe stato probabilmente una buon idea, perché così in un sistema 64 bit il prefisso è"
+  },
+  {
+    "start": 188.92,
+    "end": 196.46,
+    "text": " lungo 8 byte, in un sistema 4 bit, ma c'è un discorso. Siccome è molto strano avere string di"
+  },
+  {
+    "start": 196.46,
+    "end": 203.36,
+    "text": " 4 di superiore a 4 GB può capitare in certi contesti, in molti altri contesti no."
+  },
+  {
+    "start": 204.0,
+    "end": 209.44,
+    "text": " Ci la sentiamo dove di pagare l'overhead di 4 byte in più ogni string sono con sezioni,"
+  },
+  {
+    "start": 210.32000000000002,
+    "end": 233.14,
+    "text": " che come dire bisogna fare. Allora come modifico io questo programma? Beh questo sarà 4, in teoria"
+  },
+  {
+    "start": 233.14,
+    "end": 239.6,
+    "text": " di un certo numero di byte non è caso, quindi 4 byte per cui scrivo 4, e me ne frego."
+  },
+  {
+    "start": 240.62,
+    "end": 251.16,
+    "text": " Unseqment char, questo non è più così, ma è oint 32t, tenpoint uguale a oint 32t s."
+  },
+  {
+    "start": 254.02,
+    "end": 259.86,
+    "text": " Qui invece di più uno dovrei mettere più 4, però in realtà possiamo fare una cosa più interessante"
+  },
+  {
+    "start": 259.86,
+    "end": 270.66,
+    "text": " che è questa. Qui scriviamo s più uguale a 4, quindi noi facendo s più uguale a 4 andiamo all'inizio"
+  },
+  {
+    "start": 270.66,
+    "end": 284.26,
+    "text": " della stringa. Questo qui lo rendiamo questa copia qua, ma we should use memcopy here. Questo lo"
+  },
+  {
+    "start": 284.26,
+    "end": 289.4,
+    "text": " vedremo fra un attimo, perché dico che noi dovremmo usare memcopy invece di fare questo loop che"
+  },
+  {
+    "start": 289.4,
+    "end": 298.03999999999996,
+    "text": " copia. E poi mettiamo il terminatore al lan, ma a questo punto quando io ritorno la mia stringa"
+  },
+  {
+    "start": 298.79999999999995,
+    "end": 309.42,
+    "text": " io dovrei tornare s meno 4, giusto? Quindi io sono qui, dovrei tornare questo byte."
+  },
+  {
+    "start": 312.1,
+    "end": 319.6,
+    "text": " E se io invece torno s? Se io usassi questo trucco, che ne dite se noi le string le torniamo"
+  },
+  {
+    "start": 320.46000000000004,
+    "end": 326.66,
+    "text": " che il puntatore la stringa creata, la nostra ps string, torniamolo che invece parte"
+  },
+  {
+    "start": 326.66,
+    "end": 330.76,
+    "text": " dalla stringa in c, così non mi serve una funzione per la conversione tra le due."
+  },
+  {
+    "start": 331.38,
+    "end": 337.76,
+    "text": " Ok? Quando invece io dovrò, per esempio nella prossima funzione, ps print,"
+  },
+  {
+    "start": 338.71999999999997,
+    "end": 346.38,
+    "text": " sapere veramente qual è la lunghezza e allora io faccio così. Lan pointer che è"
+  },
+  {
+    "start": 346.38,
+    "end": 360.4,
+    "text": " wind32t lan pointer è uguale a wind32t s meno 4. Quindi so, trago ad s4 byte e vado indietro."
+  },
+  {
+    "start": 363.02000000000004,
+    "end": 367.9,
+    "text": " Faccio il casting al mio nuovo tipo di puntatore, a questo punto c'è il mio lan pointer."
+  },
+  {
+    "start": 369.62,
+    "end": 376.7,
+    "text": " Qui uso j senza più uno per lo stesso motivo che ci siamo detti perché ormai il riferimento di s è"
+  },
+  {
+    "start": 376.7,
+    "end": 383.5,
+    "text": " l'inizio della stringa e non la lunghezza. Quindi io c'ero sempre prima della mia del puntatore che"
+  },
+  {
+    "start": 383.5,
+    "end": 388.74,
+    "text": " torno. Quindi il puntatore mi dà la vista alla stringa, dietro il puntatore nascosto"
+  },
+  {
+    "start": 389.38,
+    "end": 393.5,
+    "text": " c'è il mio header che in questo momento diciamo è mia interstatione che composta solo"
+  },
+  {
+    "start": 393.5,
+    "end": 399.2,
+    "text": " dalla lunghezza e la stringa. Questa è una cosa molto molto interessante. GetC non si è fe più o"
+  },
+  {
+    "start": 399.2,
+    "end": 408.48,
+    "text": " niente. FreeMyString non è più utilizzabile perché sta volta io per liberare la mia stringa ps free"
+  },
+  {
+    "start": 409.16,
+    "end": 410.38,
+    "text": " char s"
+  },
+  {
+    "start": 417.3,
+    "end": 425.74,
+    "text": " free al previous recreated. Pest string devo fare free di s meno 4. Perché ma io con malloc"
+  },
+  {
+    "start": 426.48,
+    "end": 431.92,
+    "text": " se malloc mi torna un puntatore io devo fare free a quel puntatore, non è che posso fare free"
+  },
+  {
+    "start": 431.92,
+    "end": 437.82,
+    "text": " dentro l'allocazione. Mettica preso 10 byte, non è che posso dire free qualsiasi cosa all'interno,"
+  },
+  {
+    "start": 437.82,
+    "end": 442.72,
+    "text": " mi dà a dare di nuovo l'indirizzo e mi dirà che malloc mi aveva ritornato. Una malloc una free"
+  },
+  {
+    "start": 443.5,
+    "end": 448.21999999999997,
+    "text": " ha lo stesso indirizzo. Se questo problema funziona"
+  },
+  {
+    "start": 452.46,
+    "end": 457.4,
+    "text": " ps get si non mi serve più ormai le mie stringe sono compatibili"
+  },
+  {
+    "start": 460.14,
+    "end": 465.98,
+    "text": " ecco fatto sembra proprio funzionare tutto bene facciamo anche l'altra funzione"
+  },
+  {
+    "start": 467.82,
+    "end": 469.04,
+    "text": " fiammoci qua"
+  },
+  {
+    "start": 473.62,
+    "end": 484.4,
+    "text": " ps len redar the length of the string in o one time. Questa volta al contrario della str len"
+  },
+  {
+    "start": 484.4,
+    "end": 488.88,
+    "text": " la str len è la funzione di c normale che dato il puntatore una stringa"
+  },
+  {
+    "start": 488.88,
+    "end": 493.34,
+    "text": " direttola la lunghezza ma deve andare a cercare la fine della stringa il byte a zero."
+  },
+  {
+    "start": 493.34,
+    "end": 498.72,
+    "text": " Quindi il suo tempo di esecuzione è proporzionale la grandezza della stringa"
+  },
+  {
+    "start": 498.72,
+    "end": 504.6,
+    "text": " invece la mia ps len non fa altro che prendere un puntatore e ritornare"
+  },
+  {
+    "start": 508.11999999999995,
+    "end": 512.26,
+    "text": " il valore a 32 bit che è registrato in quel puntatore"
+  },
+  {
+    "start": 513.86,
+    "end": 515.98,
+    "text": " quindi praticamente la mia stringa"
+  },
+  {
+    "start": 516.72,
+    "end": 522.1,
+    "text": " le nuove le me questo sistema di stringe può avere accesso alla lunghezza di una stringa"
+  },
+  {
+    "start": 522.1,
+    "end": 525.56,
+    "text": " senza andare a far la scansione della stringa il che è un bandaggio molto significativo"
+  },
+  {
+    "start": 526.38,
+    "end": 533.08,
+    "text": " quindi ora stampo questo qui e poi stambi stampo ind ps len"
+  },
+  {
+    "start": 535.3599999999999,
+    "end": 541.16,
+    "text": " di maestr. Faccio il cast ad ind per non andarmi a impellagare qui perché ci sono"
+  },
+  {
+    "start": 541.16,
+    "end": 551.3,
+    "text": " specificatori di tipo della printf per un ind 32t ma sono scomodi da scrivere così via invece"
+  },
+  {
+    "start": 551.3,
+    "end": 560.16,
+    "text": " noi facciamo il casting a ind in questo caso è uguale vedete la lunghezza 33 molto bene"
+  },
+  {
+    "start": 561.36,
+    "end": 567.12,
+    "text": " in questo modo noi abbiamo risolto un problema interessante vi volevo fare vedere una cosa"
+  },
+  {
+    "start": 567.12,
+    "end": 573.38,
+    "text": " i moderni allocatori hanno un minimo di protezione per il fatto di liberare due volte una cosa"
+  },
+  {
+    "start": 574.0,
+    "end": 578.58,
+    "text": " cioè io questo puntatore l'ho liberato qui con ps free ora mi chiamo di nuovo ps free"
+  },
+  {
+    "start": 578.58,
+    "end": 586.98,
+    "text": " guardate che succede ecco qua mal lock error for object pointer being freed was not located"
+  },
+  {
+    "start": 587.84,
+    "end": 593.86,
+    "text": " set a breakpoint per vedere che cosa è che è sbagliato quindi invece praticamente di corromi per"
+  },
+  {
+    "start": 593.86,
+    "end": 602.94,
+    "text": " la memoria mulso mi da una mi blocca il programma ciò non è garantito per cui non vi fidate"
+  },
+  {
+    "start": 603.46,
+    "end": 611.1,
+    "text": " queste sono feature utili per scovare dei bug ma non tutte le implementazioni lo faranno ed è"
+  },
+  {
+    "start": 611.1,
+    "end": 616.44,
+    "text": " anche possibile ingerti casi corromper la memoria in modo che questi questi salvaguardi non si"
+  },
+  {
+    "start": 616.44,
+    "end": 621.62,
+    "text": " entrofici è il bug di sicurezza si scappano stessi quindi programmare bene"
+  },
+  {
+    "start": 626.02,
+    "end": 632.38,
+    "text": " una cosa interessante questa io per esempio siccome quando loco una stringa poi la devo liberare"
+  },
+  {
+    "start": 632.38,
+    "end": 637.0,
+    "text": " a volte mi capita di avere più di un riferimento la mia stringa per esempio qua c'è la mia stringa"
+  },
+  {
+    "start": 638.0,
+    "end": 639.72,
+    "text": " facciamo una variabile globale"
+  },
+  {
+    "start": 643.4,
+    "end": 644.6,
+    "text": " chiamiamola global"
+  },
+  {
+    "start": 646.44,
+    "end": 646.84,
+    "text": " string"
+  },
+  {
+    "start": 649.48,
+    "end": 659.16,
+    "text": " quindi io qua crea una stringa poi global string lo assegna a main string quindi ora c'ho due"
+  },
+  {
+    "start": 659.16,
+    "end": 666.42,
+    "text": " variabili che puntano la stessa stringa una è questa e una questa variabile globale qui dopo"
+  },
+  {
+    "start": 666.42,
+    "end": 674.06,
+    "text": " che io libero mai string ancora c'è un riferimento alla mia variabile globale che referenzia la stessa"
+  },
+  {
+    "start": 674.06,
+    "end": 680.3,
+    "text": " stringa una string ormai liberata vedete io qua ora voglio stampare global string"
+  },
+  {
+    "start": 682.2199999999999,
+    "end": 685.18,
+    "text": " e con bilo se ci riesco"
+  },
+  {
+    "start": 686.48,
+    "end": 691.54,
+    "text": " guarda che stampa stampa bom de vir qua si è collotte la memoria"
+  },
+  {
+    "start": 692.6199999999999,
+    "end": 696.3,
+    "text": " perché quella era una locazione è stata liberata e così via"
+  },
+  {
+    "start": 697.38,
+    "end": 702.72,
+    "text": " però non sarebbe utile avere nelle nostre stringe un sistema"
+  },
+  {
+    "start": 703.6999999999999,
+    "end": 709.8,
+    "text": " che ci permette di tenere il conto di quante volte abbiamo referenziato quella stringa"
+  },
+  {
+    "start": 709.8,
+    "end": 717.82,
+    "text": " e quando tutte le referenze a quella stringa vengono diciamo rimosse la memoria viene liberata"
+  },
+  {
+    "start": 717.82,
+    "end": 725.64,
+    "text": " in maniera automatica potremmo avere per esempio un contatore che chiamiamo conto delle referenze"
+  },
+  {
+    "start": 725.64,
+    "end": 731.42,
+    "text": " perché si chiama reference counting questa tecnica quindi proprio con dar le referenze"
+  },
+  {
+    "start": 732.4,
+    "end": 736.3,
+    "text": " che è che ne so dopo la lunghezza noi mettiamo qua"
+  },
+  {
+    "start": 741.4,
+    "end": 744.16,
+    "text": " ccc che è il nostro conto delle referenze"
+  },
+  {
+    "start": 748.28,
+    "end": 753.3,
+    "text": " in questo modo io quando creo una stringa magari posso tenere il mio conto delle referenze"
+  },
+  {
+    "start": 754.26,
+    "end": 756.04,
+    "text": " e invece"
+  },
+  {
+    "start": 759.8,
+    "end": 767.86,
+    "text": " quando ogni volta che aggiungo un altro puntatore a questa stringa aumento il conto delle referenze"
+  },
+  {
+    "start": 767.86,
+    "end": 773.72,
+    "text": " ogni volta che invece io un puntatore non lo utilizzo più e quindi questa stringa ha una"
+  },
+  {
+    "start": 773.72,
+    "end": 779.78,
+    "text": " ha una referenza in meno viene referenziata da un posto in meno io decremento questo"
+  },
+  {
+    "start": 779.78,
+    "end": 783.8,
+    "text": " contatore quando il contatore arriva a zero faccio veramente la ps free"
+  },
+  {
+    "start": 785.44,
+    "end": 791.42,
+    "text": " a questo punto io ho un sistema molto più interessante di gestione della memoria"
+  },
+  {
+    "start": 791.42,
+    "end": 798.76,
+    "text": " che non mi obbliga a pensare proprio a mano ogni singola volta quante volte ho referenziato"
+  },
+  {
+    "start": 798.76,
+    "end": 804.06,
+    "text": " quella stringa devo creare però un automatismo ogni volta che aggiungo un puntatore a quella"
+  },
+  {
+    "start": 804.06,
+    "end": 810.12,
+    "text": " stringa da qualche parte io chiamo una funzione che incrementa quel contatore ogni volta che"
+  },
+  {
+    "start": 810.12,
+    "end": 817.76,
+    "text": " tolgo un contatore a quella stringa chiamo una funzione che mi decrementa quel contatore"
+  },
+  {
+    "start": 818.4599999999999,
+    "end": 824.38,
+    "text": " e quando il contatore arriva a zero c'è automatica la liberazione della memoria ma per farciò"
+  },
+  {
+    "start": 825.62,
+    "end": 831.36,
+    "text": " ci stiamo imperagando in guardate qua nel liter già ha ciò allora dovrei fare windland pointer"
+  },
+  {
+    "start": 831.36,
+    "end": 836.4,
+    "text": " wind 32 t count che è uguale la qual lo potto"
+  },
+  {
+    "start": 838.98,
+    "end": 846.16,
+    "text": " quindi prima c'è le in pointer poi qua in 32 t s più 4 quindi praticamente allora"
+  },
+  {
+    "start": 846.88,
+    "end": 854.04,
+    "text": " s è l'inizio della mia locazione siamo qua ok quindi le in pointer è semplicemente il"
+  },
+  {
+    "start": 854.04,
+    "end": 859.5,
+    "text": " cast al tipo giusto sempre di s non abbiamo fatto nessuna aritmetica dei puntatori per"
+  },
+  {
+    "start": 859.5,
+    "end": 867.6,
+    "text": " spostare il puntatore count 4 byte dopo ok e fin qui ci siamo qua avrei dovuto scrivere poi s più 8"
+  },
+  {
+    "start": 867.6,
+    "end": 874.58,
+    "text": " perché la stringa parte qui ma non è scomodo programmare così non sarebbe bello poter scrivere"
+  },
+  {
+    "start": 874.58,
+    "end": 887.5,
+    "text": " per esempio qualcosa del genere struct ps ps chiamiamolo così stringer prefisse wind 32 t"
+  },
+  {
+    "start": 887.52,
+    "end": 901.56,
+    "text": " l'en wind 32 t count ref count char str 0 poi vi spiegherò nella prossima puntata perché qua"
+  },
+  {
+    "start": 901.56,
+    "end": 909.02,
+    "text": " ho utilizzato str 0 quindi ho una struttura a questo punto che ha un insieme di cambi"
+  },
+  {
+    "start": 909.02,
+    "end": 913.38,
+    "text": " e questa struttura ps ha definito un nuovo tipo di dato"
+  }
+]

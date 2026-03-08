@@ -103,3 +103,58 @@ Salvatore also shows us `goto`, a way to jump directly to a label in the code. W
     }
   ]}
 />
+
+---
+
+<KeyConcepts title="Hacker Key Concepts">
+  - **0 is False**: In C, you don't need a boolean type; zero is false, and everything else is true.
+  - **Code Blocks**: Curly braces `{}` don't just group instructions; they create new "worlds" for variables.
+  - **Shadowing**: An inner variable can "eclipse" an outer one if they share the same name.
+</KeyConcepts>
+
+### Hacker Challenge 🏆
+
+<Quiz 
+  title="Hacker Challenge: Final Quiz"
+  questions={[
+    {
+      id: 1,
+      question: "What is the result of this code snippet? `int x = 10; if (x = 0) printf(\"True\"); else printf(\"False\");`",
+      options: [
+        "True, because x was 10",
+        "False, because the assignment `x = 0` returns 0, which C interprets as False",
+        "Compilation error, you cannot use `=` inside an `if`",
+        "Prints '10'"
+      ],
+      correctAnswer: 1,
+      explanation: "This is one of the most common and hardest errors to find. The `=` operator assigns a value and returns the assigned value. Since we assigned 0, the entire expression becomes 0 (False). The compiler often warns you, but the code is perfectly legal in C!"
+    },
+    {
+      id: 2,
+      question: "What happens if you declare `int x = 5;` outside a `{}` block and then `int x = 10;` inside the block?",
+      options: [
+        "The program crashes",
+        "The second declaration 'hides' the first (Shadowing). Inside the block, x will be 10; outside, it will still be 5.",
+        "The value of x becomes 15",
+        "The two variables merge into one"
+      ],
+      correctAnswer: 1,
+      explanation: "Shadowing allows you to reuse variable names in inner blocks without overwriting the data of the outer block. This ensures the isolation of logic within curly braces."
+    }
+  ]}
+/>
+
+### Terminal Challenge: Logical Compilation 🧠
+
+<HackerTerminal 
+  title="Hacker Challenge: Level 6"
+  description="We saw that C uses 0 for False and everything else for True. If you wanted to compile your program and ask the compiler to report ALL possible errors and logical warnings (such as using = instead of ==), which option would you use?"
+  command="gcc main.c ..."
+  expectedOutput="-Wall"
+  inputLabel="GCC Flag:"
+  placeholder="e.g. -O2, -g..."
+  hint="The option stands for 'Warnings All'."
+  explanation="Brilliant! `-Wall` is mandatory for every true hacker. It warns you if you are doing dangerous things, like assigning variables inside an `if` or forgetting to initialize data. It's like having Salvatore correct you as you write."
+/>
+
+See you in the next lesson!

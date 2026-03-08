@@ -1,0 +1,832 @@
+[
+  {
+    "start": 40.260000000000005,
+    "end": 47.8,
+    "text": " quando ci siamo bloccati per approfondire le strutture, eravamo arrivati qui allora"
+  },
+  {
+    "start": 47.8,
+    "end": 53.74,
+    "text": " avevamo detto ci potremmo mettere qua una lunghezza delle nostre stringe prefisse,"
+  },
+  {
+    "start": 54.54,
+    "end": 58.56,
+    "text": " un contatore delle nostre stringe prefisse io qua avevo iniziato a dire allora dovremmo"
+  },
+  {
+    "start": 58.56,
+    "end": 67.84,
+    "text": " fare wind32t, landpointer, poi ci metto il count, il count lo faccio andare ad s più 4 perché"
+  },
+  {
+    "start": 67.84,
+    "end": 73.12,
+    "text": " guardate qui il layout quindi questo è l offset 0 questo è l offset 4 dentro la mia"
+  },
+  {
+    "start": 73.12,
+    "end": 80.28,
+    "text": " locazione e all offset 8 inizia la string infatti qua facciamo s più quale 8 e poi ci siamo"
+  },
+  {
+    "start": 80.28,
+    "end": 87.26,
+    "text": " fermati per trattare diciamo le strutture ma finalmente abbiamo la possibilità di utilizzare"
+  },
+  {
+    "start": 87.26,
+    "end": 95.72,
+    "text": " le strutture per immilandare questa libreria di stringe quindi scriverò struct questo si chiama"
+  },
+  {
+    "start": 95.72,
+    "end": 113.8,
+    "text": " pls e scrivo wind32t land wind32t ref count siccome la struttura ha i campi che sono correttamente"
+  },
+  {
+    "start": 113.8,
+    "end": 122.92,
+    "text": " allineati in maniera naturale si dice quindi questo è un campo di 4 byte allineato all offset"
+  },
+  {
+    "start": 122.92,
+    "end": 130.58,
+    "text": " 0 questo è di 4 byte allineato all offset 4 l offset 4 è il multiplo della dimensione del campo"
+  },
+  {
+    "start": 130.58,
+    "end": 135.26,
+    "text": " di 4 byte quindi non ci saranno spazi non ci saranno niente di strano e qua invece facciamo"
+  },
+  {
+    "start": 135.26,
+    "end": 145.36,
+    "text": " str s tr qui usiamo la dichiarazione in stile c99 se non mi sbaglio è stato inoltre un c99 e tu"
+  },
+  {
+    "start": 145.36,
+    "end": 152.18,
+    "text": " metti le parentesi aperte qua del significa che questo in realtà sarà un puntatore all offset 8"
+  },
+  {
+    "start": 152.18,
+    "end": 160.02,
+    "text": " di tipo char ma non si sa quanti byte verranno quindi la grandezza ft della stringa è controllata"
+  },
+  {
+    "start": 160.02,
+    "end": 165.6,
+    "text": " dalla grandezza dell'allocazione che poi noi eseguiamo con malloc a questo punto guardate qui che"
+  },
+  {
+    "start": 165.6,
+    "end": 173.08,
+    "text": " cos'è che succede allora io tanto periziari questo questo la dimensione della dell'allocazione"
+  },
+  {
+    "start": 173.08,
+    "end": 185.08,
+    "text": " con malloc la riscrivo scrivo size of struct pls più ln più 1 in realtà poi questo qui non è più"
+  },
+  {
+    "start": 185.08,
+    "end": 199.04,
+    "text": " char ma io qua farò in realtà allora qua facciamo una cosa la l'allocazione io la scrivo in struct"
+  },
+  {
+    "start": 201.44000000000003,
+    "end": 210.78,
+    "text": " p chiamiamoli puntatore struct pls la chiamo p che è diciamo la prevezione di prefixed è"
+  },
+  {
+    "start": 210.78,
+    "end": 218.06,
+    "text": " quale malloc size of struct pls che il mio header più la lunghezza della stringa più un byte per"
+  },
+  {
+    "start": 218.06,
+    "end": 228.64,
+    "text": " il null terminator a questo punto questi due non mi servono più ovviamente e poi mi tengo pure"
+  },
+  {
+    "start": 228.64,
+    "end": 237.24,
+    "text": " un puntatore una qua guardate c'era ln pointer è uguale a ln qua in realtà ora dobbiamo fare"
+  },
+  {
+    "start": 237.24,
+    "end": 246.38,
+    "text": " p di ln uguale a ln p di count uguale a 1 nelle interfacili di programmazione in cui si usa il"
+  },
+  {
+    "start": 246.38,
+    "end": 253.26,
+    "text": " reference counting di solito è buona norma che la funzione che crea l'oggetto restituisca"
+  },
+  {
+    "start": 253.26,
+    "end": 259.18,
+    "text": " l'oggetto con il conto di referenze a 1 perché comunque chi la chiamata questa funzione la"
+  },
+  {
+    "start": 259.18,
+    "end": 264.9,
+    "text": " memoriserà da qualche parte questa referenza quindi è giusto inizializzarla 1 e non a 0"
+  },
+  {
+    "start": 264.9,
+    "end": 270.54,
+    "text": " anche perché altrimenti non si potrebbe più liberale perché non potrei chiamare ps free o"
+  },
+  {
+    "start": 270.54,
+    "end": 279.28,
+    "text": " ps release retain di solito si usa una funzione retain che aumenta il conto referenze un conto"
+  },
+  {
+    "start": 279.28,
+    "end": 285.3,
+    "text": " è una funzione release che decremente il conto delle referenze io così posso fare con ps create"
+  },
+  {
+    "start": 285.3,
+    "end": 292.02,
+    "text": " la creazione della stringa poi con ps release decremento di 1 il reference counting va 0 e"
+  },
+  {
+    "start": 292.02,
+    "end": 298.86,
+    "text": " è lo libero quindi il il conto delle referenze iniziale deve essere 1 a senso che sia così"
+  },
+  {
+    "start": 300.20000000000005,
+    "end": 306.28,
+    "text": " dopo di che a me mi serve a noi o in realtà non mi serve a me più il puntatore s perché io"
+  },
+  {
+    "start": 306.28,
+    "end": 316.26,
+    "text": " utilizzerò p di str perché vi ricordate che qui c'ho il mio str interessante quindi for"
+  },
+  {
+    "start": 316.26,
+    "end": 326.54,
+    "text": " j uguale a 0 j meno di lanje più più e poi qui scriverò p di str di j è uguale a unit di j"
+  },
+  {
+    "start": 326.54,
+    "end": 338.62,
+    "text": " e p str di lan è uguale a 0 a questo punto voglio ritornare p str quindi il puntatore"
+  },
+  {
+    "start": 338.62,
+    "end": 345.66,
+    "text": " all'inizio della mia stringa vediamo le altre le altre funzioni come che variano quindi io qua"
+  },
+  {
+    "start": 345.66,
+    "end": 355.62,
+    "text": " sempre mi beccone la mia ps print il puntatore a ps tr qui in realtà quello che devo fare è"
+  },
+  {
+    "start": 355.62,
+    "end": 370.5,
+    "text": " str pls p uguale a s meno size of str pls ma invece di scrivere size of str pls posso scrivere"
+  },
+  {
+    "start": 370.5,
+    "end": 379.7,
+    "text": " per l'ho spiegato in una lezione precedente a sterisco p che è la dimensione quindi del p che"
+  },
+  {
+    "start": 379.7,
+    "end": 387.94,
+    "text": " prenderei del dell'oggetto che prenderei da questo puntatore se utilizzarsi l'operatore di dereferenza"
+  },
+  {
+    "start": 388.94,
+    "end": 395.3,
+    "text": " di referenzazione quindi praticamente questa è una forma io tendo a scriverla così per una"
+  },
+  {
+    "start": 395.3,
+    "end": 407.04,
+    "text": " questione in brevità dopo di che qui l'end pointer non mi serve più ma io scrivo qua p lan come"
+  },
+  {
+    "start": 407.04,
+    "end": 414.62,
+    "text": " vedete così il codice è meglio documentato qui a questo punto posso usare sdj potrei usare p"
+  },
+  {
+    "start": 414.62,
+    "end": 424.58,
+    "text": " di str di j per essere più esplicito quello che succede probabilmente è una buona idea non cambia"
+  },
+  {
+    "start": 424.58,
+    "end": 434.4,
+    "text": " una mazza ps free io voglio che non esista più la chiamo ps release a questo punto non esiste più"
+  },
+  {
+    "start": 434.4,
+    "end": 441.46,
+    "text": " il concetto di creare l'oggetto ancora c'è ma di liberare l'oggetto io crea l'oggetto col"
+  },
+  {
+    "start": 441.46,
+    "end": 447.08,
+    "text": " conto delle referenze a uno posso aumentare questo conto delle referenze o decrementarlo se arriva"
+  },
+  {
+    "start": 447.08,
+    "end": 453.8,
+    "text": " zero ci sarà la free o meglio la ps free o me la tengo ma è una funzione che più o meno non"
+  },
+  {
+    "start": 453.8,
+    "end": 459.6,
+    "text": " chiamerà più nessuno questa funzione non va che altro non va altro che fare free s meno site"
+  },
+  {
+    "start": 459.6,
+    "end": 474.38,
+    "text": " off di strac ps vediamo le notifiche dal cellulare don't allow quindi va a liberare la"
+  },
+  {
+    "start": 474.38,
+    "end": 479.32,
+    "text": " allocazione io vi ricordo che per liberare una allocazione che ho eseguito con malloc poi la"
+  },
+  {
+    "start": 479.32,
+    "end": 484.58,
+    "text": " free deve essere chiamata nel puntatore che mi è restituito di tuo malloc no dentro da qualche"
+  },
+  {
+    "start": 484.58,
+    "end": 489.34,
+    "text": " parte dentro l'allocazione deve essere l'inizio quindi io vado a fare questa sottrazione del"
+  },
+  {
+    "start": 489.34,
+    "end": 497.9,
+    "text": " puntatore s per arrivare di nuovo alla al puntatore che mi ha restituito la malloc"
+  },
+  {
+    "start": 497.9,
+    "end": 505.56,
+    "text": " questo punto però dobbiamo aggiungere ps release char s"
+  },
+  {
+    "start": 509.02,
+    "end": 516.6,
+    "text": " questo lo dobbiamo mi becco il puntatore alla struttura e poi scrivo qui scrivo if p"
+  },
+  {
+    "start": 520.14,
+    "end": 528.02,
+    "text": " ref count uguale uguale a zero qui io vabbè guardate per ora praticamente scrivo"
+  },
+  {
+    "start": 528.02,
+    "end": 536.66,
+    "text": " quella printf poi queste cose gestisco in maniera un po' diversa ma capiamo ci aborted on free error"
+  },
+  {
+    "start": 536.66,
+    "end": 543.8,
+    "text": " perché se già il conto delle referenze a zero ok c'è qualcosa che non va perché quando è zero"
+  },
+  {
+    "start": 543.8,
+    "end": 550.26,
+    "text": " già l'oggetto è stato liberato quindi o è stata liberata un oggetto che è stato già liberato"
+  },
+  {
+    "start": 550.26,
+    "end": 555.22,
+    "text": " o addirittura è stata liberata una allocazione che non è neanche una stringa ps perché il"
+  },
+  {
+    "start": 555.22,
+    "end": 561.12,
+    "text": " programmatore è sbagliato quindi se il ref count già è a zero io stampo questo messaggio è exit 1"
+  },
+  {
+    "start": 561.12,
+    "end": 569.94,
+    "text": " per exit 1 bisogno 1 std.h queste sono chiamate di sistema exit che hanno molti sistemi operativi"
+  },
+  {
+    "start": 569.94,
+    "end": 583.62,
+    "text": " ma noi partiamo di unix man 2 exit no in realtà l' exit scusate mi anche se in realtà chiama"
+  },
+  {
+    "start": 583.62,
+    "end": 591.76,
+    "text": " credo la exit esatto la exit la chiamata di sistema vera e propria siccome il nome è uguale in"
+  },
+  {
+    "start": 591.76,
+    "end": 597.02,
+    "text": " realtà noi di solito chiamiamo la funzione di libereria che è in std lib e quindi noi nel caso"
+  },
+  {
+    "start": 597.02,
+    "end": 603.92,
+    "text": " exit non abbiamo bisogno di includere le unit standard dot age benissimo ora che cos'è che"
+  },
+  {
+    "start": 603.92,
+    "end": 614.8,
+    "text": " facciamo p cal ref count meno meno decrementiamo il conto delle referenze se p ref count se il"
+  },
+  {
+    "start": 614.8,
+    "end": 621.26,
+    "text": " conto delle referenze è arrivato a zero non ci sono più possessori di referenza questo oggetto"
+  },
+  {
+    "start": 621.26,
+    "end": 630.1,
+    "text": " questo punto io chiamo la ps free nel mio puntatore è libero altrimenti non faccio niente"
+  },
+  {
+    "start": 630.1,
+    "end": 638.4,
+    "text": " niente di niente questo ritorna la lunghezza questo che angeliamolo qua guardate diventa"
+  },
+  {
+    "start": 638.4,
+    "end": 645.54,
+    "text": " tutto abbastanza immediato retarmo p len che io prendo il mio puntatore al leder una volta"
+  },
+  {
+    "start": 645.54,
+    "end": 652.3,
+    "text": " che c'ho la struttura come header diventa tutto più facile ritorno più l'anno a qua facevo"
+  },
+  {
+    "start": 652.3,
+    "end": 658.14,
+    "text": " questo esempio con la mia global string allora qua vediamo qua faccio ps create poi facevo"
+  },
+  {
+    "start": 658.14,
+    "end": 666.86,
+    "text": " ps print che ancora funziona qua invece uso ps release qua guardate c'è ancora il problema"
+  },
+  {
+    "start": 666.86,
+    "end": 673.02,
+    "text": " perché io vi ricordate qua il codice ancora simulava un bug allora tanto per iniziare andiamo a"
+  },
+  {
+    "start": 673.02,
+    "end": 681.36,
+    "text": " ps release implementiamo pure la funzione gemella ps retain che serve per incrementare il"
+  },
+  {
+    "start": 681.36,
+    "end": 686.2,
+    "text": " conto delle referenze della mia stringa così possiamo fare ora anche la versione corretta di"
+  },
+  {
+    "start": 686.2,
+    "end": 694.3,
+    "text": " questo programma mi prendo leder e faccio p ref count più più questo non valto che incrementare"
+  },
+  {
+    "start": 694.3,
+    "end": 700.12,
+    "text": " il conto delle referenze in realtà sarebbe interessante anche qui mettere questa roba qua"
+  },
+  {
+    "start": 707.0,
+    "end": 721.94,
+    "text": " questo controllo a ported on retain off il legal string off sì spiemo così perché il"
+  },
+  {
+    "start": 721.94,
+    "end": 726.32,
+    "text": " conto delle referenze non può essere zero e poi io vado ad aumentare il conto di queste"
+  },
+  {
+    "start": 726.32,
+    "end": 732.5,
+    "text": " referenze c'è qualcosa che non va non dovrebbe essere mai il zero quando è zero quando si arriva"
+  },
+  {
+    "start": 732.5,
+    "end": 737.22,
+    "text": " zero è solo in questo caso ma in questo caso poi l'allocazione viene liberata e non si"
+  },
+  {
+    "start": 737.22,
+    "end": 744.26,
+    "text": " dovrebbe utilizzare di nuovo p seri ten allora release the drop the reference count"
+  },
+  {
+    "start": 744.26,
+    "end": 760.52,
+    "text": " off my odd of the string object by one and freeze the object if the count reached zero increase"
+  },
+  {
+    "start": 760.52,
+    "end": 771.2,
+    "text": " the reference count off the string object commenti minuscoli perché qua ci interessa fare altro"
+  },
+  {
+    "start": 772.44,
+    "end": 779.32,
+    "text": " allora guardate a questo punto io con p s create creano la mia stringa poi la assegno a un altro"
+  },
+  {
+    "start": 779.32,
+    "end": 786.48,
+    "text": " puntatore quindi dopo che io faccio questa operazione di assegnazione io qua devo scrivere p s retain"
+  },
+  {
+    "start": 788.7,
+    "end": 797.96,
+    "text": " ma i string ora sì che ci siamo io ora siccome ho due referenze lo creata la la mia stringa con"
+  },
+  {
+    "start": 797.96,
+    "end": 803.96,
+    "text": " reference counting uno e in effetti ha una un'ersopello la mia variabile locale ma i string"
+  },
+  {
+    "start": 803.96,
+    "end": 811.52,
+    "text": " quando poi che crea una nuova ownership uso retain questo punto il pram è corretto poi la"
+  },
+  {
+    "start": 811.52,
+    "end": 820.26,
+    "text": " stampa due volte poi la stampo scrivendo la sua lunghezza poi la rilascio la scusate la rilascio"
+  },
+  {
+    "start": 820.26,
+    "end": 827.06,
+    "text": " la prima volta tra l'altro di indicato la bottiglietta l'acqua manna già a me ora la stampo ancora"
+  },
+  {
+    "start": 827.06,
+    "end": 832.02,
+    "text": " perché ha un altro riferimento uso l'altra variabile che ancora dovrebbe avere un riferimento"
+  },
+  {
+    "start": 832.02,
+    "end": 840.74,
+    "text": " lecito a questo punto faccio anche qui p s release e ora il programma dovrebbe essere corretto proviamo"
+  },
+  {
+    "start": 842.0999999999999,
+    "end": 851.48,
+    "text": " non funziona una mazza allora andiamo al primo errore alla linea 28 questo si chiama ref count e"
+  },
+  {
+    "start": 851.48,
+    "end": 860.86,
+    "text": " questo è facile poi qua c'è un problema di inizializzazione esatto perché questo oggetto"
+  },
+  {
+    "start": 860.86,
+    "end": 870.82,
+    "text": " qua è un puntatore di tipo char quindi qua da uscrivere strac pls un puntatore di tipo"
+  },
+  {
+    "start": 870.82,
+    "end": 877.82,
+    "text": " pls e guardate qui io devo mettere ovviamente le parentesi perché non voglio che il casting sia"
+  },
+  {
+    "start": 877.82,
+    "end": 885.16,
+    "text": " ds perché poi la sottrazione avverrebbe in maniera erata quindi o per chiarezza specifico"
+  },
+  {
+    "start": 885.16,
+    "end": 891.36,
+    "text": " proprio quali sono i passaggi io ti dico prima prendi il puntatore di tipo char che con la matematica"
+  },
+  {
+    "start": 891.36,
+    "end": 897.66,
+    "text": " dei puntatori siccome è un tipo di il char di un bite significa che se io sottrago la grandezza"
+  },
+  {
+    "start": 897.66,
+    "end": 902.4,
+    "text": " la struttura tu mi sottrai davvero quei bite non li moltiplici per la per qualche altra cosa"
+  },
+  {
+    "start": 902.4,
+    "end": 907.44,
+    "text": " i moltiplici per uno quindi restano invariati una volta che io c'ho il nuovo puntatore a questo"
+  },
+  {
+    "start": 907.44,
+    "end": 915.9,
+    "text": " punto tu mi fai il casting ora questa riga così come noi la andiamo a copiare in vari altri in"
+  },
+  {
+    "start": 915.9,
+    "end": 927.1,
+    "text": " vari altri luoghi in cui avevo parimenti sbagliato forse basta più esatto e ora infatti il"
+  },
+  {
+    "start": 927.1,
+    "end": 932.4000000000001,
+    "text": " programma funziona ora vi faccio vedere una cosa se io qua gli metto un altro release che la stringa"
+  },
+  {
+    "start": 932.4,
+    "end": 941.74,
+    "text": " era già stata liberata sufficientemente volte e c'è un problema perché io qua non sto vedendo"
+  },
+  {
+    "start": 941.74,
+    "end": 953.6,
+    "text": " l'errore che avrei dovuto vedere vediamo perché pse release io dovevo arrivare qui perché il"
+  },
+  {
+    "start": 953.6,
+    "end": 960.44,
+    "text": " ref count doveva essere zero allora per vedere il debugging di ciò che accade noi ora quando"
+  },
+  {
+    "start": 960.44,
+    "end": 969.06,
+    "text": " chiamate il release abbiamo 1 2 e 3 anche qua manca la new line dando per iniziare quindi"
+  },
+  {
+    "start": 969.06,
+    "end": 976.72,
+    "text": " comunque l'errore forse non l'avrei visto per tale motivo quello era un problema ma non era"
+  },
+  {
+    "start": 976.72,
+    "end": 983.94,
+    "text": " il problema che avevamo noi qui ogni volta che chiamiamo riten scriviamo pure rend ref count"
+  },
+  {
+    "start": 983.94,
+    "end": 994.8,
+    "text": " is e ci lo facciamo scrivere pure and ref count is 1"
+  },
+  {
+    "start": 998.3199999999999,
+    "end": 1008.34,
+    "text": " piea no scusate non mi interessa nella riten mi interessa nella release quindi pure and ref count"
+  },
+  {
+    "start": 1008.34,
+    "end": 1019.28,
+    "text": " is 2 pure and ref count is 1 pure and ref count is questo numero qua allora guardate che cos'è che"
+  },
+  {
+    "start": 1019.28,
+    "end": 1024.1,
+    "text": " è successo qui qui è successo che noi nella release"
+  },
+  {
+    "start": 1031.3799999999999,
+    "end": 1038.98,
+    "text": " ok semplicemente sia corrotto leder ok questo check semplicemente noi non avevamo nessuna"
+  },
+  {
+    "start": 1038.98,
+    "end": 1045.04,
+    "text": " garanzia che davvero funzionasse perché una volta che io praticamente libero la stringa"
+  },
+  {
+    "start": 1045.04,
+    "end": 1051.1,
+    "text": " quello che succede libero l'allocazione quello che succede che la malloc dove c'era la mia"
+  },
+  {
+    "start": 1051.1,
+    "end": 1056.66,
+    "text": " locazione ci può scrivere quello che gli pare infatti quello che è successo in questo specifico"
+  },
+  {
+    "start": 1056.66,
+    "end": 1064.0,
+    "text": " caso guardate che cos'è che io quando poi arrivo veramente qua che davvero faccio la ps"
+  },
+  {
+    "start": 1064.0,
+    "end": 1070.3,
+    "text": " free e ora scrivo qual è il valore del ref count quindi ora sto scrivendo il valore del ref count"
+  },
+  {
+    "start": 1070.3,
+    "end": 1077.2,
+    "text": " solo dopo che l'allocazione a cui fa capo pi non è più valida io mi aspetterei di trovare"
+  },
+  {
+    "start": 1077.2,
+    "end": 1084.08,
+    "text": " uno zero invece trovo un valore a casacci allora come che ci si può difendere da da questi errori"
+  },
+  {
+    "start": 1084.08,
+    "end": 1094.4,
+    "text": " qua il modo per difendersi per questi errori almeno in parte ma col problema di dover utilizzare più"
+  },
+  {
+    "start": 1094.4,
+    "end": 1107.46,
+    "text": " memoria è il seguente è il seguente qua possiamo usare un campo che noi chiamiamo magic questo"
+  },
+  {
+    "start": 1107.46,
+    "end": 1119.16,
+    "text": " magic quando creiamo la nostra stringa lo settiamo a un valore particolare a anzi d ad bif esatto"
+  },
+  {
+    "start": 1122.08,
+    "end": 1131.84,
+    "text": " che è un numero a 32 bit ok una volta che ho questo magic guardate che facciamo qui quando io"
+  },
+  {
+    "start": 1131.84,
+    "end": 1139.72,
+    "text": " praticamente faccio la ps free prima di liberare quando faccio la release guardate prima di fare"
+  },
+  {
+    "start": 1139.72,
+    "end": 1151.12,
+    "text": " la ps free io faccio pi magic uguale a zero ok invalido questo magic ora questo numero"
+  },
+  {
+    "start": 1151.12,
+    "end": 1159.7,
+    "text": " magico che ho lo uso come validatore che la mia stringa sia valida quindi guardate qua facciamo"
+  },
+  {
+    "start": 1160.62,
+    "end": 1173.84,
+    "text": " una funzione che chiamo ps validate e qua gli diamo direttamente la struttura a beh questa"
+  },
+  {
+    "start": 1173.84,
+    "end": 1179.94,
+    "text": " ora la uso solo qua nella release ma noi in realtà la dovremmo usare nella retain la potremmo usare"
+  },
+  {
+    "start": 1179.94,
+    "end": 1185.4,
+    "text": " in tutte le funzioni che manipolano queste stringe e guardate che ci facciamo con questa ps"
+  },
+  {
+    "start": 1185.4,
+    "end": 1211.38,
+    "text": " validate scriviamola ps validate strutt plsp ifp magic not equal the bif in valid string exit uno"
+  },
+  {
+    "start": 1211.38,
+    "end": 1228.62,
+    "text": " valid string aborting allora validate that a ps string looks valid vediamo se ora funziona"
+  },
+  {
+    "start": 1228.62,
+    "end": 1235.8200000000002,
+    "text": " questo programmino qua esatto allora guardate il problema funziona appena praticamente io vado"
+  },
+  {
+    "start": 1236.1,
+    "end": 1243.92,
+    "text": " a cedere una string che non è più valida perché è stata liberata in questa chiamata qui vedrò"
+  },
+  {
+    "start": 1243.92,
+    "end": 1252.74,
+    "text": " questo messaggio qua ora se io questa chiamata invece la tolgo e compiro il programma il programma"
+  },
+  {
+    "start": 1252.74,
+    "end": 1259.84,
+    "text": " andrà avanti in maniera corretta quello che ci possiamo chiedere a questo punto è val la pena"
+  },
+  {
+    "start": 1259.84,
+    "end": 1267.78,
+    "text": " di usare 4 byte in più in queste string per avere questa salvaguardia dipende può valere la pena"
+  },
+  {
+    "start": 1267.78,
+    "end": 1277.86,
+    "text": " può non valere la pena ci sono anche le possibilità di fare per esempio il def pls debbug and if"
+  },
+  {
+    "start": 1277.86,
+    "end": 1285.04,
+    "text": " questa è una direttiva del compilatore che se io il con il programma lo compilo definendo a uno"
+  },
+  {
+    "start": 1285.04,
+    "end": 1293.12,
+    "text": " questa magro pls debbug allora il magic ci sarà veramente ovviamente questa cosa qui poi la devo"
+  },
+  {
+    "start": 1293.12,
+    "end": 1301.8,
+    "text": " mettere anche qui quindi potrei avere delle build di test mentre io faccio lo sviluppo che hanno"
+  },
+  {
+    "start": 1301.8,
+    "end": 1309.2,
+    "text": " questa importante protezione per beccare i bug quando poi faccio la build quella che effettivamente"
+  },
+  {
+    "start": 1309.2,
+    "end": 1321.84,
+    "text": " sarà eseguita in produzione nei sistemi potrei definire pls debbug a zero e salvare questi"
+  },
+  {
+    "start": 1321.84,
+    "end": 1331.7,
+    "text": " 4 byte per ogni string queste sono considerazioni che lascio alla vostra cara saggezza benissimo"
+  },
+  {
+    "start": 1331.7,
+    "end": 1337.1,
+    "text": " io direi che con questa puntata abbiamo messo abbastanza carne al fuoco vi vorrei dire solo"
+  },
+  {
+    "start": 1337.1,
+    "end": 1342.34,
+    "text": " una cosa qua in questo caso come riferimento ulteriori abbiamo messo global string un riferimento"
+  },
+  {
+    "start": 1342.34,
+    "end": 1347.72,
+    "text": " global esterno ma potete immaginare anche che ci siano degli errei che contengono alcuni"
+  },
+  {
+    "start": 1347.72,
+    "end": 1352.08,
+    "text": " un errei per esempio potrebbe contenere o una listalingata come abbiamo visto ultima volta"
+  },
+  {
+    "start": 1352.08,
+    "end": 1357.96,
+    "text": " tutte le sotto string altre listalingate potrebbero contenere solo alcune sotto string un subset"
+  },
+  {
+    "start": 1357.96,
+    "end": 1364.12,
+    "text": " che ha una qualità particolare io manipolo queste due diverse listalingate a volte rimuovo"
+  },
+  {
+    "start": 1364.12,
+    "end": 1369.84,
+    "text": " una sotto string da un insieme e mi basterà chiamare psl release poi se per caso la stessa"
+  },
+  {
+    "start": 1369.84,
+    "end": 1374.62,
+    "text": " string è referenziata anche dall'altra parte avrà ref count due perché quando io"
+  },
+  {
+    "start": 1374.62,
+    "end": 1379.86,
+    "text": " lo inserito anche dall'altra parte avrò chiamato psl retain e quindi sono tranquillo"
+  },
+  {
+    "start": 1379.86,
+    "end": 1384.9,
+    "text": " come ho fatto qui psl retain vedete questo è sempre una gestione manuale della memoria"
+  },
+  {
+    "start": 1385.4399999999998,
+    "end": 1392.44,
+    "text": " ma è molto meglio di andare di malloc e free nude crude ogni singola volta è un modo per"
+  },
+  {
+    "start": 1392.44,
+    "end": 1398.84,
+    "text": " venire errori è inoltre la differenza della della gestione completamente manuale della memoria"
+  },
+  {
+    "start": 1398.84,
+    "end": 1405.48,
+    "text": " ci consente con queste cose qui con questo trucco per esempio del magic di inserire delle"
+  },
+  {
+    "start": 1405.48,
+    "end": 1412.92,
+    "text": " salvaguardie che rendono la programmazione in c un pelo più sicura di come lo è altrimenti bene"
+  },
+  {
+    "start": 1412.92,
+    "end": 1414.82,
+    "text": " allora alla prossima lezione ciao"
+  }
+]

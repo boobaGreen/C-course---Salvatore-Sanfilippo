@@ -90,3 +90,58 @@ Sapevi che se passi un `char` a una funzione con argomenti variabili (come `prin
     }
   ]}
 />
+
+---
+
+<KeyConcepts title="Hacker Key Concepts">
+  - **I caratteri sono numeri**: Ogni carattere (`char`) è in realtà un intero a 8 bit.
+  - **Tabella ASCII**: La mappa universale che assegna un numero univoco ad ogni simbolo testuale.
+  - **Apici vs Virgolette**: `'A'` è un carattere (un numero), `"A"` è una stringa (un contenitore più complesso).
+</KeyConcepts>
+
+### Hacker Challenge 🏆
+
+<Quiz 
+  title="Hacker Challenge: Final Quiz"
+  questions={[
+    {
+      id: 1,
+      question: "Se hai `char c = 'A';` e scrivi `c = c + 32;`, cosa stamperà `printf(\"%c\", c)`?",
+      options: [
+        "Un errore, non si possono sommare numeri ai caratteri",
+        "'a' (la versione minuscola)",
+        "Il carattere '32'",
+        "Un simbolo casuale"
+      ],
+      correctAnswer: 1,
+      explanation: "Nella tabella ASCII, la distanza tra una lettera maiuscola e la sua versione minuscola è esattamente 32. Sommare 32 a 'A' (65) ci porta a 'a' (97). Questo dimostra che in C i caratteri sono a tutti gli effetti dei numeri su cui possiamo fare aritmetica."
+    },
+    {
+      id: 2,
+      question: "Qual è la differenza tra il carattere '0' e il valore intero 0?",
+      options: [
+        "Nessuna, sono lo stesso valore in memoria",
+        "Il valore intero 0 è il terminatore di stringa (NULL), mentre il carattere '0' ha valore ASCII 48",
+        "'0' occupa più memoria di 0",
+        "Il carattere '0' è usato solo in matematica"
+      ],
+      correctAnswer: 1,
+      explanation: "Questo è fondamentale: `0` (numero) è il byte nullo, usato per dire al C 'qui finisce la stringa'. `'0'` (carattere) è il tasto sulla tastiera che, nella tabella ASCII, corrisponde al numero 48."
+    }
+  ]}
+/>
+
+### Terminal Challenge: Manual Hunting 📖
+
+<HackerTerminal 
+  title="Hacker Challenge: Level 5"
+  description="Abbiamo imparato a usare le funzioni di output. Qual è il comando del terminale per leggere il 'manuale' di una funzione come printf per scoprirne tutti i segreti?"
+  command="google printf help"
+  expectedOutput="man printf"
+  inputLabel="Comando completo:"
+  placeholder="es. man nomefunzione"
+  hint="È l'abbreviazione di 'manual'."
+  explanation="Esatto! `man` è il migliore amico di un programmatore C. Ti dà la documentazione ufficiale, dettagliata e precisa per ogni funzione di libreria e comando di sistema."
+/>
+
+Ci vediamo alla prossima lezione!

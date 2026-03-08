@@ -1,0 +1,807 @@
+[
+  {
+    "start": 39.78,
+    "end": 48.56,
+    "text": " Ammazza che bello background del cazzo che c'ho in questa stanza."
+  },
+  {
+    "start": 49.660000000000004,
+    "end": 57.04,
+    "text": " Allora, ora mezzanotte e quattro, ho bevuto troppo vino, però non mi andavo di andare"
+  },
+  {
+    "start": 57.04,
+    "end": 61.86,
+    "text": " subito a letto e ho letto i commenti sul discorso di chiedere o non chiedere"
+  },
+  {
+    "start": 61.86,
+    "end": 67.68,
+    "text": " alle interviste di programmazione ai colloqui di programmazione diciamolo bene."
+  },
+  {
+    "start": 68.42,
+    "end": 74.54,
+    "text": " Domande algoritmiche e io ciò che dicevo è che non serve andare diciamola ai"
+  },
+  {
+    "start": 74.54,
+    "end": 79.28,
+    "text": " dettagli e negli algoritmi complicati è che alcune idee dell'informatica sono"
+  },
+  {
+    "start": 79.28,
+    "end": 88.44,
+    "text": " talmente fondamentali e si legano i pezzi tra di essi che non è neanche necessario"
+  },
+  {
+    "start": 88.44,
+    "end": 94.1,
+    "text": " imparare le cose in memoria infatti farò un esperimento. Io non implemento una"
+  },
+  {
+    "start": 94.1,
+    "end": 101.98,
+    "text": " binary search tree da almeno vent'anni e posso usarmi come autocavia per far vedere"
+  },
+  {
+    "start": 101.98,
+    "end": 107.96000000000001,
+    "text": " se mi riesce il processo col quale posso diciamo in qualche modo riessumare da"
+  },
+  {
+    "start": 108.21,
+    "end": 114.89,
+    "text": " memoria il modo in cui si scrive un albero binario facendo appello solo"
+  },
+  {
+    "start": 114.89,
+    "end": 120.63,
+    "text": " alle idee fondamentali che ci sono in questa struttura dati. Allora io di questa"
+  },
+  {
+    "start": 120.63,
+    "end": 129.89,
+    "text": " struttura dati so di certo una cosa che ogni nodo ha a sinistra dei nodi che hanno"
+  },
+  {
+    "start": 129.89,
+    "end": 135.37,
+    "text": " un valore inferiore a esso e a destra dei nodi superiore ad esso. C'è una"
+  },
+  {
+    "start": 135.37,
+    "end": 139.69,
+    "text": " ogni nodo registra anche l'informazione satellita che il suo valore noi per"
+  },
+  {
+    "start": 139.69,
+    "end": 143.69,
+    "text": " semplificare magari la facciamo solo numerica quindi dobbiamo iniziare la"
+  },
+  {
+    "start": 143.69,
+    "end": 149.91,
+    "text": " binary search tree.ci dobbiamo iniziare sicuramente devo diventare una struttura"
+  },
+  {
+    "start": 149.91,
+    "end": 158.61,
+    "text": " dobbiamo anche include stdio.h perché stamperò qualcosa e stdlib.h perché"
+  },
+  {
+    "start": 158.61,
+    "end": 164.09,
+    "text": " mi serve malloc questo appello vediamo nel corso in c che le strutture dati"
+  },
+  {
+    "start": 164.09,
+    "end": 170.07,
+    "text": " linkate sono dove l'allocazione della memoria è assolutamente fondamentale"
+  },
+  {
+    "start": 170.07,
+    "end": 175.11,
+    "text": " malloc e free perché io alloco nodi libero nodi così come mi serve. Allora"
+  },
+  {
+    "start": 175.11,
+    "end": 184.19,
+    "text": " chiamo la strutt nod e io so che c'ho uno strutt nod left right quindi il mio"
+  },
+  {
+    "start": 184.19,
+    "end": 191.01,
+    "text": " nodo avrà un puntatore sembra lo stesso tipo al tipo nodo che punta al suo"
+  },
+  {
+    "start": 192.08999999999997,
+    "end": 197.57,
+    "text": " figlio sinistro e uno al destro nel sinistro ha un valore inferiori al"
+  },
+  {
+    "start": 197.57,
+    "end": 204.07,
+    "text": " destro ha un valore superiori e poi il valore io chiamo mallo. Basta la mia"
+  },
+  {
+    "start": 204.07,
+    "end": 209.69,
+    "text": " struttura dati è tutta qua in teoria dovrei definire pure strutt tree dove c'è"
+  },
+  {
+    "start": 209.69,
+    "end": 216.61,
+    "text": " strutt nod prute ma io secondo me sta roba qui posso evitarla perché vorrei"
+  },
+  {
+    "start": 216.61,
+    "end": 227.61,
+    "text": " scrivere un'imprendazione semplice. Allora iniziamo dalla main io voglio"
+  },
+  {
+    "start": 227.61,
+    "end": 233.43,
+    "text": " qualcosa del genere quindi strutt nod prute che all'inizio sarà uguale a"
+  },
+  {
+    "start": 233.43,
+    "end": 240.99,
+    "text": " null quindi io voglio poter fare nod add anzi facciamo add in cui passo la"
+  },
+  {
+    "start": 240.99,
+    "end": 244.63,
+    "text": " root attuale che pur è in questo momento è null e poi il valore il nuovo valore"
+  },
+  {
+    "start": 244.63,
+    "end": 250.11,
+    "text": " che voglio scrivere dentro l'albero di la cabinaria ma siccome questa root"
+  },
+  {
+    "start": 250.11,
+    "end": 255.77,
+    "text": " inizia nulla e poi può essere che non è più nulla io ho due possibilità o qua"
+  },
+  {
+    "start": 255.77,
+    "end": 261.77,
+    "text": " devo fare così passo un puntatore un puntatore root o faccio root uguale ad"
+  },
+  {
+    "start": 261.77,
+    "end": 268.93,
+    "text": " root così se praticamente la root non è nulla mi ripassa la root che io ho"
+  },
+  {
+    "start": 268.93,
+    "end": 278.51,
+    "text": " passato sarà nulla allo deixa il primo il debutto e merнали suizia densiduo"
+  },
+  {
+    "start": 278.51,
+    "end": 287.21,
+    "text": " ingenuo, czytanna, zero, allora vuoi muni lustrutt non tu amis"
+  },
+  {
+    "start": 287.21,
+    "end": 294.09,
+    "text": " struttura, node, root, interval."
+  },
+  {
+    "start": 296.55,
+    "end": 311.21,
+    "text": " Add a new node, if root is null, returns the new root, the first inserted node."
+  },
+  {
+    "start": 311.21,
+    "end": 323.89,
+    "text": " node, altrimenti, il node è solo, returns, the root, passed by the user, in root."
+  },
+  {
+    "start": 324.75,
+    "end": 328.33,
+    "text": " Tutto questa complicazione è realtà perché non ho voluto definire la struttura 3."
+  },
+  {
+    "start": 329.43,
+    "end": 332.11,
+    "text": " Forse non è il caso, non è. Proseguiamo così."
+  },
+  {
+    "start": 335.73,
+    "end": 341.81,
+    "text": " Ok, allora, if root, qual è null? Allora, prima faccio una cosa."
+  },
+  {
+    "start": 345.29,
+    "end": 351.75,
+    "text": " strutt, node, new, unlock, site of, strutt, node."
+  },
+  {
+    "start": 353.37,
+    "end": 357.05,
+    "text": " Insegno un trucco, invece di fare così, uno può dire site of, new."
+  },
+  {
+    "start": 357.05,
+    "end": 361.79,
+    "text": " Praticamente è referenziale il puntatore."
+  },
+  {
+    "start": 362.83,
+    "end": 368.31,
+    "text": " Nel caso di site of, mi dà il tipo base."
+  },
+  {
+    "start": 372.63,
+    "end": 376.43,
+    "text": " No, reto, value, check it."
+  },
+  {
+    "start": 381.71,
+    "end": 384.81,
+    "text": " Però così praticamente, per non si capisce trainees."
+  },
+  {
+    "start": 387.33,
+    "end": 406.23,
+    "text": " We don't check formal look, failures, since this is a trivial example written at 0.009 or clock."
+  },
+  {
+    "start": 406.23,
+    "end": 423.49,
+    "text": " with glasses of wine on, fogging the head. Non cerchiamo di controllare il valore"
+  },
+  {
+    "start": 423.49,
+    "end": 428.33,
+    "text": " di rivetorno, ma lo che potrebbe ritornare, nulla in caso di out of memory, ma su questo"
+  },
+  {
+    "start": 428.33,
+    "end": 432.57,
+    "text": " discorso, su questa questione faremo un lungo discorso nel corso di programmazione in C,"
+  },
+  {
+    "start": 432.57,
+    "end": 438.37,
+    "text": " perché vedremo che sistemi operativi in realtà ormai operano in maniera diversa la maggior"
+  },
+  {
+    "start": 438.37,
+    "end": 444.11,
+    "text": " parte dei casi, della maggior parte dei casi, quindi però freghiamo ce ne. Allora, new left"
+  },
+  {
+    "start": 444.11,
+    "end": 451.11,
+    "text": " uguale a null, andiamo a dire, new left uguale a new right uguale a null, inizializziamo a null"
+  },
+  {
+    "start": 451.11,
+    "end": 462.27,
+    "text": " left and right, new value uguale a new ball uguale a ball. Se la root è null, retorn new,"
+  },
+  {
+    "start": 463.09,
+    "end": 469.81,
+    "text": " quella è la mia root. Altrimenti, io devo fare una cosa, nel mio albero devo andare a cercare la"
+  },
+  {
+    "start": 469.81,
+    "end": 481.15,
+    "text": " posizione in cui inserire il mio nuovo noto, e in sostanza io devo fare un ciclo in cui io"
+  },
+  {
+    "start": 481.15,
+    "end": 507.07,
+    "text": " faccio if, il noto in cui sono ora ball, if ball, e minore di root ball, else. Altrimenti,"
+  },
+  {
+    "start": 507.07,
+    "end": 514.17,
+    "text": " se è maggiore uguale, se facciamo una cosa, se è maggiore, allora se è maggiore io devo"
+  },
+  {
+    "start": 514.17,
+    "end": 525.91,
+    "text": " inserire questo robo qui a destra a messo che ci sia spazio, quindi fruit right uguale uguale a null,"
+  },
+  {
+    "start": 526.47,
+    "end": 533.55,
+    "text": " quindi se praticamente questo già a destra io ho spazio perché questo noto in cui sono in questo"
+  },
+  {
+    "start": 533.55,
+    "end": 543.51,
+    "text": " momento non ha il child destro, io ci posso inserire il mio valore, quindi che cosa farò?"
+  },
+  {
+    "start": 543.51,
+    "end": 573.07,
+    "text": " root right uguale a new, retorn banana, perché ora vedo io mentre giro col ciclo wild, allora io"
+  },
+  {
+    "start": 573.07,
+    "end": 586.85,
+    "text": " l'ho inserito, devo ritornare, però io mi devo ricordare qual è la root iniziale, perché io"
+  },
+  {
+    "start": 586.85,
+    "end": 592.99,
+    "text": " qua quando, praticamente non è il primo nodo, io devo ritornare saved, saved root, che io poi"
+  },
+  {
+    "start": 592.99,
+    "end": 601.95,
+    "text": " faccio root uguale root right, quindi continuo a seguire se non è null, io devo continuare a"
+  },
+  {
+    "start": 601.95,
+    "end": 607.93,
+    "text": " seguire right, così poi il ciclo wild torna qui e prendo di una scelta a destra o sinistra in"
+  },
+  {
+    "start": 607.93,
+    "end": 615.03,
+    "text": " base al nuovo valore rispetto al mio valore che voglio inserire, altrimenti, ah beh qua diciamo"
+  },
+  {
+    "start": 615.03,
+    "end": 619.15,
+    "text": " così si crea una ripetizione, non credo che sui libri di testo troverete questo codice,"
+  },
+  {
+    "start": 619.15,
+    "end": 627.81,
+    "text": " scritto così, if root left uguale nulla, questa è la stessa frizza uguale, root left uguale a new,"
+  },
+  {
+    "start": 627.97,
+    "end": 635.39,
+    "text": " si può scrivere in maniera diciamo più elegante, quindi lo inserisco e torno, saved root, altrimenti"
+  },
+  {
+    "start": 635.39,
+    "end": 652.47,
+    "text": " root uguale root left, ok uscendo da qui che succede, allora sì ho trovato un nodo,"
+  },
+  {
+    "start": 652.63,
+    "end": 658.57,
+    "text": " qua volendo potremmo fare break questo root saved root lo lo facciamo fuori,"
+  },
+  {
+    "start": 658.57,
+    "end": 664.79,
+    "text": " beh ma così è meglio, in pratica succede questa cosa, quando poi qua io ho fatto,"
+  },
+  {
+    "start": 665.03,
+    "end": 668.71,
+    "text": " sono andato qui che ho selezionato poi il nodo a destra o il nodo a sinistra,"
+  },
+  {
+    "start": 668.77,
+    "end": 674.39,
+    "text": " l'algoritmo si ripete perché qua c'è wild runa quindi un ciclo infinito e io continuo a"
+  },
+  {
+    "start": 674.39,
+    "end": 679.25,
+    "text": " cercare praticamente per i valori però qua io sto facendo una cosa, me ne sto impipando di"
+  },
+  {
+    "start": 679.25,
+    "end": 684.55,
+    "text": " controllare se il valore che mi hanno dato in realtà è dentro l'albero e in caso lo sparo a"
+  },
+  {
+    "start": 684.55,
+    "end": 692.81,
+    "text": " sinistra se ci sono più dieci per dire io li metto tutti in fila e ciò mi pare che vada bene,"
+  },
+  {
+    "start": 693.15,
+    "end": 704.67,
+    "text": " saved root io me lo sono salvato, uguale al root, proviamo a inserire dieci cinque venti cento"
+  },
+  {
+    "start": 707.25,
+    "end": 720.01,
+    "text": " quarenta e trenta tre, gcc bstt.c ok allora meno volo meno v meno o due vediamo che succede,"
+  },
+  {
+    "start": 720.15,
+    "end": 727.09,
+    "text": " beh però ma girano e cresciato, per vedere se io ho creato un albero corretto io vorrei"
+  },
+  {
+    "start": 727.09,
+    "end": 734.15,
+    "text": " stamparmi allora una cosa bella dei binary search tree è che poi tu puoi navigare l'albero in"
+  },
+  {
+    "start": 734.15,
+    "end": 739.77,
+    "text": " maniera ordinata dal planimento più piccolo al lamento più grande e io mi ricordo che questa"
+  },
+  {
+    "start": 739.77,
+    "end": 746.49,
+    "text": " cosa si può fare con un algoritmo ricorsivo che è veramente elegante e mi ricordo che quando me"
+  },
+  {
+    "start": 746.49,
+    "end": 758.33,
+    "text": " l'hanno mostrato tipo 30 anni fa o quello che è stato 30 anni fa sì praticamente si 30 più 18 48"
+  },
+  {
+    "start": 758.33,
+    "end": 764.93,
+    "text": " esatto in che o me passa il tempo io sono impazzito per eleganza e vediamo se lo posso"
+  },
+  {
+    "start": 764.93,
+    "end": 775.03,
+    "text": " ricostruire perché è troppo semplice teoricamente allora io voglio la mia void print sorted strud"
+  },
+  {
+    "start": 775.03,
+    "end": 788.17,
+    "text": " node root allora io prima voglio stampare il valore più piccolo quindi praticamente io"
+  },
+  {
+    "start": 788.17,
+    "end": 796.11,
+    "text": " richiamo print sorted attenzione if root di left se c'ho un video allora prendi tutto root"
+  },
+  {
+    "start": 796.25,
+    "end": 808.79,
+    "text": " potrebbe essere nulla in tal caso niente l'albero non è vuoto se ho invece il root left io richiamo"
+  },
+  {
+    "start": 812.0699999999999,
+    "end": 817.51,
+    "text": " ricorsivamente la mia funzione sul root left perché significa che ho dei valori inferiori da"
+  },
+  {
+    "start": 817.51,
+    "end": 821.99,
+    "text": " stampare rispetto al node in cui sono poi a sua volta risuccederà ancora ancora ancora"
+  },
+  {
+    "start": 821.99,
+    "end": 829.65,
+    "text": " fino a quando c'è qualcosa a sinistra dopo di che addestro solo valori superiori al"
+  },
+  {
+    "start": 829.65,
+    "end": 839.91,
+    "text": " node attuale e quindi io farò print f dollar di root val quindi stampo sto valore e poi voglio"
+  },
+  {
+    "start": 839.91,
+    "end": 848.95,
+    "text": " stampare tutti i valori positivi più grandi della di quel boccelle print sorted root right"
+  },
+  {
+    "start": 851.23,
+    "end": 859.87,
+    "text": " esatto cioè guardate ragazzi non lo so se funziona ve dico la verità però per dire c'è sta roba"
+  },
+  {
+    "start": 859.87,
+    "end": 866.75,
+    "text": " qui è troppo elegante e dentro la struttura dati cioè questo codice non ho scritto io lo ha scritto"
+  },
+  {
+    "start": 866.75,
+    "end": 876.39,
+    "text": " la struttura di questo nuovo cioè tutto questo codice non è un per a mia è l'albero binario"
+  },
+  {
+    "start": 877.77,
+    "end": 890.89,
+    "text": " nemmeno funziona neanche lo chiamata però print sorted root esatto 5 10 20 33 40 100"
+  },
+  {
+    "start": 890.89,
+    "end": 902.99,
+    "text": " sono ordinati c'è una cosa cat bsp big obbio gemini please check this example by"
+  },
+  {
+    "start": 902.99,
+    "end": 917.31,
+    "text": " in a re re implementation give me a list of max not please not that my look is not used on purpose"
+  },
+  {
+    "start": 917.31,
+    "end": 924.45,
+    "text": " this is just a trivial example also not that I didn't define"
+  },
+  {
+    "start": 927.5299999999999,
+    "end": 940.37,
+    "text": " a struct 3 since the odd function returns net that new route either the first node or the route"
+  },
+  {
+    "start": 940.37,
+    "end": 945.13,
+    "text": " pass by the user cacchiamo gli rcodice"
+  },
+  {
+    "start": 949.47,
+    "end": 955.77,
+    "text": " ma in che ora c'è aspettare che che ora sono 12 19 da un altro sto video l'ho"
+  },
+  {
+    "start": 955.77,
+    "end": 964.45,
+    "text": " applaudo domani perché ormai troppo tardi mi sono mangiato le sberge poco fa quando sono"
+  },
+  {
+    "start": 964.45,
+    "end": 971.37,
+    "text": " arrivato a casa quando sono buon sberge una specie di pesca catanese che è veramente una"
+  },
+  {
+    "start": 971.37,
+    "end": 979.53,
+    "text": " bomba perché i frutti antichi sono troppo buoni perché non li hanno selezionati aspetta list"
+  },
+  {
+    "start": 979.53,
+    "end": 988.97,
+    "text": " of box the main issue line the odd function bug incorrect and the duplicate value sama questo"
+  },
+  {
+    "start": 988.97,
+    "end": 996.53,
+    "text": " l'avevo ve lo avevo detto che non avrei gestito i valori duplicati e riconziro inserire il virus"
+  },
+  {
+    "start": 996.53,
+    "end": 1001.33,
+    "text": " in the left must be less than the value of the value in the right side must be greater than the"
+  },
+  {
+    "start": 1001.33,
+    "end": 1006.55,
+    "text": " problem this means if you try to add a value that already exists in the grid will be inserted in"
+  },
+  {
+    "start": 1006.55,
+    "end": 1011.77,
+    "text": " the left sub g second night the node will be inserted in the left child questo bello vado detto"
+  },
+  {
+    "start": 1011.77,
+    "end": 1017.89,
+    "text": " of the node with five value five while you insert the function will still work that restructure violates"
+  },
+  {
+    "start": 1017.89,
+    "end": 1024.95,
+    "text": " the fix ok io dovrei controllare nel caso di equality e non inserire un elemento che c'è già"
+  },
+  {
+    "start": 1024.95,
+    "end": 1034.45,
+    "text": " ma in realtà appare me bag memoria leak che si memori fosse x oz via malok a ben on libero"
+  },
+  {
+    "start": 1034.45,
+    "end": 1044.13,
+    "text": " mai la memoria grazie al grazzo a fritri usa comunque lo stesso approccio ricorsivo che è"
+  },
+  {
+    "start": 1044.13,
+    "end": 1054.73,
+    "text": " veramente molto figo noi non l'abbiamo implementato in realtà in realtà io credo che i valori"
+  },
+  {
+    "start": 1054.73,
+    "end": 1062.05,
+    "text": " e duplicati qua funzionano guardate orienze di sconventi qua e anche un vendi all'inizio se io"
+  },
+  {
+    "start": 1062.05,
+    "end": 1070.73,
+    "text": " convino stampo guardate vedete 5 10 20 20 20 33 40 100 ora non so se ci sono casi in realtà"
+  },
+  {
+    "start": 1070.73,
+    "end": 1075.99,
+    "text": " l'invariante del bain research strido dovrebbe essere quella però credo che comunque viene"
+  },
+  {
+    "start": 1075.99,
+    "end": 1089.05,
+    "text": " composto un albero corretto poi qui che mi diceva di interessante ok qua dice invece di usare un"
+  },
+  {
+    "start": 1089.05,
+    "end": 1097.13,
+    "text": " approccio ricorsivo io uso un approccio iterativo non potevo usare anche un approccio ricorsivo per"
+  },
+  {
+    "start": 1097.13,
+    "end": 1101.53,
+    "text": " l'ad che è un modo carino di procedere in realtà praticamente dal punto di vista strettamente"
+  },
+  {
+    "start": 1101.53,
+    "end": 1108.43,
+    "text": " della funzionalità è meglio utilizzare l'approccio iterativo per evitare di consumare stack addirittura"
+  },
+  {
+    "start": 1108.43,
+    "end": 1115.59,
+    "text": " sarebbe stato meglio modificare anche la la funzione che stampa gli elementi per trasformarla"
+  },
+  {
+    "start": 1115.59,
+    "end": 1130.41,
+    "text": " in iterativa in your function in un certo ok questo che qui in realtà non è necessario good"
+  },
+  {
+    "start": 1130.41,
+    "end": 1141.17,
+    "text": " catch perché siccome io qua cerco se il route è null io qua devo scrivere print sorted e print"
+  },
+  {
+    "start": 1141.17,
+    "end": 1154.43,
+    "text": " sorted funzionava tutto uguale esatto sia più elegante mi piace bravo geni esatto e infatti"
+  },
+  {
+    "start": 1154.43,
+    "end": 1160.33,
+    "text": " la riscritta esattamente così anche lui and your curem and is not wrong but this version is more"
+  },
+  {
+    "start": 1160.33,
+    "end": 1167.37,
+    "text": " common grazie dei miglioramenti comunque diciamo siamo arrivati a una un'implementazione che"
+  },
+  {
+    "start": 1167.37,
+    "end": 1173.45,
+    "text": " funziona di tutta questa roba qui e da vent'anni che io non tocca un albero di questo tipo perché"
+  },
+  {
+    "start": 1173.45,
+    "end": 1178.83,
+    "text": " poi in vita mia ho fatto tutto con altre strutture dati in particolare i radix 3 sono diventati"
+  },
+  {
+    "start": 1178.83,
+    "end": 1189.15,
+    "text": " un arsenale fondamentale e le schiplist io tra schiplist radix 3 diciamo che ho surrogato"
+  },
+  {
+    "start": 1189.15,
+    "end": 1197.35,
+    "text": " gli alberi di vari tipi o per la la di la di x 3 è un albero però è un albero profondamente"
+  },
+  {
+    "start": 1197.35,
+    "end": 1205.91,
+    "text": " diverso da dall'albero binaio di ricerca però cioè vedete esce fuori da soli implementazione"
+  },
+  {
+    "start": 1205.91,
+    "end": 1212.13,
+    "text": " anche se poi è così come poi la cosa interessante questa siccome non mi ricordavo il modo canonico"
+  },
+  {
+    "start": 1212.13,
+    "end": 1218.77,
+    "text": " in guste cose qua vengono implementate ciò che succede è che tutti rifuori l'implementazione"
+  },
+  {
+    "start": 1218.77,
+    "end": 1223.11,
+    "text": " per come la pensi tu in quel momento quindi qua mi è venuto a farla spondamente di tipo"
+  },
+  {
+    "start": 1223.11,
+    "end": 1230.03,
+    "text": " iterativo quindi diciamo ecco uno che vi intervista e voi tirate fuori in implementazione così diciamo"
+  },
+  {
+    "start": 1230.03,
+    "end": 1238.21,
+    "text": " a cazzo dei cane come fatto io stasera se è un bravo intervistatore uno bravo a fare colloquie di"
+  },
+  {
+    "start": 1238.21,
+    "end": 1245.65,
+    "text": " lavoro vi dirà bravo tu lo sai che cos'è un albero binaio di ricerca e possibilmente lo"
+  },
+  {
+    "start": 1245.65,
+    "end": 1250.73,
+    "text": " farà l'appunto di gemi che ti dice beh non hai c'è un memory leak ti dirà ora mi imprevende"
+  },
+  {
+    "start": 1250.73,
+    "end": 1258.15,
+    "text": " anche la funzione per liberare la memoria e tu dici certo dell'implemento è così via è questo"
+  },
+  {
+    "start": 1258.15,
+    "end": 1264.17,
+    "text": " il punto quindi gli quesiti algoritmici da chiedere secondo me sono di questo tipo io ora vi ho"
+  },
+  {
+    "start": 1264.17,
+    "end": 1270.45,
+    "text": " voluto vedere vi ho affar vedere un'operazione di becchinaggio dalla memoria cioè tu puoi tirare"
+  },
+  {
+    "start": 1270.45,
+    "end": 1275.67,
+    "text": " fuori sta roba ora questa cosa la potrei fare con le estabile a bene stable diciamo anche"
+  },
+  {
+    "start": 1275.67,
+    "end": 1281.13,
+    "text": " negli anni le usate molto di più eccetera eccetera ma per una quantità di algoritmi potrei usare"
+  },
+  {
+    "start": 1281.13,
+    "end": 1285.77,
+    "text": " la stessa pringine perché mi ricordo solo l'idea per sommi capi ma poi dall'idea per sommi capi"
+  },
+  {
+    "start": 1285.77,
+    "end": 1291.83,
+    "text": " puoi tirare fuori in implementazione tra le nei nei casi in cui ci sono dei piccoli dettagli che"
+  },
+  {
+    "start": 1291.83,
+    "end": 1299.01,
+    "text": " devi studiare a tavolino ci sono strutture dati che sono così quindi per dire io in questo momento"
+  },
+  {
+    "start": 1299.01,
+    "end": 1307.83,
+    "text": " non mi ricordo per stimare la cardinalità degli hyperlog log la formula che devo utilizzare per"
+  },
+  {
+    "start": 1307.83,
+    "end": 1314.65,
+    "text": " aggiustare per cardinalità bassa per cardinalità alta così via mi ricordo perfettamente l'algoritmo"
+  },
+  {
+    "start": 1314.65,
+    "end": 1321.67,
+    "text": " però per dire farei magari degli errori rispetto all'implementazione top o se no che ne so i"
+  },
+  {
+    "start": 1321.67,
+    "end": 1325.69,
+    "text": " bloom filter sono altro caso in cui poi bisogna applicare comunque un po di matematica dovrei"
+  },
+  {
+    "start": 1325.69,
+    "end": 1330.01,
+    "text": " lavorare ci un po ma ci sono altri casi in cui praticamente l'implementazione emerge dalle"
+  },
+  {
+    "start": 1330.01,
+    "end": 1337.79,
+    "text": " idee basi va bene spero che questo video si senta perché qui rimbomba e poi può essere che però"
+  },
+  {
+    "start": 1337.79,
+    "end": 1343.57,
+    "text": " riesco a cancellare il rimbombo con da vingere solve ora me ne vado al letto buonanotte"
+  }
+]

@@ -176,9 +176,93 @@ What happens if you add 1 to the maximum possible value for a type?
   ]}
 />
 
-<KeyConcepts title="Summary">
+<KeyConcepts title="Hacker Key Concepts">
   - **Scope** determines where and for how long a variable exists.
   - C uses **Pass by Value** as its standard.
   - Numeric types have specific limits and **Promotion** rules.
   - Always avoid signed integer overflow!
 </KeyConcepts>
+
+### Hacker Challenge 🏆
+
+<Quiz 
+  title="Hacker Challenge: Final Quiz"
+  questions={[
+    {
+      id: 1,
+      question: "What happens if you run this comparison: `if (-1 > 1u)` (where `1u` is an unsigned integer)?",
+      options: [
+        "The result is False (0), as expected in mathematics",
+        "The result is True (1), because -1 is promoted to a huge unsigned number",
+        "The compiler throws an error and fails to compile",
+        "The program crashes immediately"
+      ],
+      correctAnswer: 1,
+      explanation: "This is one of C's most famous traps. When comparing a signed and an unsigned value, the signed value is 'promoted' to unsigned. The sign bit of -1 (all 1s in binary) is interpreted as the maximum possible value for an unsigned (e.g., 4 billion), thus making it greater than 1."
+    },
+    {
+      id: 2,
+      question: "What physically happens if you subtract a number from a pointer (e.g., `p - 1`) in C?",
+      options: [
+        "It subtracts exactly 1 from the memory address",
+        "It subtracts the size of the type the pointer points to (e.g., 4 bytes for an int*)",
+        "It always generates a segmentation fault",
+        "The pointer becomes null"
+      ],
+      correctAnswer: 1,
+      explanation: "Pointer arithmetic is 'type-aware'. By subtracting 1 from an integer pointer, C subtracts 4 bytes (on 32/64 bit systems), moving you to the previous element in an array."
+    },
+    {
+      id: 3,
+      question: "What is the fundamental difference between the stack and the area for static/global variables?",
+      options: [
+        "None, they are the same thing",
+        "The stack is temporary and automatically managed (LIFO), while static variables live for the entire duration of the program",
+        "Static variables are faster",
+        "The stack cannot contain integers"
+      ],
+      correctAnswer: 1,
+      explanation: "The Stack is dynamic: it grows and shrinks as you call functions. Static and global variables instead occupy a fixed place in memory that never changes from the beginning to the end of execution."
+    }
+  ]}
+/>
+
+### Terminal Challenge: Promotion Hunting 🏹
+
+<HackerTerminal 
+  title="Hacker Challenge: Level 3 - Task 1"
+  description="We saw that promotions can be subtle. If you want to force the compiler to treat a constant as an 'unsigned' integer, which suffix must you add to the number?"
+  command="echo 'int x = 100...;' > test.c"
+  expectedOutput="u"
+  inputLabel="Suffix:"
+  placeholder="e.g. f, l, u..."
+  hint="It's just one letter, the first letter of the word 'unsigned'."
+  explanation="Exactly! The suffix 'u' (e.g., `100u`) or 'U' instructs the compiler to treat the literal as an `unsigned int`, preventing or forcing certain promotions during calculations."
+  xpReward={150}
+/>
+
+<HackerTerminal 
+  title="Hacker Challenge: Level 3 - Task 2"
+  description="You want to check how much space a 'long' takes on a 32-bit system while you're on a 64-bit machine. Which GCC flag would you use to force a 32-bit compilation?"
+  command="gcc main.c ..."
+  expectedOutput="-m32"
+  inputLabel="GCC Flag:"
+  placeholder="e.g. -m..."
+  hint="It refers to the 32-bit architecture 'model'."
+  explanation="Great! `-m32` instructs the compiler to generate code for 32-bit x86 architectures, where pointers and 'longs' are usually 4 bytes instead of 8."
+  xpReward={200}
+/>
+
+<HackerTerminal 
+  title="Hacker Challenge: Level 3 - Task 3"
+  description="Every compiled program is divided into sections: .text (code), .data (initialized variables), and .bss (zeroed variables). Which command would you use to see the sizes of these sections in your a.out file?"
+  command="ls -l a.out"
+  expectedOutput="size a.out"
+  inputLabel="Command:"
+  placeholder="e.g. size filename"
+  hint="It's the tool for knowing the 'size' of sections."
+  explanation="Excellent! The `size` command is fundamental for those working in embedded systems to understand how much RAM and Flash the program will occupy."
+  xpReward={250}
+/>
+
+See you in the next lesson!

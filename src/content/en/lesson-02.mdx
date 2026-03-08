@@ -188,7 +188,7 @@ On Linux, you can see the return value of the last command by typing `echo $?` i
 ## Hacker Key Concepts
 
 <KeyConcepts 
-  title="Recap"
+  title="Hacker Key Concepts"
   concepts={[
     {
         title: "Explicit Typing",
@@ -208,3 +208,87 @@ On Linux, you can see the return value of the last command by typing `echo $?` i
     }
   ]}
 />
+
+### Hacker Challenge 🏆
+
+<Quiz 
+  title="Hacker Challenge: Final Quiz"
+  questions={[
+    {
+      id: 1,
+      question: "Why is an uninitialized local variable (e.g., `int x;`) considered dangerous even if the program seems to work initially?",
+      options: [
+        "Because it occupies more RAM",
+        "Because it contains 'garbage', which is the residual value from whoever used that piece of Stack previously (Stack Reuse)",
+        "Because the compiler deletes the file if it finds it",
+        "Because it makes the computer hotter"
+      ],
+      correctAnswer: 1,
+      explanation: "The Stack is a memory area that is continuously reused. When a function finishes, its space is freed but the data is not wiped (for speed). The next function that uses that space will find the 'ghosts' of the previous function."
+    },
+    {
+      id: 2,
+      question: "What physically happens when we call a function in C?",
+      options: [
+        "The function's code is copied to the point of call",
+        "A new 'Stack Frame' is created containing the function's parameters and local variables",
+        "The CPU stops working until the function terminates",
+        "Variables are saved to the hard disk"
+      ],
+      correctAnswer: 1,
+      explanation: "A function call creates a structure in the Stack called a 'Frame'. It is like a temporary drawer where the function puts everything it needs. When the function 'returns', the drawer is emptied (or rather, removed from the stack)."
+    },
+    {
+      id: 3,
+      question: "Why do we sometimes use the `volatile` keyword before a variable?",
+      options: [
+        "To make it faster",
+        "To tell the compiler not to optimize it (e.g., not put it in a register), because its value could change unexpectedly (e.g., external hardware)",
+        "To delete it from memory after use",
+        "To protect it from viruses"
+      ],
+      correctAnswer: 1,
+      explanation: "The C compiler is very aggressive. If it sees you read a variable twice without writing anything in between, it might think the value is the same and not re-read it from RAM. `volatile` forces the compiler to re-read the value every single time, essential for interacting with hardware or threads."
+    }
+  ]}
+/>
+
+### Terminal Challenge: Investigating Memory 🔍
+
+<HackerTerminal 
+  title="Hacker Challenge: Level 2 - Task 1"
+  description="Salvatore mentioned a tool to look 'inside' executables and see strings and other binary data. If you wanted to see the binary content of the 'a.out' file, which command would you use?"
+  command="ls -l a.out"
+  expectedOutput="xxd a.out"
+  inputLabel="Complete Command:"
+  placeholder="e.g. xxd filename"
+  hint="It starts with 'x' and is used for hexadecimal dumps."
+  explanation="Great! `xxd` (or `hexdump`) is the fundamental tool for every C hacker. It allows you to see exactly what's inside a binary file, including the bytes that make up your instructions and strings."
+  xpReward={150}
+/>
+
+<HackerTerminal 
+  title="Hacker Challenge: Level 2 - Task 2"
+  description="Every function you write (like main or sum) becomes a 'symbol' inside the binary file. Which command would you use to list all symbols present in a.out?"
+  command="ls a.out"
+  expectedOutput="nm a.out"
+  inputLabel="Command:"
+  placeholder="e.g. nm filename"
+  hint="It's a two-letter command, short for 'names' or 'symbol names'."
+  explanation="Exactly! `nm` shows you the list of symbols. You'll see 'T' for functions in the text segment and 'U' for undefined ones (like printf, which is in an external library)."
+  xpReward={200}
+/>
+
+<HackerTerminal 
+  title="Hacker Challenge: Level 2 - Task 3"
+  description="You need to see the entry point (the starting point) of your program and other information from the file header. Which command would you use to view the executable header?"
+  command="cat a.out"
+  expectedOutput="objdump -f a.out"
+  inputLabel="Command:"
+  placeholder="e.g. objdump -f filename"
+  hint="It starts with 'obj' and is used to dump object information."
+  explanation="Perfect! `objdump -f` shows you the memory address of the starting instruction (start address). This is the very first step when performing malware analysis or low-level debugging."
+  xpReward={250}
+/>
+
+See you in the next lesson!

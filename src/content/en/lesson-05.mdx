@@ -90,3 +90,58 @@ Did you know that if you pass a `char` to a function with variable arguments (li
     }
   ]}
 />
+
+---
+
+<KeyConcepts title="Hacker Key Concepts">
+  - **Characters are numbers**: Every character (`char`) is actually an 8-bit integer.
+  - **ASCII Table**: The universal map that assigns a unique number to every text symbol.
+  - **Apostrophes vs Quotes**: `'A'` is a character (a number), `"A"` is a string (a more complex container).
+</KeyConcepts>
+
+### Hacker Challenge 🏆
+
+<Quiz 
+  title="Hacker Challenge: Final Quiz"
+  questions={[
+    {
+      id: 1,
+      question: "If you have `char c = 'A';` and you write `c = c + 32;`, what will `printf(\"%c\", c)` print?",
+      options: [
+        "An error, you cannot add numbers to characters",
+        "'a' (the lowercase version)",
+        "The character '32'",
+        "A random symbol"
+      ],
+      correctAnswer: 1,
+      explanation: "In the ASCII table, the distance between an uppercase letter and its lowercase version is exactly 32. Adding 32 to 'A' (65) takes us to 'a' (97). This demonstrates that in C, characters are essentially numbers that we can perform arithmetic on."
+    },
+    {
+      id: 2,
+      question: "What is the difference between the character '0' and the integer value 0?",
+      options: [
+        "None, they are the same value in memory",
+        "The integer value 0 is the string terminator (NULL), while the character '0' has the ASCII value 48",
+        "'0' occupies more memory than 0",
+        "The character '0' is only used in mathematics"
+      ],
+      correctAnswer: 1,
+      explanation: "This is fundamental: `0` (number) is the null byte, used to tell C 'this is the end of the string'. `'0'` (character) is the key on the keyboard which, in the ASCII table, corresponds to the number 48."
+    }
+  ]}
+/>
+
+### Terminal Challenge: Manual Hunting 📖
+
+<HackerTerminal 
+  title="Hacker Challenge: Level 5"
+  description="We learned how to use output functions. What is the terminal command to read the 'manual' of a function like printf to discover all its secrets?"
+  command="google printf help"
+  expectedOutput="man printf"
+  inputLabel="Complete Command:"
+  placeholder="e.g. man function_name"
+  hint="It's short for 'manual'."
+  explanation="Exactly! `man` is a C programmer's best friend. It gives you the official, detailed, and precise documentation for every library function and system command."
+/>
+
+See you in the next lesson!

@@ -1,0 +1,1302 @@
+[
+  {
+    "start": 39.44,
+    "end": 48.28,
+    "text": " Cari amici, oggi per noi è necessario andare ad approfondire alcuni argomenti che sono"
+  },
+  {
+    "start": 48.28,
+    "end": 55.3,
+    "text": " stati toccati nella scorsa puntata e in alcune di quelle precedenti per Fixed Lend String"
+  },
+  {
+    "start": 56.4,
+    "end": 64.76,
+    "text": " quando abbiamo implementato questo file qui. Infatti ci sono stati molti dubbi, ci sono stati"
+  },
+  {
+    "start": 64.76,
+    "end": 71.2,
+    "text": " dei dubbi che noi dobbiamo necessariamente sciogliere prima di continuare, ma magari visto"
+  },
+  {
+    "start": 71.2,
+    "end": 76.82,
+    "text": " che questa puntata non può essere solo uno scioglimento di dubbi perché se no si potrebbe"
+  },
+  {
+    "start": 76.82,
+    "end": 84.0,
+    "text": " tradurre anche in un rompimento di scatole, la utilizzeremo questa puntata anche per far capire"
+  },
+  {
+    "start": 84.0,
+    "end": 92.0,
+    "text": " quali sono effettivamente se questa libreria dovesse essere una libreria per uso in codice"
+  },
+  {
+    "start": 92.0,
+    "end": 99.28,
+    "text": " in produzione come si arriva da qui a una seria. Quindi esploreremo queste diverse cose."
+  },
+  {
+    "start": 100.62,
+    "end": 111.74,
+    "text": " Secondo me la prima e più importante questione è il dubbio di questo puntatore. Primo problema,"
+  },
+  {
+    "start": 111.74,
+    "end": 125.08,
+    "text": " Struct, Ind, A, Char, a beh facciamo IndLend, Char e Str. La gente mi diceva ma perché c'è scritto"
+  },
+  {
+    "start": 125.08,
+    "end": 133.44,
+    "text": " str aperta e chiusa quadra invece di Char e str? Bene queste due cose sono completamente diverse"
+  },
+  {
+    "start": 133.44,
+    "end": 140.78,
+    "text": " e lo vedremo iniziando da questa definizione quella che le persone si aspettavano di trovare."
+  },
+  {
+    "start": 145.02,
+    "end": 164.88,
+    "text": " Includiamo stdio.h e scriviamo la nostra main. Allora, per dire io posso scrivere Struct,"
+  },
+  {
+    "start": 167.34,
+    "end": 178.12,
+    "text": " PS prefix of the instructions, prefix of the instructions, S. Poi devo inizializzare i miei campi,"
+  },
+  {
+    "start": 178.28,
+    "end": 188.64,
+    "text": " S di l'enno è uguale a 10, S di str a questo punto questo è un puntatore quindi ricordiamoci un"
+  },
+  {
+    "start": 188.64,
+    "end": 197.14,
+    "text": " puntatore cos'è un numero quindi è un intero. Devo questo puntatore allocare, perché altrimenti la mia"
+  },
+  {
+    "start": 197.14,
+    "end": 202.06,
+    "text": " stringa, dove è che la registro la mia stringa di 10 caratteri più il terminatore nullo, mi tocca"
+  },
+  {
+    "start": 202.06,
+    "end": 209.92,
+    "text": " scrivere Maloc 10 più 1 che sarebbe 11 ma lo scriviamo così per sottolineare come il più 1"
+  },
+  {
+    "start": 209.92,
+    "end": 217.8,
+    "text": " sia per il null term. E poi io posso... C'è la funzione memcopy che forse non ho visto mai,"
+  },
+  {
+    "start": 218.8,
+    "end": 223.68,
+    "text": " che è una funzione molto importante del C. Si dà un puntatore di destinazione,"
+  },
+  {
+    "start": 223.92,
+    "end": 229.56,
+    "text": " un puntatore sorgente, è un numero di byte e memcopy effetto alla copia. Noi dentro la"
+  },
+  {
+    "start": 229.56,
+    "end": 236.56,
+    "text": " libreria avevamo usato un ciclo for per paresare quello che stava accadendo, ma in C è idiomatico"
+  },
+  {
+    "start": 236.56,
+    "end": 244.94,
+    "text": " e normale usare memcopy, memcopy, s.str, quella, il mio puntatore di destinazione. Il mio puntatore"
+  },
+  {
+    "start": 244.94,
+    "end": 251.7,
+    "text": " sorgente invece gli lo dò così come una stringa literal in C quindi scritta di intende nel sorgente,"
+  },
+  {
+    "start": 251.96,
+    "end": 260.76,
+    "text": " ma il C quando conviene questo programma, dentro una parte particolare della memoria del programma,"
+  },
+  {
+    "start": 261.36,
+    "end": 267.18,
+    "text": " allocherà questa stringa qui fissa nel programma, in delle pagine che di solito non possono essere"
+  },
+  {
+    "start": 267.86,
+    "end": 274.3,
+    "text": " modificate, altrimenti il programma viene interrotto con una violazione della memoria, però trasformerà"
+  },
+  {
+    "start": 274.3,
+    "end": 280.44,
+    "text": " questa stringa letterale che io do qui in un puntatore, quindi memcopy vedrà un puntatore."
+  },
+  {
+    "start": 284.56000000000006,
+    "end": 291.12,
+    "text": " memcopy 1234567890 sono 10 byte, virgola 11, perché vi ricordo che anche se questi sono 10 byte il C"
+  },
+  {
+    "start": 291.12,
+    "end": 298.84,
+    "text": " metterà alla fine il terminatore nulla, quindi un byte a zero. E ora io mi posso chiedere qual è il"
+  },
+  {
+    "start": 298.84,
+    "end": 306.28,
+    "text": " layout return zero, peraltro io prima di farvi vedere il layout, volevo farvi vedere qui con"
+  },
+  {
+    "start": 307.03999999999996,
+    "end": 320.52,
+    "text": " printf che la printf che può stampare un puntatore che questo è un puntatore. Questo è definito in"
+  },
+  {
+    "start": 322.15999999999997,
+    "end": 332.28,
+    "text": " string.age vedete che un puntatore c'è, non lo stampa con un puntatore neppiù nm. Qual è in memoria"
+  },
+  {
+    "start": 332.28,
+    "end": 338.7,
+    "text": " il layout di questa roba qui. Prima di farvelo vedere nella maniera più visuale possibile,"
+  },
+  {
+    "start": 339.36,
+    "end": 346.72,
+    "text": " ragioniamo ci assieme, quindi questo è un intero, quindi qua ci sono 4, in questa macchina l'intero"
+  },
+  {
+    "start": 346.72,
+    "end": 353.92,
+    "text": " è di 4 byte, quindi sono 4 byte di questo intero, poi c'è un padding perché siccome il puntatore"
+  },
+  {
+    "start": 353.92,
+    "end": 361.06,
+    "text": " è di 8 byte, perché una macchia 64 bit c'è un padding, quindi no per noi per non avere questo"
+  },
+  {
+    "start": 361.06,
+    "end": 368.16,
+    "text": " padding scriviamo i long, così questo intero qui è di 8 byte pure, quindi abbiamo 8 byte un intero,"
+  },
+  {
+    "start": 368.2,
+    "end": 374.24,
+    "text": " 8 byte un altro intero che il puntatore e questo puntatore conderrà l'indirizzo in memoria che"
+  },
+  {
+    "start": 374.24,
+    "end": 390.88,
+    "text": " gli abbiamo assegnato qui, ma per vedere queste cose per bene proviamo a scrivere una funzione molto"
+  },
+  {
+    "start": 390.88,
+    "end": 400.08,
+    "text": " io posso stampare dei file con xdump, guardando gli offset, i byte è quello che contengono all'interno,"
+  },
+  {
+    "start": 400.1,
+    "end": 407.5,
+    "text": " è molto carino questa cosa, per me fa una funzione xdump, quindi ansignet, ansivoid,"
+  },
+  {
+    "start": 407.58,
+    "end": 418.14,
+    "text": " facciamo che prende qualsiasi puntatore, p, sidest, lan e facciamo una cosa"
+  },
+  {
+    "start": 426.34,
+    "end": 433.86,
+    "text": " si c'è una cosa, allora la lunghezza io la considero quella che mi diciamo quella che rimane"
+  },
+  {
+    "start": 434.84,
+    "end": 446.34,
+    "text": " della lunghezza, quindi for in j è uguale a 0, j è un minore di lan, j più più, partiamo con una"
+  },
+  {
+    "start": 446.34,
+    "end": 455.76,
+    "text": " versione semplice, allora tanto per iniziare, p io faccio che ansignet, poi io stampare byte per"
+  },
+  {
+    "start": 455.76,
+    "end": 465.12,
+    "text": " byte, quindi il puntatore lo chiamo u qua, anzi b byte e lo assegno p, p è void quindi non ha bisogno"
+  },
+  {
+    "start": 465.12,
+    "end": 468.76,
+    "text": " di casting, semplicemente è un'indirizzo in memoria, questo è un altro indirizzo in memoria,"
+  },
+  {
+    "start": 468.76,
+    "end": 477.62,
+    "text": " ma questo è tipizzato e io posso fare qui in questo ciclo for in cui j vada 0 fino al quanti byte o"
+  },
+  {
+    "start": 477.62,
+    "end": 490.3,
+    "text": " stampo 0 2 x, questo specificatore di tipo 0 2 x stampa un numero che io passo come intero,"
+  },
+  {
+    "start": 490.3,
+    "end": 501.58,
+    "text": " lo stampa come esadecimale e io stampo byte di j, quindi il mio byte, poi alla fine scriviamo"
+  },
+  {
+    "start": 501.58,
+    "end": 508.28,
+    "text": " un new line, quindi abbiamo questa semplice versione della xdump, proviamo a usarla qui,"
+  },
+  {
+    "start": 508.96,
+    "end": 519.54,
+    "text": " xdump, il puntatore alla mia struttura, quindi devo usare and la ecommerciare diciamo per ottenere"
+  },
+  {
+    "start": 519.54,
+    "end": 527.46,
+    "text": " da s che è una struttura il suo puntatore, size of ds, questo è il quanti byte composta,"
+  },
+  {
+    "start": 527.86,
+    "end": 536.88,
+    "text": " proviamo, convidiamo ed ecco guardate questo qui questi primi 8 byte sono il mio intero,"
+  },
+  {
+    "start": 536.98,
+    "end": 543.82,
+    "text": " siccome io avevo assegnato a 10 alla lunghezza vedete qua c'è scritto, siccome questa macchina"
+  },
+  {
+    "start": 543.82,
+    "end": 550.62,
+    "text": " l'intolendian quindi byte meno significativi, quelli che valgono di meno nel numero sono i primi,"
+  },
+  {
+    "start": 550.94,
+    "end": 556.18,
+    "text": " nelle macchine big indian che vi ripeto non esistono praticamente più nell'informatica di oggi,"
+  },
+  {
+    "start": 556.32,
+    "end": 563.84,
+    "text": " da un po' di anni e la tendenza sembra quella che li vedrà del tutto scomparire avrebbero"
+  },
+  {
+    "start": 563.84,
+    "end": 570.0,
+    "text": " avuto 0 a qui e qua avrebbero avuto tutti a 0 perché i byte più significativi in big indian"
+  },
+  {
+    "start": 570.0,
+    "end": 575.4,
+    "text": " sono i primi e quelli meno significativi gli ultimi, dopo di che qua c'è il nostro puntatore,"
+  },
+  {
+    "start": 575.74,
+    "end": 582.22,
+    "text": " guardate questo è il puntatore a 0 6 0 0 0 3 0 2 perché lo dovete leggere al"
+  },
+  {
+    "start": 582.22,
+    "end": 588.4,
+    "text": " contraria perché l'intolendian, infatti guardate io qua mi faccio anche stampare prima di xdump"
+  },
+  {
+    "start": 588.4,
+    "end": 600.24,
+    "text": " mi faccio stampare questo puntatore sstr, guardate il puntatore a 60 a 10 e qui guardate cosa abbiamo"
+  },
+  {
+    "start": 600.24,
+    "end": 606.76,
+    "text": " 60 blah blah blah 10, i due byte iniziali sono a 0 ma fanno parte il puntatore però io ovviamente"
+  },
+  {
+    "start": 606.76,
+    "end": 614.84,
+    "text": " qua nella printf non li vedo perché non è che se devo scriver 10 scrivo 0 10 perché non hanno valore"
+  },
+  {
+    "start": 616.5600000000001,
+    "end": 629.18,
+    "text": " quindi in questa struttura io ho effettivamente una puntatore a stringa che esiste dentro"
+  },
+  {
+    "start": 629.18,
+    "end": 640.32,
+    "text": " la struttura che occupa 8 byte ora invece cambiamo le carte e io questa str qui lo faccio che un"
+  },
+  {
+    "start": 640.32,
+    "end": 649.98,
+    "text": " array fisso di lunghezza fissa sono un array di 20 caratteri ora se ci ragionate io c'ho prima"
+  },
+  {
+    "start": 651.52,
+    "end": 660.42,
+    "text": " qui la mia lunghezza ok quindi sono sempre i miei 8 byte dopo di che c'ho 20 caratteri uno ha presso"
+  },
+  {
+    "start": 660.42,
+    "end": 666.84,
+    "text": " l'altro quindi vedete che non c'è più un puntatore registrato qua dentro e ora ci arriviamo bene"
+  },
+  {
+    "start": 666.84,
+    "end": 672.68,
+    "text": " però già io so che ho una lunghezza 20 caratteri non c'è più quel puntatore che io avevo quando le"
+  },
+  {
+    "start": 672.68,
+    "end": 681.82,
+    "text": " cose erano queste dovrei per far funzionare il programma cambiare questa cosa qui pure perché"
+  },
+  {
+    "start": 681.82,
+    "end": 688.12,
+    "text": " str non è più un puntatore non ci posso segnare niente è un array fisso dentro la struttura ma"
+  },
+  {
+    "start": 688.12,
+    "end": 697.48,
+    "text": " sstr verrà convertito dal c in un puntatore il puntatore al quale inizia questo array di 20"
+  },
+  {
+    "start": 697.48,
+    "end": 707.16,
+    "text": " caratteri quindi che cos'è che fa il c prende l'inizio di s ovunque fosse registrata s questa"
+  },
+  {
+    "start": 707.16,
+    "end": 713.84,
+    "text": " struttura qualsiasi fosse l'indirizzo di memoria ci aggiunge 8 perché l'offset di str perché prima"
+  },
+  {
+    "start": 713.84,
+    "end": 723.32,
+    "text": " ci sono 8 byte di l'en e questo è il modo in cui compila sstr ora io ci scrivo sta roba"
+  },
+  {
+    "start": 723.32,
+    "end": 733.24,
+    "text": " qua 11 byte e riesco il programma esattamente come l'apri allora guardate qua ci sono gli 8 byte"
+  },
+  {
+    "start": 734.1199999999999,
+    "end": 743.22,
+    "text": " e qua inizia iniziano i byte della stringa che ok ok in aschi 31 32 33 sono 0 12 infatti la mia"
+  },
+  {
+    "start": 743.22,
+    "end": 756.52,
+    "text": " x dump non era tanto carina facciamo una cosa il l più uno modulo 8 è uguale uguale a 0 printf"
+  },
+  {
+    "start": 759.3199999999999,
+    "end": 771.08,
+    "text": " facciamo qua una new line sì mettiamo queste parentesi per rendere più chiaro quello che stiamo"
+  },
+  {
+    "start": 771.08,
+    "end": 781.4,
+    "text": " facendo stampiamo in gruppo in gruppi di 8 e poi facciamo una cosa qui e guardate poi quelli"
+  },
+  {
+    "start": 781.4,
+    "end": 789.58,
+    "text": " dico se g più 1 se la divisione tra 8 di di g più 1 e 8 arresto 0 quindi significa se orre questa"
+  },
+  {
+    "start": 789.58,
+    "end": 798.12,
+    "text": " cosa accade a 8 16 24 così via ma siccome io i miei indici sono per partono da 0 in realtà"
+  },
+  {
+    "start": 798.12,
+    "end": 807.16,
+    "text": " voglio fare a 7 15 15 aggiungo 1 a j però poi c'ho un new line in più perché poi io devo dirgli"
+  },
+  {
+    "start": 807.16,
+    "end": 816.86,
+    "text": " qua in base a dove si è fermato il j se j perché sei il numero praticamente di di di byte che io"
+  },
+  {
+    "start": 816.86,
+    "end": 823.0,
+    "text": " stampa è multiplo di 8 però poi avrò due new line una qua alla fine poi di nuovo questa io invece"
+  },
+  {
+    "start": 823.0,
+    "end": 834.16,
+    "text": " dico 6 j più 1 quindi se non è se il numero di byte che ho non è multiplo di 8 può poter usare"
+  },
+  {
+    "start": 834.16,
+    "end": 844.34,
+    "text": " anche l'enna dire la verità siamo l'enna se la mia lunghezza non è multipla di 8 allora"
+  },
+  {
+    "start": 844.34,
+    "end": 850.84,
+    "text": " stampa pure il new line quindi io qui non avrò più di nuovo il doppio new line come ce l'avevo"
+  },
+  {
+    "start": 850.84,
+    "end": 863.44,
+    "text": " prima ma se stampo printf size of fs più 1 diciamo il bmb in più stavolta qui vedo io questo byte"
+  },
+  {
+    "start": 863.44,
+    "end": 873.54,
+    "text": " 0 d che viene stampato qua poi qua non sarebbe stampato il new line ma me lo stampa all'uscita"
+  },
+  {
+    "start": 873.54,
+    "end": 890.42,
+    "text": " del cibo questo lo togliamo ma sarebbe carino avere anche prima del printf qui"
+  },
+  {
+    "start": 898.7,
+    "end": 905.62,
+    "text": " allora facciamo una cosa più interessante questo qui lo tolgo perché è un caso speciale"
+  },
+  {
+    "start": 905.62,
+    "end": 917.48,
+    "text": " che non mi piace proviamo a infilarlo tutto qua quindi se è multiplo di 8 o se j è uguale"
+  },
+  {
+    "start": 917.48,
+    "end": 923.0,
+    "text": " è l'enna meno 1 se comunque sto uscendo dal ciclo e quindi non c'è nessuno che potrà"
+  },
+  {
+    "start": 923.0,
+    "end": 930.32,
+    "text": " stampare il new line stampa il new line se è l'ultima iterazione allora così funziona proviamo"
+  },
+  {
+    "start": 930.32,
+    "end": 936.48,
+    "text": " anche se più uno come poco fa e come vedete funziona anche in questo caso ora vi faccio vedere perché"
+  },
+  {
+    "start": 936.48,
+    "end": 946.38,
+    "text": " è stato utile ricondurre la logica solo qui perché ora noi facciamo un altro ciclo ford prima"
+  },
+  {
+    "start": 946.38,
+    "end": 956.44,
+    "text": " del new line noi stampiamo un tab che ci sposta a destra e facciamo un altro ciclo in the"
+  },
+  {
+    "start": 956.44,
+    "end": 970.94,
+    "text": " u al z u al j in base al carattere a cui non a j io voglio sapere qua quando è iniziato a fare"
+  },
+  {
+    "start": 975.36,
+    "end": 984.52,
+    "text": " io voglio stampare i caratteri che è stampato prima di questo qua prima di questo di stampare"
+  },
+  {
+    "start": 984.52,
+    "end": 1000.96,
+    "text": " questo 8 allora facciamo una cosa facciamo sides t printed offset è uguale a 0 perché voglio"
+  },
+  {
+    "start": 1000.96,
+    "end": 1014.5,
+    "text": " stampare oltre agli esadecimali altre caratteri esadecimali voglio stampare anche quelli diciamo"
+  },
+  {
+    "start": 1014.5,
+    "end": 1017.02,
+    "text": " sides t ma dopo la usare in realtà"
+  },
+  {
+    "start": 1021.32,
+    "end": 1023.78,
+    "text": " utilizziamo il tipo 40 alla lunghezza"
+  },
+  {
+    "start": 1025.08,
+    "end": 1032.22,
+    "text": " io uguale da dal primo carattere che ancora non ho stampato dal printed offset"
+  },
+  {
+    "start": 1033.72,
+    "end": 1042.28,
+    "text": " i minore di j fino al carattere a cui sono ora che è l'ultimo che ho stampato come byte esadecimale"
+  },
+  {
+    "start": 1042.28,
+    "end": 1044.2,
+    "text": " e più più"
+  },
+  {
+    "start": 1046.84,
+    "end": 1047.72,
+    "text": " stampiamo"
+  },
+  {
+    "start": 1049.7399999999998,
+    "end": 1057.74,
+    "text": " anche il carattere ma ora questo carattere dobbiamo stampare in un modo speciale byte dj"
+  },
+  {
+    "start": 1058.68,
+    "end": 1064.68,
+    "text": " char byte dj e poi possiamo stampare il new line vediamo se funziona"
+  },
+  {
+    "start": 1067.44,
+    "end": 1073.7,
+    "text": " non funziona perché appunto dopo che abbiamo stampato fino a questo carattere"
+  },
+  {
+    "start": 1073.7,
+    "end": 1089.3200000000002,
+    "text": " io mi devo segnare che l offset nuovo è j j è il primo carattere che ora dovrò stampare nel prossimo"
+  },
+  {
+    "start": 1089.44,
+    "end": 1089.78,
+    "text": " ciclo"
+  },
+  {
+    "start": 1092.06,
+    "end": 1102.28,
+    "text": " esatto ora sono 8 12345678 12345678 però è sbagliato perché io qua dovevo scrivere i"
+  },
+  {
+    "start": 1102.9599999999998,
+    "end": 1110.1,
+    "text": " e ora è corretto esatto quindi ho stampato i primi caratteri poi ho stampato questi poi questi sono a"
+  },
+  {
+    "start": 1110.1,
+    "end": 1110.68,
+    "text": " 0"
+  },
+  {
+    "start": 1114.0600000000002,
+    "end": 1120.52,
+    "text": " perché dopo fare una cosa guardate c'è questa funzione qui di libreria del c che necessita"
+  },
+  {
+    "start": 1120.52,
+    "end": 1126.98,
+    "text": " d'includere c type che si chiama isprint che è la previazione di isprint ball è questo carattere"
+  },
+  {
+    "start": 1127.62,
+    "end": 1134.32,
+    "text": " stampabile a video e quali sono i caratteri stampabili sono quelli che non mi creano casini"
+  },
+  {
+    "start": 1134.32,
+    "end": 1137.52,
+    "text": " quando li stampo quindi ho guardate che cosa faccio qua"
+  },
+  {
+    "start": 1142.1000000000001,
+    "end": 1150.8,
+    "text": " allora qua facciamo una cosa qua facciamo in c è uguale isprint byte dj"
+  },
+  {
+    "start": 1152.48,
+    "end": 1156.56,
+    "text": " punto interrogativo questo è l'operatore alternario che ora introduiremo"
+  },
+  {
+    "start": 1157.28,
+    "end": 1166.44,
+    "text": " è stampabile allora uso il byte i altrimenti il mio carattere sarà il punto prima vi faccio vedere"
+  },
+  {
+    "start": 1167.12,
+    "end": 1169.86,
+    "text": " che questa roba qui funziona e poi vi spiego come"
+  },
+  {
+    "start": 1172.82,
+    "end": 1178.94,
+    "text": " allora include c type dot h"
+  },
+  {
+    "start": 1181.1000000000001,
+    "end": 1185.1000000000001,
+    "text": " ecco vedete ora che succede io vedo praticamente i caratteri"
+  },
+  {
+    "start": 1186.72,
+    "end": 1188.54,
+    "text": " ah però 0 a"
+  },
+  {
+    "start": 1191.18,
+    "end": 1197.72,
+    "text": " 0 a lui lo considera stampabile perché il carattere che non viene stampato"
+  },
+  {
+    "start": 1198.78,
+    "end": 1202.38,
+    "text": " vediamo qual è aggiungiamo gli questo a scritta qui"
+  },
+  {
+    "start": 1205.0500000000002,
+    "end": 1212.87,
+    "text": " no qui il problema è diverso qui il problema è diversissimo è che qui manca un uguale"
+  },
+  {
+    "start": 1213.99,
+    "end": 1219.83,
+    "text": " perché io devo stampare da pio fino a jail incluso"
+  },
+  {
+    "start": 1225.73,
+    "end": 1233.57,
+    "text": " il problema dovrebbe essere questo infatti questi qua valgono la questa è il primo poi questo qui"
+  },
+  {
+    "start": 1233.57,
+    "end": 1245.01,
+    "text": " dovrebbe essere 0 1 e poi qui anche qui allora sbagliato perché il prossimo byte che io ancora"
+  },
+  {
+    "start": 1245.01,
+    "end": 1246.1299999999999,
+    "text": " stampato a j più"
+  },
+  {
+    "start": 1251.8500000000001,
+    "end": 1256.23,
+    "text": " esattamente ora funziona tutto come dovrebbe allora togliamo"
+  },
+  {
+    "start": 1258.65,
+    "end": 1264.01,
+    "text": " questo pipe qui e funziona come dovrebbe"
+  },
+  {
+    "start": 1266.45,
+    "end": 1273.39,
+    "text": " 39 quindi queste qui sono le string che corrette che io avevo settato allora vi devo una spiegazione"
+  },
+  {
+    "start": 1274.19,
+    "end": 1282.87,
+    "text": " su questa riga qua guardate qua che cosa ho usato ho usato una strano operatore in c quindi questo"
+  },
+  {
+    "start": 1282.87,
+    "end": 1293.55,
+    "text": " carattere è i sprint ball bite di uno col punito negativo se questa condizione è vera questa qua"
+  },
+  {
+    "start": 1295.63,
+    "end": 1302.25,
+    "text": " la mia espressione ritorna questo altrimenti ritorna questo in sostanza è come se fosse"
+  },
+  {
+    "start": 1302.25,
+    "end": 1310.35,
+    "text": " un if questo operator eternario in cui prima viene valutata questa condizione dopo di che il"
+  },
+  {
+    "start": 1310.35,
+    "end": 1317.67,
+    "text": " left value di queste espressioni il valore diciamo di ritorno dell'espressione è questo a sinistra"
+  },
+  {
+    "start": 1317.67,
+    "end": 1325.51,
+    "text": " se la condizione è vera o questo se è falsa altrimenti io avrei dovuto scrivere if bite di"
+  },
+  {
+    "start": 1325.51,
+    "end": 1336.15,
+    "text": " e if is print byte di c uguale byte di else"
+  },
+  {
+    "start": 1343.19,
+    "end": 1351.65,
+    "text": " c uguale questo ora io commento sta roba qua qua scrivo in c e vi faccio vedere che funziona"
+  },
+  {
+    "start": 1351.65,
+    "end": 1356.87,
+    "text": " in un stesso modo guardate qua abbiamo dichiaratori a bc abbiamo detto è stampabile il bite allora"
+  },
+  {
+    "start": 1356.87,
+    "end": 1363.53,
+    "text": " c uguale il bite non è stampabile stampa mi un puntino convidiamo"
+  },
+  {
+    "start": 1365.75,
+    "end": 1372.09,
+    "text": " è il programma funziona in stesso modo a vi potete forse chiesti come mai questi bite finali"
+  },
+  {
+    "start": 1372.09,
+    "end": 1377.79,
+    "text": " variano ma perché noi abbiamo inizializzato la nostra struttura fino a qua fino a qua che"
+  },
+  {
+    "start": 1377.79,
+    "end": 1383.79,
+    "text": " questo qui è scoperta dove vediamo se riesco a selezionare no comunque fino al puntino dopo"
+  },
+  {
+    "start": 1383.79,
+    "end": 1390.51,
+    "text": " lo zero che è il null term dopo di che la struttura è come parte il programma quindi non è inizializzata"
+  },
+  {
+    "start": 1391.31,
+    "end": 1398.81,
+    "text": " in nessun modo se vogliamo vedere bene la parte non inizializzata della struttura potremmo fare"
+  },
+  {
+    "start": 1398.81,
+    "end": 1404.73,
+    "text": " che prima di mem copy dopo che dichiariamo la struttura facciamo mem set mem set come mem copy"
+  },
+  {
+    "start": 1404.73,
+    "end": 1412.05,
+    "text": " che prende una struttura un bite una struttura no un puntatore di qualsiasi tipo in questo caso"
+  },
+  {
+    "start": 1412.05,
+    "end": 1422.65,
+    "text": " vediamo la nostra struttura una valore di un bite ff quindi 255 la dimensione è riempie tutto"
+  },
+  {
+    "start": 1423.5700000000002,
+    "end": 1428.15,
+    "text": " l'aria di memoria a partire dal puntatore per la lunghezza specificata dal terzo argomento"
+  },
+  {
+    "start": 1428.15,
+    "end": 1433.97,
+    "text": " di questo bite quindi la riempia tutte di ff se io ora compiro il programma lo seguo guardate"
+  },
+  {
+    "start": 1434.73,
+    "end": 1440.19,
+    "text": " che ora sono tutti fffere cose che io non ho inizializzato quindi ho inizializzato la lunghezza"
+  },
+  {
+    "start": 1440.19,
+    "end": 1445.29,
+    "text": " non ff io ho messo sta stringa fino a qua col null term e poi il resto è tutto ff"
+  },
+  {
+    "start": 1447.83,
+    "end": 1455.95,
+    "text": " ripristiniamo un po di cose togliamo la mem set togliamo sta roba qui che è troppo verbosa e"
+  },
+  {
+    "start": 1455.95,
+    "end": 1463.65,
+    "text": " ci usiamo con vantaggio il nostro operatore terenario qui io spero di non aver fatto quasi"
+  },
+  {
+    "start": 1463.65,
+    "end": 1468.99,
+    "text": " manu la lezione non si può focalizzare su queste cose qui ma mi sembra che la nostra x dump"
+  },
+  {
+    "start": 1469.5700000000002,
+    "end": 1476.17,
+    "text": " funzioni in maniera accettabile sapete forse come l'avremmo dovuta migliorare teoricamente uno"
+  },
+  {
+    "start": 1476.17,
+    "end": 1489.29,
+    "text": " dovrebbe usare qua per dire una define x dump chars per line e lo settiamo a 8 magari lo"
+  },
+  {
+    "start": 1489.93,
+    "end": 1496.09,
+    "text": " usiamo invece di questo 8 fisso questa define qui mettiamo qua"
+  },
+  {
+    "start": 1497.7299999999998,
+    "end": 1503.19,
+    "text": " e non ci sono nessun altro caso in cui vedete come è stato bello unificare questa cod"
+  },
+  {
+    "start": 1503.19,
+    "end": 1509.29,
+    "text": " pat qui è anche usare invece di offset cose che casini vari una variabile d'appoggio che"
+  },
+  {
+    "start": 1509.29,
+    "end": 1515.89,
+    "text": " ci ricorda fino a che punto noi avevamo stampato i caratteri perché ora così facendo io credo"
+  },
+  {
+    "start": 1515.89,
+    "end": 1521.19,
+    "text": " che il nostro problema funzionerà senza problemi guardate come è bello questo sembra un po l'output"
+  },
+  {
+    "start": 1521.19,
+    "end": 1529.33,
+    "text": " canonico che abbiamo visto poco fa ora facciamo x dump meno 3 proviamo se funziona bene anche con"
+  },
+  {
+    "start": 1529.33,
+    "end": 1538.69,
+    "text": " output monchi tranciati e non funziona solo per un questione di tab questa cosa in effetti noi"
+  },
+  {
+    "start": 1538.69,
+    "end": 1543.89,
+    "text": " lo dovremmo risolvere ma ce ne fottiamo qual è la soluzione che qui dovremmo stampare un numero"
+  },
+  {
+    "start": 1543.89,
+    "end": 1553.97,
+    "text": " di spazi che è proporzionale al numero di di byte di padding che ci mancano quindi tre tre spazi per"
+  },
+  {
+    "start": 1553.97,
+    "end": 1565.33,
+    "text": " ognuno facciamolo va facciamolo basta così poi questa funzione chi sta magari poi la usiamo allora"
+  },
+  {
+    "start": 1565.33,
+    "end": 1575.55,
+    "text": " qua come vedete prima di stampare noi qui diciamo ma per caso noi qui stiamo scendo perché siamo"
+  },
+  {
+    "start": 1575.55,
+    "end": 1584.33,
+    "text": " a fine ciclo quindi j uguale al lm 1 bene allora allora io voglio fare una cosa"
+  },
+  {
+    "start": 1586.61,
+    "end": 1600.33,
+    "text": " quant'è la differenza tra la mia lunghezza e la lunghezza che io mi aspetto allora l'en modulo"
+  },
+  {
+    "start": 1602.8300000000002,
+    "end": 1615.9299999999998,
+    "text": " in pad è uguale a il numero di caratteri che ho meno che ho per riga meno la divisione"
+  },
+  {
+    "start": 1618.73,
+    "end": 1625.29,
+    "text": " della mia lunghezza per il numero di caratteri che ho per riga quindi se per esempio io ho 8 caratteri"
+  },
+  {
+    "start": 1625.29,
+    "end": 1638.07,
+    "text": " per riga ma l'ultima riga ne ha 7 quindi significa che io 8 più 8 farebbe 16 invece fa 15 15 modulo 16"
+  },
+  {
+    "start": 1639.9099999999999,
+    "end": 1647.07,
+    "text": " fa 15 quindi io praticamente faccio poi 16 meno 15 e me ne resta 1 perché solo uno quello che mi"
+  },
+  {
+    "start": 1647.07,
+    "end": 1659.43,
+    "text": " manca e poi qua faccio for int uguale a 0 e minore di pad i più più print f 1 2 3 3 caratteri per"
+  },
+  {
+    "start": 1659.43,
+    "end": 1668.57,
+    "text": " ognuno di queste robe qui e guardate come magicamente ora siamo allineati come speravamo il che è"
+  },
+  {
+    "start": 1668.57,
+    "end": 1676.85,
+    "text": " molto carino devo dire veramente c'era di meglio allora stampare per stampare facciamoci figli come"
+  },
+  {
+    "start": 1676.85,
+    "end": 1688.81,
+    "text": " fa x dump no qui x dump lascia gli spazi ma noi forse potremmo fare una cosa più carina"
+  },
+  {
+    "start": 1691.09,
+    "end": 1698.11,
+    "text": " per far capire che mancano questi questi bite ci stampiamo sto cosa qua no va bene io credo"
+  },
+  {
+    "start": 1698.11,
+    "end": 1706.87,
+    "text": " che sia stato il istruttivo in sé scrivere x dump è sicuramente c'è utile ma dobbiamo tornare"
+  },
+  {
+    "start": 1706.87,
+    "end": 1713.05,
+    "text": " ai nostri bili problemi di apprendimento del ci che non dobbiamo assolutamente alludere ma dobbiamo"
+  },
+  {
+    "start": 1713.05,
+    "end": 1718.37,
+    "text": " scavarci dentro per capire che cazzo succede invece no invece no cari ragazzi mi sono accorto"
+  },
+  {
+    "start": 1718.37,
+    "end": 1727.53,
+    "text": " che qui un bag ci l'abbiamo quando praticamente guardate quando è esattamente multiplo della numero"
+  },
+  {
+    "start": 1727.53,
+    "end": 1732.29,
+    "text": " di caratteri vengono stampate un sacco di padding inutili perché questa cosa qui la possiamo"
+  },
+  {
+    "start": 1732.29,
+    "end": 1741.35,
+    "text": " vengere in vari modi ma il modo più semplice credo questo qui così lo facciamo tornare a zero"
+  },
+  {
+    "start": 1741.35,
+    "end": 1750.47,
+    "text": " esattamente se se esattamente il numero di caratteri di x dump ci ha per line perché se questo qua"
+  },
+  {
+    "start": 1750.47,
+    "end": 1757.97,
+    "text": " valeva zero se l'en modulo dump ci ha per line valeva zero poi qua io faccio 16 meno zero sono"
+  },
+  {
+    "start": 1757.97,
+    "end": 1765.51,
+    "text": " 16 per dire si è 16 8 meno 0 sono 8 ma con questa istruzione qui ci togliamo questo pensiero"
+  },
+  {
+    "start": 1766.23,
+    "end": 1773.29,
+    "text": " potevo scrivere anche tutto dentro una linea ma sarebbe stato meno chiaro a questo punto la nostra"
+  },
+  {
+    "start": 1773.29,
+    "end": 1781.73,
+    "text": " funzione dovrebbe funzionare bene in questo caso dovrebbe funzionare bene nel caso intermedio"
+  },
+  {
+    "start": 1781.73,
+    "end": 1791.05,
+    "text": " esattamente e credo che stavolta ci siamo davvero facciamo anche un caso di spari perfetto va bene"
+  },
+  {
+    "start": 1791.05,
+    "end": 1801.33,
+    "text": " questo io sono dal futuro continuo a raccora lezione quella va e niente ragazzi guardate qua c'è la"
+  },
+  {
+    "start": 1801.33,
+    "end": 1815.43,
+    "text": " lunghezza che sono questi primi otto facciamo torniamo a otto c'è la lunghezza che sono i nostri"
+  },
+  {
+    "start": 1815.43,
+    "end": 1824.03,
+    "text": " auto bite e poi qua inizia le rei allora lo vogliamo capire che cos'è il nostro str vi faccio vedere"
+  },
+  {
+    "start": 1824.03,
+    "end": 1835.97,
+    "text": " io stampo qua con la printf l'indirizzo della struttura l'indirizzo memoria dove risiede la mia"
+  },
+  {
+    "start": 1835.97,
+    "end": 1854.57,
+    "text": " struttura e poi stampo s punto str il puntatore str guardate la struttura è qui 18 è in esatecimale"
+  },
+  {
+    "start": 1854.57,
+    "end": 1865.11,
+    "text": " 8 bite dopo c'è la mia str quindi str non è altro che un simbolo e io quando gli tolgo"
+  },
+  {
+    "start": 1865.11,
+    "end": 1873.29,
+    "text": " questo vendita qui io voglio dire al ci io non ho davvero un rei ma tu questo str fammelo puntare"
+  },
+  {
+    "start": 1873.29,
+    "end": 1879.91,
+    "text": " alla fine della struttura così se io ipera il loco la struttura perché in realtà sarebbe solo di"
+  },
+  {
+    "start": 1879.91,
+    "end": 1888.59,
+    "text": " 8 bite ma io mi larrò il loco di 40 bite ciò 32 bite spendibili a cui il puntatore str farà capo"
+  },
+  {
+    "start": 1888.59,
+    "end": 1894.79,
+    "text": " anche se str non è parte veramente della mia struttura non è un campo che io posso modificare è"
+  },
+  {
+    "start": 1894.79,
+    "end": 1902.39,
+    "text": " un offset gli sto dicendo str il mio offset alla fine della struttura e lì posso scrivere quello"
+  },
+  {
+    "start": 1902.39,
+    "end": 1911.65,
+    "text": " che mi pare va bene mi sembra che questa cosa dovrebbe essere chiara ma c'è di più e queste sono"
+  },
+  {
+    "start": 1911.65,
+    "end": 1917.41,
+    "text": " cose che riguardano un po il design ma sono molto importanti tanto per iniziare vi faccio"
+  },
+  {
+    "start": 1917.41,
+    "end": 1925.37,
+    "text": " subito una confessione io non la farei una libreria di string prefixed lan che ha il reference"
+  },
+  {
+    "start": 1925.37,
+    "end": 1935.39,
+    "text": " counting perché secondo me il reference counting appartiene logicamente a un ordine di idee più"
+  },
+  {
+    "start": 1935.39,
+    "end": 1946.17,
+    "text": " ad alto livello quindi se io per esempio in re la mia libreria sds non ha il reference counting"
+  },
+  {
+    "start": 1946.17,
+    "end": 1951.69,
+    "text": " nel letter c'è la lunghezza c'è la grandezza dell'allocazione questo sì che è utile ma"
+  },
+  {
+    "start": 1952.1499999999999,
+    "end": 1957.59,
+    "text": " se ne parlerà in un'altra lezione forse c'ha dei flag ma io non ho il reference counting"
+  },
+  {
+    "start": 1957.59,
+    "end": 1966.61,
+    "text": " se invece io vado a guardare non mi ricordo dove src"
+  },
+  {
+    "start": 1973.37,
+    "end": 1981.03,
+    "text": " nel mio re di subject c'è il tipo c'è l'encodio e c'è il ref count qui sì che c'è il ref count"
+  },
+  {
+    "start": 1981.03,
+    "end": 1986.43,
+    "text": " perché l'oggetto ad alto livello poi il mio puntatore può essere una string sds può essere"
+  },
+  {
+    "start": 1986.43,
+    "end": 1993.29,
+    "text": " una lista può essere ci sono dei casi di programmi in cui il ref counting nelle string è utile ma"
+  },
+  {
+    "start": 1993.29,
+    "end": 1999.95,
+    "text": " secondo me è molto strano che accada perché quasi sicuramente hai un tipo più ad alto livello"
+  },
+  {
+    "start": 1999.95,
+    "end": 2008.17,
+    "text": " che rappresenta diversi oggetti che fa diciamo così da conchia e che ha queste funzioni diciamo"
+  },
+  {
+    "start": 2008.17,
+    "end": 2014.47,
+    "text": " in cui viene specificato il tipo l'encoding il puntatore al tuo oggetto reale il ref counting"
+  },
+  {
+    "start": 2014.47,
+    "end": 2028.89,
+    "text": " può variare quindi da caso a caso ma youtube si corso ci prefixed lang strings doxi quindi"
+  },
+  {
+    "start": 2028.89,
+    "end": 2034.61,
+    "text": " questa è una secondo qualcuno mi diceva ma la lunghezza così ti permette di avere string"
+  },
+  {
+    "start": 2034.61,
+    "end": 2044.05,
+    "text": " solo di 4 gigabyte tipo come fa il massimo della fat 32 e tutti i sistemi al 32 bit finiscono per"
+  },
+  {
+    "start": 2044.05,
+    "end": 2050.57,
+    "text": " rompere le scatole verissimo ma uno si deve chiedere nella mia applicazione o string più"
+  },
+  {
+    "start": 2050.57,
+    "end": 2057.97,
+    "text": " grandi di così altrimenti voglio sprecare ogni volta 4 byte ci sono per queste cose compromessi e ci"
+  },
+  {
+    "start": 2057.97,
+    "end": 2067.35,
+    "text": " sono anche mancanza di compromesso e avere il massimo usando una programmazione più efficace infatti"
+  },
+  {
+    "start": 2074.5099999999998,
+    "end": 2082.91,
+    "text": " la sds guardate cosa fa ha diversi tipi di header in base a quanto è grande la stringa guardate"
+  },
+  {
+    "start": 2082.91,
+    "end": 2091.11,
+    "text": " a string 64 bit string 32 bit a 16 8 addirittura a 5 per la string è molto piccola io non ho tutto"
+  },
+  {
+    "start": 2091.11,
+    "end": 2104.33,
+    "text": " questo edder ma ho semplicemente un byte solo dove ci sono dei flag 3 byte di flag è 5 byte di lunghezza e"
+  },
+  {
+    "start": 2104.33,
+    "end": 2120.25,
+    "text": " posso risolvere fino a 31 string lunghe 31 caratteri io ho avuto solo un byte di overhead ma noi"
+  },
+  {
+    "start": 2120.25,
+    "end": 2129.81,
+    "text": " dovamo semplificare le cose altra domanda che mi è arrivata ma il ref count è di 32 bit che"
+  },
+  {
+    "start": 2130.02,
+    "end": 2134.48,
+    "text": " succede se fa in se va in overflow a parte il fatto che è molto strano che io ho una"
+  },
+  {
+    "start": 2136.82,
+    "end": 2143.82,
+    "text": " una condizione in cui posso referenziali il mio il mio oggetto più o meno 4 miliardi di volte"
+  },
+  {
+    "start": 2144.42,
+    "end": 2150.26,
+    "text": " diciamo è che più o meno così impossibile ma in realtà questa cosa si rende possibile in un caso"
+  },
+  {
+    "start": 2150.7599999999998,
+    "end": 2156.6,
+    "text": " specifico a volte io con le string faccio un trucco se per esempio ciò delle string che sono molto"
+  },
+  {
+    "start": 2156.6,
+    "end": 2163.72,
+    "text": " diffuse che ne so 0 1 2 quelle che rappresentano i numeri nel mio programma io le internalizzo cioè"
+  },
+  {
+    "start": 2163.72,
+    "end": 2172.08,
+    "text": " quando mi chiedono quando quando mi arrivano chiamata qua ps create e io mi rendo conto che in it in"
+  },
+  {
+    "start": 2172.08,
+    "end": 2175.98,
+    "text": " realtà è una di queste string che io ho internalizzato una di queste string che vengono"
+  },
+  {
+    "start": 2175.98,
+    "end": 2182.5,
+    "text": " state molto ma molto spesso che faccio che ritorno una stringa preallocata che avevo creato all'inizio"
+  },
+  {
+    "start": 2182.5,
+    "end": 2188.68,
+    "text": " il mio programma e incremento solo il ref counting in questo caso si fa così di solito o quando il"
+  },
+  {
+    "start": 2188.68,
+    "end": 2193.8,
+    "text": " ref counting arriva al valore massimo io poi metto dei check nel codice che fanno sì che il"
+  },
+  {
+    "start": 2193.8,
+    "end": 2201.72,
+    "text": " ref count da quel momento in cui in poi nessi incrementa e ne si decrementa in pratica crea un"
+  },
+  {
+    "start": 2201.72,
+    "end": 2208.28,
+    "text": " lick ma un lick in quel caso non è un errore nel programma mi ha contento di non liberare più quella"
+  },
+  {
+    "start": 2208.28,
+    "end": 2213.82,
+    "text": " string o addirittura per le string che io ho internalizzato e voglio che non vengano mai"
+  },
+  {
+    "start": 2213.82,
+    "end": 2221.14,
+    "text": " toccate cioè devranno esistere per tutto il tempo nel programma il ref count lo setto direttamente"
+  },
+  {
+    "start": 2221.14,
+    "end": 2227.12,
+    "text": " al valore più grande che può contenere u int 30 dot t e metto dei check che direttamente quel"
+  },
+  {
+    "start": 2227.12,
+    "end": 2232.3,
+    "text": " ref count magico non viene più toccato quindi in realtà la stessa tecnica mi fa da salvaguardia"
+  },
+  {
+    "start": 2232.3,
+    "end": 2238.46,
+    "text": " in tutte e due casi voglio un oggetto statico pur nel sistema del ref counting o voglio che il"
+  },
+  {
+    "start": 2238.46,
+    "end": 2244.72,
+    "text": " ref counting quando avrebbe sarebbe andato oltre il suo limite naturale io non avrei più modo"
+  },
+  {
+    "start": 2244.72,
+    "end": 2250.86,
+    "text": " di tracciare veramente quando le referenze esistono di quello getto diventa fisso sticking e non si"
+  },
+  {
+    "start": 2250.86,
+    "end": 2256.46,
+    "text": " libera mai più l'oggetto quindi non corroma il rischio di liberare l'oggetto poi qualcuno vi"
+  },
+  {
+    "start": 2256.46,
+    "end": 2262.18,
+    "text": " accederà l'altra parte se io sono arrivato col mio oggetto da avere 4 miliardi di referenze"
+  },
+  {
+    "start": 2262.18,
+    "end": 2266.96,
+    "text": " molto probabili che questo oggetto comunque non verrebbe liberato mai fino alla fine del programma"
+  },
+  {
+    "start": 2266.96,
+    "end": 2273.04,
+    "text": " questa puntata mi sa che è andata un po per le lunghe la interrompiamo alla prossima ciao"
+  }
+]

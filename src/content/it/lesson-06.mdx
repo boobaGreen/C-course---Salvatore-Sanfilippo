@@ -103,3 +103,58 @@ Salvatore ci mostra anche il `goto`, un modo per saltare direttamente a un'etich
     }
   ]}
 />
+
+---
+
+<KeyConcepts title="Hacker Key Concepts">
+  - **0 è Falso**: In C non serve un tipo booleano; lo zero è falso e tutto il resto è vero.
+  - **Code Blocks**: Le graffe `{}` non solo raggruppano istruzioni, ma creano nuovi "mondi" per le variabili.
+  - **Shadowing**: Una variabile interna può "eclissare" una esterna se hanno lo stesso nome.
+</KeyConcepts>
+
+### Hacker Challenge 🏆
+
+<Quiz 
+  title="Hacker Challenge: Final Quiz"
+  questions={[
+    {
+      id: 1,
+      question: "Qual è il risultato di questo frammento di codice? `int x = 10; if (x = 0) printf(\"Vero\"); else printf(\"Falso\");`",
+      options: [
+        "Vero, perché x era 10",
+        "Falso, perché l'assegnamento `x = 0` restituisce 0, che il C interpreta come Falso",
+        "Errore di compilazione, non si può usare `=` dentro un `if`",
+        "Stampa '10'"
+      ],
+      correctAnswer: 1,
+      explanation: "Questo è uno degli errori più comuni e difficili da trovare. L'operatore `=` assegna un valore e restituisce il valore assegnato. Poiché abbiamo assegnato 0, l'intera espressione diventa 0 (Falso). Il compilatore spesso avvisa con un warning, ma il codice è legalissimo in C!"
+    },
+    {
+      id: 2,
+      question: "Cosa succede se dichiari `int x = 5;` fuori da un blocco `{}` e poi `int x = 10;` dentro il blocco?",
+      options: [
+        "Il programma crasha",
+        "La seconda dichiarazione 'nasconde' la prima (Shadowing). All'interno del blocco x varrà 10, fuori varrà ancora 5.",
+        "Il valore di x diventa 15",
+        "Le due variabili si fondono in una"
+      ],
+      correctAnswer: 1,
+      explanation: "Lo Shadowing permette di riutilizzare i nomi delle variabili in blocchi più interni senza sovrascrivere i dati del blocco esterno. Questo garantisce l'isolamento della logica all'interno delle graffe."
+    }
+  ]}
+/>
+
+### Terminal Challenge: Logical Compilation 🧠
+
+<HackerTerminal 
+  title="Hacker Challenge: Level 6"
+  description="Abbiamo visto che il C usa 0 per Falso e Tutto il Resto per Vero. Se volessi compilare il tuo programma chiedendo al compilatore di segnalare TUTTI i possibili errori e avvertimenti logici (come l'uso di = invece di ==), quale opzione useresti?"
+  command="gcc main.c ..."
+  expectedOutput="-Wall"
+  inputLabel="Flag GCC:"
+  placeholder="es. -O2, -g..."
+  hint="L'opzione sta per 'Warnings All'."
+  explanation="Bravissimo! `-Wall` è obbligatorio per ogni vero hacker. Ti avvisa se stai facendo cose pericolose, come assegnare variabili dentro un `if` o dimenticare di inizializzare dati. È come avere Salvatore che ti corregge mentre scrivi."
+/>
+
+Ci vediamo alla prossima lezione!

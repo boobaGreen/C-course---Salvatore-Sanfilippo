@@ -48,25 +48,82 @@ for (int i = 0; i < 5; i++) {
 
 Usiamo il `for` quando sappiamo già quante volte iterare, e il `while` quando la condizione dipende da qualcosa che accadrà nel codice.
 
+<Callout type="hacker" title="For: Flessibilità Totale">
+In C, le tre parti del `for` (inizializzazione, condizione, incremento) sono opzionali!
+- `for(;;)` è un modo idiomatico per scrivere un **loop infinito**.
+- Puoi omettere l'incremento se lo fai dentro il corpo del ciclo.
+</Callout>
+
+### Esempio Pratico: Ricerca in un Array
+Salvatore ci mostra come usare il `break` per fermare un ciclo non appena troviamo quello che cerchiamo.
+
+```c
+int a[] = {1, 5, 8, 4, 0}; // 0 è il terminatore
+int i;
+for (i = 0; a[i] != 0; i++) {
+    if (a[i] == 8) break; // Trovato! Esci subito.
+}
+
+if (a[i] == 0) printf("Non trovato\n");
+else printf("Trovato in posizione %d\n", i);
+```
+
+<Callout type="warning" title="Scope della Variabile i">
+Se dichiari `for (int i = 0; ...)` dentro il ciclo, la variabile `i` sparisce appena il ciclo finisce. Se ti serve sapere a che punto si è fermato il ciclo (come nell'esempio sopra), devi dichiarare la `i` **fuori** dal `for`.
+</Callout>
+
+---
+
 ## La Ricorsione e lo Stack
 
-Quando una funzione chiama se stessa, il computer non ricomincia da zero. "Congela" la funzione attuale e ne apre una nuova sopra di essa.
+Quando una funzione chiama se stessa, il computer non ricomincia da zero. "Congela" la funzione attuale e ne apre una nuova sopra di essa (un nuovo "frame").
 
 <RecursionVisualizer />
+
+<Callout type="hacker" title="Tail Call Optimization (TCO)">
+Se l'ultima cosa che una funzione fa è chiamare se stessa, un buon compilatore può ottimizzarla trasformandola in un salto (`goto`), risparmiando memoria. Se non ti fidi del compilatore, puoi farlo a mano:
+```c
+loop:
+    // ... fai qualcosa ...
+    start = start + 1;
+    goto loop; // Ricorsione manuale!
+```
+</Callout>
 
 <Callout type="warning" title="Stack Overflow">
 Se la ricorsione non ha una 'condizione di uscita' (base case), continuerà a creare nuovi frame fino a esaurire la memoria dedicata allo stack. Questo causa il famoso crash 'Stack Overflow'.
 </Callout>
 
-## Scegliere con Eleganza: lo Switch
-
-Se hai una variabile che può valere 1, 2, 3... invece di scrivere dieci `if`, usiamo lo `switch`. È più leggibile e spesso più veloce!
-
 <SwitchBoard />
+
+<Callout type="hacker" title="Jump Tables">
+Sotto il cofano, se i casi sono vicini (es. 1, 2, 3), il compilatore non fa tanti `if`. Crea una **Jump Table**: una tabella di indirizzi dove il processore "salta" istantaneamente al caso giusto. È incredibilmente veloce!
+</Callout>
 
 <Callout type="info" title="L'importanza del break">
 Nello `switch`, se dimentichi il `break;`, il codice continuerà a eseguire anche i casi successivi! Questo comportamento si chiama 'fall-through'.
 </Callout>
+
+---
+
+## Codice Reale: Il Glob Matching di Redis
+Salvatore ci mostra come usa questi concetti nel codice vero. La sua funzione per il matching delle stringhe (es. `*`, `?`, `[a-z]`) usa sia lo `switch` che la ricorsione per gestire i vari caratteri del pattern.
+
+```c
+// Semplificazione del glob matching di Salvatore
+int glob_match(const char *pattern, const char *string) {
+    switch (pattern[0]) {
+        case '*': // Ricorsione per gestire l'asterisco
+            // ... logica complessa ...
+            break;
+        case '?': // Salta un carattere
+            // ...
+            break;
+        default: // Match letterale
+            if (pattern[0] != string[0]) return 0;
+    }
+}
+```
 
 ## Laboratorio di Cicli
 
@@ -111,3 +168,58 @@ Prova a trasformare questo ciclo `while` in un ciclo `for`.
     }
   ]}
 />
+
+---
+
+<KeyConcepts title="Hacker Key Concepts">
+  - **for = while**: Il ciclo `for` è solo un modo più compatto per scrivere un `while` con inizializzazione e incremento.
+  - **Stack vs Ricorsione**: Ogni chiamata ricorsiva occupa spazio sullo Stack (frame). Attenzione a non esaurirlo!
+  - **Jump Tables**: Lo `switch` è velocissimo perché usa tabelle di salto invece di una lunga serie di comparazioni individuali.
+</KeyConcepts>
+
+### Hacker Challenge 🏆
+
+<Quiz 
+  title="Hacker Challenge: Final Quiz"
+  questions={[
+    {
+      id: 1,
+      question: "Qual è la differenza fondamentale tra un ciclo infinito (`while(1);`) e una ricorsione infinita (una funzione che chiama se stessa senza mai fermarsi)?",
+      options: [
+        "Nessuna, entrambi bloccano il computer allo stesso modo",
+        "Il ciclo infinito consuma solo CPU, mentre la ricorsione consuma memoria (Stack) fino a causare un crash (Stack Overflow)",
+        "La ricorsione è più veloce",
+        "Il ciclo infinito è più pericoloso per l'hardware"
+      ],
+      correctAnswer: 1,
+      explanation: "Ogni volta che una funzione chiama se stessa, viene creato un nuovo 'Stack Frame' che occupa RAM. Se la ricorsione è infinita, lo spazio dedicato allo Stack si esaurisce rapidamente, portando al crash del programma. Un ciclo `while`, invece, non crea nuovi frame e può girare all'infinito senza consumare memoria aggiuntiva."
+    },
+    {
+      id: 2,
+      question: "Perché lo `switch` è spesso preferito a una lunga catena di `if-else`?",
+      options: [
+        "Perché è più corto da scrivere",
+        "Perché il compilatore può generare una 'Jump Table', rendendo il salto al caso corretto istantaneo (O(1)) indipendentemente dal numero di casi",
+        "Perché `switch` non può sbagliare",
+        "Perché `if-else` non funziona con i numeri"
+      ],
+      correctAnswer: 1,
+      explanation: "Efficienza stellare! Con `if-else`, la CPU deve controllare ogni condizione una per una. Con `switch`, il compilatore crea una tabella di indirizzi: la CPU guarda il valore, calcola l'indice nella tabella e salta direttamente al codice giusto in un colpo solo."
+    }
+  ]}
+/>
+
+### Terminal Challenge: Pattern Searching 🔎
+
+<HackerTerminal 
+  title="Hacker Challenge: Level 7"
+  description="Abbiamo visto che Salvatore analizza spesso il codice sorgente per trovare pattern. Se volessi cercare tutte le occorrenze della parola 'while' all'interno di tutti i file .c della tua cartella, quale comando useresti?"
+  command="find while ..."
+  expectedOutput="grep while *.c"
+  inputLabel="Comando completo:"
+  placeholder="es. grep pattern file"
+  hint="È il comando standard per cercare testo nei file."
+  explanation="Esatto! `grep` è lo strumento principe per l'analisi statica manuale. Ti permette di trovare velocemente dove usi certi costrutti o variabili in tutto il tuo progetto."
+/>
+
+Ci vediamo alla prossima lezione!

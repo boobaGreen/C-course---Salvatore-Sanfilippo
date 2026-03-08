@@ -84,13 +84,13 @@ Try experimenting with `sizeof` and the `limits.h` constants like `INT_MIN` and 
         "The memory address of the variable"
       ],
       correctAnswer: 2,
-      explanation: "sizeof always returns the number of bytes (groups of 8 bits) occupied in memory."
+      explanation: "sizeof always returns the number of bytes (8-bit groups) occupied in memory."
     },
     {
       question: "Which header file contains the INT_MIN and INT_MAX constants?",
       options: ["stdio.h", "limits.h", "stdint.h", "stdlib.h"],
       correctAnswer: 1,
-      explanation: "limits.h defines the architecture-specific limits for standard integer types."
+      explanation: "limits.h defines architecture-specific limits for standard integer types."
     },
     {
       question: "On a 64-bit system, how large is a 'long' usually?",
@@ -100,3 +100,58 @@ Try experimenting with `sizeof` and the `limits.h` constants like `INT_MIN` and 
     }
   ]}
 />
+
+---
+
+<KeyConcepts title="Hacker Key Concepts">
+  - **sizeof**: The only safe way to know how much space a type actually occupies on your machine.
+  - **limits.h**: Contains constants (like `INT_MAX`) that describe the numeric limits of your compiler.
+  - **Padding**: The computer adds empty space ("dead" bytes) between data to make access faster for the CPU.
+</KeyConcepts>
+
+### Hacker Challenge 🏆
+
+<Quiz 
+  title="Hacker Challenge: Final Quiz"
+  questions={[
+    {
+      id: 1,
+      question: "In C, what is the value of `sizeof('A')` on a machine where `int` is 4 bytes and `char` is 1 byte?",
+      options: [
+        "1, because 'A' is a character",
+        "4, because in C, character literals (like 'A') are treated as `int`",
+        "8, because it's a constant",
+        "It depends on the font used"
+      ],
+      correctAnswer: 1,
+      explanation: "This is a subtle difference between C and C++. In C, a character constant like 'A' has type `int`, so its size is that of an integer (usually 4 bytes). If you had declared `char c = 'A';` and checked `sizeof(c)`, the result would have been 1."
+    },
+    {
+      id: 2,
+      question: "Why does the compiler add 'padding' (empty space) between structure fields or variables in memory?",
+      options: [
+        "To waste memory and sell more RAM",
+        "Because the CPU reads memory in blocks (words), and aligned data is much faster to read",
+        "To logically separate data for aesthetic reasons",
+        "It is a bug in old compilers"
+      ],
+      correctAnswer: 1,
+      explanation: "Alignment is fundamental: a 64-bit CPU prefers to read data that starts at addresses that are multiples of 8 bytes. If a piece of data were 'straddling' two blocks, the CPU would have to perform two reads instead of one, halving performance."
+    }
+  ]}
+/>
+
+### Terminal Challenge: Header Hunting 🕵️
+
+<HackerTerminal 
+  title="Hacker Challenge: Level 4"
+  description="Salvatore explained that to know the system limits (such as the maximum value of an integer), we must not guess, but use a standard header file. What is the name of this file?"
+  command="ls /usr/include/..."
+  expectedOutput="limits.h"
+  inputLabel="Header File:"
+  placeholder="e.g. stdio.h"
+  hint="It deals with the numeric 'limits' of the system."
+  explanation="Exactly! `limits.h` defines macros like `INT_MAX`, `SHRT_MIN`, etc. This allows your C code to be portable: if you compile it on a 16-bit machine, `INT_MAX` will be 32,767; on a 32-bit machine, it will be 2 billion."
+/>
+
+See you in the next lesson!

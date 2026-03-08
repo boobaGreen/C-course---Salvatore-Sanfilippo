@@ -97,6 +97,120 @@ Prova a sperimentare con `sizeof` e le costanti di `limits.h` come `INT_MIN` e `
       options: ["2 byte", "4 byte", "8 byte", "16 byte"],
       correctAnswer: 2,
       explanation: "Sui sistemi moderni a 64 bit, il tipo long solitamente segue la dimensione della parola del processore, ovvero 8 byte."
+    },
+    {
+      question: "Cosa succede se sottrai 1 da una variabile unsigned int che vale 0?",
+      options: [
+        "Il programma va in crash",
+        "La variabile diventa -1",
+        "La variabile 'ruota' (underflow) al valore massimo possibile per quel tipo (es. 4.294.967.295)",
+        "Resta 0"
+      ],
+      correctAnswer: 2,
+      explanation: "I tipi unsigned non possono essere negativi. Sottraendo 1 dallo zero, i bit 'ruotano' verso l'alto, portando la variabile al suo valore massimo."
+    },
+    {
+      question: "In C, il tipo 'char' può essere usato per memorizzare piccoli numeri interi?",
+      options: [
+        "No, serve solo per le lettere",
+        "Sì, è a tutti gli effetti un intero a 8 bit",
+        "Solo se è tra virgolette",
+        "Solo se convertito in float"
+      ],
+      correctAnswer: 1,
+      explanation: "Un char è un intero a 8 bit. Può contenere valori da -128 a 127 (signed) o 0-255 (unsigned)."
     }
   ]}
 />
+
+---
+
+<KeyConcepts title="Hacker Key Concepts">
+  - **sizeof**: L'unico modo sicuro per sapere quanto spazio occupa realmente un tipo sulla tua macchina.
+  - **limits.h**: Contiene le costanti (come `INT_MAX`) che descrivono i limiti numerici del tuo compilatore.
+  - **Padding**: Il computer aggiunge spazio vuoto (byte "morti") tra i dati per rendere l'accesso più veloce per la CPU.
+</KeyConcepts>
+
+### Hacker Challenge 🏆
+
+<Quiz 
+  title="Hacker Challenge: Final Quiz"
+  questions={[
+    {
+      id: 1,
+      question: "In C, quanto vale `sizeof('A')` su una macchina dove `int` è 4 byte e `char` è 1 byte?",
+      options: [
+        "1, perché 'A' è un carattere",
+        "4, perché in C i letterali carattere (come 'A') sono trattati come `int`",
+        "8, perché è una costante",
+        "Dipende dal font utilizzato"
+      ],
+      correctAnswer: 1,
+      explanation: "Questa è una differenza sottile tra C e C++. In C, una costante carattere come 'A' ha tipo `int`, quindi la sua dimensione è quella di un intero (solitamente 4 byte). Se invece avessi dichiarato `char c = 'A';` e fatto `sizeof(c)`, il risultato sarebbe stato 1."
+    },
+    {
+      id: 2,
+      question: "Perché il compilatore aggiunge del 'padding' (spazio vuoto) tra i campi di una struttura o tra variabili in memoria?",
+      options: [
+        "Per sprecare memoria e far vendere più RAM",
+        "Perché la CPU legge la memoria a blocchi (parole) e i dati allineati sono molto più veloci da leggere",
+        "Per separare meglio i dati per motivi estetici",
+        "È un bug dei vecchi compilatori"
+      ],
+      correctAnswer: 1,
+      explanation: "L'allineamento (alignment) è fondamentale: una CPU a 64 bit preferisce leggere dati che iniziano a indirizzi multipli di 8 byte. Se un dato fosse 'a cavallo' tra due blocchi, la CPU dovrebbe fare due letture invece di una, dimezzando le performance."
+    },
+    {
+      id: 3,
+      question: "In un intero signed a 32 bit, qual è il ruolo del bit più significativo (il più a sinistra)?",
+      options: [
+        "Indica se il numero è pari o dispari",
+        "È il bit del segno (0 per positivo, 1 per negativo nel complemento a due)",
+        "È sempre 0",
+        "Viene usato per la virgola mobile"
+      ],
+      correctAnswer: 1,
+      explanation: "Nella rappresentazione in Complemento a Due, il bit più alto determina il segno. Se è 1, il numero è negativo."
+    }
+  ]}
+/>
+
+### Terminal Challenge: Header Hunting 🕵️
+
+<HackerTerminal 
+  title="Hacker Challenge: Level 4 - Task 1"
+  description="Salvatore ha spiegato che per conoscere i limiti del sistema (come il valore massimo di un intero) non dobbiamo indovinare, ma usare un file header standard. Qual è il nome di questo file?"
+  command="ls /usr/include/..."
+  expectedOutput="limits.h"
+  inputLabel="File Header:"
+  placeholder="es. stdio.h"
+  hint="Si occupa dei 'limiti' numerici del sistema."
+  explanation="Esatto! `limits.h` definisce macro come `INT_MAX`, `SHRT_MIN`, ecc. Questo permette al tuo codice C di essere portabile: se lo compili su una macchina a 16 bit, `INT_MAX` sarà 32.767; su una a 32 bit, sarà 2 miliardi."
+  xpReward={150}
+/>
+
+<HackerTerminal 
+  title="Hacker Challenge: Level 4 - Task 2"
+  description="Per maggiore precisione, il C moderno (C99) introduce i tipi a dimensione fissa (es. int32_t). Quale file header devi includere per usarli?"
+  command="ls /usr/include/..."
+  expectedOutput="stdint.h"
+  inputLabel="File Header:"
+  placeholder="es. stdio.h"
+  hint="Inizia con 'std' e contiene la parola 'int'."
+  explanation="Ottimo! `stdint.h` è essenziale per scrivere codice robusto che deve funzionare allo stesso modo su ogni macchina, garantendo che un intero sia esattamente di 32 o 64 bit."
+  xpReward={200}
+/>
+
+<HackerTerminal 
+  title="Hacker Challenge: Level 4 - Task 3"
+  description="L'ordine dei byte in memoria può essere 'Little Endian' (più comune su PC) o 'Big Endian'. Esiste un comando Linux per vedere l'architettura della CPU e l'ordinamento dei byte (Byte Order). Quale?"
+  command="ls cpu"
+  expectedOutput="lscpu"
+  inputLabel="Comando:"
+  placeholder="es. lscpu"
+  hint="Significa 'list CPU'."
+  explanation="Eseguito! `lscpu` ti mostra se la tua macchina è 'Little Endian'. In questo caso, il byte meno significativo viene memorizzato all'indirizzo più basso. È un dettaglio cruciale quando si trasmettono dati in rete!"
+  xpReward={250}
+/>
+
+Ci vediamo alla prossima lezione!

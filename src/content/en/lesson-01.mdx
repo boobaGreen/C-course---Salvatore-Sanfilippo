@@ -190,9 +190,93 @@ Thanks to the prototype, the compiler knows exactly how to prepare data in memor
 
 See you in the next lesson!
 
-<KeyConcepts title="Recap">
+<KeyConcepts title="Hacker Key Concepts">
   - C is not executed, but **compiled**.
   - The compiler can optimize code intelligently (e.g., turning `printf` into `puts`).
   - The **preprocessor** prepares the file before compilation.
   - **Header files (`.h`)** contain function **prototypes**.
 </KeyConcepts>
+
+### Hacker Challenge 🏆
+
+<Quiz 
+  title="Hacker Challenge: Final Quiz"
+  questions={[
+    {
+      id: 1,
+      question: "Suppose you receive a string from a user and want to print it. Why is `puts(buffer)` safer than `printf(buffer)`?",
+      options: [
+        "puts is faster",
+        "printf would interpret any '%' symbols in the string as placeholders, trying to read random data from the stack (Format String Attack)",
+        "puts automatically encrypts the string",
+        "There is no security difference"
+      ],
+      correctAnswer: 1,
+      explanation: "This is a classic security attack. If a user enters '%s%s%s', printf will try to read strings from memory addresses pointed to by random values on the stack, causing a crash or data theft. puts, however, prints the string 'as is', ignoring special symbols."
+    },
+    {
+      id: 2,
+      question: "What is the role of the C compiler relative to Assembly?",
+      options: [
+        "The compiler writes Assembly code that then must be manually translated",
+        "The compiler automates the translation from C to Assembly (and then to binary), applying optimizations that a human would have difficulty doing by hand",
+        "There is no link, they are separate languages",
+        "Assembly is slower than C"
+      ],
+      correctAnswer: 1,
+      explanation: "The compiler is an expert translator. It takes your C code and 'lowers' it to the machine level (Assembly), while trying to eliminate useless steps to make the program as fast as possible."
+    },
+    {
+      id: 3,
+      question: "What happens if you compile a program with the `-static` flag?",
+      options: [
+        "The program can no longer be modified",
+        "All necessary libraries are included inside the executable, making it larger but portable to systems without those libraries",
+        "The program becomes slower because it doesn't use the cache",
+        "All screen prints are removed"
+      ],
+      correctAnswer: 1,
+      explanation: "Static linking copies the code of library functions (like printf) directly into your binary. This makes it independent of the versions of libraries installed on the system, but significantly increases its size."
+    }
+  ]}
+/>
+
+### Terminal Challenge: The Optimization Trap 🕵️
+
+<HackerTerminal 
+  title="Hacker Challenge: Level 1 - Task 1"
+  description="You compiled a program that uses printf to print the string 'Hello World' (without % or other variables). You used the -O2 optimization. If you look at the generated assembly, which function do you expect to find instead of printf?"
+  command="gcc -O2 -S hello.c && grep 'call' hello.s"
+  expectedOutput="puts"
+  inputLabel="Expected Function:"
+  placeholder="e.g. puts"
+  hint="Salvatore explained that the compiler 'downgrades' printf to a simpler function if there is no formatting."
+  explanation="Exactly! Since printf is a heavy function that must parse the string to find %, if the string is static and simple, the compiler replaces it with 'puts' (Put String) which is much lighter and faster."
+  xpReward={150}
+/>
+
+<HackerTerminal 
+  title="Hacker Challenge: Level 1 - Task 2"
+  description="The 'a.out' executable file is not just a sequence of numbers. It is a structured file (usually ELF on Linux). Which command would you use to find out what type of file it is and for which architecture it was compiled?"
+  command="ls -l a.out"
+  expectedOutput="file a.out"
+  inputLabel="Command:"
+  placeholder="e.g. file filename"
+  hint="It is a one-word command that refers to a 'document' or 'record'."
+  explanation="Great! The `file` command analyzes the binary's header and tells you if it's 64-bit, if it's dynamic or static, and for which operating system it was created."
+  xpReward={200}
+/>
+
+<HackerTerminal 
+  title="Hacker Challenge: Level 1 - Task 3"
+  description="Executables often contain 'symbols' (function and variable names) that are useful for debugging but take up space. Which command would you use to 'clean' the a.out executable of these symbols and make it smaller?"
+  command="ls -sh a.out"
+  expectedOutput="strip a.out"
+  inputLabel="Command:"
+  placeholder="e.g. strip filename"
+  hint="It means to 'remove' or 'peel off'."
+  explanation="Excellent! `strip` removes the symbol table and debug information. It is a common technique to reduce the size of binaries before distributing them, also making reverse engineering more difficult."
+  xpReward={250}
+/>
+
+See you in the next lesson!

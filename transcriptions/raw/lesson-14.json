@@ -1,0 +1,842 @@
+[
+  {
+    "start": 38.620000000000005,
+    "end": 44.8,
+    "text": " Beh, devo ammettere che l'altra volta ho fatto la cattiveria di introdurre le strutture"
+  },
+  {
+    "start": 44.8,
+    "end": 45.84,
+    "text": " senza poi parlarne."
+  },
+  {
+    "start": 46.94,
+    "end": 58.16,
+    "text": " Perché noi volevamo creare il nostro tipo di oggetto stringa nuovo, dovera prefixed"
+  },
+  {
+    "start": 58.16,
+    "end": 59.02,
+    "text": " length strings."
+  },
+  {
+    "start": 59.92,
+    "end": 64.4,
+    "text": " E' quando ho detto ma guardate facciamo che la lunghezza è 4 byte."
+  },
+  {
+    "start": 65.06,
+    "end": 69.96,
+    "text": " Ci mettiamo un conto delle referenze così possiamo avere diverse riferimenti alla nostra"
+  },
+  {
+    "start": 69.96,
+    "end": 74.88,
+    "text": " stringa e poi ogni volta che ne aggiungiamo uno chiamiamo una funzione che incrementa"
+  },
+  {
+    "start": 74.88,
+    "end": 75.66,
+    "text": " questo contatore."
+  },
+  {
+    "start": 76.3,
+    "end": 81.3,
+    "text": " Quando togliamo una referenza sottraiamo questo contatore, quando le referenze arrivano a"
+  },
+  {
+    "start": 81.3,
+    "end": 82.66,
+    "text": " zero, chiamiamo la free."
+  },
+  {
+    "start": 82.66,
+    "end": 87.86,
+    "text": " Quindi abbiamo anche un sistema di gestione della memoria semiautomatico."
+  },
+  {
+    "start": 90.44,
+    "end": 96.42,
+    "text": " Allora avevo detto però non è che ci possiamo mettere a fare qua con gli offset memcobi"
+  },
+  {
+    "start": 97.7,
+    "end": 103.86,
+    "text": " s4 perché così ancora ancora si potrebbe fare senza problemi ma che succede se io"
+  },
+  {
+    "start": 103.86,
+    "end": 109.98,
+    "text": " 10 campi nel oggetto che voglio rappresentare diventa un casino micidiale."
+  },
+  {
+    "start": 111.46000000000001,
+    "end": 118.36,
+    "text": " Allora avevo detto guardate qua possiamo usare una struttura ma per introdurre per bene"
+  },
+  {
+    "start": 118.36,
+    "end": 122.9,
+    "text": " le strutture dobbiamo per un attimo diventare il nostro problema delle prefixed length"
+  },
+  {
+    "start": 123.75999999999999,
+    "end": 124.52,
+    "text": " strings."
+  },
+  {
+    "start": 124.52,
+    "end": 124.9,
+    "text": " String."
+  },
+  {
+    "start": 127.02000000000001,
+    "end": 134.48,
+    "text": " E' che angeliamo quindi questo staro qua ci teniamo solo a standard.io e facciamo finta"
+  },
+  {
+    "start": 134.48,
+    "end": 138.78,
+    "text": " che noi vogliamo scrivere un programma che gestisce causes le frazioni."
+  },
+  {
+    "start": 142.39999999999998,
+    "end": 157.26,
+    "text": " Quindi per dire io devo avere un numeratore è un denumeratore e questi sono due numeri"
+  },
+  {
+    "start": 157.26,
+    "end": 164.28,
+    "text": " quindi cosa che potrei fare in teoria io potrei dire io so usare malloc però è in"
+  },
+  {
+    "start": 164.28,
+    "end": 170.7,
+    "text": " stdl.h e allora faccio win32t"
+  },
+  {
+    "start": 171.28,
+    "end": 178.06,
+    "text": " definisco un puntatore, ah anzi cosa non ho i tipi standard o le ho inclusi, diciamo int"
+  },
+  {
+    "start": 178.06,
+    "end": 189.34,
+    "text": " puntatore intero myfraction, mf, anzi n.f. razzione, malloc di size of int, qualsiasi sia la"
+  },
+  {
+    "start": 189.34,
+    "end": 195.28,
+    "text": " dimensione di un intero per 2, perché ne voglio 2, l'intero è 4 byte in questo computer"
+  },
+  {
+    "start": 195.28,
+    "end": 202.92,
+    "text": " quindi questo size of int per 2 varrà 8 e io avrò con malloc un'area di memoria di 8 byte in più,"
+  },
+  {
+    "start": 202.92,
+    "end": 219.16,
+    "text": " cioè il puntatore a intero f che punta proprio lì, ora se io scrivo f di 0 significa che modificherò"
+  },
+  {
+    "start": 219.16,
+    "end": 224.16,
+    "text": " leggerò il primo intero quindi allora guardate quando io faccio questo malloc io qua mi"
+  },
+  {
+    "start": 224.16,
+    "end": 234.04,
+    "text": " creo un pezzo di memoria di 8 byte, qua c'è il primo qui mi prima 4 byte e qua i secondi 4 byte,"
+  },
+  {
+    "start": 234.56,
+    "end": 243.04,
+    "text": " se io faccio f di 0 mi sto riferendo all'intero che ha registrato nei primi 4 byte, f di 1 va qui"
+  },
+  {
+    "start": 243.04,
+    "end": 251.34,
+    "text": " nell'intero che è registrato nei secondi byte, quindi posso fare che ne so, per esempio setfraction"
+  },
+  {
+    "start": 251.34,
+    "end": 260.66,
+    "text": " vi passo il puntatore f e poi 1,2, se voglio fare una frazione che vale un mezzo e questo"
+  },
+  {
+    "start": 260.66,
+    "end": 276.4,
+    "text": " setfraction potrebbe essere void, setfraction, intf, intnum, intdem, den, f di 0 uguale num,"
+  },
+  {
+    "start": 276.4,
+    "end": 287.4,
+    "text": " f di 1 uguale den, quindi questa funzione lavora solo come effetto collaterale non ritorta nulla,"
+  },
+  {
+    "start": 288.22,
+    "end": 295.12,
+    "text": " siccome è passata una funzione, un puntatore f a un rei di interi che noi sappiamo che sono due,"
+  },
+  {
+    "start": 296.32,
+    "end": 302.44,
+    "text": " allora qua facciamo questa scriviamo dentro questa locazione memoria f prima il numeratore"
+  },
+  {
+    "start": 302.44,
+    "end": 310.44,
+    "text": " e poi il denominatore, vi faccio vedere una cosa, io potrei anche scrivere printfractionf,"
+  },
+  {
+    "start": 311.16,
+    "end": 325.06,
+    "text": " diciamo che questa funzione è qui void printfraction intf, printf, dollaro di slash, dollaro di f di 0,"
+  },
+  {
+    "start": 325.06,
+    "end": 339.36,
+    "text": " f di 1, quindi io praticamente posso convilare questo programma qua, struct.c e mi scrive un mezzo,"
+  },
+  {
+    "start": 340.26,
+    "end": 347.06,
+    "text": " ma qua mettiamo anche le new line, quindi questa chiamiamo la magari f1, funzione 1, poi ne potrei fare"
+  },
+  {
+    "start": 347.06,
+    "end": 352.66,
+    "text": " f2, ma guardate ogni volta fa malloc che rottura di scato, invece facciamo una cosa,"
+  },
+  {
+    "start": 353.08,
+    "end": 361.92,
+    "text": " credete se la chiamiamo createFraction, quindi stavolta mi ritorna un puntatore a intero,"
+  },
+  {
+    "start": 364.06,
+    "end": 370.92,
+    "text": " createFraction non prende più il puntatore, guardate che facciamo, perché noi facciamo allocare la funzione"
+  },
+  {
+    "start": 375.56,
+    "end": 382.9,
+    "text": " mallocSidesOff intf2, qua dovremmo fare if, sef, uguale uguale a null, il sistema operativo"
+  },
+  {
+    "start": 382.9,
+    "end": 390.66,
+    "text": " mi sta dicendo che non c'ha memoria da allocare e ritorniamo null anche noi, questo qui è mallocErrorChecking,"
+  },
+  {
+    "start": 390.86,
+    "end": 396.98,
+    "text": " si dovrebbe sempre controllare la locazione, noi però la facciamo questa cosa, poi vi spiegherò"
+  },
+  {
+    "start": 396.98,
+    "end": 403.78,
+    "text": " perché nei programmi serie di grandi dimensioni quasi sempre questo non si fa, e perché invece"
+  },
+  {
+    "start": 403.78,
+    "end": 413.28,
+    "text": " nelle librerie quasi sempre bisogna farlo, ma poi ci torneremo, per ora facciamo i buoni cittadini"
+  },
+  {
+    "start": 413.28,
+    "end": 419.76,
+    "text": " e se malloc mi ritorna zero, il puntatore a zero che è speciale, questo puntatore all'indirizzo zero"
+  },
+  {
+    "start": 419.76,
+    "end": 430.82,
+    "text": " si inviga off allito, malloc, malloc, createLoc è una famiglia di funzioni, the malloc function,"
+  },
+  {
+    "start": 431.9,
+    "end": 438.9,
+    "text": " allocateSidesBytes, eccetera eccetera, andiamo al valore di ritorno, if there is an error,"
+  },
+  {
+    "start": 439.0,
+    "end": 446.1,
+    "text": " quindi se c'è un errore, queste funzioni ritornano un puntatore a null e settano questo speciale"
+  },
+  {
+    "start": 446.1,
+    "end": 455.72,
+    "text": " intero globale di cui poi vi parlerò errorNumber all'errore è nomM, non ho memoria, usate le"
+  },
+  {
+    "start": 455.72,
+    "end": 465.06,
+    "text": " pagine del manuale, una volta erano spettacolarmente scritte, ora dipende dal sistema, dipende da"
+  },
+  {
+    "start": 465.06,
+    "end": 470.66,
+    "text": " chi le ha scritte, però sono ancora utili quindi praticamente allo questo punto io guardate posso"
+  },
+  {
+    "start": 470.66,
+    "end": 484.74,
+    "text": " fare ind fd1 questa è la mia frazione, ind fd2 è uguale createFraction f virgola 3 virgola 4 quindi"
+  },
+  {
+    "start": 484.74,
+    "end": 493.4,
+    "text": " questo è 3 quarti e questa è un mezzo e questo è 3 quarti, va da sé che io dovrei controllare così come"
+  },
+  {
+    "start": 495.34000000000003,
+    "end": 502.26,
+    "text": " createFraction controlla il valore di ritorno di malloc tutti gli utenti di createFraction dovrebbero"
+  },
+  {
+    "start": 502.26,
+    "end": 508.46,
+    "text": " ritornare il valore di ritorno di createFraction e se null dovrebbero interromper la secuzione"
+  },
+  {
+    "start": 508.46,
+    "end": 516.16,
+    "text": " e ricoperare in qualche modo quindi questa funzione sarà commentata così create a newFraction"
+  },
+  {
+    "start": 517.5400000000001,
+    "end": 526.94,
+    "text": " settingNum and then as the numerator and the numerator of the fraction"
+  },
+  {
+    "start": 530.38,
+    "end": 538.52,
+    "text": " if an out of memory condition happens, ovviamente questo è un po' convoluto e meglio scrivere"
+  },
+  {
+    "start": 538.52,
+    "end": 552.52,
+    "text": " that function returns null on out of memory, otherwise that fraction object is returned, si dice denumerator"
+  },
+  {
+    "start": 559.2,
+    "end": 563.52,
+    "text": " denominator denominator, scusate numeratore denominator"
+  },
+  {
+    "start": 574.76,
+    "end": 579.3,
+    "text": " denominator of the fraction, defangio, le zazio nulla or not of memory"
+  },
+  {
+    "start": 580.3,
+    "end": 589.26,
+    "text": " allora ora noi potremmo"
+  },
+  {
+    "start": 595.3,
+    "end": 607.8,
+    "text": " potremmo fare una funzione che semplifica la frazione, vediamo una funzione vallalissima che chiamiamo"
+  },
+  {
+    "start": 612.7600000000001,
+    "end": 621.66,
+    "text": " simplify fraction, aglidiamo F di 1, allora questo qui lo facciamo di andare 10 e 20 e vogliamo semplificare questa frazione"
+  },
+  {
+    "start": 622.3,
+    "end": 634.7,
+    "text": " allora facciamo questa funzione, void simplify fraction in F, questa è la mia frazione"
+  },
+  {
+    "start": 636.08,
+    "end": 647.64,
+    "text": " simplify the provided fraction, allora qua dobbiamo dividere sia il denominatore che il denominatore"
+  },
+  {
+    "start": 648.9,
+    "end": 655.7,
+    "text": " dello stesso numero che riesce a dividere tutti e due, quindi qua noi la facciamo veramente semplice"
+  },
+  {
+    "start": 655.7,
+    "end": 668.0,
+    "text": " e facciamo semplicemente che il mio divisore che chiamiamo di, lo facciamo partire da due, di deve essere"
+  },
+  {
+    "start": 668.82,
+    "end": 685.36,
+    "text": " allo stesso tempo, minore uguale, minore di F di 0 e deve essere minore di F di 1, perché non ha senso una divisore comune"
+  },
+  {
+    "start": 685.36,
+    "end": 702.62,
+    "text": " che sia maggiore del numero di più più se il resto della divisione tra F di 0 e di 0 e quindi se questo numero"
+  },
+  {
+    "start": 702.62,
+    "end": 712.28,
+    "text": " è un divisore, se di è un divisore del denominatore, e di è un divisore del denominatore, non vi preoccupate che la matematica di questa reazione è finita qua"
+  },
+  {
+    "start": 714.52,
+    "end": 729.78,
+    "text": " se divide tutti e due i numeri, allora io mi accollo che il mio F di 0 lo divido per di e il mio F di 1 lo divido per di, ok, quindi guardate"
+  },
+  {
+    "start": 730.82,
+    "end": 739.78,
+    "text": " semplifalai fraction in D F e faccio questa cosa qua e vediamo se funziona"
+  },
+  {
+    "start": 746.96,
+    "end": 763.78,
+    "text": " allora questo qui create fraction non ha bisogno della F, questo qui 13 deve ritornare F, dopo che lo ha allocato, lo ha inizializzato deve ritornarmi"
+  },
+  {
+    "start": 764.2,
+    "end": 780.92,
+    "text": " il mio oggetto infatti a funzione, ritorna un bundatore in T e ora funziona, mi ritorna 5 decimi ed è sbagliato e vi dico perché"
+  },
+  {
+    "start": 783.6999999999999,
+    "end": 798.14,
+    "text": " perché mica il divisore, cioè questi due numeri possono avere più volte lo stesso primo come loro divisore e quindi quando è così"
+  },
+  {
+    "start": 801.2,
+    "end": 817.16,
+    "text": " io posso usare qua while, cioè fin quando questo numero di divide sia F1 che F0 che F1 e il resto della divisione quindi è 0, io continuo qua"
+  },
+  {
+    "start": 821.18,
+    "end": 837.16,
+    "text": " ed è lo stesso sbagliato 5 decimi, perché è sbagliato anche questo qui, quindi io posso anche provare"
+  },
+  {
+    "start": 843.18,
+    "end": 856.52,
+    "text": " e il numero stesso, il più piccolo dei due infatti scusatemi, esatto, ora la nostra funzione effettivamente viene semplificata in una maniera corretta"
+  },
+  {
+    "start": 857.74,
+    "end": 869.64,
+    "text": " però guardate questo programma qua, ho dovuto accedere a FD0 e FD1 quindi hai due membri della mia frazione chiamandoli così"
+  },
+  {
+    "start": 869.64,
+    "end": 892.84,
+    "text": " in realtà avrei potuto fare una cosa più interessante facendo fin da che questo mio oggetto ha una sua struttura, avrei potuto creare due variabili, due funzioni accessorie, due helper che io chiamo SetFractionNum"
+  },
+  {
+    "start": 899.6400000000001,
+    "end": 916.18,
+    "text": " poi il vero int num e così via, quindi questo qui faceva FD0 qual è num, poi la stessa cosa per il denominatore SetFractionDen"
+  },
+  {
+    "start": 916.88,
+    "end": 932.66,
+    "text": " e io lo setto a questa cosa qui e poi GetFractionNum e GetFractionNum, quindi usare queste funzioni per accedere a questi cambi, non avrebbe avuto senso in questo contesto, ma sapevo 14 cambi di dimensioni diverse era necessario fare così"
+  },
+  {
+    "start": 932.66,
+    "end": 950.66,
+    "text": " ma il C ci riservo una sorpresa, posso dichiarare io una struttura chiamiamo Frac in cui ho dei cambi che hanno un nome, inDX, inDY cioè numDen"
+  },
+  {
+    "start": 952.36,
+    "end": 966.66,
+    "text": " guardate qua io gli dico praticamente dal C, fammi un tipo di dato aggregato, le strutture sono l'unico caso in cui il C esce fuori dall'idea di manipolare numeri"
+  },
+  {
+    "start": 967.4599999999999,
+    "end": 993.04,
+    "text": " per il resto manipola sempre numeri, guardate, ma lo mi ritorno un pondatore a un indirizio memoria, cos'è un numero, null cos'è un numero zero, questi sono offset, sono numeri, questi settano numeri, ritorno numeri, tutto numeri, il for, numeri qua, divisioni tra numeri in D, non c'è un casp, pita di niente, se non numeri, sono tutti numeri"
+  },
+  {
+    "start": 994.04,
+    "end": 1010.18,
+    "text": " però la struttura non è un numero, la struttura è qualcosa di più, è un tipo di dato, tanto che io posso dichiarare questo tipo di dato, la qua if zero, and if"
+  },
+  {
+    "start": 1011.04,
+    "end": 1021.92,
+    "text": " questo è un modo per commentare un bel blocco di codice, questo è il pre-processore del C può avere delle condizionali, siccome zero è sempre falso, cioè equivale a un super commentone"
+  },
+  {
+    "start": 1026.58,
+    "end": 1044.04,
+    "text": " guardate, io per creare una variabile di questo tipo, anzitano, vi faccio vedere una cosa, quante grande questo tipo? printf size of the struct fract"
+  },
+  {
+    "start": 1047.0,
+    "end": 1072.48,
+    "text": " che ho fatto? fract, va bene, fract, 8, è grande 8, perché il tipo intero nel mio computer è 4 byte, uso due cambi di 4 byte, quindi il layout"
+  },
+  {
+    "start": 1076.16,
+    "end": 1100.88,
+    "text": " internal layout di questa roba qui è num di 4 byte, den di altri 4 byte e siamo tutti felici e contenti"
+  },
+  {
+    "start": 1100.88,
+    "end": 1116.82,
+    "text": " ma che succede se io prima di avere num e den, il colore di una di questa frazione, ho solo 256 colori possibili, perché li devo visualizzare?"
+  },
+  {
+    "start": 1118.1000000000001,
+    "end": 1141.9,
+    "text": " quindi qua ci metto un signed, char color, questo è un byte solo, quindi io mi posso immaginare di avere qua il colore, e poi avere questi e queste, quindi sono 1, più 4, più 4, 9, e invece no"
+  },
+  {
+    "start": 1142.62,
+    "end": 1162.9,
+    "text": " e invece no, compidiamo 12 byte, che brutta sorpresa, allora le strutture di default, poi ci sono modi, esistono modi e vedremo, ti garantiscono che ogni membro della struttura sia registrato un indirizzo di memoria che è multiplo della sua dimensione"
+  },
+  {
+    "start": 1163.06,
+    "end": 1179.32,
+    "text": " quindi num e 4 byte sarà a un multiplo di 4 l'indirizzo, a partire dalla base della struttura, dall'inizio della struttura, den pure, quindi questo qui sarà in realtà un byte di dato e poi 3 byte di padding"
+  },
+  {
+    "start": 1179.32,
+    "end": 1207.82,
+    "text": " per fare in modo che questo num inizia un indirizzo multiplo di 4, e che questo inizia un multiplo di 4, se invece io, più saggiamente, in questo caso, ansiglent, char color, lo mettevo alla fine, a questo punto voi potreste dire, beh, ma ora, c'ho l'intero qui che è allineato all'offset 0, c'ho l'altro intero che è allineato all'offset 0, e qui c'ho un solo byte, quindi a questo punto"
+  },
+  {
+    "start": 1211.72,
+    "end": 1228.66,
+    "text": " è corretto di questi due, qui c'ho il C, il mio color, poi io cambio color che è un byte, quindi ora il size off dovrebbe essere 9, e no, neppure stavolta ci siamo, è 12, perché?"
+  },
+  {
+    "start": 1229.6399999999999,
+    "end": 1257.1,
+    "text": " perché inoltre la struttura mi deve garantire che è allineata al tipo più grande che c'è tra i suoi componenti, ora vi dico perché questa cosa qui, questa cosa qua può sembrare strana, perché c'è questo allineamento a 4 byte, ma perché io posso dichiarare un array di strutture, e che succede se poi qua io ho un altro num,"
+  },
+  {
+    "start": 1257.1,
+    "end": 1278.1,
+    "text": " questo qua inizia a 10, deve iniziare a 12, però la differenza è che io, volendo, allora facciamo un esempio diverso, mettiamo che io ho diversi campi, a, b, c e d, ok?"
+  },
+  {
+    "start": 1278.1,
+    "end": 1308.08,
+    "text": " questa struttura qui è ben congeniata, perché non ci sono mai spazi vuoti, perché c'ho qua num den, poi a, b, c, d qui sono tutti allineati in maniera corretta, ed è grande, 12 byte esattamente quando dovrebbe essere, invece se io metto a qui, b qui, e poi qua c e d, la dimensione di questa struttura diventamente byte, questo è un assaggio per farvi capire che i t, c'è la struttura in c, è veramente un impaccamento di roba,"
+  },
+  {
+    "start": 1308.1,
+    "end": 1326.52,
+    "text": " in un unico blocco, ma questo ogni campo deve rispettare il suo, il proprio allineamento, c'è un modo di fare una struttura che non rispetta questo allineamento ed è in realtà impaccata con i campi uno attaccato all'altro, senza il padding,"
+  },
+  {
+    "start": 1328.0400000000002,
+    "end": 1340.24,
+    "text": " ma in tal caso il programmatore deve chiederlo in maniera esplicita e ci arriveremo, dobbiamo poi trattare l'interno delle strutture, delle cose interessanti, i bitfield e le strutture packet,"
+  },
+  {
+    "start": 1340.96,
+    "end": 1361.48,
+    "text": " per ora torniamo di nuovo al nostro problema iniziale, togliamo qua l'interno all'I out, non l'abbiamo capito, tanto per iniziare trasformiamo il programma, in un programma che usa la nostra struttura, ma prima dobbiamo capire queste strutture come che funzionano, tanto per iniziare io la posso dichiarare in maniera molto facile,"
+  },
+  {
+    "start": 1361.48,
+    "end": 1388.56,
+    "text": " strut, strut, frac, frac, alla fine l'avevo chiamata frac, a, ok, quindi questo è come scrivere int a, int è il nome del tipo, a è il nome della mia variabile, strut, frac, è il nome del tipo, a è il nome della variabile, guardate le strutture sono dei tipi di dati definiti dall'utente, come se io dichiaro una classe in biton, per capirci,"
+  },
+  {
+    "start": 1388.56,
+    "end": 1408.06,
+    "text": " poi posso usare l'operatore punto per accedere ai diversi campi della mia struttura, a, num, uguale uno, a, punto, den, uguale a due, printf, stringa di, stringa di, a, num, a, den,"
+  },
+  {
+    "start": 1409.4399999999998,
+    "end": 1432.02,
+    "text": " compriamo questo programma, vedete che bello, otto la dimensione della mia struttura e poi uno e due, è più interessante riferirsi ai campi con i propri nomi, invece che qua fare fd0, fd1, perché quando è due, figuratevi dopo come si dice, si genera una confusione bestiale,"
+  },
+  {
+    "start": 1434.3600000000001,
+    "end": 1459.38,
+    "text": " e le strutture vi potrebbero sembrare finora solo così un modo più comodo per gestire questa cosa, ma c'è di più, e ora ve lo faccio vedere, allora tanto per iniziare se io definisco un puntatore e una struttura, per esempio frac, b, questo è un puntatore, a una struttura e poi gli registro l'indirizzo di memoria di a,"
+  },
+  {
+    "start": 1459.98,
+    "end": 1484.9,
+    "text": " a questo punto, se io voglio accedere a questi campi tramite b, guardate, poi qua stampo sempre a, ok, a, num, a, den, tanto, puntano lo stesso indirizzo di memoria, cioè b, a dove registrato l'oggetto a, non posso usare più il punto, se la variabile che io ho, relativa a una struttura, non è una struttura stessa, ma è un puntatore, una struttura, invece del punto, ci va la freccia,"
+  },
+  {
+    "start": 1486.64,
+    "end": 1514.88,
+    "text": " in realtà il combinatore lo sa che questo è così, chiediamo a Klopp, ah, chiediamo a Klopp, che, io lo chiedo in italiano per semplicità di quelli che mi seguono, anzi veramente, io lo chiedo in inglese per semplicità di quelli che mi seguono,"
+  },
+  {
+    "start": 1523.78,
+    "end": 1544.88,
+    "text": " che sembra un'altra lingua, quindi io gli scrivo, why?"
+  },
+  {
+    "start": 1546.78,
+    "end": 1574.02,
+    "text": " This is an interesting design, the decision that goes back to Cphilosophy and the historical context, the technical reality, il combinatore sa assolutamente che tipo di variabile è, perché esiste questa distinzione, il CL è progettato per essere esplicito, ok, semplicemente tu, quando guardi che c'è una, una freccia, sai che si parla di un puntatore, e questo è un'ottima, un'ottima idea,"
+  },
+  {
+    "start": 1575.6,
+    "end": 1591.88,
+    "text": " readability of intent, molto interessante, me lo sono chiesto più volte, mi sono risposto così, altre volte ho avuto anche delle discussioni filosofiche con altri programmatori, ma ci tenevo al fatto che voi che seguite questo corso,"
+  },
+  {
+    "start": 1591.88,
+    "end": 1606.46,
+    "text": " siate anche parte integrante, ora che vedete questo video e ci ragionate anche voi e domani ne parlerete con il vostro compagno o compagna di ufficio, di scuola o quel che volete,"
+  },
+  {
+    "start": 1607.22,
+    "end": 1621.02,
+    "text": " parte delle persone che si interrocano sulla progettazione di linguaggi di programmazione a distanza di 60 anni di quanto sono passati dall'invenzione, dall'invenzione del C ad oggi."
+  },
+  {
+    "start": 1621.02,
+    "end": 1641.7,
+    "text": " Vedete, allora perché abbiamo parlato di questa cosa in maniera così in profondità? Perché ora sarete sereni quando voi usate il punto o la freccia, pensare da, è solo perché un puntatore, il C è fatto così, fine, non c'è una dietrologia, anche perché come avete visto io tutte le dietrologie che ci sono,"
+  },
+  {
+    "start": 1641.7,
+    "end": 1664.7,
+    "text": " o diciamo la voglia di dir, di mettervi immediatamente al corrente, quindi anche quando non c'è nessuna dietrologia, ecco giusto, parlarne, però c'è una cosa che vi meravierà secondo me del C, allora io ora posso utilizzare questa roba qui per riscrivere il mio programma,"
+  },
+  {
+    "start": 1664.7,
+    "end": 1691.76,
+    "text": " questo diventa struct, frac, f1, struct, frac, f2, le altre varie abbi restano, le altre chiamate qua, le altre istruzioni del programma restano uguali, print fraction cambia perché qua diventa struct, frac, f, e qui è indivertente perché questo diventa f di num, numeratore, denomial, denomial."
+  },
+  {
+    "start": 1693.18,
+    "end": 1721.74,
+    "text": " Questo è meglio, no? si capisce dubbed, non devi sapere che f0 si riferiscezu a, f1 riferzu a, questo diventa struct, frac, f, f, d, num, f, d, den, guardate, io posso tradurre questo programma in maniera meccanica, posso spegnere il cervello,"
+  },
+  {
+    "start": 1721.76,
+    "end": 1731.76,
+    "text": " quando c'è scritto f di 0 mettonum, potevo fare anche col trove, sostituisci, ma è meno"
+  },
+  {
+    "start": 1731.76,
+    "end": 1742.52,
+    "text": " istruttivo. Qui malloc sides off di struct fract, è un po' cacofonico questo struct fract,"
+  },
+  {
+    "start": 1744.8400000000001,
+    "end": 1753.34,
+    "text": " fract f, fract f, f di num, guardate come è bello questo f di num, uguale a num, f di"
+  },
+  {
+    "start": 1753.34,
+    "end": 1760.6,
+    "text": " den uguale a den, così che dovrebbe funzionare il mondo, scherzo, però insomma si capisce một che tutto"
+  },
+  {
+    "start": 1760.6,
+    "end": 1769.08,
+    "text": " è più sensato in questo modo. Vi avevo fare vedere una cosa, sapete che io con l'operatore asterisco posso"
+  },
+  {
+    "start": 1769.08,
+    "end": 1776.62,
+    "text": " prendere il valore che c'è un puntatore, quindi se questo ptr fosse un puntatore,"
+  },
+  {
+    "start": 1776.76,
+    "end": 1781.62,
+    "text": " ho un indereo con asterisco c'è un ptr prendo il valore che c'è dentro il puntatore. Allo"
+  },
+  {
+    "start": 1781.62,
+    "end": 1792.1,
+    "text": " stesso modo sides off, io posso dire sides off di, quello che prenderei, sides off di asterisco f"
+  },
+  {
+    "start": 1792.1,
+    "end": 1798.44,
+    "text": " uguale a sides off di struct fract, però è più combattuo, io di solito faccio cio."
+  },
+  {
+    "start": 1803.2199999999998,
+    "end": 1812.88,
+    "text": " Combiniamo. Che cosa abbiamo sbagliato? Struct fract, il valore di ritorn di questa funzione,"
+  },
+  {
+    "start": 1812.88,
+    "end": 1825.5,
+    "text": " e ora funziona tutto come prima, ma io vi voglio fare vedere un'ecusa. Questo programma, copiamolo."
+  },
+  {
+    "start": 1828.44,
+    "end": 1834.92,
+    "text": " In realtà le strutture lo sapete che possono essere anche ritornate come valore di ritorn,"
+  },
+  {
+    "start": 1835.04,
+    "end": 1841.9,
+    "text": " e cio è veramente strano, perché il cifo ora è veramente manipulato solo numeri. Io con le"
+  },
+  {
+    "start": 1841.9,
+    "end": 1846.56,
+    "text": " strutture vi ho detto siamo oltre ai numeri, però uno poteva dire, ma dando solo offset,"
+  },
+  {
+    "start": 1847.68,
+    "end": 1852.74,
+    "text": " cioè alla fine questo num significa che l'offset è zero, questo f di den significa che l'offset è"
+  },
+  {
+    "start": 1852.74,
+    "end": 1858.84,
+    "text": " quattro, non li posso immaginare come degli offset, poi come delle store a quelle precise"
+  },
+  {
+    "start": 1858.84,
+    "end": 1866.98,
+    "text": " locazioni di memoria e così via. Però se il cibo ritornare addirittura le strutture,"
+  },
+  {
+    "start": 1867.14,
+    "end": 1871.36,
+    "text": " allora veramente la struttura è un tipo di dati. Guardate io qua, volendo avrei potuto"
+  },
+  {
+    "start": 1871.36,
+    "end": 1880.24,
+    "text": " fare per esempio che la creazione delle frazioni fosse così. Strutt, Fract, Create Fraction"
+  },
+  {
+    "start": 1880.24,
+    "end": 1886.68,
+    "text": " proprio mi ritorna una frazione, quindi io qua malloc lo tolgo e faccio Strutt, Fract, F,"
+  },
+  {
+    "start": 1887.74,
+    "end": 1894.34,
+    "text": " la dichiaro come una variabile locale, tolgo il check se è nullo non ha più senso, quindi"
+  },
+  {
+    "start": 1894.34,
+    "end": 1899.76,
+    "text": " diventa punto perché è una variabile, non è più un puntatore, e io la posso ritornare."
+  },
+  {
+    "start": 1900.24,
+    "end": 1906.72,
+    "text": " Questa è una cosa strana, no? Che succede quando io ritorno una frazione? Perché a questo punto"
+  },
+  {
+    "start": 1906.72,
+    "end": 1914.06,
+    "text": " queste due diventano F1 ed F2 e io che ho queste frazioni, poi siccome le altre funzioni che io"
+  },
+  {
+    "start": 1914.06,
+    "end": 1919.14,
+    "text": " prendo un puntatore non la voglio cambiare tutte, qua io gli metto and prima del nome,"
+  },
+  {
+    "start": 1919.24,
+    "end": 1923.74,
+    "text": " così diventano il puntatore a queste strutture. Allora il problema funzionerà allo stesso modo."
+  },
+  {
+    "start": 1924.52,
+    "end": 1929.4,
+    "text": " Il punto è capire quello che succede qui. Allora questa ritorna una struttura,"
+  },
+  {
+    "start": 1929.7,
+    "end": 1936.34,
+    "text": " la assegno una struttura e allora lo sapete che succede? Che sotto sotto il C va a chiamare una,"
+  },
+  {
+    "start": 1937.22,
+    "end": 1945.16,
+    "text": " va a fare una operazione di copia dei byte che questa struttura ritornata a e li va a copiare"
+  },
+  {
+    "start": 1945.16,
+    "end": 1950.9,
+    "text": " in questa struttura qui. Quindi mentre prima quando io manipolavo le strutture liberamente"
+  },
+  {
+    "start": 1950.9,
+    "end": 1956.84,
+    "text": " col puntatore non c'è nessuna copia implicita, stavolta sì. Quindi se voi usate questa tecnica"
+  },
+  {
+    "start": 1956.84,
+    "end": 1963.58,
+    "text": " e ritornate delle strutture che sono molto grandi, con di fatte di tanti byte, il programma diventa"
+  },
+  {
+    "start": 1963.58,
+    "end": 1971.44,
+    "text": " profondamente inefficente. Di fatto ritornare le strutture di per valore non si fa così mai."
+  },
+  {
+    "start": 1971.92,
+    "end": 1979.98,
+    "text": " Bisogna saperlo, lo abbiamo visto, bisogna sapere sotto, sotto nel sottobosco come funziona internamente"
+  },
+  {
+    "start": 1979.98,
+    "end": 1986.48,
+    "text": " dentro il cofano, però sappiate che costringono copia. Se questa copia di due interi, come in questo"
+  },
+  {
+    "start": 1986.48,
+    "end": 1992.1,
+    "text": " caso, non ci fa niente. E uno può dire, ma io quasi quasi creo uno interfaccio di programmazione"
+  },
+  {
+    "start": 1992.1,
+    "end": 1998.12,
+    "text": " per le mie frazioni che eviti la allocazione dinamica, malloc, eccetera, eccetera, che può"
+  },
+  {
+    "start": 1998.12,
+    "end": 2007.2,
+    "text": " fallire, devo controllare nulla. Io semplicemente torno sempre anche simplify fraction, poteva essere"
+  },
+  {
+    "start": 2007.2,
+    "end": 2014.52,
+    "text": " f1 uguale, semplifera i fraction di f1. O altrimenti la segnavo fs, fraction simplified,"
+  },
+  {
+    "start": 2014.94,
+    "end": 2023.68,
+    "text": " e così via. Quasi quasi sarebbe stato meglio in questo caso, usare questo tipo di strata"
+  },
+  {
+    "start": 2023.68,
+    "end": 2030.32,
+    "text": " gemma, di altra possibilità progettuale, ma di norma le strutture si passano per puntatore,"
+  },
+  {
+    "start": 2030.56,
+    "end": 2036.7,
+    "text": " vengono allocate nell'IP e si ritornano, e sono di fatto degli oggetti che vivono nella memoria,"
+  },
+  {
+    "start": 2036.7,
+    "end": 2041.42,
+    "text": " e che io posso allocare e distruggere come voglio con mallo e free. O meglio,"
+  },
+  {
+    "start": 2041.48,
+    "end": 2046.92,
+    "text": " con IVRA, perché poi il mio oggetto avrà. Mi sembra che per questa volta ci siamo detti"
+  },
+  {
+    "start": 2046.92,
+    "end": 2052.9,
+    "text": " abbastanza cose, per cui io vi saluto e vi do appuntamento a sabato prossimo. Ciao!"
+  }
+]

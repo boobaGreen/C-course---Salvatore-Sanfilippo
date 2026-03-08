@@ -1,0 +1,942 @@
+[
+  {
+    "start": 0.0,
+    "end": 11.1,
+    "text": " C'eravamo lasciati qui, avevamo implementato... minchia parlano i vicini..."
+  },
+  {
+    "start": 14.34,
+    "end": 23.18,
+    "text": " Dicevamo avevamo implementato queste frazioni e c'eravamo illusi di capire come funziona"
+  },
+  {
+    "start": 23.18,
+    "end": 30.3,
+    "text": " le strutture. In realtà non abbiamo capito nulla fin quando non facciamo un salto in là."
+  },
+  {
+    "start": 33.04,
+    "end": 45.46,
+    "text": " Allora avete presente il comando UnixCat io per esempio posso fare cat bst.c e lui"
+  },
+  {
+    "start": 45.46,
+    "end": 55.8,
+    "text": " mi mostra il contenuto del file. C'è un comando che è l'inverso di cat tag che mostra il contenuto"
+  },
+  {
+    "start": 55.8,
+    "end": 61.1,
+    "text": " del file al rovescio. Guardate questa è la prima liga del file viene stampata come ultima e così via."
+  },
+  {
+    "start": 62.3,
+    "end": 69.36,
+    "text": " Proviamo a reimplementare questo comando e la reimplementazione di questo comando farà"
+  },
+  {
+    "start": 69.36,
+    "end": 76.68,
+    "text": " sì che noi esploreremo le strutture in un modo completamente nuovo. Allora per implementare un"
+  },
+  {
+    "start": 76.68,
+    "end": 86.44,
+    "text": " dale comando a me serve fare una cosa devo caricare le righe del file una dopo l'altra e"
+  },
+  {
+    "start": 86.44,
+    "end": 93.98,
+    "text": " memorizzarle in una struttura dati che mi permette poi di molto facilmente di scorrere"
+  },
+  {
+    "start": 93.98,
+    "end": 100.12,
+    "text": " le strutture dalla prima fino all'ultima ma in ordine inverso quindi dall'ultima fino alla prima."
+  },
+  {
+    "start": 102.36,
+    "end": 107.46000000000001,
+    "text": " Scusate devo dire hai miei di smetterla di urlare."
+  },
+  {
+    "start": 115.74,
+    "end": 121.52,
+    "text": " Anzino non ce la farò mai quindi spostiamo il computer nell'altra camera. Vi faccio"
+  },
+  {
+    "start": 121.52,
+    "end": 127.78,
+    "text": " direndo partecipi oggi oggi direndo partecipi andiamo nella stanza del mio caro fratello che"
+  },
+  {
+    "start": 127.78,
+    "end": 134.96,
+    "text": " purtroppo se ne è già andato avvienna dicevo ho bisogno di caricare queste linee di testo in"
+  },
+  {
+    "start": 134.96,
+    "end": 143.62,
+    "text": " memoria e poi stamparle al contrario. Tanto per iniziare l'attac.si include stdio.h. Tanto"
+  },
+  {
+    "start": 143.62,
+    "end": 149.44,
+    "text": " per iniziare come si fa a leggere le linee di un file. Allora noi siccome non vogliamo gestire"
+  },
+  {
+    "start": 149.44,
+    "end": 157.28,
+    "text": " l'apertura alla chiusura dei file facciamo una cosa più semplice le leggiamo dallo standard input"
+  },
+  {
+    "start": 157.28,
+    "end": 163.48,
+    "text": " cioè quelle che arrivano anzino dovrei introdurre il concetto di standard input è peggio perché"
+  },
+  {
+    "start": 163.48,
+    "end": 169.26,
+    "text": " dobbiamo parlare già di posix di unix di un sacco di roba quindi introduciamo l'apertura di"
+  },
+  {
+    "start": 169.26,
+    "end": 178.12,
+    "text": " file perché è molto facile in the main void anzi non void allora la main se uno vuole invece di"
+  },
+  {
+    "start": 178.12,
+    "end": 188.56,
+    "text": " essere una funzione void che non riceve niente può ricevere un numero di argomenti e delle stringe"
+  },
+  {
+    "start": 188.56,
+    "end": 194.9,
+    "text": " che sono gli argomenti che io passo al mio programma allora vi faccio un esempio per farvi"
+  },
+  {
+    "start": 194.9,
+    "end": 199.0,
+    "text": " capire come che funziona poi vi dico che cos'è questo c'è il rasterisco rasterisco argvi"
+  },
+  {
+    "start": 199.0,
+    "end": 211.52,
+    "text": " questo puntatore appuntatore a carattere for int i uguale 0 i minore argc i più più printf"
+  },
+  {
+    "start": 212.66000000000003,
+    "end": 222.5,
+    "text": " dollar di scusate percentuale di percentual s e virgola argvi di i quindi guardate io"
+  },
+  {
+    "start": 222.5,
+    "end": 228.34,
+    "text": " praticamente per ogni qua il argc è il numero di parametri che a me mi passano la command line"
+  },
+  {
+    "start": 228.34,
+    "end": 235.78,
+    "text": " quando io seguo un programma tipo ls ptr 1.c questo programma due argomenti il nome del"
+  },
+  {
+    "start": 235.78,
+    "end": 241.08,
+    "text": " programma stesso è il secondo argomento il file in questo caso è un nuovo file quindi qua in"
+  },
+  {
+    "start": 241.08,
+    "end": 248.02,
+    "text": " questo caso argc sarebbe due e argvi che cos'è siccome ogni stringa è un puntatore a un"
+  },
+  {
+    "start": 248.02,
+    "end": 257.64,
+    "text": " errei di caratteri e quindi sarebbe ogni stringa un puntatore a char se io un errei di puntatori a"
+  },
+  {
+    "start": 257.64,
+    "end": 265.64,
+    "text": " char quindi praticamente guardate questo come in memoria ogni stringa è per utilizzata per"
+  },
+  {
+    "start": 265.64,
+    "end": 272.24,
+    "text": " esempio all'indirizzo mille c'è questa stringa l'indirizzo mille è 100 c'è questa stringa"
+  },
+  {
+    "start": 272.24,
+    "end": 277.9,
+    "text": " l'indirizzo mille 200 c'è questa stringa quindi ognuno di questi indirizzi memoria io lo registro"
+  },
+  {
+    "start": 277.9,
+    "end": 283.98,
+    "text": " in un char puntatore a char stettiera che per esempio vale mille per dire per la prima stringa vale"
+  },
+  {
+    "start": 283.98,
+    "end": 291.34,
+    "text": " mille 100 ma io voglio un errei quindi un errei contigo in cui ci sono tutti questi puntatori"
+  },
+  {
+    "start": 291.34,
+    "end": 300.56,
+    "text": " una pressa all'altro quindi sono indirizi di memoria dove sono registrati quindi allora"
+  },
+  {
+    "start": 301.76,
+    "end": 310.34,
+    "text": " questi sono indirizi memoria dove sono registrate le stringe però il nome stesso della variabile"
+  },
+  {
+    "start": 310.34,
+    "end": 320.68,
+    "text": " sarà l'indirizzo quindi argv sarà l'indirizzo di memoria dove è registrato un errei di indirizi"
+  },
+  {
+    "start": 320.68,
+    "end": 332.88,
+    "text": " di memoria a char e quindi ciò i due asterischi ok perché argv se io avessi dichiarato char argv"
+  },
+  {
+    "start": 335.64,
+    "end": 343.64,
+    "text": " quindi io dichiaravo 10 elementi un errei di 10 puntatori a char quindi un errei di 10 puntatori"
+  },
+  {
+    "start": 343.64,
+    "end": 349.74,
+    "text": " a stringe in effetti siccome vedete che qua ci sono anche le parentesi quadre quindi questo è un"
+  },
+  {
+    "start": 349.74,
+    "end": 358.72,
+    "text": " puntatore a sua volta io mi troverei un puntatore di puntatore al tipo char quindi un char asterisco"
+  },
+  {
+    "start": 358.72,
+    "end": 364.48,
+    "text": " così come quando io dichiaro una stringa s che è semplicemente una stringa inizializzo a"
+  },
+  {
+    "start": 364.48,
+    "end": 374.76,
+    "text": " non lo so del testo qualsiasi char s è un puntatore a carattere che spero di essermi di essere stato"
+  },
+  {
+    "start": 374.76,
+    "end": 384.36,
+    "text": " chiaro ma purtroppo siamo stati forzati qua a dichiarare questo tipo perché così è allora"
+  },
+  {
+    "start": 384.36,
+    "end": 397.18,
+    "text": " vediamo che fa questo programma quindi gcc tac dot si appunto out fubar vedete argv di zero è"
+  },
+  {
+    "start": 397.18,
+    "end": 403.2,
+    "text": " appunto out quindi il primo argone del programma argv di uno è fu argv di due è bar"
+  },
+  {
+    "start": 410.18,
+    "end": 418.94,
+    "text": " quindi praticamente argv rappresenta l'indirizzo di memoria al quale sono memorizzati degli"
+  },
+  {
+    "start": 418.94,
+    "end": 426.36,
+    "text": " indirizzi di memoria e ognuno di questi indirizzi di memoria è l'indirizzo di memoria al quale"
+  },
+  {
+    "start": 426.72,
+    "end": 433.56,
+    "text": " sono utilizzato un errei di caratteri che la mia stringa d'accordo quindi per tornare qui"
+  },
+  {
+    "start": 433.56,
+    "end": 441.38,
+    "text": " no che fa l'avevo la bocca anzellato ci voglio tornare su questa cosa lo mettiamo che ha l'indirizzo"
+  },
+  {
+    "start": 441.38,
+    "end": 448.16,
+    "text": " mille c'è scritto fu all'indirizzo 2000 c'è scritto bar e all'indirizzo 3000 c'è scritto"
+  },
+  {
+    "start": 451.02,
+    "end": 458.8,
+    "text": " mille virgola 2000 sono tutti indirizzi di memoria solo che qui questo è il 2000 l'indirizzo"
+  },
+  {
+    "start": 458.8,
+    "end": 466.96,
+    "text": " di memoria a cui sono registrati caratteri quindi char dollar cioè scusate asterisco questo"
+  },
+  {
+    "start": 466.96,
+    "end": 473.16,
+    "text": " invece è l'indirizzo di memoria a cui sono registrati indirizzi di memoria a cui sono"
+  },
+  {
+    "start": 473.16,
+    "end": 488.24,
+    "text": " registrati caratteri quindi char due volte asterisco allora per aprire i file in c noi immaginiamo"
+  },
+  {
+    "start": 488.24,
+    "end": 495.8,
+    "text": " che argc sia valga 2 perché dobbiamo avere il nome del programma e il nome del file che noi"
+  },
+  {
+    "start": 495.8,
+    "end": 515.84,
+    "text": " vogliamo aprire quindi if argc not equal to pintf missing file name retorno ritorniamo questo"
+  },
+  {
+    "start": 515.84,
+    "end": 527.8,
+    "text": " errore se invece il file name ce l'hanno dato ed è argc v1 questo è il puntatore al nome dichiariamo"
+  },
+  {
+    "start": 527.8,
+    "end": 535.5,
+    "text": " un puntatore di tipo file poi vedremo perché è possibile scrivere file ma tutto ciò si"
+  },
+  {
+    "start": 535.5,
+    "end": 541.0,
+    "text": " c'è la in una keyword che si chiama type def in realtà questa è una struttura tipo strutt file di"
+  },
+  {
+    "start": 541.22,
+    "end": 548.8,
+    "text": " tipo non lo so però si può gli si può dare a una struttura un nome unico singolo senza"
+  },
+  {
+    "start": 548.8,
+    "end": 554.28,
+    "text": " dover usare strutt con type def si può dare un nome anche ad altri tipi di dato che non"
+  },
+  {
+    "start": 554.28,
+    "end": 560.8,
+    "text": " sono strutture poi vedremo type def fp quindi file pointer e qua chiamerò la chiamata f open"
+  },
+  {
+    "start": 560.8,
+    "end": 570.0,
+    "text": " man f open andiamo a vedere come funziona allora f open c'ha prima char pat quindi devo passare"
+  },
+  {
+    "start": 570.0,
+    "end": 579.9,
+    "text": " un puntatore a carattere con uno del file e poi un puntatore a carattere un'altra stringa quindi"
+  },
+  {
+    "start": 580.6800000000001,
+    "end": 586.26,
+    "text": " con il la modalità di apertura del file praticamente facciamo prima a far vedere come si fa argv1"
+  },
+  {
+    "start": 586.26,
+    "end": 591.58,
+    "text": " il nome del file e qui gli passo una stringa che condiene la semiglione del caratterere per"
+  },
+  {
+    "start": 591.58,
+    "end": 598.6,
+    "text": " dirgli che voglio che il file sia aperto in read only mode se fp mi ritorna null significa"
+  },
+  {
+    "start": 598.6,
+    "end": 606.3,
+    "text": " che il file non esiste lui qua in teoria mi alloca una struttura che mi restituisce Krieg"
+  },
+  {
+    "start": 606.3,
+    "end": 612.26,
+    "text": " me l'estituisce il puntatore a questa struttura che rappresenta il file ok il file è aperto ma"
+  },
+  {
+    "start": 612.26,
+    "end": 620.7,
+    "text": " mi ritorna nulla se nulla se il file non c'è quindi io che scriverò printf missing file file"
+  },
+  {
+    "start": 621.6,
+    "end": 631.0,
+    "text": " file does not exist. Return uno di nuovo. Altrimenti qui stamperò le liche del file"
+  },
+  {
+    "start": 631.0,
+    "end": 636.16,
+    "text": " e poi vedremo cosa si fa e poi io dovrò chiudere questo file e si fa con la chiamata"
+  },
+  {
+    "start": 636.16,
+    "end": 643.48,
+    "text": " di sistema e la chiamata di libreria, non di sistema, c'è una differenza che poi"
+  },
+  {
+    "start": 643.48,
+    "end": 649.88,
+    "text": " vedremo più avanti in questo corso, quindi fclose gli passi il puntatore al file che"
+  },
+  {
+    "start": 649.88,
+    "end": 655.42,
+    "text": " ti ha ritornato l'aif open, quindi l'aif open ti ha ritornato fp che tu utilizzerai per manipolare"
+  },
+  {
+    "start": 655.42,
+    "end": 660.12,
+    "text": " il file in tutti i modi, leggere, scrivere quello che ti pare e poi chiami fclose,"
+  },
+  {
+    "start": 660.24,
+    "end": 669.96,
+    "text": " retard zero. Combiliamo questo programma a punto out test.py perché esiste davvero e quindi non"
+  },
+  {
+    "start": 670.1,
+    "end": 682.46,
+    "text": " ci succede niente test.blblbl, file does not exist. Ci siamo? Bene, ora per registrare in maniera"
+  },
+  {
+    "start": 682.46,
+    "end": 690.9,
+    "text": " agevole, veloce, semplice e che ha senso dal punto di vista algoritmico, tutte le riche che io leggo"
+  },
+  {
+    "start": 690.9,
+    "end": 697.96,
+    "text": " dal file userò delle... una struttura particolare, ma prima vi faccio vedere come si fa a leggere"
+  },
+  {
+    "start": 697.96,
+    "end": 704.64,
+    "text": " ogni rica, per leggere riche dal file si usa la chiamata system fgatz, guardate qua io gli passo"
+  },
+  {
+    "start": 704.64,
+    "end": 711.8,
+    "text": " char asterisco un buffer, un re di caratteri, il puntatore un re di caratteri, quando gli dico"
+  },
+  {
+    "start": 711.8,
+    "end": 721.84,
+    "text": " quanti byte è così che non venga scritto oltre, e qua gli passo il puntatore al file, quindi"
+  },
+  {
+    "start": 725.58,
+    "end": 734.0,
+    "text": " fgatz, quindi io gli passo, di chiaro qua un buffer, 1024, nemmeno solo buff, quindi io gli dico"
+  },
+  {
+    "start": 734.0,
+    "end": 741.64,
+    "text": " buff, size of, debuff, che mi ritorna 1024, ma il vantaggio di fare così è che se io qua scrivo"
+  },
+  {
+    "start": 741.64,
+    "end": 750.52,
+    "text": " 2024 ancora qual programma funziona, ok? fp, allora questo chiamata qui mi riempirà il buffer con"
+  },
+  {
+    "start": 750.52,
+    "end": 759.3,
+    "text": " la prossima rica del file, d'accordo? quando il file è finito, end of file, non ci sono più riche,"
+  },
+  {
+    "start": 759.52,
+    "end": 767.84,
+    "text": " ritornerà null, quindi io faccio così, while, fgatz, blablabla, notti qual null, noi per ora"
+  },
+  {
+    "start": 767.84,
+    "end": 774.26,
+    "text": " ce ne fregheriamo del buffer, dell'overrun del buffer, del fatto che questa string è sempre"
+  },
+  {
+    "start": 774.26,
+    "end": 779.68,
+    "text": " terminata, ci sono... se ci sono riche più grandi o meno di 1024 fregate, bene tutto ciò, non ci"
+  },
+  {
+    "start": 779.68,
+    "end": 787.66,
+    "text": " interessa oggi, invece quello che ci interessa è che io stampo qui, dollaro s, scusate, percentuale s,"
+  },
+  {
+    "start": 788.34,
+    "end": 793.48,
+    "text": " buff, il mio buffer, ok? quindi faccio questo, ci provo, while, ogni volta leggo una rica, quando"
+  },
+  {
+    "start": 793.48,
+    "end": 802.26,
+    "text": " fgatz ritorna null, so che... perché cos'è che ritorna fgatz? fgatz ritorna o null o in realtà il"
+  },
+  {
+    "start": 802.26,
+    "end": 807.62,
+    "text": " puntatore al buffer, ma è inutile che io me lo leggo perché lo so qual è il puntatore al mio"
+  },
+  {
+    "start": 807.62,
+    "end": 818.84,
+    "text": " buffer, è buff. Guardate questo problema che cosa che fa? appunto out, appunto out, chiamiamolo"
+  },
+  {
+    "start": 818.84,
+    "end": 837.6,
+    "text": " su se stesso, dak.si, ecco, guardate, ho sbagliato una cosa, perché? perché io ho messo il newline, ma"
+  },
+  {
+    "start": 837.6,
+    "end": 845.56,
+    "text": " quindi qua togliamo questo, andato a capo, quando stampiamo dak.si e guardate, praticamente"
+  },
+  {
+    "start": 845.56,
+    "end": 852.32,
+    "text": " ho ricreato finora il file, il programma cat, anche se sarebbe un cat baggato, perché se le"
+  },
+  {
+    "start": 852.32,
+    "end": 858.34,
+    "text": " dico sono maggiori o meno di 24 non funzionerebbe più, invece cat deve essere binary safe, etc, etc,"
+  },
+  {
+    "start": 862.12,
+    "end": 872.92,
+    "text": " eeehm, pin qui ci siamo, allora come faccio a registrare man mano tutte tutte le entry in ordine"
+  },
+  {
+    "start": 873.7,
+    "end": 882.48,
+    "text": " rovesciato? Guardate, dichiaro una struttura, struct entry, anzeline, ogni linea del mio"
+  },
+  {
+    "start": 884.36,
+    "end": 893.52,
+    "text": " file, e gli metto un puntatore a s, chiamiamo s, un puntatore a caratteristere dove ci sarà"
+  },
+  {
+    "start": 893.52,
+    "end": 904.72,
+    "text": " effettivamente la stringa che ho letto, e, guardate, struct line, next, un puntatore allo"
+  },
+  {
+    "start": 904.72,
+    "end": 912.26,
+    "text": " stesso tipo della struttura che io sto dichiarando, che punta al prossimo nodo della struttura,"
+  },
+  {
+    "start": 913.94,
+    "end": 919.1,
+    "text": " ok? quindi io leggo la prima, il primo, la prima riga dal mio file,"
+  },
+  {
+    "start": 919.84,
+    "end": 925.36,
+    "text": " creo, ora vi faccio vedere come questo oggetto, struttura line, dopo di che,"
+  },
+  {
+    "start": 927.48,
+    "end": 935.26,
+    "text": " quando io leggo la seconda riga, quella che era la prima, in realtà diventerà"
+  },
+  {
+    "start": 936.24,
+    "end": 940.52,
+    "text": " il puntatore next della seconda, quindi guardate, già ho invertito l'ordine"
+  },
+  {
+    "start": 940.52,
+    "end": 945.04,
+    "text": " di queste due entry, se poi parto dall'ultimo e navigo sempre next,"
+  },
+  {
+    "start": 945.54,
+    "end": 951.38,
+    "text": " finirò per andare dall'ultima riga del file che ho letto fino alla prima,"
+  },
+  {
+    "start": 951.9,
+    "end": 956.26,
+    "text": " allora guardiamolo qui in maniera più esplicita, vi ricordo che io qua non"
+  },
+  {
+    "start": 956.26,
+    "end": 961.34,
+    "text": " controllero il vator di ritorno di malloc, me ne fregerò altamente,"
+  },
+  {
+    "start": 965.16,
+    "end": 974.32,
+    "text": " allora, ho una nuova riga e dentro il mio buffer, quindi io faccio strutt line l"
+  },
+  {
+    "start": 974.32,
+    "end": 987.22,
+    "text": " uguale malloc size of strut line, ho allocato un pezzo di memoria dove ci può andare la mia"
+  },
+  {
+    "start": 987.22,
+    "end": 992.38,
+    "text": " struttura, quindi saranno 16 bytes in questo computer, perché sono 8 bytes il primo puntatore"
+  },
+  {
+    "start": 992.38,
+    "end": 999.72,
+    "text": " e 8 bytes il secondo puntatore, ld, guardate, devo usare la freccia perché questo è un puntatore"
+  },
+  {
+    "start": 999.72,
+    "end": 1016.24,
+    "text": " a una struttura, lds dove ci va la mia linea, sarà malloc di strlen buff, strlen mi ritorna la"
+  },
+  {
+    "start": 1016.24,
+    "end": 1022.88,
+    "text": " lunghezza di questo buffer di questa stringa qua, quindi cerca il primo byte a zero e mi ritorna"
+  },
+  {
+    "start": 1022.88,
+    "end": 1029.58,
+    "text": " quanti caratteri accontato, più uno perché c'è pure il terminatore a nulla, quindi io faccio"
+  },
+  {
+    "start": 1029.58,
+    "end": 1034.88,
+    "text": " spazio perché ovviamente non è che posso assegnare delle ds buff, perché buff è sempre il sesto buffer"
+  },
+  {
+    "start": 1034.88,
+    "end": 1040.4,
+    "text": " e io lo riutilizzo, altrimenti tutti i nodi del mio file sarebbero tutti settati all'ultima riga"
+  },
+  {
+    "start": 1040.62,
+    "end": 1053.04,
+    "text": " l'ho letto, invece io voglio ogni volta copiare la linea del file, quindi ha l'occo abbastanza"
+  },
+  {
+    "start": 1053.04,
+    "end": 1060.46,
+    "text": " memoria per farci stare sta linea e poi uso la funzione mm copy che copia tot byte di memoria,"
+  },
+  {
+    "start": 1060.46,
+    "end": 1069.02,
+    "text": " guardate, potevo farlo con un ciclo, facciamo con un ciclo a forma, facciamo una cosa, size t linelen"
+  },
+  {
+    "start": 1069.02,
+    "end": 1084.26,
+    "text": " è uguale strlen buff, quindi qua facciamo malloc linelen più uno, for j è uguale a zero,"
+  },
+  {
+    "start": 1084.26,
+    "end": 1096.3,
+    "text": " j minore linelen più uno, j più più, astribendi possiamo fare j minore uguale al linelen identico,"
+  },
+  {
+    "start": 1099.6599999999999,
+    "end": 1106.78,
+    "text": " ldsdj è uguale a buff dj, guardate invece di usare la mem copy io faccio la copia qui a manina,"
+  },
+  {
+    "start": 1107.6,
+    "end": 1113.3,
+    "text": " giusto per non introdurre a complessità alti fuori del concetto che noi stiamo esplorando oggi"
+  },
+  {
+    "start": 1113.3,
+    "end": 1123.44,
+    "text": " in questa lezione, quindi ho copiato pure lulterm perché mi sono andato una oltre linelen"
+  },
+  {
+    "start": 1125.86,
+    "end": 1138.98,
+    "text": " e poi guardate io qua prima mi crea un puntatore struct line che chiamo head è la testa della"
+  },
+  {
+    "start": 1138.98,
+    "end": 1142.82,
+    "text": " mia lista all'inizio io lo setto a null, guardate perché ora lo faccio vedere,"
+  },
+  {
+    "start": 1145.58,
+    "end": 1155.5,
+    "text": " ld next sarà uguale a head quindi praticamente all'inizio siccome non ho nessun oggetto ancora"
+  },
+  {
+    "start": 1155.5,
+    "end": 1162.84,
+    "text": " di line, io ho iniziato ora, il puntatore diciamo all'ultima linea che ho letto sarà null,"
+  },
+  {
+    "start": 1162.84,
+    "end": 1169.74,
+    "text": " quindi quando praticamente io creo la mia prima struttura il next sarà null,"
+  },
+  {
+    "start": 1170.08,
+    "end": 1176.04,
+    "text": " ma guardate poi quando questo ciclo reiterà perché io guardate che faccio scrivo così"
+  },
+  {
+    "start": 1176.84,
+    "end": 1182.18,
+    "text": " a parte che questo va giù, ld next uguale a head e poi scrivo head uguale a head,"
+  },
+  {
+    "start": 1182.36,
+    "end": 1189.5,
+    "text": " quindi sta volta la testa diventa l'ultimo nodo quindi quello che succede è questo,"
+  },
+  {
+    "start": 1189.5,
+    "end": 1198.86,
+    "text": " mettiamo che io ho 3 righe, 1, 2, 3, io leggo la prima riga e diventa una struttura,"
+  },
+  {
+    "start": 1199.12,
+    "end": 1209.8,
+    "text": " s c'è scritto 1, next c'è scritto null, head diventa allora prima head era uguale a null,"
+  },
+  {
+    "start": 1209.8,
+    "end": 1217.7,
+    "text": " ok, subito dopo mettiamo che questo qui è all'indirizzo di memoria mille registrato,"
+  },
+  {
+    "start": 1219.1799999999998,
+    "end": 1227.66,
+    "text": " head mille, poi head uguale a mille, ok, poi io leggo un'altra riga per dire questo qui è"
+  },
+  {
+    "start": 1227.66,
+    "end": 1234.06,
+    "text": " registrato ma all'ok mi ritornano l'indirizzo di memoria 2000, forse se è s diventa 2, next"
+  },
+  {
+    "start": 1235.02,
+    "end": 1241.82,
+    "text": " io lo setto head ed è mille, ok, e ora head diventa 2000,"
+  },
+  {
+    "start": 1242.46,
+    "end": 1249.0,
+    "text": " guarda, togliamo lo spazio così è tutto simmetrico, vedete se io raparto da head prima scriverei tu,"
+  },
+  {
+    "start": 1249.36,
+    "end": 1256.56,
+    "text": " poi se segue il pundatore next andrei qua e poi scrivo 1, vedete che sto registrando"
+  },
+  {
+    "start": 1257.2199999999998,
+    "end": 1262.46,
+    "text": " i miei oggetti linea concatenati al contrario, questa si chiama,"
+  },
+  {
+    "start": 1263.36,
+    "end": 1268.1,
+    "text": " nella teoria della programmazione, una lista linkata, una linked list,"
+  },
+  {
+    "start": 1274.74,
+    "end": 1280.06,
+    "text": " benissimo, quando io ho finito di fare questa rettura chiudo il file e poi guardate che faccio,"
+  },
+  {
+    "start": 1280.06,
+    "end": 1289.38,
+    "text": " while, head, quindi head punterà a questo punto all'oggetto all'ultimo che ho allocato,"
+  },
+  {
+    "start": 1289.48,
+    "end": 1295.34,
+    "text": " quindi all'ultima riga, fino a quando head non è null, esplicitiamolo,"
+  },
+  {
+    "start": 1295.5,
+    "end": 1305.04,
+    "text": " potevo scrivere anche solo while head, stampami head s, la stringa che questo"
+  },
+  {
+    "start": 1305.04,
+    "end": 1312.28,
+    "text": " nodo della mia linked list rappresenta e poi head è uguale head next, quindi questo"
+  },
+  {
+    "start": 1312.28,
+    "end": 1320.8799999999999,
+    "text": " pundatore a questo nodo diventa il pundatore al prossimo nodo, se io ora compilo questo programma"
+  },
+  {
+    "start": 1321.6,
+    "end": 1334.02,
+    "text": " non funziona una fava, chi è avere sbagliato io, che cosi che dice, user of undeclared identifier,"
+  },
+  {
+    "start": 1335.04,
+    "end": 1349.72,
+    "text": " identifier ind j uguale a zero undeclared malloc include stdlib.h"
+  },
+  {
+    "start": 1352.94,
+    "end": 1366.14,
+    "text": " strln include string.h gcc-2-wall-v"
+  },
+  {
+    "start": 1369.64,
+    "end": 1375.08,
+    "text": " in realtà questo qui deve essere non int per essere corretto, ma size t, così come"
+  },
+  {
+    "start": 1376.04,
+    "end": 1382.84,
+    "text": " mi ritornano la lunghezza strln, ma strln size t, vedete?"
+  },
+  {
+    "start": 1383.62,
+    "end": 1391.5,
+    "text": " convidiamo, boh, molto bene, appunto out, tac.c, esattamente, guardate,"
+  },
+  {
+    "start": 1392.0,
+    "end": 1398.94,
+    "text": " vedete che mi ha stampato tutto al contrario, struct line, int main,"
+  },
+  {
+    "start": 1399.5800000000002,
+    "end": 1405.04,
+    "text": " vediamo una cosa, allora questo è l'output, ora possiamo davvero tac"
+  },
+  {
+    "start": 1407.3400000000001,
+    "end": 1412.44,
+    "text": " ed è identico, vedete? i due programmi le situiscono lo stesso, output."
+  },
+  {
+    "start": 1413.78,
+    "end": 1421.26,
+    "text": " ora voi credete che avete già capito tutto di questo programma, invece è possibile, non è detto,"
+  },
+  {
+    "start": 1421.94,
+    "end": 1429.2,
+    "text": " che vi manca il passaggio decisivo, noi qui siamo di fronte a una strazione che finora in"
+  },
+  {
+    "start": 1429.2,
+    "end": 1437.62,
+    "text": " tutte queste puntate non avevamo mai visto, questo è un salto mentale enorme, a questo punto io,"
+  },
+  {
+    "start": 1437.92,
+    "end": 1443.58,
+    "text": " gol.c, ho inventato una strazione a me di dove si è allocata ognuna di queste linee,"
+  },
+  {
+    "start": 1444.66,
+    "end": 1449.8,
+    "text": " non me ne frega più niente, ho chiamato malloc, gli faccio fare questo compito all'allocatore,"
+  },
+  {
+    "start": 1449.8,
+    "end": 1456.16,
+    "text": " io mi disinteresso completamente di dove è questo pezzo, di memoria, ma so che questo pezzo di memoria"
+  },
+  {
+    "start": 1456.16,
+    "end": 1460.26,
+    "text": " poi è linkato a un altro che da qualche altra parte, fin quando la memoria del computer mi"
+  },
+  {
+    "start": 1460.26,
+    "end": 1466.72,
+    "text": " basterà, ho costruito una nuova strazione, un nuovo modello mentale, io ho dei oggetti"
+  },
+  {
+    "start": 1467.32,
+    "end": 1474.04,
+    "text": " che esistono da qualche parte nella memoria del mio computer, non so dove, che sono linkati e"
+  },
+  {
+    "start": 1474.04,
+    "end": 1482.04,
+    "text": " creano delle strutture dati astratte, nel calcolatore sono reali, ma io ci raggiono in termini"
+  },
+  {
+    "start": 1482.04,
+    "end": 1490.02,
+    "text": " astratti, posso navigarle con una determinata complessità, io prima ho utilizzato ogn, quindi"
+  },
+  {
+    "start": 1490.02,
+    "end": 1496.12,
+    "text": " un tempo proporzionale al numero di righe che ci sono nel file, considerando che i file sono"
+  },
+  {
+    "start": 1496.12,
+    "end": 1501.94,
+    "text": " che le righe sono a dimensione massima, quindi considero o1 la fgats, quindi in tempo costante"
+  },
+  {
+    "start": 1501.94,
+    "end": 1508.94,
+    "text": " anche se poi i racconzi sono un po' più complicate, e poi io posso di nuovo navigare il file dall'ultima"
+  },
+  {
+    "start": 1508.94,
+    "end": 1517.4,
+    "text": " riga, la prima utilizzando un tempo costante per ogni linea e quindi di nuovo odn, quindi questo"
+  },
+  {
+    "start": 1517.4,
+    "end": 1524.6,
+    "text": " programma è efficiente per quello che deve fare, ma il grandissimo difetto che alloca tanta memoria"
+  },
+  {
+    "start": 1524.6,
+    "end": 1530.7,
+    "text": " perché prima alloca, carica tutto il file in memoria, cosa che è una implementazione furba"
+  },
+  {
+    "start": 1530.7,
+    "end": 1538.38,
+    "text": " di TAC, potrebbe benissimo evitare, ma noi ci interessava capire che le strutture sono una"
+  },
+  {
+    "start": 1538.38,
+    "end": 1543.3,
+    "text": " grandissima astrazione, perché le strutture, le alloco, diventano degli oggetti, possono avere"
+  },
+  {
+    "start": 1543.3,
+    "end": 1548.74,
+    "text": " dei puntatori ad altre strutture o dello stesso tipo o di altri tipi e quindi creare un grafo,"
+  },
+  {
+    "start": 1548.86,
+    "end": 1555.0,
+    "text": " creare strutture dati, creare una nuova astrazione che è sostanzialmente uno dei capisaldi della"
+  },
+  {
+    "start": 1555.0,
+    "end": 1561.9,
+    "text": " programmazione INC. Scusate se questo video forse è stato un po' meno organico, degli altri ero"
+  },
+  {
+    "start": 1561.9,
+    "end": 1565.62,
+    "text": " molto stanco e era tardi, ma ci tenevo a farlo. Un saluto, ciao!"
+  }
+]
