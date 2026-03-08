@@ -91,19 +91,7 @@ export default function Home() {
 
             {/* Footer */}
             <footer className="w-full mt-24 pt-8 pb-6 border-t border-black/10 dark:border-white/5 z-10">
-                <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-6 text-xs text-slate-400 dark:text-zinc-500">
-                    <span>
-                        {t('footer.course_by')}{' '}
-                        <a
-                            href="https://www.youtube.com/playlist?list=PLrEMgOSrS_3cFJpM2gdw8EGFyRBZOyAKY"
-                            target="_blank"
-                            rel="noreferrer"
-                            className="text-[var(--color-brand-primary)] hover:underline font-semibold"
-                        >
-                            {t('footer.author_name')}
-                        </a>
-                    </span>
-                    <span className="hidden sm:inline text-white/10">|</span>
+                <div className="max-w-5xl mx-auto flex items-center justify-center gap-2 text-xs text-slate-400 dark:text-zinc-500">
                     <span>
                         {t('footer.developed_by')}{' '}
                         <a
