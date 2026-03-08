@@ -6,7 +6,7 @@ import Quiz from '../../components/exercises/Quiz';
 import HackerTerminal from '../../components/content/HackerTerminal';
 import PointerBasics from '../../components/content/PointerBasics';
 
-# Lezione 9: Benvenuti nei Puntatori 📍
+# Lezione 9: Benvenuti nei Puntatori
 
 Siamo finalmente arrivati a uno dei concetti più temuti, ma fondamentali, del linguaggio C: i **Puntatori**.
 
@@ -219,4 +219,15 @@ int main() {
   placeholder="es. memory"
   explanation="/proc/[pid]/maps mostra esattamente come i puntatori del tuo programma sono mappati sulla RAM fisica."
   xpReward={250}
+/>
+
+<HackerTerminal 
+  title="Hacker Challenge: Level 9 - Task 3"
+  description="Come verifichiamo velocemente se siamo su un sistema operativo a 32 o 64 bit dal terminale usando il comando generico della macchina?"
+  command="uname ..."
+  expectedOutput="uname -m"
+  inputLabel="Comando:"
+  placeholder="es. uname sistema"
+  explanation="L'architettura (es. x86_64) definisce la larghezza del bus degli indirizzi, e quindi la dimensione in byte dei puntatori del tuo programma C."
+  xpReward={150}
 />
