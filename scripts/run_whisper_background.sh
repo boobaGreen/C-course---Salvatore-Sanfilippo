@@ -5,7 +5,7 @@ echo "Avvio della trascrizione in background..."
 echo "Lo script salterà in automatico le lezioni già trascritte (fino alla 22)."
 echo "Inizierà dalla Lezione 23 in poi."
 
-nohup python3 scripts/transcribe.py > transcriptions/background_whisper.log 2>&1 &
+nohup venv/bin/python3 scripts/transcribe.py > transcriptions/background_whisper.log 2>&1 &
 
 echo ""
 echo "Whisper è stato lanciato in background!"
