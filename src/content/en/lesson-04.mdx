@@ -97,6 +97,28 @@ Try experimenting with `sizeof` and the `limits.h` constants like `INT_MIN` and 
       options: ["2 bytes", "4 bytes", "8 bytes", "16 bytes"],
       correctAnswer: 2,
       explanation: "On modern 64-bit systems, the long type usually follows the processor's word size, which is 8 bytes."
+    },
+    {
+      question: "What happens if you subtract 1 from an unsigned int variable that is 0?",
+      options: [
+        "The program crashes",
+        "The variable becomes -1",
+        "The variable 'wraps around' (underflow) to the maximum possible value for that type (e.g., 4,294,967,295)",
+        "It stays 0"
+      ],
+      correctAnswer: 2,
+      explanation: "Unsigned types cannot be negative. Subtracting 1 from zero causes the bits to 'wrap around', bringing the variable to its maximum value."
+    },
+    {
+      question: "In C, can the 'char' type be used to store small integers?",
+      options: [
+        "No, it's only for letters",
+        "Yes, it is effectively an 8-bit integer",
+        "Only if it's in quotes",
+        "Only if converted to float"
+      ],
+      correctAnswer: 1,
+      explanation: "A char is an 8-bit integer. It can contain values from -128 to 127 (signed) or 0-255 (unsigned)."
     }
   ]}
 />
@@ -128,15 +150,27 @@ Try experimenting with `sizeof` and the `limits.h` constants like `INT_MIN` and 
     },
     {
       id: 2,
-      question: "Why does the compiler add 'padding' (empty space) between structure fields or variables in memory?",
+      question: "Why does the compiler add 'padding' (empty space) between structure fields or between variables in memory?",
       options: [
         "To waste memory and sell more RAM",
-        "Because the CPU reads memory in blocks (words), and aligned data is much faster to read",
-        "To logically separate data for aesthetic reasons",
-        "It is a bug in old compilers"
+        "Because the CPU reads memory in blocks (words) and aligned data is much faster to read",
+        "To better separate data for aesthetic reasons",
+        "It's a bug in old compilers"
       ],
       correctAnswer: 1,
-      explanation: "Alignment is fundamental: a 64-bit CPU prefers to read data that starts at addresses that are multiples of 8 bytes. If a piece of data were 'straddling' two blocks, the CPU would have to perform two reads instead of one, halving performance."
+      explanation: "Alignment is fundamental: a 64-bit CPU prefers to read data starting at addresses that are multiples of 8 bytes. If data were 'straddling' two blocks, the CPU would have to perform two reads instead of one, halving performance."
+    },
+    {
+      id: 3,
+      question: "In a 32-bit signed integer, what is the role of the most significant bit (the leftmost one)?",
+      options: [
+        "Indicates whether the number is even or odd",
+        "It is the sign bit (0 for positive, 1 for negative in Two's Complement)",
+        "It is always 0",
+        "It is used for floating point"
+      ],
+      correctAnswer: 1,
+      explanation: "In Two's Complement representation, the highest bit determines the sign. If it is 1, the number is negative."
     }
   ]}
 />
@@ -144,7 +178,7 @@ Try experimenting with `sizeof` and the `limits.h` constants like `INT_MIN` and 
 ### Terminal Challenge: Header Hunting 🕵️
 
 <HackerTerminal 
-  title="Hacker Challenge: Level 4"
+  title="Hacker Challenge: Level 4 - Task 1"
   description="Salvatore explained that to know the system limits (such as the maximum value of an integer), we must not guess, but use a standard header file. What is the name of this file?"
   command="ls /usr/include/..."
   expectedOutput="limits.h"
@@ -152,6 +186,31 @@ Try experimenting with `sizeof` and the `limits.h` constants like `INT_MIN` and 
   placeholder="e.g. stdio.h"
   hint="It deals with the numeric 'limits' of the system."
   explanation="Exactly! `limits.h` defines macros like `INT_MAX`, `SHRT_MIN`, etc. This allows your C code to be portable: if you compile it on a 16-bit machine, `INT_MAX` will be 32,767; on a 32-bit machine, it will be 2 billion."
+  xpReward={150}
+/>
+
+<HackerTerminal 
+  title="Hacker Challenge: Level 4 - Task 2"
+  description="For more precision, modern C (C99) introduces fixed-size types (e.g., int32_t). Which header file must you include to use them?"
+  command="ls /usr/include/..."
+  expectedOutput="stdint.h"
+  inputLabel="Header File:"
+  placeholder="e.g. stdio.h"
+  hint="It starts with 'std' and contains the word 'int'."
+  explanation="Great! `stdint.h` is essential for writing robust code that must work the same way on every machine, ensuring that an integer is exactly 32 or 64 bits."
+  xpReward={200}
+/>
+
+<HackerTerminal 
+  title="Hacker Challenge: Level 4 - Task 3"
+  description="The order of bytes in memory can be 'Little Endian' (most common on PC) or 'Big Endian'. Is there a Linux command to see the CPU architecture and the Byte Order? Which one?"
+  command="ls cpu"
+  expectedOutput="lscpu"
+  inputLabel="Command:"
+  placeholder="e.g. lscpu"
+  hint="It stands for 'list CPU'."
+  explanation="Executed! `lscpu` shows you if your machine is 'Little Endian'. In this case, the least significant byte is stored at the lowest address. This is a crucial detail when transmitting data over the network!"
+  xpReward={250}
 />
 
 See you in the next lesson!

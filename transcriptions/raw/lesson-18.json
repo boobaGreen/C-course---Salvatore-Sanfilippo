@@ -1,0 +1,622 @@
+[
+  {
+    "start": 39.98,
+    "end": 47.24,
+    "text": " Ciao amici, benvenuti nel corso INCI. Nell'ultima lezione noi siamo stati accompagnati da questo"
+  },
+  {
+    "start": 47.24,
+    "end": 52.38,
+    "text": " esempio qua, delle prefixed length string. Oggi lo salutiamo perché non ci serve più,"
+  },
+  {
+    "start": 52.78,
+    "end": 58.5,
+    "text": " è finito qui il lavoro che facciamo con questo esempio, ma continuiamo a farci accompagnare"
+  },
+  {
+    "start": 58.5,
+    "end": 63.86,
+    "text": " dalle strutture. Le vedremo sia in un'ottica diversa oggi, ma le useremo anche per spiegare"
+  },
+  {
+    "start": 63.86,
+    "end": 69.6,
+    "text": " dei concetti nuovi che non hanno a che fare con le strutture, ma che ben si integrano alle"
+  },
+  {
+    "start": 69.6,
+    "end": 76.08,
+    "text": " strutture stesse. Allora, tanto per iniziare, andiamo subito a introdurre il concetto di"
+  },
+  {
+    "start": 76.08,
+    "end": 81.98,
+    "text": " typedef. Typedef è una delle poche parole chiave del C che noi ancora non abbiamo visto."
+  },
+  {
+    "start": 84.82000000000001,
+    "end": 94.44,
+    "text": " Includiamo stdio.h, creiamo la nostra main. Bene, noi sappiamo che il C ha dei tipi che"
+  },
+  {
+    "start": 94.44,
+    "end": 98.9,
+    "text": " hanno dei nomi, int è il nome di un tipo. E io posso dichiarare una variabile A di tipo"
+  },
+  {
+    "start": 98.9,
+    "end": 107.46,
+    "text": " intero, segnarle a s10 e comprimtef farmi stampare la variabile A. Questo funziona perché il C sa"
+  },
+  {
+    "start": 107.46,
+    "end": 113.54,
+    "text": " che cos'è A. E sa cos'è un intero int. Io so cos'è un int, cosa mi posso aspettare"
+  },
+  {
+    "start": 113.54,
+    "end": 120.26,
+    "text": " nelle diverse piattaforme. E poi qua la printf che è una funzione variadica, cioè che prende"
+  },
+  {
+    "start": 120.26,
+    "end": 124.84,
+    "text": " un numero variabile di argomenti. Noi ancora questa cosa del C non l'abbiamo studiata,"
+  },
+  {
+    "start": 125.16,
+    "end": 131.7,
+    "text": " ma ci arriveremo. Sa che siccome io ho specificato percentuale di dovrà estrarre dagli argomenti"
+  },
+  {
+    "start": 131.7,
+    "end": 139.56,
+    "text": " che vengono alla destra un intero. Quindi diciamo i tipi in C hanno un nome ben chiaro"
+  },
+  {
+    "start": 139.56,
+    "end": 147.1,
+    "text": " e ognuno ha un suo specifico nome. Quindi io ora compilo questo programma, lo eseguo"
+  },
+  {
+    "start": 147.1,
+    "end": 155.68,
+    "text": " e lui scrive 10. Bene, ora facciamo un esempio. Io voglio usare degli interi, però per descrivere"
+  },
+  {
+    "start": 155.68,
+    "end": 162.42,
+    "text": " uno specifico intero, degli numeri di errore del mio programma, per dire io ho delle funzioni"
+  },
+  {
+    "start": 162.42,
+    "end": 171.0,
+    "text": " che si chiamano tipo fu questa funzione fa qualcosa e ritorna un errore, non lo so,"
+  },
+  {
+    "start": 171.18,
+    "end": 178.72,
+    "text": " meno venti significa un errore in particolare. Ma nella mia IPI, nei miei prototipi di funzioni"
+  },
+  {
+    "start": 178.72,
+    "end": 186.44,
+    "text": " quando io le dichiaro e così via, voglio che questo intero si capisca che è in particolare"
+  },
+  {
+    "start": 186.44,
+    "end": 193.64,
+    "text": " riferito a un numero di errore. Type def viene insoccorso in questi casi. Io posso scrivere"
+  },
+  {
+    "start": 193.64,
+    "end": 202.54,
+    "text": " type def. E poi qua faccio quello che sarebbe una definizione di una variabile. Mint, er,"
+  },
+  {
+    "start": 202.54,
+    "end": 211.54,
+    "text": " no, anzi mai error, error code, ecco error code. Quindi guardate se io toglese type def,"
+  },
+  {
+    "start": 211.64,
+    "end": 216.78,
+    "text": " questa è la definizione di una variabile che si chiama error code ed è di tipo intero."
+  },
+  {
+    "start": 217.04,
+    "end": 221.68,
+    "text": " Se emetto a sinistra di quella che sembra una normale definizione, nome di tipo, nome"
+  },
+  {
+    "start": 221.68,
+    "end": 229.3,
+    "text": " di variabile, type def allora questa si trasforma in una definizione di un tipo, cioè io gli"
+  },
+  {
+    "start": 229.3,
+    "end": 235.84,
+    "text": " sto dicendo che error code è un alias di int. Quindi ogni volta che io dovrei scrivere"
+  },
+  {
+    "start": 235.84,
+    "end": 242.06,
+    "text": " questo int posso scrivere error code ed è uguale. Io qua posso scrivere error code"
+  },
+  {
+    "start": 242.06,
+    "end": 248.48,
+    "text": " fu, che ritorna meno venti, poi int a è uguale fu. Chiamiamo questa funzione che ritornerà"
+  },
+  {
+    "start": 248.48,
+    "end": 256.56,
+    "text": " un int termine anche qua, scriverò error code. Error code a è uguale fu. Io se compilo"
+  },
+  {
+    "start": 256.56,
+    "end": 264.18,
+    "text": " questo programma qua, continua a funzionare esattamente come prima. C'è chi usa le type"
+  },
+  {
+    "start": 264.18,
+    "end": 270.16,
+    "text": " def, ma forse in questo caso sarebbe più caso usare una enum che ancora non abbiamo"
+  },
+  {
+    "start": 270.16,
+    "end": 276.88,
+    "text": " introdotto ma che introdurremo per questi casi. Io vi dico la verità, sono il tipo di programmatore"
+  },
+  {
+    "start": 276.88,
+    "end": 284.92,
+    "text": " che invece usa int, i tp espliciti, non prova a fare questo tipo di documentazione attraverso"
+  },
+  {
+    "start": 284.92,
+    "end": 291.9,
+    "text": " i tp, nel caso di tipi semplici, non composti, cioè gli interi. Ma utilizzo al contrario"
+  },
+  {
+    "start": 291.9,
+    "end": 314.88,
+    "text": " moltissimo le type def con le strutture. Per esempio se io ho la mia frazione che sai,"
+  },
+  {
+    "start": 314.88,
+    "end": 320.72,
+    "text": " io scrivo, siccome io ho scritto type def struct, attenzione il nome della struttura,"
+  },
+  {
+    "start": 320.92,
+    "end": 328.0,
+    "text": " andrebbe qui come si chiama la struttura, ma io sto dichiarando la struttura senza darle"
+  },
+  {
+    "start": 328.0,
+    "end": 332.98,
+    "text": " un nome, è perché è possibile, questo normalmente io posso dichiarare questa variabile fract che"
+  },
+  {
+    "start": 332.98,
+    "end": 336.94,
+    "text": " è una struttura di questo tipo, senza dare un nome specifico a questa struttura o solo"
+  },
+  {
+    "start": 336.94,
+    "end": 341.82,
+    "text": " un elemento che è composto così. Nel caso della type def in questo caso io neanche proprio"
+  },
+  {
+    "start": 341.82,
+    "end": 348.54,
+    "text": " chiamo la struttura in un modo, perché mi serve solo per dichiarare il tipo, quindi fract"
+  },
+  {
+    "start": 348.54,
+    "end": 368.66,
+    "text": " è di questo tipo qua. A questo punto io posso benissimo scrivere qui fract mai e, anzi"
+  },
+  {
+    "start": 370.58,
+    "end": 379.82,
+    "text": " è la struttura di f.n.f.d. Combiniamo questo programma ed ecco qua, 10-20esimi la mia frazione,"
+  },
+  {
+    "start": 380.1,
+    "end": 384.12,
+    "text": " ma guardate e questo è molto interessante perché io altrimenti qua avrei dovuto scrivere"
+  },
+  {
+    "start": 384.12,
+    "end": 393.06,
+    "text": " il nome del tipo fract e qua scrivere struct, fract, eccetera eccetera. Quindi diciamo è"
+  },
+  {
+    "start": 393.06,
+    "end": 397.92,
+    "text": " più comodo diventa questo, guardate un tipo del c a tutti effetti perché io lo chiamo per"
+  },
+  {
+    "start": 397.92,
+    "end": 404.18,
+    "text": " nome ed è un tipo aggregato quindi non è un tipo base come un intero ma ha un suo significato."
+  },
+  {
+    "start": 405.18,
+    "end": 423.6,
+    "text": " Addirittura io posso anche per dire ecco guardate type def fract fract ptr fract pointer quindi"
+  },
+  {
+    "start": 423.6,
+    "end": 430.64,
+    "text": " in questo caso io guardate se non c'è la type def avrei definito un puntatore al tipo fract che"
+  },
+  {
+    "start": 430.64,
+    "end": 440.04,
+    "text": " ecco la type def invece invece fract pointer diventa un tipo a sé che è un puntatore ai"
+  },
+  {
+    "start": 440.04,
+    "end": 445.58,
+    "text": " oggetti di tipo fract alle strutture di poca fract quindi ora posso dichiarare fract pointer"
+  },
+  {
+    "start": 446.66,
+    "end": 453.46,
+    "text": " fp è uguale dollaro f prendo il puntatore da f, guardate in questo fp non ho scritto"
+  },
+  {
+    "start": 453.46,
+    "end": 460.58,
+    "text": " l'asterisco se non era un puntatore un puntatore perché già il tipo in sé la type def ha definito"
+  },
+  {
+    "start": 460.58,
+    "end": 490.56,
+    "text": " fract pointer come un puntatore quindi già qua in questo specificatore di tipo c'è tutto quello"
+  },
+  {
+    "start": 490.56,
+    "end": 495.1,
+    "text": " qua sbagliato dov'è essere extract l'ho modificato poco fa per errore esatto"
+  },
+  {
+    "start": 496.0,
+    "end": 503.86,
+    "text": " guardate funziona tutto e ho anche il mio puntatore tutto ciò è molto interessante perché a me"
+  },
+  {
+    "start": 503.86,
+    "end": 516.0,
+    "text": " mi permette di creare dei tipi opachi in una libreria che io posso diciamo esporre al programmatore che usa"
+  },
+  {
+    "start": 516.0,
+    "end": 523.94,
+    "text": " questa libreria in maniera molto ma molto chiara e separata dalle implementazioni che ho"
+  },
+  {
+    "start": 523.94,
+    "end": 530.86,
+    "text": " è l'esempio più interessante di tutta questa roba qua è proprio la libreria standard del c"
+  },
+  {
+    "start": 530.86,
+    "end": 538.72,
+    "text": " allora guardate questo qui in realtà lo lascio così come è e questo qui la chiamo stdio 1.c"
+  },
+  {
+    "start": 538.72,
+    "end": 545.58,
+    "text": " guardate la libreria per gestire l'input output del c come si aprono i file come si chiudono"
+  },
+  {
+    "start": 545.58,
+    "end": 553.5,
+    "text": " e ora vedremo perché questo concetto della type def è centrale quindi include stdio.h"
+  },
+  {
+    "start": 553.5,
+    "end": 561.0,
+    "text": " ma giù ragione perché useremo non la solida print def ma le funzioni più avanzate int main void"
+  },
+  {
+    "start": 561.58,
+    "end": 571.44,
+    "text": " bene io voglio fare un programma che apre questo stesso su file stdio 1.c e con questo file fa qualcosa"
+  },
+  {
+    "start": 572.94,
+    "end": 583.48,
+    "text": " si fa così devo dichiarare guardate dichiaro un puntatore fp al file di tipo file cioè questo file qui"
+  },
+  {
+    "start": 583.48,
+    "end": 588.58,
+    "text": " non è altro che una struttura il type def di una struttura o il meno potrebbe essere implementato in questo modo"
+  },
+  {
+    "start": 588.58,
+    "end": 595.08,
+    "text": " in realtà potrebbe essere una macro possono fare cose strane sotto sotto ma la cosa interessante"
+  },
+  {
+    "start": 595.08,
+    "end": 602.58,
+    "text": " è che di fatto il modo più ovvio per implementarlo e il modo in cui voi potete implementarlo è attraverso"
+  },
+  {
+    "start": 602.58,
+    "end": 608.68,
+    "text": " una type def di una struttura poi io chiamo la mia chiamata f open che quello che fa praticamente"
+  },
+  {
+    "start": 608.68,
+    "end": 615.56,
+    "text": " di allocare una struttura di tipo file è passare il puntatore di questa struttura quindi io dico f open"
+  },
+  {
+    "start": 615.56,
+    "end": 624.98,
+    "text": " questo file come si chiama stdio 1.c virgola r guardate f open funziona così in pratica mi ritorna"
+  },
+  {
+    "start": 624.98,
+    "end": 630.28,
+    "text": " il riferimento a questo file che è una struttura in cui dentro ci sarà il file descriptor dove siamo arrivati"
+  },
+  {
+    "start": 630.28,
+    "end": 636.9,
+    "text": " nella lettura del file in che modo questo file aperto se ne ritolli se anche in scrittura e così via"
+  },
+  {
+    "start": 636.9,
+    "end": 646.1,
+    "text": " varie informazioni quindi poi io dovrò avere una chiamata f close corrispondente altrimenti c'è un memory leak"
+  },
+  {
+    "start": 646.1,
+    "end": 651.2,
+    "text": " perché qui ho allocato delle cose o anche con il sistema operativo mi sono anche impegnato"
+  },
+  {
+    "start": 651.2,
+    "end": 657.22,
+    "text": " ad aprire questo file descriptor e io non lo voglio poi non voglio che si perda e rimanga allocato quindi"
+  },
+  {
+    "start": 657.22,
+    "end": 663.32,
+    "text": " f close si occuperà sia di chiudere il file descriptor quindi che quel numero che identifica il file"
+  },
+  {
+    "start": 663.32,
+    "end": 670.22,
+    "text": " tra il mio processo e il kernel perché io il kernel ci mettiamo d'accordo ma ci arriveremo quindi mi serve la mia"
+  },
+  {
+    "start": 670.22,
+    "end": 679.28,
+    "text": " chiamata f close se per caso il file non c'è non è presente fp mi ritorna cioè f open mi ritorna null"
+  },
+  {
+    "start": 679.28,
+    "end": 687.42,
+    "text": " quindi questo fp sarà il puntatore a 0 che è un puntatore speciale in c che serve per dire qua non c'è niente non c'è"
+  },
+  {
+    "start": 687.42,
+    "end": 701.76,
+    "text": " nessun puntatore valido allocato quindi io posso scrivere qui if fp o qual è uguale al null printf enable to open file"
+  },
+  {
+    "start": 704.66,
+    "end": 710.18,
+    "text": " ritorna uno ritorno con un codice di errore guardate ora combiniamo questo programma qua"
+  },
+  {
+    "start": 715.14,
+    "end": 721.96,
+    "text": " e il programma funziona cioè è riuscito ad aprire il file a chiuderlo ma se io qua indicavo un file che non esiste"
+  },
+  {
+    "start": 721.96,
+    "end": 730.06,
+    "text": " cioè stdio 2.c ricombino il programma e lo seguo mi ritorna questo errore enable to open the file"
+  },
+  {
+    "start": 731.96,
+    "end": 742.28,
+    "text": " dopo che io apro questo file che ci posso fare interessante guardate una chiamata abbastanza interessante è la f read"
+  },
+  {
+    "start": 743.2800000000001,
+    "end": 753.88,
+    "text": " f read io devo passare un puntatore che è il mio buffer un puntatore di tipo void quindi posso passare qualsiasi cosa"
+  },
+  {
+    "start": 754.6,
+    "end": 764.48,
+    "text": " poi io devo passare una dimensione quanti byte leggere poi o meglio la f read è un po più complicata gli dico l'oggetto"
+  },
+  {
+    "start": 764.48,
+    "end": 770.58,
+    "text": " la dimensione dell'oggetto che voglio leggere e quanti di questi oggetti voglio leggere se questo lo metto uno"
+  },
+  {
+    "start": 770.58,
+    "end": 776.4,
+    "text": " gli dico semplicemente il numero di byte questa dovrebbe essere una semplificazione se voglio leggere per esempio dal disco"
+  },
+  {
+    "start": 776.4,
+    "end": 783.78,
+    "text": " 5 oggetti che sono di 20 bytes ciascuno scrivo 5 e qua scrivo 20 questa è una cattiva API bene"
+  },
+  {
+    "start": 783.78,
+    "end": 793.58,
+    "text": " mi marizziamo tutta questa cosa come un antipattern hanno sbagliato qui hanno sbagliato 60 anni fa hanno sbagliato"
+  },
+  {
+    "start": 793.58,
+    "end": 805.36,
+    "text": " qua c'è andato solo sides, un numero di bytes, quello che volete e poi se uno si fa la moltiplicazione saprà anche scrivere 5 per 20"
+  },
+  {
+    "start": 807.12,
+    "end": 818.9,
+    "text": " in realtà una delle motivazioni per cui queste API potrebbero avere in passato un senso quando i numeri erano 32-16 bit"
+  },
+  {
+    "start": 818.9,
+    "end": 830.24,
+    "text": " è che se vuoi leggere per esempio due elevato a 16 oggetti di 30 byte ognuno andavi in overflow e ti dovevi complicare la vita"
+  },
+  {
+    "start": 830.24,
+    "end": 837.58,
+    "text": " è possibile che questa roba qua nasca da questo problema quindi probabilmente dovrei rimanciarmi quello che ho detto"
+  },
+  {
+    "start": 837.58,
+    "end": 847.1,
+    "text": " ma alla luce della modernità e di sides t a 64 bit dei moderni sistemi questa cosa andrebbe probabilmente evitata"
+  },
+  {
+    "start": 848.28,
+    "end": 854.34,
+    "text": " bisognerrebbe indagare su quella è la storia di questa cosa qui di preciso e poi gli d con la fine il puntatore al mio file"
+  },
+  {
+    "start": 854.34,
+    "end": 865.1,
+    "text": " perché f rid da dove devo avere a leggere sta roba e poi il ritorno è sides t quando i bytes sono stati letti o meglio quanti oggetti vediamo cosa ritorno la funzione"
+  },
+  {
+    "start": 867.74,
+    "end": 875.72,
+    "text": " dei numeri obbiett ed altrimenti andrebbe in overflow se sides per numeri items va in overflow rispetto a sides t"
+  },
+  {
+    "start": 875.72,
+    "end": 888.18,
+    "text": " dice quanti errori ritorna o se è accato un errore o se è raggiunta alla fine del file il valore di ritorno è 0 o un count short"
+  },
+  {
+    "start": 888.18,
+    "end": 896.34,
+    "text": " cioè ritorna meno oggetti di quando io ho chiesto di leggere quindi praticamente avrò se non ci sono errori sempre un numero positivo"
+  },
+  {
+    "start": 897.22,
+    "end": 905.24,
+    "text": " fino a quando ci sono ancora il numero di oggetti che io chiedo avrò questo numero di oggetti quando ne rimangono di meno ne avrò di meno"
+  },
+  {
+    "start": 905.24,
+    "end": 914.44,
+    "text": " è l'ultima chiamata sarà 0 perché il file è terminato e mi ritorna quindi questa error di end of file o meglio mi segnala la condizione di end of file"
+  },
+  {
+    "start": 914.44,
+    "end": 932.88,
+    "text": " allora proviamo a usare quest frid io qua creo un buffer di 32 bytes magari sì e poi faccio frid buff size of buff"
+  },
+  {
+    "start": 933.64,
+    "end": 944.04,
+    "text": " virgola 1 quindi dico a leggimi un oggetto solo di grande quanto il buffer ma è meglio al contrario in realtà così se ci fosse una short rid"
+  },
+  {
+    "start": 944.04,
+    "end": 956.02,
+    "text": " io nella qua vi vedo il conto corretto altrimenti se restano meno di 32 bytes non me lo legge vedete come è una api pro negli errori fragile non mi piace"
+  },
+  {
+    "start": 956.02,
+    "end": 977.8,
+    "text": " qua size t n rid il numero che ne ha letti lo registriamo qua quindi ci facciamo scrivere il nostro n rid che non faccio veramente sarebbe z z d n rid"
+  },
+  {
+    "start": 977.8,
+    "end": 992.98,
+    "text": " il size t lo spicificatore di tipo dovrebbe essere z di se ricordato bene vediamo se vero convidiamo esatto abbiamo letto effettivamente 32 byte dal file"
+  },
+  {
+    "start": 992.98,
+    "end": 1021.06,
+    "text": " c'è una cosa noi avevamo x dump c'erano implementati sta roba qui quindi ora io la vado a copiare questa funzione qua la andiamo a riportare qui così io qui chiamo sul numero di byte che ho letto x dump quale sono i miei argomenti"
+  },
+  {
+    "start": 1022.0600000000001,
+    "end": 1038.56,
+    "text": " puntatore buff è il numero di byte che io voglio stampare allo schermo con uno streff x dump ve lo ricordate x dump quella che mi faceva il dump sia essa decimale che legibile di un buffer qualsiasi proviamoci"
+  },
+  {
+    "start": 1038.56,
+    "end": 1052.76,
+    "text": " qua c'è che usavamo noi che io non ho incluso string l n n n veramente una funzione basic convidiamo a isprint include c type dot c"
+  },
+  {
+    "start": 1056.48,
+    "end": 1071.76,
+    "text": " ecco guardate guardate qui il mio file include stdio ma in realtà 8 per linea sono pochi vediamo 16 come diventa sì così va bene"
+  },
+  {
+    "start": 1076.5600000000002,
+    "end": 1101.82,
+    "text": " beh ma così io stampo solo all'inizio del file facciamo una cosa size t n read while n read anzi guarda però la semplificiamo il ciclo per renderlo più facile a chi non è abituato a queste cose poi lo miglioriamo quindi io dichiaro la mia variabile n read anzi possiamo tenerla anzi la lasciamo fuori poi vi spievo perché"
+  },
+  {
+    "start": 1102.42,
+    "end": 1129.08,
+    "text": " qua faccio n read o qual è freed if n read o quale è quale è zero brec quindi interrompo il ciclo while se la lettura del file mi ritorna a zero altrimenti continuo e ogni volta che che non è zero quindi io brecco qui interrompo il ciclo se non lo interrotto cioè significa che sono riuscite a leggere qualche byte chiamo di nuovo la mia x dump"
+  },
+  {
+    "start": 1130.7,
+    "end": 1152.96,
+    "text": " bellissimo guardate combiniamo questo programma e mi fa l'ex dump di tutto il mio del suo stesso sorgente si auto analizza in qualche modo vedete non è tanto diverso da x dump meno c stdio 1.c"
+  },
+  {
+    "start": 1154.94,
+    "end": 1182.84,
+    "text": " non credete? beh questo è più figo diciamo c'è la verità guardate c'ha le linee però il nostro programma è una merdina piccolo piccolo quindi comunque fa una cosa utile questo forse è il primo programma utile che scriviamo poi vedete uno quando mamma non el ci si va implementando degli pezzi se riporta presso e se ne frega di andare a cercare la cosa che fa questa cosa"
+  },
+  {
+    "start": 1182.96,
+    "end": 1197.0,
+    "text": " alla fine hai la tua libreria che comunque molto spesso includerai così in maniera brutale e crei software che hanno non hanno dipendenze sono un solo file e le compilie pure sono in grado di fare delle cose che hanno un certo valore"
+  },
+  {
+    "start": 1198.1399999999999,
+    "end": 1226.08,
+    "text": " ma noi ci potremmo chiedere saremmo in grado di implementare noi stessi qualcosa di simile a questo cioè f open se io faccio man f open questa è una chiamata di libreria guardate qua c'è il 3 non il 2 quindi non è una chiamata di sistema questa fa parte della libc del linguaggio c dello standard quindi qualsiasi combinatore c quasi praticamente"
+  },
+  {
+    "start": 1227.0,
+    "end": 1253.62,
+    "text": " in alcune sistemi embedded magari questa roba proprio non c'è proprio std io però in qualsiasi combinatore di un computer vero c'è std io e quindi evidentemente questo std questo std io quindi f open f rid f close in realtà sotto sotto chiamano le sistemi le sistemi col le chiamate di sistema a basso livello del mio sistema operativo"
+  },
+  {
+    "start": 1253.62,
+    "end": 1273.7,
+    "text": " e il mio sistema operativo visto che questo è un maccos tra l'altro certificato unix quindi uno unix a tutti effetti deve seguire uno standard e segua lo standard posix e quindi io seguendo praticamente lo standard posix posso andare a interrogare lo il sistema operativo e saltare completamente la libreria standard del c"
+  },
+  {
+    "start": 1273.7,
+    "end": 1303.38,
+    "text": " nella prossima lezione noi faremo proprio questo e dopo utilizzeremo type def le strutture per vedere come possiamo implementare una piccola libreria di input output diciamo alternativa quella della libreria standard del c perché questo è una cosa molto istruttiva che ci insegnerà qualcosa in più del c usciamo dalla diciamo dal gioco che c'è stato fino a questo momento e scriviamo"
+  },
+  {
+    "start": 1303.38,
+    "end": 1318.98,
+    "text": " una libreria vera che non servirà assolutamente a niente perché abbiamo la libc che fa il suo lavoro bene ma che servirà a noi per istruirci per farci fare un'esperienza di programmazione vera dunque alla prossima ciao"
+  }
+]

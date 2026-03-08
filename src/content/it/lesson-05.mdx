@@ -87,6 +87,23 @@ Sapevi che se passi un `char` a una funzione con argomenti variabili (come `prin
       options: ["1", "32", "65", "97"],
       correctAnswer: 2,
       explanation: "65 è il codice standard per 'A' maiuscola. 'a' minuscola è invece 97."
+    },
+    {
+      question: "Qual è la differenza principale tra ASCII e UTF-8?",
+      options: [
+        "Nessuna, sono la stessa cosa",
+        "ASCII usa 7 bit (128 caratteri), UTF-8 è un sistema moderno che può usare più byte per rappresentare emoji e caratteri di ogni lingua",
+        "ASCII è più lento",
+        "UTF-8 non supporta i numeri"
+      ],
+      correctAnswer: 1,
+      explanation: "ASCII è il set base di 128 caratteri. UTF-8 è retrocompatibile con ASCII ma si espande per coprire tutto l'universo Unicode."
+    },
+    {
+      question: "Quale libreria standard dovresti includere per usare funzioni come isdigit() o toupper()?",
+      options: ["stdio.h", "ctype.h", "string.h", "math.h"],
+      correctAnswer: 1,
+      explanation: "ctype.h (Character Type) contiene macro e funzioni per testare e convertire singoli caratteri."
     }
   ]}
 />
@@ -127,6 +144,18 @@ Sapevi che se passi un `char` a una funzione con argomenti variabili (come `prin
       ],
       correctAnswer: 1,
       explanation: "Questo è fondamentale: `0` (numero) è il byte nullo, usato per dire al C 'qui finisce la stringa'. `'0'` (carattere) è il tasto sulla tastiera che, nella tabella ASCII, corrisponde al numero 48."
+    },
+    {
+      id: 3,
+      question: "Cosa fa la sequenza di escape `\\b` se stampata a video?",
+      options: [
+        "Inserisce una riga vuota",
+        "Esegue un 'backspace', cancellando idealmente il carattere precedente spostando il cursore a sinistra",
+        "Spegne il monitor",
+        "Crea un segnale acustico"
+      ],
+      correctAnswer: 1,
+      explanation: "Backspace! È uno dei caratteri di controllo ASCII che permette di manipolare la posizione del cursore nel terminale."
     }
   ]}
 />
@@ -134,7 +163,7 @@ Sapevi che se passi un `char` a una funzione con argomenti variabili (come `prin
 ### Terminal Challenge: Manual Hunting 📖
 
 <HackerTerminal 
-  title="Hacker Challenge: Level 5"
+  title="Hacker Challenge: Level 5 - Task 1"
   description="Abbiamo imparato a usare le funzioni di output. Qual è il comando del terminale per leggere il 'manuale' di una funzione come printf per scoprirne tutti i segreti?"
   command="google printf help"
   expectedOutput="man printf"
@@ -142,6 +171,31 @@ Sapevi che se passi un `char` a una funzione con argomenti variabili (come `prin
   placeholder="es. man nomefunzione"
   hint="È l'abbreviazione di 'manual'."
   explanation="Esatto! `man` è il migliore amico di un programmatore C. Ti dà la documentazione ufficiale, dettagliata e precisa per ogni funzione di libreria e comando di sistema."
+  xpReward={150}
+/>
+
+<HackerTerminal 
+  title="Hacker Challenge: Level 5 - Task 2"
+  description="In C puoi convertire un carattere da minuscolo a maiuscolo sottraendo 32. Esiste un comando shell che può fare la stessa cosa per un intero file o input. Quale useresti per trasformare 'ciao' in 'CIAO'?"
+  command="echo 'ciao' | ..."
+  expectedOutput="tr 'a-z' 'A-Z'"
+  inputLabel="Comando (tr):"
+  placeholder="es. tr 'set1' 'set2'"
+  hint="Il comando sta per 'translate' o 'transliterate'."
+  explanation="Ottimo! `tr` è potentissimo per manipolare flussi di caratteri, replicando la logica di conversione che faremmo in C ma direttamente sulla riga di comando."
+  xpReward={200}
+/>
+
+<HackerTerminal 
+  title="Hacker Challenge: Level 5 - Task 3"
+  description="Vuoi vedere il valore esadecimale di ogni singolo carattere contenuto in un file 'testo.txt'. Quale comando useresti per fare un dump in esadecimale byte per byte?"
+  command="cat testo.txt"
+  expectedOutput="od -A n -t x1 testo.txt"
+  inputLabel="Comando (od):"
+  placeholder="es. od -opzioni nomefile"
+  hint="Il comando sta per 'Octal Dump', ma con l'opzione -t x1 mostra esadecimali."
+  explanation="Bravissimo! `od` ti permette di vedere la 'carne nuda' del file, mostrando i codici ASCII in formato esadecimale, decimale o ottale. Indispensabile per il debug di file corrotti."
+  xpReward={250}
 />
 
 Ci vediamo alla prossima lezione!

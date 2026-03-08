@@ -95,11 +95,33 @@ Salvatore also shows us `goto`, a way to jump directly to a label in the code. W
       options: [
         "Because it's slow",
         "Because it consumes too much RAM",
-        "Because it makes program flow hard to predict and debug",
+        "Because it makes the program flow difficult to predict and debug",
         "Because it doesn't work on modern systems"
       ],
       correctAnswer: 2,
-      explanation: "Goto can create 'tangled' flow (spaghetti code) that breaks the logical structure of the program."
+      explanation: "The goto can create a 'tangled' flow (spaghetti code) that breaks the logical structure of the program."
+    },
+    {
+      question: "What is meant by 'Short-circuit' evaluation in logical operators && and ||?",
+      options: [
+        "The processor overheats",
+        "If the result is already determined by the first term (e.g., False for &&), the second term is not even evaluated",
+        "The code is skipped randomly",
+        "It's a memory error"
+      ],
+      correctAnswer: 1,
+      explanation: "If you have `(0 && function())`, the function will never be called because the result of the AND will be 0 anyway. It is essential for performance and to avoid crashes (e.g., checking if a pointer is null before using it)."
+    },
+    {
+      question: "What is the correct syntax for the ternary operator (the short-form if)?",
+      options: [
+        "condition ? true : false",
+        "if condition then true else false",
+        "condition : true ? false",
+        "true ? false : condition"
+      ],
+      correctAnswer: 0,
+      explanation: "The ternary operator `? :` allows writing small if-else blocks in a single line, assigning a value based on a condition."
     }
   ]}
 />
@@ -134,12 +156,24 @@ Salvatore also shows us `goto`, a way to jump directly to a label in the code. W
       question: "What happens if you declare `int x = 5;` outside a `{}` block and then `int x = 10;` inside the block?",
       options: [
         "The program crashes",
-        "The second declaration 'hides' the first (Shadowing). Inside the block, x will be 10; outside, it will still be 5.",
+        "The second declaration 'hides' the first (Shadowing). Inside the block x will be 10, outside it will still be 5.",
         "The value of x becomes 15",
         "The two variables merge into one"
       ],
       correctAnswer: 1,
-      explanation: "Shadowing allows you to reuse variable names in inner blocks without overwriting the data of the outer block. This ensures the isolation of logic within curly braces."
+      explanation: "Shadowing allows reusing variable names in inner blocks without overwriting the outer block's data. This ensures isolation of logic within the braces."
+    },
+    {
+      id: 3,
+      question: "In the presence of nested `if` statements without braces, which `if` does an `else` belong to?",
+      options: [
+        "To the first if (the outermost one)",
+        "To the nearest preceding if that does not already have an else",
+        "To none, it gives an error",
+        "To both simultaneously"
+      ],
+      correctAnswer: 1,
+      explanation: "This is the 'Dangling Else' problem. Without braces, the else always binds to the nearest if. It is a common source of logical bugs, which is why Salvatore recommends always using braces!"
     }
   ]}
 />
@@ -147,14 +181,39 @@ Salvatore also shows us `goto`, a way to jump directly to a label in the code. W
 ### Terminal Challenge: Logical Compilation 🧠
 
 <HackerTerminal 
-  title="Hacker Challenge: Level 6"
+  title="Hacker Challenge: Level 6 - Task 1"
   description="We saw that C uses 0 for False and everything else for True. If you wanted to compile your program and ask the compiler to report ALL possible errors and logical warnings (such as using = instead of ==), which option would you use?"
   command="gcc main.c ..."
   expectedOutput="-Wall"
   inputLabel="GCC Flag:"
   placeholder="e.g. -O2, -g..."
   hint="The option stands for 'Warnings All'."
-  explanation="Brilliant! `-Wall` is mandatory for every true hacker. It warns you if you are doing dangerous things, like assigning variables inside an `if` or forgetting to initialize data. It's like having Salvatore correct you as you write."
+  explanation="Excellent! `-Wall` is mandatory for every true hacker. It warns you if you are doing dangerous things, like assigning variables inside an `if` or forgetting to initialize data. It's like having Salvatore correct you as you write."
+  xpReward={150}
+/>
+
+<HackerTerminal 
+  title="Hacker Challenge: Level 6 - Task 2"
+  description="Sometimes we want to include extra code only during debugging. In C we use #ifdef DEBUG. How can you 'turn on' this macro directly from the compilation command without modifying the .c file?"
+  command="cat main.c"
+  expectedOutput="gcc -DDEBUG main.c"
+  inputLabel="GCC Command:"
+  placeholder="e.g. gcc -D... file.c"
+  hint="The option uses the letter 'D' which stands for 'Define'."
+  explanation="Great! The `-D` option allows defining macros on the fly. It's very useful for activating debug logs or changing program behavior during testing."
+  xpReward={200}
+/>
+
+<HackerTerminal 
+  title="Hacker Challenge: Level 6 - Task 3"
+  description="You have two versions of your code and want to see exactly what changed in the if logic. Which Linux command would you use to compare the two files?"
+  command="cat file1 file2"
+  expectedOutput="diff file1.c file2.c"
+  inputLabel="Command:"
+  placeholder="e.g. diff fileA fileB"
+  hint="It means 'difference'."
+  explanation="Perfect! `diff` is the basic tool for every developer to understand changes between different versions of code. It's the ancestor of what you see every day on GitHub."
+  xpReward={250}
 />
 
 See you in the next lesson!

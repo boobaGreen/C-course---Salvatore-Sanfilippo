@@ -100,6 +100,28 @@ Salvatore ci mostra anche il `goto`, un modo per saltare direttamente a un'etich
       ],
       correctAnswer: 2,
       explanation: "Il goto può creare un flusso 'intrecciato' (spaghetti code) che rompe la struttura logica del programma."
+    },
+    {
+      question: "Cosa si intende per 'Cortocircuito' (short-circuit) negli operatori logici && e ||?",
+      options: [
+        "Che il processore si surriscalda",
+        "Che se il risultato è già determinato dal primo termine (es. Falso per &&), il secondo termine non viene nemmeno valutato",
+        "Che il codice viene saltato casualmente",
+        "È un errore di memoria"
+      ],
+      correctAnswer: 1,
+      explanation: "Se hai `(0 && funzione())`, la funzione non verrà mai chiamata perché il risultato dell'AND sarà comunque 0. È fondamentale per la performance e per evitare crash (es. controllare se un puntatore è nullo prima di usarlo)."
+    },
+    {
+      question: "Qual è la sintassi corretta dell'operatore ternario (l'if abbreviato)?",
+      options: [
+        "condizione ? vero : falso",
+        "if condizione then vero else falso",
+        "condizione : vero ? falso",
+        "vero ? falso : condizione"
+      ],
+      correctAnswer: 0,
+      explanation: "L'operatore ternario `? :` permette di scrivere piccoli blocchi if-else in una sola riga, assegnando un valore in base a una condizione."
     }
   ]}
 />
@@ -140,6 +162,18 @@ Salvatore ci mostra anche il `goto`, un modo per saltare direttamente a un'etich
       ],
       correctAnswer: 1,
       explanation: "Lo Shadowing permette di riutilizzare i nomi delle variabili in blocchi più interni senza sovrascrivere i dati del blocco esterno. Questo garantisce l'isolamento della logica all'interno delle graffe."
+    },
+    {
+      id: 3,
+      question: "In presenza di `if` annidati senza parentesi graffe, a quale `if` si riferisce un `else`?",
+      options: [
+        "Al primo if (quello più esterno)",
+        "Al più vicino if precedente che non ha ancora un else",
+        "A nessuno, dà errore",
+        "A entrambi contemporaneamente"
+      ],
+      correctAnswer: 1,
+      explanation: "Questo è il problema del 'Dangling Else'. Senza graffe, l'else si lega sempre all'if più vicino. È una fonte comune di bug logici, per questo Salvatore consiglia di usare sempre le graffe!"
     }
   ]}
 />
@@ -147,7 +181,7 @@ Salvatore ci mostra anche il `goto`, un modo per saltare direttamente a un'etich
 ### Terminal Challenge: Logical Compilation 🧠
 
 <HackerTerminal 
-  title="Hacker Challenge: Level 6"
+  title="Hacker Challenge: Level 6 - Task 1"
   description="Abbiamo visto che il C usa 0 per Falso e Tutto il Resto per Vero. Se volessi compilare il tuo programma chiedendo al compilatore di segnalare TUTTI i possibili errori e avvertimenti logici (come l'uso di = invece di ==), quale opzione useresti?"
   command="gcc main.c ..."
   expectedOutput="-Wall"
@@ -155,6 +189,31 @@ Salvatore ci mostra anche il `goto`, un modo per saltare direttamente a un'etich
   placeholder="es. -O2, -g..."
   hint="L'opzione sta per 'Warnings All'."
   explanation="Bravissimo! `-Wall` è obbligatorio per ogni vero hacker. Ti avvisa se stai facendo cose pericolose, come assegnare variabili dentro un `if` o dimenticare di inizializzare dati. È come avere Salvatore che ti corregge mentre scrivi."
+  xpReward={150}
+/>
+
+<HackerTerminal 
+  title="Hacker Challenge: Level 6 - Task 2"
+  description="A volte vogliamo includere codice extra solo durante il debug. In C usiamo #ifdef DEBUG. Come puoi 'accendere' questa macro direttamente dal comando di compilazione senza modificare il file .c?"
+  command="cat main.c"
+  expectedOutput="gcc -DDEBUG main.c"
+  inputLabel="Comando GCC:"
+  placeholder="es. gcc -D... file.c"
+  hint="L'opzione usa la lettera 'D' che sta per 'Define'."
+  explanation="Ottimo! L'opzione `-D` permette di definire macro al volo. È utilissimo per attivare log di debug o cambiare comportamenti del programma durante i test."
+  xpReward={200}
+/>
+
+<HackerTerminal 
+  title="Hacker Challenge: Level 6 - Task 3"
+  description="Hai due versioni del tuo codice e vuoi vedere esattamente cosa è cambiato nella logica degli if. Quale comando Linux useresti per confrontare i due file?"
+  command="cat file1 file2"
+  expectedOutput="diff file1.c file2.c"
+  inputLabel="Comando:"
+  placeholder="es. diff fileA fileB"
+  hint="Significa 'differenza'."
+  explanation="Perfetto! `diff` è lo strumento base per ogni sviluppatore per capire le modifiche tra versioni diverse del codice. È l'antenato di ciò che vedi ogni giorno su GitHub."
+  xpReward={250}
 />
 
 Ci vediamo alla prossima lezione!

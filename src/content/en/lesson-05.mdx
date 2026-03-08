@@ -83,10 +83,27 @@ Did you know that if you pass a `char` to a function with variable arguments (li
       explanation: "Since characters are represented as numbers, %d prints the corresponding integer value in the ASCII table."
     },
     {
-      question: "What number does capital 'A' usually correspond to?",
+      question: "Which number does the uppercase 'A' usually correspond to?",
       options: ["1", "32", "65", "97"],
       correctAnswer: 2,
-      explanation: "65 is the standard code for capital 'A'. Lowercase 'a' is 97."
+      explanation: "65 is the standard code for uppercase 'A'. Lowercase 'a' is 97."
+    },
+    {
+      question: "What is the primary difference between ASCII and UTF-8?",
+      options: [
+        "None, they are the same thing",
+        "ASCII uses 7 bits (128 characters), UTF-8 is a modern system that can use multiple bytes to represent emojis and characters from every language",
+        "ASCII is slower",
+        "UTF-8 does not support numbers"
+      ],
+      correctAnswer: 1,
+      explanation: "ASCII is the base set of 128 characters. UTF-8 is backward compatible with ASCII but expands to cover the entire Unicode universe."
+    },
+    {
+      question: "Which standard library should you include to use functions like isdigit() or toupper()?",
+      options: ["stdio.h", "ctype.h", "string.h", "math.h"],
+      correctAnswer: 1,
+      explanation: "ctype.h (Character Type) contains macros and functions for testing and converting individual characters."
     }
   ]}
 />
@@ -121,12 +138,24 @@ Did you know that if you pass a `char` to a function with variable arguments (li
       question: "What is the difference between the character '0' and the integer value 0?",
       options: [
         "None, they are the same value in memory",
-        "The integer value 0 is the string terminator (NULL), while the character '0' has the ASCII value 48",
-        "'0' occupies more memory than 0",
+        "The integer value 0 is the string terminator (NULL), while the character '0' has ASCII value 48",
+        "'0' takes up more memory than 0",
         "The character '0' is only used in mathematics"
       ],
       correctAnswer: 1,
-      explanation: "This is fundamental: `0` (number) is the null byte, used to tell C 'this is the end of the string'. `'0'` (character) is the key on the keyboard which, in the ASCII table, corresponds to the number 48."
+      explanation: "This is fundamental: `0` (number) is the null byte, used to tell C 'here the string ends'. `'0'` (character) is the key on the keyboard which, in the ASCII table, corresponds to the number 48."
+    },
+    {
+      id: 3,
+      question: "What does the `\\b` escape sequence do when printed?",
+      options: [
+        "Inserts a blank line",
+        "Performs a 'backspace', ideally deleting the previous character by moving the cursor left",
+        "Turns off the monitor",
+        "Creates an acoustic signal"
+      ],
+      correctAnswer: 1,
+      explanation: "Backspace! It is one of the ASCII control characters that allows you to manipulate the cursor position in the terminal."
     }
   ]}
 />
@@ -134,7 +163,7 @@ Did you know that if you pass a `char` to a function with variable arguments (li
 ### Terminal Challenge: Manual Hunting 📖
 
 <HackerTerminal 
-  title="Hacker Challenge: Level 5"
+  title="Hacker Challenge: Level 5 - Task 1"
   description="We learned how to use output functions. What is the terminal command to read the 'manual' of a function like printf to discover all its secrets?"
   command="google printf help"
   expectedOutput="man printf"
@@ -142,6 +171,31 @@ Did you know that if you pass a `char` to a function with variable arguments (li
   placeholder="e.g. man function_name"
   hint="It's short for 'manual'."
   explanation="Exactly! `man` is a C programmer's best friend. It gives you the official, detailed, and precise documentation for every library function and system command."
+  xpReward={150}
+/>
+
+<HackerTerminal 
+  title="Hacker Challenge: Level 5 - Task 2"
+  description="In C you can convert a character from lowercase to uppercase by subtracting 32. There is a shell command that can do the same for an entire file or input. Which one would you use to transform 'hi' into 'HI'?"
+  command="echo 'hi' | ..."
+  expectedOutput="tr 'a-z' 'A-Z'"
+  inputLabel="Command (tr):"
+  placeholder="e.g. tr 'set1' 'set2'"
+  hint="The command stands for 'translate' or 'transliterate'."
+  explanation="Great! `tr` is very powerful for manipulating utility character streams, replicating the conversion logic we would do in C but directly on the command line."
+  xpReward={200}
+/>
+
+<HackerTerminal 
+  title="Hacker Challenge: Level 5 - Task 3"
+  description="You want to see the hexadecimal value of every single character contained in a 'text.txt' file. Which command would you use to perform a byte-by-byte hexadecimal dump?"
+  command="cat text.txt"
+  expectedOutput="od -A n -t x1 text.txt"
+  inputLabel="Command (od):"
+  placeholder="e.g. od -options filename"
+  hint="The command stands for 'Octal Dump', but with the -t x1 option it shows hexadecimals."
+  explanation="Excellent! `od` allows you to see the 'naked flesh' of the file, showing ASCII codes in hexadecimal, decimal, or octal format. Indispensable for debugging corrupt files."
+  xpReward={250}
 />
 
 See you in the next lesson!
