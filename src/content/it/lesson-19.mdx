@@ -25,6 +25,10 @@ Ogni processo Linux nasce con tre canali di comunicazione già aperti:
 - **1**: Standard Output (terminale)
 - **2**: Standard Error (errori sul terminale)
 
+<Callout type="info" title="Perché i numeri?">
+Il Kernel è pigro (o meglio, efficiente). Non vuole gestire stringhe lunghe per ogni file. Usa un semplice array per ogni processo, e l'indice di quell'array è il nostro **File Descriptor**.
+</Callout>
+
 <LimitsExplorer 
   title="Esplora i Limiti del Sistema"
   description="I sistemi POSIX hanno limiti fisici sulle risorse."
@@ -82,6 +86,13 @@ int main() {
 }`} 
   language="c" 
 />
+
+<Callout type="hacker" title="Ancestrale ma Attuale">
+Le system calls che vedi qui (come `open`) sono state definite negli anni '70 per Unix. Cinquant'anni dopo, alimentano ancora Linux, macOS e quasi tutto il cloud mondiale. Impararle significa connettersi ai "pionieri" dell'informatica.
+</Callout>
+
+### errno e perror
+Quando una syscall fallisce (ritorna -1), il Kernel imposta un numero globale chiamato `errno`. La funzione `perror` legge quel numero e lo traduce in un messaggio umano (es. "No such file or directory").
 
 ---
 

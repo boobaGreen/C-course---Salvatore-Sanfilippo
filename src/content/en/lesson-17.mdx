@@ -17,8 +17,33 @@ In this lesson, Salvatore takes us into the "beating heart" of memory. We will l
 <KeyConcepts concepts={[
   { title: "Raw Visualization", description: "Implement xdump to inspect memory byte by byte, revealing secrets like padding and endianness." },
   { title: "Memset & Initialization", description: "Use memset to 'flatten' memory and ensure no dirty data remains." },
-  { title: "Ternary Operator", description: "A shorthand for if-else that makes code more elegant and compact." }
+  { title: "Pointer vs Array", description: "Understand the physical difference between a pointer (8-byte address) and an array (contiguous data) inside a struct." },
+  { title: "SDS Optimization", description: "How Redis saves memory using headers of different sizes (5-bit, 8-bit, 16-bit)." }
 ]} />
+
+## The Layout Challenge
+
+Salvatore resolves a major doubt: why use `char str[]` instead of `char *str`?
+
+<ComparisonTable 
+  title="Pointer vs Flexible Array"
+  headers={["Feature", "char *str", "char str[]"]}
+  rows={[
+    ["Allocation", "Two separate blocks", "A single contiguous block"],
+    ["Access", "Double memory jump", "Direct access (fixed offset)"],
+    ["Overhead", "8 bytes for the pointer", "0 bytes (it's just a label)"],
+    ["Cache Locality", "Low (data scattered)", "High (text right after header)"]
+  ]}
+/>
+
+<Infographic 
+  title="Memory Layout Comparison"
+  description="Visualization of the two approaches in RAM."
+  items={[
+    { label: "Pointer Approach", value: "[Header] ... [Gap] ... [Text]", color: "amber" },
+    { label: "Flexible Approach", value: "[Header][Text]", color: "emerald" }
+  ]}
+/>
 
 ## Implementing xdump
 

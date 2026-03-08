@@ -51,6 +51,12 @@ Ecco come appare la memoria di una nostra stringa evoluta:
   ]}
 />
 
+  - [x] Lesson 10: Pointer Arithmetic, Casting, Double Pointers
+  - [x] Lesson 11: Endianness, Memory Bases, Pointer Swapping
+  - [x] Lesson 12: Dynamic Memory, Malloc/Free, Custom Strings
+  - [/] Lesson 13: Reference Counting, Structs, Memory Headers
+  - [ ] Lessons 14-24: Queued
+
 ---
 
 ## Pointer Arithmetic: Spostarsi tra i Mondi
@@ -142,9 +148,22 @@ int main() {
   language="c" 
 />
 
-<Callout type="hacker" title="Reference Counting (Anticipazione)">
-Verso la fine della lezione, Salvatore introduce un concetto avanzato: aggiungere **altri 4 byte** nell'header per il `ref_count`. Questo permette a più variabili di puntare alla stessa stringa senza duplicarla in memoria. Quando una variabile "smette" di usarla, decrementa il contatore. Solo quando il contatore arriva a zero, la `free` viene chiamata davvero.
+<Callout type="hacker" title="Reference Counting">
+Salvatore introduce una tecnica fondamentale per gestire la memoria condivisa: il **Reference Counting**. Invece di duplicare una stringa ogni volta che un nuovo puntatore la referenzia, incrementiamo un contatore nell'header.
+- Quando aggiungi un riferimento: `count++`
+- Quando rimuovi un riferimento: `count--`
+- Quando `count == 0`: chiami veramente la `free()`.
 </Callout>
+
+### Verso le Struct
+Manipolare manualmente gli offset (come `s - 4` o `s - 8`) è "fragile" e prono a errori. Per questo Salvatore introduce le **Struct**: un modo per raggruppare dati diversi (lunghezza, refcount, testo) in un'unica entità logica.
+```c
+struct ps_string {
+    uint32_t len;
+    uint32_t ref_count;
+    char buf[]; // Flexible Array Member (C99)
+};
+```
 
 ---
 

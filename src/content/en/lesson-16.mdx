@@ -146,6 +146,13 @@ int main() {
 Why does Salvatore use `0xDEADBEEF`? It's easy to recognize in a hexadecimal dump (hexdump). If you see `00000000` where the magic should be, you know you're using an object that's already been freed!
 </Callout>
 
+<Callout type="info" title="Debugging with Macros">
+Salvatore suggests using preprocessor macros (`#ifdef DEBUG`) to include the `magic` field only during development. This way, the "production" version of the software will be 4 bytes lighter per string, but you'll have had all the necessary safety during testing.
+</Callout>
+
+### Reference Maintenance
+It is vital that every `ps_retain` is paired with a `ps_release`. If you forget a release, you have a **Memory Leak**. If you do one release too many, you have a **Use-After-Free** or a crash.
+
 ---
 
 ## Exercises

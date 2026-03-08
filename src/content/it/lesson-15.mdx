@@ -64,6 +64,10 @@ Nota che `struct Line` contiene un puntatore a `struct Line`. Questo è possibil
   ]}
 />
 
+<Callout type="info" title="Inserimento in Testa">
+Perché la lista inverte il file? Perché facciamo `new_node->next = head; head = new_node;`. Immagina di impilare dei piatti: l'ultimo che posi è il primo che prendi. Questa struttura si chiama **Stack** (Pila).
+</Callout>
+
 <ComparisonTable 
   title="Array vs Linked List"
   headers={["Caratteristica", "Array", "Linked List"]}
@@ -112,6 +116,8 @@ int main(int argc, char **argv) {
         printf("%s", curr->text);
         curr = curr->next;
     }
+
+    // SFIDA: Aggiungi un ciclo finale per fare 'free()' di ogni nodo e della sua stringa!
 
     fclose(fp);
     return 0;

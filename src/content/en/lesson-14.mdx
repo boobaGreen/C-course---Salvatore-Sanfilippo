@@ -64,6 +64,10 @@ What happens if we add a `char` (1 byte) to our struct? We would expect a size o
 To save memory, Salvatore suggests grouping fields by size: first the largest (pointers, long, int) and then the smallest (char). This reduces the padding inserted by the compiler!
 </Callout>
 
+<Callout type="info" title="The Origin of the Arrow ->">
+Why not just use the dot? In the early years of C, the compiler needed a strong syntactic hint to know if you were accessing a fixed location (dot) or if it had to first calculate a base address from a register (arrow). Today, it's a stylistic choice that makes code extremely readable: you see an arrow, you know a pointer is involved.
+</Callout>
+
 ---
 
 ## Operations: Dot vs Arrow
@@ -109,6 +113,8 @@ int main() {
     simplify(&a);
     
     printf("Simplified fraction: %d/%d\\n", a.num, a.den);
+
+    // CHALLENGE: Add a 'multiply' function here that takes two Frac structs and returns a new one!
     
     // 3. Dynamic allocation on the HEAP
     struct Frac *b = malloc(sizeof(struct Frac));

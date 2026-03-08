@@ -30,7 +30,19 @@ We've finally arrived at one of the most feared, yet fundamental, concepts of th
 />
 
 <Callout type="info" title="Syntax and Grammar">
-Salvatore recommends writing `int *p` instead of `int* p`. Why? If you declare `int *p, z;`, only `p` is a pointer, while `z` is a normal integer. Placing the asterisk near the variable name makes this C grammatical distinction clear.
+Salvatore recommends writing `int *p` instead of `int* p`. Why?
+In C, the asterisk is "attached" to the variable, not the type. If you write:
+`int *p, z;`
+- `p` is a pointer to an integer.
+- `z` is a normal integer.
+If you were to write `int* p, z;` you might think both are pointers, but you'd be wrong!
+</Callout>
+
+<Callout type="warning" title="Declaration vs Expression">
+The asterisk has two different purposes:
+1. **Declaration**: `int *p;` -> "I want a variable that contains an address".
+2. **Expression**: `*p = 10;` -> "Go to the address stored in p and write 10 there".
+Don't confuse them!
 </Callout>
 
 ## Visualizing Memory
@@ -48,8 +60,9 @@ A memory address is always the same size (64 bits on modern architectures), but 
 
 In C, address **0** is special and is indicated with the `NULL` keyword. It means the pointer doesn't point to anything valid.
 
-<Callout type="hacker" title="Pointers vs Arrays: The Equivalence">
-Did you know that `*p` is identical to writing `p[0]`? There's a "bizarre analogy" (as Salvatore calls it) in C between pointers and arrays: a pointer can be treated as the base address of a single-element array.
+<Callout type="hacker" title="Puntatori vs Array: L'equivalenza">
+Did you know that `*p` is exactly the same as writing `p[0]`? There's a "bizarre analogy" (as Salvatore calls it) in C between pointers and arrays: a pointer can be treated as the base address of a single-element array.
+This means that `*(p + 1)` is the same as `p[1]`.
 </Callout>
 
 <Callout type="hacker" title="The NULL Pointer">

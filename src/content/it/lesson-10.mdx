@@ -36,7 +36,14 @@ Anche un puntatore è una variabile, e come tale ha un suo indirizzo di memoria.
 - `int *y = &x;` (y punta a x)
 - `int **z = &y;` (z punta a y)
 
-Tutti i puntatori (a `char`, `int`, o altri puntatori) hanno la **stessa dimensione** (8 byte su sistemi a 64 bit), perché contengono sempre un indirizzo di memoria.
+<Callout type="info" title="Dimensione Universale">
+Tutti i puntatori (a `char`, `int`, o altri puntatori) hanno la **stessa dimensione** (8 byte su sistemi a 64 bit), perché contengono sempre un numero che rappresenta un indirizzo di memoria. La differenza nel tipo (`int*` vs `char*`) serve solo al compilatore per sapere "quanto spazio leggere" quando lo deferenziamo.
+</Callout>
+
+### Il Casting: Cambiare Occhiali alla Memoria
+Salvatore ci mostra che in C possiamo "mentire" al compilatore tramite il **Casting**. Se abbiamo un array di `char`, possiamo convincere il C che sia un array di `short` (interi a 16 bit).
+`short *p = (short *)my_string;`
+In questo modo, `p[0]` leggerà **due byte** insieme invece di uno solo. È un'operazione potente ma pericolosa, tipica della programmazione di sistema.
 
 <ComparisonTable 
   title="Puntatori vs Array"
@@ -62,6 +69,13 @@ Se provi ad accedere a un indirizzo di memoria che non appartiene al tuo program
 ## Stringhe e Puntatori
 
 In C, le stringhe sono array di `char` terminati dal carattere speciale `\0` (null terminator). Possiamo scorrere una stringa incrementando un puntatore finché non incontriamo lo zero.
+
+<Callout type="hacker" title="Aritmetica dei Puntatori">
+Quando scrivi `p++` su un `int *p`, l'indirizzo non aumenta di 1, ma di `sizeof(int)` (di solito 4 byte). Il C calcola automaticamente lo "skip" necessario per arrivare all'elemento successivo. 
+- `char *p; p++` -> +1 byte
+- `short *p; p++` -> +2 byte
+- `int *p; p++` -> +4 byte
+</Callout>
 
 <CodeEditor 
   initialCode={`#include <stdio.h>

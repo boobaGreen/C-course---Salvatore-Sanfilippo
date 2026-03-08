@@ -64,6 +64,10 @@ Cosa succede se aggiungiamo un `char` (1 byte) alla nostra struct? Ci aspetterem
 Per risparmiare memoria, Salvatore consiglia di raggruppare i campi per dimensione: prima i più grandi (puntatori, long, int) e poi i più piccoli (char). Questo riduce il padding inserito dal compilatore!
 </Callout>
 
+<Callout type="info" title="L'origine della Freccia ->">
+Perché non usare sempre il punto? Nei primi anni del C, il compilatore aveva bisogno di un indizio sintattico forte per capire se stavi accedendo a una locazione fissa (punto) o se doveva prima calcolare un indirizzo base da un registro (freccia). Oggi è una scelta di stile che rende il codice estremamente leggibile: vedi una freccia, sai che c'è un puntatore di mezzo.
+</Callout>
+
 ---
 
 ## Operazioni: Punto vs Freccia
@@ -109,6 +113,8 @@ int main() {
     simplify(&a);
     
     printf("Frazione semplificata: %d/%d\\n", a.num, a.den);
+
+    // SFIDA: Aggiungi qui una funzione 'multiply' che prende due struct Frac e ne ritorna una nuova!
     
     // 3. Allocazione dinamica nell'HEAP
     struct Frac *b = malloc(sizeof(struct Frac));

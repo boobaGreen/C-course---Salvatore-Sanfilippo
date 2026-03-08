@@ -62,6 +62,19 @@ This technique of reading a type's memory through a pointer of another type is c
   ]}
 />
 
+<Callout type="info" title="Why Little Endian?">
+Even though Big Endian feels more intuitive to humans (reading left-to-right like a decimal number), **Little Endian** is often preferred by processors because it allows treating a 32-bit number as an 8-bit one by simply reading the first byte, without needing to calculate offsets to the end of the data.
+</Callout>
+
+### Pointer Swapping: Pure Efficiency
+Salvatore shows us a fundamental trick for simulations (like Game of Life): instead of copying thousands of bytes from the "new grid" to the "old grid" every turn, we simply swap the two **memory addresses**.
+```c
+char *temp = old_ptr;
+old_ptr = new_ptr;
+new_ptr = temp;
+```
+It's an instantaneous operation regardless of data size!
+
 Example using the number `0x11223344`:
 * In **Little Endian** memory: `44 33 22 11` (base address holds `44`).
 * In **Big Endian** memory: `11 22 33 44` (base address holds `11`).

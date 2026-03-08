@@ -55,9 +55,11 @@ If we want to create data that "survives" across functions, or data whose size i
   ]}
 />
 
-### Malloc and Free
-
 To access the Heap, we use functions from the standard `<stdlib.h>` library:
+
+<Callout type="info" title="Malloc: A Contract with the OS">
+When you call `malloc`, you are asking the Operating System for a piece of RAM. If the OS accepts, it gives you a memory address (`void *`). From that moment on, **you are the master** of those bytes until you call `free`. If you forget to free them, that memory remains "dead" to the rest of the computer until your program closes.
+</Callout>
 
 ```c
 #include <stdlib.h>
@@ -98,6 +100,10 @@ Our custom format will be:
     { label: "Terminator", value: "Trailing 0x00 byte", color: "amber" }
   ]}
 />
+
+<Callout type="hacker" title="Binary Safety">
+Unlike standard strings, our PLS (Prefixed Length Strings) can contain null bytes (`0x00`) in the middle of the text without "breaking," because we rely on the number written in the header instead of searching for a terminator.
+</Callout>
 
 ### Creating a High-Performance String
 

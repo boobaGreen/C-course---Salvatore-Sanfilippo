@@ -77,6 +77,10 @@ Note that `struct Line` contains a pointer to `struct Line`. This is possible be
   ]}
 />
 
+<Callout type="info" title="Head Insertion">
+Why does the list reverse the file? Because we do `new_node->next = head; head = new_node;`. Imagine stacking plates: the last one you put down is the first one you pick up. This structure is called a **Stack**.
+</Callout>
+
 <ComparisonTable 
   title="Array vs Linked List"
   headers={["Feature", "Array", "Linked List"]}
@@ -125,6 +129,8 @@ int main(int argc, char **argv) {
         printf("%s", curr->text);
         curr = curr->next;
     }
+
+    // CHALLENGE: Add a final loop to 'free()' each node and its string!
 
     fclose(fp);
     return 0;

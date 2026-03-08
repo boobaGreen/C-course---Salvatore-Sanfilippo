@@ -31,6 +31,13 @@ typedef struct {
 Point p; // Much cleaner than 'struct Point p'
 ```
 
+<Callout type="info" title="Why not use typedef everywhere?">
+Salvatore notes that while convenient, overusing `typedef` for base types (e.g., `typedef int error_code`) can hide the nature of the data and make the code harder to read for those unfamiliar with your aliases. Use it wisely!
+</Callout>
+
+### Anonymous Structs
+Notice that in the `typedef` above, we didn't give the struct a name after the `struct` keyword. This is an **Anonymous Struct**: we only need the alias name `Point` to use it in our program.
+
 <ComparisonTable 
   title="Typedef: Before vs After"
   headers={["Without Typedef", "With Typedef", "Advantage"]}
@@ -46,6 +53,10 @@ Point p; // Much cleaner than 'struct Point p'
 ## The File API (stdio.h)
 
 In C, a file is seen as a **stream** of bytes. The standard library provides us with a pointer to a special structure called `FILE`.
+
+<Callout type="hacker" title="Opaque Types">
+The `FILE` type is the first example of an **Opaque Type** we encounter. We don't know (and shouldn't know) what's inside the `FILE` structure. We only use the pointer and the functions (`fopen`, `fread`, etc.) to manipulate it. This is design excellence: hiding internal complexity.
+</Callout>
 
 <Infographic 
   title="File Life Cycle"

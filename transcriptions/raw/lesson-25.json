@@ -1,0 +1,667 @@
+[
+  {
+    "start": 39.620000000000005,
+    "end": 47.58,
+    "text": " Vediamo dove siamo arrivati, io come promesso non guardo prima quello che devo fare perché"
+  },
+  {
+    "start": 47.58,
+    "end": 54.96,
+    "text": " se non sarebbe barare io vorrei capire anche fino a che punto il nostro toyfort funzionava"
+  },
+  {
+    "start": 57.800000000000004,
+    "end": 66.5,
+    "text": " appunto out program.tf ok riuscivamo a mettere questi oggetti dentro lo stack noi"
+  },
+  {
+    "start": 66.5,
+    "end": 72.72,
+    "text": " vabbiamo questa qui che si chiamava exec ma in realtà dovremmo cambiare nome a questa"
+  },
+  {
+    "start": 72.72,
+    "end": 78.74,
+    "text": " funzione poi l'exec la imprevederemo per ora chiamiamo la print object"
+  },
+  {
+    "start": 80.72,
+    "end": 91.58,
+    "text": " la nostra print object che dovrebbe funzionare in altre mani al diversa switch prg type"
+  },
+  {
+    "start": 93.56,
+    "end": 107.72,
+    "text": " anzi questo qui diventa object o print o type switch qua come si chiamavano queste"
+  },
+  {
+    "start": 108.96000000000001,
+    "end": 120.08,
+    "text": " tf object type list che è il caso che l'abbiamo implementato finora e qua ci va la break default"
+  },
+  {
+    "start": 122.54,
+    "end": 136.32,
+    "text": " e qua scriviamo il punto interrogativo a questa è una cosa molto interessante secondo me guardate"
+  },
+  {
+    "start": 136.32,
+    "end": 146.06,
+    "text": " quindi questo print object noi prima dobbiamo controllare a quals dobbiamo controllare"
+  },
+  {
+    "start": 148.34,
+    "end": 157.42,
+    "text": " io come mio stile personale il case non lo non faccio indendazione verso destra il case"
+  },
+  {
+    "start": 157.42,
+    "end": 164.66,
+    "text": " perché mi sembra solo spazio sprecato quindi lascio la switch e il case è nello stesso livello allora"
+  },
+  {
+    "start": 164.66,
+    "end": 168.9,
+    "text": " se praticamente questa funzione deve stampare questi oggetti ma la cosa interessante è che"
+  },
+  {
+    "start": 168.9,
+    "end": 176.52,
+    "text": " quando io stampo una lista in realtà guardate prende tutto gestiamo il caso di tf object type"
+  },
+  {
+    "start": 176.52,
+    "end": 192.18,
+    "text": " int break allora se un intero io devo fare quello che facevo qui ok stampo o di se invece una lista"
+  },
+  {
+    "start": 192.18,
+    "end": 199.18,
+    "text": " questo punto che la mia funzione è una generica print object io guardo qua quale è il tipo cioè"
+  },
+  {
+    "start": 199.18,
+    "end": 206.62,
+    "text": " estrago l'oggetto che io questa volta chiamo ele perché sono gli elementi della della mia del"
+  },
+  {
+    "start": 206.62,
+    "end": 214.96,
+    "text": " mio oggetto lista quindi qua ci va o quindi per ogni elemento del mio oggetto lista qua questo"
+  },
+  {
+    "start": 214.96,
+    "end": 220.58,
+    "text": " switch non mi serve più a niente guardate interessante qua basta metto una chiamata"
+  },
+  {
+    "start": 220.58,
+    "end": 226.08,
+    "text": " ricorsiva print object perché io qui voglio stampare tutti gli oggetti che ci sono dentro la lista"
+  },
+  {
+    "start": 226.08,
+    "end": 233.68,
+    "text": " ma estrago il primo elemento e lo stampo con print object qua dove scriverelle e metto spazio"
+  },
+  {
+    "start": 233.68,
+    "end": 239.04,
+    "text": " print object quando si sarà chiamata ricorsimamente in questo caso che una lista può solo interi"
+  },
+  {
+    "start": 239.04,
+    "end": 246.44,
+    "text": " entra in questo case stamp e fa break e torna è così via quindi stampo non getto o par altro poi"
+  },
+  {
+    "start": 246.44,
+    "end": 258.54,
+    "text": " stampo la parentesi chiusa a questo punto io tolgo però tolgo il new line perché posso avere"
+  },
+  {
+    "start": 258.54,
+    "end": 264.36,
+    "text": " liste dentro liste e non voglio che succedono così se io la stampo deve essere tutta di fila"
+  },
+  {
+    "start": 264.36,
+    "end": 274.52,
+    "text": " stampato l'oggetto non con il con il new line in mezzo qua mettiamo il break anche qui per pulizia"
+  },
+  {
+    "start": 274.52,
+    "end": 279.64,
+    "text": " è qui dove c'era lex che abbiamo scritto print object che di nuovo si trova su compila di"
+  },
+  {
+    "start": 279.64,
+    "end": 284.8,
+    "text": " compilare compila e funziona esattente come prima parte il fatto guardate questo quella z"
+  },
+  {
+    "start": 284.8,
+    "end": 289.86,
+    "text": " tashel siccome non c'è stato il new line finale lui te lo fa notare mettendoci qua questa"
+  },
+  {
+    "start": 289.86,
+    "end": 299.18,
+    "text": " percentuale invertita ma noi faremo print object printf metteremo il new line qui in questo caso"
+  },
+  {
+    "start": 299.18,
+    "end": 307.56,
+    "text": " specifico e abbiamo risolto così ora la nostra print object che è ricorsiva è una funzione più"
+  },
+  {
+    "start": 307.56,
+    "end": 313.94,
+    "text": " interessante e becquaccio scritto execute program poi noi lo implementeremo la nostra exec ma per"
+  },
+  {
+    "start": 313.94,
+    "end": 322.28,
+    "text": " ora vogliamo stampare questi oggetti perché stiamo facendo il parser a cui fix me release"
+  },
+  {
+    "start": 322.28,
+    "end": 332.98,
+    "text": " the parser per l'oggetto parsed here e parsed era list create compile eccetera eccetera ha in"
+  },
+  {
+    "start": 332.98,
+    "end": 342.74,
+    "text": " caso di errore di syntax error qui noi col parser che facciamo se è un numero fai questo else"
+  },
+  {
+    "start": 344.26000000000005,
+    "end": 351.38,
+    "text": " in realtà qualsiasi altra cosa la poi qua parseremo le string parseremo le list parseremo"
+  },
+  {
+    "start": 351.38,
+    "end": 360.12,
+    "text": " tutte le cose vogliamo parsare ma quando invece arriviamo qui che non è nessuno di come iniziano"
+  },
+  {
+    "start": 360.12,
+    "end": 364.44,
+    "text": " gli altri oggetti noi vogliamo parsare i simboli lo ricordate nel linguaggio di programmazione"
+  },
+  {
+    "start": 364.44,
+    "end": 370.44,
+    "text": " nostro uno può scrivere 5 5 più print questi sono simboli più print vedete non iniziano non"
+  },
+  {
+    "start": 370.44,
+    "end": 377.02,
+    "text": " sono ne string perché non iniziano con le virgolette non sono nient'altro e quindi devono essere"
+  },
+  {
+    "start": 377.02,
+    "end": 386.08,
+    "text": " necessariamente tra l'altro qua c'è un discorso qua c'è un errore vi dico perché un numero"
+  },
+  {
+    "start": 387.56,
+    "end": 398.04,
+    "text": " può sì iniziare con un numero o iniziare col meno ma deve o iniziare col numero o iniziare con"
+  },
+  {
+    "start": 398.04,
+    "end": 424.76,
+    "text": " un meno seguito da da un numero esatto spettere qua c'è l'osco ecco quindi iniziano un numero o"
+  },
+  {
+    "start": 425.54,
+    "end": 431.06,
+    "text": " iniziare con un meno ma questo meno è seguito da un numero perché altrimenti il nostro meno"
+  },
+  {
+    "start": 431.8,
+    "end": 438.3,
+    "text": " cercherebbe il problema di fare il parsing come un numero io non posso scrivere 5 5 meno come"
+  },
+  {
+    "start": 438.3,
+    "end": 450.98,
+    "text": " simbolo a me questa cosa non mi piace parsenamber e il o è uguale pars symbol and parser"
+  },
+  {
+    "start": 452.68,
+    "end": 460.96,
+    "text": " ora dobbiamo implementare la nostra pars symbol quindi qua abbiamo la parsenamber e qua mettiamo"
+  },
+  {
+    "start": 460.96,
+    "end": 476.3,
+    "text": " la pars symbol tf object pars symbol tf parser parser allora quali sono i caratteri possibili in"
+  },
+  {
+    "start": 476.3,
+    "end": 489.96,
+    "text": " un simbolo con cias sim cias definiamoli qua ma noi non abbiamo indotto const quindi però lo tolgo"
+  },
+  {
+    "start": 489.96,
+    "end": 496.96,
+    "text": " tanto non servono in questo caso allora noi vogliamo che siano più o meno queste no che ci"
+  },
+  {
+    "start": 496.96,
+    "end": 509.28,
+    "text": " servono per per altri motivi questi qua che non c'è motivo a be questi li riserviamo per"
+  },
+  {
+    "start": 509.28,
+    "end": 521.98,
+    "text": " usi futuri quindi più o meno per diviso percentuale va bene poi ne aggiungeremo altri che per ora"
+  },
+  {
+    "start": 521.98,
+    "end": 531.16,
+    "text": " ce ne freghiamo e poi oltre a questi qua tutti gli altri che sono diciamo i caratteri normali"
+  },
+  {
+    "start": 531.16,
+    "end": 544.36,
+    "text": " alfano meri is alfa is alfa is alfa è la mia funzione che dato come intero un carattere a"
+  },
+  {
+    "start": 544.36,
+    "end": 553.88,
+    "text": " schemi di torna se è un carattere alfanumerico cioè un carattere dell'alfabeto è praticamente"
+  },
+  {
+    "start": 553.88,
+    "end": 560.26,
+    "text": " regolendo di chiamare is upper or is lover una lettera maiuscola una lettera miuscola quindi"
+  },
+  {
+    "start": 560.26,
+    "end": 573.92,
+    "text": " devo usare questo roba qua quindi io faccio una cosa while while a luogo alte copiamo qua"
+  },
+  {
+    "start": 574.6600000000001,
+    "end": 581.24,
+    "text": " anzico abbiamo anche qui che ci prendiamo lo start lo start è questo fin quando"
+  },
+  {
+    "start": 585.82,
+    "end": 592.56,
+    "text": " noi in realtà dobbiamo fare una cosa più figa facciamo una funzione che chiamiamo is"
+  },
+  {
+    "start": 594.64,
+    "end": 599.7,
+    "text": " simbol caratter in the chi"
+  },
+  {
+    "start": 603.54,
+    "end": 613.66,
+    "text": " in the preten to if the character si is one of the"
+  },
+  {
+    "start": 618.4000000000001,
+    "end": 630.32,
+    "text": " caracters acceptable for our symbols ok e"
+  },
+  {
+    "start": 633.46,
+    "end": 649.22,
+    "text": " if quindi questo qui deve ritornare vero se is alfa di si or allora pausiamo un trucco guardate"
+  },
+  {
+    "start": 649.22,
+    "end": 657.68,
+    "text": " che c'è da una cosa la funzione str car cerca un carattere dentro una stringa e ritornala"
+  },
+  {
+    "start": 657.68,
+    "end": 666.28,
+    "text": " il puntatore alla stringa dove questo carattere è stato trovato o null ok allora noi che facciamo"
+  },
+  {
+    "start": 666.28,
+    "end": 675.68,
+    "text": " siccome noi abbiamo definito i nostri caratteri questo questa è la nostra stringa sim ciasc e io"
+  },
+  {
+    "start": 675.68,
+    "end": 685.78,
+    "text": " ci devo cercare dentro c se lei mi ha tornato null non va bene quindi notte i qual null negando"
+  },
+  {
+    "start": 685.78,
+    "end": 693.82,
+    "text": " questa condizione lo vi faccio vedere che succede quindi questo qua ritorna se i is alfa si ritornati"
+  },
+  {
+    "start": 693.82,
+    "end": 701.9,
+    "text": " e quindi è un carattere cetabbi altrimenti ritorna trio se str car cercando ci dentro il nostro"
+  },
+  {
+    "start": 701.9,
+    "end": 710.58,
+    "text": " cerset non ritorna null e quindi ha trovato il carattere ci dentro la stringa sim ciasc ok questo"
+  },
+  {
+    "start": 710.58,
+    "end": 717.86,
+    "text": " qui non è un modo da neofiti di scrivere questo pezzo di programma ma è come lo scrivo io"
+  },
+  {
+    "start": 717.86,
+    "end": 724.74,
+    "text": " naturalmente ora però lo rendiamo più facile però sappiate che così che diciamo un programmatore"
+  },
+  {
+    "start": 724.74,
+    "end": 737.34,
+    "text": " esperto si esprimerebbe ma noi possiamo fare allora if is alfa di si per tanno uno else if"
+  },
+  {
+    "start": 738.3199999999999,
+    "end": 748.18,
+    "text": " str car che poi questa notte quala null si può anche omettere ma noi lo lasciamo per chiarezza"
+  },
+  {
+    "start": 749.8199999999999,
+    "end": 761.62,
+    "text": " retar uno else retar zero quindi se praticamente è anche usiamo l'indendazione anche l'indendazione"
+  },
+  {
+    "start": 761.62,
+    "end": 772.82,
+    "text": " un po da diciamo a che r consumato dalla programmazione quindi mettiamo c pure le"
+  },
+  {
+    "start": 772.82,
+    "end": 780.88,
+    "text": " varende si rendiamo tutto ciò più leggibile allora se uno carattere alfomereco ritorno"
+  },
+  {
+    "start": 780.88,
+    "end": 789.36,
+    "text": " uno 6 str car trova ci dentro i simboli ammesti ritorno uno altrimenti ritorno zero ora che"
+  },
+  {
+    "start": 789.36,
+    "end": 800.16,
+    "text": " abbiamo questo questo modo di diciamo dire se è un simbolo accett se è un carattere"
+  },
+  {
+    "start": 800.16,
+    "end": 805.26,
+    "text": " accettabile dai nostri simboli qua diciamo se praticamente non la riusciamo arrivati al"
+  },
+  {
+    "start": 805.26,
+    "end": 811.8,
+    "text": " terminatore null vi ricordo tra l'altro che anche questo è ridondante noi lo lasciamo per rendere"
+  },
+  {
+    "start": 811.8,
+    "end": 818.52,
+    "text": " chiaro quello che vogliamo fare ma già questo is symbol char fallirà se c è zero se c è il null"
+  },
+  {
+    "start": 818.52,
+    "end": 823.94,
+    "text": " term non lo troverà da nessuna parte ritornerà per zero sappiate lo noi lo lasciamo solo come una"
+  },
+  {
+    "start": 823.94,
+    "end": 834.14,
+    "text": " forma di documentazione quindi why il eccetera eccetera qui che facevamo incrementavamo"
+  },
+  {
+    "start": 836.5000000000001,
+    "end": 846.76,
+    "text": " il allora questo qui ce lo copiamo tutto perché è assolutamente identico quindi qua incrementiamo"
+  },
+  {
+    "start": 846.76,
+    "end": 858.02,
+    "text": " fino a quando il carattere accettabile incrementiamo qui char e è uguale a questo qua"
+  },
+  {
+    "start": 859.56,
+    "end": 865.48,
+    "text": " no abbiamo noi non ci serve questo e qui a questo punto non ci serve più semplicemente il numero"
+  },
+  {
+    "start": 865.48,
+    "end": 872.42,
+    "text": " di caratteri che noi abbiamo trovato è dove siamo arrivati meno start vi ricordate la"
+  },
+  {
+    "start": 872.42,
+    "end": 878.4,
+    "text": " matematica di puntatori a questo punto noi possiamo ritornare retarna qual era la funzione"
+  },
+  {
+    "start": 878.4,
+    "end": 889.32,
+    "text": " quella che mi creava un simbolo create symbol object che chiamava create string object qua c'è un"
+  },
+  {
+    "start": 889.32,
+    "end": 899.06,
+    "text": " problema però qua si assume che noi ci prendiamo l'onere di allocare il puntatore s eccetera eccetera"
+  },
+  {
+    "start": 899.3,
+    "end": 905.8,
+    "text": " perché si è attraverso direttamente questo ma noi in realtà di fare sta cosa non ce ne sbatte"
+  },
+  {
+    "start": 905.8,
+    "end": 913.22,
+    "text": " niente se ne sarebbe vedere la funzione quindi questa qui deve fare x malloc l'en più uno quindi"
+  },
+  {
+    "start": 913.22,
+    "end": 921.92,
+    "text": " alloca per noi la memoria se è dalla lunghezza scusate e poi in questo pezzo di memoria che"
+  },
+  {
+    "start": 921.92,
+    "end": 928.08,
+    "text": " noi abbiamo allocato che ora è puntato da pointer ci andiamo a copiare s per la lunghezza"
+  },
+  {
+    "start": 928.08,
+    "end": 940.58,
+    "text": " l'en e poi ci mettiamo anche il null term il null term uno lo scrive a zero uno lo scrive così"
+  },
+  {
+    "start": 940.58,
+    "end": 945.6,
+    "text": " non cambia un bifero ma scrive lo vuole a zero più da che erano anche perché c'è qualcuno che"
+  },
+  {
+    "start": 945.6,
+    "end": 954.34,
+    "text": " ti dirà ma non è il null term dici non è la stessa cosa per lo standard ci ok credo che ho fatto"
+  },
+  {
+    "start": 954.34,
+    "end": 963.48,
+    "text": " bene poi si vedrà comunque mem copy ve lo ricordate copia dal puntatore source al puntatore"
+  },
+  {
+    "start": 963.48,
+    "end": 971.32,
+    "text": " destinazione per il numero di byte che volete mem copy è fondamentale in ci perché copiare memoria da"
+  },
+  {
+    "start": 971.32,
+    "end": 978.34,
+    "text": " un indirizzo di memoria un altro che una cooperazione brutalmente abbastolivello in ci è la vita è"
+  },
+  {
+    "start": 978.34,
+    "end": 983.4,
+    "text": " assolutamente fondamentale allora ma noi vorremmo usare questa create symbol object che però poi"
+  },
+  {
+    "start": 984.0,
+    "end": 991.26,
+    "text": " va a chiamare create string object quindi quando noi sappiamo praticamente quando è lungo"
+  },
+  {
+    "start": 991.26,
+    "end": 1001.18,
+    "text": " sto simbolo e da dove inizia lo sappiamo ritorniamo create symbol object start virgola l'en questo"
+  },
+  {
+    "start": 1001.18,
+    "end": 1009.26,
+    "text": " non è più un num l'en ma l'en anche qui potremmo evitare questa variabile locale scrivere qui"
+  },
+  {
+    "start": 1009.26,
+    "end": 1016.28,
+    "text": " parser p ma invece così il codice è documentato dallo stesso nome della variabile d'appoggio che"
+  },
+  {
+    "start": 1016.28,
+    "end": 1026.6,
+    "text": " noi usiamo e quindi a noi ci piace questa cosa qua allora pars symbol noi già lo chiamiamo qui a"
+  },
+  {
+    "start": 1026.6,
+    "end": 1033.72,
+    "text": " questo punto in realtà però andiamo a ripristinare la situazione di prima che else o uguale al null"
+  },
+  {
+    "start": 1033.72,
+    "end": 1040.38,
+    "text": " perché in realtà abbiamo fatto che non tutti i simboli non tutti i caratteri sono caratteri"
+  },
+  {
+    "start": 1040.38,
+    "end": 1063.7,
+    "text": " validi per iniziare con un simbolo quindi qua facciamo else if is symbol char di parser p di"
+  },
+  {
+    "start": 1063.7,
+    "end": 1072.18,
+    "text": " fare il parsing del simbolo esatto in questo modo evitiamo anche la codepad qui in cui il"
+  },
+  {
+    "start": 1072.18,
+    "end": 1077.6,
+    "text": " simbolo è completamente vuoto perché il primo carattere già non è valido ci evitiamo un sacco"
+  },
+  {
+    "start": 1077.6,
+    "end": 1084.18,
+    "text": " di bordelli e quindi questa cosa mi piace quando noi andiamo invece a stampare le cose quando troviamo"
+  },
+  {
+    "start": 1084.18,
+    "end": 1095.32,
+    "text": " un simbolo type simbolo dobbiamo essere in grado di stampare il simbolo come lo stampiamo"
+  },
+  {
+    "start": 1095.32,
+    "end": 1103.76,
+    "text": " sto simbolo ma per simbolo è facile null termine null termine ed la stringa quindi è o str punto"
+  },
+  {
+    "start": 1103.76,
+    "end": 1116.76,
+    "text": " pointer si chiama così si str punto pointer se uno danno mio vi poi si ritrova meglio ok"
+  },
+  {
+    "start": 1116.76,
+    "end": 1125.86,
+    "text": " allora da nuovizione vediamo se combina qualcosa qualcosa sì ma 146 qua è sbagliato while"
+  },
+  {
+    "start": 1127.8799999999999,
+    "end": 1139.3,
+    "text": " parser p di zero e non ci ok allora noi prima vamo il parsing questo programma già lo sappiamo"
+  },
+  {
+    "start": 1139.3,
+    "end": 1147.58,
+    "text": " fare ma qua si io scrivo più print esattamente e questi sono simboli cioè ne possiamo accorgere"
+  },
+  {
+    "start": 1147.61,
+    "end": 1154.51,
+    "text": " da una cosa che questi sono dei simboli reali guardate quando stampiamo un simbolo"
+  },
+  {
+    "start": 1156.83,
+    "end": 1165.85,
+    "text": " mettiamo i comi come prefisso la piccia per un attimo esatto guardate sono prefissi"
+  },
+  {
+    "start": 1165.85,
+    "end": 1172.19,
+    "text": " dall'appice quindi praticamente la nostra funzione la più generica stampa qualsiasi oggetto io gli"
+  },
+  {
+    "start": 1172.19,
+    "end": 1178.21,
+    "text": " passi se è una lista ricorsivamente ve lo ricordate questo è importantissima la ricorsione"
+  },
+  {
+    "start": 1178.21,
+    "end": 1184.41,
+    "text": " non è una roba tipo da classe d'informatica in cui il professore vi fa della ricorsione"
+  },
+  {
+    "start": 1184.41,
+    "end": 1191.19,
+    "text": " fondamentale per programma ring per fare un botto di cose la soluzione più semplice è quella"
+  },
+  {
+    "start": 1191.19,
+    "end": 1198.01,
+    "text": " ricorsiva infatti qua noi stiamo usando print object ricorsivamente è la cosa funziona bene"
+  },
+  {
+    "start": 1198.01,
+    "end": 1203.51,
+    "text": " poi vedrete quando implementeremo il parsing delle liste possiamo stampare liste anidate"
+  },
+  {
+    "start": 1203.51,
+    "end": 1210.75,
+    "text": " della print object si chiama diverse volte anidata stampa l'eccellente è così via bene bene bene"
+  },
+  {
+    "start": 1210.75,
+    "end": 1216.65,
+    "text": " allora noi ci vediamo la prossima volta e la prossima volta visto che ora abbiamo abbiamo"
+  },
+  {
+    "start": 1216.65,
+    "end": 1224.89,
+    "text": " dei valori immediati abbiamo dei simboli sapete che significa che significa che significa che noi"
+  },
+  {
+    "start": 1224.89,
+    "end": 1230.55,
+    "text": " possiamo iniziare a eseguire i programmi e possiamo effettivamente implementare la nostra"
+  },
+  {
+    "start": 1230.55,
+    "end": 1236.89,
+    "text": " exec tra l'altro possiamo anche implementare la print facilmente perché abbiamo print object che"
+  },
+  {
+    "start": 1236.89,
+    "end": 1240.05,
+    "text": " ci servirà per la print bene alla prossima allora ciao"
+  }
+]

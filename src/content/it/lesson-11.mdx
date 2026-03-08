@@ -66,6 +66,19 @@ Esempio col numero `0x11223344`:
   ]}
 />
 
+<Callout type="info" title="Perché Little Endian?">
+Anche se il Big Endian sembra più intuitivo per noi umani (si legge da sinistra a destra come un numero decimale), il **Little Endian** è spesso preferito dai processori perché permette di trattare un numero a 32-bit come uno a 8-bit semplicemente leggendo il primo byte, senza dover calcolare l'offset della fine del numero.
+</Callout>
+
+### Lo Swap dei Puntatori: Efficienza Pura
+Salvatore ci mostra un trucco fondamentale per le simulazioni (come il Game of Life): invece di copiare migliaia di byte dalla "nuova griglia" alla "vecchia griglia" a ogni turno, scambiamo semplicemente i due **indirizzi di memoria**.
+```c
+char *temp = old_ptr;
+old_ptr = new_ptr;
+new_ptr = temp;
+```
+È un'operazione istantanea che non dipende dalla dimensione dei dati!
+
 ## Stringhe C vs Stringhe Prefisse
 
 Fino ad ora abbiamo usato le classiche stringhe C (note come *Null-terminated strings*). Finiscono col byte `0x00`.

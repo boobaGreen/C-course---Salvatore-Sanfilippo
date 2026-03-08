@@ -134,9 +134,22 @@ int main() {
   language="c" 
 />
 
-<Callout type="hacker" title="Reference Counting (Teaser)">
-Towards the end of the lesson, Salvatore introduces an advanced concept: adding **another 4 bytes** in the header for the `ref_count`. This allows multiple variables to point to the same string without duplicating it in memory. When a variable "stops" using it, it decrements the counter. Only when the counter reaches zero is `free` actually called.
+<Callout type="hacker" title="Reference Counting">
+Salvatore introduces a fundamental technique for managing shared memory: **Reference Counting**. Instead of duplicating a string every time a new pointer references it, we increment a counter in the header.
+- When adding a reference: `count++`
+- When removing a reference: `count--`
+- When `count == 0`: actually call `free()`.
 </Callout>
+
+### Towards Structs
+Manually manipulating offsets (like `s - 4` or `s - 8`) is "fragile" and error-prone. This is why Salvatore introduces **Structs**: a way to group different data (length, refcount, text) into a single logical entity.
+```c
+struct ps_string {
+    uint32_t len;
+    uint32_t ref_count;
+    char buf[]; // Flexible Array Member (C99)
+};
+```
 
 ---
 

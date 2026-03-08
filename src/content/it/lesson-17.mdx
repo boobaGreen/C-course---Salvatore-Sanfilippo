@@ -15,8 +15,33 @@ In questa lezione Salvatore ci porta nel "cuore pulsante" della memoria. Imparer
 <KeyConcepts concepts={[
   { title: "Visualizzazione Raw", description: "Implementare xdump per ispezionare la memoria byte per byte, rivelando segreti come padding e endianness." },
   { title: "Memset e Inizializzazione", description: "Usare memset per 'piallare' la memoria e garantire che non rimangano dati sporchi." },
-  { title: "Operatore Ternario", description: "Una forma contratta di if-else che rende il codice più elegante e compatto." }
+  { title: "Puntatore vs Array", description: "Capire la differenza fisica tra un puntatore (indirizzo a 8 byte) e un array (dati contigui) dentro una struct." },
+  { title: "Ottimizzazione SDS", description: "Come Redis risparmia memoria usando header di diverse dimensioni (5-bit, 8-bit, 16-bit)." }
 ]} />
+
+## La Sfida del Layout
+
+Salvatore risolve un grande dubbio: perché usare `char str[]` invece di `char *str`? 
+
+<ComparisonTable 
+  title="Puntatore vs Flexible Array"
+  headers={["Caratteristica", "char *str", "char str[]"]}
+  rows={[
+    ["Allocazione", "Due blocchi separati", "Un unico blocco contiguo"],
+    ["Accesso", "Doppio salto in memoria", "Accesso diretto (offset fisso)"],
+    ["Overhead", "8 byte per il puntatore", "0 byte (è solo un'etichetta)"],
+    ["Cache Località", "Bassa (i dati sono sparsi)", "Alta (testo subito dopo l'header)"]
+  ]}
+/>
+
+<Infographic 
+  title="Layout di Memoria a Confronto"
+  description="Visualizzazione dei due approcci nel RAM."
+  items={[
+    { label: "Approccio Pointer", value: "[Header] ... [Intervallo] ... [Testo]", color: "amber" },
+    { label: "Approccio Flexible", value: "[Header][Testo]", color: "emerald" }
+  ]}
+/>
 
 ## Implementare xdump
 

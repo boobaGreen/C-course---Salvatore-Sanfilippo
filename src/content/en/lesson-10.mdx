@@ -36,7 +36,14 @@ A pointer is also a variable, and as such, it has its own memory address. We can
 - `int *y = &x;` (y points to x)
 - `int **z = &y;` (z points to y)
 
-All pointers (to `char`, `int`, or other pointers) have the **same size** (8 bytes on 64-bit systems) because they always contain a memory address.
+<Callout type="info" title="Universal Size">
+All pointers (to `char`, `int`, or other pointers) have the **same size** (8 bytes on 64-bit systems) because they always contain a number representing a memory address. The difference in type (`int*` vs `char*`) only serves to tell the compiler "how much space to read" when we dereference it.
+</Callout>
+
+### Casting: Changing Memory Glasses
+Salvatore shows that in C we can "lie" to the compiler using **Casting**. If we have an array of `char`, we can convince C that it's an array of `short` (16-bit integers).
+`short *p = (short *)my_string;`
+This way, `p[0]` will read **two bytes** at once instead of just one. It's a powerful but dangerous operation, typical of systems programming.
 
 <ComparisonTable 
   title="Pointers vs Arrays"
@@ -62,6 +69,13 @@ If you try to access a memory address that doesn't belong to your program (e.g.,
 ## Strings and Pointers
 
 In C, strings are arrays of `char` terminated by the special character `\0` (null terminator). We can iterate through a string by incrementing a pointer until we hit zero.
+
+<Callout type="hacker" title="Pointer Arithmetic">
+When you write `p++` on an `int *p`, the address doesn't increase by 1, but by `sizeof(int)` (usually 4 bytes). C automatically calculates the necessary "skip" to reach the next element.
+- `char *p; p++` -> +1 byte
+- `short *p; p++` -> +2 bytes
+- `int *p; p++` -> +4 bytes
+</Callout>
 
 <CodeEditor 
   initialCode={`#include <stdio.h>
