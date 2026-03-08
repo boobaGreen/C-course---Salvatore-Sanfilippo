@@ -1,0 +1,190 @@
+# Appendix: Random Variables and Further Insights
+
+In this supplementary lesson, we explore some concepts that Salvatore touches on marginally during the course but are fundamental for every C programmer: handling randomness and an introduction to the "block-based" graphics of the ZX Spectrum.
+
+<VideoEmbed videoId="HzBqda0Jg3E" title="Exercises and Random Variables" />
+
+## Generating Luck: `rand()` and `srand()`
+
+In C, the `rand()` function generates a **pseudorandom** number between 0 and `RAND_MAX`.
+
+### The Seed Problem
+
+If you run a program using `rand()` multiple times, you will get **the same numbers every time**. This is because the computer follows a deterministic algorithm. To change the sequence, we must "plant" a different seed each time using `srand()`.
+
+<CodeEditor 
+  initialCode={`#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+int main() {
+    // Initialize the seed with the current time
+    srand(time(NULL));
+    
+    // Generate a number between 0 and 9
+    int random_num = rand() % 10;
+    
+    printf("Lucky number: %d\\n", random_num);
+    return 0;
+}`}
+  language="c"
+/>
+
+<Callout type="warning" title="Not for Security!">
+`rand()` is not suitable for cryptography. If you need to generate security keys, you need specialized libraries or system files like `/dev/urandom`.
+</Callout>
+
+---
+
+## Teaser: The ZX Spectrum Architecture
+
+In the upcoming lessons (30 and 31), Salvatore will use C to manipulate images intended for the **ZX Spectrum**, a historic computer from the 80s.
+
+<Infographic 
+  title="Spectrum Graphics"
+  type="process"
+  data={[
+    { label: "8x8 Blocks", detail: "The screen is divided into 8 by 8 pixel cells" },
+    { label: "Color Limitation", detail: "Each block can only have 2 colors (Ink and Paper)" },
+    { label: "Bitplane", detail: "Pixels are bits: 1 (on), 0 (off)" }
+  ]}
+/>
+
+<Callout type="info" title="Why study the Spectrum today?">
+Learning to manage images with these extreme limitations is the perfect exercise for mastering bitwise operators (`&`, `|`, `<<`) and efficient buffer management in C.
+</Callout>
+
+---
+
+## Exercises
+
+<Quiz 
+  questions={[
+    {
+      question: "What is the upper limit of rand()?",
+      options: [
+        "100",
+        "1,000,000",
+        "The constant RAND_MAX (at least 32767)",
+        "Infinity"
+      ],
+      correctAnswer: 2,
+      explanation: "RAND_MAX is defined in stdlib.h and depends on the implementation (often 2^31-1 on modern systems)."
+    },
+    {
+      question: "What happens if you never call srand()?",
+      options: [
+        "The program crashes",
+        "The same default seed (1) is generated at every launch",
+        "rand() always returns 0",
+        "The operating system blocks the program"
+      ],
+      correctAnswer: 1,
+      explanation: "Without srand(), the sequence of numbers will be identical at each execution, useful for debugging but not for 'real' randomness."
+    },
+    {
+      question: "Why do we use time(NULL) in srand()?",
+      options: [
+        "Because it is a number that changes every second",
+        "Because it is required by the compiler",
+        "To make the program faster",
+        "To measure the speed of rand()"
+      ],
+      correctAnswer: 0,
+      explanation: "By using the current timestamp (epoch time), we almost always guarantee a different seed at each launch."
+    },
+    {
+      question: "In the context of the ZX Spectrum, what is an 8x8 block?",
+      options: [
+        "A graphics card",
+        "The basic unit for managing color and pixels",
+        "A C command",
+        "A log file"
+      ],
+      correctAnswer: 1,
+      explanation: "The Spectrum architecture managed color properties in blocks of 8x8 pixels (64 bits)."
+    },
+    {
+      question: "Which C operator would you use to extract 1 bit from a byte?",
+      options: [
+        "+",
+        "Bitwise AND (&)",
+        "Logical OR (||)",
+        "Modulo (%)"
+      ],
+      correctAnswer: 1,
+      explanation: "For example, `byte & (1 << n)` allows you to determine if the n-th bit is on."
+    }
+  ]} 
+/>
+
+<Quiz 
+  title="Hacker Challenge"
+  questions={[
+    {
+      question: "If rand() % 6 generates a number from 0 to 5, how do I get a dice roll (1-6)?",
+      options: [
+        "(rand() % 6) + 1",
+        "rand() % 7",
+        "rand(1, 6)",
+        "It cannot be done with rand"
+      ],
+      correctAnswer: 0,
+      explanation: "By adding 1, we translate the interval [0, 5] to [1, 6]."
+    },
+    {
+      question: "What is meant by 'Indeterminism' in a Garbage Collector?",
+      options: [
+        "That we don't know how many files there are",
+        "That we don't know exactly WHEN memory will be freed",
+        "That the program never ends",
+        "That pointers are random"
+      ],
+      correctAnswer: 1,
+      explanation: "Unlike Reference Counting, the GC acts according to its own heuristics, often causing unexpected pauses."
+    },
+    {
+      question: "How many bytes make up a monochromatic 8x8 block (1 bit per pixel)?",
+      options: [
+        "1 byte",
+        "8 bytes",
+        "64 bytes",
+        "1024 bytes"
+      ],
+      correctAnswer: 1,
+      explanation: "8 rows of 8 bits each = 64 bits = 8 bytes."
+    }
+  ]} 
+/>
+
+<HackerTerminal 
+  challenges={[
+    {
+      id: "rand-mod-en",
+      title: "Range Limit",
+      description: "Write the expression to get a random number between 0 and 99 (inclusive).",
+      commands: ["rand() % 100"],
+      expectedOutput: "",
+      hints: ["Use the modulo operator."]
+    },
+    {
+      id: "time-header-en",
+      title: "Time is Money",
+      description: "Which standard header is needed to use the 'time()' function?",
+      commands: ["time.h"],
+      expectedOutput: "time.h",
+      hints: ["Starts with 't' and ends with '.h'."]
+    },
+    {
+      id: "spectrum-math-en",
+      title: "Bit Count",
+      description: "How many 8x8 cells are there on a 256x192 screen?",
+      commands: ["768"],
+      expectedOutput: "768",
+      hints: ["(256/8) * (192/8) = ?"]
+    }
+  ]}
+/>
+
+### Conclusion
+This appendix closes the "fundamentals" of the course. Now we are ready to tackle the final lessons on image manipulation and creating software that interacts with hardware and the limitations of the past. Go for it!

@@ -204,4 +204,32 @@ export const lessons = [
         videoId: 'nHzlRqPnlrE',
         duration: '28:50',
     },
+    {
+        id: 29,
+        slug: 'lesson-29',
+        title: { it: 'Lezione 29: ToyFort, il Primo Programma', en: 'Lesson 29: ToyFort, the First Program' },
+        videoId: 'nHzlRqPnlrE',
+        duration: '43:34',
+    },
+    {
+        id: 30,
+        slug: 'special-ref-counting',
+        title: { it: 'Speciale: Deep Dive Ref Counting', en: 'Special: Ref Counting Deep Dive' },
+        videoId: 'QdZc1JV_oCw',
+        duration: '25:00',
+    },
+    {
+        id: 31,
+        slug: 'special-bst',
+        title: { it: 'Speciale: Algoritmi a Memoria (BST)', en: 'Special: Algorithms from Memory (BST)' },
+        videoId: 'soiBgJjAmP8',
+        duration: '35:00',
+    },
+    {
+        id: 32,
+        slug: 'special-random-vars',
+        title: { it: 'Speciale: Variabili Casuali', en: 'Special: Random Variables' },
+        videoId: 'HzBqda0Jg3E',
+        duration: '12:00',
+    },
 ];

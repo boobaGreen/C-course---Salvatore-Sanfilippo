@@ -1,0 +1,234 @@
+# Speciale: La Bellezza dei Binary Search Trees (BST)
+
+In questa lezione speciale, registrata a mezzanotte in un momento di "nostalgia algoritmica", Salvatore ci mostra come un bravo programmatore possa ricostruire strutture dati fondamentali a memoria, partendo solo dai concetti base.
+
+<VideoEmbed videoId="soiBgJjAmP8" title="Speciale: Ricostruire algoritmi a memoria" />
+
+## Cos'è un Albero Binario di Ricerca?
+
+Un **Binary Search Tree** è una struttura dati dove ogni nodo ha al massimo due figli (sinistro e destro). La proprietà fondamentale è:
+- I valori a **sinistra** sono sempre **minori** del nodo attuale.
+- I valori a **destra** sono sempre **maggiori** del nodo attuale.
+
+<BSTVisualizer 
+  title="Esempio di Albero BST"
+  data={{
+    value: 20,
+    left: {
+      value: 10,
+      left: { value: 5 },
+      right: { value: 15 }
+    },
+    right: {
+      value: 30,
+      right: { value: 40 }
+    }
+  }}
+/>
+
+---
+
+## L'Implementazione in C
+
+Salvatore definisce la struttura base in modo molto pulito:
+
+<CodeEditor 
+  initialCode={`struct node {
+    int val;
+    struct node *left;
+    struct node *right;
+};
+
+// Creazione di un nuovo nodo
+struct node *create_node(int val) {
+    struct node *n = malloc(sizeof(struct node));
+    n->val = val;
+    n->left = n->right = NULL;
+    return n;
+}`}
+  language="c"
+/>
+
+### L'Inserimento (Iterativo)
+
+Per inserire un valore, "scendiamo" nell'albero confrontando il valore con ogni nodo finché non troviamo un posto vuoto (`NULL`).
+
+<CodeEditor 
+  initialCode={`struct node *insert(struct node *root, int val) {
+    if (root == NULL) return create_node(val);
+    struct node *curr = root;
+    while (1) {
+        if (val < curr->val) {
+            if (curr->left == NULL) {
+                curr->left = create_node(val);
+                break;
+            }
+            curr = curr->left;
+        } else {
+            if (curr->right == NULL) {
+                curr->right = create_node(val);
+                break;
+            }
+            curr = curr->right;
+        }
+    }
+    return root;
+}`}
+  language="c"
+/>
+
+---
+
+## L'Eleganza della Ricorsione: Stampa Ordinata
+
+Il momento più magico della lezione è quando Salvatore mostra come stampare i valori dell'albero dal più piccolo al più grande con pochissime righe di codice. Si chiama **In-order Traversal**.
+
+<CodeEditor 
+  initialCode={`void print_sorted(struct node *root) {
+    if (root == NULL) return;
+    
+    print_sorted(root->left);   // 1. Vai a sinistra (valori minori)
+    printf("%d ", root->val);   // 2. Stampa il nodo attuale
+    print_sorted(root->right);  // 3. Vai a destra (valori maggiori)
+}`}
+  language="c"
+/>
+
+<Callout type="info" title="L'algoritmo emerge dalla struttura">
+Salvatore sottolinea come non serva imparare il codice a memoria: se capisci che i valori piccoli sono a sinistra, la funzione ricorsiva "si scrive da sola". È l'eleganza dell'informatica.
+</Callout>
+
+---
+
+## Esercitazione
+
+<Quiz 
+  questions={[
+    {
+      question: "Qual è la proprietà fondamentale di un BST?",
+      options: [
+        "Ogni nodo ha 10 figli",
+        "A sinistra i minori, a destra i maggiori",
+        "Tutti i valori sono uguali",
+        "L'albero è sempre bilanciato"
+      ],
+      correctAnswer: 1,
+      explanation: "Questa proprietà permette di cercare un elemento in tempo logaritmico O(log N)."
+    },
+    {
+      question: "Cosa fa la funzione print_sorted se l'albero è vuoto (NULL)?",
+      options: [
+        "Crasha il programma",
+        "Stampa 0",
+        "Ritorna immediatamente senza fare nulla",
+        "Formatta il disco"
+      ],
+      correctAnswer: 2,
+      explanation: "Il controllo `if (root == NULL) return;` è il caso base fondamentale della ricorsione."
+    },
+    {
+      question: "Quale funzione usiamo per allocare un nuovo nodo?",
+      options: [
+        "free()",
+        "malloc()",
+        "realloc()",
+        "printf()"
+      ],
+      correctAnswer: 1,
+      explanation: "malloc permette di riservare lo spazio nella heap per un nuovo nodo."
+    },
+    {
+      question: "In che ordine vengono stampati i valori con print_sorted?",
+      options: [
+        "Casuale",
+        "Decrescente",
+        "Crescente (Ordinato)",
+        "Solo i numeri dispari"
+      ],
+      correctAnswer: 2,
+      explanation: "Navigando prima a sinistra, poi il centro, poi a destra, otteniamo l'ordine naturale."
+    },
+    {
+      question: "Cosa succede se inseriamo valori già ordinati (es. 1 2 3 4 5) in un BST?",
+      options: [
+        "L'albero diventa un cerchio",
+        "L'albero degenera in una lista linkata (molto deep)",
+        "L'albero esplode",
+        "Non cambia nulla"
+      ],
+      correctAnswer: 1,
+      explanation: "In questo caso perdiamo il vantaggio della ricerca veloce perché l'albero diventa sbilanciato verso destra."
+    }
+  ]} 
+/>
+
+<Quiz 
+  title="Hacker Challenge"
+  questions={[
+    {
+      question: "Qual è la complessità temporale di ricerca in un BST bilanciato?",
+      options: [
+        "O(1)",
+        "O(N)",
+        "O(log N)",
+        "O(N^2)"
+      ],
+      correctAnswer: 2,
+      explanation: "Dimezziamo lo spazio di ricerca a ogni passo, come in una ricerca binaria."
+    },
+    {
+      question: "Cosa sono i 'Frutti Antichi' citati da Salvatore a fine lezione?",
+      options: [
+        "Varietà di pesche catanesi chiamate Sberge",
+        "Algoritmi obsoleti",
+        "Bug del compilatore C",
+        "Nomi di variabili"
+      ],
+      correctAnswer: 0,
+      explanation: "È un riferimento curioso di Salvatore a fine video sulla bontà dei prodotti naturali non selezionati industrialmente."
+    },
+    {
+      question: "Come si chiama l'albero che Salvatore usa spesso al posto dei BST?",
+      options: [
+        "Apple Tree",
+        "Radix Tree",
+        "B-Tree",
+        "Binary Palm"
+      ],
+      correctAnswer: 1,
+      explanation: "I Radix Trees sono un'evoluzione degli alberi usati molto spesso per performance avanzate (es. in Redis)."
+    }
+  ]} 
+/>
+
+<HackerTerminal 
+  challenges={[
+    {
+      id: "bst-insert",
+      title: "Logica di Inserimento",
+      description: "Albero con root=10. Inserisci 5 e 15. Dove finisce il 15?",
+      commands: ["right"],
+      expectedOutput: "right",
+      hints: ["15 è maggiore di 10."]
+    },
+    {
+      id: "bst-recursion",
+      title: "Recursion Depth",
+      description: "In un albero con 3 livelli, quante volte viene chiamata print_sorted (in totale, inclusi i NULL)?",
+      commands: ["15"],
+      expectedOutput: "15",
+      hints: ["Ogni nodo chiama se stesso 2 volte. 7 nodi totali + 1 chiamata iniziale? No, 7 nodi -> 7*2 + 1 = 15."]
+    },
+    {
+      id: "bst-malloc",
+      title: "Heap Check",
+      description: "Qual è il valore ritornato da malloc() se la memoria è esaurita?",
+      commands: ["NULL"],
+      expectedOutput: "NULL",
+      hints: ["È il valore nullo del C."]
+    }
+  ]}
+/>
+
+### Conclusione
+I Binary Search Trees sono la prova che le strutture dati semplici possono essere incredibilmente potenti ed eleganti. Con questa lezione speciale chiudiamo il modulo sugli algoritmi classici. Alla prossima!
