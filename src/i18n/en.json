@@ -82,6 +82,7 @@
     },
     "footer": {
         "developed_by": "Developed by",
-        "dev_name": "Claudio Dall'Ara"
+        "dev_name": "Claudio Dall'Ara",
+        "license": "Released under GPL License"
     }
 }

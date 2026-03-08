@@ -91,7 +91,7 @@ export default function Home() {
 
             {/* Footer */}
             <footer className="w-full mt-24 pt-8 pb-6 border-t border-black/10 dark:border-white/5 z-10">
-                <div className="max-w-5xl mx-auto flex items-center justify-center gap-2 text-xs text-slate-400 dark:text-zinc-500">
+                <div className="max-w-5xl mx-auto flex flex-col items-center justify-center gap-2 text-xs text-slate-400 dark:text-zinc-500">
                     <span>
                         {t('footer.developed_by')}{' '}
                         <a
@@ -103,6 +103,7 @@ export default function Home() {
                             {t('footer.dev_name')}
                         </a>
                     </span>
+                    <span className="opacity-75">{t('footer.license')}</span>
                 </div>
             </footer>
 
