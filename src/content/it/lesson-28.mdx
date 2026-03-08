@@ -44,6 +44,68 @@ Non dimenticare mai `va_end(ap)`. Anche se su molte architetture non fa nulla, s
 
 ---
 
+## Il Pattern della Delegazione: `vprintf`
+
+C'è un limite alle funzioni variadiche: non puoi passare i tre puntarelli (`...`) da una funzione all'altra come faresti con una variabile normale. Se vuoi scrivere un wrapper per `printf`, devi usare la sua versione "sorella" che accetta una `va_list`: la funzione `vprintf`.
+
+<Infographic 
+  title="Delegazione Variadica"
+  type="process"
+  data={[
+    { label: "Tua Funzione (log_error)", detail: "Riceve i ... e inizializza va_list" },
+    { label: "Delegazione", detail: "Passa la va_list a vprintf" },
+    { label: "Libreria Standard", detail: "vprintf consuma la lista e stampa" }
+  ]}
+/>
+
+<CodeEditor 
+  initialCode={`#include <stdarg.h>
+#include <stdio.h>
+
+// Un wrapper che aggiunge un prefisso a ogni messaggio
+void log_error(const char *fmt, ...) {
+    va_list ap;
+    va_start(ap, fmt);
+    
+    printf("[TOYFORT ERROR]: ");
+    vprintf(fmt, ap); // DELEGAZIONE
+    printf("\\n");
+    
+    va_end(ap);
+}`}
+  language="c"
+/>
+
+---
+
+## Esempio Pratico: Testo Centrato
+
+Salvatore mostra come usare queste funzioni per manipolare l'output in modo creativo, ad esempio centrando il testo nel terminale.
+
+<CodeEditor 
+  initialCode={`void print_centered(int width, const char *fmt, ...) {
+    char buffer[1024];
+    va_list ap;
+    
+    va_start(ap, fmt);
+    vsnprintf(buffer, sizeof(buffer), fmt, ap);
+    va_end(ap);
+    
+    int len = strlen(buffer);
+    int padding = (width - len) / 2;
+    
+    for (int i = 0; i < padding; i++) putchar(' ');
+    printf("%s\\n", buffer);
+}`}
+  language="c"
+/>
+
+<Callout type="warning" title="Sicurezza dei Tipi">
+Attenzione: `va_arg` non ha idea di cosa ci sia davvero nello stack. Se gli dici di estrarre un `int` ma l'utente ha passato una stringa, il programma non darà errore di compilazione, ma andrà in **Segmentation Fault** o corromperà la memoria a runtime!
+</Callout>
+
+---
+
 ## Estrarre gli Argomenti con `va_arg`
 
 In C, la funzione non sa "quanti" argomenti le sono stati passati. Dobbiamo dirglielo noi tramite un formato (come nella printf) o un terminatore.

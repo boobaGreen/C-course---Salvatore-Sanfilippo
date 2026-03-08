@@ -66,20 +66,69 @@ Why don't we use `strcmp`? Because our string objects save their length and don'
 <MemoryCaster />
 
 <Callout type="info" title="The Efficiency of memcmp">
-We use `memcmp` to compare bytes. It is a highly optimized library function (often written in Assembly) that processes memory blocks much faster than a manual `while` loop.
+We use `memcmp` to compare---
+
+## Symbols vs. Strings: What's the Difference?
+
+In ToyFort, both symbols and strings are stored as character pointers, but their use is opposite.
+
+<ComparisonTable 
+  headers={["Feature", "Symbol (Symbol)", "String (String)"]}
+  rows={[
+    ["Purpose", "Identify functions or variables", "Textual data"],
+    ["Execution", "The interpreter looks up the associated function", "It is pushed onto the stack as-is"],
+    ["Example", "plus, print, dup", "\"Hello World\""],
+    ["ToyFort Syntax", "Name without quotes", "Enclosed in double quotes"]
+  ]}
+/>
+
+---
+
+## The Chicken and the Egg Problem: Forward Declarations
+
+In our interpreter, we have a problem: the `TFObject` structure needs to know about `TFContext` (for some operations), and `TFContext` needs to know about `TFObject` (for the stack). In C, if you try to define them normally, the compiler gets angry because one is not yet defined when it reads the other.
+
+The solution is the **Forward Declaration**:
+
+<CodeEditor 
+  initialCode={`// Tell the compiler: "There exists a struct called TFContext"
+// It doesn't need to know its layout yet, just that it exists!
+struct TFContext; 
+
+typedef struct TFObject {
+    int type;
+    // ...
+    void (*callback)(struct TFContext *ctx); // Now we can use it!
+} TFObject;
+
+typedef struct TFContext {
+    TFObject **stack;
+    int stack_len;
+} TFContext;`}
+  language="c"
+/>
+
+<Callout type="info" title="Pointers and Sizes">
+The compiler accepts the forward declaration because a **pointer** always has the same size (8 bytes on 64-bit), regardless of how large the structure it points to actually is!
 </Callout>
 
-```c
-int compare_string_objects(TFObject *a, TFObject *b) {
-    size_t min_len = (a->s.len < b->s.len) ? a->s.len : b->s.len;
-    int res = memcmp(a->s.ptr, b->s.ptr, min_len);
-    if (res == 0) {
-        if (a->s.len == b->s.len) return 0;
-        return (a->s.len > b->s.len) ? 1 : -1;
-    }
-    return (res > 0) ? 1 : -1;
-}
-```
+---
+
+## Efficient Comparison with `memcmp`
+
+To look up a function in the table, we must compare the symbol name with the registered names. Instead of `strcmp`, Salvatore uses logic based on `memcmp`.
+
+<Callout type="hacker" title="Why memcmp?">
+`memcmp` is a "brutal" function: it compares the bytes of two memory areas without looking for the null character (`\\0`). It's much faster than `strcmp` because modern compilers optimize it using SIMD (Single Instruction, Multiple Data) instructions to compare multiple bytes at once.
+</Callout>
+
+<CodeEditor 
+  initialCode={`int compare_strings(TFObject *a, TFObject *b) {
+    if (a->s.len != b->s.len) return (a->s.len > b->s.len) ? 1 : -1;
+    return memcmp(a->s.ptr, b->s.ptr, a->s.len);
+}`}
+  language="c"
+/>
 
 ---
 
