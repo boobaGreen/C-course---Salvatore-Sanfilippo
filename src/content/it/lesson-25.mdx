@@ -25,6 +25,21 @@ Benvenuti! Dopo aver gettato le fondamenta delle strutture dati, è il momento d
 
 Prima di leggere, dobbiamo saper scrivere. Una lista ToyFort può contenere altre liste. Per stamparle correttamente, la nostra funzione `print_object` deve essere ricorsiva.
 
+<RecursionVisualizer 
+  title="Visualizzazione Lista Annidata"
+  data={{
+    label: "LIST [ 1 [ 2 3 ] 4 ]",
+    children: [
+      { label: "INT: 1" },
+      { 
+        label: "LIST: [ 2 3 ]", 
+        children: [{ label: "INT: 2" }, { label: "INT: 3" }] 
+      },
+      { label: "INT: 4" }
+    ]
+  }}
+/>
+
 <CodeEditor 
   initialCode={`void print_object(TFObject *o) {
     switch(o->type) {
@@ -46,6 +61,10 @@ Prima di leggere, dobbiamo saper scrivere. Una lista ToyFort può contenere altr
 }`}
   language="c"
 />
+
+<Callout type="warning" title="Il segreto del Newline">
+Salvatore nota che senza un `\\n` finale, la shell (come la Z-shell o `zsh`) potrebbe mostrare un carattere `%` o invertito alla fine dell'output. Per questo aggiungiamo un `printf("\\n")` solo nel chiamante principale, non dentro la funzione ricorsiva!
+</Callout>
 
 <Callout type="info" title="Perché la Ricorsione?">
 Non è un esercizio accademico! La ricorsione è il modo più naturale per navigare strutture "ad albero" come i programmi. Senza di essa, dovremmo gestire manualmente uno stack complicatissimo.

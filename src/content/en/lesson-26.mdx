@@ -26,24 +26,35 @@ In this lesson, we get to the heart of execution. We'll see how the interpreter 
 
 The ToyFort interpreter loops over a list. If it finds a value, it "pushes" it onto the stack; if it finds a symbol, it executes it.
 
-<StackVisualizer />
+<StackVisualizer 
+  title="Execution: 5 10 plus"
+  initialStack={[]}
+  steps={[
+    { action: "PUSH 5", result: "[ 5 ]" },
+    { action: "PUSH 10", result: "[ 5 10 ]" },
+    { action: "CALL 'plus'", result: "[ 15 ]", highlight: true }
+  ]}
+/>
 
 <CodeEditor 
   initialCode={`void execute_program(TFContext *ctx, TFObject *prg) {
-    assert(prg->type == TF_LIST);
+    assert(prg->type == TF_LIST); // Ensure it's a list!
     for (size_t i = 0; i < prg->l.len; i++) {
         TFObject *word = prg->l.ele[i];
         if (word->type == TF_SYM) {
             call_symbol(ctx, word);
         } else {
-            // If not a symbol, it's a value: push it onto the stack
-            retain_object(word); // Increment ref_count!
+            retain_object(word); 
             list_push(ctx->stack, word);
         }
     }
 }`}
   language="c"
 />
+
+<Callout type="hacker" title="Why xrealloc?">
+Salvatore uses `xrealloc` instead of `realloc` because as the interpreter grows, reallocations become frequent. If `realloc` fails in the middle of a complex structure, the only safe move is a "Panic" (immediate shutdown) rather than trying to handle an impossible error.
+</Callout>
 
 ---
 
