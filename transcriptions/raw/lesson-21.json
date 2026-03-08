@@ -1,0 +1,1062 @@
+[
+  {
+    "start": 28.580000000000002,
+    "end": 29.98,
+    "text": " entered"
+  },
+  {
+    "start": 41.68000000000001,
+    "end": 51.98,
+    "text": " Noi nel costo di questo viaggio nel linguaggio di programmazione, ci abbiamo sempre cercato"
+  },
+  {
+    "start": 51.98,
+    "end": 56.120000000000005,
+    "text": " o sempre cercato ma anche questo è il mood diciamo in generale di quello che di quelli"
+  },
+  {
+    "start": 56.24,
+    "end": 64.16,
+    "text": " guardano queste lezioni di alternare la teoria con la pratica, di combinare direi piuttosto la"
+  },
+  {
+    "start": 64.16,
+    "end": 70.44,
+    "text": " teoria con la pratica, solo che ogni tanto bisogna necessariamente fare degli approfondimenti proprio"
+  },
+  {
+    "start": 70.44,
+    "end": 78.26,
+    "text": " diciamo nella struttura del linguaggio C che sono poi propedeudici per andare avanti quindi"
+  },
+  {
+    "start": 78.26,
+    "end": 84.02,
+    "text": " alcune volte come in questa lezione non possiamo più tanto scrivere dei programmi piccoli,"
+  },
+  {
+    "start": 84.02,
+    "end": 89.72,
+    "text": " utili interessanti che ci facciano capire non solo il C come fatto ma proprio la struttura dei"
+  },
+  {
+    "start": 89.72,
+    "end": 97.96,
+    "text": " programmi in C, qual è la logica qual è l'approccio ma dobbiamo parlare di Fijar, Fijar pure,"
+  },
+  {
+    "start": 99.14000000000001,
+    "end": 109.42,
+    "text": " e nelle scorse puntate abbiamo parlato di strutture senza parlare di union, di unioni,"
+  },
+  {
+    "start": 110.02,
+    "end": 120.54,
+    "text": " abbiamo parlato di strutture senza parlare di Bitfield e infine non abbiamo parlato di"
+  },
+  {
+    "start": 120.54,
+    "end": 127.08,
+    "text": " puntatori e funzioni quando abbiamo parlato di puntatori. Queste tre cose, le unioni,"
+  },
+  {
+    "start": 127.26,
+    "end": 135.7,
+    "text": " i Bitfield e i puntatori e funzioni iniziano a diventare per il proseguire del corso un"
+  },
+  {
+    "start": 136.54000000000002,
+    "end": 141.48,
+    "text": " debito tecnico pesante che incite con quello che si può fare e quello che non si può fare,"
+  },
+  {
+    "start": 141.56,
+    "end": 149.06,
+    "text": " quindi questo puntato servirà a recuperare tale debito tecnico. Iniziamo dalle unioni, union1,"
+  },
+  {
+    "start": 153.60000000000002,
+    "end": 159.46,
+    "text": " iniziamo con nostro semplicissimo, diciamo, Hello World neanche non c'è proprio niente,"
+  },
+  {
+    "start": 159.46,
+    "end": 173.58,
+    "text": " la base è giusto per per far vedere qualcosa. Io posso dichiarare una struttura che ha due campi,"
+  },
+  {
+    "start": 173.64,
+    "end": 190.9,
+    "text": " un campo int i e un campo unsigned char a, come rei, 4. Nella memoria del computer,"
+  },
+  {
+    "start": 191.08,
+    "end": 199.42,
+    "text": " questo rei di quattro caratteri e questo intero che le iauto avranno in questa macchina,"
+  },
+  {
+    "start": 199.42,
+    "end": 208.7,
+    "text": " l'intero è 4 byte, quindi io mi beccherò questi primi 4 byte di intero e poi ogni elemento di A,"
+  },
+  {
+    "start": 209.66,
+    "end": 216.84,
+    "text": " allora A sarà i prossimi 4 byte, non ci sono problemi di allinamento qui perché siccome il tipo"
+  },
+  {
+    "start": 216.84,
+    "end": 223.26,
+    "text": " e è allineato in maniera naturale, pure questo è al multiplo di un indirizzo grande quando il tipo"
+  },
+  {
+    "start": 223.26,
+    "end": 228.46,
+    "text": " base, perché questo tipo base è quel quattro byte, l'offset è 0, il primo elemento. Quello tipo"
+  },
+  {
+    "start": 228.46,
+    "end": 235.32,
+    "text": " base è 1 grande, quindi può andare dovunque senza padding, quindi quando ci sono spazi non succede"
+  },
+  {
+    "start": 235.32,
+    "end": 243.02,
+    "text": " niente di strano. Ora di questo A qua ci sarà ad i 0, qua di 1, qua di 2 e qua di 3, quindi questi"
+  },
+  {
+    "start": 243.02,
+    "end": 251.2,
+    "text": " due elementi sono sequenziali. Io ovviamente posso structurare questa struttura, la chiamo Foo,"
+  },
+  {
+    "start": 252.94,
+    "end": 257.44,
+    "text": " quando non si sa nella programmazione come chiamare le cose perché sono solo banali esembi,"
+  },
+  {
+    "start": 257.44,
+    "end": 263.32,
+    "text": " si chiamo che possono chiamare Foo, Bar, Zap, o cos'è del genere, non migliori del genere,"
+  },
+  {
+    "start": 263.62,
+    "end": 271.66,
+    "text": " Foo non significa niente. Quindi io dichiaro una variabbia di tipo struttura Foo che chiamo F,"
+  },
+  {
+    "start": 272.42,
+    "end": 287.2,
+    "text": " F punto di io uguale a 10, F punto di A è uguale, qua iniziamo a iniziare a iniziare a iniziare a"
+  },
+  {
+    "start": 287.86,
+    "end": 299.56,
+    "text": " 2. Vi ricordo che in questo caso F, F a solo, F punto a è il puntatore a dove inizia l'R.A. Ma non"
+  },
+  {
+    "start": 299.56,
+    "end": 303.98,
+    "text": " è, ma questo puntatore è materializzato, è solo calcolato dal C nel momento della compilazione,"
+  },
+  {
+    "start": 304.52,
+    "end": 311.88,
+    "text": " prendendo F e aggiungendo gli a dove è memorizzato F 4 byte, perché serve per saltare questi intero"
+  },
+  {
+    "start": 311.88,
+    "end": 326.22,
+    "text": " quindi F di A sarebbe. Rettanto, zero. Combiniamo questo programma. No, non credo che si può fare"
+  },
+  {
+    "start": 326.22,
+    "end": 332.16,
+    "text": " questa inizializzazione, credo che in realtà l'unico modo in cui si possa fare una roba del genere"
+  },
+  {
+    "start": 333.28,
+    "end": 344.46,
+    "text": " è se io inizializzo F in un'unica... al di là di questo credo che anche questo sia un problema,"
+  },
+  {
+    "start": 344.68,
+    "end": 351.54,
+    "text": " cioè questa cosa si può fare solo durante la dichiarazione. Esatto, ci sono molti limiti"
+  },
+  {
+    "start": 351.54,
+    "end": 356.34,
+    "text": " nella inizializzazione in C. In realtà una cosa in genere non lo farebbe a mai nessuno,"
+  },
+  {
+    "start": 356.34,
+    "end": 362.66,
+    "text": " cioè fuori dagli esempi di questo tipo in cui tu devi, diciamo, riempire le cose di valori"
+  },
+  {
+    "start": 365.78,
+    "end": 372.04,
+    "text": " nominali, questa roba qua diciamo non si usa mai, quindi che cosa è che in realtà si farebbe qui?"
+  },
+  {
+    "start": 372.58,
+    "end": 382.1,
+    "text": " Si farebbe F di A uguale a 10 e poi F di... F di scusate uguale a 10 e poi ho praticamente"
+  },
+  {
+    "start": 382.1,
+    "end": 391.14000000000004,
+    "text": " uno assegna ai valori 0... però ripeto, sono valori sintetici strano. Uno farebbe memcopy"
+  },
+  {
+    "start": 392.32,
+    "end": 399.78,
+    "text": " F.A, non lo so, dei re, dei 4 byte che prende da qualche parte in base a come funziona il"
+  },
+  {
+    "start": 399.78,
+    "end": 406.02,
+    "text": " programma e finirebbe per fare una cosa del genere. In infatti se facciamo così, magari mettiamo il punto"
+  },
+  {
+    "start": 406.02,
+    "end": 421.44,
+    "text": " è virgola, però memcopy, lo abbiamo di chiarare qui, string.h fa parte, vedete ora funziona. Uno si"
+  },
+  {
+    "start": 421.44,
+    "end": 426.9,
+    "text": " potrebbe chiedere perché string.h e memcopy, memcopy è una funzione che ha a che fare,"
+  },
+  {
+    "start": 427.0,
+    "end": 431.5,
+    "text": " diciamo, la memoria, non è una funzione che opera sulle string, ma per ragioni storiche"
+  },
+  {
+    "start": 431.5,
+    "end": 437.92,
+    "text": " che string.h ha una quantità enorme di funzioni che in realtà sono necessarie per lavorare con"
+  },
+  {
+    "start": 437.92,
+    "end": 446.38,
+    "text": " in buffer in generale o con la memoria in generale, anche memset e allo stesso modo definita dentro"
+  },
+  {
+    "start": 446.38,
+    "end": 462.92,
+    "text": " string.h è così via. Quindi come vedete io ho queste due variabili sequenziali, ma posso chiedere"
+  },
+  {
+    "start": 462.92,
+    "end": 472.86,
+    "text": " alla struttura di esibire un comportamento veramente strano a pensarci, bene se uno non proviene"
+  },
+  {
+    "start": 472.86,
+    "end": 481.02,
+    "text": " dal C, questa roba qui è veramente aliene, eppure nel C si usa ogni momento. Guardate,"
+  },
+  {
+    "start": 481.4,
+    "end": 491.36,
+    "text": " facciamo una cosa, io dopo la struttura, qua scrivo union e metto questi due campi. A questo"
+  },
+  {
+    "start": 491.36,
+    "end": 499.08,
+    "text": " punto succede questa cosa, io sto chiedendo al C che i miei campi della struttura fu, i e a,"
+  },
+  {
+    "start": 500.04,
+    "end": 507.0,
+    "text": " debbano iniziare allo stesso offset, prima iniziava a 0 allo offset 0 la struttura e a era 4 byte"
+  },
+  {
+    "start": 507.0,
+    "end": 513.72,
+    "text": " dopo. Ora iniziano tutti e a 2 allo offset 0, perché questa unione è il primo campo della struttura"
+  },
+  {
+    "start": 513.72,
+    "end": 518.56,
+    "text": " quindi ad offset 0, io qua fuori dall'unione potrei avere un'altra variabile quindi sarebbero"
+  },
+  {
+    "start": 518.56,
+    "end": 524.96,
+    "text": " tutti e a 2 offset 4, ma in questo caso ci sono solo due e sono solo due e sono ad offset 0,"
+  },
+  {
+    "start": 524.96,
+    "end": 532.52,
+    "text": " quindi significa che questi due campi condividono l'indirizzo di memoria al quale sono registrati,"
+  },
+  {
+    "start": 532.62,
+    "end": 540.72,
+    "text": " cioè se io scrivo i sovrascrivo anche l'enrei a, o se io scrivo l'enrei la a sovrascrivo i,"
+  },
+  {
+    "start": 541.6800000000001,
+    "end": 547.08,
+    "text": " può sembrare molto strano, lo capisco. Allora, da domenizia andiamo a vedere che succede,"
+  },
+  {
+    "start": 547.18,
+    "end": 553.68,
+    "text": " non inizializziamo più l'enrei a, guardate quando io setto e stavolta facciamo ci stampare"
+  },
+  {
+    "start": 555.74,
+    "end": 567.5,
+    "text": " tutti i cambi di dell'enrei a, f di 0, fa di 1, fa di 3, per vedere che c'è dentro."
+  },
+  {
+    "start": 572.78,
+    "end": 584.86,
+    "text": " Qua ci va il punto, esatto, guardate, siccome questi qua sono, io ho settato nell'intero i 10,"
+  },
+  {
+    "start": 585.54,
+    "end": 591.78,
+    "text": " siccome questo computer è little-endian, quindi byte meno significativi sono registrati per primo,"
+  },
+  {
+    "start": 591.78,
+    "end": 597.36,
+    "text": " significa che il primo byte ha lo stesso valore di 10 e gli altri sono settati a 0,"
+  },
+  {
+    "start": 597.62,
+    "end": 607.42,
+    "text": " quindi io mi sto beccando qui la rappresentazione a byte di 10. Mettiamo io un numero più grande,"
+  },
+  {
+    "start": 607.42,
+    "end": 622.02,
+    "text": " per esempio mettiamo gli int max, forse dovrei includere limitz, int max è una macro settata"
+  },
+  {
+    "start": 622.02,
+    "end": 629.22,
+    "text": " all'intero più grande possibile, guardate ora, qual è la rappresentazione dell'intero più grande"
+  },
+  {
+    "start": 629.22,
+    "end": 641.22,
+    "text": " possibile, 255, 255, 257, perché ovviamente c'è l'altra parte, il byte più significativo è la metà"
+  },
+  {
+    "start": 641.22,
+    "end": 647.86,
+    "text": " del byte intero perché in realtà poi ci sono tutti altri valori che rappresentano i valori negativi,"
+  },
+  {
+    "start": 647.86,
+    "end": 659.56,
+    "text": " infatti se io qui scrivo int min, sta volta esattamente al contrario,"
+  },
+  {
+    "start": 659.86,
+    "end": 667.44,
+    "text": " avrò questo in modo in cui sono rappresentati i numeri negativi in C col complemento a 2 e"
+  },
+  {
+    "start": 667.44,
+    "end": 673.32,
+    "text": " praticamente vedete qua per la prima volta c'è veramente 128, allora vi faccio vedere un'altra"
+  },
+  {
+    "start": 673.32,
+    "end": 678.88,
+    "text": " cosa ancora, invece se io voglio vedere tutti i bytes al varone massimo lo setto a meno 1 e"
+  },
+  {
+    "start": 678.88,
+    "end": 685.34,
+    "text": " sta volta sono tutti 255, quindi praticamente io qua c'è una cosa veramente strana è la"
+  },
+  {
+    "start": 686.9200000000001,
+    "end": 693.82,
+    "text": " sovrapposizione di due variabili assieme, uno dice ma sta roba qua, si potrebbe giustamente chiedere a"
+  },
+  {
+    "start": 693.82,
+    "end": 702.86,
+    "text": " cosa serve, in realtà prima di dirvi a cosa serve questo costrutto qua prenderò un esempio"
+  },
+  {
+    "start": 702.86,
+    "end": 709.2,
+    "text": " reale di quali ci ho scritto pochi mesi fa per altro, vi dico subito che questa union per come"
+  },
+  {
+    "start": 709.2,
+    "end": 714.36,
+    "text": " scritta qui prima non si poteva scrivere pia nel c99 se non mi sbaglio perché questa è una union"
+  },
+  {
+    "start": 714.36,
+    "end": 720.24,
+    "text": " anonima, in teoria la union dovrebbe provare un nome quindi io dovrei scrivere ad esempio"
+  },
+  {
+    "start": 720.24,
+    "end": 731.06,
+    "text": " union bla bla bla e gli dovrei dare un nome u e quindi poi per accedervi f.u.i è tutto così"
+  },
+  {
+    "start": 732.1600000000001,
+    "end": 751.3,
+    "text": " u.a, u.a vedete però in realtà è molto molto diffuso il caso in cui io voglio che la mia"
+  },
+  {
+    "start": 751.3,
+    "end": 757.54,
+    "text": " unione sia assolutamente trasparente cioè che non si veda in nessun modo che gli elementi"
+  },
+  {
+    "start": 757.54,
+    "end": 763.18,
+    "text": " sono uniti ma io lo so per i fatti miei perché tra l'altro semplicamente non aggiungi niente"
+  },
+  {
+    "start": 763.18,
+    "end": 768.14,
+    "text": " perché questo u potrebbe essere anche una struttura se io gli do un nome alla union a me vi interessa"
+  },
+  {
+    "start": 768.14,
+    "end": 774.8,
+    "text": " più che altro con le unioni che è diversi oggetti siano diciamo sopraimpressi nello stesso"
+  },
+  {
+    "start": 775.4399999999999,
+    "end": 783.62,
+    "text": " spazio di memoria e vi faccio vedere per quale motivo questo è codice che ho scritto pochi mesi fa"
+  },
+  {
+    "start": 783.62,
+    "end": 789.8,
+    "text": " sono i vectors set di redis c'è la possibilità di quando si fa la ricerca vettoriale di filtrare"
+  },
+  {
+    "start": 789.8,
+    "end": 796.4,
+    "text": " in base a una espressione come quello che scrivete dentro le if per capirci questo è un esempio"
+  },
+  {
+    "start": 796.4,
+    "end": 803.94,
+    "text": " di di come funziona queste espressioni per esempio io posso scrivere 10 e maggiori di 50"
+  },
+  {
+    "start": 806.5,
+    "end": 817.52,
+    "text": " resalt false 10 e minore di 50 result 3 e qui veniva supportate anche che le liste"
+  },
+  {
+    "start": 817.52,
+    "end": 828.92,
+    "text": " ha diverse funzioni tipo 10 in 1,5,3,8 false ma se dentro la lista c'è davvero 10 true vedete"
+  },
+  {
+    "start": 828.92,
+    "end": 833.8,
+    "text": " questa qui è in pratica una specie di piccolo domain specific language un linguaggio di"
+  },
+  {
+    "start": 833.8,
+    "end": 841.82,
+    "text": " miniatura che serve per per queste espressioni qua di redis ogni token di queste espressioni"
+  },
+  {
+    "start": 841.82,
+    "end": 848.18,
+    "text": " perché poi sta roba qui funziona pure con le stringe posso scrivere per esempio possiamo"
+  },
+  {
+    "start": 848.18,
+    "end": 858.76,
+    "text": " vedere i singoli appici fu uguale bar false ma fu uguale fu e true quindi questo piccolo"
+  },
+  {
+    "start": 858.76,
+    "end": 864.9,
+    "text": " diciamo linguaggio di programmazione ha diversi tipi e questi tipi di dati sono rappresentati"
+  },
+  {
+    "start": 864.9,
+    "end": 871.1,
+    "text": " da questa struttura export token expression token quindi il token dell'espressione c'è il"
+  },
+  {
+    "start": 871.1,
+    "end": 879.88,
+    "text": " ref count che noi abbiamo incontrato ma crucialmente c'è il tipo del token ma anche l'off set in"
+  },
+  {
+    "start": 879.88,
+    "end": 883.98,
+    "text": " dove appare l'espressione questo è molto importante l'off set in cui appare nelle"
+  },
+  {
+    "start": 883.98,
+    "end": 888.38,
+    "text": " nelle le di creazione dell'espressione quindi l'esorgenza del programma perché se io c'è"
+  },
+  {
+    "start": 888.38,
+    "end": 894.8,
+    "text": " un syntax error voglio riuscire a dire l'errore ha caduto alla carattere 50 quindi lo mostro"
+  },
+  {
+    "start": 894.8,
+    "end": 901.04,
+    "text": " poi con un appici come quando compilate c'è un errore poi qui però c'è la union perché"
+  },
+  {
+    "start": 901.04,
+    "end": 912.82,
+    "text": " in base a questo token type cioè se il token type è token qua num ex pro token number io"
+  },
+  {
+    "start": 912.82,
+    "end": 920.76,
+    "text": " voglio usare solo questa questa campo qui se invece una stringa voglio usare questa struttura"
+  },
+  {
+    "start": 920.76,
+    "end": 929.32,
+    "text": " str che rappresenta l'insera stringa la lunghezza se è allocata nel lippo noi eccetera se un opcode"
+  },
+  {
+    "start": 929.32,
+    "end": 934.36,
+    "text": " voglio usare solo questo intero opcode un mica il numero perché questo è utile perché io"
+  },
+  {
+    "start": 934.36,
+    "end": 939.66,
+    "text": " potevo cioè io volendo poteri rimuovere questa union è tutto funzione uguale ma ogni volta che"
+  },
+  {
+    "start": 939.66,
+    "end": 946.54,
+    "text": " io dichiaro una struttura di tipo expert token io vado a pagare la somma di dimensione di memoria"
+  },
+  {
+    "start": 946.54,
+    "end": 952.96,
+    "text": " di questa struttura in memoria la dimensione sarà la somma di questo campo più questa struttura"
+  },
+  {
+    "start": 952.96,
+    "end": 961.56,
+    "text": " più l'opcode più il apple ma se io non le uso mai simultaneamente perché un token può essere"
+  },
+  {
+    "start": 961.56,
+    "end": 968.72,
+    "text": " solo di un tipo specifico alla volta e quindi sarebbe uno spreco bestiale di memoria questo è"
+  },
+  {
+    "start": 968.72,
+    "end": 975.28,
+    "text": " l'uso più ovvio ma come vi ho fatto vedere volte sono anche degli usi interessanti in questo caso"
+  },
+  {
+    "start": 975.28,
+    "end": 980.76,
+    "text": " io posso vedere per esempio la rappresentazione dei bite l'avrei potuto fare in maniera diversa"
+  },
+  {
+    "start": 980.76,
+    "end": 986.46,
+    "text": " questa stessa cosa dichiarando un puntatore anzichron ed ciò è facendo il contatto che c'è"
+  },
+  {
+    "start": 986.46,
+    "end": 994.76,
+    "text": " quindi poi posso comunque accedere con i puntatori alla in ci può fare il quello che ti pare per cui"
+  },
+  {
+    "start": 994.76,
+    "end": 1001.34,
+    "text": " si può fare tutto in tutti i modi però ecco questo è un modo elegante anche diciamo per"
+  },
+  {
+    "start": 1001.34,
+    "end": 1007.74,
+    "text": " esplorare l'interno delle rappresentazioni dei dati e così via ma in assoluto la cosa più"
+  },
+  {
+    "start": 1007.74,
+    "end": 1018.42,
+    "text": " interessante è quella là altra cosa che ci fa salvare memoria è questa il bitfield quindi"
+  },
+  {
+    "start": 1018.42,
+    "end": 1034.8999999999999,
+    "text": " strac fu ind a 2.4 in b 2.4 in c 2.8 allora in tutto questi campi occupano soltanto due bite"
+  },
+  {
+    "start": 1035.08,
+    "end": 1048.88,
+    "text": " andiamo a vedere se è vero strock print f zeta u che sarebbe size t size off perché size off"
+  },
+  {
+    "start": 1048.88,
+    "end": 1057.56,
+    "text": " ritorna un size t size off di f quindi voglio vedere quanta è la dimensione di questa variabile f"
+  },
+  {
+    "start": 1057.58,
+    "end": 1071.26,
+    "text": " di tipo strac fu e la faccio stampare nella mia print f 4 perché 4 perché c'è il padding perché"
+  },
+  {
+    "start": 1071.26,
+    "end": 1081.54,
+    "text": " c'è il pad giusto però se io qua giungessi vi faccio vedere perché con del tipo base allora"
+  },
+  {
+    "start": 1081.54,
+    "end": 1096.04,
+    "text": " se io qua invece di scrivere in scrivo anzignet c'ar anzignet c'ar e anzignet c'ar quindi io"
+  },
+  {
+    "start": 1096.04,
+    "end": 1103.18,
+    "text": " ho sempre gli stessi cambi ho cambiato solo il tipo base a questo punto in effetti è due bite"
+  },
+  {
+    "start": 1103.28,
+    "end": 1111.3,
+    "text": " alla mia struttura allora guardate che ho fatto io gli sto dicendo questo intero di quanti bit deve"
+  },
+  {
+    "start": 1111.3,
+    "end": 1117.66,
+    "text": " essere cioè è veramente una roba di basso livello questa che il cc offre quindi voglio un intero di"
+  },
+  {
+    "start": 1117.66,
+    "end": 1122.0,
+    "text": " quattro bit un altro intero di quattro bit un intero di quattro bit che numero può memorizzare"
+  },
+  {
+    "start": 1122.0,
+    "end": 1130.8,
+    "text": " due elevato a 4 meno 1 perché anzignet da 0 a 15 da 0 a 15 è questo quindi da 0 a 255 ora"
+  },
+  {
+    "start": 1130.8,
+    "end": 1139.4,
+    "text": " guardate dolaro di dolaro di dolaro di facciamo ci stampare fda fdb fdc"
+  },
+  {
+    "start": 1144.3600000000001,
+    "end": 1151.76,
+    "text": " non le ho inizializzati in nessun modo scusatemi fda uguale 1 fdb uguale a 2 fdc uguale a 3"
+  },
+  {
+    "start": 1153.64,
+    "end": 1158.24,
+    "text": " funziona tutto perfettamente ma se io questo qui lo vasta se ci assegno 16"
+  },
+  {
+    "start": 1162.26,
+    "end": 1170.6,
+    "text": " mi dice che ci sarà una che verrà troncato il valore inizializzazione e io mi becco 0 perché"
+  },
+  {
+    "start": 1170.6,
+    "end": 1179.08,
+    "text": " è immediatamente oltre cioè il 16 mi setta solo il bit il quinto bit qua ce ne sono 4 quindi"
+  },
+  {
+    "start": 1179.08,
+    "end": 1185.5,
+    "text": " evidentemente sono tutti a 0 17 segnerebbe il quinto bit che qui non c'è ma segnerebbe anche"
+  },
+  {
+    "start": 1185.5,
+    "end": 1192.2,
+    "text": " il bit ma significativo quindi qua io mi ritrovo uno esatto ora mi ritrovo uno invece che 0 è così"
+  },
+  {
+    "start": 1192.2,
+    "end": 1200.4,
+    "text": " via siccome questi sono anzignet allora inciccia una regola incrementare un tipo senza segno quindi"
+  },
+  {
+    "start": 1200.4,
+    "end": 1213.5,
+    "text": " un tipo anzignet oltre la sua dimensione massima avrà come risultato che poi ritorna a 0 il"
+  },
+  {
+    "start": 1213.76,
+    "end": 1219.98,
+    "text": " app in grado diciamo come fare l'operazione di modulo della stessa dimensione quindi il resto della"
+  },
+  {
+    "start": 1219.98,
+    "end": 1228.34,
+    "text": " divisione diciamo invece se il tipo esignet l'operazione è ande fine non è definito quello"
+  },
+  {
+    "start": 1228.34,
+    "end": 1235.32,
+    "text": " che accade se fosse char non è più definito state c'attenti perché questa è una rogna assurda"
+  },
+  {
+    "start": 1236.28,
+    "end": 1245.94,
+    "text": " e diciamo si è andati oltre secondo me con le ande fine e bievi o alcune cose al costo di un"
+  },
+  {
+    "start": 1245.94,
+    "end": 1254.24,
+    "text": " po di performance sarebbero dovevano normalizzarle per creare un linguaggio più sicuro o meno diciamo"
+  },
+  {
+    "start": 1254.24,
+    "end": 1258.8,
+    "text": " pieno di tranelli al costo di un po di performance di capacità di ottimizzazione del"
+  },
+  {
+    "start": 1258.8,
+    "end": 1267.48,
+    "text": " combinatore ma questo comunque è solo un'opinione per un zomma perché fare una cosa del genere"
+  },
+  {
+    "start": 1267.48,
+    "end": 1271.66,
+    "text": " allora ci dovrebbe ci potrebbero essere due motivi uno per salvare memoria quindi il"
+  },
+  {
+    "start": 1271.66,
+    "end": 1278.96,
+    "text": " stesso discorso delle union io voglio praticamente utilizzare so che questo tipo qui ha mi servirà"
+  },
+  {
+    "start": 1278.96,
+    "end": 1286.04,
+    "text": " so di 4 bit questa roba qui si usa in reddice in tanti altri posti ne uso 4 bit perché poi io"
+  },
+  {
+    "start": 1286.04,
+    "end": 1296.26,
+    "text": " so a volte c'è andinaia migliaia di milioni di oggetti in base diciamo al data 7 etc etc e io"
+  },
+  {
+    "start": 1296.26,
+    "end": 1303.82,
+    "text": " voglio utilizzare veramente poca poca memoria un altro motivo per cui uno vorrebbe poter fare"
+  },
+  {
+    "start": 1303.82,
+    "end": 1314.22,
+    "text": " questa cosa è che ci sono dei protocolli direte o anche delle strutture dei file un eder che c'è"
+  },
+  {
+    "start": 1314.22,
+    "end": 1321.5,
+    "text": " 4 byte 4 bits e questo to bit e quello in realtà questo è un modo scarso di gestire"
+  },
+  {
+    "start": 1321.5,
+    "end": 1325.5,
+    "text": " queste cose perché io potrei poi leggere il contenuto del file dentro la struttura prendo"
+  },
+  {
+    "start": 1325.5,
+    "end": 1330.42,
+    "text": " l'appuntato alla struttura gli leggo dentro con la frid però ricordate l'abbiamo visto"
+  },
+  {
+    "start": 1330.42,
+    "end": 1338.16,
+    "text": " altra volta questo pezzo di file e poi me li trovo tutti i campi in realtà no perché purtroppo"
+  },
+  {
+    "start": 1338.16,
+    "end": 1346.9,
+    "text": " in c è di nuovo la specifica qui non ci aiuta i bitfield sono poco standard è il loro il modo"
+  },
+  {
+    "start": 1346.9,
+    "end": 1353.7,
+    "text": " in cui verranno registrati memoria l'offset a cui saranno questi bit varia non solo in base al"
+  },
+  {
+    "start": 1353.7,
+    "end": 1359.86,
+    "text": " fatto che l'ambiente che uso sia l'intel indian o il big indian ma anche può decidere a un"
+  },
+  {
+    "start": 1359.86,
+    "end": 1365.02,
+    "text": " certo punto se ci sono diciamo dei tipi incompleti che non usano tutta la dimensione per esempio"
+  },
+  {
+    "start": 1365.02,
+    "end": 1372.28,
+    "text": " dell'intero se io dichiaro dei bitfield interi a poco fatto l'altro non non c'era solo una"
+  },
+  {
+    "start": 1372.28,
+    "end": 1383.26,
+    "text": " questione di allineamento siccome io avevo usato int comunque nel bitfield intero io poi devo andare a"
+  },
+  {
+    "start": 1383.26,
+    "end": 1391.16,
+    "text": " usare tutto il mio intero d'accordo ora ecco nei casi in cui praticamente io praticamente c'ho un"
+  },
+  {
+    "start": 1391.16,
+    "end": 1396.96,
+    "text": " tipo che non usa tutta la grandezza dei dell'intero non ho nessuna garanzia se questo c è"
+  },
+  {
+    "start": 1396.96,
+    "end": 1404.2,
+    "text": " memorizzato alla fine o se mi viene splittato tra due interi diversi se vado oltre se qui c'è un"
+  },
+  {
+    "start": 1404.2,
+    "end": 1412.52,
+    "text": " tipo di che non lo so 24 così via non ho garanzie in sostanza non ho garanzie sul modo in cui il c"
+  },
+  {
+    "start": 1413.92,
+    "end": 1421.68,
+    "text": " renderà questi interi piccoli nella memoria nella memoria nella leia ut della mia memoria che"
+  },
+  {
+    "start": 1421.68,
+    "end": 1427.26,
+    "text": " leia ut verrà utilizzato per rappresentare questi tipi quindi di fatto si si possono fare"
+  },
+  {
+    "start": 1427.26,
+    "end": 1432.9,
+    "text": " delle cose controlli se il tuo sistema big indiano l'intel indiana e inverti a volte le definizioni"
+  },
+  {
+    "start": 1432.9,
+    "end": 1438.82,
+    "text": " quando necessario funziona quasi sempre questo trucco però si possono essere proprio di compatibilità in"
+  },
+  {
+    "start": 1438.82,
+    "end": 1445.4,
+    "text": " realtà in quel caso è molto meglio fare delle cose diverse dichiarare un re di un signe d"
+  },
+  {
+    "start": 1445.4,
+    "end": 1452.22,
+    "text": " cia e poi leggere i campi e utilizzare le operazioni shifting per estrarre i bit che mi"
+  },
+  {
+    "start": 1452.22,
+    "end": 1457.08,
+    "text": " interessano è più laborioso però mi ritrovo con codice molto portatina nonostante tutto"
+  },
+  {
+    "start": 1457.08,
+    "end": 1463.84,
+    "text": " sta roba qui si usa molto per due motivi uno perché a volte io per dire combino un programma"
+  },
+  {
+    "start": 1463.84,
+    "end": 1469.02,
+    "text": " che è gira sullo stesso computer c'è una pipe mi scambio dei dati quindi sono sicuro che"
+  },
+  {
+    "start": 1469.02,
+    "end": 1473.64,
+    "text": " comunque l'architettura è la stessa e quindi posso usare un bitfield per rappresentare diciamo"
+  },
+  {
+    "start": 1473.64,
+    "end": 1493.82,
+    "text": " un header una varie cose ecco per esempio vediamo ci stracti ip protocollo pacchett per"
+  },
+  {
+    "start": 1494.8799999999999,
+    "end": 1506.18,
+    "text": " l'eder della del pacchetto ip del protocollo ip qua c'è praticamente ip header length ed è solo"
+  },
+  {
+    "start": 1506.18,
+    "end": 1511.0,
+    "text": " quattro bit perché il protocollo ip può avere anche delle opzioni quindi l'eder può avere una"
+  },
+  {
+    "start": 1511.0,
+    "end": 1519.52,
+    "text": " lunghezza che varia qua è la versione e qua abbiamo una lunghezza totale l'indilla l'offset dei"
+  },
+  {
+    "start": 1519.52,
+    "end": 1525.48,
+    "text": " frame se è un frammento di un pacchetto perché l'ip supporta la fermentazione time to live"
+  },
+  {
+    "start": 1525.48,
+    "end": 1530.14,
+    "text": " perché se non il protocollo ip il pacchetto può girare all'infinito invece ogni router"
+  },
+  {
+    "start": 1530.14,
+    "end": 1534.86,
+    "text": " decremente a questo campo quando arriva a zero il pacchetto viene droppato eccetera bene non"
+  },
+  {
+    "start": 1534.86,
+    "end": 1539.4,
+    "text": " facciamo qua un corso in networking ma ci siamo capiti ecco in questi casi semplici che ci sono"
+  },
+  {
+    "start": 1539.4,
+    "end": 1546.82,
+    "text": " quattro bit e quattro bit non ci sono split cross intero eccetera eccetera ci sono abbastanza"
+  },
+  {
+    "start": 1546.82,
+    "end": 1552.22,
+    "text": " garanzie per quando i bitfield siano progettati a casaccio nel senso che ci danno pochissime"
+  },
+  {
+    "start": 1552.22,
+    "end": 1558.32,
+    "text": " garanzie va bene va bene lo stesso si può fare una cosa del genere ma devi testare l'indian"
+  },
+  {
+    "start": 1558.32,
+    "end": 1563.52,
+    "text": " esso ma abbiamo detto che ormai tutte le macchine sono sostanzialmente l'ital indian questa roba"
+  },
+  {
+    "start": 1563.52,
+    "end": 1569.98,
+    "text": " qua è stata scritta nell'82 e le cose non erano così o non ho vantù non insomma tanto tempo fa"
+  },
+  {
+    "start": 1571.02,
+    "end": 1576.68,
+    "text": " ora praticamente potremmo anche volendo con un po di discrio ma io sinceramente lo farei"
+  },
+  {
+    "start": 1577.42,
+    "end": 1584.92,
+    "text": " droppare questo check qui è semplicemente scrivere sta roba qua e funzionerebbe in tutte le macchine"
+  },
+  {
+    "start": 1584.92,
+    "end": 1591.82,
+    "text": " certo poi se nel futuro i big indian hanno di nuovo una nuova ma di solito quando le cose"
+  },
+  {
+    "start": 1591.82,
+    "end": 1598.26,
+    "text": " vengono diciamo allora prima c'erano queste due famiglie poi quando ed era un casino ma dovevi"
+  },
+  {
+    "start": 1598.26,
+    "end": 1603.24,
+    "text": " sopportare tutte e due poi quando si creano standard fortissimo tipo l'alprensione numerica"
+  },
+  {
+    "start": 1603.24,
+    "end": 1609.76,
+    "text": " col complemento a due poi non era prima diciamo che tutti i computer non avevano questo tipo"
+  },
+  {
+    "start": 1609.76,
+    "end": 1614.8,
+    "text": " l'alprensione oggi è in pensabbia fare una macchina che non ce l'abbia io credo che convergeremo"
+  },
+  {
+    "start": 1614.8,
+    "end": 1620.54,
+    "text": " tutti sull'ital india non ci sarà nient'altro quindi io rischerei e scriverei semplicemente così"
+  },
+  {
+    "start": 1620.54,
+    "end": 1626.66,
+    "text": " quindi questo è un esempio molto interessante di bitfield io vorrei fare vedere un altro"
+  },
+  {
+    "start": 1628.92,
+    "end": 1641.26,
+    "text": " ecco redis object guardate type encoding questo guardate bitfield a un bit quindi a un buleano"
+  },
+  {
+    "start": 1644.94,
+    "end": 1651.04,
+    "text": " lru list recently used qua usa un po di bit quelli che restano ci faccio altro object"
+  },
+  {
+    "start": 1651.04,
+    "end": 1658.94,
+    "text": " fk un bit questo redis è diciamo un esercizio di salvare il salvabile di memoria dice più di"
+  },
+  {
+    "start": 1658.94,
+    "end": 1664.42,
+    "text": " ogni cosa possibile quindi qua vi ha indefigurato bisogia stare qua qui il bitfield a noi ci dà"
+  },
+  {
+    "start": 1664.42,
+    "end": 1668.82,
+    "text": " problemi dal punto di vista di combat e vitality tolendi al beginner o te no perché sta roba qui"
+  },
+  {
+    "start": 1668.82,
+    "end": 1674.26,
+    "text": " rimane solo in memoria non viene mai si è realizzato l'oggetto redis in maniera così cruda con una"
+  },
+  {
+    "start": 1674.26,
+    "end": 1679.78,
+    "text": " right in memoria di quello che noi abbiamo in memoria cioè di quello con una right su disco di"
+  },
+  {
+    "start": 1679.78,
+    "end": 1683.56,
+    "text": " quello che noi abbiamo in memoria c'è sempre poi la serializzazione in cui si sono formato"
+  },
+  {
+    "start": 1683.56,
+    "end": 1690.26,
+    "text": " diverso c'è una strazione dei file ready bio app non li fa il quindi il problema non esiste bene"
+  },
+  {
+    "start": 1690.26,
+    "end": 1699.04,
+    "text": " bene bene a questo punto io avrei voluto trattare anche le puntatore funzione ma siccome siamo andati"
+  },
+  {
+    "start": 1699.04,
+    "end": 1704.6,
+    "text": " oltre il limite ci vederemo la prossima volta e me ne fate un po di esperimenti col bitfield"
+  },
+  {
+    "start": 1704.6,
+    "end": 1710.16,
+    "text": " ecco le union perché sono assai interessanti e sono due cose che come avete potuto vedere"
+  },
+  {
+    "start": 1710.16,
+    "end": 1716.32,
+    "text": " dal 91 ad oggi sono state utili e continueranno a essere utili ciao"
+  }
+]

@@ -1,0 +1,180 @@
+import VideoEmbed from '../../components/content/VideoEmbed';
+import Callout from '../../components/content/Callout';
+import KeyConcepts from '../../components/content/KeyConcepts';
+import CodeEditor from '../../components/exercises/CodeEditor';
+import Quiz from '../../components/exercises/Quiz';
+import HackerTerminal from '../../components/content/HackerTerminal';
+import PointerArithmetic from '../../components/content/PointerArithmetic';
+
+# Lesson 10: Pointer Arithmetic and Strings 🧵
+
+In the previous lesson, we saw what a pointer is. Today, we'll discover that pointers aren't static: we can "walk" through memory using them as relative indices.
+
+<VideoEmbed videoId="lc7hL9Wt-ho" title="Lesson 10: Pointer Arithmetic" />
+
+<KeyConcepts 
+  concepts={[
+    {
+      title: "Pointer Mathematics",
+      description: "p++ doesn't add 1 byte, but moves the pointer to the next element based on its type (int = +4 bytes)."
+    },
+    {
+      title: "Pointers and Arrays",
+      description: "In C, the name of an array is technically a pointer to its first element."
+    },
+    {
+      title: "Pointer Casting",
+      description: "We can force the compiler to treat an address as a different type (e.g., reading an int as a sequence of chars)."
+    }
+  ]} 
+/>
+
+## Pointers to Pointers
+
+A pointer is also a variable, and as such, it has its own memory address. We can declare a "pointer to a pointer":
+- `int x = 5;`
+- `int *y = &x;` (y points to x)
+- `int **z = &y;` (z points to y)
+
+All pointers (to `char`, `int`, or other pointers) have the **same size** (8 bytes on 64-bit systems) because they always contain a memory address.
+
+## Explorer: Pointer Arithmetic
+
+Experiment with how the pointer displacement changes depending on the selected data type.
+
+<PointerArithmetic />
+
+<Callout type="warning" title="Segmentation Fault">
+If you try to access a memory address that doesn't belong to your program (e.g., `p[-100]` or `p[10000]`), the operating system will kill the process. This is the famous **Segmentation Fault**.
+</Callout>
+
+## Strings and Pointers
+
+In C, strings are arrays of `char` terminated by the special character `\0` (null terminator). We can iterate through a string by incrementing a pointer until we hit zero.
+
+<CodeEditor 
+  initialCode={`#include <stdio.h>
+
+void print_string(char *p) {
+    while (*p != '\\0') {
+        putchar(*p); // Print current character
+        p++;         // Move to next byte
+    }
+    putchar('\\n');
+}
+
+int main() {
+    char *greeting = "Hacker World";
+    print_string(greeting);
+    return 0;
+}`}
+  language="c"
+/>
+
+---
+
+<KeyConcepts title="Hacker Key Concepts">
+  - **Buffer Overflow**: What happens when you write beyond a pointer/array limits.
+  - **Memory Layout**: Understanding how data is packed (one of C's main strengths).
+  - **Little Endian**: How multi-byte numbers are stored (least significant byte at the lowest address).
+</KeyConcepts>
+
+---
+
+## Verification Quiz
+
+<Quiz 
+  questions={[
+    {
+      question: "If `int *p` points to address 1000, where will `p + 1` point?",
+      options: [
+        "1001",
+        "1002",
+        "1004",
+        "1008"
+      ],
+      correctAnswer: 2,
+      explanation: "Pointer arithmetic scales the increment by the base type size (sizeof(int) = 4)."
+    },
+    {
+      question: "Which of the following is equivalent to `p[3]`?",
+      options: [
+        "*p + 3",
+        "*(p + 3)",
+        "&p + 3",
+        "p + 3"
+      ],
+      correctAnswer: 1,
+      explanation: "The [] operator is syntactic sugar for addition and dereferencing: *(p + n)."
+    },
+    {
+      question: "In C, how do you recognize the end of a string?",
+      options: [
+        "With the '\\n' character",
+        "With the '\\0' character (null terminator)",
+        "Based on the length saved in a hidden variable",
+        "With the '.' character"
+      ],
+      correctAnswer: 1,
+      explanation: "C does not store string lengths; it uses a binary zero to mark the end."
+    }
+  ]}
+/>
+
+---
+
+### Hacker Challenge 🏆
+
+<Quiz 
+  title="Hacker Challenge: Casting & Memory"
+  questions={[
+    {
+      id: 1,
+      question: "If I cast an `int *p` to `char *c`, how many bytes will `c++` skip?",
+      options: [
+        "4 bytes",
+        "1 byte",
+        "8 bytes",
+        "It depends on the value of p"
+      ],
+      correctAnswer: 1,
+      explanation: "Once cast to char*, the compiler treats that pointer as a single-byte pointer."
+    },
+    {
+      id: 2,
+      question: "What is a 'Segmentation Fault'?",
+      options: [
+        "A divide-by-zero error",
+        "An attempt to access unauthorized memory",
+        "A compiler syntax error",
+        "When the hard disk is full"
+      ],
+      correctAnswer: 1,
+      explanation: "It happens when the processor signals the OS that the program is touching memory outside its valid 'segments'."
+    }
+  ]}
+/>
+
+### Terminal Challenge: Exploration ⚡
+
+<HackerTerminal 
+  title="Hacker Challenge: Level 10 - Task 1"
+  description="Which Linux command allows you to view the binary content of a file (even an executable) in hexadecimal format?"
+  command="..."
+  expectedOutput="hexdump"
+  inputLabel="Command:"
+  placeholder="e.g. dump"
+  explanation="Hexdump is essential for seeing how data (strings, integers, pointers) is actually written on disk or memory."
+  xpReward={150}
+/>
+
+<HackerTerminal 
+  title="Hacker Challenge: Level 10 - Task 2"
+  description="You're analyzing a crash (Segfault). Which Linux command creates a detailed report of what the program was doing at the time of the error (creates a 'dump' file)?"
+  command="ulimit -c ..."
+  expectedOutput="ulimit -c unlimited"
+  inputLabel="Configuration:"
+  placeholder="e.g. enable dump"
+  explanation="By enabling core dumps, you can use GDB to analyze the exact state of pointers at the time of the crash."
+  xpReward={250}
+/>

@@ -1,0 +1,188 @@
+import VideoEmbed from '../../components/content/VideoEmbed';
+import Callout from '../../components/content/Callout';
+import KeyConcepts from '../../components/content/KeyConcepts';
+import CodeEditor from '../../components/exercises/CodeEditor';
+import Quiz from '../../components/exercises/Quiz';
+import HackerTerminal from '../../components/content/HackerTerminal';
+import PointerBasics from '../../components/content/PointerBasics';
+
+# Lezione 9: Benvenuti nei Puntatori 📍
+
+Siamo finalmente arrivati a uno dei concetti più temuti, ma fondamentali, del linguaggio C: i **Puntatori**.
+
+<VideoEmbed videoId="BBgZs-jd_QY" title="Lezione 9: Introduzione ai Puntatori" />
+
+<KeyConcepts 
+  concepts={[
+    {
+      title: "Variabile vs Indirizzo",
+      description: "Una variabile è una scatola; un puntatore è un biglietto con scritto sopra dove si trova quella scatola in memoria."
+    },
+    {
+      title: "L'operatore & (Indirizzo)",
+      description: "Estrae la posizione di memoria di una variabile (es. &x)."
+    },
+    {
+      title: "L'operatore * (Deferenziazione)",
+      description: "Dice al computer: 'Vai all'indirizzo contenuto nel puntatore e interagisci con il valore che trovi lì'."
+    }
+  ]} 
+/>
+
+<Callout type="info" title="Sintassi e Grammatica">
+Salvatore consiglia di scrivere `int *p` invece di `int* p`. Perché? Se dichiari `int *p, z;`, solo `p` è un puntatore, mentre `z` è un intero normale. Mettere l'asterisco vicino al nome rende chiara questa distinzione grammaticale del C.
+</Callout>
+
+## Visualizing Memory
+
+Usa questo simulatore per capire la differenza tra il valore di una variabile e l'indirizzo che la ospita.
+
+<PointerBasics />
+
+## Perché i Puntatori hanno un Tipo?
+
+Un indirizzo di memoria è sempre lo stesso (64 bit su architetture moderne), ma il compilatore deve sapere **quanti byte leggere** partendo da quell'indirizzo.
+
+- `int *p`: Leggi 4 byte e interpretali come intero.
+- `char *c`: Leggi 1 solo byte.
+
+In C, l'indirizzo **0** è speciale e si indica con la keyword `NULL`. Significa che il puntatore non punta a nulla di valido.
+
+<Callout type="hacker" title="Puntatori vs Array: L'equivalenza">
+Sapevi che `*p` è identico a scrivere `p[0]`? In C c'è una "bizzarra analogia" (come la chiama Salvatore) tra puntatori e array: un puntatore può essere trattato come l'indirizzo base di un array di un solo elemento.
+</Callout>
+
+<Callout type="warning" title="Il Puntatore NULL">
+Salvatore consiglia di inizializzare sempre i puntatori a `NULL` (indirizzo 0). Accedere a un puntatore che non punta a nulla causa un **Segmentation Fault**, ma è meglio un errore immediato che un bug silenzioso che scrive in zone di memoria a caso!
+</Callout>
+
+## Esempio di Codice: Passaggio per Riferimento
+
+Le funzioni in C normalmente ricevono **copie** dei valori. Per permettere a una funzione di modificare la variabile originale, dobbiamo passargli il suo "indirizzo di casa".
+
+<CodeEditor 
+  initialCode={`#include <stdio.h>
+
+void incrementa(int *p) {
+    *p = *p + 1; // Deferenzia p e aggiungi 1 al valore originale
+}
+
+int main() {
+    int x = 5;
+    printf("Prima: %d\\n", x);
+    
+    incrementa(&x); // Passiamo l'indirizzo di x
+    
+    printf("Dopo: %d\\n", x); // x ora vale 6!
+    return 0;
+}`}
+  language="c"
+/>
+
+---
+
+<KeyConcepts title="Hacker Key Concepts">
+  - **Indirection**: Accedere ai dati 'girovagando' per gli indirizzi.
+  - **Pass-by-reference**: Simulare il passaggio per riferimento del C++ o Java usando i puntatori.
+  - **Memory Safety**: Capire che un puntatore è un'arma a doppio taglio: potente ma rischioso.
+</KeyConcepts>
+
+---
+
+## Quiz di Verifica
+
+<Quiz 
+  questions={[
+    {
+      question: "Cosa contiene tecnicamente una variabile dichiarata come `int *p`?",
+      options: [
+        "Un numero intero",
+        "L'indirizzo di memoria di un intero",
+        "Una copia di un intero",
+        "Il nome di una variabile"
+      ],
+      correctAnswer: 1,
+      explanation: "Un puntatore è una variabile che memorizza indirizzi di memoria."
+    },
+    {
+      question: "Quale operatore si usa per ottenere l'indirizzo di una variabile `x`?",
+      options: [
+        "*x",
+        "&x",
+        "%x",
+        "@x"
+      ],
+      correctAnswer: 1,
+      explanation: "L'operatore '&' (Address-of) estrae l'indirizzo."
+    },
+    {
+      question: "Se scrivo `*p = 10;`, dove `p` è un puntatore, cosa sto facendo?",
+      options: [
+        "Sto cambiando l'indirizzo a cui punta p",
+        "Sto scrivendo il valore 10 all'indirizzo memorizzato in p",
+        "Sto moltiplicando p per 10",
+        "Nulla, il codice è errato"
+      ],
+      correctAnswer: 1,
+      explanation: "Questo si chiama 'deferenziare'. Intervieni sul contenuto all'indirizzo puntato."
+    }
+  ]}
+/>
+
+---
+
+### Hacker Challenge 🏆
+
+<Quiz 
+  title="Hacker Challenge: Pointer Architecture"
+  questions={[
+    {
+      id: 1,
+      question: "Qual è la dimensione di un puntatore (indipendentemente dal tipo puntato) su una macchina a 64 bit?",
+      options: [
+        "4 byte",
+        "8 byte",
+        "Dipende se punta a char o int",
+        "16 byte"
+      ],
+      correctAnswer: 1,
+      explanation: "Tutti i puntatori sono indirizzi di memoria. Su 64-bit, un indirizzo è largo 8 byte."
+    },
+    {
+      id: 2,
+      question: "Cosa succede se dichiari `int x; int *p = &x;` e poi incrementi `p`?",
+      options: [
+        "Il valore di x aumenta",
+        "L'indirizzo in p si sposta in avanti di 4 byte",
+        "Il computer crasha immediatamente",
+        "p diventa NULL"
+      ],
+      correctAnswer: 1,
+      explanation: "Incrementare il puntatore sposta l'indirizzo della dimensione del tipo base (int = 4 byte)."
+    }
+  ]}
+/>
+
+### Terminal Challenge: Exploration ⚡
+
+<HackerTerminal 
+  title="Hacker Challenge: Level 9 - Task 1"
+  description="Salvatore ha menzionato che a volte le variabili finiscono nei registri della CPU. Quale comando Linux ti permette di vedere i registri del processore durante il debug? (È un debugger molto famoso)"
+  command="..."
+  expectedOutput="gdb"
+  inputLabel="Debugger:"
+  placeholder="es. debugger"
+  explanation="GDB (GNU Debugger) è lo strumento definitivo per analizzare dump di memoria e registri."
+  xpReward={150}
+/>
+
+<HackerTerminal 
+  title="Hacker Challenge: Level 9 - Task 2"
+  description="Vuoi vedere l'indirizzo di caricamento di un programma in memoria mentre è in esecuzione. Quale file virtuale nel filesystem /proc contiene le mappe di memoria?"
+  command="cat /proc/self/..."
+  expectedOutput="cat /proc/self/maps"
+  inputLabel="File:"
+  placeholder="es. memory"
+  explanation="/proc/[pid]/maps mostra esattamente come i puntatori del tuo programma sono mappati sulla RAM fisica."
+  xpReward={250}
+/>

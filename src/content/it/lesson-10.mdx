@@ -1,0 +1,180 @@
+import VideoEmbed from '../../components/content/VideoEmbed';
+import Callout from '../../components/content/Callout';
+import KeyConcepts from '../../components/content/KeyConcepts';
+import CodeEditor from '../../components/exercises/CodeEditor';
+import Quiz from '../../components/exercises/Quiz';
+import HackerTerminal from '../../components/content/HackerTerminal';
+import PointerArithmetic from '../../components/content/PointerArithmetic';
+
+# Lezione 10: Aritmetica dei Puntatori e Stringhe 🧵
+
+Nella lezione precedente abbiamo visto cos'è un puntatore. Oggi scopriremo che i puntatori non sono statici: possiamo "camminare" nella memoria usandoli come indici.
+
+<VideoEmbed videoId="lc7hL9Wt-ho" title="Lezione 10: Aritmetica dei Puntatori" />
+
+<KeyConcepts 
+  concepts={[
+    {
+      title: "Matematica dei Puntatori",
+      description: "p++ non aggiunge 1 byte, ma sposta il puntatore all'elemento successivo in base al tipo (int = +4 byte)."
+    },
+    {
+      title: "Puntatori e Array",
+      description: "In C, il nome di un array è tecnicamente un puntatore al suo primo elemento."
+    },
+    {
+      title: "Casting dei Puntatori",
+      description: "Possiamo forzare il compilatore a trattare un indirizzo come un tipo diverso (es. leggere un int come se fosse una sequenza di char)."
+    }
+  ]} 
+/>
+
+## Puntatori a Puntatori
+
+Anche un puntatore è una variabile, e come tale ha un suo indirizzo di memoria. Possiamo dichiarare un "puntatore a un puntatore":
+- `int x = 5;`
+- `int *y = &x;` (y punta a x)
+- `int **z = &y;` (z punta a y)
+
+Tutti i puntatori (a `char`, `int`, o altri puntatori) hanno la **stessa dimensione** (8 byte su sistemi a 64 bit), perché contengono sempre un indirizzo di memoria.
+
+## Explorer: Pointer Arithmetic
+
+Sperimenta come cambia lo spostamento del puntatore in base al tipo di dato selezionato.
+
+<PointerArithmetic />
+
+<Callout type="warning" title="Segmentation Fault">
+Se provi ad accedere a un indirizzo di memoria che non appartiene al tuo programma (es. `p[-100]` o `p[10000]`), il sistema operativo ucciderà il processo. Questo è il famoso **Segmentation Fault**.
+</Callout>
+
+## Stringhe e Puntatori
+
+In C, le stringhe sono array di `char` terminati dal carattere speciale `\0` (null terminator). Possiamo scorrere una stringa incrementando un puntatore finché non incontriamo lo zero.
+
+<CodeEditor 
+  initialCode={`#include <stdio.h>
+
+void stampa_stringa(char *p) {
+    while (*p != '\\0') {
+        putchar(*p); // Stampa il carattere corrente
+        p++;         // Passa al prossimo byte
+    }
+    putchar('\\n');
+}
+
+int main() {
+    char *saluto = "Hacker World";
+    stampa_stringa(saluto);
+    return 0;
+}`}
+  language="c"
+/>
+
+---
+
+<KeyConcepts title="Hacker Key Concepts">
+  - **Buffer Overflow**: Cosa succede quando scrivi oltre i limiti di un puntatore/array.
+  - **Memory Layout**: Capire come i dati sono impacchettati (punti di forza del C).
+  - **Little Endian**: Come i numeri multi-byte sono memorizzati (il byte meno significativo all'indirizzo più basso).
+</KeyConcepts>
+
+---
+
+## Quiz di Verifica
+
+<Quiz 
+  questions={[
+    {
+      question: "Se `int *p` punta all'indirizzo 1000, dove punterà `p + 1`?",
+      options: [
+        "1001",
+        "1002",
+        "1004",
+        "1008"
+      ],
+      correctAnswer: 2,
+      explanation: "L'aritmetica dei puntatori scala l'incremento per la dimensione del tipo (sizeof(int) = 4)."
+    },
+    {
+      question: "Quale delle seguenti è equivalente a `p[3]`?",
+      options: [
+        "*p + 3",
+        "*(p + 3)",
+        "&p + 3",
+        "p + 3"
+      ],
+      correctAnswer: 1,
+      explanation: "L'operatore [] è zucchero sintattico per la somma e la deferenziazione: *(p + n)."
+    },
+    {
+      question: "In C, come si riconosce la fine di una stringa?",
+      options: [
+        "Con il carattere '\\n'",
+        "Con il carattere '\\0' (terminatore nullo)",
+        "In base alla lunghezza salvata in una variabile nascosta",
+        "Con il carattere '.' "
+      ],
+      correctAnswer: 1,
+      explanation: "Il C non salva la lunghezza delle stringhe; usa uno zero binario per segnare la fine."
+    }
+  ]}
+/>
+
+---
+
+### Hacker Challenge 🏆
+
+<Quiz 
+  title="Hacker Challenge: Casting & Memory"
+  questions={[
+    {
+      id: 1,
+      question: "Se casto un `int *p` in `char *c`, quanti byte 'salterà' `c++`?",
+      options: [
+        "4 byte",
+        "1 byte",
+        "8 byte",
+        "Dipende dal valore di p"
+      ],
+      correctAnswer: 1,
+      explanation: "Una volta castato a char*, il compilatore tratta quel puntatore come puntatore a byte singolo."
+    },
+    {
+      id: 2,
+      question: "Cos'è il 'Segmentation Fault'?",
+      options: [
+        "Un errore di divisione per zero",
+        "Un tentativo di accedere a memoria non autorizzata",
+        "Un errore di sintassi del compilatore",
+        "Quando l'hard disk è pieno"
+      ],
+      correctAnswer: 1,
+      explanation: "Accade quando il processore segnala al SO che il programma sta toccando memoria fuori dai suoi 'segmenti' validi."
+    }
+  ]}
+/>
+
+### Terminal Challenge: Exploration ⚡
+
+<HackerTerminal 
+  title="Hacker Challenge: Level 10 - Task 1"
+  description="Quale comando Linux permette di vedere il contenuto binario di un file (anche eseguibile) in formato esadecimale?"
+  command="..."
+  expectedOutput="hexdump"
+  inputLabel="Comando:"
+  placeholder="es. dump"
+  explanation="Hexdump è fondamentale per vedere come i dati (stringhe, interi, puntatori) sono realmente scritti su disco o memoria."
+  xpReward={150}
+/>
+
+<HackerTerminal 
+  title="Hacker Challenge: Level 10 - Task 2"
+  description="Stai analizzando un crash (Segfault). Quale comando Linux crea un report dettagliato di cosa stava facendo il programma al momento dell'errore (crea un file di 'dump')?"
+  command="ulimit -c ..."
+  expectedOutput="ulimit -c unlimited"
+  inputLabel="Configurazione:"
+  placeholder="es. abilita dump"
+  explanation="Abilitando i core dump, puoi usare GDB per analizzare lo stato esatto dei puntatori al momento del crash."
+  xpReward={250}
+/>

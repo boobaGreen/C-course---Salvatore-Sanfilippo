@@ -64,4 +64,18 @@ export const lessons = [
         videoId: 'c5atNuYdKK8',
         duration: '34:00',
     },
+    {
+        id: 9,
+        slug: 'lesson-09',
+        title: { it: 'Lezione 9: Puntatori (Parte 1)', en: 'Lesson 9: Pointers (Part 1)' },
+        videoId: 'BBgZs-jd_QY',
+        duration: '17:00',
+    },
+    {
+        id: 10,
+        slug: 'lesson-10',
+        title: { it: 'Lezione 10: Puntatori (Parte 2)', en: 'Lesson 10: Pointers (Part 2)' },
+        videoId: 'lc7hL9Wt-ho',
+        duration: '32:00',
+    },
 ];

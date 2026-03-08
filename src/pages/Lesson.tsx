@@ -27,6 +27,8 @@ import RecursionVisualizer from '../components/content/RecursionVisualizer';
 import SwitchBoard from '../components/content/SwitchBoard';
 import HackerTerminal from '../components/content/HackerTerminal';
 import GameOfLife from '../components/content/GameOfLife';
+import PointerBasics from '../components/content/PointerBasics';
+import PointerArithmetic from '../components/content/PointerArithmetic';
 
 // Mappa componenti MDX
 const mdxComponents = {
@@ -76,6 +78,8 @@ const mdxComponents = {
     SwitchBoard,
     HackerTerminal,
     GameOfLife,
+    PointerBasics,
+    PointerArithmetic,
 };
 
 export default function Lesson() {

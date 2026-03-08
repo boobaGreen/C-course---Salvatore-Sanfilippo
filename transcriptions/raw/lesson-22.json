@@ -1,0 +1,2077 @@
+[
+  {
+    "start": 39.56,
+    "end": 49.7,
+    "text": " Nella scorsa puntata avevo annunciato che avrei parlato di Union, di Bitfield e di puntatori"
+  },
+  {
+    "start": 49.7,
+    "end": 50.42,
+    "text": " a funzioni."
+  },
+  {
+    "start": 51.1,
+    "end": 56.68,
+    "text": " Ma invece poi la puntata è stata abbastanza lungaggiati per sé con i primi due argomenti"
+  },
+  {
+    "start": 56.68,
+    "end": 58.44,
+    "text": " e si è andati oltre."
+  },
+  {
+    "start": 59.18,
+    "end": 65.02,
+    "text": " Ma pensavo che in effetti il concetto di puntatore a funzione per chi è seguito fino a questo"
+  },
+  {
+    "start": 65.02,
+    "end": 66.58,
+    "text": " corso può sembrare strano."
+  },
+  {
+    "start": 68.46,
+    "end": 74.64,
+    "text": " Per il fatto che i puntatori che abbiamo visto però sono puntatori a dei dati che sono registrati"
+  },
+  {
+    "start": 74.64,
+    "end": 75.14,
+    "text": " in memoria."
+  },
+  {
+    "start": 75.5,
+    "end": 77.62,
+    "text": " I puntatori sono indirizzi in memoria."
+  },
+  {
+    "start": 78.1,
+    "end": 80.76,
+    "text": " Quindi in che modo si può puntare a una funzione?"
+  },
+  {
+    "start": 82.0,
+    "end": 85.84,
+    "text": " Beh il fatto è che anche le funzioni sono registrate in memoria da qualche parte."
+  },
+  {
+    "start": 85.84,
+    "end": 91.26,
+    "text": " Quello che ci trovi a quell'indirizzo è appunto il codice macchina eseguibile che"
+  },
+  {
+    "start": 91.26,
+    "end": 92.7,
+    "text": " implementa la funzione."
+  },
+  {
+    "start": 93.36,
+    "end": 97.8,
+    "text": " Fung.ptr.ci andiamo a vedere, tanto che inizia il servero."
+  },
+  {
+    "start": 98.18,
+    "end": 105.74,
+    "text": " Int main void include stdio.tage."
+  },
+  {
+    "start": 106.82,
+    "end": 108.4,
+    "text": " Allora la main è una funzione."
+  },
+  {
+    "start": 109.14,
+    "end": 112.68,
+    "text": " Vediamo se io posso stampare l'indirizzo in memoria della main."
+  },
+  {
+    "start": 114.72,
+    "end": 120.74,
+    "text": " Il nome di una funzione così come il nome di un array è un puntatore in c."
+  },
+  {
+    "start": 122.3,
+    "end": 123.02,
+    "text": " RETALM0."
+  },
+  {
+    "start": 124.18,
+    "end": 126.84,
+    "text": " Compiliamo Fung.ptr.ci."
+  },
+  {
+    "start": 128.82,
+    "end": 134.62,
+    "text": " Vedete la funzione main è registrata a uno specifico indirizzo in memoria che tra l'altro"
+  },
+  {
+    "start": 134.62,
+    "end": 137.68,
+    "text": " cambia ogni volta che io eseguo il programma."
+  },
+  {
+    "start": 137.68,
+    "end": 141.68,
+    "text": " Ma durante l'esecuzione il programma è fisso."
+  },
+  {
+    "start": 143.74,
+    "end": 144.82,
+    "text": " Faccio vedere una cosa."
+  },
+  {
+    "start": 145.5,
+    "end": 150.68,
+    "text": " Se io chiamassi la funzione main dalla funzione main avrei un loop infinito."
+  },
+  {
+    "start": 151.34,
+    "end": 158.74,
+    "text": " Ci siamo perché la main chiama la main e quello che succede è che stampa sempre di continuo"
+  },
+  {
+    "start": 158.74,
+    "end": 162.82,
+    "text": " l'indirizzo in memoria della funzione main perché la funzione main è solo questo contiere"
+  },
+  {
+    "start": 162.82,
+    "end": 165.18,
+    "text": " e poi vign.segmentation fault."
+  },
+  {
+    "start": 165.18,
+    "end": 167.74,
+    "text": " Perché vign.segmentation fault?"
+  },
+  {
+    "start": 169.38,
+    "end": 174.92,
+    "text": " Perché queste chiamate, vi ricordate quando abbiamo parlato di ottimizzazione della funzione"
+  },
+  {
+    "start": 174.92,
+    "end": 176.42,
+    "text": " ricorsiva di coda?"
+  },
+  {
+    "start": 177.28,
+    "end": 183.0,
+    "text": " Siccome quando non abbiamo usato un gotoo per ottimizzare questa function, tail recursion"
+  },
+  {
+    "start": 183.0,
+    "end": 188.6,
+    "text": " e neppure abbiamo usato un livello di ottimizzazione abbastanza alto da far sì che ci pensasse il"
+  },
+  {
+    "start": 188.6,
+    "end": 189.26,
+    "text": " convidatore."
+  },
+  {
+    "start": 189.42,
+    "end": 191.02,
+    "text": " Vengono se ci pensa lui in questo caso."
+  },
+  {
+    "start": 191.48,
+    "end": 192.12,
+    "text": " Sì, guardate."
+  },
+  {
+    "start": 192.64,
+    "end": 196.16,
+    "text": " Appena io abilitò le ottimizzazioni non cresce a più."
+  },
+  {
+    "start": 197.38,
+    "end": 198.84,
+    "text": " Ma in questo caso invece sì."
+  },
+  {
+    "start": 198.96,
+    "end": 200.92,
+    "text": " A noi ci interessa il caso in cui vign.segmentation fault."
+  },
+  {
+    "start": 201.48,
+    "end": 203.7,
+    "text": " La main chiama la main chiama la main chiama la main."
+  },
+  {
+    "start": 203.78,
+    "end": 208.5,
+    "text": " Siccome usa per ogni volta registrare diciamo lo stack pointer."
+  },
+  {
+    "start": 208.5,
+    "end": 209.18,
+    "text": " Vi ricordate?"
+  },
+  {
+    "start": 209.46,
+    "end": 216.0,
+    "text": " Abbiamo proprio fatto vedere come succede l'invocazione di una funzione in cibi e registrato"
+  },
+  {
+    "start": 216.0,
+    "end": 217.04,
+    "text": " l'indirizzo di ritorno."
+  },
+  {
+    "start": 217.16,
+    "end": 221.86,
+    "text": " Ci sono le variabili e così via che vivono nello stack le variabili locali quindi ogni"
+  },
+  {
+    "start": 221.86,
+    "end": 223.04,
+    "text": " volta si prende memoria."
+  },
+  {
+    "start": 223.5,
+    "end": 225.98,
+    "text": " In un segmento di memoria che viene chiamato stack."
+  },
+  {
+    "start": 226.98,
+    "end": 228.98,
+    "text": " Alla fine questo stack finisceomba finisce tape."
+  },
+  {
+    "start": 229.34,
+    "end": 236.1,
+    "text": " Default è 2 MB, 4, 8 MB, 8 MB che è base al sistema, ma ci sono persino delle chiamate per configurare"
+  },
+  {
+    "start": 236.1,
+    "end": 237.26,
+    "text": " la grandezza dello stack."
+  },
+  {
+    "start": 238.68,
+    "end": 243.0,
+    "text": " A quel punto vai a toccare in una pagina il stack funziona al ritroso."
+  },
+  {
+    "start": 243.26,
+    "end": 250.22,
+    "text": " Si parte da indirizzi alti e si abba sempre ritroso, quando finiscono con le pagini di stack che il sistema operativo"
+  },
+  {
+    "start": 250.22,
+    "end": 254.7,
+    "text": " ha alocato per questo processo, prima di seguirlo, adios."
+  },
+  {
+    "start": 255.08,
+    "end": 261.5,
+    "text": " Si va a toccare un indirizzo che non è mappato, viene generato un'eccezione, il programma viene interrotto"
+  },
+  {
+    "start": 261.5,
+    "end": 268.26,
+    "text": " e ti dice il sistema operativo che il programma ha toccato un indirizzo che non è valido."
+  },
+  {
+    "start": 270.74,
+    "end": 277.6,
+    "text": " Alla di la di questo excursus, il punto è che noi possiamo stampare l'indirizzo di main."
+  },
+  {
+    "start": 280.98,
+    "end": 283.26,
+    "text": " Ora facciamo una funzione diversa."
+  },
+  {
+    "start": 284.68,
+    "end": 290.06,
+    "text": " Anzi, sembra usiamo main, che è il motivo per cui avevo usato questo trucco."
+  },
+  {
+    "start": 290.28,
+    "end": 293.2,
+    "text": " Allora vi dico come si fa un puntatore a funzione."
+  },
+  {
+    "start": 293.44,
+    "end": 299.14,
+    "text": " Uno prende praticamente la definizione della funzione, il prototipo, che non è altro che questo, int main, guardate."
+  },
+  {
+    "start": 299.34,
+    "end": 299.58,
+    "text": " Vedete?"
+  },
+  {
+    "start": 300.62,
+    "end": 310.16,
+    "text": " Si mette tra parentesi il nome della funzione e si prepende al nome della funzione un asterisco."
+  },
+  {
+    "start": 310.16,
+    "end": 312.8,
+    "text": " Questo è una questione proprio meccanica."
+  },
+  {
+    "start": 313.3,
+    "end": 319.32,
+    "text": " A questo punto questa definizione qui non è più il prototipo di una funzione,"
+  },
+  {
+    "start": 320.49999999999994,
+    "end": 322.62,
+    "text": " ma il puntatore è una funzione."
+  },
+  {
+    "start": 322.8,
+    "end": 324.74,
+    "text": " Il prototipo è proprio il modo in cui si definisceombino."
+  },
+  {
+    "start": 324.84,
+    "end": 325.4,
+    "text": " Il prototipo è il modo in cui si definisce Wonderful."
+  },
+  {
+    "start": 325.4,
+    "end": 326.28,
+    "text": " Il prototipo può servir due due cose."
+  },
+  {
+    "start": 326.34,
+    "end": 330.06,
+    "text": " Appunto, a iniziare la definizione di una funzione come in questo caso,"
+  },
+  {
+    "start": 330.06,
+    "end": 336.58,
+    "text": " questo è, in questo caso, la definizione della funzione che inizia con il prototipo della funzione."
+  },
+  {
+    "start": 336.74,
+    "end": 343.56,
+    "text": " O io, il prototipo lo posso usare a parte e scriverlo qui per dire a questo pezzo di programma."
+  },
+  {
+    "start": 343.66,
+    "end": 346.62,
+    "text": " Guardate che esiste una funzione main che indicaeerata così e così,"
+  },
+  {
+    "start": 346.8,
+    "end": 348.54,
+    "text": " ma questo non è un altro file."
+  },
+  {
+    "start": 349.04,
+    "end": 350.66,
+    "text": " Ma questo ci arriveremo più avanti."
+  },
+  {
+    "start": 350.88,
+    "end": 355.44,
+    "text": " Se per caso non avete capito bene questo concetto di prototipo, non preoccupatevi."
+  },
+  {
+    "start": 356.34,
+    "end": 362.04,
+    "text": " Il punto è che sapete comunque che il prototipo della funzione è presente nella definizione della funzione"
+  },
+  {
+    "start": 362.04,
+    "end": 363.24,
+    "text": " prima della parendesi graph."
+  },
+  {
+    "start": 364.58,
+    "end": 366.82,
+    "text": " Prendete l'indilizzo di la funzione,"
+  },
+  {
+    "start": 366.94,
+    "end": 369.6,
+    "text": " il nome della funzione, che era così,"
+  },
+  {
+    "start": 370.28,
+    "end": 372.66,
+    "text": " poi tra perda parendesi tutti i parametri,"
+  },
+  {
+    "start": 375.68,
+    "end": 378.56,
+    "text": " avvolgete il nome della funzione in due parendesi tonde."
+  },
+  {
+    "start": 378.7,
+    "end": 381.88,
+    "text": " Poi mettete prima un asterisco e questo è diventato un puntatore a funzione."
+  },
+  {
+    "start": 381.88,
+    "end": 384.98,
+    "text": " Non lo possiamo chiamare main, perché il main già ce l'abbiamo."
+  },
+  {
+    "start": 385.1,
+    "end": 389.56,
+    "text": " Chiamiamolo myfunk, myf."
+  },
+  {
+    "start": 391.36,
+    "end": 393.92,
+    "text": " A questo punto io posso scrivere myf uguale main."
+  },
+  {
+    "start": 394.86,
+    "end": 398.22,
+    "text": " Questo è un puntatore a funzione e questa è una funzione."
+  },
+  {
+    "start": 398.96,
+    "end": 402.68,
+    "text": " Ora se io stampo main e poi stampo anche myf,"
+  },
+  {
+    "start": 405.88,
+    "end": 408.92,
+    "text": " vedo due volte lo stesso numero perché uno punta l'altro,"
+  },
+  {
+    "start": 408.92,
+    "end": 413.02,
+    "text": " ma la cosa figa è che myf è chiamabile."
+  },
+  {
+    "start": 414.64000000000004,
+    "end": 416.66,
+    "text": " Ne è più, no scusate voi tu quando lo scrive,"
+  },
+  {
+    "start": 416.8,
+    "end": 419.94,
+    "text": " ne è più e nemmeno come se fosse una normalissima funzione."
+  },
+  {
+    "start": 421.48,
+    "end": 422.28,
+    "text": " Guardate, myf,"
+  },
+  {
+    "start": 422.42,
+    "end": 426.3,
+    "text": " qua noi avremo di nuovo il loop infinito perché stiamo chiamando la main dalla main."
+  },
+  {
+    "start": 429.34000000000003,
+    "end": 429.74,
+    "text": " Vedete?"
+  },
+  {
+    "start": 431.4,
+    "end": 437.12,
+    "text": " Scriviamo una nuova funzione int, anzi void, hello, void."
+  },
+  {
+    "start": 443.9,
+    "end": 449.46,
+    "text": " E qua scriviamo una nuova funzione che si chiama invece bow bow."
+  },
+  {
+    "start": 452.54,
+    "end": 455.56,
+    "text": " Questa funzione è come la funzione hello che stampa hello,"
+  },
+  {
+    "start": 455.68,
+    "end": 457.52,
+    "text": " ma in realtà stamperà bow bow."
+  },
+  {
+    "start": 463.72,
+    "end": 466.08,
+    "text": " Stavolta togliamo tutto di qua."
+  },
+  {
+    "start": 466.08,
+    "end": 470.26,
+    "text": " Allora qual'è il prototipo della mia hello e della mia bow bow?"
+  },
+  {
+    "start": 470.36,
+    "end": 473.44,
+    "text": " È uguale, guardate queste due funzioni non ritornano niente,"
+  },
+  {
+    "start": 473.54,
+    "end": 474.96,
+    "text": " non prendono nessun parametro."
+  },
+  {
+    "start": 475.2,
+    "end": 478.0,
+    "text": " Quindi io posso scrivere un puntatore a funzione."
+  },
+  {
+    "start": 479.5,
+    "end": 480.98,
+    "text": " Usando la nostra regoletta,"
+  },
+  {
+    "start": 481.1,
+    "end": 485.72,
+    "text": " tra parentesi, ci metto il nome e prima ci metto un asterisco,"
+  },
+  {
+    "start": 485.72,
+    "end": 487.18,
+    "text": " e void."
+  },
+  {
+    "start": 488.82,
+    "end": 494.3,
+    "text": " Questo x lo setto a hello e chiamo x."
+  },
+  {
+    "start": 494.88,
+    "end": 497.54,
+    "text": " Poi guardate, x, che è sempre il mio puntatore a funzione,"
+  },
+  {
+    "start": 497.72,
+    "end": 503.96,
+    "text": " lo setto a bow bow e chiamo di nuovo x."
+  },
+  {
+    "start": 504.2,
+    "end": 505.46,
+    "text": " Io sto chiamando sempre x,"
+  },
+  {
+    "start": 505.76,
+    "end": 509.26,
+    "text": " ma una volta x punta hello e chiamerà hello."
+  },
+  {
+    "start": 509.58,
+    "end": 513.84,
+    "text": " Una volta seconda volta x punta bow bow e chiamerà bow bow."
+  },
+  {
+    "start": 514.76,
+    "end": 518.72,
+    "text": " Compiliamo, fin qui mi sembra abbastanza semplice,"
+  },
+  {
+    "start": 519.28,
+    "end": 522.66,
+    "text": " ma ora faremo il passaggio che vi farà dire,"
+  },
+  {
+    "start": 523.38,
+    "end": 526.64,
+    "text": " ah ecco, perché i puntatori a funzione sono così utili."
+  },
+  {
+    "start": 527.48,
+    "end": 533.86,
+    "text": " Scriviamo ora una funzione che chiamiamo call n times,"
+  },
+  {
+    "start": 534.14,
+    "end": 540.06,
+    "text": " chiama n volte, che prende due argomenti."
+  },
+  {
+    "start": 541.08,
+    "end": 545.2,
+    "text": " Un numero è una funzione, un puntatore a funzione,"
+  },
+  {
+    "start": 545.34,
+    "end": 549.1,
+    "text": " e chiamerà quella puntatore a funzione n volte,"
+  },
+  {
+    "start": 549.5,
+    "end": 551.32,
+    "text": " le volte che io specifico qua."
+  },
+  {
+    "start": 552.6600000000001,
+    "end": 556.04,
+    "text": " Come argomento, quindi deve prendere una puntatore a funzione,"
+  },
+  {
+    "start": 556.16,
+    "end": 557.72,
+    "text": " ma io, così come lo definita qua,"
+  },
+  {
+    "start": 557.88,
+    "end": 560.4,
+    "text": " questo qui può essere anche un argomento di una funzione."
+  },
+  {
+    "start": 561.68,
+    "end": 564.86,
+    "text": " Le funzioni possono prendere come argomenti puntatori a funzione,"
+  },
+  {
+    "start": 565.04,
+    "end": 566.3,
+    "text": " questo questo spazio togliamo,"
+  },
+  {
+    "start": 566.3,
+    "end": 567.56,
+    "text": " che di solito non lo metto,"
+  },
+  {
+    "start": 567.58,
+    "end": 571.36,
+    "text": " io per chiarezza, possono prendere benissimo"
+  },
+  {
+    "start": 571.36,
+    "end": 572.14,
+    "text": " un puntatore a funzione,"
+  },
+  {
+    "start": 572.22,
+    "end": 574.08,
+    "text": " una funzione in G o anche restituirli,"
+  },
+  {
+    "start": 574.22,
+    "end": 576.06,
+    "text": " io anche qua come valore di ritorno potrei avere"
+  },
+  {
+    "start": 576.06,
+    "end": 577.2,
+    "text": " un puntatore a funzione."
+  },
+  {
+    "start": 577.98,
+    "end": 581.54,
+    "text": " Allora io qua ora faccio for int j uguale a zero,"
+  },
+  {
+    "start": 581.84,
+    "end": 586.32,
+    "text": " j minore dn, j più più in ciclo for,"
+  },
+  {
+    "start": 586.46,
+    "end": 588.5,
+    "text": " va beh avrei potuto fare while n meno meno."
+  },
+  {
+    "start": 592.5600000000001,
+    "end": 597.98,
+    "text": " Ma sì, va che è meglio, while n meno meno."
+  },
+  {
+    "start": 599.06,
+    "end": 600.28,
+    "text": " Quindi questo succede,"
+  },
+  {
+    "start": 600.54,
+    "end": 603.64,
+    "text": " quello che succede qui è che n prima viene contrellato"
+  },
+  {
+    "start": 603.64,
+    "end": 606.86,
+    "text": " per vedere se zero, poi viene decrementato,"
+  },
+  {
+    "start": 607.46,
+    "end": 609.78,
+    "text": " perché siccome non ho usato meno meno n,"
+  },
+  {
+    "start": 610.04,
+    "end": 614.5,
+    "text": " ma n meno meno, il left value, n viene decrementato,"
+  },
+  {
+    "start": 615.14,
+    "end": 617.58,
+    "text": " però il valore di ritorno di questa espressione n"
+  },
+  {
+    "start": 617.58,
+    "end": 619.46,
+    "text": " prima del decremento, ok?"
+  },
+  {
+    "start": 619.94,
+    "end": 623.06,
+    "text": " In C ci sono due operatori di incremento e di decremento,"
+  },
+  {
+    "start": 623.08,
+    "end": 626.84,
+    "text": " più più e meno meno, uno è prefisso e l'altro postfisso."
+  },
+  {
+    "start": 627.38,
+    "end": 629.36,
+    "text": " Quindi in basso al fatto che lo mettete prima o dopo,"
+  },
+  {
+    "start": 629.78,
+    "end": 632.06,
+    "text": " il valore di ritorno comunque dell'espressione"
+  },
+  {
+    "start": 632.06,
+    "end": 634.96,
+    "text": " sarà on prima di essere decrementato o incrementato,"
+  },
+  {
+    "start": 635.1,
+    "end": 638.58,
+    "text": " on dopo l'incremento o il decremento."
+  },
+  {
+    "start": 640.6,
+    "end": 644.5,
+    "text": " E io chiamo la mia x, n volte,"
+  },
+  {
+    "start": 644.5,
+    "end": 658.08,
+    "text": " ora guardate, call n times 10,h e poi call n times 10,b,b,"
+  },
+  {
+    "start": 659.16,
+    "end": 660.0,
+    "text": " compitiamo."
+  },
+  {
+    "start": 662.36,
+    "end": 665.3,
+    "text": " Prima è stata chiamata dieci volte la mia funzione,"
+  },
+  {
+    "start": 666.24,
+    "end": 671.94,
+    "text": " scusate, e poi dieci volte la mia funzione, b,b."
+  },
+  {
+    "start": 671.94,
+    "end": 674.48,
+    "text": " Allora, vediamo come che funziona questo programma di nuovo."
+  },
+  {
+    "start": 675.02,
+    "end": 678.12,
+    "text": " Siccome i prototipi di queste due funzioni sono uguali,"
+  },
+  {
+    "start": 680.22,
+    "end": 686.18,
+    "text": " dal punto di vista di call n times vale il prototipo della funzione,"
+  },
+  {
+    "start": 686.32,
+    "end": 687.9,
+    "text": " se la funzione non mi ritorna niente,"
+  },
+  {
+    "start": 688.02,
+    "end": 689.4,
+    "text": " io non gli devo passare i parametri,"
+  },
+  {
+    "start": 689.48,
+    "end": 696.54,
+    "text": " quindi ha la stessa, diciamo, impronta, non ha problemi,"
+  },
+  {
+    "start": 696.62,
+    "end": 701.26,
+    "text": " posso chiamare x, che sia hello, che x punte a hello,"
+  },
+  {
+    "start": 701.26,
+    "end": 703.1,
+    "text": " punte a bau bau, non mi interessa."
+  },
+  {
+    "start": 704.96,
+    "end": 709.0,
+    "text": " Perché questa roba qua è così importante, potente, utile?"
+  },
+  {
+    "start": 709.86,
+    "end": 713.74,
+    "text": " Lo vedete che abbiamo fatto un salto di qualità incredibile"
+  },
+  {
+    "start": 713.74,
+    "end": 716.76,
+    "text": " e possiamo fare funzioni, che fanno delle cose con delle funzioni"
+  },
+  {
+    "start": 716.76,
+    "end": 717.62,
+    "text": " che noi passiamo?"
+  },
+  {
+    "start": 718.1,
+    "end": 719.66,
+    "text": " Questo è un livello di astrazione,"
+  },
+  {
+    "start": 719.86,
+    "end": 724.02,
+    "text": " che i linguaggi ad alto livello hanno in maniera ovvia,"
+  },
+  {
+    "start": 724.12,
+    "end": 726.26,
+    "text": " ma che il c, senza i puntatori a funzione,"
+  },
+  {
+    "start": 727.5,
+    "end": 728.82,
+    "text": " non potrebbe avere mai,"
+  },
+  {
+    "start": 728.82,
+    "end": 731.9,
+    "text": " e sarebbe limitato nel fare una quantità di cose enorme."
+  },
+  {
+    "start": 733.56,
+    "end": 734.8,
+    "text": " Cosa direte voi?"
+  },
+  {
+    "start": 735.5,
+    "end": 739.0,
+    "text": " cp function pointer, function pointer 2.c"
+  },
+  {
+    "start": 741.34,
+    "end": 744.6,
+    "text": " Tolliamo questa roba qua, ci tanniamo sostanzialmente solo a main,"
+  },
+  {
+    "start": 744.98,
+    "end": 749.06,
+    "text": " ma sì, andiamo a guardare una chiamata di libreria della libc,"
+  },
+  {
+    "start": 749.24,
+    "end": 752.28,
+    "text": " che si chiama quick sort, q sort, scusate."
+  },
+  {
+    "start": 754.38,
+    "end": 759.28,
+    "text": " Guardate, e, incluso in stdlib.h,"
+  },
+  {
+    "start": 760.42,
+    "end": 762.26,
+    "text": " che noi andiamo a mettere il nostro programma,"
+  },
+  {
+    "start": 763.04,
+    "end": 764.78,
+    "text": " guardate come funziona, io gli passo,"
+  },
+  {
+    "start": 765.98,
+    "end": 767.96,
+    "text": " ah, cioè, ipp sort, merge sort,"
+  },
+  {
+    "start": 768.16,
+    "end": 769.42,
+    "text": " ma noi siamo q sort,"
+  },
+  {
+    "start": 770.3,
+    "end": 772.9,
+    "text": " gli passo un puntatore a una base"
+  },
+  {
+    "start": 772.9,
+    "end": 775.18,
+    "text": " dove io ho degli elementi da ordinare,"
+  },
+  {
+    "start": 775.28,
+    "end": 776.34,
+    "text": " qualcosa da ordinare,"
+  },
+  {
+    "start": 777.68,
+    "end": 780.36,
+    "text": " poi gli dico il numero di elementi che deve ordinare,"
+  },
+  {
+    "start": 780.36,
+    "end": 782.36,
+    "text": " la dimensione di ognuno di questi elementi,"
+  },
+  {
+    "start": 783.0,
+    "end": 785.02,
+    "text": " e gli passo un puntatore a funzione"
+  },
+  {
+    "start": 785.02,
+    "end": 786.62,
+    "text": " che deve fare la comparatore"
+  },
+  {
+    "start": 786.62,
+    "end": 790.76,
+    "text": " per vedere se il mio elemento è maggiore o minore."
+  },
+  {
+    "start": 793.46,
+    "end": 796.7,
+    "text": " Perché per fare il sorting di qualcosa,"
+  },
+  {
+    "start": 797.08,
+    "end": 801.32,
+    "text": " bisogna che sia così, allora, guardate, io faccio un,"
+  },
+  {
+    "start": 801.34,
+    "end": 805.36,
+    "text": " dichiaro un array a di 10 elementi,"
+  },
+  {
+    "start": 806.28,
+    "end": 809.18,
+    "text": " poi scrivo for int j uguale a 0,"
+  },
+  {
+    "start": 809.18,
+    "end": 811.12,
+    "text": " j minore di 10, j più più,"
+  },
+  {
+    "start": 811.58,
+    "end": 814.78,
+    "text": " a di j uguale a rand,"
+  },
+  {
+    "start": 815.12,
+    "end": 816.6,
+    "text": " un numero casuale,"
+  },
+  {
+    "start": 817.18,
+    "end": 818.58,
+    "text": " poi ripeto questo ciclo for,"
+  },
+  {
+    "start": 819.14,
+    "end": 822.28,
+    "text": " e mi faccio stampare questi elementi qua."
+  },
+  {
+    "start": 828.48,
+    "end": 829.76,
+    "text": " Qua mettiamo le new line,"
+  },
+  {
+    "start": 829.86,
+    "end": 831.18,
+    "text": " perché qui ho messo solo lo spazio,"
+  },
+  {
+    "start": 831.3,
+    "end": 833.02,
+    "text": " altrimenti diventa tutti i difini,"
+  },
+  {
+    "start": 833.14,
+    "end": 834.56,
+    "text": " invece me lo faccio stampare in una singola rica."
+  },
+  {
+    "start": 835.38,
+    "end": 837.88,
+    "text": " Quindi questo programma, prima con un ciclo for riempel rya,"
+  },
+  {
+    "start": 837.88,
+    "end": 839.6,
+    "text": " e poi lo stampa."
+  },
+  {
+    "start": 839.84,
+    "end": 844.42,
+    "text": " Compiliamo function pointer2, si chiamava."
+  },
+  {
+    "start": 845.28,
+    "end": 846.96,
+    "text": " Vedete? Allora, faccio una cosa,"
+  },
+  {
+    "start": 847.12,
+    "end": 848.62,
+    "text": " siccome questi nomi sono troppo grandi,"
+  },
+  {
+    "start": 849.26,
+    "end": 852.88,
+    "text": " sono inestetici, facciamo..."
+  },
+  {
+    "start": 854.0,
+    "end": 857.44,
+    "text": " limitiamoli a un po' di bit."
+  },
+  {
+    "start": 858.72,
+    "end": 859.44,
+    "text": " Esattamente."
+  },
+  {
+    "start": 861.04,
+    "end": 864.42,
+    "text": " Avevo qua usato una maschera"
+  },
+  {
+    "start": 864.42,
+    "end": 867.22,
+    "text": " con 15, perché vi faccio vedere una cosa."
+  },
+  {
+    "start": 871.84,
+    "end": 873.76,
+    "text": " In binario, quindi c'è"
+  },
+  {
+    "start": 874.54,
+    "end": 877.42,
+    "text": " i primi 4 bit a 1."
+  },
+  {
+    "start": 879.48,
+    "end": 880.12,
+    "text": " Ok?"
+  },
+  {
+    "start": 882.08,
+    "end": 884.96,
+    "text": " Quindi qualsiasi numero randomi com'è ne fuori da rand,"
+  },
+  {
+    "start": 885.22,
+    "end": 889.64,
+    "text": " io poi faccio l'operatore di bitwiseend,"
+  },
+  {
+    "start": 889.86,
+    "end": 892.32,
+    "text": " che mi fa passare solo i bit,"
+  },
+  {
+    "start": 892.32,
+    "end": 895.3,
+    "text": " che sono veri sia da questa parte che da questa parte."
+  },
+  {
+    "start": 895.38,
+    "end": 897.9,
+    "text": " Siccome a destra ci sono solo i 4 bit"
+  },
+  {
+    "start": 898.9999999999999,
+    "end": 900.58,
+    "text": " meno significativi settati a 1,"
+  },
+  {
+    "start": 900.72,
+    "end": 902.56,
+    "text": " io mi prenderò da quello che mi esce della rand"
+  },
+  {
+    "start": 902.56,
+    "end": 905.48,
+    "text": " solo gli ultimi 4 bit, che è una maschera."
+  },
+  {
+    "start": 906.36,
+    "end": 908.58,
+    "text": " E quindi avrò numeri da 0 a 15."
+  },
+  {
+    "start": 909.8,
+    "end": 913.2,
+    "text": " Ma questi numeri sono, come avete visto, disordinati,"
+  },
+  {
+    "start": 913.36,
+    "end": 916.28,
+    "text": " guardate, 7, 1, 9, 10 e così via."
+  },
+  {
+    "start": 916.64,
+    "end": 919.36,
+    "text": " Lo vedete che poi sono sempre gli stessi?"
+  },
+  {
+    "start": 919.36,
+    "end": 922.78,
+    "text": " Le funzioni di generazioni numeri casuali in C"
+  },
+  {
+    "start": 922.78,
+    "end": 926.36,
+    "text": " sono di default deterministiche,"
+  },
+  {
+    "start": 927.7,
+    "end": 930.1,
+    "text": " perché se io ho un bug alla centesima interazione"
+  },
+  {
+    "start": 930.1,
+    "end": 931.6,
+    "text": " voglio che sia sempre uguale."
+  },
+  {
+    "start": 931.9,
+    "end": 936.78,
+    "text": " C'è il modo con s-rand di fare il seeding,"
+  },
+  {
+    "start": 936.84,
+    "end": 938.74,
+    "text": " ma qualche volta lo vedremo più avanti,"
+  },
+  {
+    "start": 938.84,
+    "end": 943.76,
+    "text": " di solito per mettere un semidiverso"
+  },
+  {
+    "start": 943.76,
+    "end": 945.36,
+    "text": " nel generatore di numeri casuali"
+  },
+  {
+    "start": 945.92,
+    "end": 948.0,
+    "text": " quasi mette per dire il tempo attuale,"
+  },
+  {
+    "start": 948.0,
+    "end": 954.0,
+    "text": " in milisecondi o ancora meglio in microsecondi"
+  },
+  {
+    "start": 954.76,
+    "end": 958.06,
+    "text": " in modo che ad ogni avvio sarà diverso."
+  },
+  {
+    "start": 958.38,
+    "end": 960.14,
+    "text": " Ma noi ci interessa però, noi stiamo usando"
+  },
+  {
+    "start": 960.14,
+    "end": 961.48,
+    "text": " la chiamata libreria rand,"
+  },
+  {
+    "start": 963.22,
+    "end": 966.46,
+    "text": " ma 3 rand, che è molto semplice,"
+  },
+  {
+    "start": 966.88,
+    "end": 968.36,
+    "text": " ritorno un intero casuale,"
+  },
+  {
+    "start": 968.42,
+    "end": 971.22,
+    "text": " sembra l'STD lib, fa parte della lib C."
+  },
+  {
+    "start": 971.44,
+    "end": 973.96,
+    "text": " Non l'avevamo mai usata forse, non me lo ricordo."
+  },
+  {
+    "start": 975.52,
+    "end": 979.3,
+    "text": " Bene, se io volessi ordinare questo array,"
+  },
+  {
+    "start": 979.6,
+    "end": 981.32,
+    "text": " posso usare proprio QSort."
+  },
+  {
+    "start": 982.46,
+    "end": 983.72,
+    "text": " Allora, guardate, io gli devo dare,"
+  },
+  {
+    "start": 984.0,
+    "end": 986.08,
+    "text": " come primo argomento la base che ha,"
+  },
+  {
+    "start": 986.52,
+    "end": 988.24,
+    "text": " perché ricordate il nome dell'array"
+  },
+  {
+    "start": 989.02,
+    "end": 991.92,
+    "text": " e anche il puntatore all'inizio dell'array."
+  },
+  {
+    "start": 991.92,
+    "end": 994.26,
+    "text": " Poi gli devo dire il numero di elementi che ho,"
+  },
+  {
+    "start": 994.48,
+    "end": 995.02,
+    "text": " che sono 10."
+  },
+  {
+    "start": 995.8399999999999,
+    "end": 997.54,
+    "text": " La dimensione di ogni elemento,"
+  },
+  {
+    "start": 997.72,
+    "end": 999.46,
+    "text": " size of di int,"
+  },
+  {
+    "start": 1000.76,
+    "end": 1003.04,
+    "text": " qua io lo so che il 4-byte lo devo scrivere 4,"
+  },
+  {
+    "start": 1003.04,
+    "end": 1005.22,
+    "text": " e poi una funzione di comparatore,"
+  },
+  {
+    "start": 1005.34,
+    "end": 1006.46,
+    "text": " che devo scrivere io,"
+  },
+  {
+    "start": 1007.02,
+    "end": 1008.94,
+    "text": " e la chiamo compare-integers."
+  },
+  {
+    "start": 1014.04,
+    "end": 1016.06,
+    "text": " In QSort questo comparatore,"
+  },
+  {
+    "start": 1016.14,
+    "end": 1017.32,
+    "text": " abbia sempre uguale qua,"
+  },
+  {
+    "start": 1017.88,
+    "end": 1020.04,
+    "text": " copiamo ce l'ho,"
+  },
+  {
+    "start": 1025.24,
+    "end": 1026.76,
+    "text": " compare-integers."
+  },
+  {
+    "start": 1027.34,
+    "end": 1027.94,
+    "text": " Allora, guardate,"
+  },
+  {
+    "start": 1028.6,
+    "end": 1030.46,
+    "text": " qua gli serve un puntatore,"
+  },
+  {
+    "start": 1031.28,
+    "end": 1032.4,
+    "text": " al primo elemento,"
+  },
+  {
+    "start": 1033.02,
+    "end": 1035.62,
+    "text": " è un puntatore al secondo elemento."
+  },
+  {
+    "start": 1036.18,
+    "end": 1037.46,
+    "text": " Const, poi vi dico,"
+  },
+  {
+    "start": 1038.54,
+    "end": 1039.54,
+    "text": " cos'è? Significa, praticamente,"
+  },
+  {
+    "start": 1039.7,
+    "end": 1041.46,
+    "text": " questo const prima del puntatore,"
+  },
+  {
+    "start": 1041.8,
+    "end": 1043.82,
+    "text": " significa che la funzione si impegna"
+  },
+  {
+    "start": 1043.82,
+    "end": 1046.62,
+    "text": " a non modificare quello a cui punta A"
+  },
+  {
+    "start": 1046.62,
+    "end": 1047.96,
+    "text": " e quello a cui punta B."
+  },
+  {
+    "start": 1048.38,
+    "end": 1049.56,
+    "text": " Quindi si riceve il puntatore,"
+  },
+  {
+    "start": 1049.64,
+    "end": 1051.08,
+    "text": " questo puntatore si uposa in le lettura."
+  },
+  {
+    "start": 1051.48,
+    "end": 1053.68,
+    "text": " Se noi scriviamo in questo puntatore"
+  },
+  {
+    "start": 1053.68,
+    "end": 1055.56,
+    "text": " e non abbiamo fatto casting"
+  },
+  {
+    "start": 1055.56,
+    "end": 1057.94,
+    "text": " e altre cose per cui il C non se ne può accorgere più,"
+  },
+  {
+    "start": 1058.36,
+    "end": 1060.16,
+    "text": " ma se proviamo a scrivere in questo puntatore"
+  },
+  {
+    "start": 1060.16,
+    "end": 1062.38,
+    "text": " in maniera, diciamo, limbita e lineare,"
+  },
+  {
+    "start": 1062.86,
+    "end": 1064.16,
+    "text": " il C ci dà un errore."
+  },
+  {
+    "start": 1065.3600000000001,
+    "end": 1067.64,
+    "text": " Allora, che cosa sta succedendo qui?"
+  },
+  {
+    "start": 1067.8,
+    "end": 1069.32,
+    "text": " Guardate, l'erreia è questo qua."
+  },
+  {
+    "start": 1069.92,
+    "end": 1072.62,
+    "text": " Lo io ho al primo elemento che occupa 4-byte,"
+  },
+  {
+    "start": 1072.94,
+    "end": 1076.54,
+    "text": " il secondo, il terzo, il quarto, il quinto,"
+  },
+  {
+    "start": 1076.74,
+    "end": 1079.3,
+    "text": " e così in via fino al decimo elemento."
+  },
+  {
+    "start": 1079.6,
+    "end": 1079.9,
+    "text": " Ok?"
+  },
+  {
+    "start": 1081.28,
+    "end": 1085.2,
+    "text": " Ho usato 0, 1, perché sono base 0, base A di 0,"
+  },
+  {
+    "start": 1085.3,
+    "end": 1085.96,
+    "text": " è questo qua."
+  },
+  {
+    "start": 1087.38,
+    "end": 1089.78,
+    "text": " Prima dicendo, ah, come base io,"
+  },
+  {
+    "start": 1089.78,
+    "end": 1091.78,
+    "text": " io ho dato questo elemento, questo byte iniziale,"
+  },
+  {
+    "start": 1092.58,
+    "end": 1094.96,
+    "text": " che è l'indizio di memoria a cui parte tutto sterrei qua."
+  },
+  {
+    "start": 1095.54,
+    "end": 1098.74,
+    "text": " Dopodiché ogni volta, quando ci sarà da comparare"
+  },
+  {
+    "start": 1098.74,
+    "end": 1101.32,
+    "text": " due elementi, io mi becco, guardate, un puntatore"
+  },
+  {
+    "start": 1101.32,
+    "end": 1104.04,
+    "text": " per dire, vuole comparare questo e questo,"
+  },
+  {
+    "start": 1104.54,
+    "end": 1106.2,
+    "text": " vuole sapere se uno è maggior dell'altro,"
+  },
+  {
+    "start": 1106.34,
+    "end": 1109.74,
+    "text": " io mi becco una callback, quindi Q-Sort chiamerà"
+  },
+  {
+    "start": 1109.74,
+    "end": 1113.08,
+    "text": " diverse volte, man mano che fa l'ordinamento,"
+  },
+  {
+    "start": 1113.18,
+    "end": 1114.36,
+    "text": " questo compare in the curse,"
+  },
+  {
+    "start": 1115.22,
+    "end": 1117.82,
+    "text": " passandomi il puntatore all'elemento che vuole comparare"
+  },
+  {
+    "start": 1117.82,
+    "end": 1120.82,
+    "text": " base A con l'altro elemento che vuole comparare"
+  },
+  {
+    "start": 1121.36,
+    "end": 1124.42,
+    "text": " base B, ma sempre puntatori, perché lui non sa"
+  },
+  {
+    "start": 1124.42,
+    "end": 1127.04,
+    "text": " dentro come sono strutturate i dati che ti bisogna,"
+  },
+  {
+    "start": 1127.1,
+    "end": 1129.44,
+    "text": " lui mi passa i puntatori e come è che mi può passare"
+  },
+  {
+    "start": 1129.44,
+    "end": 1131.7,
+    "text": " i puntatori? Beh, sai il numero di elementi,"
+  },
+  {
+    "start": 1131.78,
+    "end": 1134.0,
+    "text": " sai quando è grande ogni elemento, sai esattamente"
+  },
+  {
+    "start": 1134.0,
+    "end": 1136.5,
+    "text": " come passarmi i puntatori."
+  },
+  {
+    "start": 1136.6,
+    "end": 1138.46,
+    "text": " Quando ci sarà da fare gli swap,"
+  },
+  {
+    "start": 1139.1,
+    "end": 1141.38,
+    "text": " lui sa le dimensioni, quindi potrà fare queste cose,"
+  },
+  {
+    "start": 1141.56,
+    "end": 1144.44,
+    "text": " la funzione Q-Sort può fare queste cose"
+  },
+  {
+    "start": 1144.44,
+    "end": 1146.84,
+    "text": " senza sapere la struttura dei miei dati."
+  },
+  {
+    "start": 1146.84,
+    "end": 1150.32,
+    "text": " Perché io gli dia una funzione che serve"
+  },
+  {
+    "start": 1150.32,
+    "end": 1153.86,
+    "text": " per comparare i dati, visto che Q-Sort non ha idea"
+  },
+  {
+    "start": 1153.86,
+    "end": 1156.96,
+    "text": " di che c'è registrato dentro questi dati?"
+  },
+  {
+    "start": 1157.42,
+    "end": 1161.88,
+    "text": " Allora, l'interfaccia con cui Q-Sort si è accordata"
+  },
+  {
+    "start": 1161.88,
+    "end": 1165.12,
+    "text": " col programmatore e che questa funzione di comparazione"
+  },
+  {
+    "start": 1165.12,
+    "end": 1168.7,
+    "text": " ritorna meno 1, o meglio, minore di 0,"
+  },
+  {
+    "start": 1168.96,
+    "end": 1171.38,
+    "text": " se A è minore di B, 0 sono uguali,"
+  },
+  {
+    "start": 1171.88,
+    "end": 1174.62,
+    "text": " 1 o di più di 1, quindi maggiore di 0,"
+  },
+  {
+    "start": 1174.62,
+    "end": 1176.02,
+    "text": " se A è maggiore di B."
+  },
+  {
+    "start": 1177.8,
+    "end": 1180.56,
+    "text": " Tanto per insieme mi serve estrarre i valori"
+  },
+  {
+    "start": 1180.56,
+    "end": 1184.68,
+    "text": " di questi dati,"
+  },
+  {
+    "start": 1185.62,
+    "end": 1189.68,
+    "text": " perché questi sono puntatori a VOID, quindi io chiamo..."
+  },
+  {
+    "start": 1190.62,
+    "end": 1192.88,
+    "text": " di chiaro un puntatore intero che chiamo"
+  },
+  {
+    "start": 1193.62,
+    "end": 1197.02,
+    "text": " A-P, pointer o tu A,"
+  },
+  {
+    "start": 1198.5,
+    "end": 1202.78,
+    "text": " uguale a A, int, B-P uguale a B,"
+  },
+  {
+    "start": 1202.78,
+    "end": 1205.28,
+    "text": " perché ora ce l'ho del giusto tipo"
+  },
+  {
+    "start": 1206.36,
+    "end": 1210.18,
+    "text": " A-P è un puntatore a int e B-P è un puntatore a int."
+  },
+  {
+    "start": 1210.32,
+    "end": 1213.4,
+    "text": " Prima lui mi ripassa come VOID, perché non sa che c'è registrato dentro,"
+  },
+  {
+    "start": 1213.58,
+    "end": 1215.06,
+    "text": " quindi io prima faccio questa operazione"
+  },
+  {
+    "start": 1217.6599999999999,
+    "end": 1219.78,
+    "text": " di convertire i miei puntatori nel tipo corretto."
+  },
+  {
+    "start": 1220.76,
+    "end": 1223.76,
+    "text": " Dopodiché io potrei fare banalmente"
+  },
+  {
+    "start": 1223.76,
+    "end": 1227.68,
+    "text": " A-P-B-P."
+  },
+  {
+    "start": 1228.04,
+    "end": 1230.8,
+    "text": " Se qua lo stiamo dereferenziando il puntatore,"
+  },
+  {
+    "start": 1230.8,
+    "end": 1232.64,
+    "text": " quindi dal puntatore io arrivo all'intero,"
+  },
+  {
+    "start": 1232.74,
+    "end": 1235.8,
+    "text": " se preferite che vi viene più facile pensarci,"
+  },
+  {
+    "start": 1236.46,
+    "end": 1237.86,
+    "text": " possiamo fare anche in questi termini,"
+  },
+  {
+    "start": 1237.9,
+    "end": 1240.14,
+    "text": " vi ricordate, l'abbiamo detto tante volte, che è equivalente."
+  },
+  {
+    "start": 1240.66,
+    "end": 1242.5,
+    "text": " Allora, perché ho fatto questa sottrazione?"
+  },
+  {
+    "start": 1244.48,
+    "end": 1247.06,
+    "text": " Ho fatto questa sottrazione perché se i numeri sono uguali,"
+  },
+  {
+    "start": 1247.74,
+    "end": 1250.52,
+    "text": " la sottrazione viene 0, ok?"
+  },
+  {
+    "start": 1252.78,
+    "end": 1259.82,
+    "text": " Se il mio primo numero è minore del mio secondo numero,"
+  },
+  {
+    "start": 1262.1799999999998,
+    "end": 1265.82,
+    "text": " verrà meno di 0, altrimenti verrà più di 0."
+  },
+  {
+    "start": 1266.16,
+    "end": 1269.3,
+    "text": " Quindi questo è un modo più veloce per dire"
+  },
+  {
+    "start": 1269.3,
+    "end": 1271.8,
+    "text": " IF A, maggiore di IF B,"
+  },
+  {
+    "start": 1272.1,
+    "end": 1276.16,
+    "text": " però in base ai range numerici che noi stiamo utilizzando,"
+  },
+  {
+    "start": 1276.24,
+    "end": 1281.04,
+    "text": " a volte questo sistema qui può creare un overflow."
+  },
+  {
+    "start": 1281.04,
+    "end": 1285.08,
+    "text": " Se noi compliamo questo programma,"
+  },
+  {
+    "start": 1288.3,
+    "end": 1290.64,
+    "text": " che ho sbagliato,"
+  },
+  {
+    "start": 1292.08,
+    "end": 1295.38,
+    "text": " ah, scusate, qui ho messo il puntatore a funzione anche qui,"
+  },
+  {
+    "start": 1295.42,
+    "end": 1297.14,
+    "text": " non ha senso nell'altegazione della funzione."
+  },
+  {
+    "start": 1298.94,
+    "end": 1301.98,
+    "text": " Quindi se noi ora compliamo questo programma qua,"
+  },
+  {
+    "start": 1305.58,
+    "end": 1307.82,
+    "text": " allora qua dobbiamo usare il casting,"
+  },
+  {
+    "start": 1310.24,
+    "end": 1314.28,
+    "text": " e int, più che altro, perché non stiamo usando o meglio,"
+  },
+  {
+    "start": 1314.3,
+    "end": 1317.08,
+    "text": " invece di questo casting qua dobbiamo dichiararli,"
+  },
+  {
+    "start": 1317.2,
+    "end": 1320.92,
+    "text": " const anche questi, così il conviettore è contento."
+  },
+  {
+    "start": 1321.02,
+    "end": 1324.94,
+    "text": " È un'altra cosa, dobbiamo fare di spostare la funzione QSort,"
+  },
+  {
+    "start": 1325.3,
+    "end": 1328.1,
+    "text": " qui prima che ci facciamo stampare i valori,"
+  },
+  {
+    "start": 1328.8999999999999,
+    "end": 1332.94,
+    "text": " altrimenti vecchiamo i valori già prima dell'ordinamento."
+  },
+  {
+    "start": 1333.34,
+    "end": 1335.26,
+    "text": " Vedete che ora sono perfettanti ordinati,"
+  },
+  {
+    "start": 1335.26,
+    "end": 1339.06,
+    "text": " ma questo programma funziona perché i valori sono piccoli,"
+  },
+  {
+    "start": 1339.08,
+    "end": 1341.22,
+    "text": " altrimenti immaginate qua cosa succede,"
+  },
+  {
+    "start": 1341.3,
+    "end": 1346.36,
+    "text": " se per esempio io ho qua 10 ad app 0 e bp0 è int max,"
+  },
+  {
+    "start": 1346.48,
+    "end": 1347.56,
+    "text": " quindi il valore è più grande."
+  },
+  {
+    "start": 1348.28,
+    "end": 1351.1,
+    "text": " Una volta che io sottrago da 10 int max,"
+  },
+  {
+    "start": 1351.58,
+    "end": 1354.0,
+    "text": " c'ho una wrapp around,"
+  },
+  {
+    "start": 1354.06,
+    "end": 1357.06,
+    "text": " mi ritrovo con valori maggiori e quindi non funziona."
+  },
+  {
+    "start": 1357.42,
+    "end": 1362.1,
+    "text": " Quindi il modo in cui questo codice si può scrivere correttamente è if."
+  },
+  {
+    "start": 1365.48,
+    "end": 1369.22,
+    "text": " app di 0, cioè se a è maggiore di b,"
+  },
+  {
+    "start": 1369.56,
+    "end": 1374.28,
+    "text": " return 1, else if app di 0, maggiore di b di 0,"
+  },
+  {
+    "start": 1375.52,
+    "end": 1376.92,
+    "text": " scusate, è minore,"
+  },
+  {
+    "start": 1377.72,
+    "end": 1381.18,
+    "text": " return minus 1, else return 0."
+  },
+  {
+    "start": 1381.72,
+    "end": 1384.94,
+    "text": " Questo codice invece è ok con i overflow"
+  },
+  {
+    "start": 1384.94,
+    "end": 1387.58,
+    "text": " e dovrebbe funzionare senza problemi,"
+  },
+  {
+    "start": 1387.92,
+    "end": 1390.54,
+    "text": " infatti io per vedere se ciò è vero,"
+  },
+  {
+    "start": 1390.54,
+    "end": 1393.3,
+    "text": " posso fare che anche se riempio sti array di questi valori,"
+  },
+  {
+    "start": 1393.3,
+    "end": 1396.76,
+    "text": " poi qua ci mattiamo ad i 2 uguale int max,"
+  },
+  {
+    "start": 1397.06,
+    "end": 1400.36,
+    "text": " ad i 5 uguale int min,"
+  },
+  {
+    "start": 1402.86,
+    "end": 1408.66,
+    "text": " qua devo includere limits.tage"
+  },
+  {
+    "start": 1411.3,
+    "end": 1413.7,
+    "text": " e vedrò, no, non sta funzionando,"
+  },
+  {
+    "start": 1414.14,
+    "end": 1416.52,
+    "text": " ah, perché l'ho messo dopo il cosorto, scusatemi."
+  },
+  {
+    "start": 1420.12,
+    "end": 1421.36,
+    "text": " Mettiamo, mi è corretta."
+  },
+  {
+    "start": 1421.46,
+    "end": 1425.98,
+    "text": " Come vedete funziona, l'int min è qui e l'int max è qui"
+  },
+  {
+    "start": 1425.98,
+    "end": 1429.52,
+    "text": " e quindi non ci sono stati problemi con la comporazione degli altri numeri."
+  },
+  {
+    "start": 1432.98,
+    "end": 1437.04,
+    "text": " Il cosort ci ha mostrato la potenza dei pondatori a funzione."
+  },
+  {
+    "start": 1437.22,
+    "end": 1438.66,
+    "text": " Anche la funzione è stupidissima,"
+  },
+  {
+    "start": 1438.74,
+    "end": 1441.36,
+    "text": " io ho fatto quella usa e ne volte questa funzione"
+  },
+  {
+    "start": 1441.36,
+    "end": 1442.72,
+    "text": " già aveva questo concetto,"
+  },
+  {
+    "start": 1443.08,
+    "end": 1446.5,
+    "text": " ma questa è una delle applicazioni più interessanti delle funzioni."
+  },
+  {
+    "start": 1446.5,
+    "end": 1448.52,
+    "text": " Delle puntatori a funzione, in cui sort,"
+  },
+  {
+    "start": 1449.2,
+    "end": 1454.22,
+    "text": " ma indovinate queste cose qua si possono mischiare con le strutture,"
+  },
+  {
+    "start": 1454.34,
+    "end": 1456.82,
+    "text": " perché le strutture possono avere anche puntatori a funzione."
+  },
+  {
+    "start": 1457.6,
+    "end": 1459.88,
+    "text": " Pensateci su, allora le strutture hanno dei dati,"
+  },
+  {
+    "start": 1460.12,
+    "end": 1462.8,
+    "text": " possono contenere anche puntatori a funzione,"
+  },
+  {
+    "start": 1463.08,
+    "end": 1465.2,
+    "text": " la struttura vista da quest'ottica nuova"
+  },
+  {
+    "start": 1465.2,
+    "end": 1468.8,
+    "text": " somiglia abbastanza a una cosa che conosciamo bene,"
+  },
+  {
+    "start": 1469.0,
+    "end": 1470.34,
+    "text": " ovvero a un oggetto."
+  },
+  {
+    "start": 1470.8,
+    "end": 1473.44,
+    "text": " Quindi nella prossima puntata magari affrontiamo questa idea"
+  },
+  {
+    "start": 1473.44,
+    "end": 1477.66,
+    "text": " di puntatore a funzione che vive nella strutture,"
+  },
+  {
+    "start": 1477.96,
+    "end": 1481.54,
+    "text": " non però per fare cose tipo un sistema di oggetti in C."
+  },
+  {
+    "start": 1481.7,
+    "end": 1483.58,
+    "text": " Le loro so che in questo momento vuoi siede felici"
+  },
+  {
+    "start": 1483.58,
+    "end": 1485.3,
+    "text": " di vedere una cosa del genere,"
+  },
+  {
+    "start": 1485.42,
+    "end": 1488.78,
+    "text": " però noi qua in questo corso dobbiamo sapere"
+  },
+  {
+    "start": 1488.78,
+    "end": 1490.38,
+    "text": " la premessa che ho fatto nella prima puntata,"
+  },
+  {
+    "start": 1490.46,
+    "end": 1492.16,
+    "text": " non è qua per fare vedere che sono vivo,"
+  },
+  {
+    "start": 1492.32,
+    "end": 1494.7,
+    "text": " ma piuttosto io sbaglio, mi faccio vedere gli errori"
+  },
+  {
+    "start": 1494.7,
+    "end": 1496.04,
+    "text": " e per darvi il massimo."
+  },
+  {
+    "start": 1496.32,
+    "end": 1498.08,
+    "text": " E per darvi il massimo io vi faccio vedere"
+  },
+  {
+    "start": 1498.08,
+    "end": 1500.62,
+    "text": " come si usano i puntatori a funzione dentro le strutture"
+  },
+  {
+    "start": 1500.62,
+    "end": 1502.9,
+    "text": " quando si fanno le cose serie"
+  },
+  {
+    "start": 1502.9,
+    "end": 1504.86,
+    "text": " e non quando si fanno i sistemi del oggetti in C,"
+  },
+  {
+    "start": 1505.42,
+    "end": 1506.22,
+    "text": " che sono fighissime,"
+  },
+  {
+    "start": 1506.26,
+    "end": 1507.86,
+    "text": " siccome non li usa quasi nessuno,"
+  },
+  {
+    "start": 1508.02,
+    "end": 1509.78,
+    "text": " è un approccio molto specializzato,"
+  },
+  {
+    "start": 1509.86,
+    "end": 1511.26,
+    "text": " ma ci arriveremo pure,"
+  },
+  {
+    "start": 1511.7,
+    "end": 1514.62,
+    "text": " però io vi vorrei fare vedere invece un approccio più reale."
+  },
+  {
+    "start": 1515.4,
+    "end": 1516.38,
+    "text": " Ciao, alla prossima."
+  }
+]

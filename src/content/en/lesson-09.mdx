@@ -1,0 +1,188 @@
+import VideoEmbed from '../../components/content/VideoEmbed';
+import Callout from '../../components/content/Callout';
+import KeyConcepts from '../../components/content/KeyConcepts';
+import CodeEditor from '../../components/exercises/CodeEditor';
+import Quiz from '../../components/exercises/Quiz';
+import HackerTerminal from '../../components/content/HackerTerminal';
+import PointerBasics from '../../components/content/PointerBasics';
+
+# Lesson 9: Welcome to Pointers 📍
+
+We've finally arrived at one of the most feared, yet fundamental, concepts of the C language: **Pointers**.
+
+<VideoEmbed videoId="BBgZs-jd_QY" title="Lesson 9: Introduction to Pointers" />
+
+<KeyConcepts 
+  concepts={[
+    {
+      title: "Variable vs Address",
+      description: "A variable is a box; a pointer is a note that says where that box is in memory."
+    },
+    {
+      title: "The & Operator (Address)",
+      description: "Extracts the memory location of a variable (e.g., &x)."
+    },
+    {
+      title: "The * Operator (Dereferencing)",
+      description: "Tells the computer: 'Go to the address stored in the pointer and interact with the value you find there'."
+    }
+  ]} 
+/>
+
+<Callout type="info" title="Syntax and Grammar">
+Salvatore recommends writing `int *p` instead of `int* p`. Why? If you declare `int *p, z;`, only `p` is a pointer, while `z` is a normal integer. Placing the asterisk near the variable name makes this C grammatical distinction clear.
+</Callout>
+
+## Visualizing Memory
+
+Use this simulator to understand the difference between a variable's value and the address that hosts it.
+
+<PointerBasics />
+
+## Why do Pointers have a Type?
+
+A memory address is always the same size (64 bits on modern architectures), but the compiler needs to know **how many bytes to read** starting from that address.
+
+- `int *p`: Read 4 bytes and interpret them as an integer.
+- `char *c`: Read just 1 byte.
+
+In C, address **0** is special and is indicated with the `NULL` keyword. It means the pointer doesn't point to anything valid.
+
+<Callout type="hacker" title="Pointers vs Arrays: The Equivalence">
+Did you know that `*p` is identical to writing `p[0]`? There's a "bizarre analogy" (as Salvatore calls it) in C between pointers and arrays: a pointer can be treated as the base address of a single-element array.
+</Callout>
+
+<Callout type="hacker" title="The NULL Pointer">
+Salvatore always recommends initializing pointers to `NULL` (address 0). Accessing a pointer that points to nothing causes a **Segmentation Fault**, but an immediate error is better than a silent bug that writes into random memory areas!
+</Callout>
+
+## Code Example: Pass by Reference
+
+Functions in C normally receive **copies** of values. To allow a function to modify the original variable, we must pass its "home address".
+
+<CodeEditor 
+  initialCode={`#include <stdio.h>
+
+void increment(int *p) {
+    *p = *p + 1; // Dereference p and add 1 to the original value
+}
+
+int main() {
+    int x = 5;
+    printf("Before: %d\\n", x);
+    
+    increment(&x); // We pass the address of x
+    
+    printf("After: %d\\n", x); // x is now 6!
+    return 0;
+}`}
+  language="c"
+/>
+
+---
+
+<KeyConcepts title="Hacker Key Concepts">
+  - **Indirection**: Accessing data by 'wandering' through addresses.
+  - **Pass-by-reference**: Simulating C++ or Java reference passing using pointers in C.
+  - **Memory Safety**: Understanding that a pointer is a double-edged sword: powerful but risky.
+</KeyConcepts>
+
+---
+
+## Verification Quiz
+
+<Quiz 
+  questions={[
+    {
+      question: "What does an `int *p` variable technically contain?",
+      options: [
+        "An integer number",
+        "The memory address of an integer",
+        "A copy of an integer",
+        "The name of a variable"
+      ],
+      correctAnswer: 1,
+      explanation: "A pointer is a variable that stores memory addresses."
+    },
+    {
+      question: "Which operator is used to get the address of a variable `x`?",
+      options: [
+        "*x",
+        "&x",
+        "%x",
+        "@x"
+      ],
+      correctAnswer: 1,
+      explanation: "The '&' operator (Address-of) extracts the address."
+    },
+    {
+      question: "If I write `*p = 10;`, where `p` is a pointer, what am I doing?",
+      options: [
+        "Changing the address p points to",
+        "Writing the value 10 to the address stored in p",
+        "Multiplying p by 10",
+        "Nothing, the code is wrong"
+      ],
+      correctAnswer: 1,
+      explanation: "This is called 'dereferencing'. You are working on the content at the pointed address."
+    }
+  ]}
+/>
+
+---
+
+### Hacker Challenge 🏆
+
+<Quiz 
+  title="Hacker Challenge: Pointer Architecture"
+  questions={[
+    {
+      id: 1,
+      question: "What is the size of a pointer (regardless of target type) on a 64-bit machine?",
+      options: [
+        "4 bytes",
+        "8 bytes",
+        "It depends if it points to char or int",
+        "16 bytes"
+      ],
+      correctAnswer: 1,
+      explanation: "All pointers are memory addresses. On 64-bit, an address is 8 bytes wide."
+    },
+    {
+      id: 2,
+      question: "If you declare `int x; int *p = &x;` and then increment `p` (`p++`), what happens?",
+      options: [
+        "The value of x increases",
+        "The address in p moves forward by 4 bytes",
+        "The computer crashes immediately",
+        "p becomes NULL"
+      ],
+      correctAnswer: 1,
+      explanation: "Incrementing the pointer moves the address by the size of the base type (int = 4 bytes)."
+    }
+  ]}
+/>
+
+### Terminal Challenge: Exploration ⚡
+
+<HackerTerminal 
+  title="Hacker Challenge: Level 9 - Task 1"
+  description="Salvatore mentioned that variables sometimes end up in CPU registers. Which Linux command allows you to see processor registers during debugging? (It's a very famous debugger)"
+  command="..."
+  expectedOutput="gdb"
+  inputLabel="Debugger:"
+  placeholder="e.g. debugger"
+  explanation="GDB (GNU Debugger) is the ultimate tool for analyzing memory dumps and registers."
+  xpReward={150}
+/>
+
+<HackerTerminal 
+  title="Hacker Challenge: Level 9 - Task 2"
+  description="You want to see a program's load address in memory while it's running. Which virtual file in the /proc filesystem contains memory maps?"
+  command="cat /proc/self/..."
+  expectedOutput="cat /proc/self/maps"
+  inputLabel="File:"
+  placeholder="e.g. memory"
+  explanation="/proc/[pid]/maps shows exactly how your program's pointers map to physical RAM."
+  xpReward={250}
+/>
