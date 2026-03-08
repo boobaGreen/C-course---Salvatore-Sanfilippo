@@ -1,38 +1,42 @@
-import VideoEmbed from '../../components/content/VideoEmbed';
-import Callout from '../../components/content/Callout';
-import KeyConcepts from '../../components/content/KeyConcepts';
-import CodeEditor from '../../components/exercises/CodeEditor';
-import Quiz from '../../components/exercises/Quiz';
-import HackerTerminal from '../../components/content/HackerTerminal';
-import Infographic from '../../components/content/Infographic';
-import ComparisonTable from '../../components/content/ComparisonTable';
-import AssemblyExplorer from '../../components/content/AssemblyExplorer';
-import TerminalSimulation from '../../components/content/TerminalSimulation';
-import TypeMatcher from '../../components/games/TypeMatcher';
+import VideoEmbed from "../../components/content/VideoEmbed";
+import Callout from "../../components/content/Callout";
+import KeyConcepts from "../../components/content/KeyConcepts";
+import CodeEditor from "../../components/exercises/CodeEditor";
+import Quiz from "../../components/exercises/Quiz";
+import HackerTerminal from "../../components/content/HackerTerminal";
+import Infographic from "../../components/content/Infographic";
+import ComparisonTable from "../../components/content/ComparisonTable";
+import AssemblyExplorer from "../../components/content/AssemblyExplorer";
+import TerminalSimulation from "../../components/content/TerminalSimulation";
+import TypeMatcher from "../../components/games/TypeMatcher";
 
 # Lezione 1: Introduzione al C e "Hello World"
 
 <VideoEmbed videoId="HjXBXBgfKyk" title="Introduzione al C - antirez" />
 
-Benvenuti! In questa prima lezione inauguriamo il corso sul linguaggio C. Questo corso ha uno stile molto istintivo e pratico. 
+Benvenuti! In questa prima lezione inauguriamo il corso sul linguaggio C. Questo corso ha uno stile molto istintivo e pratico.
 
 <Callout type="warning" title="Prerequisiti">
-  Questo corso è pensato per chi **sa già programmare** in altri linguaggi (JavaScript, Python, Go, Ruby, ecc.). Non è richiesta esperienza pregressa con linguaggi a basso livello, ma è utile avere un'idea di come funzionano i computer sotto il cofano.
+  Questo corso è pensato per chi **sa già programmare** in altri linguaggi
+  (JavaScript, Python, Go, Ruby, ecc.). Non è richiesta esperienza pregressa con
+  linguaggi a basso livello, ma è utile avere un'idea di come funzionano i
+  computer sotto il cofano.
 </Callout>
 
 L'approccio sarà **estremamente operativo**: impareremo a programmare, programmando. Le spiegazioni teoriche arriveranno come "effetto collaterale" della scrittura del codice.
 
 <KeyConcepts title="Cosa impareremo oggi">
-  - Scrivere il primo programma "Hello World"
-  - Capire il processo di **compilazione**
-  - Esplorare cosa fa il compilatore (anche a livello di Assembly)
-  - La democratizzazione del C: da Stallman a GCC
-  - Comprendere le direttive del **preprocessore** (`#include`)
-  - Scoprire i **prototipi di funzione**
+  - Scrivere il primo programma "Hello World" - Capire il processo di
+  **compilazione** - Esplorare cosa fa il compilatore (anche a livello di
+  Assembly) - La democratizzazione del C: da Stallman a GCC - Comprendere le
+  direttive del **preprocessore** (`#include`) - Scoprire i **prototipi di
+  funzione**
 </KeyConcepts>
 
 <Callout type="info" title="Filosofia del Corso">
-  Questo corso segue uno stile **istintivo**. Non c'è una preparazione maniacale a monte, ma una freschezza dettata dalla pratica brutale. Impareremo il C come "effetto collaterale" della risoluzione di problemi reali.
+  Questo corso segue uno stile **istintivo**. Non c'è una preparazione maniacale
+  a monte, ma una freschezza dettata dalla pratica brutale. Impareremo il C come
+  "effetto collaterale" della risoluzione di problemi reali.
 </Callout>
 
 ---
@@ -53,7 +57,9 @@ int main() {
 ```
 
 <Callout type="tip" title="Consiglio di Salvatore">
-  Non cercate di capire tutto subito. In C, molti concetti si chiariscono solo quando scendiamo di un livello e vediamo cosa succede nella memoria o nella CPU.
+  Non cercate di capire tutto subito. In C, molti concetti si chiariscono solo
+  quando scendiamo di un livello e vediamo cosa succede nella memoria o nella
+  CPU.
 </Callout>
 
 <TypeMatcher />
@@ -62,24 +68,29 @@ int main() {
 
 C è un linguaggio **compilato**. Questo significa che il codice che scriviamo non viene letto riga per riga da un interprete (come Python o JS), ma trasformato integralmente in un file binario prima di poter essere lanciato.
 
-<Infographic 
-  src="/images/c_compilation_pipeline_v2.png" 
-  alt="La Pipeline di Compilazione (Dettagliata)" 
+<Infographic
+  src="/images/c_compilation_pipeline_v2.png"
+  alt="La Pipeline di Compilazione (Dettagliata)"
   caption="Le 4 fasi: Preprocessing, Compilazione, Assembly e Linking."
 />
 
 Dobbiamo usare il **compilatore C** (come `cc`, `gcc` o `clang`):
 
-<TerminalSimulation command="cc hello.c" output="" />
+```bash
+cc hello.c
+```
 
 ### La Democratizzazione del C
+
 Storicamente, i compilatori erano strumenti costosi e proprietari (come l'**Intel C Compiler - ICC**). La svolta è arrivata con **Richard Stallman** e il progetto **GCC** (GNU Compiler Collection). Regalando un compilatore potente e gratuito al mondo, Stallman ha permesso a chiunque di imparare e usare il C, cambiando per sempre la storia del software libero.
 
 Questo comando genera un nuovo file eseguibile (tipicamente chiamato `a.out` su sistemi Unix). Questo file è un **binario** contenente il linguaggio macchina e alcune intestazioni specifiche del sistema operativo (Linux, macOS, Windows). Possiamo eseguirlo digitando:
 
 <TerminalSimulation command="./a.out" output="Hello, World!" />
 
-<CodeEditor initialCode={`#include <stdio.h>\n\nint main() {\n    printf("Hello, World!\\n");\n    return 0;\n}`} />
+<CodeEditor
+  initialCode={`#include <stdio.h>\n\nint main() {\n    printf("Hello, World!\\n");\n    return 0;\n}`}
+/>
 
 ---
 
@@ -87,18 +98,34 @@ Questo comando genera un nuovo file eseguibile (tipicamente chiamato `a.out` su 
 
 Possiamo chiedere al compilatore di fermarsi prima di generare il binario finale, facendoci mostrare il codice **Assembly** intermedio, usando il flag `-S`.
 
+Questo flag è fondamentale perché ci permette di ispezionare esattamente come il compilatore ha tradotto il nostro codice C, senza dover "de-compilare" un eseguibile binario (che è molto più complesso).
+
+Esempio di utilizzo:
+
+```bash
+cc -S hello.c
+```
+
+Questo comando non crea un `a.out`, ma genera un file testuale chiamato `hello.s` contenente le istruzioni Assembly.
+
 L'Assembly è il linguaggio "quasi" macchina: è leggibile dagli esseri umani ma corrisponde 1:1 alle istruzioni che la CPU eseguirà.
 
 <AssemblyExplorer />
 
 <Callout type="hacker" title="Hacker Mindset">
-  Guardare l'Assembly non è un esercizio accademico. È l'unico modo per capire *davvero* quanto è efficiente il tuo codice e cosa sta facendo il compilatore alle tue spalle.
+  Guardare l'Assembly non è un esercizio accademico. È l'unico modo per capire
+  *davvero* quanto è efficiente il tuo codice e cosa sta facendo il compilatore
+  alle tue spalle.
 </Callout>
 
 The compilatore, accorgendosi che stiamo stampando una stringa semplice seguita da un ritorno a capo (`\n`), sostituisce automaticamente la `printf` con la funzione `puts`, che è più veloce ed efficiente per questo scopo specifico.
 
 <Callout type="info" title="Intelligenza del Compilatore">
-  Questo è il primo esempio di **ottimizzazione trasparente**. Il compilatore non si limita a tradurre, ma "capisce" l'intento del codice e lo riscrive per essere più performante. È per questo che il C, nonostante l'età, rimane imbattibile: i compilatori moderni hanno accumulato 50 anni di astuzie matematiche.
+  Questo è il primo esempio di **ottimizzazione trasparente**. Il compilatore
+  non si limita a tradurre, ma "capisce" l'intento del codice e lo riscrive per
+  essere più performante. È per questo che il C, nonostante l'età, rimane
+  imbattibile: i compilatori moderni hanno accumulato 50 anni di astuzie
+  matematiche.
 </Callout>
 
 ---
@@ -108,51 +135,71 @@ The compilatore, accorgendosi che stiamo stampando una stringa semplice seguita 
 Analizziamo ogni riga per capire cosa succede realmente:
 
 ### 1. Il Preprocessore e `#include`
+
 ```c
 #include <stdio.h>
 ```
-Questa riga non fa parte del linguaggio C vero e proprio, ma è una **direttiva per il preprocessore** (tutte le direttive iniziano con il `#`). Prima della compilazione vera e propria, il preprocessore prende il contenuto del file `stdio.h` (un file di libreria standard) e lo "scompatta" direttamente all'interno del nostro file. 
+
+Questa riga non fa parte del linguaggio C vero e proprio, ma è una **direttiva per il preprocessore** (tutte le direttive iniziano con il `#`). Prima della compilazione vera e propria, il preprocessore prende il contenuto del file `stdio.h` (un file di libreria standard) e lo "scompatta" direttamente all'interno del nostro file.
 
 <Callout type="info">
-  Il C è un linguaggio "nudo". Senza librerie, non sa nemmeno come stampare un carattere a video. Tutto ciò che è "utile" si trova nella Libreria Standard.
+  Il C è un linguaggio "nudo". Senza librerie, non sa nemmeno come stampare un
+  carattere a video. Tutto ciò che è "utile" si trova nella Libreria Standard.
 </Callout>
 
 <Callout type="warning" title="Sicurezza: printf vs puts">
-  Non usare mai `printf(buffer)` se `buffer` proviene da un input utente! Se l'utente inserisce stringhe tipo `%s%s%s`, può causare un **Format String Attack**. `puts` è intrinsecamente più sicuro perché non interpreta i segnaposto.
+  Non usare mai `printf(buffer)` se `buffer` proviene da un input utente! Se
+  l'utente inserisce stringhe tipo `%s%s%s`, può causare un **Format String
+  Attack**. `puts` è intrinsecamente più sicuro perché non interpreta i
+  segnaposto.
 </Callout>
 
 ### 2. File Header (`.h`) e Prototipi di Funzione
 
-In un file header (come `stdio.h`) non c'è il codice che *esegue* la `printf`, ma ci sono i **prototipi di funzione**.
+In un file header (come `stdio.h`) non c'è il codice che _esegue_ la `printf`, ma ci sono i **prototipi di funzione**.
 
-<ComparisonTable 
+<ComparisonTable
   title="Prototipo vs Definizione"
   headers={["Caratteristica", "Prototipo (.h)", "Definizione (.c)"]}
   rows={[
-    ["Scopo", "Dichiara l'esistenza e la firma della funzione", "Contiene l'implementazione reale del codice"],
-    ["Sintassi", "Termina con un punto e virgola: <br/><code>int sum(int a, int b);</code>", "Contiene il corpo tra graffe: <br/><code>int sum(int a, int b) { ... }</code>"],
-    ["Visibilità", "Permette ad altri file di sapere come chiamare la funzione", "Viene compilata nell'oggetto binario finale"]
+    [
+      "Scopo",
+      "Dichiara l'esistenza e la firma della funzione",
+      "Contiene l'implementazione reale del codice",
+    ],
+    [
+      "Sintassi",
+      "Termina con un punto e virgola: <br/><code>int sum(int a, int b);</code>",
+      "Contiene il corpo tra graffe: <br/><code>int sum(int a, int b) { ... }</code>",
+    ],
+    [
+      "Visibilità",
+      "Permette ad altri file di sapere come chiamare la funzione",
+      "Viene compilata nell'oggetto binario finale",
+    ],
   ]}
 />
 
-Il prototipo serve a dire al compilatore: *"Esiste una funzione chiamata `printf` che accetta questi parametri e restituisce un numero intero. Fidati, la troverai più tardi"*. 
+Il prototipo serve a dire al compilatore: _"Esiste una funzione chiamata `printf` che accetta questi parametri e restituisce un numero intero. Fidati, la troverai più tardi"_.
 
 ---
 
-<Quiz 
-  title="Quiz Standard" 
+<Quiz
+  title="Quiz Standard"
   questions={[
     {
       id: 1,
-      question: "Cosa succede quando compili con il flag -O2 se il codice contiene un semplice printf con \\n?",
+      question:
+        "Cosa succede quando compili con il flag -O2 se il codice contiene un semplice printf con \\n?",
       options: [
         "Viene generato un errore di compilazione",
         "Il compilatore sostituisce printf con puts per ottimizzare le performance",
         "La stringa non viene stampata",
-        "Il programma diventa più lento"
+        "Il programma diventa più lento",
       ],
       correctAnswer: 1,
-      explanation: "I compilatori moderni come GCC o Clang riconoscono pattern semplici. puts è più efficiente di printf per stringhe statiche semplici."
+      explanation:
+        "I compilatori moderni come GCC o Clang riconoscono pattern semplici. puts è più efficiente di printf per stringhe statiche semplici.",
     },
     {
       id: 2,
@@ -161,10 +208,11 @@ Il prototipo serve a dire al compilatore: *"Esiste una funzione chiamata `printf
         "A definire la funzione main",
         "A importare i file binari della libreria standard",
         "A fornire al compilatore i prototipi delle funzioni di Input/Output",
-        "A scrivere il codice Assembly per noi"
+        "A scrivere il codice Assembly per noi",
       ],
       correctAnswer: 2,
-      explanation: "La direttiva informa il preprocessore di includere l'header che contiene i prototipi (firme) delle funzioni."
+      explanation:
+        "La direttiva informa il preprocessore di includere l'header che contiene i prototipi (firme) delle funzioni.",
     },
     {
       id: 3,
@@ -173,63 +221,70 @@ Il prototipo serve a dire al compilatore: *"Esiste una funzione chiamata `printf
         "puts aggiunge automaticamente un ritorno a capo (\\n), printf no",
         "printf è più veloce di puts",
         "Solo printf può stampare stringhe",
-        "Nessuna, sono esattamente uguali"
+        "Nessuna, sono esattamente uguali",
       ],
       correctAnswer: 0,
-      explanation: "puts stampa la stringa e aggiunge un newline alla fine. printf stampa esattamente ciò che gli viene passato."
+      explanation:
+        "puts stampa la stringa e aggiunge un newline alla fine. printf stampa esattamente ciò che gli viene passato.",
     },
     {
       id: 4,
-      question: "Perché il compilatore trasforma printf(\"Hello\\n\") in puts(\"Hello\") ma NON trasforma printf(\"Voto: % d\\n\", 10) in puts?",
+      question:
+        'Perché il compilatore trasforma printf("Hello\\n") in puts("Hello") ma NON trasforma printf("Voto: % d\\n", 10) in puts?',
       options: [
         "Perché puts non supporta i numeri",
         "Perché puts non supporta le stringhe di formato (come %d)",
         "Perché printf è più moderno",
-        "Perché non c'è spazio nell'eseguibile"
+        "Perché non c'è spazio nell'eseguibile",
       ],
       correctAnswer: 1,
-      explanation: "puts stampa solo stringhe statiche. printf ha un intero motore di parsing per gestire i placeholder (%d, %s, etc.)."
+      explanation:
+        "puts stampa solo stringhe statiche. printf ha un intero motore di parsing per gestire i placeholder (%d, %s, etc.).",
     },
     {
       id: 5,
-      question: "Cosa succede se dimentichi il punto e virgola alla fine di un prototipo in un file .h?",
+      question:
+        "Cosa succede se dimentichi il punto e virgola alla fine di un prototipo in un file .h?",
       options: [
         "Il programma crasha all'esecuzione",
         "Il preprocessore ignora il problema",
         "Errore di compilazione: il compilatore non capisce dove finisce la firma",
-        "Il computer si spegne"
+        "Il computer si spegne",
       ],
       correctAnswer: 2,
-      explanation: "Il punto e virgola è obbligatorio nei prototipi per separare le dichiarazioni."
-    }
-  ]} 
+      explanation:
+        "Il punto e virgola è obbligatorio nei prototipi per separare le dichiarazioni.",
+    },
+  ]}
 />
 
 ---
 
 <KeyConcepts title="Hacker Key Concepts">
-  - Il C non è eseguito, ma **compilato**.
-  - Il compilatore sa ottimizzare il codice in modo intelligente (es. trasformando `printf` in `puts`).
-  - Il **preprocessore** prepara il file prima della compilazione.
-  - I file **Header (`.h`)** contengono i **prototipi** delle funzioni.
+  - Il C non è eseguito, ma **compilato**. - Il compilatore sa ottimizzare il
+  codice in modo intelligente (es. trasformando `printf` in `puts`). - Il
+  **preprocessore** prepara il file prima della compilazione. - I file **Header
+  (`.h`)** contengono i **prototipi** delle funzioni.
 </KeyConcepts>
 
 ### Hacker Challenge 🏆
 
-<Quiz 
+<Quiz
   title="Hacker Challenge: Final Quiz"
   questions={[
     {
       id: 1,
-      question: "Supponiamo di ricevere una stringa dall'utente e volerla stampare. Perché `puts(buffer)` è più sicuro di `printf(buffer)`?",
+      question:
+        "Supponiamo di ricevere una stringa dall'utente e volerla stampare. Perché `puts(buffer)` è più sicuro di `printf(buffer)`?",
       options: [
         "puts è più veloce",
         "printf interpreterebbe eventuali simboli '%' nella stringa come segnaposto, cercando di leggere dati casuali dallo stack (Format String Attack)",
         "puts cripta la stringa automaticamente",
-        "Non c'è differenza di sicurezza"
+        "Non c'è differenza di sicurezza",
       ],
       correctAnswer: 1,
-      explanation: "Questo è un classico attacco di sicurezza. Se l'utente inserisce '%s%s%s', printf cercherà di leggere stringhe dall'indirizzo di memoria puntato da valori casuali sullo stack, causando un crash o un furto di dati. puts invece stampa la stringa 'così com'è', ignorando i simboli speciali."
+      explanation:
+        "Questo è un classico attacco di sicurezza. Se l'utente inserisce '%s%s%s', printf cercherà di leggere stringhe dall'indirizzo di memoria puntato da valori casuali sullo stack, causando un crash o un furto di dati. puts invece stampa la stringa 'così com'è', ignorando i simboli speciali.",
     },
     {
       id: 2,
@@ -238,10 +293,11 @@ Il prototipo serve a dire al compilatore: *"Esiste una funzione chiamata `printf
         "Il compilatore scrive codice Assembly che poi deve essere tradotto manualmente",
         "Il compilatore automatizza la traduzione dal C all'Assembly (e poi al binario), applicando ottimizzazioni che un umano difficilmente farebbe a mano",
         "Non c'è legame, sono linguaggi separati",
-        "L'Assembly è più lento del C"
+        "L'Assembly è più lento del C",
       ],
       correctAnswer: 1,
-      explanation: "Il compilatore è un traduttore esperto. Prende il tuo codice C e lo 'abbassa' al livello della macchina (Assembly), cercando però di eliminare passaggi inutili per rendere il programma il più veloce possibile."
+      explanation:
+        "Il compilatore è un traduttore esperto. Prende il tuo codice C e lo 'abbassa' al livello della macchina (Assembly), cercando però di eliminare passaggi inutili per rendere il programma il più veloce possibile.",
     },
     {
       id: 3,
@@ -250,58 +306,61 @@ Il prototipo serve a dire al compilatore: *"Esiste una funzione chiamata `printf
         "Il programma non può più essere modificato",
         "Tutte le librerie necessarie vengono incluse dentro l'eseguibile, rendendolo più grande ma portabile su sistemi senza quelle librerie",
         "Il programma diventa più lento perché non usa la cache",
-        "Vengono rimosse tutte le stampe a video"
+        "Vengono rimosse tutte le stampe a video",
       ],
       correctAnswer: 1,
-      explanation: "Il linking statico copia il codice delle funzioni di libreria (come printf) direttamente nel tuo binario. Questo lo rende indipendente dalle versioni delle librerie installate sul sistema, ma ne aumenta notevolmente la dimensione."
-    }
+      explanation:
+        "Il linking statico copia il codice delle funzioni di libreria (come printf) direttamente nel tuo binario. Questo lo rende indipendente dalle versioni delle librerie installate sul sistema, ma ne aumenta notevolmente la dimensione.",
+    },
   ]}
 />
 
 ### Terminal Challenge: The Optimization Trap 🕵️
 
-<HackerTerminal 
+<HackerTerminal
   challenges={[
     {
-        id: "opt-trap",
-        title: "L'Ottimizzazione Subdola",
-        description: "Hai compilato un programma che stampa 'Hello World' con `printf`. Se guardi l'assembly generato con `-O2`, noterai che il compilatore ha sostituito la chiamata originale con una funzione più veloce per gestire stringhe costanti. Usa `grep` per cercare la riga che chiama una funzione (contiene 'call') all'interno del file assembly `hello.s`.",
-        commands: [],
-        expectedOutput: "puts",
-        hints: [
-            "Il compilatore 'declassa' la funzione se non ci sono formattazioni"
-        ],
-        explanation: "Esatto! Il compilatore sostituisce printf con puts per stringhe statiche semplici, poiché è molto più efficiente.",
-        xpReward: 150,
-        expectedCommand: "grep 'call' hello.s"
+      id: "opt-trap",
+      title: "L'Ottimizzazione Subdola",
+      description:
+        "Hai compilato un programma che stampa 'Hello World' con `printf`. Se guardi l'assembly generato con `-O2`, noterai che il compilatore ha sostituito la chiamata originale con una funzione più veloce per gestire stringhe costanti. Usa `grep` per cercare la riga che chiama una funzione (contiene 'call') all'interno del file assembly `hello.s`.",
+      commands: [],
+      expectedOutput: "puts",
+      hints: [
+        "Il compilatore 'declassa' la funzione se non ci sono formattazioni",
+      ],
+      explanation:
+        "Esatto! Il compilatore sostituisce printf con puts per stringhe statiche semplici, poiché è molto più efficiente.",
+      xpReward: 150,
+      expectedCommand: "grep 'call' hello.s",
     },
     {
-        id: "elf-check",
-        title: "Anatomia del Binario",
-        description: "Un eseguibile Linux non è solo codice. Quale comando identifica la struttura del file e l'architettura per cui è stato creato?",
-        commands: [],
-        expectedOutput: "ELF 64-bit",
-        hints: [
-            "Cerca un comando che significa 'documento' o 'archivio'"
-        ],
-        explanation: "Ottimo! Il comando `file` legge l'header ELF per determinare il tipo di binario.",
-        xpReward: 200,
-        expectedCommand: "file a.out"
+      id: "elf-check",
+      title: "Anatomia del Binario",
+      description:
+        "Un eseguibile Linux non è solo codice. Quale comando identifica la struttura del file e l'architettura per cui è stato creato?",
+      commands: [],
+      expectedOutput: "ELF 64-bit",
+      hints: ["Cerca un comando che significa 'documento' o 'archivio'"],
+      explanation:
+        "Ottimo! Il comando `file` legge l'header ELF per determinare il tipo di binario.",
+      xpReward: 200,
+      expectedCommand: "file a.out",
     },
     {
-        id: "strip-symbols",
-        title: "Pulizia Finale",
-        description: "Quale comando rimuove la symbol table e le info di debug per ridurre la dimensione del file?",
-        commands: [],
-        expectedOutput: "",
-        hints: [
-            "Significa 'spogliare' o 'togliere' in inglese"
-        ],
-        explanation: "Perfetto! `strip` rende il binario più piccolo e difficile da analizzare con il reverse engineering.",
-        xpReward: 250,
-        expectedCommand: "strip a.out"
-    }
-]}
+      id: "strip-symbols",
+      title: "Pulizia Finale",
+      description:
+        "Quale comando rimuove la symbol table e le info di debug per ridurre la dimensione del file?",
+      commands: [],
+      expectedOutput: "",
+      hints: ["Significa 'spogliare' o 'togliere' in inglese"],
+      explanation:
+        "Perfetto! `strip` rende il binario più piccolo e difficile da analizzare con il reverse engineering.",
+      xpReward: 250,
+      expectedCommand: "strip a.out",
+    },
+  ]}
 />
 
 Ci vediamo alla prossima lezione!

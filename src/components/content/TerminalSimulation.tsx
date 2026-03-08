@@ -91,13 +91,20 @@ export default function TerminalSimulation({ command, output = '', children, lan
                     )}
                 </div>
 
-                {hasRun && (
+                {hasRun && finalOutput && (
                     <div className="mt-4 rounded-lg bg-black/50 p-4 border border-white/5 font-mono text-sm animate-in fade-in slide-in-from-top-2 duration-300">
                         <div className="flex items-center gap-2 mb-2 text-[var(--color-brand-primary)] opacity-50">
                             <CheckCircle2 size={12} />
                             <span className="text-[10px] uppercase font-bold tracking-tighter text-zinc-500">Output</span>
                         </div>
                         <CodeBlock code={finalOutput} language={language} noLineNumbers />
+                    </div>
+                )}
+
+                {hasRun && (
+                    <div className="mt-4 flex items-center gap-3 font-mono text-sm opacity-50 animate-in fade-in duration-300">
+                        <span className="text-green-500">$</span>
+                        <span className="w-2 md:w-2.5 h-4 md:h-5 bg-zinc-400 animate-pulse"></span>
                     </div>
                 )}
             </div>
