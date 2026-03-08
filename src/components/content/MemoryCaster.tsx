@@ -100,70 +100,95 @@ const MemoryCaster = () => {
 
         {/* Right Col: Memory Visualization */}
         <div className="flex flex-col items-center justify-center bg-black/40 p-6 rounded-xl border border-white/5 relative overflow-hidden">
-          <h4 className="text-sm uppercase tracking-wider text-gray-400 mb-6 font-semibold w-full text-left">Physical Memory (RAM)</h4>
+          <h4 className="text-sm uppercase tracking-wider text-gray-400 mb-10 font-semibold w-full text-left">Physical Memory (RAM)</h4>
           
-          <div className="flex gap-2 mb-8 relative">
-            {/* Pointer Indicator */}
-            <motion.div 
-              className="absolute -top-8 left-0 flex flex-col items-center z-10"
-              initial={false}
-              animate={{ 
-                x: 0, // Always starts reading at index 0 for this demo
-                width: `${selectedData.bytesUsed * 100}%` 
-              }}
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            >
-              <div className="bg-blue-500 text-white text-xs font-mono py-1 px-2 rounded font-bold shadow-[0_0_10px_rgba(59,130,246,0.5)]">
-                *ptr
-              </div>
-              <ArrowDown className="text-blue-500 w-4 h-4 mt-1" />
-            </motion.div>
-
-            {/* Memory Blocks */}
-            {memoryBytes.map((byte, idx) => {
-              const isActive = idx < selectedData.bytesUsed;
-              
-              // Formatting the byte index for display based on endianness visualization
-              // If Little Endian, the lowest address (idx 0) holds the Least Significant Byte
-              let byteRole = "";
-              if (isActive && pointerType !== 'char*') {
-                if (endianness === 'little') {
-                   byteRole = idx === 0 ? "LSB" : (idx === selectedData.bytesUsed - 1 ? "MSB" : "");
-                } else {
-                   byteRole = idx === 0 ? "MSB" : (idx === selectedData.bytesUsed - 1 ? "LSB" : "");
-                }
-              }
-
-              return (
-                <div key={idx} className="flex flex-col items-center">
-                  <motion.div 
-                    className={`w-14 h-16 rounded-lg border-2 flex items-center justify-center font-mono text-lg font-bold transition-colors ${
-                      isActive 
-                        ? 'bg-blue-500/20 border-blue-400 text-blue-100 shadow-[0_0_15px_rgba(59,130,246,0.3)]' 
-                        : 'bg-white/5 border-white/10 text-gray-500'
-                    }`}
-                    animate={isActive ? { scale: [1, 1.05, 1] } : { scale: 1 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    {byte.toString(16).padStart(2, '0').toUpperCase()}
-                  </motion.div>
-                  <div className="text-[10px] text-gray-500 mt-2 font-mono">0x100{idx}</div>
-                  {byteRole && (
-                     <div className="text-[10px] font-bold text-amber-400 mt-1">{byteRole}</div>
-                  )}
+          <div className="flex flex-col items-center relative w-full mb-8">
+            
+            {/* The Pointer Label that dynamically spans the active bytes */}
+            <div className="w-full flex justify-start mb-2 relative h-10">
+               <motion.div 
+                className="absolute flex flex-col items-center justify-center top-0"
+                initial={false}
+                animate={{ 
+                  x: 0, 
+                  width: `${(selectedData.bytesUsed / 4) * 100}%` 
+                }}
+                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              >
+                <div className="bg-blue-500/20 border border-blue-500/50 text-blue-300 text-xs font-mono py-1 px-3 rounded-full font-bold shadow-[0_0_15px_rgba(59,130,246,0.3)] whitespace-nowrap">
+                  *({pointerType}) ptr
                 </div>
-              );
-            })}
+                <ArrowDown className="text-blue-500 w-4 h-4 mt-1" />
+              </motion.div>
+            </div>
+
+            <div className="flex gap-2 w-full justify-start relative">
+              {/* Memory Blocks */}
+              {memoryBytes.map((byte, idx) => {
+                const isActive = idx < selectedData.bytesUsed;
+                
+                let byteRole = "";
+                // If we are reading more than 1 byte, label MSB/LSB
+                if (isActive && selectedData.bytesUsed > 1) {
+                  if (endianness === 'little') {
+                     if (idx === 0) byteRole = "LSB (First)";
+                     if (idx === selectedData.bytesUsed - 1) byteRole = "MSB (Last)";
+                  } else {
+                     if (idx === 0) byteRole = "MSB (First)";
+                     if (idx === selectedData.bytesUsed - 1) byteRole = "LSB (Last)";
+                  }
+                }
+
+                return (
+                  <div key={idx} className="flex flex-col items-center flex-1">
+                    <motion.div 
+                      className={`w-full max-w-[80px] h-20 rounded-lg border-2 flex items-center justify-center font-mono text-xl font-bold transition-colors ${
+                        isActive 
+                          ? 'bg-blue-500/20 border-blue-400 text-blue-100 shadow-[0_0_15px_rgba(59,130,246,0.3)]' 
+                          : 'bg-white/5 border-white/10 text-gray-500'
+                      }`}
+                      animate={isActive ? { scale: [1, 1.05, 1], y: [0, -2, 0] } : { scale: 1, y: 0 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      {byte.toString(16).padStart(2, '0').toUpperCase()}
+                    </motion.div>
+                    
+                    {/* Address Label */}
+                    <div className="text-[11px] text-gray-500 mt-3 font-mono bg-black/50 px-2 py-0.5 rounded border border-white/5">
+                      0x400{idx}
+                    </div>
+                    
+                    {/* Role Label (MSB/LSB) */}
+                    <div className="h-6 mt-1 flex items-center">
+                      {byteRole && (
+                        <motion.div 
+                          initial={{ opacity: 0, y: 5 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${
+                            byteRole.includes('MSB') ? 'bg-purple-500/20 text-purple-300' : 'bg-emerald-500/20 text-emerald-300'
+                          }`}
+                        >
+                          {byteRole}
+                        </motion.div>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
 
-          <div className="w-full bg-black/50 border border-white/10 rounded-lg p-4 flex items-center justify-between">
-            <div className="text-sm text-gray-400">Interpreted Value:</div>
+          <div className="w-full bg-black/60 border border-white/10 rounded-xl p-5 flex items-center justify-between shadow-inner">
+            <div className="text-sm font-semibold text-gray-400 flex items-center gap-2">
+              <ArrowRight className="w-4 h-4" />
+              Resulting Value:
+            </div>
             <div className="text-right">
-              <div className="text-2xl font-mono font-bold text-emerald-400">
+              <div className="text-3xl font-mono font-bold text-emerald-400 drop-shadow-[0_0_8px_rgba(52,211,153,0.4)] tracking-wider">
                 {selectedData.hex.toUpperCase()}
               </div>
-              <div className="text-sm font-mono text-gray-500">
-                Decimal: {selectedData.dec}
+              <div className="text-sm font-mono text-gray-500 mt-1">
+                Decimal: <span className="text-gray-300">{selectedData.dec}</span>
               </div>
             </div>
           </div>
@@ -171,10 +196,13 @@ const MemoryCaster = () => {
         </div>
       </div>
       
-      <div className="mt-6 bg-blue-900/20 border border-blue-500/30 p-4 rounded-xl flex gap-3 text-sm text-blue-200">
-        <Info className="w-5 h-5 shrink-0 text-blue-400" />
+      <div className="mt-6 bg-blue-900/20 border border-blue-500/30 p-4 rounded-xl flex gap-3 text-sm text-blue-200 leading-relaxed">
+        <Info className="w-6 h-6 shrink-0 text-blue-400 mt-0.5" />
         <p>
-          The physical memory contains <code>44 33 22 11</code>. Notice how casting the pointer to <code>short*</code> or <code>int*</code> changes how many bytes are read, AND how the <strong>Endianness</strong> architecture dictates the final assembled number (LSB first vs MSB first).
+          The physical memory contains the literal byte sequence <code>44 33 22 11</code> at addresses <code>0x4000</code> to <code>0x4003</code>.
+          <br /><br />
+          Notice how casting the pointer changes <strong>how many bytes are read</strong> (1 for <code>char*</code>, 2 for <code>short*</code>, 4 for <code>int*</code>), 
+          and how the selected <strong>Architecture (Endianness)</strong> dictates the final assembled number. In Little Endian, the <em>Least Significant Byte (LSB)</em> is stored at the lowest address.
         </p>
       </div>
     </div>
