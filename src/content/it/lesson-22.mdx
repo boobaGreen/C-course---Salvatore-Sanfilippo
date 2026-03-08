@@ -204,7 +204,7 @@ int main() {
     {
         id: "objdump-disas",
         title: "Raggi X al Codice",
-        description: "Usa `objdump -d` per vedere il codice assembly di una funzione. Dove punta tecnicamente il puntatore a funzione?",
+        description: "Quando disassembli un eseguibile, ogni funzione è contrassegnata da un'etichetta (es. `<main>:`). Quando passi in C l'indirizzo di una funzione come 'callback', verso quale elemento esatto della memoria della macchina statale punta tecnicamente quel valore?",
         commands: [
             "objdump -d a.out | grep -A 5 '<main>:'"
         ],

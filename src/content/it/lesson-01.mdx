@@ -265,7 +265,7 @@ Il prototipo serve a dire al compilatore: *"Esiste una funzione chiamata `printf
     {
         id: "opt-trap",
         title: "L'Ottimizzazione Subdola",
-        description: "Hai compilato un programma che stampa 'Hello World' con `printf`. Se guardi l'assembly generato con `-O2`, quale funzione più semplice trovi al posto di printf?",
+        description: "Hai compilato un programma che stampa 'Hello World' con `printf`. Se guardi l'assembly generato con `-O2`, noterai che il compilatore ha sostituito la chiamata originale con una funzione più veloce per gestire stringhe costanti. Qual è il nome di questa funzione?",
         commands: [],
         expectedOutput: "puts",
         hints: [

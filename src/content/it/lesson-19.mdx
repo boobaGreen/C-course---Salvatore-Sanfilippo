@@ -215,7 +215,7 @@ Quando una syscall fallisce (ritorna -1), il Kernel imposta un numero globale ch
     {
         id: "man-syscall",
         title: "Il Manuale del Kernel",
-        description: "Usa il comando `man` per leggere la documentazione della syscall `read`. Specifica la sezione corretta.",
+        description: "Stai cercando informazioni sulla primitiva del Kernel per leggere da un file descriptor. Se digiti solo il nome della funzione nel manuale, ti mostrerà il comando Bash omonimo. Come specifichi che vuoi leggere la 'Sezione 2' (quella delle chiamate di sistema)?",
         commands: [],
         expectedOutput: "READ(2)",
         hints: [
@@ -238,7 +238,7 @@ Quando una syscall fallisce (ritorna -1), il Kernel imposta un numero globale ch
     {
         id: "errno-list",
         title: "Catalogo Errori",
-        description: "Usa il comando `errno -l` (se installato) o cerca nel file header di sistema dove sono definiti i nomi degli errori.",
+        description: "I nomi degli errori scaturiti dalle syscall (come 'Permission Denied') corrispondono a numeri gestiti dalla variabile `errno`. Quale comando puoi usare nella directory `/usr/include` flaggando la ricerca ricorsiva, per cercare il simbolo `EACCES`?",
         commands: [],
         expectedOutput: "#define EACCES",
         hints: [

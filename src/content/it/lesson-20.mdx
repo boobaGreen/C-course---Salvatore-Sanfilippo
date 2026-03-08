@@ -207,7 +207,7 @@ Elimina il passaggio di copia dei dati tra lo spazio Kernel e lo spazio Utente. 
     {
         id: "strace-mmap",
         title: "Geografia della Memoria",
-        description: "Usa `strace` su un comando semplice come `cat` e osserva quante volte appare la chiamata `mmap`. Perché lo fa?",
+        description: "Se ispezioni le chiamate di sistema eseguite all'avvio di un qualsiasi programma (es. `cat`), noterai che il caricatore del sistema operativo invoca molte volte una determinata syscall per allocare e mappare in memoria i file delle librerie condivise (`.so`). Di quale funzione parliamo?",
         commands: [
             "strace cat /etc/passwd 2>&1 | grep mmap"
         ],

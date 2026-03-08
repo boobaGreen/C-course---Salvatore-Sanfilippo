@@ -213,7 +213,7 @@ Prova a sperimentare con `sizeof` e le costanti di `limits.h` come `INT_MIN` e `
     {
         id: "limits-header",
         title: "Il Guardiano dei Limiti",
-        description: "Qual è il nome del file header standard che definisce i limiti minimi e massimi dei tipi interi nel tuo sistema?",
+        description: "Se hai bisogno di conoscere il valore massimo che un `int` può contenere sulla tua architettura (es. `INT_MAX`), quale file header standard devi includere?",
         commands: [
             "ls /usr/include/limits.h"
         ],
@@ -227,7 +227,7 @@ Prova a sperimentare con `sizeof` e le costanti di `limits.h` come `INT_MIN` e `
     {
         id: "stdint-header",
         title: "Precisione Chirurgica",
-        description: "Per usare tipi con dimensione garantita (es. int32_t), quale file header devi includere?",
+        description: "Se vuoi essere assolutamente certo che una tua variabile occupi esattamente 32 bit su qualsiasi piattaforma, usi tipi come `int32_t`. Quale libreria standard fornisce queste definizioni?",
         commands: [
             "ls /usr/include/stdint.h"
         ],

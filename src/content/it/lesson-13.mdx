@@ -301,7 +301,7 @@ Immagina una stringa lunga 10 milioni di caratteri.
     {
         id: "valgrind-check",
         title: "Malloc Debugging",
-        description: "Quale opzione di `valgrind` useresti per vedere esattamente DOVE è stata allocata una memoria che stai cercando di liberare in modo errato?",
+        description: "Un memory leak è difficile da tracciare se non sai chi ha originariamente richiesto quella memoria. Quale flag specifico di `valgrind` (da settare a `=yes`) forza il tracciamento dettagliato di chi ha chiamato la `malloc` iniziale?",
         commands: [
             "valgrind --leak-check=full --track-origins=yes"
         ],

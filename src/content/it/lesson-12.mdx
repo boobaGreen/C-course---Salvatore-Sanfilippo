@@ -288,7 +288,7 @@ int main() {
     {
         id: "check-heap-limits",
         title: "Limitare la Memoria",
-        description: "A volte vuoi testare cosa succede se `malloc` fallisce (restituendo NULL). Usa il comando bash che gestisce i limiti fisici per limitare la memoria virtuale del tuo processo a circa 10 Megabyte (10000 kb).",
+        description: "Vuoi mettere sotto stress il tuo software e testare come gestisce l'esaurimento della RAM. Usa il builder della shell (`ulimit`) con il parametro per la memoria virtuale (`-v`) per restringere il limite a `10000` kb.",
         commands: [],
         expectedOutput: "ulimit -v 10000",
         hints: [

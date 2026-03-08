@@ -276,7 +276,7 @@ int main(int argc, char **argv) {
     {
         id: "tac-usage",
         title: "Invertire il Sistema",
-        description: "Prova ad usare il comando reale di Linux. Visualizza il contenuto di `/etc/passwd` al contrario.",
+        description: "Nel corso abbiamo replicato artigianalmente un famoso programmino UNIX che legge i file e li stampa partendo dall'ultima riga. Invoca la versione originale del sistema operativo sul file `/etc/passwd`.",
         commands: [
             "tac /etc/passwd"
         ],
@@ -288,7 +288,7 @@ int main(int argc, char **argv) {
     {
         id: "check-leaks-tac",
         title: "Caccia al Leak",
-        description: "Compila il programma TAC e usa `valgrind` per verificare se hai liberato tutti i nodi della lista prima di uscire.",
+        description: "Devi assicurarti che la tua implementazione di Liste Concatenate non abbia memory leaks. Quale profiler di memoria lanci davanti all'eseguibile `./tac file.txt` per analizzare il comportamento dell'heap?",
         commands: [
             "valgrind --leak-check=full ./tac file.txt"
         ],

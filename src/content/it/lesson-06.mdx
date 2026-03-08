@@ -228,7 +228,7 @@ Una funzione può chiamare se stessa. È un modo elegante per contare o risolver
     {
         id: "gcc-define",
         title: "Macro al Volo",
-        description: "Come puoi 'accendere' una macro (es. DEBUG) direttamente dal comando di compilazione senza modificare il codice?",
+        description: "Il tuo codice contiene blocchi `#ifdef DEBUG`. Quale argomento devi passare a `gcc` per compilare includendo quelle sezioni, definendo la macro direttamente da riga di comando?",
         commands: [
             "gcc -DDEBUG main.c"
         ],
@@ -242,7 +242,7 @@ Una funzione può chiamare se stessa. È un modo elegante per contare o risolver
     {
         id: "diff-command",
         title: "Caccia alle Differenze",
-        description: "Quale comando Linux useresti per confrontare due file sorgente e vedere esattamente cosa è cambiato nella logica?",
+        description: "Hai due versioni dello stesso sorgente C e vuoi stampare a video solo le righe che sono state modificate tra l'uno e l'altro. Quale classico programma UNIX usi?",
         commands: [],
         expectedOutput: "---",
         hints: [

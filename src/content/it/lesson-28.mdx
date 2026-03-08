@@ -270,7 +270,7 @@ Uno degli usi più comuni è `vprintf`, che accetta una `va_list` invece di argo
     {
         id: "stdarg-init",
         title: "Inizializzazione",
-        description: "Dichiara una variabile per gestire gli argomenti variabili: '_______ ap;'",
+        description: "Nelle funzioni variadiche, il primo passo è preparare un puntatore speciale che terrà traccia dell'argomento corrente che si sta estraendo dalla pila (lo stack). Qual è il tipo di dato astratto da utilizzare per dichiarare questa variabile di navigazione?",
         commands: [],
         expectedOutput: "va_list",
         hints: [
@@ -290,7 +290,7 @@ Uno degli usi più comuni è `vprintf`, che accetta una `va_list` invece di argo
     {
         id: "vformat-check",
         title: "Wrapper Power",
-        description: "Quale funzione usi per stampare una va_list su stringa? 'vsn______'",
+        description: "Vuoi scrivere il tuo personale wrapper per iniettare log e timestamp automaticamente, ma devi comunque supportare i classici parametri multipli (`%d`, `%s`, ecc.). A quale rinomata e sicura funzione della libreria standard passerai la tua `va_list` appena srotolata assieme al formato base?",
         commands: [],
         expectedOutput: "printf",
         hints: [

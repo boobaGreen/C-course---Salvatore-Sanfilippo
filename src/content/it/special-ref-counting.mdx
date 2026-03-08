@@ -173,7 +173,7 @@ Salvatore usa questa tecnica in **Redis** con la libreria `sds` (Simple Dynamic 
     {
         id: "ref-logic",
         title: "Logica di Conteggio",
-        description: "Oggetto A creato (RC=1). Viene messo in una lista (RC=?). Poi la lista viene liberata. Qual è l'RC finale?",
+        description: "Un oggetto viene allocato e restituito al chiamante (il suo 'reference count' o RC è 1 alla nascita). Esso viene inserito come elemento in un Array/Lista (l'Array ne acquisisce la possedienza e chiama la macro corretta). In un ciclo successivo, la Lista intera viene considerata inutile e svuotata o distrutta. A quanto ammonta l'RC esatto dell'oggetto figlio dopo queste traversie?",
         commands: [],
         expectedOutput: "1",
         hints: [
@@ -193,7 +193,7 @@ Salvatore usa questa tecnica in **Redis** con la libreria `sds` (Simple Dynamic 
     {
         id: "incref-macro",
         title: "Macro Potenza",
-        description: "In molti progetti C, 'retain' è una macro che chiama una funzione. Quale macro si usa spesso per incrementare?",
+        description: "In moltissimi motori object-oriented costruiti in linguaggio puramente procedurale (come ad esempio in Python Core o altri interpreti citati), per dichiarare possesso di una stringa o risorsa se ne fa aumentare esplicitamente il contatore. Spesso questo si traduce in una chiamata a una specifica e diffusissima funzione o macro.",
         commands: [],
         expectedOutput: "incref",
         hints: [
