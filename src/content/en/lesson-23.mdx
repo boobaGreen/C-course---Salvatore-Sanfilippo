@@ -67,6 +67,10 @@ typedef struct TFParser {
     char *next_token;       // Current reading point
 } TFParser;
 
+<Callout type="hacker" title="Why two asterisks?">
+`TFObject **ele` is a pointer to an array of pointers. In C, to have a list that contains objects of different types (heterogeneous), we don't save the objects directly, but their addresses. By removing one asterisk (`ele[0]`), we get the pointer to the individual object.
+</Callout>
+
 // Execution Context (allows multiple isolated interpreters)
 typedef struct TFContext {
     TFObject *stack;        // Our global list (used as a stack)
@@ -118,6 +122,9 @@ Salvatore explains how to implement a conditional using lists as "sub-programs".
 
 <Callout type="info" title="Deep Dive: argv[0] and Symbolic Links">
 During the lesson, Salvatore goes on a detour about how programs (like `ls` or `vim`) can change their behavior based on the name they are called by (using `argv[0]`). This is possible thanks to symbolic links in Unix and is a powerful technique for system bootstrapping.
+
+### Memory and Recursion
+Notice how `TFObject` can contain a list of other `TFObject`s. This recursive structure is fundamental for representing the programs themselves: a ToyFort program is a list of "words," which can themselves be lists (like the branches of an IF).
 </Callout>
 
 ---

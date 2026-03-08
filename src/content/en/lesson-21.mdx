@@ -65,6 +65,10 @@ int main() {
   language="c" 
 />
 
+<Callout type="info" title="Real-world Example: Redis Token">
+In Redis, an expression can be a number, a string, or a command. By using a `union`, Redis only takes up the space of the largest type, instead of summing the space of all three. over millions of tokens, the savings are massive.
+</Callout>
+
 ---
 
 ## Bitfields: Saving the Impossible
@@ -84,6 +88,9 @@ Imagine you need a value that only goes from 0 to 15. You only need 4 bits, but 
 <Callout type="warning" title="Portability">
 How bits are packed (order and alignment) is not guaranteed by the ANSI C standard and depends on the compiler and architecture. Salvatore recommends using them with caution for rigid network protocols.
 </Callout>
+
+### The Ancestor: IP Header (1981)
+Bitfields were born to handle protocols like IP (Internet Protocol), where every bit counts. For example, the IP version (IPv4 vs IPv6) occupies exactly 4 bits in the packet header.
 
 ---
 

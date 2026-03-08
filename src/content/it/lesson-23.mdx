@@ -67,6 +67,10 @@ typedef struct TFParser {
     char *next_token;       // Il punto dove siamo arrivati a leggere
 } TFParser;
 
+<Callout type="hacker" title="Perché i due asterischi?">
+`TFObject **ele` è un puntatore a un array di puntatori. In C, per avere una lista che contiene oggetti di diverso tipo (eterogenea), non salviamo gli oggetti direttamente, ma i loro indirizzi. Rimuovendo un asterisco (`ele[0]`), otteniamo il puntatore al singolo oggetto.
+</Callout>
+
 // Contesto di Esecuzione (permette più interpreti isolati)
 typedef struct TFContext {
     TFObject *stack;        // La nostra lista globale (usata come stack)
@@ -118,6 +122,9 @@ Salvatore spiega come implementare una condizionale usando le liste come "sottop
 
 <Callout type="info" title="Curiosità: argv[0] e Link Simbolici">
 Durante la lezione, Salvatore fa un excursus su come i programmi (come `ls` o `vim`) possano cambiare comportamento in base al nome con cui vengono richiamati (usando `argv[0]`). Questo è possibile grazie ai link simbolici in Unix ed è una tecnica potente per il bootstrapping di sistemi.
+
+### Memoria e Ricorsività
+Nota come `TFObject` possa contenere una lista di altri `TFObject`. Questa struttura ricorsiva è fondamentale per rappresentare i programmi stessi: un programma ToyFort è una lista di "parole", che a loro volta possono essere liste (come i rami di un IF).
 </Callout>
 
 ---

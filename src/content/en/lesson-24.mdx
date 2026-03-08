@@ -62,6 +62,11 @@ void tf_plus(TFContext *ctx) {
     tf_object_release(a);
     tf_object_release(b);
 }
+```
+
+<Callout type="info" title="Amortized Complexity">
+When we use `realloc` to grow the list (as seen in `list_push`), Salvatore explains that we over-allocate or use powers of two. This makes the append operation **amortized O(1)**—as efficient as a linked list but with the cache-speed advantages of an array.
+</Callout>
 `} 
   language="c" 
 />
@@ -85,6 +90,9 @@ In ToyFort, a program is itself a **list** of objects. This allows for the imple
     ["Numbers/Strings", "Literal Values", "Automatic push to stack"]
   ]}
 />
+
+### The Hand-Written Parser
+Salvatore implements a "character-by-character" parser. Functions like `skipSpaces` and `parsNumber` advance the pointer within the source string. This is the same approach used by professional compilers (like GCC or Clang) for maximum control over errors and speed.
 
 ---
 

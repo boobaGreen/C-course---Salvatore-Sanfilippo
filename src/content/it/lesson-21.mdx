@@ -65,6 +65,10 @@ int main() {
   language="c" 
 />
 
+<Callout type="info" title="Esempio Reale: Redis Token">
+In Redis, un'espressione può essere un numero, una stringa o un comando. Usando una `union`, Redis occupa solo lo spazio del tipo più grande, invece di sommare lo spazio di tutti e tre. Su milioni di token, il risparmio è enorme.
+</Callout>
+
 ---
 
 ## Bitfield: Risparmiare l'Impossibile
@@ -84,6 +88,9 @@ Immagina di aver bisogno di un valore che va solo da 0 a 15. Ti servono solo 4 b
 <Callout type="warning" title="Portabilità">
 Il modo in cui i bit vengono impacchettati (ordine e allineamento) non è garantito dallo standard ANSI C e dipende dal compilatore e dall'architettura. Salvatore consiglia di usarli con cautela per protocolli di rete rigidi.
 </Callout>
+
+### L'Antenato: IP Header (1981)
+I Bitfield sono nati per gestire protocolli come l'IP (Internet Protocol), dove ogni bit conta. Ad esempio, la versione di IP (IPv4 vs IPv6) occupa esattamente 4 bit nell'intestazione del pacchetto.
 
 ---
 

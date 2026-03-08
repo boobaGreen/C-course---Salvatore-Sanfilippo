@@ -34,6 +34,13 @@ Imagine you want to write a million characters.
 1. If you call `write()` for every character, you will make 1 million syscalls (extremely slow).
 2. If you use `fprintf()`, the library fills an 8KB buffer and calls `write()` only when it is full (much faster).
 
+<Callout type="info" title="Flushing the Buffer">
+You can force the immediate writing of data accumulated in Libc to the Kernel using `fflush(stdout)`. This is essential when you want a message to appear *now*, without waiting for a newline or the buffer to fill up.
+</Callout>
+
+### The Scheduler and Multitasking
+Salvatore explains that when you call `sleep()`, your process doesn't "burn" CPU cycles. The Kernel pauses it and gives time to other processes. This is the heart of **Preemptive Multitasking**.
+
 ---
 
 ## mmap: The File is Your RAM
@@ -80,6 +87,13 @@ int main() {
 }`} 
   language="c" 
 />
+
+<Callout type="hacker" title="MAP_FAILED">
+Warning: `mmap` does not return `NULL` on error, but a constant called `MAP_FAILED` (usually corresponding to address `0xFFFFFFFFFFFFFFFF`). Always check this value to avoid mysterious crashes!
+</Callout>
+
+### Why is mmap "Magical"?
+It eliminates the data copying step between Kernel space and User space. The file *becomes* your memory. This is the technique used by the fastest databases (like Redis or MongoDB) to manage massive datasets with maximum efficiency.
 
 ---
 
