@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Shield, AlertTriangle, ChevronUp, Plus, Info, Binary } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Shield, AlertTriangle, Plus, Info, Binary } from 'lucide-react';
 
 export default function OverflowSimulator() {
     const [unsignedVal, setUnsignedVal] = useState(254);

@@ -1,0 +1,1032 @@
+[
+  {
+    "start": 40.76,
+    "end": 47.08,
+    "text": " Beh questo è un momento importante di questo corso di programmazione in C perché questa"
+  },
+  {
+    "start": 47.08,
+    "end": 54.26,
+    "text": " è se non erro la 19esima puntata ed è stato lungo il percorso che ci ha condotti qui fino"
+  },
+  {
+    "start": 54.26,
+    "end": 62.78,
+    "text": " a scardinare per la prima volta oltre i confini del C stesso e introdurre una parte quella"
+  },
+  {
+    "start": 62.78,
+    "end": 68.48,
+    "text": " che sarà una parte consistente di questo corso nelle prossime settimane dei prossimi mesi ovvero"
+  },
+  {
+    "start": 68.48,
+    "end": 75.98,
+    "text": " la programmazione di sistema utilizzando direttamente le chiamate di sistema che offre lo"
+  },
+  {
+    "start": 75.98,
+    "end": 78.64,
+    "text": " Standard POSIX, quello che definisce"
+  },
+  {
+    "start": 78.64,
+    "end": 87.84,
+    "text": " lo UNIX Standard, perché unix c'e ne sono tanti, Solaris, MacCos, Linux e Unix, Linux e Unix,"
+  },
+  {
+    "start": 88.34,
+    "end": 97.68,
+    "text": " sono 3 diversi unix, ognuno avrebbe un posix di un diverso set di system leggermente incompatibili"
+  },
+  {
+    "start": 97.68,
+    "end": 102.62,
+    "text": " in realtà a questi operativi grazie alla standardizzazione, che è un processo che ha partito"
+  },
+  {
+    "start": 103.36,
+    "end": 107.24,
+    "text": " ducati or sono finua oggi e che oggi continua."
+  },
+  {
+    "start": 108.32,
+    "end": 113.56,
+    "text": " Per esempio, MacCos addirittura un sistema operativo certificato Unix grazie a questa standardizzazione"
+  },
+  {
+    "start": 113.56,
+    "end": 123.14,
+    "text": " c'e un grandissimo numero di chiamate di sistema comuni a tutti gli Unix o certificati o che tentano di essere compatibili con POSIX."
+  },
+  {
+    "start": 123.9,
+    "end": 131.32,
+    "text": " A questo vuol dire che io posso scrivere molti programmi che girano in tutti questi systemi operativi"
+  },
+  {
+    "start": 131.32,
+    "end": 134.14,
+    "text": " senza tenere conto delle differenze tra i systemi."
+  },
+  {
+    "start": 134.74,
+    "end": 140.6,
+    "text": " Poi c'e una parte che va oltre il posix che non è standardizzata da posix, chiamate di systema specifiche"
+  },
+  {
+    "start": 140.6,
+    "end": 146.14,
+    "text": " per fare cose evolute che sono propria di Linux, propria di maccos, etc."
+  },
+  {
+    "start": 146.14,
+    "end": 153.32,
+    "text": " Per esempio, la gestione dell'audio per dire non è conforme, ma anche cose a più basso livello."
+  },
+  {
+    "start": 153.38,
+    "end": 158.32,
+    "text": " Le API di multiplexing, quando io voglio ascoltare su diversi file, su diversi sockets,"
+  },
+  {
+    "start": 158.56,
+    "end": 167.14,
+    "text": " se arriva una nuova informazione o se c'e buffer libero per una scrittura in tanti file descriptor,"
+  },
+  {
+    "start": 167.84,
+    "end": 169.98,
+    "text": " in tanti sockets, in tanti file."
+  },
+  {
+    "start": 170.72,
+    "end": 174.98,
+    "text": " Questa cosa che lo posso fare in maniera un pop-up efficiente con delle chiamate di sistema posix"
+  },
+  {
+    "start": 175.62,
+    "end": 181.34,
+    "text": " che sono comuni a tutti questi systemi e poi ci sono chiamate specifiche invece più performanti"
+  },
+  {
+    "start": 181.34,
+    "end": 182.76,
+    "text": " che sono diverse tra systema a sistema."
+  },
+  {
+    "start": 183.38,
+    "end": 188.58,
+    "text": " Ma la verità è che è un sistema anche complesso, molto grande come Redis,"
+  },
+  {
+    "start": 189.16,
+    "end": 193.56,
+    "text": " grazie a posix e a queste chiamate di sistema standard di Unix,"
+  },
+  {
+    "start": 194.56,
+    "end": 200.32,
+    "text": " hanno una sovrapposizione enorme, tutti i sistemi e il codice specifico per architettura è minuscolo."
+  },
+  {
+    "start": 201.02,
+    "end": 203.98,
+    "text": " In molti programmi anche interessanti è nullo."
+  },
+  {
+    "start": 206.56,
+    "end": 211.84,
+    "text": " E allora noi avevamo scritto il nostro programma xdump nella scorsa lezione,"
+  },
+  {
+    "start": 212.2,
+    "end": 216.56,
+    "text": " ma questo programma non utilizzava le chiamate di sistema, ma utilizzava..."
+  },
+  {
+    "start": 217.78,
+    "end": 220.56,
+    "text": " Come che l'avamo chiamato questo programma?"
+  },
+  {
+    "start": 221.22,
+    "end": 233.64,
+    "text": " Non era xdump, ma era stio1.c."
+  },
+  {
+    "start": 235.36,
+    "end": 243.24,
+    "text": " Utilizzavamo le chiamate della libc per fare delle cose che di solito si dovrebbero fare con delle chiamate di sistema."
+  },
+  {
+    "start": 243.24,
+    "end": 254.12,
+    "text": " Se il C non esportasse un piccolo numero di chiamate di libreria che sono effettivamente utili a fare cose che di solito il C non potrebbe fare,"
+  },
+  {
+    "start": 254.4,
+    "end": 257.24,
+    "text": " vediamo se riesco a pulire questo schermo che fa schifo."
+  },
+  {
+    "start": 260.66,
+    "end": 264.24,
+    "text": " Ma meglio non è tanto lo schermo, il problema è la webcam."
+  },
+  {
+    "start": 265.03999999999996,
+    "end": 273.58,
+    "text": " Allora dicevo, in realtà noi siamo riusciti a scrivere questo programma senza utilizzarle chiamate di sistema,"
+  },
+  {
+    "start": 273.72,
+    "end": 280.34,
+    "text": " ma semplicemente chiamando delle chiamate di libreria della libc, quindi sono parte queste chiamate non del C come linguaggio,"
+  },
+  {
+    "start": 280.72,
+    "end": 283.92,
+    "text": " ma della libreria standard del linguaggio di programmazione C."
+  },
+  {
+    "start": 284.74,
+    "end": 289.24,
+    "text": " Uno può avere anche un compilatore C che non ha una libreria C conforme,"
+  },
+  {
+    "start": 289.5,
+    "end": 293.02,
+    "text": " però in quasi tutti i sistemi seri uno trova la libc."
+  },
+  {
+    "start": 294.6,
+    "end": 303.38,
+    "text": " Questa ha libc, c'è una parte di roba che è assolutamente lontana dal sistema, cioè dell'accesso a device, file e quant'altro,"
+  },
+  {
+    "start": 304.1,
+    "end": 310.72,
+    "text": " ma c'è alcune chiamate che in effetti sono dei wrapper alle chiamate di sistema che poi ci sono sotto ogni sistema operativo."
+  },
+  {
+    "start": 310.72,
+    "end": 321.36,
+    "text": " Per esempio, un processo in C di solito viene seguito nel suo spazio di memoria, come farebbe a aprire un file?"
+  },
+  {
+    "start": 322.34,
+    "end": 327.98,
+    "text": " Il file non vive dentro lo spazio di indirizzamento che il processo conosce,"
+  },
+  {
+    "start": 328.26,
+    "end": 337.5,
+    "text": " vive fuori da qualche parte in un device e ci vuole qualcosa che permetta al nostro programma che è chiuso in questa capsula,"
+  },
+  {
+    "start": 337.5,
+    "end": 343.2,
+    "text": " cioè in questo spazio, lui il programma in C, pensatelo in termini di macchina di Turing."
+  },
+  {
+    "start": 344.14,
+    "end": 354.5,
+    "text": " Può solo leggere e scrivere da dentro la memoria, eseguire poi, dentro questa memoria eseguire anche diciamo delle istruzioni"
+  },
+  {
+    "start": 354.5,
+    "end": 358.58,
+    "text": " che leggono, scrimorano, comparano, fanno salti condizionati,"
+  },
+  {
+    "start": 358.82,
+    "end": 364.08,
+    "text": " ma non c'è modo di uscire da questa monade diciamo."
+  },
+  {
+    "start": 366.02,
+    "end": 374.82,
+    "text": " Il sistema operativo, attraverso le chiamate di sistema, offre un servizio ai processi."
+  },
+  {
+    "start": 374.92,
+    "end": 380.34,
+    "text": " Questo servizio può essere del tipo, senti, sistema operativo, per piacere apri un file per me."
+  },
+  {
+    "start": 381.12,
+    "end": 387.88,
+    "text": " Dopo che il sistema operativo apre questo file, quindi alloca in kernel space una struttura che rappresenta questo file, eccetera,"
+  },
+  {
+    "start": 387.88,
+    "end": 396.02,
+    "text": " ritorna al processo che ha aperto il file un numero che identifica quel file per quel processo,"
+  },
+  {
+    "start": 396.6,
+    "end": 401.72,
+    "text": " in modo che poi se il nostro processo chiederà altre cose in relazione a quel file,"
+  },
+  {
+    "start": 401.94,
+    "end": 407.92,
+    "text": " può chiamare il kernel ed eseguire una chiamata di sistema dando di nuovo quel file de Scripture,"
+  },
+  {
+    "start": 407.96,
+    "end": 409.64,
+    "text": " quindi è un identificatore."
+  },
+  {
+    "start": 410.06,
+    "end": 416.32,
+    "text": " Ora, mentre il nostro processo che non è che giri in kernel space,"
+  },
+  {
+    "start": 416.32,
+    "end": 419.34,
+    "text": " ma giri in user space, quindi un processo tender ormale,"
+  },
+  {
+    "start": 419.54,
+    "end": 426.12,
+    "text": " non può avere al suo interno una rappresentazione del file secondo il kernel, secondo il disco, secondo la periferica,"
+  },
+  {
+    "start": 426.4,
+    "end": 432.48,
+    "text": " un numero lo può trattenere senza problemi, può registrare un intero, ovunque ci sono gli interingi."
+  },
+  {
+    "start": 432.9,
+    "end": 440.68,
+    "text": " Quindi il kernel, con il processo, si mette un accordo sul fatto che certi numeri rappresentano certi file aperti."
+  },
+  {
+    "start": 441.46000000000004,
+    "end": 444.62,
+    "text": " E questa l'interfaccia, questo può sembrare un discorso prorissimo,"
+  },
+  {
+    "start": 444.84,
+    "end": 450.08,
+    "text": " ma credetemi è fondamentale e si chiarirà di più proprio nel corso di questa lezione."
+  },
+  {
+    "start": 450.46,
+    "end": 455.4,
+    "text": " Ma, diciamo, l'IFE Open fa la wrapper, ma noi non vogliamo più il wrapper,"
+  },
+  {
+    "start": 455.6,
+    "end": 460.5,
+    "text": " vogliamo riscrivere questo programma nei termini di Unix."
+  },
+  {
+    "start": 461.5,
+    "end": 470.5,
+    "text": " Allora, le chiamate di sistema, del sistema operativo, sono nella sezione 2 del manuale."
+  },
+  {
+    "start": 470.76,
+    "end": 476.9,
+    "text": " Quindi, Mantue Open, mi farà vedere come funziona veramente la Open di POSIX."
+  },
+  {
+    "start": 477.78,
+    "end": 487.06,
+    "text": " Io posso cercare qua, esatto, an Open Function Call, AppEard in version 6, and AT&T Unix."
+  },
+  {
+    "start": 488.26,
+    "end": 498.62,
+    "text": " Metiamo a quanto è stato fatto 1.900 magio 1975, io sarei nato due anni dopo."
+  },
+  {
+    "start": 499.76,
+    "end": 501.24,
+    "text": " A questi punti siamo."
+  },
+  {
+    "start": 502.62,
+    "end": 509.58,
+    "text": " E noi oggi, 50 anni dopo, andiamo a utilizzare questa chiamata di sistema in maniera molto simile"
+  },
+  {
+    "start": 509.58,
+    "end": 514.06,
+    "text": " a come 50 anni fa i pionieri dell'informatica l'hanno utilizzata."
+  },
+  {
+    "start": 514.09,
+    "end": 518.23,
+    "text": " Quindi, quando noi facciamo programmazione di sistema con lo standard POSIX,"
+  },
+  {
+    "start": 518.69,
+    "end": 522.47,
+    "text": " anche ci riconnettiamo all'informatica angestrale."
+  },
+  {
+    "start": 523.5500000000001,
+    "end": 527.75,
+    "text": " Allora, guardate come ritorna un intero, la chiamata di sistema Open,"
+  },
+  {
+    "start": 528.23,
+    "end": 533.57,
+    "text": " bisogna includere filecontrol.h, fcntl.h, per gli amici."
+  },
+  {
+    "start": 535.15,
+    "end": 545.37,
+    "text": " In Open, la patte del file dei flag e poi anche potenzialmente altri argomenti opzionali."
+  },
+  {
+    "start": 546.21,
+    "end": 550.39,
+    "text": " Allora, andiamo a vedere, la patte è chiaro, il percorso del file, dove è il file,"
+  },
+  {
+    "start": 550.97,
+    "end": 553.03,
+    "text": " quello che facciamo con la fopen."
+  },
+  {
+    "start": 554.85,
+    "end": 556.23,
+    "text": " E questi sono i flag."
+  },
+  {
+    "start": 557.33,
+    "end": 560.23,
+    "text": " Allora, i flag che a noi ci interessano, per ora, sono i primi tre."
+  },
+  {
+    "start": 560.23,
+    "end": 565.49,
+    "text": " I altri sono un po' più complicati e li spiegheremo magari in una prossima puntata"
+  },
+  {
+    "start": 565.49,
+    "end": 567.47,
+    "text": " o li potete approfondire nella manpage."
+  },
+  {
+    "start": 567.99,
+    "end": 572.07,
+    "text": " Ma queste sono le cose più importanti, io lo posso aprire questo file in sola lettura,"
+  },
+  {
+    "start": 572.69,
+    "end": 583.85,
+    "text": " in sola scrittura, in scrittura e lettura, o exec, fregate, per l'asecuzione o search,"
+  },
+  {
+    "start": 584.23,
+    "end": 586.07,
+    "text": " per fare altre cose diverse."
+  },
+  {
+    "start": 586.07,
+    "end": 596.31,
+    "text": " Invece, in combinazione con questi flag, facendo bitwise con la pipe bitwise.org,"
+  },
+  {
+    "start": 596.77,
+    "end": 603.19,
+    "text": " perché questi sono flag, quindi significa che dell'intero è solo settato una potenza di due,"
+  },
+  {
+    "start": 603.37,
+    "end": 609.63,
+    "text": " per esempio 1, 2, 4, 8, 6, 10, 12, 64, 98, così via."
+  },
+  {
+    "start": 610.41,
+    "end": 615.57,
+    "text": " E quindi significa che io, se uso lo simbolo della pipe,"
+  },
+  {
+    "start": 616.35,
+    "end": 620.63,
+    "text": " quindi la barra verticale che fa l'or logico di due numeri,"
+  },
+  {
+    "start": 621.37,
+    "end": 625.47,
+    "text": " mi si setta sia l'uno che l'altro, perché l'or logico vuol dire che, praticamente,"
+  },
+  {
+    "start": 625.75,
+    "end": 629.37,
+    "text": " saranno settati tutti i bit che ci sono sia nel primo numero che nel secondo."
+  },
+  {
+    "start": 629.57,
+    "end": 630.89,
+    "text": " D'accordo, il risultato è questo."
+  },
+  {
+    "start": 631.29,
+    "end": 637.71,
+    "text": " Quindi, praticamente, io dopo che ho selezionato, o, per esempio, write only,"
+  },
+  {
+    "start": 637.71,
+    "end": 644.81,
+    "text": " e dopo seleziono, o append, questo mi apre il file in scrittura,"
+  },
+  {
+    "start": 645.01,
+    "end": 650.61,
+    "text": " ma in modalità append, che significa che ogni scrittura io appenderò alla fine del file"
+  },
+  {
+    "start": 650.61,
+    "end": 652.75,
+    "text": " le cose che man mano vado scrivendo."
+  },
+  {
+    "start": 652.89,
+    "end": 657.85,
+    "text": " Questo è molto interessante per, per esempio, per implementare un log e in altri contesti,"
+  },
+  {
+    "start": 657.93,
+    "end": 660.71,
+    "text": " ma a noi ci interessa il primo e più semplice flag,"
+  },
+  {
+    "start": 660.79,
+    "end": 664.01,
+    "text": " aprire il file in modalità sulla lettura."
+  },
+  {
+    "start": 666.29,
+    "end": 668.35,
+    "text": " Quindi, guardate, questo problema come diventa?"
+  },
+  {
+    "start": 669.27,
+    "end": 680.81,
+    "text": " Allora, int fd file descriptor è uguale a open stdio1.z virgola o rd only."
+  },
+  {
+    "start": 682.53,
+    "end": 687.17,
+    "text": " Vi ricordate che il file pointer che poi alla fine era una struttura,"
+  },
+  {
+    "start": 687.71,
+    "end": 695.05,
+    "text": " un po' di errori, in caso di nulla, invece normalmente le chiamate e sisteme"
+  },
+  {
+    "start": 695.05,
+    "end": 698.47,
+    "text": " della standard posix ritornano a minus 1 per segnare un errore."
+  },
+  {
+    "start": 699.09,
+    "end": 702.69,
+    "text": " Specialmente nel caso, appunto, il levatore di ritorno è intero, come in questo caso,"
+  },
+  {
+    "start": 702.79,
+    "end": 705.29,
+    "text": " ma spessissimo è un intero il valore di ritorno."
+  },
+  {
+    "start": 705.63,
+    "end": 709.55,
+    "text": " Siccome il file descriptor, minori di 0, non sono validi,"
+  },
+  {
+    "start": 709.89,
+    "end": 711.79,
+    "text": " allora, minus 1 è un buon modo per segnare l'ora."
+  },
+  {
+    "start": 711.91,
+    "end": 715.49,
+    "text": " Quindi, if fd uguale a minus 1, guardate,"
+  },
+  {
+    "start": 715.49,
+    "end": 723.51,
+    "text": " noi qua abbiamo usato la printf, ma c'è una chiamata di libreria che si chiama pror in stdio."
+  },
+  {
+    "start": 723.95,
+    "end": 726.93,
+    "text": " Quindi, includiamo stdio e ce l'abbiamo, ctype ce l'abbiamo,"
+  },
+  {
+    "start": 728.37,
+    "end": 732.61,
+    "text": " includiamo fcntl.h, file control, dove c'è la nostra open,"
+  },
+  {
+    "start": 733.29,
+    "end": 739.19,
+    "text": " e usiamo la chiamata istema pror enable to open file."
+  },
+  {
+    "start": 741.47,
+    "end": 745.03,
+    "text": " Guardate, ora vi faccio vedere che cosa è che fa questa chiamata di sistema."
+  },
+  {
+    "start": 745.9899999999999,
+    "end": 748.15,
+    "text": " Return 1, ritorniamo nel errore."
+  },
+  {
+    "start": 749.05,
+    "end": 754.89,
+    "text": " Allora, qua facciamo close fd, questa è la chiamata di sistema simile alla fclose,"
+  },
+  {
+    "start": 755.03,
+    "end": 758.67,
+    "text": " ma che è relativa alla open, quindi prende il file descriptor e chiude un file,"
+  },
+  {
+    "start": 759.13,
+    "end": 764.53,
+    "text": " che significa chiudere un file, ritorniamo in quel discorso che il kernel ci offre dei servizi."
+  },
+  {
+    "start": 765.19,
+    "end": 771.03,
+    "text": " Il processo dice al kernel, senti, ti ricordi che tu tenevi quella posizione aperta per me,"
+  },
+  {
+    "start": 771.03,
+    "end": 775.13,
+    "text": " quel file che tu avevi una struttura e noi lo chiamavamo file numero 3,"
+  },
+  {
+    "start": 775.35,
+    "end": 777.17,
+    "text": " guarda, non mi serve più, lo chiudo."
+  },
+  {
+    "start": 777.49,
+    "end": 781.75,
+    "text": " Quindi il kernel si può permettere di allocare le strutture che avevo utilizzato"
+  },
+  {
+    "start": 781.75,
+    "end": 785.23,
+    "text": " per tenere traccia di quel file aperto dal processo."
+  },
+  {
+    "start": 786.01,
+    "end": 790.87,
+    "text": " Con fclose noi lo chiudiamo, poi qua scriviamo 30 in questo modo,"
+  },
+  {
+    "start": 791.07,
+    "end": 793.53,
+    "text": " il programma che eseguiamo è solo questa parte qua,"
+  },
+  {
+    "start": 793.63,
+    "end": 795.93,
+    "text": " perché poi qua ritornano funzionamenti, il programma si interrompe."
+  },
+  {
+    "start": 795.93,
+    "end": 798.27,
+    "text": " Questo lo teniamo solo per, come dire,"
+  },
+  {
+    "start": 801.81,
+    "end": 804.09,
+    "text": " perché stiamo facendo questa sorta di traduzione."
+  },
+  {
+    "start": 805.65,
+    "end": 812.55,
+    "text": " Anzi, c'è una cosa, cpestdio1.cestdio2.c."
+  },
+  {
+    "start": 815.27,
+    "end": 820.59,
+    "text": " Questo poi lo ripristiniamo, che si servireà."
+  },
+  {
+    "start": 822.3499999999999,
+    "end": 826.73,
+    "text": " Usarlo più avanti, in realtà compitiamo il 2 che l'abbiamo copiato."
+  },
+  {
+    "start": 827.53,
+    "end": 834.07,
+    "text": " Close è su unikstandard, ma in 2, tu close, unikstandard.h."
+  },
+  {
+    "start": 835.47,
+    "end": 838.69,
+    "text": " Perché non è su file control, ragione storica,"
+  },
+  {
+    "start": 839.9899999999999,
+    "end": 843.01,
+    "text": " anche perché la close si può usare anche per cose che non sono file,"
+  },
+  {
+    "start": 843.19,
+    "end": 846.59,
+    "text": " quindi è una chiamata di sistema profondamente generale,"
+  },
+  {
+    "start": 846.71,
+    "end": 851.97,
+    "text": " incredibilmente generale, ed è su unikstandard.h."
+  },
+  {
+    "start": 856.75,
+    "end": 865.37,
+    "text": " Ho fatta qua su std1, stdio2.c."
+  },
+  {
+    "start": 866.99,
+    "end": 868.89,
+    "text": " Esatto, perché il file esiste."
+  },
+  {
+    "start": 869.21,
+    "end": 874.21,
+    "text": " Ora guardate, parte che qua il file lo dobbiamo chiamare stdio2,"
+  },
+  {
+    "start": 874.21,
+    "end": 876.35,
+    "text": " anche perché ha preso il stesso nero, chiamiamo 3."
+  },
+  {
+    "start": 876.69,
+    "end": 880.99,
+    "text": " Così vi faccio vedere che cosa fa prror, che significa print error."
+  },
+  {
+    "start": 883.57,
+    "end": 887.55,
+    "text": " Unable to open file, no such file, or directory."
+  },
+  {
+    "start": 888.89,
+    "end": 895.55,
+    "text": " Come fa la prror, a sapere qual è l'errore che ha incondrato la open?"
+  },
+  {
+    "start": 896.27,
+    "end": 903.31,
+    "text": " No, noi possiamo includere rnodotage, che ci dà una variabile globale,"
+  },
+  {
+    "start": 904.09,
+    "end": 910.57,
+    "text": " che è però specifica per ogni thread, quindi in realtà non ci sono problemi di threading,"
+  },
+  {
+    "start": 910.71,
+    "end": 911.67,
+    "text": " quando si usa errornumber."
+  },
+  {
+    "start": 912.59,
+    "end": 921.17,
+    "text": " E questa variabile globale qui, viene assegnata a un numero che identifica l'errore dell'open."
+  },
+  {
+    "start": 921.17,
+    "end": 924.09,
+    "text": " Guardate, vi faccio vedere una cosa."
+  },
+  {
+    "start": 924.25,
+    "end": 929.43,
+    "text": " Dopo che c'è la mia chiamata open, prima ancora di controllare fd,"
+  },
+  {
+    "start": 929.77,
+    "end": 937.65,
+    "text": " io scrivo qua errornumber is e stampo questo r, no."
+  },
+  {
+    "start": 941.07,
+    "end": 942.39,
+    "text": " Compilo, esecuo."
+  },
+  {
+    "start": 943.13,
+    "end": 944.59,
+    "text": " Guardate errornumber is, tu."
+  },
+  {
+    "start": 944.59,
+    "end": 951.39,
+    "text": " Se vi faccio man open, e vado a guardare che errori mi può ritornare la open,"
+  },
+  {
+    "start": 951.95,
+    "end": 954.73,
+    "text": " alla fine del manuale ci sono tutti errori che può tornare."
+  },
+  {
+    "start": 955.99,
+    "end": 958.05,
+    "text": " E no end, dovrebbe essere."
+  },
+  {
+    "start": 960.61,
+    "end": 965.07,
+    "text": " Probabilmente è no end, vediamo se è vero, dovrebbe essere proprio così,"
+  },
+  {
+    "start": 965.17,
+    "end": 971.25,
+    "text": " ma io per non sbagliare mi faccio stampare sia errornumber che E no end."
+  },
+  {
+    "start": 973.75,
+    "end": 978.21,
+    "text": " Vedete, 2 e 2, quindi mi ha ritornato E no end."
+  },
+  {
+    "start": 978.63,
+    "end": 990.33,
+    "text": " Se invece il file ci fosse stato std2.c, errornumber è settato a 0, non ci sono errori."
+  },
+  {
+    "start": 990.63,
+    "end": 999.01,
+    "text": " La prror, in sostanza, stampa prima questo messaggio che noi gli diamo, come unico argomento,"
+  },
+  {
+    "start": 999.01,
+    "end": 1007.41,
+    "text": " i due punti e poi traduce l'errore che c'è dentro errornumber in una stringa."
+  },
+  {
+    "start": 1007.77,
+    "end": 1011.99,
+    "text": " Ed è comoda, non mi cambia la vita, ma è comoda."
+  },
+  {
+    "start": 1012.21,
+    "end": 1020.95,
+    "text": " Bene, ora noi dobbiamo andare a prendere questo loop qui e metterlo qui."
+  },
+  {
+    "start": 1025.35,
+    "end": 1028.91,
+    "text": " Sì, questo qui lo possiamo cancellare, tutto, non ci serve più a niente."
+  },
+  {
+    "start": 1029.49,
+    "end": 1034.85,
+    "text": " Allora, guardate qui, noi qua lo chiamo un buffer, quindi evidentemente questa è una cosa interessante,"
+  },
+  {
+    "start": 1035.03,
+    "end": 1041.05,
+    "text": " ci sarà, esisterà una chiamata di sistema di Unix a cui noi possiamo passare un puntatore"
+  },
+  {
+    "start": 1041.05,
+    "end": 1046.73,
+    "text": " e anche se la chiamata viene seguita in Kernel Space, il Kernel ha un modo di passare"
+  },
+  {
+    "start": 1046.73,
+    "end": 1053.85,
+    "text": " dei byte dagli indirizzi del kernel al nostro processo di sistema che gira in user space"
+  },
+  {
+    "start": 1053.85,
+    "end": 1056.65,
+    "text": " e ha un suo spazio di indirizzi separato."
+  },
+  {
+    "start": 1056.95,
+    "end": 1058.75,
+    "text": " Questa chiamata è la read."
+  },
+  {
+    "start": 1060.33,
+    "end": 1061.73,
+    "text": " Allora, come funziona la read?"
+  },
+  {
+    "start": 1062.23,
+    "end": 1073.75,
+    "text": " Mi ritorna sSizeT, quindi sizeTima consegno è prender file descriptor, il puntatore al buffer che io voglio"
+  },
+  {
+    "start": 1073.75,
+    "end": 1082.33,
+    "text": " venga riempito e il numero di byte che voglio leggere al massimo, ma non è garantito che questo numero di byte"
+  },
+  {
+    "start": 1082.33,
+    "end": 1084.97,
+    "text": " sia veramente il valore di ritorno."
+  },
+  {
+    "start": 1085.13,
+    "end": 1092.13,
+    "text": " La read ritornerà a 0, se il file è finito o ritornerà all'altro 5, anche se io avevo chiesto 200 bytes,"
+  },
+  {
+    "start": 1092.63,
+    "end": 1098.75,
+    "text": " se nel file ci sono solo 5 bytes o nel caso di una socket TCP, quindi di una connessione internet,"
+  },
+  {
+    "start": 1098.75,
+    "end": 1104.47,
+    "text": " può ritornarmi 5 semplicemente perché fino alla ricevuto solo 5 bytes dall'altro computer."
+  },
+  {
+    "start": 1107.93,
+    "end": 1116.95,
+    "text": " Quindi questo diventa sSizeT, perché deve avere il segno? Perché read potrebbe tornare meno 1."
+  },
+  {
+    "start": 1117.35,
+    "end": 1122.69,
+    "text": " Come tutte le chiamate di sistema, può ritornare un valore negativo per segnalarmi un errore."
+  },
+  {
+    "start": 1122.69,
+    "end": 1128.69,
+    "text": " Quindi io faccio, read, che ha fatto di andare sSizeT, quindi intero, grande,"
+  },
+  {
+    "start": 1128.87,
+    "end": 1134.69,
+    "text": " che può contenere qualsiasi oggetto che sta in memoria in questo computer, ma con segno,"
+  },
+  {
+    "start": 1135.63,
+    "end": 1140.81,
+    "text": " quindi in realtà invece di essere in questo computer qui, un numero a 64-bit, un signet,"
+  },
+  {
+    "start": 1140.97,
+    "end": 1146.63,
+    "text": " sarà un numero a 64-bit, signet, quindi in realtà diciamo che il range sarà massimo e minimo,"
+  },
+  {
+    "start": 1146.71,
+    "end": 1149.69,
+    "text": " più o meno di 2 elevato a 63, invece che 2 elevato a 64."
+  },
+  {
+    "start": 1151.5100000000002,
+    "end": 1158.25,
+    "text": " EnneRid uguale read, buffer, qua questo gioco qui in cui devo dire la grandezza dell'oggetto e l'oggetto,"
+  },
+  {
+    "start": 1158.33,
+    "end": 1161.69,
+    "text": " non c'è più, chiamate i sistemi Unix, di solito sono molto ben progettate."
+  },
+  {
+    "start": 1163.07,
+    "end": 1170.35,
+    "text": " Size of buffer, qua il file deskriptor è il primo argomento, quindi fd,"
+  },
+  {
+    "start": 1170.67,
+    "end": 1179.67,
+    "text": " virgola buffer, virgola size of buffer, li mettiamo un po' di spazio per rendere anche il codice più leggero"
+  },
+  {
+    "start": 1180.67,
+    "end": 1189.59,
+    "text": " Enmad è uguale uguale a 0 break, if EnneRid, minore di 0, anzi uguale uguale a meno 1,"
+  },
+  {
+    "start": 1190.71,
+    "end": 1201.25,
+    "text": " p error read, reading file, teta 0, se c'è un errore di vettura, ci facciamo scrivere che cosa è successo,"
+  },
+  {
+    "start": 1201.95,
+    "end": 1207.87,
+    "text": " se invece il file è finito usciamo fuori altrimenti xdump, buffer, virgola EnneRid."
+  },
+  {
+    "start": 1207.87,
+    "end": 1217.39,
+    "text": " E qua, quella nostra chiamata di sistema close, chiudiamo il file, ritorniamo dalla main e il processo terminerà"
+  },
+  {
+    "start": 1217.39,
+    "end": 1228.75,
+    "text": " e verrà disstrutto dal sistema operativo, gcc, stdio2.c"
+  },
+  {
+    "start": 1229.8500000000001,
+    "end": 1241.35,
+    "text": " Ed ecco che il mio programma funziona di nuovo, ma questa volta io non sto usando più le chiamate di libere di stdio.h o meglio,"
+  },
+  {
+    "start": 1241.53,
+    "end": 1249.77,
+    "text": " lo include lo stesso perché sto usando la printf per scrivere sullo standard output, quindi anche il kernel ci deve aiutare"
+  },
+  {
+    "start": 1249.77,
+    "end": 1256.57,
+    "text": " anche quando vogliamo scrivere sullo standard output, ma noi perfino questo, volendo, potremmo scrivere quelle chiamate di sistema,"
+  },
+  {
+    "start": 1256.57,
+    "end": 1264.77,
+    "text": " ma in questo caso sarebbe troppo complicato, perché qua c'è la formatazione, ma la mia read c'è anche nella versione che scrive,"
+  },
+  {
+    "start": 1264.85,
+    "end": 1274.93,
+    "text": " si chiama appunto write, e io con la mia write, che è questa chiamata di sistema qui, potrei scrivere nel file descriptor che è collegato al terminale,"
+  },
+  {
+    "start": 1275.23,
+    "end": 1279.49,
+    "text": " quindi tutto si può fare a basso livello, volendo, ma in questo caso non vale la pena."
+  },
+  {
+    "start": 1282.57,
+    "end": 1291.77,
+    "text": " Bene, per oggi ci fermiamo qui, perché credo che sia una puntata questa molto significativa, guardatevi, io vi do un compito per casa,"
+  },
+  {
+    "start": 1292.71,
+    "end": 1320.63,
+    "text": " leggete le man page di read, di write e di open, questa è letteratura informatica, ma è una forma di letteratura tecnica in cui ci sono spiegate"
+  },
+  {
+    "start": 1320.63,
+    "end": 1329.49,
+    "text": " che sia molto istruttivo, magari leggete forse le chiamate, allora leggete anche sul web le pagine di manuale non di maccos,"
+  },
+  {
+    "start": 1330.11,
+    "end": 1343.19,
+    "text": " sono un po' più scarcette, quelle di linux, leggete, e anche quelle di posix, open group, ecco, trovata,"
+  },
+  {
+    "start": 1347.25,
+    "end": 1359.01,
+    "text": " leggete pure diciamo cosa ne scrive chi standardizza, ma io credo che quelle di linux in media sono le man page, probabilmente migliori, ciao raga!"
+  }
+]

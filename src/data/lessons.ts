@@ -30,28 +30,28 @@ export const lessons = [
         duration: '25:38'
     },
     {
-        id: 'lesson-04',
+        id: 4,
         slug: 'lesson-04',
         title: { it: 'Lezione 4: Interi e Memoria', en: 'Lesson 4: Integers & Memory' },
         videoId: 'YNsXyasn4R4',
         duration: '31:48',
     },
     {
-        id: 'lesson-05',
+        id: 5,
         slug: 'lesson-05',
         title: { it: 'Lezione 5: Stringhe e ASCII', en: 'Lesson 5: Strings & ASCII' },
         videoId: 'SWWHqgSwQFw',
         duration: '32:10',
     },
     {
-        id: 'lesson-06',
+        id: 6,
         slug: 'lesson-06',
         title: { it: 'Lezione 6: Controllo e Blocchi', en: 'Lesson 6: Control & Blocks' },
         videoId: 'mw4gUqsGPZw',
         duration: '30:34',
     },
     {
-        id: 'lesson-07',
+        id: 7,
         slug: 'lesson-07',
         title: { it: 'Lezione 7: Cicli e Ricorsione', en: 'Lesson 7: Loops & Recursion' },
         videoId: 'HCRthhjbfAg',

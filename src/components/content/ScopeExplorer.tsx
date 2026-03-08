@@ -1,19 +1,11 @@
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Play, RotateCcw, Box, Globe, Shield, Info } from 'lucide-react';
-
-interface Variable {
-    name: string;
-    type: 'local' | 'global' | 'static';
-    value: number;
-    description: string;
-}
 
 export default function ScopeExplorer() {
     // Initial state
     const [globalX, setGlobalX] = useState(0);
     const [staticX, setStaticX] = useState(0);
-    const [localX, setLocalX] = useState(0); 
     const [calls, setCalls] = useState(0);
     const [activeX, setActiveX] = useState<number | null>(null);
 
@@ -23,7 +15,6 @@ export default function ScopeExplorer() {
         // Logic for each type
         setGlobalX(prev => prev + 1);
         setStaticX(prev => prev + 1);
-        setLocalX(1); // Local is always reset or set within the scope, in the video it starts at 1 and becomes 2
         
         // Show local animation
         setActiveX(2);
@@ -33,7 +24,6 @@ export default function ScopeExplorer() {
     const reset = () => {
         setGlobalX(0);
         setStaticX(0);
-        setLocalX(0);
         setCalls(0);
     };
 
