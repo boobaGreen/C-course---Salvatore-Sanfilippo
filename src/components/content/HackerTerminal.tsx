@@ -36,11 +36,11 @@ export default function HackerTerminal({ challenges }: HackerTerminalProps) {
         e.preventDefault();
         if (completedTasks[currentChallenge.id]) return;
 
-        const normalizedInput = inputValue.trim();
+        const normalizedInput = inputValue.trim().replace(/\s+/g, ' ');
         
         let correct = false;
         if (isCommandMode && currentChallenge.expectedCommand) {
-            const expected = currentChallenge.expectedCommand.trim();
+            const expected = currentChallenge.expectedCommand.trim().replace(/\s+/g, ' ');
             correct = normalizedInput === expected || normalizedInput === expected.replace(/^sudo\s+/, '');
         } else {
             const expected = currentChallenge.expectedOutput.trim();
