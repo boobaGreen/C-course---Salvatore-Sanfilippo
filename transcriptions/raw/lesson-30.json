@@ -1,0 +1,1802 @@
+[
+  {
+    "start": 40.6,
+    "end": 43.6,
+    "text": " Benvenuti amici al corso di Promazioni in C"
+  },
+  {
+    "start": 43.6,
+    "end": 49.48,
+    "text": " vedo un po' che queste lezioni mancano da questo canale perché le vacanze di natale"
+  },
+  {
+    "start": 49.48,
+    "end": 57.18,
+    "text": " hanno in effetti desynchronizzato la mia routine ed è stato un po' difficile farle in questi"
+  },
+  {
+    "start": 57.18,
+    "end": 63.92,
+    "text": " giorni ora che siamo al 9 gennaio siamo tornati è il tempo di riprendere tuttavia questa sarà"
+  },
+  {
+    "start": 63.92,
+    "end": 71.68,
+    "text": " una lezione strana tanto per iniziare perché il corso sarebbe dovuto continuare naturalmente con"
+  },
+  {
+    "start": 71.68,
+    "end": 78.06,
+    "text": " la conclusione della scrittura dell'interprete fort ma come oppure ha annunciato la scrittura"
+  },
+  {
+    "start": 78.06,
+    "end": 85.84,
+    "text": " dell'interprete fort è diventata un po' troppo lunga e la popolazione generale di questo di questo"
+  },
+  {
+    "start": 85.84,
+    "end": 93.3,
+    "text": " corso potrebbe effettivamente arenarsi un po' troppo su quei su quei concetti quindi ho deciso"
+  },
+  {
+    "start": 93.3,
+    "end": 99.16,
+    "text": " di fare un'unica puntata molto lunga in cui lo finirò sostanzialmente tutto dall'inizio"
+  },
+  {
+    "start": 99.16,
+    "end": 106.76,
+    "text": " alla fine devo trovare il tempo perché in questa settimana o nella prossima perché credo che prenderà"
+  },
+  {
+    "start": 106.76,
+    "end": 113.9,
+    "text": " non lo so anche due tre ore di lezione continua in cui farò delle pause quindi devo allocare"
+  },
+  {
+    "start": 113.9,
+    "end": 123.92,
+    "text": " questo tempo ma la cosa interessante anche diciamo diversa spero stimolante di questa puntata è quella"
+  },
+  {
+    "start": 123.92,
+    "end": 130.14,
+    "text": " che più di parlare del c in sé in realtà vedremo ci modificeremo ci parteremo da un"
+  },
+  {
+    "start": 130.14,
+    "end": 140.94,
+    "text": " programma che ho scritto nel 2024 mostreremo anche perché perché il c perché a volte è un linguaggio"
+  },
+  {
+    "start": 140.94,
+    "end": 148.36,
+    "text": " così brutalmente abbile a manipolare i bit è così brutalmente veloce può essere particolarmente"
+  },
+  {
+    "start": 148.36,
+    "end": 153.6,
+    "text": " utile per risolvere certi problemi tanto per iniziare vi faccio vedere che cos'è questo"
+  },
+  {
+    "start": 153.6,
+    "end": 159.94,
+    "text": " programma non l'ho mai rilasciato lo rilascerò in il corso di questa lezione alla fine di"
+  },
+  {
+    "start": 159.94,
+    "end": 166.82,
+    "text": " questa puntata io farò una un push su kit up quindi alla fine della lezione lo troverete"
+  },
+  {
+    "start": 168.16,
+    "end": 172.88,
+    "text": " sostanzialmente online potete scaricarlo e potete continuare a modificarlo prima continuerò a"
+  },
+  {
+    "start": 172.88,
+    "end": 182.94,
+    "text": " modificare questi commit diciamo che già avevo fatto alcuni commit nelle nei giorni negli anni"
+  },
+  {
+    "start": 182.94,
+    "end": 188.9,
+    "text": " successivi qua c'ho un mix di cose fatte appunto quando avevo intenzione di fare questa puntata"
+  },
+  {
+    "start": 188.9,
+    "end": 196.06,
+    "text": " il 30 dicembre e poi non sono riuscito a farla invece gli altri committ sono al 2024 solo questo"
+  },
+  {
+    "start": 196.06,
+    "end": 204.3,
+    "text": " ha un refactoring minore che serve appunto a dare chiarezza al codice sorgente affinché chi segue"
+  },
+  {
+    "start": 204.3,
+    "end": 211.78,
+    "text": " questo corso possa capire meglio e ho modificato un po l'algoritmo poi di questo bene parlo allora"
+  },
+  {
+    "start": 211.78,
+    "end": 221.24,
+    "text": " che cos'è questo programma nel 2024 è stato un periodo in cui ho il 2024 è stato un periodo"
+  },
+  {
+    "start": 221.24,
+    "end": 227.6,
+    "text": " in cui ho smanuttato molto con lo zx spectrum avevo fatto delle cose anche negli anni passati e avevo"
+  },
+  {
+    "start": 227.6,
+    "end": 234.78,
+    "text": " voglia di creare delle schermate caricabili dallo dallo zx spectrum reale perché c'è l'arbe"
+  },
+  {
+    "start": 234.78,
+    "end": 242.82,
+    "text": " fisico lì con la televisione diciamo crt nei giochi dello spectrum molto spesso non"
+  },
+  {
+    "start": 242.82,
+    "end": 249.02,
+    "text": " stande le capacità grafiche dinamiche quindi durante il movimento del gioco durante il gameplay"
+  },
+  {
+    "start": 249.02,
+    "end": 260.62,
+    "text": " dello spectrum fossero profondamente limitate questo computer di 40 anni fa che stiamo parlando"
+  },
+  {
+    "start": 260.62,
+    "end": 271.58,
+    "text": " di di questo computer qua questa è una scheda una porta che permette di attaccare il joystick di"
+  },
+  {
+    "start": 271.58,
+    "end": 277.1,
+    "text": " default non si può neanche attaccare il joystick se io lo stacco lo vedete nella sua guardata"
+  },
+  {
+    "start": 277.1,
+    "end": 283.7,
+    "text": " questa è la mia mano è veramente piccolissimo è grande quando l'estangere della mia mano"
+  },
+  {
+    "start": 286.32,
+    "end": 295.68,
+    "text": " ecco qui quindi questo computer di 40 anni fa molto spesso nei giochi c'era una grafica piuttosto"
+  },
+  {
+    "start": 295.68,
+    "end": 303.36,
+    "text": " spettacolare di apertura e poi seguiva un gameplay più povero però nelle fasi di apertura era"
+  },
+  {
+    "start": 303.36,
+    "end": 309.8,
+    "text": " capace di mostrare effettivamente le cose abbastanza interessanti vi faccio vedere dei"
+  },
+  {
+    "start": 309.8,
+    "end": 320.72,
+    "text": " x spectrum splash screen game vediamo se troviamo qualcosa ecco guardate sono interessanti queste"
+  },
+  {
+    "start": 320.72,
+    "end": 327.98,
+    "text": " grafiche ecco per esempio jetpack uno dei miei giochi in assoluto preferiti perché aveva questi"
+  },
+  {
+    "start": 327.98,
+    "end": 333.72,
+    "text": " colori diciamo particolarmente vivaci quando a volte potevano essere anche diciamo un po così"
+  },
+  {
+    "start": 333.72,
+    "end": 340.82,
+    "text": " cacofonici brutti da vedere poi ripeto specialmente nel gameplay però gli artisti di queste copertine"
+  },
+  {
+    "start": 340.82,
+    "end": 347.86,
+    "text": " a volte riuscivano a fare effettivamente un bel un bel un bel lavoro potete vedere qui da subito"
+  },
+  {
+    "start": 347.86,
+    "end": 353.74,
+    "text": " che c'è una separazione netta tra i colori verticale perché purtroppo gli attributi del"
+  },
+  {
+    "start": 353.74,
+    "end": 359.38,
+    "text": " colore si possono dare soltanto a blocchi 8 per 8 ogni blocco 8 per 8 può avere un determinato"
+  },
+  {
+    "start": 359.38,
+    "end": 367.3,
+    "text": " sfondo è un determinato colore invece dei pixel quindi può avere solo due colori e valgono per"
+  },
+  {
+    "start": 367.3,
+    "end": 373.84,
+    "text": " tutti i 64 pixel della griglia 8 per 8 queste limitazioni sono simili magari ad altre modalità di"
+  },
+  {
+    "start": 373.84,
+    "end": 379.1,
+    "text": " altri computer che hanno una grafica molto migliore come per esempio il comod 64 però altri computer"
+  },
+  {
+    "start": 379.1,
+    "end": 385.02,
+    "text": " hanno gli sprite e gli sprite quando si sovrappongono allo sfondo non hanno di queste limitazioni e"
+  },
+  {
+    "start": 385.02,
+    "end": 392.56,
+    "text": " possono avere diciamo un background trasparente e sotto si vede la grafica senza diciamo avere"
+  },
+  {
+    "start": 392.56,
+    "end": 402.46,
+    "text": " questo limite dei dei blocchi 8 per 8 io vi faccio vedere effettivamente che cos'è che fa questo"
+  },
+  {
+    "start": 402.46,
+    "end": 414.02,
+    "text": " questo programma zx 5 sostanzialmente io do una png per esempio do questa png che è questa l'immagine"
+  },
+  {
+    "start": 414.02,
+    "end": 422.74,
+    "text": " della ragazza con lecchioni perla di perle e ma qua c'era pure l'enna vi farò vedere l'enna che è"
+  },
+  {
+    "start": 422.74,
+    "end": 430.38,
+    "text": " un'immagine che si usa tradizionalmente nella ricerca della della computer graphics questa immagine"
+  },
+  {
+    "start": 430.38,
+    "end": 442.62,
+    "text": " qui l'ho modificata un po per saturarne i colori in maniera più estrema per avere risultati"
+  },
+  {
+    "start": 442.62,
+    "end": 448.9,
+    "text": " migliori dovrebbe essere in realtà parte del programma questa capacità ma però la noi ce ne freghiamo"
+  },
+  {
+    "start": 448.9,
+    "end": 460.28,
+    "text": " è semplicemente avviamo il nostro programma dando come input la nostra immagine l'immagine"
+  },
+  {
+    "start": 460.28,
+    "end": 467.34,
+    "text": " che vogliamo sia trasformata in un formato caricabile dallo zx spectrum con tutti i limiti"
+  },
+  {
+    "start": 467.34,
+    "end": 473.66,
+    "text": " dello zx spectrum quindi deve essere un'immagine che effettivamente l'hardware è"
+  },
+  {
+    "start": 473.66,
+    "end": 481.32,
+    "text": " capace di visualizzare avvio questo programma e vedrete subito che la prima cosa che accade"
+  },
+  {
+    "start": 481.32,
+    "end": 490.56,
+    "text": " che si vede sostanzialmente un rumore di pixel che sono stati settatiche solamente a 0 o a 1"
+  },
+  {
+    "start": 490.56,
+    "end": 502.02,
+    "text": " all'inizio non c'è alcun colore e poi piano piano emerge l'immagine della della ragazza con l'orecchino"
+  },
+  {
+    "start": 502.02,
+    "end": 509.84,
+    "text": " di perle qui si possono vedere le generazioni la differenza tra l'immagine originale è quella che"
+  },
+  {
+    "start": 509.84,
+    "end": 515.24,
+    "text": " noi fino ora siamo riusciti a generare è questo parametro che si chiama temperatura che vedremo"
+  },
+  {
+    "start": 515.24,
+    "end": 522.46,
+    "text": " che cos'è allora questo programma non calcola non ha dentro alcun algoritmo di di terring"
+  },
+  {
+    "start": 522.46,
+    "end": 536.92,
+    "text": " queste immagine che vedete emerge sostanzialmente in maniera come dire evolutiva usa un algoritmo"
+  },
+  {
+    "start": 536.92,
+    "end": 544.52,
+    "text": " evolutivo guardate che succede dopo praticamente che viene creato un abbozzo dei pixel in bianco"
+  },
+  {
+    "start": 544.52,
+    "end": 552.38,
+    "text": " e nero c'è una fase in cui poi l'immagine inizia ad essere colorata il fatto di fare prima una"
+  },
+  {
+    "start": 552.38,
+    "end": 559.64,
+    "text": " un compito diciamo più selettivo e poi svolgerne un altore così via ora ve lo farò vedere dentro"
+  },
+  {
+    "start": 559.64,
+    "end": 569.02,
+    "text": " il codice sorgente si chiama in gergo curriculum learning solitamente si chiama sia nelle retini"
+  },
+  {
+    "start": 569.02,
+    "end": 575.84,
+    "text": " orali che negli altri algoritmi vuol dire che sostanzialmente fare tutte le cose assieme creerebbe"
+  },
+  {
+    "start": 575.84,
+    "end": 580.62,
+    "text": " un risultato inferiore invece fare queste cose step by step ora per esempio abbiamo modificato"
+  },
+  {
+    "start": 580.62,
+    "end": 587.3,
+    "text": " solo i colori a un certo punto l'algoritmo entrerà in una fase in cui modificherà invece sia i pixel"
+  },
+  {
+    "start": 587.3,
+    "end": 592.74,
+    "text": " che i colori e così via non ci saranno più alcune regole che impongono ora necessariamente un"
+  },
+  {
+    "start": 592.74,
+    "end": 600.52,
+    "text": " colore di sfonte quello di foreground diciamo di quello in primo piano che debbano essere per forza"
+  },
+  {
+    "start": 600.52,
+    "end": 605.3,
+    "text": " diversi ecco già siamo andati in questa fase guardate come ora i blocchi quando possono essere"
+  },
+  {
+    "start": 605.3,
+    "end": 612.1,
+    "text": " neri sia i pixel che lo sfondo viene utilizzato un blocco nero e si tolgono queste imperfezioni e"
+  },
+  {
+    "start": 612.1,
+    "end": 617.76,
+    "text": " ora migliorerà ancora di più ma andiamo a vedere il codice sorgente di questo programma che è"
+  },
+  {
+    "start": 617.76,
+    "end": 631.18,
+    "text": " piuttosto semplice allora e a be qua copi rete 2008 2024 in realtà perché è il 2026 ho copiato"
+  },
+  {
+    "start": 631.18,
+    "end": 637.22,
+    "text": " i sorgenti di un altro programma che si chiama shape mi che è pubblicato che fa una cosa diciamo"
+  },
+  {
+    "start": 637.22,
+    "end": 644.1,
+    "text": " non simile veramente molto lontana ma dovevo copiarmi giusto richiamate sdl e quelle delle"
+  },
+  {
+    "start": 644.1,
+    "end": 655.36,
+    "text": " librerie png che hanno due api atroci come molte librerie purtroppo e vi faccio vedere proprio"
+  },
+  {
+    "start": 655.36,
+    "end": 661.16,
+    "text": " come funziona questo programma allora dicevo questo l'algoritmo che viene utilizzato fa parte di"
+  },
+  {
+    "start": 661.16,
+    "end": 673.4,
+    "text": " una famiglia di algoritmi che si chiamano algoritmi evolutivi credo che sia la traduzione italiana"
+  },
+  {
+    "start": 673.4,
+    "end": 680.24,
+    "text": " corretta non vi faccio vedere la pagina wikipedia italiana perché è sbagliata l'olletta c'erano"
+  },
+  {
+    "start": 680.57,
+    "end": 687.89,
+    "text": " questi errori che ho riconosciuto sono andato nella parte nella pagina diciamo inglese ed è una"
+  },
+  {
+    "start": 687.89,
+    "end": 694.65,
+    "text": " una famiglia di algoritmi i algoritmi più famosi sono i genetic algorithms diamo dove sono"
+  },
+  {
+    "start": 695.21,
+    "end": 701.35,
+    "text": " genetica algorithms la programmazione genetica anche molto interessante il genetic programming è una cosa"
+  },
+  {
+    "start": 701.35,
+    "end": 710.35,
+    "text": " che ho splorato molto quando avevo 26 27 anni qualche giorno magari ne parlerò ma quello che"
+  },
+  {
+    "start": 710.35,
+    "end": 718.99,
+    "text": " stiamo usando qui è il simulated annealing che probabilmente non troveremo io credo esatto il"
+  },
+  {
+    "start": 718.99,
+    "end": 726.11,
+    "text": " simulated annealing secondo me non viene teoricamente classificato negli algoritmi evolutivi è una"
+  },
+  {
+    "start": 726.11,
+    "end": 731.19,
+    "text": " classificazione diciamo a parte il fatto che ognuno leuroclassifica un po come vuole ma secondo"
+  },
+  {
+    "start": 731.19,
+    "end": 737.51,
+    "text": " me ci entra di fatto quello che noi stiamo utilizzando perché anche se non c'è non ci sono"
+  },
+  {
+    "start": 737.51,
+    "end": 743.23,
+    "text": " soluzioni che competono non c'è crossover e se ne prende parte di una parte l'altra in realtà"
+  },
+  {
+    "start": 743.23,
+    "end": 751.67,
+    "text": " è un un algoritmo che simula comunque diciamo delle tecniche delle evoluzioni biologica ma utilizzando"
+  },
+  {
+    "start": 751.67,
+    "end": 760.15,
+    "text": " soltanto le mutazioni senza alcuna diciamo riproduzione tra diversi individui che rappresentano"
+  },
+  {
+    "start": 760.15,
+    "end": 765.47,
+    "text": " diverse soluzioni al nostro problema tutti questi problemi sono comunque algoritmi di ottimizzazione"
+  },
+  {
+    "start": 765.47,
+    "end": 772.09,
+    "text": " quindi io voglio trovare un set di parametri cioè in questo caso i pixel e i attributi colore che"
+  },
+  {
+    "start": 772.09,
+    "end": 778.77,
+    "text": " soddisfano una data condizione allora qua guardate che faccio io dico tanto per iniziare qual è la"
+  },
+  {
+    "start": 778.77,
+    "end": 786.73,
+    "text": " memoria video dello zx spectrum che è composta di questa quantità di bite definisco quali sono"
+  },
+  {
+    "start": 786.73,
+    "end": 795.67,
+    "text": " i colori che lo spectrum ha a disposizione in rgb rgb questi sono un numero di 32 bit di in realtà"
+  },
+  {
+    "start": 795.67,
+    "end": 803.13,
+    "text": " noi ne usiamo di bit soltanto 24 e aspettate rgb non so se li ho detti nell'ordine giusto no quindi"
+  },
+  {
+    "start": 803.13,
+    "end": 810.73,
+    "text": " è rgb sono fatti al contrario allora queste sono le chiamate che servono per creare questa finestra"
+  },
+  {
+    "start": 810.73,
+    "end": 817.61,
+    "text": " qui questa piccola finestra qui guardate già il nostro algoritmo è riuscito a convergere verso"
+  },
+  {
+    "start": 817.61,
+    "end": 823.65,
+    "text": " quella che è sostanzialmente la migliore soluzione possiamo andarla a guardare qui la differenza"
+  },
+  {
+    "start": 823.65,
+    "end": 833.81,
+    "text": " ormai a soltanto il 6 virgola 23% con l'immagine originale ha provato la bellezza di un milione"
+  },
+  {
+    "start": 833.81,
+    "end": 840.35,
+    "text": " 398 mila soluzioni ed è arrivata a questa qua che è abbastanza interessante se voi"
+  },
+  {
+    "start": 840.35,
+    "end": 848.41,
+    "text": " immaginate questa immagine qui caricata in uno zx spectrum in un crt dovete l'altro il diethering"
+  },
+  {
+    "start": 848.41,
+    "end": 854.91,
+    "text": " farebbe un effetto molto più figo perché i fosfori si mischiano e così via sarebbe credo"
+  },
+  {
+    "start": 854.91,
+    "end": 861.05,
+    "text": " abbastanza impressionante da da vedere allora qua ci sono le chiamate la libreria sd l'albria"
+  },
+  {
+    "start": 861.05,
+    "end": 869.27,
+    "text": " e sd l'albria per fare grafica e suono di base non fa delle cose molto evolute ma ti permette di"
+  },
+  {
+    "start": 869.27,
+    "end": 882.05,
+    "text": " aprire una finestra di configurare se sia o meno full screen di configurare il colore se è rgb"
+  },
+  {
+    "start": 882.05,
+    "end": 891.73,
+    "text": " guardate qua sd l pixel forma trgb 24 quindi diciamo è lo stesso formato poi di di di di"
+  },
+  {
+    "start": 891.73,
+    "end": 899.37,
+    "text": " di dei bite che ho qui ma questa qui è molto poco interessante allora guardate si crea una"
+  },
+  {
+    "start": 899.37,
+    "end": 905.93,
+    "text": " window si crea un renderer si crea una texture queste chiamate poi si si si una prende quello"
+  },
+  {
+    "start": 905.93,
+    "end": 911.55,
+    "text": " che ti ha restito di tuo l'altro guardate qui lo screen lo tengo con create window è una finestra"
+  },
+  {
+    "start": 912.47,
+    "end": 921.29,
+    "text": " con posizione non definita è una data larghezza e altezza poi crea un renderer utilizzando questo"
+  },
+  {
+    "start": 921.29,
+    "end": 927.07,
+    "text": " screen infatti lo passo come primo argomento e poi da questo renderer faccio una texture e poi"
+  },
+  {
+    "start": 927.07,
+    "end": 934.05,
+    "text": " finalmente posso sostanzialmente ritornare la texture renderer che utilizzerò per scrivere"
+  },
+  {
+    "start": 934.05,
+    "end": 940.91,
+    "text": " la mia finestra come lo vedremo fra poco ecco questa funzione qui brevissima io gli passo la"
+  },
+  {
+    "start": 940.91,
+    "end": 947.75,
+    "text": " texture è il renderer che mi hanno ritornato le chiamate della libreria sdl poi gli passo un"
+  },
+  {
+    "start": 947.75,
+    "end": 954.05,
+    "text": " buffer che rappresenta in un buffer di carattere di bite guardate questo un puntatore febbi frame"
+  },
+  {
+    "start": 954.05,
+    "end": 965.03,
+    "text": " buffer che rappresenta rgb rgb rgb con larghezza e altezza della della mia immagine da renderizzare"
+  },
+  {
+    "start": 965.03,
+    "end": 975.81,
+    "text": " adirittura hate neanche la utilizza e vi dico perché perché qui serve soltanto dare la wid per"
+  },
+  {
+    "start": 975.81,
+    "end": 987.43,
+    "text": " tre che è la grandezza del di ogni riga ok e poi lo sallui quando è grande la finestra e quindi"
+  },
+  {
+    "start": 987.43,
+    "end": 994.15,
+    "text": " leggerà i dati per quel che che serve poi pulisco praticamente il renderer copio la texture nel"
+  },
+  {
+    "start": 994.15,
+    "end": 1004.89,
+    "text": " renderer e poi praticamente lo presento nella finestra nella finestra attuale quindi praticamente"
+  },
+  {
+    "start": 1004.89,
+    "end": 1010.33,
+    "text": " sono delle chiamate diciamo abbastanza semplici che possiamo liquidare così così come liquideremo"
+  },
+  {
+    "start": 1010.33,
+    "end": 1015.81,
+    "text": " la pro il processing di eventi che permette di sentire se premio un tasto o ne premio un altro"
+  },
+  {
+    "start": 1015.81,
+    "end": 1022.23,
+    "text": " questo non è questa lezione ingenderla da su sdl quindi ce ne freghiamo questa è una funzione che"
+  },
+  {
+    "start": 1022.23,
+    "end": 1029.11,
+    "text": " è creato non si è usata nel programma no ma io la vorrei usare in realtà vedremo se riusciremo"
+  },
+  {
+    "start": 1029.11,
+    "end": 1035.89,
+    "text": " utilizzarla e questa è un'immagine a cui è una funzione a cui si passano proprio questi"
+  },
+  {
+    "start": 1038.5300000000002,
+    "end": 1045.93,
+    "text": " row pointers come un'immagine rgb e lui scrive questa funzione schema come fa il png non mi ricordo"
+  },
+  {
+    "start": 1045.93,
+    "end": 1053.93,
+    "text": " del formato di png byte pointer ma credo che sia un puntatore a byte banalissimo vado a"
+  },
+  {
+    "start": 1053.93,
+    "end": 1060.97,
+    "text": " mi vedere qui come usata row pointers a chi viene passata write image credo proprio di sì guardate"
+  },
+  {
+    "start": 1060.97,
+    "end": 1067.37,
+    "text": " per scrivere una una jpeg ci sono un sacco di porcate queste sono la libreria vecchia non mi"
+  },
+  {
+    "start": 1067.37,
+    "end": 1074.07,
+    "text": " piace lo mio script addirittura con set jump per la gestione degli errori sono pessimi esempi di"
+  },
+  {
+    "start": 1074.07,
+    "end": 1080.01,
+    "text": " programmazione ma ovviamente non mi vado a scrivere la libreria per ecco questa la useremo invece"
+  },
+  {
+    "start": 1081.5299999999997,
+    "end": 1089.37,
+    "text": " a questa questa funzione gli diamo un puntatore un file vi ricordate che noi con f open potevamo"
+  },
+  {
+    "start": 1089.37,
+    "end": 1096.07,
+    "text": " aprire appunto i file e poi abbiamo questo puntatore a cui poi la libreria standard input output"
+  },
+  {
+    "start": 1096.07,
+    "end": 1106.91,
+    "text": " può accedere e png prende appunto questo fp a non ho io proprio sono io che leggo lo fatto io"
+  },
+  {
+    "start": 1106.91,
+    "end": 1115.21,
+    "text": " che leggo il buffer eccetera eccetera no forse poi però in realtà sì per ora qui cerco solo di vedere"
+  },
+  {
+    "start": 1115.21,
+    "end": 1125.89,
+    "text": " se il magic sei i primi bite con cui inizia la png siano quelli quelli corretti rid structure"
+  },
+  {
+    "start": 1127.65,
+    "end": 1138.43,
+    "text": " initialize in postraccionano png init io e ci passo il fine pointer quindi la libreria png"
+  },
+  {
+    "start": 1138.43,
+    "end": 1143.95,
+    "text": " automaticamente la capacità appunto di attaccarsi al file pointer di un file aperto quindi al"
+  },
+  {
+    "start": 1143.95,
+    "end": 1149.35,
+    "text": " descrittore di un file aperto a inizia a leggere l'immagine comunque quello che importa è che"
+  },
+  {
+    "start": 1149.35,
+    "end": 1157.29,
+    "text": " quando io praticamente ho letto questa immagine quello che faccio è poi di scrivere questa immagine"
+  },
+  {
+    "start": 1158.53,
+    "end": 1165.43,
+    "text": " nella nella mia memoria nel mio buffer allora guardate questa funzione ritorna sostanzialmente"
+  },
+  {
+    "start": 1165.43,
+    "end": 1175.49,
+    "text": " un puntatore alb di bite quindi un puntatore a carattere quindi ha un intero senza segno di"
+  },
+  {
+    "start": 1175.49,
+    "end": 1181.39,
+    "text": " 8 bit quindi sono dei bite semplicemente che noi allochiamo in questa funzione e restituiamo poi"
+  },
+  {
+    "start": 1181.39,
+    "end": 1191.99,
+    "text": " all'utente scusate siccome cambio da dal portatile nukes che ne sono comprato a questo invece di"
+  },
+  {
+    "start": 1191.99,
+    "end": 1196.91,
+    "text": " premere contro il primo function perché i stasti sono in posizione un po diversa altra parte questo"
+  },
+  {
+    "start": 1196.91,
+    "end": 1205.03,
+    "text": " con deswishing mi crea questo problema dicevo siccome a volte in alcuni in alcuni casi le immagini"
+  },
+  {
+    "start": 1205.03,
+    "end": 1211.57,
+    "text": " sono registrate rgb in alcuni casi bgr allora qui faccio una conversione per avere quello che"
+  },
+  {
+    "start": 1211.57,
+    "end": 1219.71,
+    "text": " mi serve a me e se per caso c'è il canale alfa della trasparenza lo salto quindi poi ritorno guardate"
+  },
+  {
+    "start": 1219.71,
+    "end": 1226.71,
+    "text": " rgb vi faccio vedere anche rgb dove che l'avevo allocato qua rgb uguale malloc row bites per quindi"
+  },
+  {
+    "start": 1226.71,
+    "end": 1233.53,
+    "text": " i bite che ci sono in ogni row quindi in una singola riga della mia immagine in questo caso"
+  },
+  {
+    "start": 1233.53,
+    "end": 1242.53,
+    "text": " sarà la risoluzione in x per 3 rgb per l'altezza dell'immagine così ho un buffer sufficiente"
+  },
+  {
+    "start": 1242.53,
+    "end": 1249.59,
+    "text": " ad accomodare tutta l'immagine qua in teoria ti dovrebbe dare errore se non è della"
+  },
+  {
+    "start": 1249.59,
+    "end": 1256.01,
+    "text": " dimensione giusta credo che me ne sono addirittura fregato forse poi quando piene g-load esatto se"
+  },
+  {
+    "start": 1256.01,
+    "end": 1264.99,
+    "text": " è la wid non è 2,96 l'altezza non è 192 dei match match exactly the zx spectrum resolution quindi"
+  },
+  {
+    "start": 1264.99,
+    "end": 1272.85,
+    "text": " questa cosa c'era qua quindi dicevo una volta che carico l'immagine e la ritorno poi ho"
+  },
+  {
+    "start": 1274.5100000000002,
+    "end": 1283.21,
+    "text": " questa funzione che calcola la differenza tra un'immagine a e un'immagine b dove l'immagine a"
+  },
+  {
+    "start": 1283.21,
+    "end": 1290.19,
+    "text": " è l'immagine che in quel momento c'è nella memoria video dello spectrum è l'immagine b è la mia"
+  },
+  {
+    "start": 1290.19,
+    "end": 1298.87,
+    "text": " immagine target quella cui io voglio arrivare ed è quella che ho caricato dal file questa differenza"
+  },
+  {
+    "start": 1299.6699999999998,
+    "end": 1306.63,
+    "text": " viene ritornata come long long vediamo perché viene ritornata come long long perché non me"
+  },
+  {
+    "start": 1306.63,
+    "end": 1316.21,
+    "text": " lo ricordo torniamo qui compute diff ok ok allora io qua faccio una cosa"
+  },
+  {
+    "start": 1317.79,
+    "end": 1332.15,
+    "text": " sto semplicemente ritornando la distanza come in la somma di tutte le distanze dei pixel"
+  },
+  {
+    "start": 1332.15,
+    "end": 1338.8500000000001,
+    "text": " dell'immagine a con l'immagine b ora vi dico in che modo è che funziona questa questa funzione"
+  },
+  {
+    "start": 1339.51,
+    "end": 1346.99,
+    "text": " allora per ogni pixel dell'immagine quindi per y da 0 all'altezza meno 1 per x da 0 alla larghezza"
+  },
+  {
+    "start": 1346.99,
+    "end": 1356.7099999999998,
+    "text": " meno 1 mi prendo la differenza di r g e b però rignolate queste ricche che ci sono sotto ora"
+  },
+  {
+    "start": 1356.95,
+    "end": 1370.63,
+    "text": " spiego quindi la differenza di r g e b ok questa differenza perché la l e vol quadrato"
+  },
+  {
+    "start": 1373.55,
+    "end": 1386.77,
+    "text": " somma cioè perché l vol quadrato le differenze l somma considerate che quando io l vol quadrato se"
+  },
+  {
+    "start": 1386.77,
+    "end": 1392.83,
+    "text": " per caso questa era negativa non è un problema perché meno 5 per non 5 fa 25 come 5 per 5 quindi"
+  },
+  {
+    "start": 1392.83,
+    "end": 1398.03,
+    "text": " ecco non vi meravigliate se qui manca il valore assoluto questa funzione prova ad essere diciamo"
+  },
+  {
+    "start": 1398.03,
+    "end": 1403.91,
+    "text": " relativamente veloce in sostanza io sto facendo la formula della distanza lo spazio 3d quindi faccio"
+  },
+  {
+    "start": 1403.91,
+    "end": 1410.89,
+    "text": " finta che questi pixel il pixel 1 dell'immagine 1 dell'immagine a e il pixel 1 dell'immagine b"
+  },
+  {
+    "start": 1410.89,
+    "end": 1419.19,
+    "text": " faccio finta che questo r gb siano coordinati nello spazio e guardo quanto distanti sono ok e poi io"
+  },
+  {
+    "start": 1419.19,
+    "end": 1426.59,
+    "text": " somma tutte queste distanze e questa compute diff ritorna appunto la somma di tutte queste"
+  },
+  {
+    "start": 1426.59,
+    "end": 1433.07,
+    "text": " distanze ma giori sarà la distanza il numero long long che mi ritorna questo compute diff è più"
+  },
+  {
+    "start": 1433.07,
+    "end": 1439.63,
+    "text": " diversa effettivamente la mia immagine ma guardate per capirci poi questo compute diff io faccio una"
+  },
+  {
+    "start": 1439.63,
+    "end": 1448.33,
+    "text": " cosa per per avere la percentuale di differenza io faccio che questa differenza la divido per"
+  },
+  {
+    "start": 1448.33,
+    "end": 1456.29,
+    "text": " la massima differenza possibile ovvero se ogni pixel tra di esso avessi la differenza massima di"
+  },
+  {
+    "start": 1456.29,
+    "end": 1472.59,
+    "text": " 4 4 2 e 4 4 2 dovrebbe essere python sqrt non è definito come mat punto sqrt non me lo ricordo"
+  },
+  {
+    "start": 1476.57,
+    "end": 1492.81,
+    "text": " mat sqrt dicendo esatto allora 255 per 255 più 255 più 255 per 255 esattamente guardate quando fa"
+  },
+  {
+    "start": 1492.81,
+    "end": 1502.13,
+    "text": " 441 quindi la distanza massima tra 0 0 0 e 255 255 quindi pixel più estremi hanno come"
+  },
+  {
+    "start": 1502.13,
+    "end": 1513.41,
+    "text": " distanza 441 e abbe io ho messo 441 virgola cosco sono messo 442 e poi quindi avrei un numero"
+  },
+  {
+    "start": 1513.41,
+    "end": 1518.87,
+    "text": " dividendo questa differenza per la differenza massima tra 0 a 1 e lo moltifico per 100 per"
+  },
+  {
+    "start": 1518.87,
+    "end": 1526.13,
+    "text": " avere una differenza da 0 a 100 quindi credo che questa cosa è chiara quindi allora capiamoci"
+  },
+  {
+    "start": 1526.13,
+    "end": 1533.41,
+    "text": " o per ora c'ho una roba che mi carica in un frame buffer l'immagine target c'ho una cosa"
+  },
+  {
+    "start": 1533.41,
+    "end": 1536.97,
+    "text": " che sa fare la differenza tra queste immagini target l'immagine che avviene questo momento"
+  },
+  {
+    "start": 1536.97,
+    "end": 1542.61,
+    "text": " nella memoria dello spectrum come la creo l'immagine che ho nella memoria dello spectrum"
+  },
+  {
+    "start": 1543.31,
+    "end": 1550.43,
+    "text": " guardate questo è proprio l'algoritmo che usa lo zx spectrum e la sua ula per trasformare l'immagine"
+  },
+  {
+    "start": 1550.43,
+    "end": 1559.33,
+    "text": " nella ram video nell'immagine che viene visualizzata perché come è ingodata questa immagine nella"
+  },
+  {
+    "start": 1559.33,
+    "end": 1566.77,
+    "text": " ram video qua ormai siamo alla soluzione definitiva lo possiamo anche quittare questa è la mappina"
+  },
+  {
+    "start": 1566.77,
+    "end": 1577.99,
+    "text": " memoria dello zx spectrum screen memory guardate da 40000 e sa decimale a 57 ff ci sono i pixel"
+  },
+  {
+    "start": 1577.99,
+    "end": 1591.01,
+    "text": " 0 e 1 quindi ci sono 256 per 128 quando abbiamo detto mi pare di sì 256 per 192 scusate pixel e poi qua"
+  },
+  {
+    "start": 1591.01,
+    "end": 1600.67,
+    "text": " ci sono tutti i bite che servono che saranno allora 192 256 per 192 sono questi pixel qua"
+  },
+  {
+    "start": 1602.45,
+    "end": 1612.43,
+    "text": " diviso 8 per 8 esatto deve fare esattamente 700 del stand 8 io ho 6 700 del stand 8 blocchi"
+  },
+  {
+    "start": 1612.43,
+    "end": 1619.39,
+    "text": " 8 per 8 di 64 pixel ognuno quindi ci ho 700 del stand 8 bite di attributo colore e vi faccio"
+  },
+  {
+    "start": 1619.39,
+    "end": 1625.23,
+    "text": " vedere questo attributo colore come a questa è un'immagine per esempio che viene visualizzata"
+  },
+  {
+    "start": 1625.23,
+    "end": 1632.07,
+    "text": " se io setto tutta la ram video a una cosa casuale perché ci saranno blocchi di colore"
+  },
+  {
+    "start": 1632.07,
+    "end": 1638.77,
+    "text": " casuale a volte ci sarà l'attributo blink a volte no a volte ci sarà l'attributo colori ad"
+  },
+  {
+    "start": 1638.77,
+    "end": 1645.13,
+    "text": " alto contrasto a volte no e questo è il modo in cui funziona quindi io ho questi quando abbiamo"
+  },
+  {
+    "start": 1645.13,
+    "end": 1653.35,
+    "text": " detto che sono 760 8 non ci è scritto nessuna parte qui se ci sono 8 no ah sì guardate qui"
+  },
+  {
+    "start": 1653.35,
+    "end": 1663.19,
+    "text": " 760 8 blocchi 32 ro per 24 colonne righe per colonne e guardate ogni bite delle degli attributo"
+  },
+  {
+    "start": 1663.19,
+    "end": 1674.71,
+    "text": " video è fatto così fb ppp e ppp è il colore della paper quindi il background e sarebbe ink"
+  },
+  {
+    "start": 1674.71,
+    "end": 1683.63,
+    "text": " quindi il il il colore dei pixel accesi dei pixel settati a 1 nell'alt resto della"
+  },
+  {
+    "start": 1683.63,
+    "end": 1695.45,
+    "text": " memoria video dove c'è la bitmap e poi f sarebbe dovrebbe essere aspettate che guardo qui"
+  },
+  {
+    "start": 1696.41,
+    "end": 1705.51,
+    "text": " flash esatto io cercavo blink diciamo perché bf flash e bf bright se deve essere ad alta"
+  },
+  {
+    "start": 1705.51,
+    "end": 1711.63,
+    "text": " luminosità noi flash non lo utilizziamo in nessun modo lo ignoriamo completamente perché non"
+  },
+  {
+    "start": 1711.63,
+    "end": 1720.97,
+    "text": " vogliamo che flash un bel niente vogliamo che l'immagine sia statica allora noi utilizziamo"
+  },
+  {
+    "start": 1724.31,
+    "end": 1733.09,
+    "text": " esattamente la funzione che trasforma esattamente zx q rgb quindi dalla memoria del zx spectrum"
+  },
+  {
+    "start": 1733.09,
+    "end": 1739.23,
+    "text": " ma guardate questa funzione prende un puntatore al frame buffer dove scriverà l'immagine che viene"
+  },
+  {
+    "start": 1739.23,
+    "end": 1744.15,
+    "text": " rappresentata in questo andale la memoria video del computer è un puntatore alla memoria video"
+  },
+  {
+    "start": 1744.15,
+    "end": 1750.77,
+    "text": " del computer traduce ovviamente siccome sono incodate strane le cose non sono neanche sequenziali"
+  },
+  {
+    "start": 1750.77,
+    "end": 1757.89,
+    "text": " queste bitmap e lo zx spectrum perché c'erano dei vantaggi hardware a farle in un determinato"
+  },
+  {
+    "start": 1757.89,
+    "end": 1765.01,
+    "text": " modo per il modo in cui poi la ula accede alla ram mentre fa il refresh video un casino bestiale"
+  },
+  {
+    "start": 1765.01,
+    "end": 1770.61,
+    "text": " quindi si devono fare tutte queste operazioni di flipping dei bitwari ma questo potete andare a"
+  },
+  {
+    "start": 1770.61,
+    "end": 1777.63,
+    "text": " guardare se volete nelle informazioni che ci sono i reti sul zx spectrum va be qua in realtà"
+  },
+  {
+    "start": 1777.63,
+    "end": 1784.41,
+    "text": " ecco questo qui non sarebbe neanche necessario credo perché questo codice io l'ho preso dall'"
+  },
+  {
+    "start": 1784.57,
+    "end": 1793.45,
+    "text": " emulatore dello zx spectrum che ho scritto per il zx 20 40 e ci sono delle cose che sono probabilmente"
+  },
+  {
+    "start": 1796.4499999999998,
+    "end": 1803.41,
+    "text": " ridondanti però a questo punto vorrei capire ah ecco ok allora se praticamente c'è l'attributo"
+  },
+  {
+    "start": 1803.41,
+    "end": 1809.63,
+    "text": " blink io devo prendere il foreground del background invertiti in questo modo così"
+  },
+  {
+    "start": 1809.63,
+    "end": 1833.39,
+    "text": " inverto alle variabili qua e poi praticamente tutto il resto non è un problema credo che"
+  },
+  {
+    "start": 1833.39,
+    "end": 1841.83,
+    "text": " no quando abbiamo avviato mai il programma qui si avviamolo e vediamo noi mentre comunque"
+  },
+  {
+    "start": 1841.83,
+    "end": 1846.25,
+    "text": " ragioniamo sulla nostra cosa questo lo mettiamo qua e noi ce ne torniamo qui a guardare il"
+  },
+  {
+    "start": 1846.25,
+    "end": 1863.37,
+    "text": " nostro programma allora quindi dopo che ho ottenuto il colore dei pixel settati a 1 è il"
+  },
+  {
+    "start": 1863.37,
+    "end": 1872.83,
+    "text": " ut se per caso è bright io devo cambiare il il colore del foreground del del background"
+  },
+  {
+    "start": 1873.79,
+    "end": 1881.69,
+    "text": " allora in questo momento io questi colori qui li sto ottenendo non come colori rgb ma come"
+  },
+  {
+    "start": 1881.69,
+    "end": 1890.41,
+    "text": " indice di colore dello spectrum quindi 0 1 2 3 eccetera eccetera fino a quando sono 16 no"
+  },
+  {
+    "start": 1891.5300000000002,
+    "end": 1902.65,
+    "text": " 1 2 3 4 5 6 7 8 1 2 3 4 5 6 7 8 esatto a questo punto io c'ho i colori di tutti gli 8 pixel"
+  },
+  {
+    "start": 1905.33,
+    "end": 1914.69,
+    "text": " di questa riga della x ok quindi poi ci sarà x x più uguale ad 8 da qualche parte qui allora x"
+  },
+  {
+    "start": 1914.69,
+    "end": 1926.99,
+    "text": " più più ah sì guardate la x ogni volta prende tutto un byte quindi qua l'acqua l'axe voi vi"
+  },
+  {
+    "start": 1926.99,
+    "end": 1935.99,
+    "text": " spettereste 256 invece 256 diviso 8 perché prendo tutto un byte prendo gli attributi per quel byte e"
+  },
+  {
+    "start": 1935.99,
+    "end": 1941.37,
+    "text": " poi di questo byte faccio il rendering qua guardate copio sul frame buffer sul mio frame"
+  },
+  {
+    "start": 1941.37,
+    "end": 1948.11,
+    "text": " buffer di destinazione il colore della palette per 3 byte di quella palette con tutti i colori"
+  },
+  {
+    "start": 1948.11,
+    "end": 1952.97,
+    "text": " che abbiamo visto definita prima e poi avanziamo il nostro puntatore di 3 byte e andiamo a settare"
+  },
+  {
+    "start": 1952.97,
+    "end": 1958.93,
+    "text": " il prossimo pixel di prossimo pixel abbiamo fatto la prima strisciolina di 8 pixel poi la prossima"
+  },
+  {
+    "start": 1958.93,
+    "end": 1966.43,
+    "text": " la prossima poi scendo eccetera eccetera vada se che potete capire bene che quando io prendo qui"
+  },
+  {
+    "start": 1966.43,
+    "end": 1973.25,
+    "text": " clr che sarebbero sostanzialmente di color attributs ora mi sto rientando meglio nel codice che avevo"
+  },
+  {
+    "start": 1973.25,
+    "end": 1980.99,
+    "text": " un vodio indicato clear offset se guardate praticamente rimarrà uguale ogni volta che io"
+  },
+  {
+    "start": 1980.99,
+    "end": 1987.49,
+    "text": " sono dentro un determinato blocco proprio quindi quando qua se si fa il conto finirà che se sono"
+  },
+  {
+    "start": 1987.49,
+    "end": 1993.25,
+    "text": " dentro un determinato blocco io rimango sempre sempre costante e qua si può vedere dal mascheramento"
+  },
+  {
+    "start": 1993.25,
+    "end": 2001.77,
+    "text": " che aveva fatto della y che perde anche diciamo i due byte meno significativi e così via però"
+  },
+  {
+    "start": 2001.77,
+    "end": 2007.87,
+    "text": " qua per semplicità conviene sostanzialmente ogni volta leggere e andare a scrivere io 8 bit e così"
+  },
+  {
+    "start": 2007.87,
+    "end": 2012.15,
+    "text": " via o almeno mi ero persuaso in questo modo può essere che ci sono dei modi che ottimizzano"
+  },
+  {
+    "start": 2012.15,
+    "end": 2023.21,
+    "text": " ancora di più la cosa a questo punto io mi serve una una una funzione che muti un po lo schermo"
+  },
+  {
+    "start": 2023.21,
+    "end": 2029.43,
+    "text": " perché io parto con uno schermo che è completamente casuale sono bit casuali sia nella parte della"
+  },
+  {
+    "start": 2029.43,
+    "end": 2037.85,
+    "text": " memoria che rappresenta i pixel che questa screen memory che anche nei colori anzi no io"
+  },
+  {
+    "start": 2037.85,
+    "end": 2043.39,
+    "text": " all'inizio colori scusate li metto tutti neri tutto nero e bianco quindi questo è il curriculum"
+  },
+  {
+    "start": 2043.39,
+    "end": 2048.67,
+    "text": " learning fa parte anche di di che c'è questa strategia anche di curriculum learning che all'inizio"
+  },
+  {
+    "start": 2048.67,
+    "end": 2055.83,
+    "text": " io parto da una soluzione che semplifica il problema quando meno di trovare le zone che devono essere"
+  },
+  {
+    "start": 2055.83,
+    "end": 2061.13,
+    "text": " con i pixel settati a 1 e le zone con i pixel settati a 0 perché uno rappresenta il bianco"
+  },
+  {
+    "start": 2061.13,
+    "end": 2068.01,
+    "text": " nel nero con i background il foreground che metto di default ma questa cosa noi la possiamo andare"
+  },
+  {
+    "start": 2068.01,
+    "end": 2076.01,
+    "text": " a guardare nell'inizianizzazione comunque poi mi serve una funzione che muti un po la mia memoria"
+  },
+  {
+    "start": 2076.01,
+    "end": 2081.95,
+    "text": " e poi ci arriviamo perché qua guardate qua implementato il curriculum learning fino a una"
+  },
+  {
+    "start": 2081.95,
+    "end": 2088.19,
+    "text": " determinata generazione deve fare una determinata cosa poi da una generazione in poi quindi se è"
+  },
+  {
+    "start": 2088.19,
+    "end": 2092.65,
+    "text": " passato un po di tempo deve fare un'altra cosa e così via questa cosa andiamo a vedere dopo"
+  },
+  {
+    "start": 2092.65,
+    "end": 2098.07,
+    "text": " prima di tutto allora congettiamoci sull'up principale di questo algoritmo allora questo"
+  },
+  {
+    "start": 2098.07,
+    "end": 2106.83,
+    "text": " algoritmo che usiamo noi si chiama simulated annealing il simulated annealing qui in una"
+  },
+  {
+    "start": 2106.83,
+    "end": 2114.29,
+    "text": " forma veramente rudimentale perché è proprio una cosa è una quasi diciamo l'algoritmo qua"
+  },
+  {
+    "start": 2114.29,
+    "end": 2120.89,
+    "text": " veramente a forza brutta questo però non di nostro ci mettiamo che siamo disponibili ad"
+  },
+  {
+    "start": 2120.89,
+    "end": 2126.97,
+    "text": " accettare anche soluzioni peggiori per per poterlo chiamare similatet annealing ma è abbastanza"
+  },
+  {
+    "start": 2126.97,
+    "end": 2133.31,
+    "text": " inutile poi vedremo però insomma è un algoritmo in cui vengono fatte delle modifiche si vede se"
+  },
+  {
+    "start": 2133.31,
+    "end": 2139.39,
+    "text": " praticamente questa modifica è migliorativo o peggiorativa perché abbiamo una funzione che"
+  },
+  {
+    "start": 2139.39,
+    "end": 2144.17,
+    "text": " ci dice qual è la differenza tra l'immagine che noi abbiamo ingerato l'immagine target ma se"
+  },
+  {
+    "start": 2144.17,
+    "end": 2148.19,
+    "text": " vogliamo parlare di darmi più generali tarra la soluzione con noi più generali della soluzione"
+  },
+  {
+    "start": 2148.19,
+    "end": 2154.59,
+    "text": " target se c'è un miglioramento lo accettiamo e facciamo un'altra mutazione quindi continueremo"
+  },
+  {
+    "start": 2154.59,
+    "end": 2161.61,
+    "text": " a trovare delle soluzioni sempre migliori in realtà il simulatet annealing ha due"
+  },
+  {
+    "start": 2163.4500000000003,
+    "end": 2169.95,
+    "text": " altri trucchi che permettono di andare via dai minimi locali cioè perché la mia funzione"
+  },
+  {
+    "start": 2169.95,
+    "end": 2175.11,
+    "text": " dell'errore è diciamo abbastanza complicata visto che la maverina spectrum è fatta in quel modo"
+  },
+  {
+    "start": 2175.11,
+    "end": 2180.77,
+    "text": " e così via allora mi può capitare che io in capo in un minimo locale per esempio vi faccio"
+  },
+  {
+    "start": 2180.77,
+    "end": 2185.45,
+    "text": " un esempio di minimo locale se io praticamente tolgo il curriculum learning e gli faccio già variare"
+  },
+  {
+    "start": 2185.45,
+    "end": 2191.13,
+    "text": " sin dall'inizio randomicamente sia i blocchi i colori dei attributi del colore che i pixel"
+  },
+  {
+    "start": 2191.13,
+    "end": 2198.47,
+    "text": " lui se c'è un'aria nera beccherà che può mettere il background del foreground di quel blocco"
+  },
+  {
+    "start": 2198.47,
+    "end": 2204.63,
+    "text": " nero e però avrò dei margini frastagliati non ci sarà alcuna curva se c'era una curva"
+  },
+  {
+    "start": 2204.63,
+    "end": 2210.99,
+    "text": " alla vicino si accontenta di quello ed è un minimo locale perché poi se lui cambia il colore"
+  },
+  {
+    "start": 2210.99,
+    "end": 2218.11,
+    "text": " di quel blocco di attributi e mette uno dei due bianco sarà talmente tanto l'errore di quei"
+  },
+  {
+    "start": 2218.11,
+    "end": 2222.93,
+    "text": " 64 pixel che non ci sarà mai la possibilità di scavalcare questo errore qui in effetti"
+  },
+  {
+    "start": 2222.93,
+    "end": 2228.45,
+    "text": " mettere bianco e nero e poi trovare la giusta curva dei pixel che sarebbe ottimale come"
+  },
+  {
+    "start": 2228.45,
+    "end": 2234.59,
+    "text": " quindi quel blocco rimarrà tutto nero spero di essermi di essermi spiegato per questo a noi"
+  },
+  {
+    "start": 2234.59,
+    "end": 2241.89,
+    "text": " serve il curriculum learning però in generale il simulato similei te d'anining ha anche un"
+  },
+  {
+    "start": 2241.89,
+    "end": 2249.01,
+    "text": " parametro che si chiama temperatura la temperatura inizia con adesso con un valore molto alto e"
+  },
+  {
+    "start": 2249.01,
+    "end": 2254.11,
+    "text": " ma mano cala quando la temperatura è alta volte accettiamo anche soluzioni che sono peggiorative"
+  },
+  {
+    "start": 2254.11,
+    "end": 2262.67,
+    "text": " rispetto a quella migliore trovata attualmente però questa la probabilità di accettare una"
+  },
+  {
+    "start": 2262.67,
+    "end": 2267.47,
+    "text": " soluzione più sconveniente è proporzionale alla temperatura se la temperatura è alta è"
+  },
+  {
+    "start": 2267.47,
+    "end": 2271.63,
+    "text": " facile che accettiamo se la temperatura è bassa è difficile che noi accettiamo soluzioni"
+  },
+  {
+    "start": 2271.63,
+    "end": 2279.4700000000003,
+    "text": " peggiorative inoltre più alta è la temperatura e maggiore sarà la quantità di mutazioni o la"
+  },
+  {
+    "start": 2280.82,
+    "end": 2288.78,
+    "text": " come dire l'il grado di mutazione che faremo nella soluzione attuale questo algoritmo in realtà"
+  },
+  {
+    "start": 2288.78,
+    "end": 2296.68,
+    "text": " si ispira un processo fisico che è quello che si usa quando si fa raffreddare un metallo per"
+  },
+  {
+    "start": 2296.68,
+    "end": 2302.04,
+    "text": " diciamo tembrarlo rannunzò se la similei da aniling è proprio la temperatura o è un altro"
+  },
+  {
+    "start": 2303.0,
+    "end": 2310.56,
+    "text": " processo ma noi lo scopriremo simulated aniling ha il processo di ricottura con un processo"
+  },
+  {
+    "start": 2311.36,
+    "end": 2318.24,
+    "text": " simile in cui praticamente all'inizio le molecole si muovono all'impazzata e trovano piano piano"
+  },
+  {
+    "start": 2318.24,
+    "end": 2324.26,
+    "text": " che si raffreddano sempre di me lo si sposta e trovano il modo di legarsi quando più ordinato"
+  },
+  {
+    "start": 2324.26,
+    "end": 2331.26,
+    "text": " e quando più che converisceầ poi resistenza diciamo ai metalli e questo processo ecco come"
+  },
+  {
+    "start": 2331.26,
+    "end": 2336.86,
+    "text": " vedete funziona tutto esattamente dopo che abbiamo fatto quella modifica perché era"
+  },
+  {
+    "start": 2338.8,
+    "end": 2344.06,
+    "text": " abbastanza inutile quella roba all'hi che mi ero mi ero portato appresso dalla dall'emulatore"
+  },
+  {
+    "start": 2345.26,
+    "end": 2351.42,
+    "text": " ma in realtà siccome noi facciamo questo curriculum learning in cui prima impariamo"
+  },
+  {
+    "start": 2353.28,
+    "end": 2358.66,
+    "text": " la convirazione a bitmap poi cambiamo i colori a noi il fatto di accettare una soluzione peggiore"
+  },
+  {
+    "start": 2358.66,
+    "end": 2365.44,
+    "text": " non ci serve a niente perché non entreremo mai in un minimo locale da cui non possiamo uscire"
+  },
+  {
+    "start": 2365.44,
+    "end": 2370.44,
+    "text": " per cui in questo momento è così ma noi probabilmente questa cosa qua la possiamo rimuovere"
+  },
+  {
+    "start": 2370.44,
+    "end": 2376.4,
+    "text": " senza senza indulgi quindi guardate qual è il loop principale ecco questa cosa è da imparare"
+  },
+  {
+    "start": 2376.4,
+    "end": 2383.24,
+    "text": " poi i sorgenti ripeto li metterò online per cui vi potete andare a guardare con cura evolve"
+  },
+  {
+    "start": 2383.24,
+    "end": 2389.6,
+    "text": " the cure and solution using a similate the learning generation max mutation max mutation"
+  },
+  {
+    "start": 2390.44,
+    "end": 2397.7,
+    "text": " allora la funzione mutate che cambia dei bit nella memoria dello zx spectrum perché questo fa"
+  },
+  {
+    "start": 2397.7,
+    "end": 2407.0,
+    "text": " bithlipping sostanzialmente basta e vedete cioè si crea il rendering è pazzesco fa da una fino"
+  },
+  {
+    "start": 2407.0,
+    "end": 2413.26,
+    "text": " a massimo cinque mutazioni ok in realtà queste mutazioni dovrebbero ridursi man mano che la"
+  },
+  {
+    "start": 2413.26,
+    "end": 2419.76,
+    "text": " temperatura sia bassa ora vediamo se questa cosa la vogliamo fare o meno ma potrebbe non"
+  },
+  {
+    "start": 2419.76,
+    "end": 2425.46,
+    "text": " migliorerà quello che troviamo ma migliorerà la velocità alla quale noi riusciamo a trovare"
+  },
+  {
+    "start": 2425.46,
+    "end": 2430.54,
+    "text": " delle soluzioni migliori ecco perché a noi non ci interessa il fatto tanto di riuscire ad"
+  },
+  {
+    "start": 2430.54,
+    "end": 2437.96,
+    "text": " accettare delle delle soluzioni peggiori perché siccome noi facciamo cinque mutazioni se abbiamo"
+  },
+  {
+    "start": 2437.96,
+    "end": 2443.18,
+    "text": " una convivurazione di pixel che dovremmo mutare diciamo una vicino all'altra per beccare la"
+  },
+  {
+    "start": 2443.18,
+    "end": 2451.68,
+    "text": " soluzione migliore capiterà che visto quanti calcoli facciamo senza sosta capiterà che"
+  },
+  {
+    "start": 2451.68,
+    "end": 2457.28,
+    "text": " praticamente andiamo a modificare proprio quei due pixel vicini e li invertiamo e quindi ci voleva"
+  },
+  {
+    "start": 2457.28,
+    "end": 2462.1,
+    "text": " in teoria per arrivare a quella soluzione modificando un pixel per volta prima passata una"
+  },
+  {
+    "start": 2462.1,
+    "end": 2467.48,
+    "text": " soluzione peggiorativa ma siccome noi facciamo fino a cinque swap simultanemente l'immagine"
+  },
+  {
+    "start": 2467.48,
+    "end": 2477.1,
+    "text": " minuscola incredibilmente funziona anche così quindi guardate che succede noi copiamo nella"
+  },
+  {
+    "start": 2477.1,
+    "end": 2484.76,
+    "text": " nuova soluzione la migliore attualmente trovata e la copiamo per tutta la memoria dello zx spectrum"
+  },
+  {
+    "start": 2484.76,
+    "end": 2490.5,
+    "text": " quindi la nostra soluzione che cos'è una soluzione per noi la copia dalla memoria video dello zx"
+  },
+  {
+    "start": 2490.5,
+    "end": 2496.84,
+    "text": " spectrum quindi lavoriamo alla ceca in maniera totale facciamo questa mutazione gli diciamo"
+  },
+  {
+    "start": 2496.84,
+    "end": 2502.7,
+    "text": " anche in che generazione siamo come mai miutate prende la generazione a perché deve fare"
+  },
+  {
+    "start": 2502.7,
+    "end": 2512.2,
+    "text": " lavori diversi in base a dove siamo arrivati per fare il curriculum learning poi trasformiamo la"
+  },
+  {
+    "start": 2512.2,
+    "end": 2517.42,
+    "text": " nuova soluzione in una immagine perché ricordate perché la soluzione non è l'immagine mai la memoria"
+  },
+  {
+    "start": 2517.42,
+    "end": 2522.68,
+    "text": " del zx spectrum che generano date immagine poi faccio la differenza tra l'immagine che avevo"
+  },
+  {
+    "start": 2522.68,
+    "end": 2531.04,
+    "text": " caricato dalla png è effettivamente il il frame buffer per questa width e per questa height a questo"
+  },
+  {
+    "start": 2531.04,
+    "end": 2536.36,
+    "text": " punto calcolo la percentuale di differenza dalla differenza row che è la somma delle distanze"
+  },
+  {
+    "start": 2536.36,
+    "end": 2543.38,
+    "text": " di tutti i punti e ne abbiamo parlato questa cosa per esempio ecco è bad design sta roba qui"
+  },
+  {
+    "start": 2543.38,
+    "end": 2552.3,
+    "text": " dovrebbe essere assolutamente incorporata giù perché io questo diff ha perché lo voglio"
+  },
+  {
+    "start": 2552.3,
+    "end": 2560.36,
+    "text": " stampare a non ho più questo dif non è il dif è dif lo siccome c'ho è veramente malissimo"
+  },
+  {
+    "start": 2563.4,
+    "end": 2573.34,
+    "text": " perc diff questo si chiamerà direttamente perc diff dif dove è dif lo cangelliamo"
+  },
+  {
+    "start": 2576.02,
+    "end": 2588.08,
+    "text": " dice ci serve un'altra cosa andiamo alla funzione compute dif aglidiamo un po' di senso quindi"
+  },
+  {
+    "start": 2588.08,
+    "end": 2602.64,
+    "text": " non ritorniamo di ma facciamo scusate qui questa cosa è questa ora ritorna flott quindi questa"
+  },
+  {
+    "start": 2602.64,
+    "end": 2614.12,
+    "text": " funzione compute differenza di samosa del ritalment value is the percentage of difference"
+  },
+  {
+    "start": 2615.48,
+    "end": 2629.38,
+    "text": " tra un 0 a 100% che ho fatto cambiato tastiere in quella italiana non funziona più niente"
+  },
+  {
+    "start": 2629.38,
+    "end": 2651.26,
+    "text": " dove 0% significa il massimo possibile differenza tra un'immagine al 0 al 0 0 0 pixels e un'immagine"
+  },
+  {
+    "start": 2656.4399999999996,
+    "end": 2677.94,
+    "text": " al 2055 pixels e scusate 100% questo significa una differenza e 0% means identical image questo"
+  },
+  {
+    "start": 2677.94,
+    "end": 2683.74,
+    "text": " quello di cui avevamo parlato poco fa quindi ora questo compute diff noi l'abbiamo fatto qua"
+  },
+  {
+    "start": 2685.0,
+    "end": 2704.94,
+    "text": " non funziona niente 300 perché si chiama di vediamo se funziona ancora qui abbiamo e riavviamo se"
+  },
+  {
+    "start": 2704.94,
+    "end": 2710.3,
+    "text": " inizia a mostrarsi l'immagine come sta già succedendo significa che funziona tutto"
+  },
+  {
+    "start": 2710.3,
+    "end": 2716.28,
+    "text": " perfettamente va bene ecco perché non avevo rilasciato questo problema perché faceva"
+  },
+  {
+    "start": 2716.28,
+    "end": 2723.58,
+    "text": " schifo io lo sapevo ma volevo solo vedere il risultato e me ne impipavo delle altre cose allora"
+  },
+  {
+    "start": 2723.58,
+    "end": 2733.2,
+    "text": " guardate qua che succede qua lancio un dado da 0 a 1 un dato a virgola in virgola mobile genero un"
+  },
+  {
+    "start": 2733.2,
+    "end": 2746.12,
+    "text": " numero da 0 a 1 se il dado è minore della temperatura accetto una no scusate se la"
+  },
+  {
+    "start": 2746.12,
+    "end": 2749.98,
+    "text": " generazione è la prima generazione quindi devo accettare per forza come una mia soluzione"
+  },
+  {
+    "start": 2749.98,
+    "end": 2756.12,
+    "text": " migliore ne ho solo una o se la percentuale della differenza è minore della percentuale di"
+  },
+  {
+    "start": 2756.12,
+    "end": 2761.68,
+    "text": " differenza della mia immagine della mia soluzione migliore quindi se migliorativa o anche se non"
+  },
+  {
+    "start": 2761.68,
+    "end": 2770.6,
+    "text": " è migliorativa ma il dado ha un valore in un valore inferiore della temperatura quindi"
+  },
+  {
+    "start": 2770.6,
+    "end": 2776.38,
+    "text": " praticamente in quel caso guardate la temperatura come si evolve già la temperatura è negativa"
+  },
+  {
+    "start": 2776.38,
+    "end": 2784.26,
+    "text": " ma all'inizio ecco guardate parte da 0,9 quindi c'è il 10% di probabilità all'inizio che io accetto"
+  },
+  {
+    "start": 2784.26,
+    "end": 2787.96,
+    "text": " una soluzione peggiorativa man mano questa probabilità scende sempre di più dopo diventa"
+  },
+  {
+    "start": 2787.96,
+    "end": 2795.6,
+    "text": " negativo e non può succedere mai più infatti qua vediamo l'immagine che man mano si va formando"
+  },
+  {
+    "start": 2797.62,
+    "end": 2804.92,
+    "text": " allora io praticamente scelto questa nuova soluzione in che modo l'accetto copio nella memoria dello"
+  },
+  {
+    "start": 2804.92,
+    "end": 2812.64,
+    "text": " zx spectrum la mia soluzione best la new e poi mi setto qual è la differenza migliore finora"
+  },
+  {
+    "start": 2812.64,
+    "end": 2820.4,
+    "text": " che ho incontrato quindi la differenza più bassa che finora sono riuscito a incontrare ogni volta"
+  },
+  {
+    "start": 2820.4,
+    "end": 2827.92,
+    "text": " che eseguo mille generazioni di questo programma mostro l'immagine a video quindi trasformo la"
+  },
+  {
+    "start": 2827.92,
+    "end": 2834.9,
+    "text": " mia soluzione migliore in un frame buffer e poi chiamo sdl show rgb che mi permette di vedere"
+  },
+  {
+    "start": 2834.9,
+    "end": 2842.18,
+    "text": " questa immagine e poi poi faccio processi ed stl events e aumento la generazione e abbassso la"
+  },
+  {
+    "start": 2842.18,
+    "end": 2850.22,
+    "text": " temperatura piano piano bene pensavo di farciare un'unica puntata invece mi sa che è da tantissimo"
+  },
+  {
+    "start": 2850.22,
+    "end": 2856.5,
+    "text": " tempo che parlo non ho idea saranno di più di 40 minuti è molto probabile se non ancora di più"
+  },
+  {
+    "start": 2856.5,
+    "end": 2862.52,
+    "text": " per cui dobbiamo dividere anche questa cosa che doveva essere una pausa dalle lungaggini della"
+  },
+  {
+    "start": 2862.52,
+    "end": 2868.98,
+    "text": " toy fort ci tocca a dividere questa puntata a metà arrivederci alla prossima settimana ciao"
+  }
+]
