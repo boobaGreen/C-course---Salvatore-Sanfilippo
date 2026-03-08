@@ -6,6 +6,7 @@ import SwitchBoard from '../../components/content/SwitchBoard';
 import CodeEditor from '../../components/exercises/CodeEditor';
 import Quiz from '../../components/exercises/Quiz';
 import HackerTerminal from '../../components/content/HackerTerminal';
+import Infographic from '../../components/content/Infographic';
 
 # Lezione 7: Cicli, Ricorsione e Switch
 
@@ -162,6 +163,7 @@ Prova a trasformare questo ciclo `while` in un ciclo `for`.
 ## Quiz di Verifica
 
 <Quiz 
+  title="Quiz Standard" 
   questions={[
     {
       question: "Quale di questi cicli garantisce ALMENO un'esecuzione del codice al suo interno?",
@@ -223,6 +225,18 @@ Prova a trasformare questo ciclo `while` in un ciclo `for`.
   - **Stack vs Ricorsione**: Ogni chiamata ricorsiva occupa spazio sullo Stack (frame). Attenzione a non esaurirlo!
   - **Jump Tables**: Lo `switch` è velocissimo perché usa tabelle di salto invece di una lunga serie di comparazioni individuali.
 </KeyConcepts>
+
+
+<Infographic 
+  title="Dichiarazione vs Definizione"
+  description="La differenza cruciale per il compilatore C"
+  items={[
+    { label: "Dichiarazione (Header)", value: "Promette che esiste: void miaFunzione();", color: "blue" },
+    { label: "Definizione (Sorgente)", value: "Spiega cosa fa: void miaFunzione() { ... }", color: "emerald" },
+    { label: "Inclusione (#include)", value: "Copia-incolla le dichiarazioni nel file", color: "purple" }
+  ]}
+/>
+
 
 ### Hacker Challenge 🏆
 

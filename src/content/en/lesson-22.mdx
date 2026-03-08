@@ -91,6 +91,7 @@ int main() {
 ## Exercises
 
 <Quiz 
+  title="Quiz Standard" 
   questions={[
     {
       question: "What happens if you print a function name with `%p` in C?",
@@ -188,6 +189,10 @@ int main() {
     }
   ]} 
 />
+
+<Callout type="hacker" title="Jump Tables: C++ speed in C">
+  Using an array of function pointers, you can implement a super-fast `switch`. If you have 100 different commands, instead of doing 100 `if` statements, you can use the command code as the array index and jump instantly to the correct function. This is how professional interpreters achieve incredible speeds.
+</Callout>
 
 <HackerTerminal 
   challenges={[

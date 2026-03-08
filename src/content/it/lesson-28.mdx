@@ -6,6 +6,7 @@ import Quiz from '../../components/exercises/Quiz';
 import HackerTerminal from '../../components/content/HackerTerminal';
 import Infographic from '../../components/content/Infographic';
 import ComparisonTable from '../../components/content/ComparisonTable';
+import FormatStringExploit from '../../components/games/FormatStringExploit';
 
 # Lezione 28: Funzioni Variadiche e stdarg.h
 
@@ -141,6 +142,8 @@ Attenzione: `va_arg` non controlla se il tipo è giusto! Se passi un `double` ma
 </Callout>
 </Callout>
 
+<FormatStringExploit />
+
 ---
 
 ## Creare Wrapper della Printf
@@ -163,6 +166,7 @@ Uno degli usi più comuni è `vprintf`, che accetta una `va_list` invece di argo
 ## Esercitazione
 
 <Quiz 
+  title="Quiz Standard" 
   questions={[
     {
       question: "Quale header serve per le funzioni variadiche?",

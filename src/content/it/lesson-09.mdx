@@ -5,6 +5,8 @@ import CodeEditor from '../../components/exercises/CodeEditor';
 import Quiz from '../../components/exercises/Quiz';
 import HackerTerminal from '../../components/content/HackerTerminal';
 import PointerBasics from '../../components/content/PointerBasics';
+import PointerMaze from '../../components/games/PointerMaze';
+import Infographic from '../../components/content/Infographic';
 
 # Lezione 9: Benvenuti nei Puntatori
 
@@ -104,11 +106,32 @@ int main() {
   - **Memory Safety**: Capire che un puntatore è un'arma a doppio taglio: potente ma rischioso.
 </KeyConcepts>
 
+
+<Infographic 
+  title="Anatomia di un Puntatore"
+  description="Come la RAM viene divisa in scatole o frecce."
+  items={[
+    { label: "La Variabile", value: "La scatola che contiene il dato reale (es. int x = 5)", color: "blue" },
+    { label: "L'Indirizzo (&x)", value: "Il numero civico della scatola RAM (es. 0x7ffd5)", color: "emerald" },
+    { label: "Il Puntatore (*p)", value: "Un'altra scatola che contiene il numero civico di x", color: "purple" }
+  ]}
+/>
+
+
+---
+
+## Maze: Il Labirinto dei Puntatori 🕹️
+
+Premi il pulsante `*(deref)` per navigare nella memoria. Riuscirai a trovare l'istruzione di uscita `**EXIT**` senza finire in `NULL` o `Segmentation Fault`?
+
+<PointerMaze />
+
 ---
 
 ## Quiz di Verifica
 
 <Quiz 
+  title="Quiz Standard" 
   questions={[
     {
       question: "Cosa contiene tecnicamente una variabile dichiarata come `int *p`?",

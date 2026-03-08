@@ -256,10 +256,10 @@ Ispirandosi alle piattaforme educative più innovative (CodeCombat, Screeps, Che
 3. **Allineare componenti visivi EN/IT** nelle lezioni con differenze (17, 22)
 
 ### Priorità Bassa / Evolutiva 🟢
-4. **Implementare 2-3 nuovi giochi** (PointerMaze, LinkedListSurgeon, o FormatStringExploit)
-5. **Aggiungere Infographic** nelle 12 lezioni che ne sono prive
-6. **Usare il componente Diagram** (attualmente 0% utilizzo nonostante esista)
-7. **Arricchire lezioni 14, 15, 18, 20, 22-24, 28, 29** con un componente interattivo custom oltre al CodeEditor
+4. **~~Implementare 2-3 nuovi giochi~~** *(Completato)* — Creati e integrati PointerMaze, LinkedListSurgeon, e FormatStringExploit.
+5. **~~Aggiungere Infographic~~** *(Completato)* — Inserite nelle 7 lezioni IT ed EN che ne erano prive.
+6. **~~Usare il componente Diagram~~** *(Completato)* — Integrato nelle lezioni 6 (Array in memoria) e 15 (Architettura TAC).
+7. **~~Arricchire lezioni~~** *(Completato)* — Soddisfatto con la creazione dei 3 giochi sopra.
 
 ---
 

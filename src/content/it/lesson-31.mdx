@@ -2,6 +2,18 @@
 
 In questa lezione, Salvatore abbandona l'approccio classico per mostrarci come lavora *oggi* un programmatore esperto: non più scrivendo ogni singola linea a mano, ma guidando un agente AI (come Claude Code o Cursor) come un direttore d'orchestra.
 
+
+<Infographic 
+  title="Reference Counting"
+  description="Gestione Automatica della Memoria in C"
+  items={[
+    { label: "Allocazione", value: "Crea l'oggetto e metti ref_count = 1", color: "blue" },
+    { label: "Retain", value: "Qualcuno chiede il puntatore: ref_count++", color: "emerald" },
+    { label: "Release", value: "Qualcuno non usa più il puntatore: ref_count--. Se 0, fa la free!", color: "purple" }
+  ]}
+/>
+
+
 <VideoEmbed videoId="fZmdsh0gQig" title="Lezione 31: Programmazione Assistita e Ottimizzazione" />
 
 ## Il Nuovo Ruolo del Programmatore
@@ -72,6 +84,7 @@ Il *dithering* è l'arte di affiancare pixel di due colori per imitarne un terzo
 ## Esercitazione
 
 <Quiz 
+  title="Quiz Standard" 
   questions={[
     {
       question: "Perché l'Agente AI aveva fallito inizialmente nel generare l'effetto di sfumatura (dithering)?",

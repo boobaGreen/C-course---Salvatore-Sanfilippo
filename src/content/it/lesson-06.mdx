@@ -7,6 +7,7 @@ import Infographic from '../../components/content/Infographic';
 import CodeEditor from '../../components/exercises/CodeEditor';
 import Quiz from '../../components/exercises/Quiz';
 import HackerTerminal from '../../components/content/HackerTerminal';
+import Diagram from '../../components/content/Diagram';
 
 # Lezione 6: Controllo del Flusso e Blocchi
 
@@ -82,6 +83,7 @@ Una funzione può chiamare se stessa. È un modo elegante per contare o risolver
 ## Quiz di Verifica
 
 <Quiz 
+  title="Quiz Standard" 
   questions={[
     {
       question: "Cosa succede se dichiari una variabile con lo stesso nome di una esterna dentro un blocco {}?",
@@ -148,6 +150,19 @@ Una funzione può chiamare se stessa. È un modo elegante per contare o risolver
   - **Code Blocks**: Le graffe `{}` non solo raggruppano istruzioni, ma creano nuovi "mondi" per le variabili.
   - **Shadowing**: Una variabile interna può "eclissare" una esterna se hanno lo stesso nome.
 </KeyConcepts>
+
+
+<Diagram 
+  title="Layout di un Array in Memoria"
+  type="memory"
+  data={[
+    { address: "0x1000", value: "int nums[0]", label: "Base Address", color: "blue" },
+    { address: "0x1004", value: "int nums[1]", label: "+4 byte", color: "emerald" },
+    { address: "0x1008", value: "int nums[2]", label: "+8 byte", color: "purple" },
+    { address: "0x100C", value: "int nums[3]", label: "+12 byte", color: "amber" }
+  ]}
+/>
+
 
 ### Hacker Challenge 🏆
 

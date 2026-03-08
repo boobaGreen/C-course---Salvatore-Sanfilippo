@@ -6,6 +6,7 @@ import SwitchBoard from '../../components/content/SwitchBoard';
 import CodeEditor from '../../components/exercises/CodeEditor';
 import Quiz from '../../components/exercises/Quiz';
 import HackerTerminal from '../../components/content/HackerTerminal';
+import Infographic from '../../components/content/Infographic';
 
 # Lesson 7: Loops, Recursion & Switch
 
@@ -158,6 +159,7 @@ Try transforming this `while` loop into a `for` loop.
 ## Review Quiz
 
 <Quiz 
+  title="Quiz Standard" 
   questions={[
     {
       question: "Which of these loops guarantees AT LEAST one execution of the code inside?",
@@ -219,6 +221,18 @@ Try transforming this `while` loop into a `for` loop.
   - **Stack vs Recursion**: Every recursive call occupies space on the Stack (frame). Be careful not to exhaust it!
   - **Jump Tables**: The `switch` is ultra-fast because it uses jump tables instead of a long series of individual comparisons.
 </KeyConcepts>
+
+
+<Infographic 
+  title="Declaration vs Definition"
+  description="The crucial difference for the C compiler"
+  items={[
+    { label: "Declaration (Header)", value: "Promises it exists: void myFunction();", color: "blue" },
+    { label: "Definition (Source)", value: "Explains what it does: void myFunction() { ... }", color: "emerald" },
+    { label: "Inclusion (#include)", value: "Copy-pastes declarations into the file", color: "purple" }
+  ]}
+/>
+
 
 ### Hacker Challenge 🏆
 

@@ -5,6 +5,8 @@ import CodeEditor from '../../components/exercises/CodeEditor';
 import Quiz from '../../components/exercises/Quiz';
 import HackerTerminal from '../../components/content/HackerTerminal';
 import PointerBasics from '../../components/content/PointerBasics';
+import PointerMaze from '../../components/games/PointerMaze';
+import Infographic from '../../components/content/Infographic';
 
 # Lesson 9: Welcome to Pointers
 
@@ -100,11 +102,32 @@ int main() {
   - **Memory Safety**: Understanding that a pointer is a double-edged sword: powerful but risky.
 </KeyConcepts>
 
+
+<Infographic 
+  title="Pointer Anatomy"
+  description="How RAM is divided into boxes and arrows."
+  items={[
+    { label: "The Variable", value: "The box containing the actual data (e.g. int x = 5)", color: "blue" },
+    { label: "The Address (&x)", value: "The street address of the RAM box (e.g. 0x7ffd5)", color: "emerald" },
+    { label: "The Pointer (*p)", value: "Another box that holds the address of x", color: "purple" }
+  ]}
+/>
+
+
+---
+
+## Maze: The Pointers Labyrinth 🕹️
+
+Click the `*(deref)` button to navigate through memory. Can you find the `**EXIT**` instruction without crashing into `NULL` or a `Segmentation Fault`?
+
+<PointerMaze />
+
 ---
 
 ## Verification Quiz
 
 <Quiz 
+  title="Quiz Standard" 
   questions={[
     {
       question: "What does an `int *p` variable technically contain?",

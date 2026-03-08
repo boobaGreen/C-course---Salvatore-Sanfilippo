@@ -2,6 +2,18 @@
 
 In this lesson, Salvatore abandons the classic approach to show us how an expert programmer works *today*: no longer writing every single line by hand, but guiding an AI agent (like Claude Code or Cursor) like an orchestra conductor.
 
+
+<Infographic 
+  title="Reference Counting"
+  description="Automatic Memory Management in C"
+  items={[
+    { label: "Allocation", value: "Create object and set ref_count = 1", color: "blue" },
+    { label: "Retain", value: "Someone requests the pointer: ref_count++", color: "emerald" },
+    { label: "Release", value: "Someone is done with it: ref_count--. If 0, call free!", color: "purple" }
+  ]}
+/>
+
+
 <VideoEmbed videoId="fZmdsh0gQig" title="Lesson 31: Assisted Programming and Optimization" />
 
 ## The New Role of the Programmer
@@ -64,6 +76,7 @@ A true **technical conversation** begins with the AI:
 ## Exercise
 
 <Quiz 
+  title="Quiz Standard" 
   questions={[
     {
       question: "Why did the AI agent initially fail to generate the gradient (dithering) effect?",

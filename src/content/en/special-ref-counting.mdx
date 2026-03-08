@@ -2,6 +2,18 @@
 
 In this special lesson, Salvatore takes us "on a journey" (literally, in a car!) to reflect on one of the most powerful and debated memory management techniques: **Reference Counting**.
 
+
+<Infographic 
+  title="Reference Cycles"
+  description="The fatal flaw of Reference Counting"
+  items={[
+    { label: "A points to B", value: "B.ref_count = 1", color: "emerald" },
+    { label: "B points to A", value: "A.ref_count = 1", color: "blue" },
+    { label: "The Problem", value: "Even when going out of scope, counts will never hit 0. Leak!", color: "amber" }
+  ]}
+/>
+
+
 <VideoEmbed videoId="QdZc1JV_oCw" title="Special: Memory Management Deep Dive" />
 
 ## The Fundamental Question
@@ -57,6 +69,7 @@ Salvatore uses this technique in **Redis** with the `sds` (Simple Dynamic String
 ## Exercises
 
 <Quiz 
+  title="Quiz Standard" 
   questions={[
     {
       question: "In which case is Reference Counting unnecessary?",

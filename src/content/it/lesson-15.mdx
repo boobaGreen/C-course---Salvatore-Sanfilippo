@@ -7,10 +7,34 @@ import Quiz from '../../components/exercises/Quiz';
 import Infographic from '../../components/content/Infographic';
 import ComparisonTable from '../../components/content/ComparisonTable';
 import HackerTerminal from '../../components/content/HackerTerminal';
+import LinkedListSurgeon from '../../components/games/LinkedListSurgeon';
+import Diagram from '../../components/content/Diagram';
 
 # Lezione 15: Liste Linkate e il Progetto TAC
 
 <VideoEmbed videoId="aTT2W5NACEY" title="Lezione 15: Liste Linkate e TAC" />
+
+
+<Diagram 
+  title="Architettura TAC (Head Insertion)"
+  type="architecture"
+  data={{
+    nodes: [
+      { id: "file", label: "File.txt", type: "database" },
+      { id: "read", label: "fgets()", type: "process" },
+      { id: "alloc", label: "malloc() + strdup()", type: "process" },
+      { id: "list", label: "Linked List (LIFO)", type: "storage" },
+      { id: "print", label: "Stampa & Free", type: "output" }
+    ],
+    edges: [
+      { from: "file", to: "read", label: "Legge riga" },
+      { from: "read", to: "alloc", label: "Crea Nodo" },
+      { from: "alloc", to: "list", label: "Inserisci in Testa" },
+      { from: "list", to: "print", label: "Scorri & Stampa in ordine inverso" }
+    ]
+  }}
+/>
+
 
 <KeyConcepts concepts={[
   { title: "Argv: Puntatori a Puntatori", description: "Come il sistema passa gli argomenti della riga di comando tramite un array di stringhe." },
@@ -80,6 +104,14 @@ Perché la lista inverte il file? Perché facciamo `new_node->next = head; head 
     ["Spreco Memoria", "Zero (solo i dati)", "Alto (ogni nodo ha un puntatore next)"]
   ]}
 />
+
+---
+
+## Esercitazione: Linked List Surgeon 🩺
+
+Prima di vedere come TAC inverte un file, mettiti alla prova. Riesci a manipolare i puntatori in memoria per inserire e rimuovere nodi senza rompere la catena?
+
+<LinkedListSurgeon />
 
 ---
 

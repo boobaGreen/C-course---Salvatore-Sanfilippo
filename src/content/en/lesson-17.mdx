@@ -116,11 +116,16 @@ In C, newly allocated memory or memory declared on the stack contains "garbage".
   ]}
 />
 
+<Callout type="info" title="memset Optimization">
+  The compiler is so smart that if it sees a `memset` immediately followed by a `free`, it might decide **not to execute it** (because it "serves no purpose" for the logic of the program). This is a problem if you are zeroing out a password in memory for security! In those cases, special functions like `explicit_bzero` are used.
+</Callout>
+
 ---
 
 ## Exercises
 
 <Quiz 
+  title="Quiz Standard" 
   questions={[
     {
       question: "Which standard library function zeroes an entire block of memory?",

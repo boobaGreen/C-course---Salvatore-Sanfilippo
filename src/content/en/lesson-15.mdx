@@ -7,10 +7,34 @@ import Quiz from '../../components/exercises/Quiz';
 import HackerTerminal from '../../components/content/HackerTerminal';
 import Infographic from '../../components/content/Infographic';
 import ComparisonTable from '../../components/content/ComparisonTable';
+import LinkedListSurgeon from '../../components/games/LinkedListSurgeon';
+import Diagram from '../../components/content/Diagram';
 
 # Lesson 15: Linked Lists & the TAC Project
 
 "We left off with fractions, thinking we understood structures. We understood nothing until we take this leap." - Salvatore introduces the `tac` command (the reverse of `cat`) to explore the true power of dynamic structures.
+
+
+<Diagram 
+  title="TAC Architecture (Head Insertion)"
+  type="architecture"
+  data={{
+    nodes: [
+      { id: "file", label: "File.txt", type: "database" },
+      { id: "read", label: "fgets()", type: "process" },
+      { id: "alloc", label: "malloc() + strdup()", type: "process" },
+      { id: "list", label: "Linked List (LIFO)", type: "storage" },
+      { id: "print", label: "Print & Free", type: "output" }
+    ],
+    edges: [
+      { from: "file", to: "read", label: "Read line" },
+      { from: "read", to: "alloc", label: "Create Node" },
+      { from: "alloc", to: "list", label: "Insert at Head" },
+      { from: "list", to: "print", label: "Traverse & Print backward" }
+    ]
+  }}
+/>
+
 
 <VideoEmbed videoId="aTT2W5NACEY" title="Lesson 15: Linked Lists & TAC" />
 
@@ -91,6 +115,14 @@ Why does the list reverse the file? Because we do `new_node->next = head; head =
     ["Memory Waste", "Zero (data only)", "High (each node has a pointer)"]
   ]}
 />
+
+---
+
+## Exercise: Linked List Surgeon 🩺
+
+Before seeing how TAC reverses a file, test your skills. Can you manipulate pointers in memory to insert and remove nodes without breaking the chain?
+
+<LinkedListSurgeon />
 
 ---
 

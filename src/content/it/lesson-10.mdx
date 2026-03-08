@@ -6,6 +6,8 @@ import Quiz from '../../components/exercises/Quiz';
 import ComparisonTable from '../../components/content/ComparisonTable';
 import HackerTerminal from '../../components/content/HackerTerminal';
 import PointerArithmetic from '../../components/content/PointerArithmetic';
+import PointerMaze from '../../components/games/PointerMaze';
+import Infographic from '../../components/content/Infographic';
 
 # Lezione 10: Aritmetica dei Puntatori e Stringhe
 
@@ -109,11 +111,32 @@ int main() {
 </Callout>
 </KeyConcepts>
 
+
+<Infographic 
+  title="Aritmetica dei Puntatori"
+  description="Spostarsi in memoria in base al tipo"
+  items={[
+    { label: "char *p; p++", value: "Salta in avanti di 1 byte", color: "blue" },
+    { label: "short *p; p++", value: "Salta in avanti di 2 byte", color: "emerald" },
+    { label: "int *p; p++", value: "Salta in avanti di 4 byte", color: "purple" }
+  ]}
+/>
+
+
+---
+
+## Maze: Il Labirinto dei Puntatori 2 🕹️
+
+Sfida te stesso: riesci a raggiungere l'indirizzo 0x10F seguendo solo le catene corrette?
+
+<PointerMaze />
+
 ---
 
 ## Quiz di Verifica
 
 <Quiz 
+  title="Quiz Standard" 
   questions={[
     {
       question: "Se `int *p` punta all'indirizzo 1000, dove punterà `p + 1`?",

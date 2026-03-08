@@ -6,6 +6,8 @@ import Quiz from '../../components/exercises/Quiz';
 import ComparisonTable from '../../components/content/ComparisonTable';
 import HackerTerminal from '../../components/content/HackerTerminal';
 import PointerArithmetic from '../../components/content/PointerArithmetic';
+import PointerMaze from '../../components/games/PointerMaze';
+import Infographic from '../../components/content/Infographic';
 
 # Lesson 10: Pointer Arithmetic and Strings
 
@@ -105,11 +107,32 @@ int main() {
   - **Little Endian**: How multi-byte numbers are stored (least significant byte at the lowest address).
 </KeyConcepts>
 
+
+<Infographic 
+  title="Pointer Arithmetic"
+  description="Moving through memory based on type"
+  items={[
+    { label: "char *p; p++", value: "Jumps forward by 1 byte", color: "blue" },
+    { label: "short *p; p++", value: "Jumps forward by 2 bytes", color: "emerald" },
+    { label: "int *p; p++", value: "Jumps forward by 4 bytes", color: "purple" }
+  ]}
+/>
+
+
+---
+
+## Maze: The Pointers Labyrinth 2 🕹️
+
+Challenge yourself: can you reach address 0x10F by following only the correct pointer chains?
+
+<PointerMaze />
+
 ---
 
 ## Verification Quiz
 
 <Quiz 
+  title="Quiz Standard" 
   questions={[
     {
       question: "If `int *p` points to address 1000, where will `p + 1` point?",

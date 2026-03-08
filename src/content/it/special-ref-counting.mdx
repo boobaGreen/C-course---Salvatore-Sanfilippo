@@ -2,6 +2,18 @@
 
 In questa lezione speciale, Salvatore ci porta "in viaggio" (letteralmente, in macchina!) per riflettere su una delle tecniche più potenti e dibattute della gestione della memoria: il **Reference Counting**.
 
+
+<Infographic 
+  title="Cicli di Riferimento"
+  description="Il difetto fatale del Reference Counting"
+  items={[
+    { label: "A punta a B", value: "B.ref_count = 1", color: "emerald" },
+    { label: "B punta ad A", value: "A.ref_count = 1", color: "blue" },
+    { label: "Il Problema", value: "Anche uscendo dallo scope, i count non andranno mai a 0. Leak!", color: "amber" }
+  ]}
+/>
+
+
 <VideoEmbed videoId="QdZc1JV_oCw" title="Speciale: Deep Dive sulla Gestione Memoria" />
 
 ## La Domanda Fondamentale
@@ -57,6 +69,7 @@ Salvatore usa questa tecnica in **Redis** con la libreria `sds` (Simple Dynamic 
 ## Esercitazione
 
 <Quiz 
+  title="Quiz Standard" 
   questions={[
     {
       question: "In quale caso il Reference Counting è inutile?",
