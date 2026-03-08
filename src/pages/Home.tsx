@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Terminal, Code2, Info, BookOpen } from 'lucide-react';
+import { Terminal, Code2, Info, BookOpen, Github, Linkedin } from 'lucide-react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { lessons } from '../data/lessons';
@@ -92,7 +92,7 @@ export default function Home() {
             {/* Footer */}
             <footer className="w-full mt-24 pt-8 pb-6 border-t border-black/10 dark:border-white/5 z-10">
                 <div className="max-w-5xl mx-auto flex flex-col items-center justify-center gap-2 text-xs text-slate-400 dark:text-zinc-500">
-                    <span>
+                    <span className="flex items-center gap-2">
                         {t('footer.developed_by')}{' '}
                         <a
                             href="https://claudiodallara.it"
@@ -101,6 +101,13 @@ export default function Home() {
                             className="text-[var(--color-brand-secondary)] hover:underline font-semibold"
                         >
                             {t('footer.dev_name')}
+                        </a>
+                        <span className="opacity-50">|</span>
+                        <a href="https://github.com/boobaGreen" target="_blank" rel="noreferrer" className="hover:text-[var(--color-brand-secondary)] transition-colors">
+                            <Github size={14} />
+                        </a>
+                        <a href="https://www.linkedin.com/in/claudio-dall-ara-730aa0302/" target="_blank" rel="noreferrer" className="hover:text-[var(--color-brand-secondary)] transition-colors">
+                            <Linkedin size={14} />
                         </a>
                     </span>
                     <span className="opacity-75">{t('footer.license')}</span>
