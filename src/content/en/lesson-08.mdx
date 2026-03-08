@@ -59,6 +59,14 @@ Salvatore shows us how to "specialize the language" by creating a "ladder" of ab
 3.  **`count_living_neighbors`**: Cycles around a cell (8 neighbors) and counts how many are alive. Skips itself (offset 0,0).
 4.  **`compute_new_state`**: Applies Conway's rules to decide if a cell will live or die in the next generation.
 
+<Callout type="info" title="Elevating the Language">
+Salvatore explains that in C, the first part of a program often serves to "specialize the language": you write low-level functions to create a more comfortable environment to solve the actual problem. It's like building your own tools before starting to work with wood.
+</Callout>
+
+### 1D Mapping: Memory is a Line
+Even though we think of the grid as a rectangle, computer RAM is a long linear tape. Salvatore teaches us the magic formula for moving along this tape:
+`index = (y * width) + x`
+
 <Callout type="hacker" title="The Pointer 'Cheat'">
 Even though we haven't formally studied them yet, Salvatore must use **pointers** (`char *grid`) to pass the grid to functions. Without them, the functions would work on a copy of the grid and couldn't modify the original!
 </Callout>

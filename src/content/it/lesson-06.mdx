@@ -55,14 +55,24 @@ In C, puoi aprire un blocco di codice ovunque, non solo dopo un `if`. Ogni blocc
 Se dichiari `int x = 5;` dentro un blocco, una volta uscito da quel blocco `x` non esiste più per il compilatore. Tentare di usarlo causerà un errore!
 </Callout>
 
-## L'Oscuro Goto
-
-Salvatore ci mostra anche il `goto`, un modo per saltare direttamente a un'etichetta nel codice. Sebbene potente (e alla base di come il processore esegue i loop), è considerato pericoloso perché può rendere il codice difficile da seguire ("Spaghetti Code").
-
 <CodeEditor 
   initialCode={`#include <stdio.h>\n\nint main() {\n    int i = 0;\n    loop:\n    printf("%d ", i);\n    i++;\n    if (i < 5) goto loop;\n    return 0;\n}`}
   language="c"
 />
+
+<Callout type="tip" title="Stile Salvatore: Codice Verticalmente Corto">
+Salvatore preferisce spesso scrivere `if` brevi su una sola riga: `if (x) printf("!");`. Perché?
+1. **Leggibilità**: È quasi linguaggio naturale ("Se x, stampa").
+2. **Densità**: In una schermata del terminale entra più codice, riducendo la necessità di fare scrolling e aiutando a tenere a mente la struttura del programma.
+L'indentazione in C non è semantica (come in Python), ma è un'arte per l'essere umano.
+</Callout>
+
+## Ricorsione: L'Eleganza che Costa
+Una funzione può chiamare se stessa. È un modo elegante per contare o risolvere problemi complessi, ma ha un prezzo: ogni chiamata occupa spazio nello **Stack**.
+
+<Callout type="warning" title="Stack Overflow">
+  Mentre un ciclo `while` riutilizza la stessa memoria, la ricorsione crea un nuovo "Stack Frame" per ogni chiamata. Salvatore ci ha mostrato come contare fino a 10 con la ricorsione possa occupare quasi **500 byte** di RAM invece di pochi byte! Se esageri, il programma esplode (Stack Overflow).
+</Callout>
 
 ## Quiz di Verifica
 

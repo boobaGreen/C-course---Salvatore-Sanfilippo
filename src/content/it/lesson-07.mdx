@@ -46,6 +46,16 @@ for (int i = 0; i < 5; i++) {
 }
 ```
 
+<Callout type="info" title="Zucchero Sintattico">
+Il ciclo `for` è quello che i programmatori chiamano "Zucchero Sintattico": non aggiunge nuove funzionalità al linguaggio, ma rende solo più dolce (leggibile e compatta) una struttura che potevi già scrivere con il `while`.
+</Callout>
+
+### Trasformazione: Da For a While
+Per capire davvero il `for`, impara a smontarlo:
+1. La prima parte (inizializzazione) va **prima** del ciclo.
+2. La seconda parte (condizione) è il **motore** del `while`.
+3. La terza parte (incremento) va alla **fine** del blocco di codice.
+
 Usiamo il `for` quando sappiamo già quante volte iterare, e il `while` quando la condizione dipende da qualcosa che accadrà nel codice.
 
 <Callout type="hacker" title="For: Flessibilità Totale">
@@ -69,7 +79,11 @@ else printf("Trovato in posizione %d\n", i);
 ```
 
 <Callout type="warning" title="Scope della Variabile i">
-Se dichiari `for (int i = 0; ...)` dentro il ciclo, la variabile `i` sparisce appena il ciclo finisce. Se ti serve sapere a che punto si è fermato il ciclo (come nell'esempio sopra), devi dichiarare la `i` **fuori** dal `for`.
+Se dichiari `for (int i = 0; ...)` dentro il ciclo, la variabile `i` sparisce appena il ciclo finisce. Se ti serve sapere a che punto si è fermato il ciclo (come nel caso della ricerca dell'8 sopra), devi dichiarare la `i` **fuori** dal `for`.
+</Callout>
+
+<Callout type="danger" title="Il Problema del 'Dangling Else'">
+Quando annidi degli `if` senza usare le graffe, l' `else` si lega sempre all' `if` più vicino. È una delle fonti di bug più bastarde del C. **Consiglio di Salvatore:** usa sempre le graffe `{}`, anche per una sola riga!
 </Callout>
 
 ---
@@ -81,13 +95,15 @@ Quando una funzione chiama se stessa, il computer non ricomincia da zero. "Conge
 <RecursionVisualizer />
 
 <Callout type="hacker" title="Tail Call Optimization (TCO)">
-Se l'ultima cosa che una funzione fa è chiamare se stessa, un buon compilatore può ottimizzarla trasformandola in un salto (`goto`), risparmiando memoria. Se non ti fidi del compilatore, puoi farlo a mano:
+Se l'ultima cosa che una funzione fa è chiamare se stessa, un buon compilatore può ottimizzarla trasformandola in un salto (`goto`), risparmiando memoria. Salvatore ci ha mostrato come farlo a mano per evitare di consumare lo stack:
 ```c
 loop:
-    // ... fai qualcosa ...
+    if (start > end) return;
+    printf("%d ", start);
     start = start + 1;
-    goto loop; // Ricorsione manuale!
+    goto loop; // Ricorsione manuale (iterazione)!
 ```
+In questo modo l'indirizzo di memoria di `start` rimarrà sempre lo stesso, perché non creiamo nuovi frame.
 </Callout>
 
 <Callout type="warning" title="Stack Overflow">

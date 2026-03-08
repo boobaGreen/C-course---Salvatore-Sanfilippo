@@ -30,14 +30,25 @@ Welcome to lesson four! Today we'll dig beneath the surface of C to understand h
   ]} 
 />
 
-## How big is an integer?
+Unlike languages like Python, in C the size of an `int` is not fixed forever. It depends on your **platform** and C's historical ambition: to run on anything, from the **8-bit Z80** to 64-bit supercomputers.
 
-Unlike languages like Python, in C the size of an `int` is not fixed forever. It depends on your **platform**.
+<ComparisonTable 
+  title="Typical Sizes per Architecture"
+  headers={["Type", "8-bit (Z80/6502)", "32-bit (x86)", "64-bit (x64)"]}
+  rows={[
+    ["char", "1 byte", "1 byte", "1 byte"],
+    ["short", "2 bytes", "2 bytes", "2 bytes"],
+    ["int", "2 bytes", "4 bytes", "4 bytes"],
+    ["long", "4 bytes", "4 bytes", "8 bytes"]
+  ]}
+/>
 
 <LimitsExplorer />
 
 <Callout type="warning" title="Watch the Warning!">
-When using `sizeof` in `printf`, use the `%lu` (long unsigned) specifier or cast to `(int)`, otherwise the compiler will warn you that the types don't match!
+When using `sizeof` in `printf`, the compiler often expects `%lu` (long unsigned). If you want to use `%d`, you must perform **Casting**:
+`printf("%d", (int)sizeof(a));`
+Casting tells the compiler: "Trust me, temporarily convert this value to an integer."
 </Callout>
 
 ## The Dance of Bits
@@ -61,6 +72,19 @@ The computer doesn't just throw bytes randomly into RAM. It organizes them into 
   alt="Memory visualization and padding" 
   caption="How a mix of different types is stacked in RAM."
 />
+
+## A Trip Down Memory Lane: VT100 and Escape Codes
+Salvatore showed us how to "clear the screen" not with a magic command, but by sending special bytes to the terminal. These are **Escape Codes**.
+
+<Callout type="info" title="VT100 and Vintage Terminals">
+  In the '70s, terminals were physical machines (like the **DEC VT100**). To make them move the cursor or clear the screen, you sent the byte `0x1B` (Escape) followed by a control sequence. Even today, our modern terminals emulate those same standards!
+</Callout>
+
+```c
+// Example sequence to clear the screen
+printf("\033[H\033[2J"); 
+```
+`\033` is the Escape character in octal. `[H` homes the cursor (top left), `[2J` clears the entire terminal.
 
 ## Code Lab
 

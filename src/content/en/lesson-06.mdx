@@ -55,14 +55,24 @@ In C, you can open a block of code anywhere, not just after an `if`. Every block
 If you declare `int x = 5;` inside a block, once you exit that block `x` no longer exists for the compiler. Trying to use it will cause an error!
 </Callout>
 
-## The Dark Goto
-
-Salvatore also shows us `goto`, a way to jump directly to a label in the code. While powerful (and the basis for how the processor runs loops), it's considered dangerous because it can make code hard to follow ("Spaghetti Code").
-
 <CodeEditor 
   initialCode={`#include <stdio.h>\n\nint main() {\n    int i = 0;\n    loop:\n    printf("%d ", i);\n    i++;\n    if (i < 5) goto loop;\n    return 0;\n}`}
   language="c"
 />
+
+<Callout type="tip" title="Salvatore's Style: Vertically Short Code">
+Salvatore often prefers writing short `if` statements on a single line: `if (x) printf("!");`. Why?
+1. **Readability**: It's almost natural language ("If x, print").
+2. **Density**: More code fits on one terminal screen, reducing scrolling and helping you keep the program's structure in mind.
+Indentation in C is not semantic (unlike Python), but it is an art for the human reader.
+</Callout>
+
+## Recursion: Elegance at a Cost
+A function can call itself. It's an elegant way to count or solve complex problems, but it has a price: every call takes up space on the **Stack**.
+
+<Callout type="warning" title="Stack Overflow">
+  While a `while` loop reuses the same memory, recursion creates a new "Stack Frame" for every call. Salvatore showed us how counting to 10 with recursion can occupy nearly **500 bytes** of RAM instead of just a few bytes! If you overdo it, the program explodes (Stack Overflow).
+</Callout>
 
 ## Review Quiz
 

@@ -35,16 +35,21 @@ When you write `char c = 'A';`, the computer doesn't save the letter "A", but th
 
 <ASCIIConverter />
 
+<Callout type="warning" title="Single (') vs Double (") Quotes">
+This is one of the trickiest differences for those coming from Python or JS:
+- `'A'` (single quotes) is an **integer number** (65). It takes up 1 byte.
+- `"A"` (double quotes) is a **string**. It is an array containing 'A' and an invisible `\0` (zero) character to mark the end. It takes up 2 bytes.
+Swapping them will drive the compiler crazy!
+</Callout>
+
 <Infographic 
   src="/images/ascii_visual.png" 
   alt="ASCII conversion diagram" 
   caption="From the letter to the number, down to the bits in the processor."
 />
 
-<Callout type="info" title="Quotes vs Apostrophes">
-In C, there's a big difference:
-- `'A'` (single quotes) is a `char` type (a single number).
-- `"A"` (double quotes) is a string (a zero-terminated array of characters).
+<Callout type="info" title="Stringtozzi">
+Salvatore ironically calls this first approach to strings "Stringtozzi". Soon we will see that in C, a piece of text is nothing more than a pointer to the memory address of the first character.
 </Callout>
 
 ## Type Promotion
@@ -52,7 +57,7 @@ In C, there's a big difference:
 Did you know that if you pass a `char` to a function with variable arguments (like `printf`), C automatically promotes it to an `int`? This is why `%d` works for printing the numeric code of a character too!
 
 <CodeEditor 
-  initialCode={`#include <stdio.h>\n\nint main() {\n    char letter = 'A';\n    printf("Character: %c\\n", letter);\n    printf("ASCII Code: %d\\n", letter);\n    return 0;\n}`}
+  initialCode={`#include <stdio.h>\n\nint main() {\n    char letter = 'A'; // A single integer\n    printf("Character: %c\\n", letter);\n    printf("ASCII Code: %d\\n", letter);\n    \n    // Variadic promotion: char is passed as int\n    printf("Manual casting: %d\\n", (int)letter);\n    return 0;\n}`}
   language="c"
 />
 

@@ -46,6 +46,16 @@ for (int i = 0; i < 5; i++) {
 }
 ```
 
+<Callout type="info" title="Syntactic Sugar">
+The `for` loop is what programmers call "Syntactic Sugar": it doesn't add new functionality to the language, it just makes a structure you could already write with `while` "sweeter" (more readable and compact).
+</Callout>
+
+### Transformation: From For to While
+To truly understand the `for`, learn to dismantle it:
+1. The first part (initialization) goes **before** the loop.
+2. The second part (condition) is the **engine** of the `while`.
+3. The third part (increment) goes at the **end** of the code block.
+
 We use `for` when we already know how many times to iterate, and `while` when the condition depends on something that will happen in the code.
 
 <Callout type="hacker" title="For: Total Flexibility">
@@ -69,7 +79,11 @@ else printf("Found at position %d\n", i);
 ```
 
 <Callout type="warning" title="Variable Scope of i">
-If you declare `for (int i = 0; ...)` inside the loop, the variable `i` disappears as soon as the loop ends. If you need to know where the loop stopped (like in the example above), you must declare `i` **outside** the `for`.
+If you declare `for (int i = 0; ...)` inside the loop, the variable `i` disappears as soon as the loop ends. If you need to know where the loop stopped (like in the search example above), you must declare `i` **outside** the `for`.
+</Callout>
+
+<Callout type="danger" title="The 'Dangling Else' Problem">
+When you nest `if` statements without using braces, the `else` always binds to the nearest `if`. This is one of C's trickiest bug sources. **Salvatore's Advice:** always use braces `{}`, even for a single line!
 </Callout>
 
 ---
@@ -79,13 +93,15 @@ If you declare `for (int i = 0; ...)` inside the loop, the variable `i` disappea
 When a function calls itself, the computer doesn't start from scratch. It "freezes" the current function and opens a new one on top of it (a new "frame").
 
 <Callout type="hacker" title="Tail Call Optimization (TCO)">
-If the last thing a function does is call itself, a good compiler can optimize it by turning it into a jump (`goto`), saving memory. If you don't trust the compiler, you can do it manually:
+If the last thing a function does is call itself, a good compiler can optimize it by turning it into a jump (`goto`), saving memory. Salvatore showed us how to do it manually to avoid consuming the stack:
 ```c
 loop:
-    // ... do something ...
+    if (start > end) return;
+    printf("%d ", start);
     start = start + 1;
-    goto loop; // Manual recursion!
+    goto loop; // Manual recursion (iteration)!
 ```
+In this way, the memory address of `start` will always remain the same, because we don't create new frames.
 </Callout>
 
 <RecursionVisualizer />

@@ -35,16 +35,21 @@ Quando scrivi `char c = 'A';`, il computer non salva la lettera "A", ma il numer
 
 <ASCIIConverter />
 
+<Callout type="warning" title="Apici (') vs Virgolette (\")">
+Questa è una delle differenze più "bastarde" per chi viene da Python o JS:
+- `'A'` (apici singoli) è un **numero intero** (65). Occupa 1 byte.
+- `"A"` (virgolette) è una **stringa**. È un array che contiene 'A' e un carattere invisibile `\0` (zero) per segnare la fine. Occupa 2 byte.
+Scambiarli manderà in crisi il compilatore!
+</Callout>
+
 <Infographic 
   src="/images/ascii_visual.png" 
   alt="Schema conversione ASCII" 
   caption="Dalla lettera al numero, fino ai bit nel processore."
 />
 
-<Callout type="info" title="Apici vs Virgolette">
-In C c'è una grande differenza:
-- `'A'` (apici singoli) è un tipo `char` (un singolo numero).
-- `"A"` (virgolette) è una stringa (un array di caratteri terminato da uno zero).
+<Callout type="info" title="Stringtozzi">
+Salvatore chiama ironicamente "Stringtozzi" questo primo approccio alle stringhe. Presto vedremo che in C un testo non è altro che un puntatore all'indirizzo di memoria del primo carattere.
 </Callout>
 
 ## Promozione dei Tipi
@@ -52,7 +57,7 @@ In C c'è una grande differenza:
 Sapevi che se passi un `char` a una funzione con argomenti variabili (come `printf`), il C lo promuove automaticamente a `int`? Ecco perché `%d` funziona anche per stampare il codice numerico di un carattere!
 
 <CodeEditor 
-  initialCode={`#include <stdio.h>\n\nint main() {\n    char lettera = 'A';\n    printf("Carattere: %c\\n", lettera);\n    printf("Codice ASCII: %d\\n", lettera);\n    return 0;\n}`}
+  initialCode={`#include <stdio.h>\n\nint main() {\n    char lettera = 'A'; // Un singolo intero\n    printf("Carattere: %c\\n", lettera);\n    printf("Codice ASCII: %d\\n", lettera);\n    \n    // Variadic promotion: char viene passato come int\n    printf("Casting manuale: %d\\n", (int)lettera);\n    return 0;\n}`}
   language="c"
 />
 

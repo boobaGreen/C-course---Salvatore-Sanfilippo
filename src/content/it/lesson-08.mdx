@@ -59,6 +59,14 @@ Salvatore ci mostra come "specializzare il linguaggio" creando una "scala" di as
 3.  **`count_living_neighbors`**: Cicla intorno a una cella (8 vicini) e conta quanti sono vivi. Salta se stessa (offset 0,0).
 4.  **`compute_new_state`**: Applica le regole di Conway per decidere se una cella vivrà o morirà nella prossima generazione.
 
+<Callout type="info" title="Elevare il Linguaggio">
+Salvatore spiega che in C spesso la prima parte del programma serve a "specializzare il linguaggio": scrivi funzioni di basso livello per crearti un ambiente più comodo dove risolvere il problema reale. È come costruirsi i propri strumenti prima di iniziare a lavorare il legno.
+</Callout>
+
+### Il Mapping 1D: La Memoria è una Linea
+Anche se pensiamo alla griglia come a un rettangolo, la RAM del computer è un lungo nastro lineare. Salvatore ci insegna la formula magica per muoverci in questo nastro:
+`indice = (y * larghezza) + x`
+
 <Callout type="hacker" title="Il 'Cheat' dei Puntatori">
 Anche se non li abbiamo ancora studiati formalmente, Salvatore deve usare i **puntatori** (`char *grid`) per passare la griglia alle funzioni. Senza di essi, le funzioni lavorerebbero su una copia della griglia e non potrebbero modificare l'originale!
 </Callout>
