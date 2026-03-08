@@ -7,6 +7,7 @@ Una piattaforma web dedicata ad accompagnare passo passo gli studenti del corso 
 - **Layout Interattivi**: esecutore di codice WASM simulato nel browser
 - **Giochi ed Esercizi**: impara divertendoti
 - **Contenuto**: Trascrizioni Whisper + revisione LLM
+- **Sviluppato da**: [Claudio Dall'Ara](https://claudiodallara.it) ([@boobaGreen](https://github.com/boobaGreen))
 
 ## 🛠️ Stack Tecnologico
 - **Vite + React (TS)**

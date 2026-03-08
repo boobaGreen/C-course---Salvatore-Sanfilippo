@@ -20,6 +20,14 @@
         "close": "Chiudi",
         "badge": "Scopri di più sull'autore"
     },
+    "developer": {
+        "title": "Sviluppato da",
+        "name": "Claudio Dall'Ara",
+        "bio": "Appassionato di sistemi, programmazione e divulgazione tecnologica.",
+        "company": "Agile Lab",
+        "github": "Profilo GitHub",
+        "website": "Sito Web"
+    },
     "lesson": {
         "key_concepts": "Concetti Chiave",
         "exercises": "Esercizi",

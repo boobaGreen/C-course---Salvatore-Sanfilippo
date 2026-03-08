@@ -20,6 +20,14 @@
         "close": "Close",
         "badge": "Learn more about the author"
     },
+    "developer": {
+        "title": "Developed by",
+        "name": "Claudio Dall'Ara",
+        "bio": "Passionate about systems, programming, and technology education.",
+        "company": "Agile Lab",
+        "github": "GitHub Profile",
+        "website": "Website"
+    },
     "lesson": {
         "key_concepts": "Key Concepts",
         "exercises": "Exercises",

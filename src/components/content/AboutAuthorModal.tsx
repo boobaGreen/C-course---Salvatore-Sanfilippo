@@ -1,4 +1,4 @@
-import { X, Github, ExternalLink, Cpu } from 'lucide-react';
+import { X, Github, ExternalLink, Cpu, Code2, Linkedin } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect } from 'react';
@@ -88,6 +88,35 @@ export default function AboutAuthorModal({ isOpen, onClose }: AboutAuthorModalPr
                                 </div>
 
                                 <p dangerouslySetInnerHTML={{ __html: t('author.bio_4') }} />
+                            </div>
+
+                            {/* Developer Section */}
+                            <div className="mt-12 pt-8 border-t border-white/5">
+                                <h3 className="text-sm font-semibold text-[var(--color-brand-primary)] uppercase tracking-wider mb-4">
+                                    {t('developer.title')}
+                                </h3>
+                                <div className="flex items-center gap-4 group">
+                                    <div className="h-12 w-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-zinc-400 group-hover:bg-[var(--color-brand-secondary)]/10 group-hover:text-[var(--color-brand-secondary)] transition-colors">
+                                        <Code2 size={24} />
+                                    </div>
+                                    <div className="flex-1">
+                                        <div className="flex items-center justify-between">
+                                            <h4 className="text-zinc-100 font-bold">{t('developer.name')}</h4>
+                                            <div className="flex gap-2">
+                                                <a href="https://github.com/boobaGreen" target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-white transition-colors" title={t('developer.github')}>
+                                                    <Github size={18} />
+                                                </a>
+                                                <a href="https://claudiodallara.it" target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-white transition-colors" title={t('developer.website')}>
+                                                    <ExternalLink size={18} />
+                                                </a>
+                                                <a href="https://www.linkedin.com/in/claudiodallara/" target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-white transition-colors" title="LinkedIn">
+                                                    <Linkedin size={18} />
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <p className="text-xs text-zinc-500 mt-1">{t('developer.bio')} — <span className="text-zinc-400">{t('developer.company')}</span></p>
+                                    </div>
+                                </div>
                             </div>
 
                         </div>
