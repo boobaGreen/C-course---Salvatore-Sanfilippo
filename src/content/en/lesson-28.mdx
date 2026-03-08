@@ -44,6 +44,68 @@ Never forget `va_end(ap)`. While it does nothing on many architectures, on some 
 
 ---
 
+## The Delegation Pattern: `vprintf`
+
+There is a limit to variadic functions: you cannot pass the three dots (`...`) from one function to another like a normal variable. If you want to write a wrapper for `printf`, you must use its "sister" version that accepts a `va_list`: the `vprintf` function.
+
+<Infographic 
+  title="Variadic Delegation"
+  type="process"
+  data={[
+    { label: "Your Function (log_error)", detail: "Receives ... and initializes va_list" },
+    { label: "Delegation", detail: "Passes va_list to vprintf" },
+    { label: "Standard Library", detail: "vprintf consumes the list and prints" }
+  ]}
+/>
+
+<CodeEditor 
+  initialCode={`#include <stdarg.h>
+#include <stdio.h>
+
+// A wrapper that adds a prefix to every message
+void log_error(const char *fmt, ...) {
+    va_list ap;
+    va_start(ap, fmt);
+    
+    printf("[TOYFORT ERROR]: ");
+    vprintf(fmt, ap); // DELEGATION
+    printf("\\n");
+    
+    va_end(ap);
+}`}
+  language="c"
+/>
+
+---
+
+## Practical Example: Centered Text
+
+Salvatore shows how to use these functions to manipulate output creatively, for example, by centering text in the terminal.
+
+<CodeEditor 
+  initialCode={`void print_centered(int width, const char *fmt, ...) {
+    char buffer[1024];
+    va_list ap;
+    
+    va_start(ap, fmt);
+    vsnprintf(buffer, sizeof(buffer), fmt, ap);
+    va_end(ap);
+    
+    int len = strlen(buffer);
+    int padding = (width - len) / 2;
+    
+    for (int i = 0; i < padding; i++) putchar(' ');
+    printf("%s\\n", buffer);
+}`}
+  language="c"
+/>
+
+<Callout type="warning" title="Type Safety">
+Warning: `va_arg` has no idea what is actually on the stack. If you tell it to extract an `int` but the user passed a string, the program won't give a compilation error, but it will **Segmentation Fault** or corrupt memory at runtime!
+</Callout>
+
+---
+
 ## Extracting Arguments with `va_arg`
 
 In C, the function doesn't automatically know "how many" arguments were passed. We must tell it through a format (like in printf) or a terminator.
