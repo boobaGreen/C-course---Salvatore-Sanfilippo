@@ -1,0 +1,222 @@
+import VideoEmbed from '../../components/content/VideoEmbed';
+import Callout from '../../components/content/Callout';
+import KeyConcepts from '../../components/content/KeyConcepts';
+import CodeEditor from '../../components/exercises/CodeEditor';
+import Quiz from '../../components/exercises/Quiz';
+import HackerTerminal from '../../components/content/HackerTerminal';
+import Infographic from '../../components/content/Infographic';
+
+# Lesson 19: POSIX System Calls
+
+In this lesson, we leave the "comfortable" standard library (`fopen`, `fread`) behind to talk directly with the Operating System Kernel. We discover how C becomes the bridge between hardware and software through **System Calls**.
+
+<VideoEmbed videoId="QWLJ7CBAu_I" title="Lesson 19: System Calls & POSIX" />
+
+<KeyConcepts concepts={[
+  { title: "File Descriptors (int fd)", description: "Forget FILE pointers. At a low level, every open resource is just an integer in the Kernel's index." },
+  { title: "Standard Library vs Syscalls", description: "Understand that fopen is just a slower, buffered 'wrapper' that eventually calls open (syscall)." },
+  { title: "Real-time Error Handling", description: "Use errno and perror to interpret error messages coming directly from the heart of the system." }
+]} />
+
+## File Descriptors: 0, 1, 2
+
+Every Linux process is born with three already open communication channels:
+- **0**: Standard Input (keyboard)
+- **1**: Standard Output (terminal)
+- **2**: Standard Error (errors on the terminal)
+
+<LimitsExplorer 
+  title="Explore System Limits"
+  description="POSIX systems have physical limits on resources."
+/>
+
+<Infographic 
+  title="Syscall Architecture"
+  description="The path of a piece of data from your code to the Hardware."
+  items={[
+    { label: "User Space", value: "Your C code (printf, write)", color: "blue" },
+    { label: "System Call Interface", value: "The portal to the Kernel", color: "purple" },
+    { label: "Kernel Space", value: "Driver and file system management", color: "emerald" },
+    { label: "Hardware", value: "The physical disk or monitor", color: "amber" }
+  ]}
+/>
+
+<ComparisonTable 
+  title="Standard I/O vs System I/O"
+  headers={["Function", "Type", "Buffering", "Speed"]}
+  rows={[
+    ["fopen / fread", "C Library", "✅ Yes", "High for small accesses"],
+    ["open / read", "System Call", "❌ No", "High for large blocks"]
+  ]}
+/>
+
+---
+
+## Example: Low-Level Writing
+
+We use `open` and `write` instead of the standard functions. Note how we must handle octal permissions (e.g., 0644).
+
+<CodeEditor 
+  initialCode={`#include <stdio.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <errno.h>
+#include <string.h>
+
+int main() {
+    // Open a file in write-only mode, creating it if missing
+    int fd = open("low_level.txt", O_WRONLY | O_CREAT | O_TRUNC, 0644);
+    
+    if (fd == -1) {
+        perror("Error opening");
+        return 1;
+    }
+
+    char *msg = "Greetings from the Kernel!\\n";
+    if (write(fd, msg, strlen(msg)) == -1) {
+        perror("Error writing");
+    }
+
+    close(fd);
+    return 0;
+}`} 
+  language="c" 
+/>
+
+---
+
+## Exercises
+
+<Quiz 
+  questions={[
+    {
+      question: "What type of data does the `open()` function return?",
+      options: [
+        "A FILE* pointer",
+        "An integer (File Descriptor)",
+        "A string with the file name",
+        "A boolean"
+      ],
+      correctAnswer: 1,
+      explanation: "At a low level, files are identified by an integer called a descriptor."
+    },
+    {
+      question: "What is the standard File Descriptor for 'Standard Error'?",
+      options: [
+        "0",
+        "1",
+        "2",
+        "3"
+      ],
+      correctAnswer: 2,
+      explanation: "0=stdin, 1=stdout, 2=stderr."
+    },
+    {
+      question: "What does the global variable `errno` contain?",
+      options: [
+        "The number of lines written",
+        "The numerical code of the last error that occurred in a system call",
+        "The memory address of the program",
+        "Nothing, it's a myth"
+      ],
+      correctAnswer: 1,
+      explanation: "When a syscall fails, it sets errno with a specific code (e.g., ENOENT for file not found)."
+    },
+    {
+      question: "What is the main advantage of using `write()` compared to `fprintf()`?",
+      options: [
+        "It's easier to use",
+        "It's faster and has no buffering or formatting overhead (ideal for critical systems)",
+        "It can only write to text files",
+        "None"
+      ],
+      correctAnswer: 1,
+      explanation: "write() sends data directly to the kernel without waiting for an internal buffer to fill up."
+    },
+    {
+      question: "What happens if you forget to include `<unistd.h>` while using `read` or `write`?",
+      options: [
+        "The compiler gives an 'implicit declaration' error (or linking fails)",
+        "The program works but is slow",
+        "The operating system blocks execution",
+        "It is included automatically"
+      ],
+      correctAnswer: 0,
+      explanation: "unistd.h defines the prototypes for standard POSIX functions for interacting with the OS."
+    }
+  ]} 
+/>
+
+<Quiz 
+  title="Hacker Challenge"
+  questions={[
+    {
+      id: 1,
+      question: "Why do we use the `0` prefix in `open` permissions (e.g., `0644`)?",
+      options: [
+        "It's a typo",
+        "To indicate to the compiler that the number is in OCTAL (base 8) format",
+        "Because files always start at 0",
+        "For security reasons"
+      ],
+      correctAnswer: 1,
+      explanation: "Unix permissions (rwx) are grouped into triplets of bits, so base 8 is perfect for representing them."
+    },
+    {
+      id: 2,
+      question: "What does POSIX stand for?",
+      options: [
+        "Program Open System Interface",
+        "Portable Operating System Interface (a standard for interoperability among Unix systems)",
+        "Position of Internal X-system",
+        "Point of Sale Interface"
+      ],
+      correctAnswer: 1,
+      explanation: "It is the set of rules that ensures code written on Linux also works on macOS or BSD."
+    },
+    {
+      id: 3,
+      question: "In which section of the Linux manual (`man`) are System Calls found?",
+      options: [
+        "Section 1",
+        "Section 2",
+        "Section 3",
+        "Section 8"
+      ],
+      correctAnswer: 1,
+      explanation: "man 1=commands, man 2=syscalls, man 3=C libraries."
+    }
+  ]} 
+/>
+
+<HackerTerminal 
+  challenges={[
+    {
+      id: "man-syscall-en",
+      title: "The Kernel Manual",
+      description: "Use the `man` command to read the documentation for the `read` syscall. Specify the correct section.",
+      commands: ["man 2 read"],
+      expectedOutput: "READ(2)",
+      hints: ["Section 2 is dedicated to system calls."]
+    },
+    {
+      id: "strace-write-en",
+      title: "Spying on the Program",
+      description: "Write a program that uses `write()` and use `strace` to confirm that the call actually occurs.",
+      commands: ["strace ./program | grep write"],
+      expectedOutput: "write(3, \"Greetings",
+      hints: ["strace intercepts syscalls in real time."]
+    },
+    {
+      id: "errno-list-en",
+      title: "Error Catalog",
+      description: "Use the `errno -l` command (if installed) or search system header files to find where error names are defined.",
+      commands: ["grep -R \"EACCES\" /usr/include"],
+      expectedOutput: "#define EACCES",
+      hints: ["EACCES is the 'Permission Denied' error."]
+    }
+  ]}
+/>
+
+### Final Summary
+We have broken through the wall of the standard library. You now know that every time you write something to the screen or disk, you are asking for the Kernel's permission. Mastering syscalls means having total control over the machine.

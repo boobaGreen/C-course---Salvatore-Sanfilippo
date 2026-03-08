@@ -234,39 +234,38 @@ Il prototipo serve a dire al compilatore: *"Esiste una funzione chiamata `printf
 ### Terminal Challenge: The Optimization Trap 🕵️
 
 <HackerTerminal 
-  title="Hacker Challenge: Level 1 - Task 1"
-  description="Hai compilato un programma che usa printf per stampare la stringa 'Hello World' (senza % o altre variabili). Hai usato l'ottimizzazione -O2. Se vai a vedere l'assembly generato, quale funzione ti aspetti di trovare al posto di printf?"
-  command="gcc -O2 -S hello.c && grep 'call' hello.s"
-  expectedOutput="puts"
-  inputLabel="Funzione attesa:"
-  placeholder="es. puts"
-  hint="Salvatore ha spiegato che il compilatore 'declassa' printf a una funzione più semplice se non ci sono formattazioni."
-  explanation="Esatto! Poiché printf è una funzione pesante che deve analizzare la stringa per trovare %, se la stringa è statica e semplice, il compilatore la sostituisce con 'puts' (Put String) che è molto più leggera e veloce."
-  xpReward={150}
-/>
-
-<HackerTerminal 
-  title="Hacker Challenge: Level 1 - Task 2"
-  description="Il file eseguibile 'a.out' non è solo una sequenza di numeri. È un file strutturato (solitamente ELF su Linux). Quale comando useresti per scoprire che tipo di file è e per quale architettura è stato compilato?"
-  command="ls -l a.out"
-  expectedOutput="file a.out"
-  inputLabel="Comando:"
-  placeholder="es. file nomefile"
-  hint="È un comando di una sola parola che significa 'documento' o 'archivio' in inglese."
-  explanation="Ottimo! Il comando `file` analizza l'intestazione (header) del binario e ti dice se è a 64-bit, se è dinamico o statico, e per quale sistema operativo è stato creato."
-  xpReward={200}
-/>
-
-<HackerTerminal 
-  title="Hacker Challenge: Level 1 - Task 3"
-  description="Gli eseguibili spesso contengono 'simboli' (nomi di funzioni e variabili) utili per il debug ma che occupano spazio. Quale comando useresti per 'ripulire' l'eseguibile a.out da questi simboli e renderlo più piccolo?"
-  command="ls -sh a.out"
-  expectedOutput="strip a.out"
-  inputLabel="Comando:"
-  placeholder="es. strip nomefile"
-  hint="Significa 'togliere' o 'spogliare' in inglese."
-  explanation="Bravissimo! `strip` rimuove la symbol table e le informazioni di debug. È una tecnica comune per ridurre la dimensione dei binari prima di distribuirli, rendendo anche più difficile il reverse engineering."
-  xpReward={250}
+  challenges={[
+    {
+      id: "opt-trap",
+      title: "L'Ottimizzazione Subdola",
+      description: "Hai compilato un programma che stampa 'Hello World' con `printf`. Se guardi l'assembly generato con `-O2`, quale funzione più semplice trovi al posto di printf?",
+      commands: ["gcc -O2 -S hello.c", "grep 'call' hello.s"],
+      expectedOutput: "puts",
+      hints: ["Il compilatore 'declassa' la funzione se non ci sono formattazioni"],
+      explanation: "Esatto! Il compilatore sostituisce printf con puts per stringhe statiche semplici, poiché è molto più efficiente.",
+      xpReward: 150
+    },
+    {
+      id: "elf-check",
+      title: "Anatomia del Binario",
+      description: "Un eseguibile Linux non è solo codice. Quale comando identifica la struttura del file e l'architettura per cui è stato creato?",
+      commands: ["file a.out"],
+      expectedOutput: "ELF 64-bit",
+      hints: ["Cerca un comando che significa 'documento' o 'archivio'"],
+      explanation: "Ottimo! Il comando `file` legge l'header ELF per determinare il tipo di binario.",
+      xpReward: 200
+    },
+    {
+      id: "strip-symbols",
+      title: "Pulizia Finale",
+      description: "Quale comando rimuove la symbol table e le info di debug per ridurre la dimensione del file?",
+      commands: ["strip a.out"],
+      expectedOutput: "",
+      hints: ["Significa 'spogliare' o 'togliere' in inglese"],
+      explanation: "Perfetto! `strip` rende il binario più piccolo e difficile da analizzare con il reverse engineering.",
+      xpReward: 250
+    }
+  ]}
 />
 
 Ci vediamo alla prossima lezione!

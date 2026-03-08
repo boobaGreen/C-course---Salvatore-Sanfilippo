@@ -1,0 +1,242 @@
+import VideoEmbed from '../../components/content/VideoEmbed';
+import Callout from '../../components/content/Callout';
+import KeyConcepts from '../../components/content/KeyConcepts';
+import CodeEditor from '../../components/exercises/CodeEditor';
+import Quiz from '../../components/exercises/Quiz';
+import HackerTerminal from '../../components/content/HackerTerminal';
+import Infographic from '../../components/content/Infographic';
+
+# Lesson 18: Typedef & Standard File I/O
+
+In this lesson, we will make a qualitative leap toward professional C. We will learn how to hide complexity using `typedef` and how to interact with the outside world by saving and reading data on disk using the standard library.
+
+<VideoEmbed videoId="3w73xjUSUEU" title="Lesson 18: Typedef & File I/O" />
+
+<KeyConcepts concepts={[
+  { title: "Type Aliasing (typedef)", description: "Creating mnemonic names for complex types to make code more readable and easier to maintain." },
+  { title: "Standard FILE API", description: "Mastering fopen, fread, fwrite, and fclose for universal file management in C." },
+  { title: "Opaque Types", description: "The technique of hiding the internal implementation of structs to create clean interfaces." }
+]} />
+
+## Using Typedef
+
+`typedef` does not create a new type but a "nickname" for an existing type. Salvatore highly recommends it to avoid writing `struct` every time.
+
+```c
+typedef struct {
+    int x;
+    int y;
+} Point;
+
+Point p; // Much cleaner than 'struct Point p'
+```
+
+<ComparisonTable 
+  title="Typedef: Before vs After"
+  headers={["Without Typedef", "With Typedef", "Advantage"]}
+  rows={[
+    ["struct User u;", "User u;", "Readability"],
+    ["unsigned long long int x;", "u64 x;", "Brevity"],
+    ["struct Node *next;", "Node *next;", "Abstraction"]
+  ]}
+/>
+
+---
+
+## The File API (stdio.h)
+
+In C, a file is seen as a **stream** of bytes. The standard library provides us with a pointer to a special structure called `FILE`.
+
+<Infographic 
+  title="File Life Cycle"
+  description="The 4 fundamental steps to avoid data corruption."
+  items={[
+    { label: "Opening", value: "fopen(name, mode) - Mode examples: 'r', 'w', 'a', 'rb'", color: "blue" },
+    { label: "Operation", value: "fread / fwrite / fprintf - Reading or writing data", color: "emerald" },
+    { label: "Positioning", value: "fseek / ftell - Moving inside the file like in an array", color: "purple" },
+    { label: "Closing", value: "fclose(fp) - Flushing buffers and releasing the resource", color: "amber" }
+  ]}
+/>
+
+<ComparisonTable 
+  title="Text vs Binary Mode"
+  headers={["Feature", "Text ('r', 'w')", "Binary ('rb', 'wb')"]}
+  rows={[
+    ["Translation", "✅ Yes (e.g., \\n becomes \\r\\n on Win)", "❌ No (byte by byte)"],
+    ["Speed", "Slow (conversion)", "Max (direct copy)"],
+    ["Content", "Human-readable", "Raw data (structs, images)"]
+  ]}
+/>
+
+### Example: Writing and Reading a Binary
+
+<CodeEditor 
+  initialCode={`#include <stdio.h>
+#include <stdint.h>
+
+typedef struct {
+    uint32_t id;
+    float score;
+} Player;
+
+int main() {
+    Player p1 = {1, 95.5f};
+    
+    // Writing
+    FILE *fout = fopen("save.dat", "wb");
+    if (fout) {
+        fwrite(&p1, sizeof(Player), 1, fout);
+        fclose(fout);
+    }
+    
+    // Reading
+    Player loaded;
+    FILE *fin = fopen("save.dat", "rb");
+    if (fin) {
+        fread(&loaded, sizeof(Player), 1, fin);
+        printf("ID: %u, Score: %.1f\\n", loaded.id, loaded.score);
+        fclose(fin);
+    }
+    
+    return 0;
+}`} 
+  language="c" 
+/>
+
+---
+
+## Exercises
+
+<Quiz 
+  questions={[
+    {
+      question: "What is the main purpose of the `typedef` command?",
+      options: [
+        "Defines a new variable",
+        "Creates an alias (nickname) for an existing data type",
+        "Allocates memory on the heap",
+        "Includes a library"
+      ],
+      correctAnswer: 1,
+      explanation: "typedef allows abbreviating complex names (like structs), making the code cleaner."
+    },
+    {
+      question: "Which `fopen` mode would you choose to add data to the END of a text file without deleting existing content?",
+      options: [
+        " 'r' ",
+        " 'w' ",
+        " 'a' ",
+        " 'rb' "
+      ],
+      correctAnswer: 2,
+      explanation: " 'a' stands for 'Append'."
+    },
+    {
+      question: "What happens if you open a file in 'w' mode but the file does not exist?",
+      options: [
+        "The program crashes",
+        "fopen returns NULL",
+        "The file is created automatically",
+        "The computer beeps"
+      ],
+      correctAnswer: 2,
+      explanation: "The 'w' (write) mode creates the file if it doesn't exist, or empties it completely if it already does."
+    },
+    {
+      question: "Why are `fread` and `fwrite` considered efficient functions?",
+      options: [
+        "Because they are written in Assembly",
+        "Because they read/write entire binary memory blocks at once instead of one character at a time",
+        "Because they use the internet",
+        "Because they don't use RAM"
+      ],
+      correctAnswer: 1,
+      explanation: "By working in binary, there's no need for text-to-number conversions, saving CPU cycles."
+    },
+    {
+      question: "Which function would you use to find the total size in bytes of a file after opening it?",
+      options: [
+        "sizeof(FILE)",
+        "Combination of fseek(fp, 0, SEEK_END) and ftell(fp)",
+        "strlen(file)",
+        "file_size(fp)"
+      ],
+      correctAnswer: 1,
+      explanation: "You move to the end with `fseek` and then ask `ftell` what position you've reached."
+    }
+  ]} 
+/>
+
+<Quiz 
+  title="Hacker Challenge"
+  questions={[
+    {
+      id: 1,
+      question: "What is the difference between 'r' and 'rb' in `fopen` on Windows systems?",
+      options: [
+        "None",
+        " 'r' automatically translates newline characters (\\n) while 'rb' reads raw bytes without modifications",
+        " 'rb' is faster",
+        " 'r' is only for read-only files"
+      ],
+      correctAnswer: 1,
+      explanation: "On Linux there is no difference, but on Windows, the text mode 'r' can alter bytes during CRLF line ending translation."
+    },
+    {
+      id: 2,
+      question: "What is an 'Opaque Type'?",
+      options: [
+        "A type that takes up no memory",
+        "A struct whose definition is hidden in the .c file and the user receives only a generic pointer",
+        "A data type protected by a password",
+        "A variable that disappears if not used"
+      ],
+      correctAnswer: 1,
+      explanation: "It is the secret of encapsulation in C: the user uses the object but cannot see (or break) its internal fields."
+    },
+    {
+      id: 3,
+      question: "What does the `rewind(fp)` function do?",
+      options: [
+        "Closes the file and reopens it",
+        "Deletes the file content",
+        "Resets the reading cursor to the beginning of the file (offset 0)",
+        "Reverses the character order"
+      ],
+      correctAnswer: 2,
+      explanation: "It is equivalent to fseek(fp, 0, SEEK_SET)."
+    }
+  ]} 
+/>
+
+<HackerTerminal 
+  challenges={[
+    {
+      id: "file-inspect-en",
+      title: "Binary Inspection",
+      description: "Run a program that writes the Player struct to disk (save.dat). Which command would you use to see the actual bytes of the file and recognize the float value?",
+      commands: ["hexdump -C save.dat"],
+      expectedOutput: "00000000  01 00 00 00 00 00 bf 42",
+      hints: ["Look for the initial 01 of the ID (Little Endian)."]
+    },
+    {
+      id: "count-chars-wc-en",
+      title: "Fast Counter",
+      description: "Without writing C code, use the `wc` command to count how many BYTES (not characters) are in the `save.dat` file.",
+      commands: ["wc -c save.dat"],
+      expectedOutput: "8 save.dat",
+      hints: ["The option for bytes is -c (chars) or --bytes."]
+    },
+    {
+      id: "lsof-hacker-en",
+      title: "Open Files",
+      description: "While your C program is paused after an `fopen`, which Linux command shows you the list of all files opened by the process?",
+      commands: ["lsof -p <PID>", "ls /proc/self/fd"],
+      expectedOutput: "save.dat",
+      hints: ["lsof stands for 'List Open Files'."]
+    }
+  ]}
+/>
+
+### Final Summary
+We gave a name to our structures and persistence to our data. `typedef` and the `FILE` API are the foundations upon which you will build software that doesn't die when the terminal is closed, but can exchange data with the entire digital ecosystem.

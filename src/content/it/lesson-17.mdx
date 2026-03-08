@@ -1,0 +1,207 @@
+import VideoEmbed from '../../components/content/VideoEmbed';
+import Callout from '../../components/content/Callout';
+import KeyConcepts from '../../components/content/KeyConcepts';
+import CodeEditor from '../../components/exercises/CodeEditor';
+import Quiz from '../../components/exercises/Quiz';
+import HackerTerminal from '../../components/content/HackerTerminal';
+import Infographic from '../../components/content/Infographic';
+
+# Lezione 17: Layout di Memoria e xdump
+
+In questa lezione Salvatore ci porta nel "cuore pulsante" della memoria. Impareremo come i dati vengono realmente organizzati dai compilatori e implementeremo uno strumento fondamentale: **xdump**, un visualizzatore di memoria che ci permetterà di "vedere" i byte grezzi di qualsiasi struttura dati.
+
+<VideoEmbed videoId="grkIJjw6o18" title="Lezione 17: Memory Layout" />
+
+<KeyConcepts concepts={[
+  { title: "Visualizzazione Raw", description: "Implementare xdump per ispezionare la memoria byte per byte, rivelando segreti come padding e endianness." },
+  { title: "Memset e Inizializzazione", description: "Usare memset per 'piallare' la memoria e garantire che non rimangano dati sporchi." },
+  { title: "Operatore Ternario", description: "Una forma contratta di if-else che rende il codice più elegante e compatto." }
+]} />
+
+## Implementare xdump
+
+Salvatore ci mostra come trasformare un puntatore `void *` in una serie di byte leggibili. L'obiettivo è stampare sia il valore esadecimale che il carattere ASCII (se stampabile).
+
+<CodeEditor 
+  initialCode={`#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+void xdump(void *p, int len) {
+    unsigned char *c = p;
+    for (int i = 0; i < len; i++) {
+        // Operatore ternario: se stampabile mostra il char, altrimenti un punto
+        printf("%02x (%c) ", c[i], isprint(c[i]) ? c[i] : '.');
+        if ((i + 1) % 8 == 0) printf("\\n");
+    }
+    printf("\\n");
+}
+
+int main() {
+    int x = 0x41424344; // "ABCD" in hex
+    xdump(&x, sizeof(x));
+    return 0;
+}`} 
+  language="c" 
+/>
+
+---
+
+## L'Operatore Ternario: `? :`
+
+È la versione "hacker" dell'if-else. Salvatore lo usa spesso per decisioni rapide:
+`condizione ? valore_se_vero : valore_se_falso`
+
+Esempio:
+`char display = isprint(c) ? c : '.';`
+
+---
+
+## Memset: Pulizia Profonda
+
+In C, la memoria appena allocata o dichiarata sullo stack contiene "spazzatura". Con `memset` possiamo azzerare tutto in un colpo solo.
+
+<Infographic 
+  title="Funzionamento di memset"
+  description="Impostare ogni byte di un blocco di memoria ad un valore specifico (solitamente 0)."
+  items={[
+    { label: "Puntatore", value: "L'indirizzo di inizio del blocco", color: "blue" },
+    { label: "Valore", value: "Il byte da copiare (es. 0)", color: "emerald" },
+    { label: "Dimensione", value: "Quanti byte totale piallare", color: "amber" }
+  ]}
+/>
+
+---
+
+## Esercitazione
+
+<Quiz 
+  questions={[
+    {
+      question: "Quale funzione della libreria standard azzera un intero blocco di memoria?",
+      options: [
+        "mzero()",
+        "memset()",
+        "memclear()",
+        "malloc(0)"
+      ],
+      correctAnswer: 1,
+      explanation: "memset(p, 0, size) è il modo standard per inizializzare la memoria a zero in C."
+    },
+    {
+      question: "Cosa fa esattamente l'operatore ternario `a > b ? a : b`?",
+      options: [
+        "Restituisce il valore più piccolo tra a e b",
+        "Restituisce il valore più grande (il massimo) tra a e b",
+        "Sottrae b da a",
+        "È un errore di sintassi"
+      ],
+      correctAnswer: 1,
+      explanation: "È l'equivalente di: if (a > b) return a; else return b;"
+    },
+    {
+      question: "Perché in xdump usiamo `unsigned char` invece di un semplice `char`?",
+      options: [
+        "Perché occupa meno spazio",
+        "Perché i valori dei byte (0-255) non devono avere segno per evitare interpretazioni errate dei bit",
+        "Perché è obbligatorio per printf",
+        "Perché Salvatore odia i numeri negativi"
+      ],
+      correctAnswer: 1,
+      explanation: "Usando unsigned char, siamo sicuri che un byte con il bit più alto a 1 (es. 0xFF) venga letto come 255 e non come -1."
+    },
+    {
+      question: "A cosa serve la funzione `isprint()` della libreria `<ctype.h>`?",
+      options: [
+        "Per stampare a video",
+        "Per verificare se un carattere è visualizzabile (non un comando di controllo come '\\n')",
+        "Per accendere la stampante",
+        "Per convertire in maiuscolo"
+      ],
+      correctAnswer: 1,
+      explanation: "isprint() ritorna vero per caratteri come 'A', '1', '!' e falso per caratteri non grafici (non stampabili)."
+    },
+    {
+      question: "In C, cosa succede se stampi un intero `0x4142` come stringa (%s)?",
+      options: [
+        "Stampa 'AB' (su sistema Little Endian)",
+        "Stampa 'BA' (su sistema Little Endian)",
+        "Stampa 16706",
+        "Crasherà quasi certamente perché cercherà di accedere all'indirizzo di memoria 16706"
+      ],
+      correctAnswer: 3,
+      explanation: "printf %s si aspetta un INDIRIZZO, non un valore. Passandogli un intero, lui cercherà di leggere la memoria a quell'indirizzo numerico."
+    }
+  ]} 
+/>
+
+<Quiz 
+  title="Hacker Challenge"
+  questions={[
+    {
+      question: "Dato `int x = 1;`, se facciamo `memset(&x, 0, 1);`, cosa succede al valore di x su un sistema Little Endian?",
+      options: [
+        "Diventa 0",
+        "Rimane 1",
+        "Diventa 256",
+        "Diventa 0 (ma solo il primo byte, azzerando efficacemente il valore 1)"
+      ],
+      correctAnswer: 3,
+      explanation: "Su Little Endian, il valore '1' è salvato come 01 00 00 00. Azzerando il primo byte con memset, x diventa 00 00 00 00."
+    },
+    {
+      question: "Perché è pericoloso usare `memset` su strutture che contengono puntatori ad altra memoria dinamica?",
+      options: [
+        "Perché i puntatori diventano NULL e perdi i riferimenti per poter fare la free(), causando memory leaks",
+        "Perché il SO blocca l'operazione",
+        "Perché i puntatori diventano più grandi",
+        "Non è pericoloso"
+      ],
+      correctAnswer: 0,
+      explanation: "Azzerrando un puntatore a 0 (NULL), perdi l'unico indirizzo che avevi per liberare quella memoria più tardi."
+    },
+    {
+      question: "In un database come Redis, perché si preferisce gestire la memoria con xdump durante lo sviluppo?",
+      options: [
+        "Per estetica",
+        "Per verificare che l'allineamento dei bit nei protocolli binari sia corretto e non ci siano byte di spazzatura",
+        "Perché printf non funziona",
+        "Perché i dati sono criptati"
+      ],
+      correctAnswer: 1,
+      explanation: "Il debugging binario è l'unico modo per essere sicuri al 100% di come i dati viaggiano sulla rete o sul disco."
+    }
+  ]} 
+/>
+
+<HackerTerminal 
+  challenges={[
+    {
+      id: "xdump-test",
+      title: "Visione a Raggi X",
+      description: "Quale comando Linux visualizza la memoria di un file in formato esadecimale e ASCII simultaneamente (simile al nostro xdump)?",
+      commands: ["hexdump -C", "od -cx"],
+      expectedOutput: "00000000",
+      hints: ["L'opzione -C è la più famosa del comando 'hex dump'."]
+    },
+    {
+      id: "ternary-bash",
+      title: "Logic in a Line",
+      description: "Simula un operatore ternario in Bash: stampa 'VERO' se il file 'test' esiste, altrimenti 'FALSO'.",
+      commands: ["[ -f test ] && echo 'VERO' || echo 'FALSO'"],
+      expectedOutput: "FALSO",
+      hints: ["&& e || in successione imitano il ternario in Bash."]
+    },
+    {
+      id: "memset-zero-file",
+      title: "Piazza Pulita",
+      description: "Quale comando Linux scriverebbe 1024 byte di zeri (null bytes) in un file chiamato 'zero.bin'?",
+      commands: ["dd if=/dev/zero of=zero.bin bs=1024 count=1"],
+      expectedOutput: "1024 bytes copied",
+      hints: ["dd è il disk destroyer (ma anche un ottimo copiatore), /dev/zero è la fonte infinita di null."]
+    }
+  ]}
+/>
+
+### Riassunto Finale
+Abbiamo imparato a non fidarci delle astrazioni: la memoria è un nastro di byte e noi abbiamo ora gli strumenti per ispezionarla e manipolarla con precisione chirurgica. `memset` e `xdump` saranno i tuoi migliori amici nel debugging di basso livello.

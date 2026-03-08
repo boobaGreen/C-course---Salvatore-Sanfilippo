@@ -1,0 +1,260 @@
+
+import VideoEmbed from '../../components/content/VideoEmbed';
+import KeyConcepts from '../../components/content/KeyConcepts';
+import Callout from '../../components/content/Callout';
+import CodeEditor from '../../components/exercises/CodeEditor';
+import Quiz from '../../components/exercises/Quiz';
+import HackerTerminal from '../../components/content/HackerTerminal';
+
+# Lezione 15: Liste Linkate e il Progetto TAC
+
+<VideoEmbed videoId="aTT2W5NACEY" title="Lezione 15: Liste Linkate e TAC" />
+
+<KeyConcepts concepts={[
+  { title: "Argv: Puntatori a Puntatori", description: "Come il sistema passa gli argomenti della riga di comando tramite un array di stringhe." },
+  { title: "Strutture Auto-referenziate", description: "Struct che contengono un puntatore ad un'altra struct dello stesso tipo." },
+  { title: "Gestione File (stdio.h)", description: "Usare `fopen`, `fgets` e `fclose` per leggere dati riga per riga da un file." },
+  { title: "Linked Lists", description: "Una catena di oggetti in memoria dove ognuno indica il 'prossimo', permettendo l'inversione di un file." }
+]} />
+
+## Capire `argc` e `argv`
+
+Salvatore spiega `argv` come un "puntatore a puntatori". Immaginatelo come un elenco di indirizzi, dove ogni indirizzo punta a una stringa (il nome del programma, il primo argomento, ecc.).
+
+<Infographic 
+  title="Layout di Memoria di argv"
+  description="argv[0] è sempre il nome dell'eseguibile."
+  items={[
+    { label: "argv[0]", value: "Puntatore a './tac'", color: "blue" },
+    { label: "argv[1]", value: "Puntatore a 'file.txt'", color: "emerald" },
+    { label: "NULL", value: "L'ultimo elemento è sempre Zero", color: "amber" }
+  ]}
+/>
+
+---
+
+## Lo "Shock" Algorithmico
+
+Fino ad ora abbiamo usato gli array. Gli array sono blocchi di memoria piatti. Ma cosa succede se non sappiamo quante righe ha un file? Invece di allocare un array gigantesco "a caso", usiamo una **Lista Linkata**.
+
+Una lista linkata è come una serie di persone: ognuna tiene la mano di quella successiva. Se vuoi invertire l'ordine delle righe (come fa il comando `tac`), basta aggiungere ogni nuova riga "davanti" alla testa della lista.
+
+### La Struttura de Nodo
+
+```c
+struct Line {
+    char *text;          // Il contenuto della riga
+    struct Line *next;   // Puntatore alla riga successiva (o NULL)
+};
+```
+
+<Callout type="hacker" title="Salto Mentale">
+Nota che `struct Line` contiene un puntatore a `struct Line`. Questo è possibile perché un puntatore è solo un indirizzo di memoria; il compilatore non ha bisogno di sapere quanto è grande tutta la struct per definire il puntatore.
+</Callout>
+
+### Visualizzare la Linked List
+
+<Infographic 
+  title="Catena di Nodi in Memoria"
+  description="Ogni nodo 'Line' punta al precedente per invertire l'ordine."
+  items={[
+    { label: "Head", value: "Punta all'Ultima riga letta", color: "purple" },
+    { label: "Nodo n (Next)", value: "Punta al Nodo n-1", color: "blue" },
+    { label: "Nodo 1 (Next)", value: "Valore NULL (Fine lista)", color: "amber" }
+  ]}
+/>
+
+<ComparisonTable 
+  title="Array vs Linked List"
+  headers={["Caratteristica", "Array", "Linked List"]}
+  rows={[
+    ["Allocazione", "Blocco contiguo fisso", "Nodi sparsi nell'heap"],
+    ["Accesso Casuale", "O(1) - Istantaneo", "O(N) - Devi scorrere"],
+    ["Inserimento in Testa", "O(N) - Devi spostare tutto", "O(1) - Cambi solo 2 puntatori"],
+    ["Spreco Memoria", "Zero (solo i dati)", "Alto (ogni nodo ha un puntatore next)"]
+  ]}
+/>
+
+---
+
+## Implementazione: Il comando TAC
+
+<CodeEditor 
+  initialCode={`#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+struct Line {
+    char *text;
+    struct Line *next;
+};
+
+int main(int argc, char **argv) {
+    if (argc < 2) return 1;
+    
+    FILE *fp = fopen(argv[1], "r");
+    if (!fp) return 1;
+
+    char buf[1024];
+    struct Line *head = NULL;
+
+    // Leggiamo tutto il file e creiamo la lista "al contrario"
+    while (fgets(buf, sizeof(buf), fp)) {
+        struct Line *new_node = malloc(sizeof(struct Line));
+        new_node->text = strdup(buf); // Alloca e copia la stringa
+        new_node->next = head;        // Il vecchio 'head' diventa il 'next'
+        head = new_node;              // Questo diventa il nuovo 'head'
+    }
+
+    // Stampiamo la lista (che ora è in ordine inverso!)
+    struct Line *curr = head;
+    while (curr) {
+        printf("%s", curr->text);
+        curr = curr->next;
+    }
+
+    fclose(fp);
+    return 0;
+}`} 
+  language="c" 
+/>
+
+<Callout type="info">
+`strdup` è una funzione comodissima che fa `malloc` + `strcpy` in un colpo solo. Ricordati però che dovrai fare `free` sia di `text` che del nodo stesso!
+</Callout>
+
+---
+
+## Esercitazione
+
+<Quiz 
+  title="Quiz Standard"
+  questions={[
+    {
+      question: "Cosa significa 'struct auto-referenziata'?",
+      options: [
+        "Una struct che si cancella da sola",
+        "Una struct che contiene un puntatore a se stessa (o allo stesso tipo)",
+        "Una struct che non ha campi",
+        "Una struct che può essere usata solo una volta"
+      ],
+      correctAnswer: 1,
+      explanation: "Permette di creare catene o grafi in memoria, dove ogni nodo indica dove si trova il successivo."
+    },
+    {
+      question: "In che ordine appaiono gli elementi in una lista linkata se usiamo l'inserimento in testa?",
+      options: [
+        "In ordine di arrivo (FIFO)",
+        "In ordine inverso rispetto all'arrivo (LIFO)",
+        "In ordine alfabetico",
+        "In ordine casuale"
+      ],
+      correctAnswer: 1,
+      explanation: "Appendendo sempre in testa, l'ultimo elemento aggiunto diventa il primo della lista, invertendo l'ordine originale."
+    },
+    {
+      question: "Cosa restituisce `fgets` quando raggiunge la fine del file?",
+      options: [
+        "NULL",
+        "Una stringa vuota",
+        "Il numero di caratteri letti",
+        "Provoca un errore di segmentazione"
+      ],
+      correctAnswer: 0,
+      explanation: "Ritorna `NULL` per indicare che non ci sono più righe da leggere, ideale per terminare un ciclo `while`."
+    },
+    {
+      question: "Qual è il difetto principale dell'implementazione di `tac` mostrata sopra?",
+      options: [
+        "È troppo lenta",
+        "Carica tutto il file in memoria RAM (potrebbe fallire per file enormi)",
+        "Non può leggere file binari",
+        "Funziona solo su Windows"
+      ],
+      correctAnswer: 1,
+      explanation: "Visto che carichiamo ogni riga in una struct dell'heap, file di diversi gigabyte potrebbero esaurire la memoria disponibile."
+    },
+    {
+      question: "Perché usiamo `strdup` invece di assegnare direttamente il buffer?",
+      options: [
+        "Perché il buffer viene sovrascritto ad ogni ciclo di `fgets` ",
+        "Perché `strdup` è più sicuro",
+        "Perché le stringhe devono essere sempre allocate nell'heap",
+        "Perché il compilatore lo richiede"
+      ],
+      correctAnswer: 0,
+      explanation: "Se salvassimo solo il puntatore a `buf`, tutti i nodi della lista punterebbero alla stessa riga (l'ultima letta)."
+    }
+  ]} 
+/>
+
+<Quiz 
+  title="Hacker Challenge"
+  questions={[
+    {
+      question: "Quale operazione è più costosa (complessa) in una lista linkata rispetto ad un array?",
+      options: [
+        "Accesso ad un elemento casuale tramite indice (es. l'elemento 500)",
+        "Inserimento di un elemento in testa",
+        "Cancellazione del primo elemento",
+        "Nessuna, le liste sono sempre migliori degli array"
+      ],
+      correctAnswer: 0,
+      explanation: "In un array l'accesso è O(1) [matematico]. In una lista devi scorrere tutti i nodi fino al 500esimo, quindi è O(N)."
+    },
+    {
+      question: "Se dimentichiamo di fare `fclose(fp)`, qual è il rischio principale?",
+      options: [
+        "Il file viene cancellato",
+        "Il kernel potrebbe esaurire i 'file descriptors' disponibili se il programma gira a lungo",
+        "Il computer si spegne",
+        "Il file non può più essere letto da altri"
+      ],
+      correctAnswer: 1,
+      explanation: "Il sistema operativo ha un numero massimo di file che ogni processo può tenere aperti contemporaneamente."
+    },
+    {
+      question: "In una struct auto-referenziata, perché il campo deve essere un PUNTATORE e non la struct stessa?",
+      options: [
+        "Perché è più veloce",
+        "Perché altrimenti la struct avrebbe una dimensione infinita (ricorsiva)",
+        "Perché lo standard C lo vieta per ragioni di sicurezza",
+        "Perché i puntatori occupano meno spazio"
+      ],
+      correctAnswer: 1,
+      explanation: "Se una struct contenesse se stessa 'dentro', la sua dimensione sarebbe infinita. Il puntatore ha invece una dimensione fissa (8 byte)."
+    }
+  ]} 
+/>
+
+<HackerTerminal 
+  challenges={[
+    {
+      id: "tac-usage",
+      title: "Invertire il Sistema",
+      description: "Prova ad usare il comando reale di Linux. Visualizza il contenuto di `/etc/passwd` al contrario.",
+      commands: ["tac /etc/passwd"],
+      expectedOutput: "root:x:0:0:root:/root:/bin/bash",
+      hints: ["Usa tac seguito dal path del file"]
+    },
+    {
+      id: "check-leaks-tac",
+      title: "Caccia al Leak",
+      description: "Compila il programma TAC e usa `valgrind` per verificare se hai liberato tutti i nodi della lista prima di uscire.",
+      commands: ["valgrind --leak-check=full ./tac file.txt"],
+      expectedOutput: "All heap blocks were freed -- no leaks are possible",
+      hints: ["valgrind è lo strumento principe per l'heap"]
+    },
+    {
+      id: "file-descriptors-limit",
+      title: "Il Limite Fisico",
+      description: "Usa il comando `ulimit` per vedere quanti file puoi tenere aperti contemporaneamente sul tuo utente Linux.",
+      commands: ["ulimit -n"],
+      expectedOutput: "1024",
+      hints: ["l'opzione è -n (number of files)"]
+    }
+  ]}
+/>
+
+### Riassunto Finale
+In questa lezione abbiamo creato un vero strumento di sistema. Abbiamo imparato che le strutture non sono solo contenitori statici, ma mattoni che possono collegarsi tra loro per creare strutture dati dinamiche. Benvenuti nel mondo delle Linked Lists!

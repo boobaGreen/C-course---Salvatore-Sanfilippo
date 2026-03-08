@@ -1,0 +1,227 @@
+import VideoEmbed from '../../components/content/VideoEmbed';
+import Callout from '../../components/content/Callout';
+import KeyConcepts from '../../components/content/KeyConcepts';
+import CodeEditor from '../../components/exercises/CodeEditor';
+import Quiz from '../../components/exercises/Quiz';
+import HackerTerminal from '../../components/content/HackerTerminal';
+import Infographic from '../../components/content/Infographic';
+import BinaryVisualizer from '../../components/content/BinaryVisualizer';
+import ComparisonTable from '../../components/content/ComparisonTable';
+
+# Lesson 17: Memory Layout & xdump
+
+In this lesson, Salvatore takes us into the "beating heart" of memory. We will learn how data is actually organized by compilers and implement a fundamental tool: **xdump**, a memory viewer that will allow us to "see" the raw bytes of any data structure.
+
+<VideoEmbed videoId="grkIJjw6o18" title="Lesson 17: Memory Layout" />
+
+<KeyConcepts concepts={[
+  { title: "Raw Visualization", description: "Implement xdump to inspect memory byte by byte, revealing secrets like padding and endianness." },
+  { title: "Memset & Initialization", description: "Use memset to 'flatten' memory and ensure no dirty data remains." },
+  { title: "Ternary Operator", description: "A shorthand for if-else that makes code more elegant and compact." }
+]} />
+
+## Implementing xdump
+
+Salvatore shows us how to transform a `void *` pointer into a series of readable bytes. The goal is to print both the hexadecimal value and the ASCII character (if printable).
+
+<CodeEditor 
+  initialCode={`#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+void xdump(void *p, int len) {
+    unsigned char *c = p;
+    for (int i = 0; i < len; i++) {
+        // Ternary operator: if printable show char, otherwise a dot
+        printf("%02x (%c) ", c[i], isprint(c[i]) ? c[i] : '.');
+        if ((i + 1) % 8 == 0) printf("\\n");
+    }
+    printf("\\n");
+}
+
+<ComparisonTable 
+  title="char vs unsigned char"
+  headers={["Type", "Value Range", "Bit Interpretation", "Usage"]}
+  rows={[
+    ["char", "-128 to 127", "Highest bit is the Sign", "Text (ASCII)"],
+    ["unsigned char", "0 to 255", "All bits are Value", "Binary Data, Memory Dump"]
+  ]}
+/>
+
+int main() {
+    int x = 0x41424344; // "ABCD" in hex
+    xdump(&x, sizeof(x));
+    return 0;
+}`} 
+  language="c" 
+/>
+
+---
+
+## The Ternary Operator: `? :`
+
+It is the "hacker" version of the if-else. Salvatore often uses it for quick decisions:
+`condition ? value_if_true : value_if_false`
+
+Example:
+`char display = isprint(c) ? c : '.';`
+
+---
+
+## Memset: Deep Cleaning
+
+In C, newly allocated memory or memory declared on the stack contains "garbage". With `memset`, we can zero everything out in one go.
+
+<BinaryVisualizer 
+  title="Effect of memset(p, 0, 4)"
+  description="Before and after clearing an integer in memory."
+  data={[
+    { label: "Before (Garbage)", bytes: ["A2", "3F", "00", "B1"], address: "0x300" },
+    { label: "After memset", bytes: ["00", "00", "00", "00"], address: "0x300" }
+  ]}
+/>
+
+<Infographic 
+  title="How memset Works"
+  description="Sets every byte of a memory block to a specific value (usually 0)."
+  items={[
+    { label: "Pointer", value: "The starting address of the block", color: "blue" },
+    { label: "Value", value: "The byte to copy (e.g., 0)", color: "emerald" },
+    { label: "Size", value: "How many total bytes to flatten", color: "amber" }
+  ]}
+/>
+
+---
+
+## Exercises
+
+<Quiz 
+  questions={[
+    {
+      question: "Which standard library function zeroes an entire block of memory?",
+      options: [
+        "mzero()",
+        "memset()",
+        "memclear()",
+        "malloc(0)"
+      ],
+      correctAnswer: 1,
+      explanation: "memset(p, 0, size) is the standard way to initialize memory to zero in C."
+    },
+    {
+      question: "What exactly does the ternary operator `a > b ? a : b` do?",
+      options: [
+        "Returns the smallest value between a and b",
+        "Returns the largest value (maximum) between a and b",
+        "Subtracts b from a",
+        "It is a syntax error"
+      ],
+      correctAnswer: 1,
+      explanation: "It is equivalent to: if (a > b) return a; else return b;"
+    },
+    {
+      question: "Why do we use `unsigned char` instead of a simple `char` in xdump?",
+      options: [
+        "Because it takes up less space",
+        "Because byte values (0-255) must be unsigned to avoid incorrect bit interpretation",
+        "Because it's mandatory for printf",
+        "Because Salvatore hates negative numbers"
+      ],
+      correctAnswer: 1,
+      explanation: "By using unsigned char, we ensure that a byte with the high bit set to 1 (e.g., 0xFF) is read as 255 and not as -1."
+    },
+    {
+      question: "What is the purpose of the `isprint()` function from the `<ctype.h>` library?",
+      options: [
+        "To print to the screen",
+        "To check if a character is displayable (not a control command like '\\n')",
+        "To turn on the printer",
+        "To convert to uppercase"
+      ],
+      correctAnswer: 1,
+      explanation: "isprint() returns true for characters like 'A', '1', '!' and false for non-graphic (non-printable) characters."
+    },
+    {
+      question: "In C, what happens if you print an integer `0x4142` as a string (%s)?",
+      options: [
+        "Prints 'AB' (on a Little Endian system)",
+        "Prints 'BA' (on a Little Endian system)",
+        "Prints 16706",
+        "It will almost certainly crash because it will try to access memory at address 16706"
+      ],
+      correctAnswer: 3,
+      explanation: "printf %s expects an ADDRESS, not a value. By passing an integer, it will try to read memory at that numerical address."
+    }
+  ]} 
+/>
+
+<Quiz 
+  title="Hacker Challenge"
+  questions={[
+    {
+      question: "Given `int x = 1;`, if we do `memset(&x, 0, 1);`, what happens to the value of x on a Little Endian system?",
+      options: [
+        "It becomes 0",
+        "It stays 1",
+        "It becomes 256",
+        "It becomes 0 (but only the first byte, effectively zeroing the value 1)"
+      ],
+      correctAnswer: 3,
+      explanation: "On Little Endian, the value '1' is stored as 01 00 00 00. zeroing the first byte with memset makes x become 00 00 00 00."
+    },
+    {
+      question: "Why is it dangerous to use `memset` on structures containing pointers to other dynamic memory?",
+      options: [
+        "Because the pointers become NULL and you lose references to call free(), causing memory leaks",
+        "Because the OS blocks the operation",
+        "Because the pointers become larger",
+        "It is not dangerous"
+      ],
+      correctAnswer: 0,
+      explanation: "By zeroing a pointer to 0 (NULL), you lose the only address you had to free that memory later."
+    },
+    {
+      question: "In a database like Redis, why is managing memory with xdump preferred during development?",
+      options: [
+        "For aesthetics",
+        "To verify that bit alignment in binary protocols is correct and there are no garbage bytes",
+        "Because printf doesn't work",
+        "Because data is encrypted"
+      ],
+      correctAnswer: 1,
+      explanation: "Binary debugging is the only way to be 100% sure of how data travels over the network or on disk."
+    }
+  ]} 
+/>
+
+<HackerTerminal 
+  challenges={[
+    {
+      id: "xdump-test-en",
+      title: "X-Ray Vision",
+      description: "Which Linux command displays file memory in hexadecimal and ASCII format simultaneously (similar to our xdump)?",
+      commands: ["hexdump -C", "od -cx"],
+      expectedOutput: "00000000",
+      hints: ["The -C option is the most famous for the 'hex dump' command."]
+    },
+    {
+      id: "ternary-bash-en",
+      title: "Logic in a Line",
+      description: "Simulate a ternary operator in Bash: print 'TRUE' if the file 'test' exists, otherwise 'FALSE'.",
+      commands: ["[ -f test ] && echo 'TRUE' || echo 'FALSE'"],
+      expectedOutput: "FALSE",
+      hints: ["&& and || in succession mimic the ternary in Bash."]
+    },
+    {
+      id: "memset-zero-file-en",
+      title: "Clean Sweep",
+      description: "Which Linux command would write 1024 null bytes into a file named 'zero.bin'?",
+      commands: ["dd if=/dev/zero of=zero.bin bs=1024 count=1"],
+      expectedOutput: "1024 bytes copied",
+      hints: ["dd is the 'disk destroyer' (but also a great copier), /dev/zero is the infinite source of nulls."]
+    }
+  ]}
+/>
+
+### Final Summary
+We have learned not to trust abstractions: memory is a tape of bytes and we now have the tools to inspect and manipulate it with surgical precision. `memset` and `xdump` will be your best friends in low-level debugging.

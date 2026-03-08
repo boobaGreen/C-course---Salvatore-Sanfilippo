@@ -250,39 +250,38 @@ Try transforming this `while` loop into a `for` loop.
 ### Terminal Challenge: Pattern Searching 🔎
 
 <HackerTerminal 
-  title="Hacker Challenge: Level 7 - Task 1"
-  description="We saw that Salvatore often analyzes source code to find patterns. If you wanted to search for all occurrences of the word 'while' within all .c files in your folder, which command would you use?"
-  command="find while ..."
-  expectedOutput="grep while *.c"
-  inputLabel="Complete Command:"
-  placeholder="e.g. grep pattern file"
-  hint="It is the standard command for searching text in files."
-  explanation="Exactly! `grep` is the primary tool for manual static analysis. It allows you to quickly find where you use certain constructs or variables across your entire project."
-  xpReward={150}
-/>
-
-<HackerTerminal 
-  title="Hacker Challenge: Level 7 - Task 2"
-  description="Salvatore emphasizes performance a lot. Which terminal command would you use to measure exactly how much time (in milliseconds and seconds) it takes for your './a.out' program to run?"
-  command="run ./a.out"
-  expectedOutput="time ./a.out"
-  inputLabel="Command:"
-  placeholder="e.g. time command"
-  hint="It is used to measure 'time'."
-  explanation="Great! `time` shows you 'real' time (total), 'user' (CPU time in user mode), and 'sys' (CPU time in system calls). Indispensable for optimizing your loops."
-  xpReward={200}
-/>
-
-<HackerTerminal 
-  title="Hacker Challenge: Level 7 - Task 3"
-  description="Recursion in the file system means entering subfolders automatically. Which flag of the 'ls' command would you use to list all files recursively starting from the current folder?"
-  command="ls -l"
-  expectedOutput="ls -R"
-  inputLabel="ls Command:"
-  placeholder="e.g. ls -..."
-  hint="The letter stands for 'Recursive'."
-  explanation="Excellent! `ls -R` explores the entire directory structure recursively, replicating the logic we would use to traverse a data tree in C."
-  xpReward={250}
+  challenges={[
+    {
+      id: "grep-while-en",
+      title: "Pattern Hunt",
+      description: "Salvatore often analyzes code to find patterns. Which command would you use to search for the word 'while' in all .c files in the folder?",
+      commands: ["grep \"while\" *.c"],
+      expectedOutput: "while",
+      hints: ["It's the standard command for searching text"],
+      explanation: "Exactly! `grep` is fundamental for code analysis.",
+      xpReward: 150
+    },
+    {
+      id: "time-perf-en",
+      title: "High Precision Stopwatch",
+      description: "Which terminal command would you use to measure exactly how much time your `./a.out` program takes to run?",
+      commands: ["time ./a.out"],
+      expectedOutput: "real",
+      hints: ["It is used to measure 'time'"],
+      explanation: "Great! `time` shows you real, user, and system execution times.",
+      xpReward: 200
+    },
+    {
+      id: "ls-recursive-en",
+      title: "Recursive Exploration",
+      description: "Which flag of the `ls` command would you use to list all files recursively in subfolders?",
+      commands: ["ls -R"],
+      expectedOutput: "./",
+      hints: ["The letter stands for 'Recursive'"],
+      explanation: "Excellent! `ls -R` explores the entire directory structure.",
+      xpReward: 250
+    }
+  ]}
 />
 
 See you in the next lesson!

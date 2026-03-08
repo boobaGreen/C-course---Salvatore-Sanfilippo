@@ -215,39 +215,38 @@ int main() {
 ### Terminal Challenge: Time & Space ⚡
 
 <HackerTerminal 
-  title="Hacker Challenge: Level 8 - Task 1"
-  description="Salvatore wrote the code live. If you wanted to count how many lines of code his 'life.c' file has, which Linux command would you use?"
-  command="cat life.c ..."
-  expectedOutput="wc -l life.c"
-  inputLabel="Command:"
-  placeholder="e.g. count life.c"
-  hint="The command stands for 'Word Count'."
-  explanation="Excellent! `wc -l` is essential for monitoring the growth of your project and the verbosity of your code."
-  xpReward={150}
-/>
-
-<HackerTerminal 
-  title="Hacker Challenge: Level 8 - Task 2"
-  description="You've compiled the simulator with 'gcc life.c'. Now you want to measure exactly how much effective CPU time the program consumed in one run. Which command precedes the execution to give you the report?"
-  command="./a.out"
-  expectedOutput="time ./a.out"
-  inputLabel="Command:"
-  placeholder="time ..."
-  hint="We saw this in the previous lesson, it is fundamental for performance."
-  explanation="Perfect. Remember that 'user time' is the time spent by your code, 'sys time' is the time spent by the kernel for you (e.g., printing to the screen)."
-  xpReward={200}
-/>
-
-<HackerTerminal 
-  title="Hacker Challenge: Level 8 - Task 3"
-  description="You want to modify the ROWS and COLS parameters without leaving the terminal. Which integrated editor would you use (the one Salvatore often uses)?"
-  command="editor life.c"
-  expectedOutput="nano life.c"
-  inputLabel="Editor:"
-  placeholder="e.g. notepad life.c"
-  hint="Starts with 'n' and is very user-friendly."
-  explanation="Nano is the beginner's friend! For real hackers, there's also Vim or Emacs, but Nano saves your life for quick edits over SSH."
-  xpReward={250}
+  challenges={[
+    {
+      id: "wc-lines-en",
+      title: "Code Metrics",
+      description: "Salvatore wrote the code live. Which Linux command would you use to count how many lines of code the `life.c` file has?",
+      commands: ["wc -l life.c"],
+      expectedOutput: "life.c",
+      hints: ["The command stands for 'Word Count'"],
+      explanation: "Great! `wc -l` is essential for monitoring the growth of your project.",
+      xpReward: 150
+    },
+    {
+      id: "grep-define-en",
+      title: "Hunt for Constants",
+      description: "You want to quickly find all the `#define` macros used to configure the grid. Which command would you use?",
+      commands: ["grep \"#define\" life.c"],
+      expectedOutput: "#define",
+      hints: ["Use grep to search for the string"],
+      explanation: "Perfect! `grep` allows you to isolate the program's configuration in an instant.",
+      xpReward: 200
+    },
+    {
+      id: "nano-editor-en",
+      title: "Terminal Editor",
+      description: "You want to modify the parameters without leaving the terminal. Which editor would you use (the one that starts with 'n')?",
+      commands: ["nano life.c"],
+      expectedOutput: "",
+      hints: ["It is very user-friendly and typical for Linux systems"],
+      explanation: "Exactly! `nano` is the beginner's friend for quick edits over SSH.",
+      xpReward: 250
+    }
+  ]}
 />
 
 See you in the next lesson to dive into pointers!

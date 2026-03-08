@@ -230,39 +230,38 @@ Cosa succede se aggiungi 1 al massimo valore possibile per un tipo?
 ### Terminal Challenge: Promotion Hunting 🏹
 
 <HackerTerminal 
-  title="Hacker Challenge: Level 3 - Task 1"
-  description="Abbiamo visto che le promozioni possono essere subdole. Se vuoi forzare il compilatore a trattare una costante come un intero 'senza segno' (unsigned), quale suffisso devi aggiungere al numero?"
-  command="echo 'int x = 100...;' > test.c"
-  expectedOutput="u"
-  inputLabel="Suffisso:"
-  placeholder="es. f, l, u..."
-  hint="È una sola lettera, la prima della parola 'unsigned'."
-  explanation="Esatto! Il suffisso 'u' (es. `100u`) o 'U' istruisce il compilatore a trattare il letterale come `unsigned int`, prevenendo o forzando determinate promozioni durante i calcoli."
-  xpReward={150}
-/>
-
-<HackerTerminal 
-  title="Hacker Challenge: Level 3 - Task 2"
-  description="Vuoi verificare quanto spazio occupa un 'long' su un sistema a 32 bit mentre sei su una macchina a 64 bit. Quale flag di GCC useresti per forzare la compilazione a 32 bit?"
-  command="gcc main.c ..."
-  expectedOutput="-m32"
-  inputLabel="Flag GCC:"
-  placeholder="es. -m..."
-  hint="Si riferisce al 'modello' (model) di architettura a 32 bit."
-  explanation="Ottimo! `-m32` istruisce il compilatore a generare codice per architetture x86 a 32 bit, dove i puntatori e i 'long' sono solitamente di 4 byte invece di 8."
-  xpReward={200}
-/>
-
-<HackerTerminal 
-  title="Hacker Challenge: Level 3 - Task 3"
-  description="Ogni programma compilato è diviso in sezioni: .text (codice), .data (variabili inizializzate) e .bss (variabili a zero). Quale comando useresti per vedere le dimensioni di queste sezioni nel tuo file a.out?"
-  command="ls -l a.out"
-  expectedOutput="size a.out"
-  inputLabel="Comando:"
-  placeholder="es. size nomefile"
-  hint="È lo strumento per conoscere la 'taglia' delle sezioni."
-  explanation="Bravissimo! Il comando `size` è fondamentale per chi lavora in sistemi embedded per capire quanta RAM e quanta Flash occuperà il programma."
-  xpReward={250}
+  challenges={[
+    {
+      id: "unsigned-suffix",
+      title: "Il Suffisso Magico",
+      description: "Se vuoi forzare il compilatore a trattare una costante come 'unsigned', quale lettera devi aggiungere dopo il numero?",
+      commands: ["echo 'unsigned int x = 100u;' > test.c"],
+      expectedOutput: "u",
+      hints: ["È la prima lettera di 'unsigned'"],
+      explanation: "Esatto! Il suffisso 'u' istruisce il compilatore a trattare il letterale come senza segno.",
+      xpReward: 150
+    },
+    {
+      id: "m32-flag",
+      title: "Ritorno al Passato",
+      description: "Quale flag di GCC useresti per forzare la compilazione a 32 bit su una macchina a 64 bit?",
+      commands: ["gcc -m32 main.c"],
+      expectedOutput: "-m32",
+      hints: ["Si riferisce al modello a 32 bit"],
+      explanation: "Ottimo! `-m32` emula un'architettura a 32 bit, riducendo la dimensione dei puntatori.",
+      xpReward: 200
+    },
+    {
+      id: "size-command",
+      title: "Sezionare il Binario",
+      description: "Quale comando mostra le dimensioni delle sezioni .text, .data e .bss del tuo file `a.out`?",
+      commands: ["size a.out"],
+      expectedOutput: "text\t   data\t    bss",
+      hints: ["Significa 'taglia' o 'dimensione' in inglese"],
+      explanation: "Perfetto! `size` è fondamentale per capire quanta RAM occupa il tuo programma.",
+      xpReward: 250
+    }
+  ]}
 />
 
 Ci vediamo alla prossima lezione!

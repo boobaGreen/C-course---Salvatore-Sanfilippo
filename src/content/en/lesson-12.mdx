@@ -7,6 +7,10 @@ import CodeEditor from '../../components/exercises/CodeEditor';
 import Quiz from '../../components/exercises/Quiz';
 import HackerTerminal from '../../components/content/HackerTerminal';
 import HeapAllocator from '../../components/content/HeapAllocator';
+import StackVisualizer from '../../components/content/StackVisualizer';
+import OverflowSimulator from '../../components/content/OverflowSimulator';
+import ComparisonTable from '../../components/content/ComparisonTable';
+import Infographic from '../../components/content/Infographic';
 
 # Lesson 12: Dynamic Memory & Custom Strings
 
@@ -28,6 +32,28 @@ Until now, every variable we created lived on the **Stack**. The stack is fast a
 If we want to create data that "survives" across functions, or data whose size is only known while the program is running (e.g., a text file loaded by the user), we must use the **Heap**.
 
 <HeapAllocator />
+
+<StackVisualizer 
+  title="Stack Visualization"
+  description="Where variables are created and removed automatically."
+  frames={[
+    { func: "main", vars: [{ name: "x", value: "10", type: "int" }] },
+    { func: "my_function", vars: [{ name: "y", value: "20", type: "int" }] }
+  ]}
+/>
+
+### Stack vs Heap: The Great Battle
+
+<ComparisonTable 
+  title="Stack vs Heap"
+  headers={["Feature", "Stack", "Heap"]}
+  rows={[
+    ["Duration", "Automatic (limited to the {} block)", "Manual (until free)"],
+    ["Speed", "Very Fast (CPU-managed)", "Slower (C library managed)"],
+    ["Size", "Limited (few MB)", "Enormous (entire RAM)"],
+    ["Data", "Known a priori", "Dynamic / Unknown"]
+  ]}
+/>
 
 ### Malloc and Free
 
@@ -62,6 +88,16 @@ Now that we have `malloc`, we can create a serious **String Object**.
 Our custom format will be:
 1. The first **4 bytes** (`int`) will contain the length of the string.
 2. The remaining bytes will contain the characters, plus a final `\0` (to make it compatible with commands like `printf`).
+
+<Infographic 
+  title="Super String v1 Anatomy"
+  description="The header precedes the pointer returned to the user."
+  items={[
+    { label: "Header (4 bytes)", value: "Length (int)", color: "purple" },
+    { label: "Data", value: "String characters", color: "blue" },
+    { label: "Terminator", value: "Trailing 0x00 byte", color: "amber" }
+  ]}
+/>
 
 ### Creating a High-Performance String
 
@@ -217,6 +253,13 @@ int main() {
       explanation: "This is called a Double-Free. The C allocator inserts the returned block into a free-list. Inserting it twice creates an infinite circular-link, causing the program to die upon the next malloc/free traversal."
     }
   ]} 
+/>
+
+### Overflow Simulator
+<OverflowSimulator 
+  title="Heap Dangers"
+  description="What happens if you write beyond the allocated bytes."
+  initialSize={8}
 />
 
 <HackerTerminal 

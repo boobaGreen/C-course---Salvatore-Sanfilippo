@@ -200,34 +200,36 @@ int main() {
 ### Terminal Challenge: Exploration ⚡
 
 <HackerTerminal 
-  title="Hacker Challenge: Level 9 - Task 1"
-  description="Salvatore mentioned that variables sometimes end up in CPU registers. Which Linux command allows you to see processor registers during debugging? (It's a very famous debugger)"
-  command="..."
-  expectedOutput="gdb"
-  inputLabel="Debugger:"
-  placeholder="e.g. debugger"
-  explanation="GDB (GNU Debugger) is the ultimate tool for analyzing memory dumps and registers."
-  xpReward={150}
-/>
-
-<HackerTerminal 
-  title="Hacker Challenge: Level 9 - Task 2"
-  description="You want to see a program's load address in memory while it's running. Which virtual file in the /proc filesystem contains memory maps?"
-  command="cat /proc/self/..."
-  expectedOutput="cat /proc/self/maps"
-  inputLabel="File:"
-  placeholder="e.g. memory"
-  explanation="/proc/[pid]/maps shows exactly how your program's pointers map to physical RAM."
-  xpReward={250}
-/>
-
-<HackerTerminal 
-  title="Hacker Challenge: Level 9 - Task 3"
-  description="How do we quickly verify if we are on a 32 or 64-bit OS from the terminal using the generic machine command?"
-  command="uname ..."
-  expectedOutput="uname -m"
-  inputLabel="Command:"
-  placeholder="e.g. uname system"
-  explanation="The architecture (e.g., x86_64) defines the width of the address bus, and therefore the byte size of your C program's pointers."
-  xpReward={150}
+  challenges={[
+    {
+      id: "gdb-debugger-en",
+      title: "The Supreme Debugger",
+      description: "Which Linux command allows you to see CPU registers and analyze memory during step-by-step debugging?",
+      commands: ["gdb ./a.out"],
+      expectedOutput: "GNU gdb",
+      hints: ["It's short for 'GNU Debugger'"],
+      explanation: "Exactly! GDB is the ultimate tool for understanding what happens to your pointers in real time.",
+      xpReward: 150
+    },
+    {
+      id: "proc-maps-en",
+      title: "Mapping RAM",
+      description: "Which virtual file in the `/proc` filesystem shows how a process's memory sections are mapped?",
+      commands: ["cat /proc/self/maps"],
+      expectedOutput: "00400000",
+      hints: ["Look for 'maps' inside /proc/self"],
+      explanation: "Great! `/proc/self/maps` shows you the load addresses for code, stack, and heap.",
+      xpReward: 250
+    },
+    {
+      id: "uname-arch-en",
+      title: "Bus Width",
+      description: "Which command shows the machine architecture (e.g., x86_64), defining the size of your pointers?",
+      commands: ["uname -m"],
+      expectedOutput: "64",
+      hints: ["The option stands for 'machine'"],
+      explanation: "Perfect! On a 64-bit system, pointers occupy 8 bytes, while on a 32-bit system they occupy 4.",
+      xpReward: 150
+    }
+  ]}
 />

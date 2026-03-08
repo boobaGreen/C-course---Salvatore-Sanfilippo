@@ -1,0 +1,220 @@
+import VideoEmbed from '../../components/content/VideoEmbed';
+import Callout from '../../components/content/Callout';
+import KeyConcepts from '../../components/content/KeyConcepts';
+import CodeEditor from '../../components/exercises/CodeEditor';
+import Quiz from '../../components/exercises/Quiz';
+import HackerTerminal from '../../components/content/HackerTerminal';
+import Infographic from '../../components/content/Infographic';
+
+# Lezione 20: Buffering e Memory Mapping (mmap)
+
+Siamo arrivati alla fine di questa prima grande avventura nel C. Oggi Salvatore ci svela i segreti delle prestazioni estreme: capiremo perché le chiamate di sistema a volte sono lente e come aggirarle "mappando" i file direttamente nella nostra memoria.
+
+<VideoEmbed videoId="yKavhObop5I" title="Lezione 20: Buffering e mmap" />
+
+<KeyConcepts concepts={[
+  { title: "L'Overhead delle Syscalls", description: "Ogni volta che chiami il Kernel, la CPU deve cambiare 'contesto'. È un'operazione costosa se fatta milioni di volte." },
+  { title: "User-space Buffering", description: "Capire come la libreria standard (stdio.h) accumula i dati in RAM prima di inviarli al Kernel per ottimizzare i tempi." },
+  { title: "Memory Mapping (mmap)", description: "La tecnica definitiva: trattare un file come se fosse un enorme array di char già caricato in memoria." }
+]} />
+
+<Infographic 
+  title="L'Alto Costo del Context Switch"
+  description="Perché parlare troppo col Kernel rallenta il tuo programma."
+  items={[
+    { label: "User Mode", value: "Esecuzione del tuo codice (Veloce)", color: "blue" },
+    { label: "Switch", value: "Salvataggio Registri e Stato (Lento)", color: "amber" },
+    { label: "Kernel Mode", value: "Esecuzione Chiamata di Sistema", color: "purple" }
+  ]}
+/>
+
+## Perché il Buffering?
+
+Immagina di voler scrivere un milione di caratteri.
+1. Se chiami `write()` per ogni carattere, farai 1 milione di syscall (lentissimo).
+2. Se usi `fprintf()`, la libreria riempie un buffer di 8KB e chiama `write()` solo quando è pieno (molto più veloce).
+
+---
+
+## mmap: Il File è la tua RAM
+
+Con `mmap`, chiediamo al Kernel di collegare un file direttamente a un indirizzo di memoria del nostro processo. Non serve più `read()` o `write()`: basta leggere dal puntatore!
+
+<Infographic 
+  title="mmap vs I/O Tradizionale"
+  description="Come mmap elimina i passaggi intermedi di copia dati."
+  items={[
+    { label: "Tradizionale", value: "Disco -> Kernel Buffer -> User Buffer (Copia doppia)", color: "amber" },
+    { label: "mmap", value: "Disco -> Memoria Condivisa (Copia Zero)", color: "emerald" }
+  ]}
+/>
+
+### Esempio: Leggere un file con mmap
+
+<CodeEditor 
+  initialCode={`#include <stdio.h>
+#include <sys/mman.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
+
+int main() {
+    int fd = open("test.txt", O_RDONLY);
+    struct stat st;
+    fstat(fd, &st); // Troviamo la dimensione del file
+
+    // Mappiamo il file in memoria sola lettura
+    char *data = mmap(NULL, st.st_size, PROT_READ, MAP_PRIVATE, fd, 0);
+
+    if (data == MAP_FAILED) {
+        perror("mmap fallito");
+        return 1;
+    }
+
+    // Ora possiamo leggere il file come se fosse una stringa!
+    printf("Contenuto file: %s\\n", data);
+
+    munmap(data, st.st_size);
+    close(fd);
+    return 0;
+}`} 
+  language="c" 
+/>
+
+---
+
+## Esercitazione
+
+<Quiz 
+  questions={[
+    {
+      question: "Cosa si intende per 'Context Switch' in relazione alle System Calls?",
+      options: [
+        "Cambiare il colore del terminale",
+        "Il passaggio della CPU dall'esecuzione del codice utente a quello del Kernel del sistema operativo",
+        "Salvare il file su un'altra partizione",
+        "Spegnere il computer"
+      ],
+      correctAnswer: 1,
+      explanation: "È un'operazione che richiede tempo perché la CPU deve salvare lo stato attuale e caricare quello del Kernel."
+    },
+    {
+      question: "Perché `printf` è solitamente più veloce di chiamare `write` per ogni singolo carattere?",
+      options: [
+        "Perché printf è scritta meglio",
+        "Perché printf usa il buffering: accumula i dati e chiama write solo ogni tanto (es. ogni 4KB o ad ogni newline)",
+        "Perché printf non usa syscall",
+        "Perché printf lavora in parallelo"
+      ],
+      correctAnswer: 1,
+      explanation: "Il buffering riduce drasticamente il numero di context switch verso il kernel."
+    },
+    {
+      question: "Qual è il vantaggio principale di `mmap` rispetto a `read`?",
+      options: [
+        "È più facile da scrivere",
+        "Permette l'accesso casuale (random access) ai dati senza dover spostare il cursore con fseek e riduce le copie di memoria",
+        "Funziona solo su file piccoli",
+        "Non richiede di aprire il file con open"
+      ],
+      correctAnswer: 1,
+      explanation: "mmap permette al Kernel di gestire il caricamento dei dati in modo trasparente e ottimizzato."
+    },
+    {
+      question: "Cosa significa 'Zero-Copy'?",
+      options: [
+        "Che il file non viene copiato affatto dal disco",
+        "Che i dati non vengono copiati tra i buffer del Kernel e quelli del programma utente",
+        "Che il programma non usa variabili",
+        "Che il costo di copia è 0 euro"
+      ],
+      correctAnswer: 1,
+      explanation: "Si risparmiano cicli CPU evitando di spostare dati già presenti in memoria da una parte all'altra."
+    },
+    {
+      question: "Quale funzione deve essere chiamata per rilasciare la memoria mappata con `mmap`?",
+      options: [
+        "free()",
+        "close()",
+        "munmap()",
+        "unmap()"
+      ],
+      correctAnswer: 2,
+      explanation: "Poiché mmap non usa lo heap standard, munmap è necessaria per dire al sistema di scollegare il file."
+    }
+  ]} 
+/>
+
+<Quiz 
+  title="Hacker Challenge"
+  questions={[
+    {
+      id: 1,
+      question: "Che succede se modifichi un puntatore ottenuto con `mmap` usando il flag `MAP_PRIVATE`?",
+      options: [
+        "Le modifiche vengono scritte sul disco",
+        "Le modifiche rimangono solo nella RAM del tuo processo (Copy-on-Write) e non toccano il file originale",
+        "Il programma crasha subito",
+        "Il Kernel impedisce la modifica"
+      ],
+      correctAnswer: 1,
+      explanation: "MAP_PRIVATE crea una copia privata dei dati quando cerchi di scriverci, proteggendo il file originale."
+    },
+    {
+      id: 2,
+      question: "Perché Salvatore dice che 'tutto in C è un puntatore' alla fine del corso?",
+      options: [
+        "Perché non esistono altri tipi",
+        "Perché anche le astrazioni più complesse (file, array, oggetti) si riducono sempre a indirizzi di memoria e byte grezzi",
+        "Perché è una sua opinione personale",
+        "Per scherzo"
+      ],
+      correctAnswer: 1,
+      explanation: "La potenza del C sta nel poter vedere ogni cosa come una locazione di memoria manipolabile."
+    },
+    {
+      id: 3,
+      question: "Cosa permette di fare la syscall `msync()`?",
+      options: [
+        "Sincronizzare l'ora del sistema",
+        "Forzare la scrittura dei dati modificati in memoria mappata direttamente sul disco",
+        "Sincronizzare due processi",
+        "Ripulire il buffer di printf"
+      ],
+      correctAnswer: 1,
+      explanation: "Garantisce che il file su disco rifletta esattamente quello che hai cambiato nel puntatore mmap."
+    }
+  ]} 
+/>
+
+<HackerTerminal 
+  challenges={[
+    {
+      id: "strace-mmap",
+      title: "Geografia della Memoria",
+      description: "Usa `strace` su un comando semplice come `cat` e osserva quante volte appare la chiamata `mmap`. Perché lo fa?",
+      commands: ["strace cat /etc/passwd 2>&1 | grep mmap"],
+      expectedOutput: "mmap(NULL, ...",
+      hints: ["Il caricatore del sistema usa mmap per caricare le librerie condivise (.so)."]
+    },
+    {
+      id: "pmap-inspect",
+      title: "Mappa del Processo",
+      description: "Mentre un programma è in esecuzione, usa il comando `pmap` seguito dal suo PID per vedere dove sono mappati i file in memoria.",
+      commands: ["pmap <PID>"],
+      expectedOutput: "00007f... bin/libc.so",
+      hints: ["pmap mostra l'intera mappa degli indirizzi del processo."]
+    },
+    {
+      id: "time-compare",
+      title: "Sfida di Velocità",
+      description: "Usa il comando `time` per confrontare la velocità di lettura di un file enorme usando un buffer piccolo vs un buffer grande.",
+      commands: ["time dd if=/dev/urandom of=test bs=1k count=1000", "time dd if=/dev/urandom of=test bs=1M count=1"],
+      expectedOutput: "real 0m...",
+      hints: ["Noterai che meno blocchi (ma più grandi) significano meno syscall e più velocità."]
+    }
+  ]}
+/>
+
+### Riassunto Finale
+Congratulazioni! Hai completato il percorso fondamentale del C. Dalle variabili al memory mapping, ora hai una comprensione profonda di come i computer pensano e gestiscono i dati. Il C non è solo un linguaggio: è il linguaggio della realtà informatica. Continua a esplorare, hacker!

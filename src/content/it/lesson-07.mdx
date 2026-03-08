@@ -246,39 +246,38 @@ Prova a trasformare questo ciclo `while` in un ciclo `for`.
 ### Terminal Challenge: Pattern Searching 🔎
 
 <HackerTerminal 
-  title="Hacker Challenge: Level 7 - Task 1"
-  description="Abbiamo visto che Salvatore analizza spesso il codice sorgente per trovare pattern. Se volessi cercare tutte le occorrenze della parola 'while' all'interno di tutti i file .c della tua cartella, quale comando useresti?"
-  command="find while ..."
-  expectedOutput="grep while *.c"
-  inputLabel="Comando completo:"
-  placeholder="es. grep pattern file"
-  hint="È il comando standard per cercare testo nei file."
-  explanation="Esatto! `grep` è lo strumento principe per l'analisi statica manuale. Ti permette di trovare velocemente dove usi certi costrutti o variabili in tutto il tuo progetto."
-  xpReward={150}
-/>
-
-<HackerTerminal 
-  title="Hacker Challenge: Level 7 - Task 2"
-  description="Salvatore insiste molto sulle performance. Quale comando del terminale useresti per misurare esattamente quanto tempo (in millisecondi e secondi) impiega il tuo programma './a.out' ad essere eseguito?"
-  command="run ./a.out"
-  expectedOutput="time ./a.out"
-  inputLabel="Comando:"
-  placeholder="es. time comando"
-  hint="Si usa per misurare il 'tempo'."
-  explanation="Ottimo! `time` ti mostra il tempo 'real' (totale), 'user' (tempo CPU in modo utente) e 'sys' (tempo CPU in chiamate di sistema). Indispensabile per ottimizzare i tuoi loop."
-  xpReward={200}
-/>
-
-<HackerTerminal 
-  title="Hacker Challenge: Level 7 - Task 3"
-  description="La ricorsione nel file system significa entrare nelle sottocartelle in modo automatico. Quale flag del comando 'ls' useresti per elencare tutti i file in modo ricorsivo partendo dalla cartella attuale?"
-  command="ls -l"
-  expectedOutput="ls -R"
-  inputLabel="Comando ls:"
-  placeholder="es. ls -..."
-  hint="La lettera sta per 'Recursive'."
-  explanation="Bravissimo! `ls -R` esplora l'intera struttura delle directory in modo ricorsivo, replicando la logica che useremmo per attraversare un albero di dati in C."
-  xpReward={250}
+  challenges={[
+    {
+      id: "grep-while",
+      title: "Caccia ai Pattern",
+      description: "Salvatore analizza spesso il codice per trovare pattern. Quale comando useresti per cercare la parola 'while' in tutti i file .c della cartella?",
+      commands: ["grep \"while\" *.c"],
+      expectedOutput: "while",
+      hints: ["È il comando standard per cercare testo"],
+      explanation: "Esatto! `grep` è fondamentale per l'analisi del codice.",
+      xpReward: 150
+    },
+    {
+      id: "time-perf",
+      title: "Cronometro ad Alta Precisione",
+      description: "Quale comando del terminale useresti per misurare esattamente quanto tempo impiega il tuo programma `./a.out`?",
+      commands: ["time ./a.out"],
+      expectedOutput: "real",
+      hints: ["Si usa per misurare il 'tempo'"],
+      explanation: "Ottimo! `time` ti mostra i tempi di esecuzione reali, utente e di sistema.",
+      xpReward: 200
+    },
+    {
+      id: "ls-recursive",
+      title: "Esplorazione Ricorsiva",
+      description: "Quale flag del comando `ls` useresti per elencare tutti i file in modo ricorsivo nelle sottocartelle?",
+      commands: ["ls -R"],
+      expectedOutput: "./",
+      hints: ["La lettera sta per 'Recursive'"],
+      explanation: "Bravissimo! `ls -R` esplora l'intera struttura delle directory.",
+      xpReward: 250
+    }
+  ]}
 />
 
 Ci vediamo alla prossima lezione!

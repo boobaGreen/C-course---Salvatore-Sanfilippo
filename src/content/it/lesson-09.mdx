@@ -200,34 +200,36 @@ int main() {
 ### Terminal Challenge: Exploration ⚡
 
 <HackerTerminal 
-  title="Hacker Challenge: Level 9 - Task 1"
-  description="Salvatore ha menzionato che a volte le variabili finiscono nei registri della CPU. Quale comando Linux ti permette di vedere i registri del processore durante il debug? (È un debugger molto famoso)"
-  command="..."
-  expectedOutput="gdb"
-  inputLabel="Debugger:"
-  placeholder="es. debugger"
-  explanation="GDB (GNU Debugger) è lo strumento definitivo per analizzare dump di memoria e registri."
-  xpReward={150}
-/>
-
-<HackerTerminal 
-  title="Hacker Challenge: Level 9 - Task 2"
-  description="Vuoi vedere l'indirizzo di caricamento di un programma in memoria mentre è in esecuzione. Quale file virtuale nel filesystem /proc contiene le mappe di memoria?"
-  command="cat /proc/self/..."
-  expectedOutput="cat /proc/self/maps"
-  inputLabel="File:"
-  placeholder="es. memory"
-  explanation="/proc/[pid]/maps mostra esattamente come i puntatori del tuo programma sono mappati sulla RAM fisica."
-  xpReward={250}
-/>
-
-<HackerTerminal 
-  title="Hacker Challenge: Level 9 - Task 3"
-  description="Come verifichiamo velocemente se siamo su un sistema operativo a 32 o 64 bit dal terminale usando il comando generico della macchina?"
-  command="uname ..."
-  expectedOutput="uname -m"
-  inputLabel="Comando:"
-  placeholder="es. uname sistema"
-  explanation="L'architettura (es. x86_64) definisce la larghezza del bus degli indirizzi, e quindi la dimensione in byte dei puntatori del tuo programma C."
-  xpReward={150}
+  challenges={[
+    {
+      id: "gdb-debugger",
+      title: "Il Debugger Supremo",
+      description: "Quale comando Linux ti permette di vedere i registri della CPU e analizzare la memoria durante il debug step-by-step?",
+      commands: ["gdb ./a.out"],
+      expectedOutput: "GNU gdb",
+      hints: ["È l'abbreviazione di 'GNU Debugger'"],
+      explanation: "Esatto! GDB è lo strumento definitivo per capire cosa succede ai tuoi puntatori in tempo reale.",
+      xpReward: 150
+    },
+    {
+      id: "proc-maps",
+      title: "Mappare la RAM",
+      description: "Quale file virtuale nel filesystem `/proc` mostra come sono mappate le sezioni di memoria di un processo?",
+      commands: ["cat /proc/self/maps"],
+      expectedOutput: "00400000",
+      hints: ["Cerca 'maps' dentro /proc/self"],
+      explanation: "Ottimo! `/proc/self/maps` ti mostra l'indirizzo di caricamento del codice, dello stack e dell'heap.",
+      xpReward: 250
+    },
+    {
+      id: "uname-arch",
+      title: "Larghezza del Bus",
+      description: "Quale comando mostra l'architettura della macchina (es. x86_64) definendo la dimensione dei tuoi puntatori?",
+      commands: ["uname -m"],
+      expectedOutput: "64",
+      hints: ["L'opzione sta per 'machine'"],
+      explanation: "Perfetto! Su un sistema a 64 bit, i puntatori occupano 8 byte, mentre su uno a 32 bit ne occupano 4.",
+      xpReward: 150
+    }
+  ]}
 />

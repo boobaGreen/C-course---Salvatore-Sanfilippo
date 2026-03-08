@@ -1,0 +1,283 @@
+
+import VideoEmbed from '../../components/content/VideoEmbed';
+import KeyConcepts from '../../components/content/KeyConcepts';
+import Callout from '../../components/content/Callout';
+import CodeEditor from '../../components/exercises/CodeEditor';
+import Quiz from '../../components/exercises/Quiz';
+import HackerTerminal from '../../components/content/HackerTerminal';
+import Infographic from '../../components/content/Infographic';
+import ComparisonTable from '../../components/content/ComparisonTable';
+
+# Lezione 16: Struct Avanzate e Reference Counting
+
+Oggi facciamo sul serio. Trasformeremo la nostra "Super Stringa" in un vero oggetto professionale, utilizzando tecniche che Salvatore usa quotidianamente in Redis. Impareremo a gestire la memoria in modo condiviso e a proteggerla dai bug più insidiosi.
+
+<VideoEmbed videoId="VPs_QtlLNcs" title="Lezione 16: Reference Counting e Magic Numbers" />
+
+<KeyConcepts concepts={[
+  { title: "Flexible Array Members", description: "Dichiarare `char str[]` alla fine di una struct per allocare dati di dimensione variabile in un unico blocco." },
+  { title: "Reference Counting", description: "Gestire la memoria tramite un contatore di 'possessori' (`ref_count`). L'oggetto muore solo quando l'ultimo lo rilascia." },
+  { title: "Magic Numbers", description: "Inserire valori 'esoterici' (es. 0xDEADBEEF) per verificare istantaneamente se un puntatore è valido o corrotto." },
+  { title: "Programmazione Difensiva", description: "Scrivere controlli (`validate`) per intercettare i bug prima che causino un crash silenzioso." }
+]} />
+
+## La Struct Professionale
+
+Dimentichiamo i cast manuali e i salti di 4 o 8 byte. C ci offre uno strumento elegante: i **Flexible Array Members**.
+
+```c
+struct pls {
+    uint32_t len;        // 4 byte: Lunghezza
+    uint32_t ref_count;  // 4 byte: Contatore referenze
+    uint32_t magic;      // 4 byte: Numero magico per sicurezza
+    char str[];          // Flexible Array: punta all'offset 12!
+};
+```
+
+### Layout di Memoria "Compatto"
+
+Grazie alla `char str[]`, l'header e il testo vivono in un **unico blocco contiguo**. Questo è fondamentale per la cache della CPU e per la semplicità di allocazione.
+
+<Infographic 
+  title="Layout pls con Flexible Array"
+  description="L'header occupa i primi 12 byte, seguiti immediatamente dal testo."
+  items={[
+    { label: "Offset 0", value: "len (uint32_t)", color: "blue" },
+    { label: "Offset 4", value: "ref_count (uint32_t)", color: "emerald" },
+    { label: "Offset 8", value: "magic (0xDEADBEEF)", color: "purple" },
+    { label: "Offset 12", value: "Inizio Testo (str)", color: "amber" }
+  ]}
+/>
+
+---
+
+## Retain e Release: Condividere la Memoria
+
+Invece di copiare la stringa ogni volta, aumentiamo semplicemente il `ref_count`.
+
+<ComparisonTable 
+  title="Copia Standard vs Reference Counting"
+  headers={["Operazione", "Copia Standard (strcpy)", "Reference Counting"]}
+  rows={[
+    ["Tempo", "O(N) - Lento", "O(1) - Istantaneo (incremento)"],
+    ["Memoria", "Raddoppia lo spazio", "Spreca solo 4-8 byte totali"],
+    ["Rischio", "Dati disallineati", "Dangling pointers (se non gestito)"]
+  ]}
+/>
+
+<Infographic 
+  title="Ciclo di Vita con Reference Counting"
+  description="Come l'oggetto nasce, viene condiviso e infine distrutto."
+  items={[
+    { label: "Nascita", value: "ps_create() -> Ref Count: 1", color: "blue" },
+    { label: "Condivisione", value: "ps_retain() -> Ref Count: 2", color: "emerald" },
+    { label: "Rilascio parziale", value: "ps_release() -> Ref Count: 1", color: "purple" },
+    { label: "Morte", value: "ps_release() -> Ref Count: 0 (FREE!)", color: "amber" }
+  ]}
+/>
+
+---
+
+## Implementazione: La libreria `pls`
+
+Ecco il cuore della gestione dinamica discussa da Salvatore.
+
+<CodeEditor 
+  initialCode={`#include <stdio.h>
+#include <stdlib.h>
+#include <stdint.h>
+#include <string.h>
+
+#define PLS_MAGIC 0xDEADBEEF
+
+struct pls {
+    uint32_t len;
+    uint32_t ref_count;
+    uint32_t magic;
+    char str[];
+};
+
+// Crea una stringa con ref_count = 1
+struct pls* ps_create(const char *init) {
+    uint16_t lens = strlen(init);
+    struct pls *p = malloc(sizeof(struct pls) + lens + 1);
+    p->len = lens;
+    p->ref_count = 1;
+    p->magic = PLS_MAGIC;
+    strcpy(p->str, init);
+    return p;
+}
+
+// Incrementa la fiducia nell'oggetto
+void ps_retain(struct pls *p) {
+    if (p->magic != PLS_MAGIC) abort(); // Difesa!
+    p->ref_count++;
+}
+
+// Decrementa e libera se necessario
+void ps_release(struct pls *p) {
+    if (p->magic != PLS_MAGIC) abort();
+    p->ref_count--;
+    if (p->ref_count == 0) {
+        p->magic = 0; // Invalido prima di liberare
+        free(p);
+        printf("Oggetto distrutto fisicamente.\\n");
+    }
+}
+
+int main() {
+    struct pls *s1 = ps_create("Hacker");
+    
+    // Simulo una condivisione
+    struct pls *s2 = s1; 
+    ps_retain(s2); // Ora ref_count è 2
+    
+    printf("Stringa: %s (Refs: %d)\\n", s1->str, s1->ref_count);
+    
+    ps_release(s1); // ref_count torna a 1
+    ps_release(s2); // ref_count va a 0 -> FREE!
+    
+    return 0;
+}`} 
+  language="c" 
+/>
+
+<Callout type="hacker" title="Magic Numbers">
+Perché Salvatore usa `0xDEADBEEF`? È un valore facile da riconoscere in un esadecimale (hexdump). Se vedi `00000000` dove dovrebbe esserci il magic, sai che stai usando un oggetto già liberato!
+</Callout>
+
+---
+
+## Esercitazione
+
+<Quiz 
+  title="Quiz Standard"
+  questions={[
+    {
+      question: "Cos'è un 'Flexible Array Member'?",
+      options: [
+        "Un array che può cambiare dimensione da solo",
+        "Un array dichiarato senza dimensione alla fine di una struct per ospitare dati variabili",
+        "Un array che accetta sia int che char",
+        "Un puntatore che non occupa memoria"
+      ],
+      correctAnswer: 1,
+      explanation: "Permette di allocare la struct e i dati variabili nello stesso blocco di memoria dinamica."
+    },
+    {
+      question: "Qual è il valore iniziale raccomandato del `ref_count` alla creazione?",
+      options: [
+        "0",
+        "1",
+        "2",
+        "Casuale"
+      ],
+      correctAnswer: 1,
+      explanation: "L'oggetto nasce con un possessore (chi lo ha creato). Se fosse 0, verrebbe liberato istantaneamente."
+    },
+    {
+      question: "Perché resettiamo `p->magic = 0` prima della `free`?",
+      options: [
+        "Per pulire la memoria",
+        "Per rendere la `free` più veloce",
+        "Per garantire che futuri controlli `ps_validate` falliscano (intercettando bug Use-After-Free)",
+        "È un obbligo dello standard C"
+      ],
+      correctAnswer: 2,
+      explanation: "Così, se qualcuno prova a usare l'oggetto dopo la free, il magic non sarà corretto e il programma si fermerà subito."
+    },
+    {
+      question: "In quale situazione il Reference Counting è preferibile alla copia bruta?",
+      options: [
+        "Quando le stringhe sono molto corte",
+        "Quando molti moduli diversi devono leggere gli stessi dati senza modificarli",
+        "Quando non abbiamo lo heap",
+        "Sempre, non ci sono controindicazioni"
+      ],
+      correctAnswer: 1,
+      explanation: "Risparmia tempo e memoria evitando duplicazioni inutili di dati identici."
+    },
+    {
+      question: "Cosa succede se chiami `ps_release` una volta di troppo?",
+      options: [
+        "Il programma ignora l'errore",
+        "Il ref_count diventa negativo",
+        "L'oggetto viene liberato quando non dovrebbe, portando a possibili crash futuri (o intercettato dal magic check)",
+        "La memoria aumenta"
+      ],
+      correctAnswer: 2,
+      explanation: "Se il contatore scende a 0 prematuramente, la memoria viene restituita al SO e il puntatore diventa tossico."
+    }
+  ]} 
+/>
+
+<Quiz 
+  title="Hacker Challenge"
+  questions={[
+    {
+      question: "Perché `sizeof(struct pls)` non include lo spazio del flexible array `str[]`?",
+      options: [
+        "Perché è vuoto",
+        "Perché `str` è solo un alias per un indirizzo di memoria (offset), non occupa memoria fisica nella struct stessa",
+        "È un bug del compilatore GCC",
+        "Perché deve essere allocato a mano"
+      ],
+      correctAnswer: 1,
+      explanation: "Il compilatore calcola la dimensione solo della parte 'statica'. `str` è solo un'etichetta per l'indirizzo che segue l'ultimo campo."
+    },
+    {
+      question: "Cosa si intende per 'Allineamento Naturale' citato da Salvatore?",
+      options: [
+        "I campi devono essere messi in ordine alfabetico",
+        "Un campo di 4 byte è più efficiente se il suo indirizzo è un multiplo di 4",
+        "La memoria deve essere allineata allo stack",
+        "Le stringhe devono finire con un numero pari"
+      ],
+      correctAnswer: 1,
+      explanation: "Le CPU moderne leggono i dati in blocchi (word). Se un dato è a cavallo tra due blocchi, la lettura è doppia e più lenta."
+    },
+    {
+      question: "Dato `p->magic = 0xDEADBEEF`, come apparirebbe in un Hexdump su sistema Little Endian?",
+      options: [
+        "DE AD BE EF",
+        "EF BE AD DE",
+        "AD DE EF BE",
+        "EF AD BE DE"
+      ],
+      correctAnswer: 1,
+      explanation: "Ricordi la Lezione 11? Il byte meno significativo (`EF`) va all'indirizzo più basso."
+    }
+  ]} 
+/>
+
+<HackerTerminal 
+  challenges={[
+    {
+      id: "magic-search",
+      title: "Caccia all'Esadecimale",
+      description: "Usa `hexdump` sul tuo eseguibile (o un dump di memoria) per cercare la costante `0xDEADBEEF`. Quale comando useresti?",
+      commands: ["grep", "hexdump"],
+      expectedOutput: "ef be ad de",
+      hints: ["Cerca l'ordine Little Endian!"]
+    },
+    {
+      id: "gcc-flexible",
+      title: "Standard C99",
+      description: "Prova a compilare una struct con `char str[0]` invece di `char str[]`. Quale versione corregge GCC per compatibilità?",
+      commands: ["gcc -std=c89", "gcc -std=c99"],
+      expectedOutput: "c99",
+      hints: ["Il flexible array non-standard [0] era un'estensione GCC prima di C99."]
+    },
+    {
+      id: "mem-limit-check",
+      title: "Stress Test Refs",
+      description: "Crea un loop che alloca 1 milione di stringhe e verifica con `top` o `htop` l'occupazione di memoria.",
+      commands: ["htop", "top"],
+      expectedOutput: "mem usage",
+      hints: ["Controlla la colonna RES (Resident Memory)."]
+    }
+  ]}
+/>
+
+### Riassunto Finale
+Oggi abbiamo aggiunto l'intelligenza alle nostre strutture. Non sono più solo carne da macello per la memoria, ma oggetti capaci di autogestirsi e proteggersi. Il Reference Counting è un pilastro dei sistemi moderni; padroneggiarlo significa scrivere codice robusto come quello di un kernel.

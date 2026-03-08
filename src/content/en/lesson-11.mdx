@@ -7,6 +7,9 @@ import CodeEditor from '../../components/exercises/CodeEditor';
 import Quiz from '../../components/exercises/Quiz';
 import HackerTerminal from '../../components/content/HackerTerminal';
 import MemoryCaster from '../../components/content/MemoryCaster';
+import BinaryVisualizer from '../../components/content/BinaryVisualizer';
+import ComparisonTable from '../../components/content/ComparisonTable';
+import Infographic from '../../components/content/Infographic';
 
 # Lesson 11: Pointer Casting & Endianness
 
@@ -50,6 +53,15 @@ This technique of reading a type's memory through a pointer of another type is c
 * **Little Endian** (Intel/AMD x86 architectures): The *Least Significant Byte* (LSB) is stored at the lowest memory address.
 * **Big Endian** (TCP/IP Network protocols, older Motorola CPUs): The *Most Significant Byte* (MSB) is stored at the lowest address.
 
+<BinaryVisualizer 
+  title="Endianness Visualization"
+  description="How the number 0x11223344 is stored in the two architectures."
+  data={[
+    { label: "Little Endian (x86)", bytes: ["44", "33", "22", "11"], address: "0x100" },
+    { label: "Big Endian (Network)", bytes: ["11", "22", "33", "44"], address: "0x100" }
+  ]}
+/>
+
 Example using the number `0x11223344`:
 * In **Little Endian** memory: `44 33 22 11` (base address holds `44`).
 * In **Big Endian** memory: `11 22 33 44` (base address holds `11`).
@@ -71,6 +83,17 @@ char *pascal_str = "\x0BHello World"; // \x0B is 11 in hex.
 ```
 
 This makes getting the length an instantaneous operation (`O(1)`), simply by reading `pascal_str[0]`. The downside of using a single byte? A maximum length of 255 characters!
+
+<ComparisonTable 
+  title="C Strings (Null-Terminated) vs Pascal Strings (Prefixed)"
+  headers={["Feature", "C Strings", "Pascal Strings"]}
+  rows={[
+    ["String end", "Byte 0x00 (Null)", "Prefix (first byte)"],
+    ["Length Calculation", "O(N) - Slow (strlen)", "O(1) - Instant"],
+    ["Binary Data", "❌ No (zero term)", "✅ Yes (can contain zero)"],
+    ["Max Length", "Available RAM", "255 (with 1 byte prefix)"]
+  ]}
+/>
 
 ---
 
@@ -112,6 +135,19 @@ int main() {
   { title: "Format Security", description: "Length-prefixed (Pascal) Strings eliminate the need for a NULL byte, making them binary-safe." }
 ]} />
 
+### Endianness Comparison Table
+
+<ComparisonTable 
+  title="Little Endian vs Big Endian"
+  headers={["Feature", "Little Endian", "Big Endian"]}
+  rows={[
+    ["Byte at low address", "Least Significant (LSB)", "Most Significant (MSB)"],
+    ["Typical Architectures", "x86 (Intel/AMD), ARM (often)", "Network (TCP/IP), Mainframes, MIPS"],
+    ["Advantage", "Optimized for mathematical operations on CPU", "More intuitive for human dump reading"],
+    ["Example 0x1234", "34 12", "12 34"]
+  ]}
+/>
+
 ---
 
 ## Challenges
@@ -131,7 +167,7 @@ int main() {
       explanation: "Pointer casting only changes the 'lens' through which the compiler views memory; it doesn't alter the underlying raw data."
     },
     {
-      question: "In a Little Endian architecture, how would the Hex `0xABCD` (short, 2 bytes) be saved in consecutive memory addresses?",
+      question: "In a Little Endian architecture, how would the Hex `0xABCD` (short, 2 bytes) be stored in consecutive memory addresses?",
       options: [
         "CD then AB",
         "AB then CD",
@@ -191,17 +227,6 @@ int main() {
       explanation: "The integer 1 in Little Endian is '01 00 00 00'. Since *c reads the first byte (lowest address), it will be 1 if Little Endian, and 0 if Big Endian ('00 00 00 01')."
     },
     {
-      question: "You are transmitting the short int `140` (0x008C) over a network socket. TCP/IP uses 'Network Byte Order', which is Big Endian. To read it correctly on the receiving Intel CPU (Little Endian), what bit-shifting is required if writing the converter manually?",
-      options: [
-        "No shifting is needed, TCP handles it automatically",
-        "You cannot shift, you must use a kernel syscall",
-        "Shift right by 4 and multiply",
-        "You must swap the high and low bytes: Shift the High byte right by 8 bits, and the Low byte left by 8 bits"
-      ],
-      correctAnswer: 3,
-      explanation: "The classic `ntohs` (Network to Host Short) macro shifts the first byte 8 positions right, and the second 8 positions left (combining with bitwise OR), effectively reversing the two bytes."
-    },
-    {
       question: "What is the primary risk of performing Type Punning without using unions or memcpy?",
       options: [
         "The compiler will always crash during exactly the build phase",
@@ -210,7 +235,18 @@ int main() {
         "The memory becomes implicitly read-only for the Operating System constraints"
       ],
       correctAnswer: 1,
-      explanation: "C has a 'Strict Aliasing' rule which forbids using incompatible pointer types to access the same memory location. If violated, an optimizing compiler (like GCC with -O3) might incorrectly assume variables don't overlap, leading to very annoying bugs."
+      explanation: "C has a 'Strict Aliasing' rule which forbids using incompatible pointer types to access the same memory location. If violated, an optimizing compiler might incorrectly assume variables don't overlap."
+    },
+    {
+      question: "Why is 'Network Byte Order' almost always Big Endian?",
+      options: [
+        "Because Intel CPUs were born after the internet",
+        "Because it is the historical standard chosen for interoperability between different systems",
+        "Because it is faster to transmit over cables",
+        "Because bits weigh less if put at the beginning"
+      ],
+      correctAnswer: 1,
+      explanation: "The IP standard defines Big Endian as Network Byte Order to ensure machines with different architectures speak the same language."
     }
   ]} 
 />
@@ -218,28 +254,28 @@ int main() {
 <HackerTerminal 
   challenges={[
     {
-      id: "endian-hexdump-en",
-      title: "Inspect memory Endianness",
-      description: "Create an executable byte sequence with `echo -n -e '\\x41\\x42\\x43\\x44' > test.bin` and read its numerical value grouped in 4-byte chunks using `hexdump` (Hint: `-x` for hex. An x86 machine will read ABCD backwards).",
-      commands: ["echo", "hexdump"],
-      expectedOutput: "hexdump",
-      hints: ["use hexdump -x test.bin"]
+      id: "endian-check-en",
+      title: "The Endianness Detector",
+      description: "Use the `lscpu` command and filter the output to see your processor's byte order.",
+      commands: ["lscpu | grep \"Byte Order\""],
+      expectedOutput: "Byte Order:            Little Endian",
+      hints: ["Use grep to search for Byte Order"]
     },
     {
-      id: "python-hex-en",
-      title: "Python Hex Conversion CLI",
-      description: "How do we simulate the hexadecimal from our lesson? Run python via `-c` to print the hex integer 0x61. (Hint: python3 -c \"print(0x61)\"). What does it print?",
-      commands: ["python3", "python"],
+      id: "python-hex-check-en",
+      title: "Python as a Hex Calculator",
+      description: "Use python3 to print the decimal value of the hexadecimal number 0x61.",
+      commands: ["python3 -c \"print(0x61)\""],
       expectedOutput: "97",
-      hints: ["use python3 -c \"print(0x61)\""]
+      hints: ["-c allows executing code from the command line"]
     },
     {
-      id: "lscpu-en",
-      title: "Verify CPU Architecture",
-      description: "Not sure if the server you're SSHing into uses Little Endian or Big Endian? Use the command `lscpu` to print processor specifications, which specifically includes a 'Byte Order' entry.",
-      commands: ["lscpu"],
-      expectedOutput: "Byte Order",
-      hints: ["type lscpu to analyze CPU details"]
+      id: "hexdump-custom-en",
+      title: "Manual Dump",
+      description: "Create a 4-byte file with 'ABCD' and view it with `hexdump` in hexadecimal format.",
+      commands: ["echo -n \"ABCD\" > test.bin", "hexdump -C test.bin"],
+      expectedOutput: "41 42 43 44",
+      hints: ["echo -n avoids a trailing newline"]
     }
   ]}
 />

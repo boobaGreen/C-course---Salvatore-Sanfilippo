@@ -7,6 +7,10 @@ import CodeEditor from '../../components/exercises/CodeEditor';
 import Quiz from '../../components/exercises/Quiz';
 import HackerTerminal from '../../components/content/HackerTerminal';
 import HeapAllocator from '../../components/content/HeapAllocator';
+import StackVisualizer from '../../components/content/StackVisualizer';
+import OverflowSimulator from '../../components/content/OverflowSimulator';
+import ComparisonTable from '../../components/content/ComparisonTable';
+import Infographic from '../../components/content/Infographic';
 
 # Lezione 12: Memoria Dinamica e Stringhe Custom
 
@@ -28,6 +32,28 @@ Fino ad ora, ogni variabile che abbiamo creato viveva nello **Stack**. Lo stack 
 Se vogliamo creare dati che "sopravvivono" alle funzioni, o dati la cui grandezza la sappiamo solo mentre il programma gira (es. un file testuale caricato dall'utente), dobbiamo usare l'**Heap**.
 
 <HeapAllocator />
+
+<StackVisualizer 
+  title="Visualizzazione Stack"
+  description="Qui le variabili vengono create e rimosse automaticamente."
+  frames={[
+    { func: "main", vars: [{ name: "x", value: "10", type: "int" }] },
+    { func: "mia_funzione", vars: [{ name: "y", value: "20", type: "int" }] }
+  ]}
+/>
+
+### Stack vs Heap: La Gran Battaglia
+
+<ComparisonTable 
+  title="Stack vs Heap"
+  headers={["Caratteristica", "Stack", "Heap"]}
+  rows={[
+    ["Durata", "Automata (limitata al blocco {})", "Manuale (fino alla free)"],
+    ["Velocità", "Molto Veloce (gestito da CPU)", "Lenta (gestito da libreria C)"],
+    ["Dimensione", "Limitata (pochi MB)", "Enorme (tutta la RAM)"],
+    ["Dati", "Noti a priori", "Dinamici / Ignoti"]
+  ]}
+/>
 
 ### Malloc e Free
 
@@ -62,6 +88,16 @@ Ora che abbiamo `malloc`, possiamo creare un **Oggetto Stringa** serio.
 Il nostro formato personalizzato sarà:
 1. I primi **4 byte** (`int`) conterranno la lunghezza della stringa.
 2. I restanti byte conterranno i caratteri, più uno `\0` finale (per renderla compatibile con i comandi come `printf`).
+
+<Infographic 
+  title="Anatomia della Super Stringa v1"
+  description="L'header precede il puntatore restituito all'utente."
+  items={[
+    { label: "Header (4 byte)", value: "Lunghezza (int)", color: "purple" },
+    { label: "Dati", value: "Caratteri della stringa", color: "blue" },
+    { label: "Terminatore", value: "Byte 0x00 finale", color: "amber" }
+  ]}
+/>
 
 ### Creazione di una stringa ad alte prestazioni
 
@@ -217,6 +253,13 @@ int main() {
       explanation: "Questo si chiama Double-Free. L'allocatore C inserisce il blocco restituito in una lista di blocchi liberi. Inserirlo due volte crea un loop infinito (circular link) nelle linked-list di gestione di libc, causando la morte del programma al prossimo malloc."
     }
   ]} 
+/>
+
+### Simulatore di Overflow
+<OverflowSimulator 
+  title="Pericoli dell'Heap"
+  description="Cosa succede se scrivi oltre i byte allocati."
+  initialSize={8}
 />
 
 <HackerTerminal 

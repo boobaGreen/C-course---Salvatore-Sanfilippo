@@ -1,0 +1,273 @@
+
+import VideoEmbed from '../../components/content/VideoEmbed';
+import KeyConcepts from '../../components/content/KeyConcepts';
+import Callout from '../../components/content/Callout';
+import CodeEditor from '../../components/exercises/CodeEditor';
+import Quiz from '../../components/exercises/Quiz';
+import HackerTerminal from '../../components/content/HackerTerminal';
+import Infographic from '../../components/content/Infographic';
+import ComparisonTable from '../../components/content/ComparisonTable';
+
+# Lesson 15: Linked Lists & the TAC Project
+
+"We left off with fractions, thinking we understood structures. We understood nothing until we take this leap." - Salvatore introduces the `tac` command (the reverse of `cat`) to explore the true power of dynamic structures.
+
+<VideoEmbed videoId="aTT2W5NACEY" title="Lesson 15: Linked Lists & TAC" />
+
+<KeyConcepts concepts={[
+  { title: "Argv: Pointers to Pointers", description: "How the system passes command-line arguments via an array of strings." },
+  { title: "Self-Referencing Structs", description: "Structs that contain a pointer to another struct of the same type." },
+  { title: "File Handling (stdio.h)", description: "Using `fopen`, `fgets`, and `fclose` to read file data line by line." },
+  { title: "Linked Lists", description: "A chain of objects in memory where each points to the 'next', allowing for easy file reversal." }
+]} />
+
+## Understanding `argc` and `argv`
+
+Salvatore explains `argv` as a "pointer to pointers." Imagine it as a list of addresses, where each address points to a string (program name, first argument, etc.).
+
+<Infographic 
+  title="argv Memory Layout"
+  description="argv[0] is always the executable's name."
+  items={[
+    { label: "argv[0]", value: "Pointer to './tac'", color: "blue" },
+    { label: "argv[1]", value: "Pointer to 'file.txt'", color: "emerald" },
+    { label: "NULL", value: "The last element is always Zero", color: "amber" }
+  ]}
+/>
+
+---
+
+## The Algorithmic "Shock"
+
+Until now, we've used arrays. Arrays are flat memory blocks. But what if we don't know how many lines a file has? Instead of allocating a giant array "randomly," we use a **Linked List**.
+
+A linked list is like a chain of people: each one holds the hand of the next one. If you want to reverse the order of lines (as the `tac` command does), you just add each new line "in front" of the head of the list.
+
+### The Node Structure
+
+```c
+struct Line {
+    char *text;          // Line content
+    struct Line *next;   // Pointer to the next line (or NULL)
+};
+
+<Infographic 
+  title="Anatomy of a Node"
+  description="The fundamental building block for creating data chains."
+  items={[
+    { label: "Data Field", value: "The actual value (e.g., int)", color: "blue" },
+    { label: "Next Pointer", value: "The address of the next node (NULL if last)", color: "emerald" }
+  ]}
+/>
+```
+
+<Callout type="hacker" title="Mental Leap">
+Note that `struct Line` contains a pointer to `struct Line`. This is possible because a pointer is just a memory address; the compiler doesn't need to know the full size of the struct to define the pointer.
+</Callout>
+
+### Visualizing the Linked List
+
+<Infographic 
+  title="Chain of Nodes in Memory"
+  description="Each 'Line' node points to the previous one to reverse the order."
+  items={[
+    { label: "Head", value: "Points to the Last line read", color: "purple" },
+    { label: "Node n (Next)", value: "Points to Node n-1", color: "blue" },
+    { label: "Node 1 (Next)", value: "NULL Value (End of List)", color: "amber" }
+  ]}
+/>
+
+<ComparisonTable 
+  title="Array vs Linked List"
+  headers={["Feature", "Array", "Linked List"]}
+  rows={[
+    ["Allocation", "Fixed contiguous block", "Scattered nodes in heap"],
+    ["Random Access", "O(1) - Instant", "O(N) - Must traverse"],
+    ["Head Insertion", "O(N) - Must shift all", "O(1) - Change 2 pointers"],
+    ["Memory Waste", "Zero (data only)", "High (each node has a pointer)"]
+  ]}
+/>
+
+---
+
+## Implementation: The TAC Command
+
+<CodeEditor 
+  initialCode={`#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+struct Line {
+    char *text;
+    struct Line *next;
+};
+
+int main(int argc, char **argv) {
+    if (argc < 2) return 1;
+    
+    FILE *fp = fopen(argv[1], "r");
+    if (!fp) return 1;
+
+    char buf[1024];
+    struct Line *head = NULL;
+
+    // Read the file and create the list "backwards"
+    while (fgets(buf, sizeof(buf), fp)) {
+        struct Line *new_node = malloc(sizeof(struct Line));
+        new_node->text = strdup(buf); // Allocates and copies the string
+        new_node->next = head;        // Old 'head' becomes 'next'
+        head = new_node;              // This becomes the new 'head'
+    }
+
+    // Print the list (which is now in reverse order!)
+    struct Line *curr = head;
+    while (curr) {
+        printf("%s", curr->text);
+        curr = curr->next;
+    }
+
+    fclose(fp);
+    return 0;
+}`} 
+  language="c" 
+/>
+
+<Callout type="info">
+`strdup` is a very handy function that does `malloc` + `strcpy` in one go. Remember, however, that you must `free` both the `text` and the node itself!
+</Callout>
+
+---
+
+## Exercises
+
+<Quiz 
+  title="Standard Quiz"
+  questions={[
+    {
+      question: "What does 'self-referencing struct' mean?",
+      options: [
+        "A struct that deletes itself",
+        "A struct that contains a pointer to itself (or the same type)",
+        "A struct with no fields",
+        "A struct that can only be used once"
+      ],
+      correctAnswer: 1,
+      explanation: "It allows creating chains or graphs in memory where each node points to the next location."
+    },
+    {
+      question: "In what order do elements appear in a linked list if we use head insertion?",
+      options: [
+        "Order of arrival (FIFO)",
+        "Reverse order of arrival (LIFO)",
+        "Alphabetical order",
+        "Random order"
+      ],
+      correctAnswer: 1,
+      explanation: "By always appending at the head, the last element added becomes the first in the list, reversing the original order."
+    },
+    {
+      question: "What does `fgets` return when it reaches the end of a file?",
+      options: [
+        "NULL",
+        "An empty string",
+        "The number of characters read",
+        "Causes a segmentation fault"
+      ],
+      correctAnswer: 0,
+      explanation: "It returns `NULL` to indicate no more lines are left, ideal for terminating a `while` loop."
+    },
+    {
+      question: "What is the main flaw in the `tac` implementation shown above?",
+      options: [
+        "It's too slow",
+        "It loads the entire file into RAM (might fail for huge files)",
+        "It cannot read binary files",
+        "It only works on Windows"
+      ],
+      correctAnswer: 1,
+      explanation: "Since we load each line into a heap struct, files of several gigabytes could exhaust available memory."
+    },
+    {
+      question: "Why do we use `strdup` instead of directly assigning the buffer?",
+      options: [
+        "Because the buffer is overwritten on every `fgets` cycle",
+        "Because `strdup` is safer",
+        "Because strings must always be allocated on the heap",
+        "Because the compiler requires it"
+      ],
+      correctAnswer: 0,
+      explanation: "If we only saved the pointer to `buf`, all nodes in the list would point to the same line (the last one read)."
+    }
+  ]} 
+/>
+
+<Quiz 
+  title="Hacker Challenge"
+  questions={[
+    {
+      question: "Which operation is more expensive (complex) in a linked list compared to an array?",
+      options: [
+        "Accessing a random element by index (e.g., the 500th element)",
+        "Inserting an element into the head",
+        "Deleting the first element",
+        "None, lists are always better than arrays"
+      ],
+      correctAnswer: 0,
+      explanation: "In an array, access is O(1) [mathematical]. In a list, you must traverse all nodes up to the 500th, which is O(N)."
+    },
+    {
+      question: "If we forget to call `fclose(fp)`, what is the main risk?",
+      options: [
+        "The file is deleted",
+        "The kernel might exhaust available 'file descriptors' if the program runs long",
+        "The computer shuts down",
+        "The file can no longer be read by others"
+      ],
+      correctAnswer: 1,
+      explanation: "The OS has a limit on the number of files each process can keep open simultaneously."
+    },
+    {
+      question: "In a self-referencing struct, why must the field be a POINTER and not the struct itself?",
+      options: [
+        "Because it is faster",
+        "Because otherwise the struct would have infinite size (recursive)",
+        "Because the C standard forbids it for security reasons",
+        "Because pointers take up less space"
+      ],
+      correctAnswer: 1,
+      explanation: "If a struct contained itself 'inside', its size would be infinite. A pointer has a fixed size (8 bytes)."
+    }
+  ]} 
+/>
+
+<HackerTerminal 
+  challenges={[
+    {
+      id: "tac-usage-en",
+      title: "Reverse the System",
+      description: "Try using the real Linux command. View the content of `/etc/passwd` in reverse.",
+      commands: ["tac /etc/passwd"],
+      expectedOutput: "root:x:0:0:root:/root:/bin/bash",
+      hints: ["Use tac followed by the file path"]
+    },
+    {
+      id: "check-leaks-tac-en",
+      title: "Leak Hunt",
+      description: "Compile the TAC program and use `valgrind` to verify if you freed all list nodes before exiting.",
+      commands: ["valgrind --leak-check=full ./tac file.txt"],
+      expectedOutput: "All heap blocks were freed -- no leaks are possible",
+      hints: ["valgrind is the ultimate tool for heap debugging"]
+    },
+    {
+      id: "file-descriptors-limit-en",
+      title: "The Physical Limit",
+      description: "Use the `ulimit` command to see how many files you can keep open simultaneously on your Linux user.",
+      commands: ["ulimit -n"],
+      expectedOutput: "1024",
+      hints: ["the option is -n (number of files)"]
+    }
+  ]}
+/>
+
+### Final Summary
+In this lesson, we created a real system tool. We learned that structures are not just static containers but bricks that can link together to create dynamic data structures. Welcome to the world of Linked Lists!

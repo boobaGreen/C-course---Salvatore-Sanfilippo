@@ -192,34 +192,36 @@ int main() {
 ### Terminal Challenge: Exploration ⚡
 
 <HackerTerminal 
-  title="Hacker Challenge: Level 10 - Task 1"
-  description="Which Linux command allows you to view the binary content of a file (even an executable) in hexadecimal format?"
-  command="..."
-  expectedOutput="hexdump"
-  inputLabel="Command:"
-  placeholder="e.g. dump"
-  explanation="Hexdump is essential for seeing how data (strings, integers, pointers) is actually written on disk or memory."
-  xpReward={150}
-/>
-
-<HackerTerminal 
-  title="Hacker Challenge: Level 10 - Task 2"
-  description="You're analyzing a crash (Segfault). Which Linux command creates a detailed report of what the program was doing at the time of the error (creates a 'dump' file)?"
-  command="ulimit -c ..."
-  expectedOutput="ulimit -c unlimited"
-  inputLabel="Configuration:"
-  placeholder="e.g. enable dump"
-  explanation="By enabling core dumps, you can use GDB to analyze the exact state of pointers at the time of the crash."
-  xpReward={250}
-/>
-
-<HackerTerminal 
-  title="Hacker Challenge: Level 10 - Task 3"
-  description="In addition to core dumps and GDB, which Linux command traces the system calls a program makes to the Kernel, extremely useful to see exactly before which operation the crash occurs?"
-  command="strace ..."
-  expectedOutput="strace ./a.out"
-  inputLabel="Tracing:"
-  placeholder="e.g. trace ./program"
-  explanation="Strace shows you the very last syscall invoked by the program before it received the SIGSEGV signal from the OS."
-  xpReward={200}
+  challenges={[
+    {
+      id: "hexdump-bin-en",
+      title: "The Binary Gaze",
+      description: "Which Linux command allows you to view the content of a file (even an executable) in hexadecimal format?",
+      commands: ["hexdump -C a.out"],
+      expectedOutput: "00000000",
+      hints: ["Look for a command that means 'hex dump'"],
+      explanation: "Exactly! `hexdump` is essential for seeing how data is actually written.",
+      xpReward: 150
+    },
+    {
+      id: "ulimit-core-en",
+      title: "Hunt for the Crash",
+      description: "Which command allows you to enable the creation of 'core dump' files (post-crash reports)?",
+      commands: ["ulimit -c unlimited"],
+      expectedOutput: "unlimited",
+      hints: ["Use 'ulimit' with the -c option"],
+      explanation: "Great! By enabling core dumps you can analyze the Segfault with GDB.",
+      xpReward: 250
+    },
+    {
+      id: "strace-sys-en",
+      title: "System Tracing",
+      description: "Which command traces all system calls (syscalls) made by your `./a.out` program?",
+      commands: ["strace ./a.out"],
+      expectedOutput: "execve",
+      hints: ["Stands for 'System Trace'"],
+      explanation: "Perfect! `strace` shows you the very last syscall invoked before a crash.",
+      xpReward: 200
+    }
+  ]}
 />

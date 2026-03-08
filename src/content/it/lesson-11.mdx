@@ -7,6 +7,9 @@ import CodeEditor from '../../components/exercises/CodeEditor';
 import Quiz from '../../components/exercises/Quiz';
 import HackerTerminal from '../../components/content/HackerTerminal';
 import MemoryCaster from '../../components/content/MemoryCaster';
+import BinaryVisualizer from '../../components/content/BinaryVisualizer';
+import ComparisonTable from '../../components/content/ComparisonTable';
+import Infographic from '../../components/content/Infographic';
 
 # Lezione 11: Casting dei Puntatori ed Endianness
 
@@ -54,6 +57,15 @@ Esempio col numero `0x11223344`:
 * In memoria **Little Endian**: `44 33 22 11` (all'indirizzo base troviamo `44`).
 * In memoria **Big Endian**: `11 22 33 44` (all'indirizzo base troviamo `11`).
 
+<BinaryVisualizer 
+  title="Visualizzazione Endianness"
+  description="Come il numero 0x11223344 viene stoccato nelle due architetture."
+  data={[
+    { label: "Little Endian (x86)", bytes: ["44", "33", "22", "11"], address: "0x100" },
+    { label: "Big Endian (Network)", bytes: ["11", "22", "33", "44"], address: "0x100" }
+  ]}
+/>
+
 ## Stringhe C vs Stringhe Prefisse
 
 Fino ad ora abbiamo usato le classiche stringhe C (note come *Null-terminated strings*). Finiscono col byte `0x00`.
@@ -71,6 +83,17 @@ char *pascal_str = "\x0BHello World"; // \x0B è 11 in esadecimale.
 ```
 
 In questo modo ottenere la lunghezza era un'operazione istantanea (`O(1)`), leggendo semplicemente `pascal_str[0]`. Lo svantaggio con un solo byte? Lunghezza massima di 255 caratteri!
+
+<ComparisonTable 
+  title="Stringhe C (Null-Terminated) vs Pascal (Prefisse)"
+  headers={["Caratteristica", "Stringhe C", "Stringhe Pascal"]}
+  rows={[
+    ["Fine stringa", "Byte 0x00 (Null)", "Prefisso (primo byte)"],
+    ["Calcolo Lunghezza", "O(N) - Lento (strlen)", "O(1) - Istantaneo"],
+    ["Dati Binari", "❌ No (lo zero interrompe)", "✅ Sì (può contenere lo zero)"],
+    ["Lunghezza Max", "RAM disponibile", "255 (con 1 byte di prefisso)"]
+  ]}
+/>
 
 ---
 
@@ -111,6 +134,19 @@ int main() {
   { title: "La Realtà della RAM", description: "La memoria è solo una cruda sequenza di byte; il significato (Testo, Numero) esiste solo tramite i tipi." },
   { title: "Sicurezza del Formato", description: "Il prefisso di lunghezza elimina la necessità del byte NULL, rendendo la stringa sicura per contenere zeri binari." }
 ]} />
+
+### Tabella Comparativa Endianness
+
+<ComparisonTable 
+  title="Little Endian vs Big Endian"
+  headers={["Caratteristica", "Little Endian", "Big Endian"]}
+  rows={[
+    ["Byte all'indirizzo basso", "Il meno significativo (LSB)", "Il più significativo (MSB)"],
+    ["Architetture tipiche", "x86 (Intel/AMD), ARM (spesso)", "Network (TCP/IP), Mainframe, MIPS"],
+    ["Vantaggio", "Ottimizzato per operazioni matematiche su CPU", "Più intuitivo per la lettura umana dei dump"],
+    ["Esempio 0x1234", "34 12", "12 34"]
+  ]}
+/>
 
 ---
 
@@ -191,17 +227,6 @@ int main() {
       explanation: "Il numero intero 1, in Little Endian è 01 00 00 00 in esadecimale. Poiché *c legge il primo byte (all'indirizzo più basso), varrà 1 se il sistema è Little Endian, e 0 se fosse Big Endian (00 00 00 01)."
     },
     {
-      question: "Stai trasmettendo via socket di rete lo short int `140` (0x008C). Il TCP/IP usa per standard il 'Network Byte Order', ovvero il Big Endian. Per esser letto giusto dall'altra parte su una CPU Intel (Little Endian), quanti bit dovrai shiftare in fase di ricezione se scrivi il convertitore a mano?",
-      options: [
-        "Non serve shiftare, il TCP lo fa al volo",
-        "Non puoi shiftare, devi usare una chiamata di sistema syscall",
-        "Shifta a destra di 4 e moltiplica",
-        "Devi swappare (invertire) l'ordine del byte basso col byte alto. Quindi shifta a destra di 8 bit il Byte alto, e a sinistra di 8 bit il byte basso"
-      ],
-      correctAnswer: 3,
-      explanation: "La classica macro `ntohs` (Network to Host Short) sposta il primo byte di 8 posizioni a destra, e il secondo di 8 posizioni a sinistra (tramite bitwise OR), capovolgendo l'ordine dei due byte."
-    },
-    {
       question: "Qual è il rischio principale quando si esegue il Type Punning senza usare union o memcpy?",
       options: [
         "Il compilatore crasherà sempre in fase di build",
@@ -210,7 +235,18 @@ int main() {
         "La memoria diventa di sola lettura per il sistema operativo"
       ],
       correctAnswer: 1,
-      explanation: "Il C ha una regola chiamata 'Strict Aliasing' che vieta di usare puntatori di tipi diversi per accedere alla stessa locazione di memoria. Se violata, il compilatore (specie con ottimizzazioni -O2 o -O3) potrebbe assumere erroneamente che le variabili non si sovrappongano, causando bachi subdoli."
+      explanation: "Il C ha una regola chiamata 'Strict Aliasing' che vieta di usare puntatori di tipi diversi per accedere alla stessa locazione di memoria. Se violata, il compilatore potrebbe assumere erroneamente che le variabili non si sovrappongano."
+    },
+    {
+      question: "Perché il 'Network Byte Order' è quasi sempre Big Endian?",
+      options: [
+        "Perché le CPU Intel sono nate dopo internet",
+        "Perché è lo standard storico scelto per l'interoperabilità tra sistemi diversi",
+        "Perché è più veloce da trasmettere sui cavi",
+        "Perché i bit pesano meno se messi all'inizio"
+      ],
+      correctAnswer: 1,
+      explanation: "Lo standard IP definisce il Big Endian come Network Byte Order per garantire che macchine con diverse architetture parlino la stessa lingua."
     }
   ]} 
 />
@@ -218,28 +254,28 @@ int main() {
 <HackerTerminal 
   challenges={[
     {
-      id: "endian-hexdump",
-      title: "Ispezionare la memoria",
-      description: "Crea un byte eseguibile con `echo -n -e '\\x41\\x42\\x43\\x44' > test.bin` e leggine il valore numerico raggruppato a blocchi di 4 byte usando `hexdump` (indizio: `-x` per hex e `-e` per formato, la x86 leggerà al contrario rispetto a ABCD).",
-      commands: ["echo", "hexdump"],
-      expectedOutput: "hexdump",
-      hints: ["usa hexdump -x test.bin"]
+      id: "endian-check",
+      title: "Il Rilevatore di Endianness",
+      description: "Usa il comando `lscpu` e filtra l'output per vedere l'ordine dei byte del tuo processore.",
+      commands: ["lscpu | grep \"Byte Order\""],
+      expectedOutput: "Byte Order:            Little Endian",
+      hints: ["Usa grep per cercare Byte Order"]
     },
     {
-      id: "python-hex",
-      title: "Conversione python in CLI",
-      description: "Come simuliamo l'esadecimale della nostra lezione? Esegui con python via `-c` la stampa dell'intero esadecimale 0x61. (Suggerimento: python3 -c \"print(0x61)\"). Cosa stampa?",
-      commands: ["python3", "python"],
+      id: "python-hex-check",
+      title: "Python come Calcolatrice Hex",
+      description: "Usa python3 per stampare il valore decimale del numero esadecimale 0x61.",
+      commands: ["python3 -c \"print(0x61)\""],
       expectedOutput: "97",
-      hints: ["usa python3 -c \"print(0x61)\""]
+      hints: ["-c permette di eseguire codice dalla riga di comando"]
     },
     {
-      id: "lscpu",
-      title: "Verifica l'Architettura CPU",
-      description: "Non sei sicuro se il server su cui stai lavorando usi Little Endian o Big Endian? Usa il comando `lscpu` per stampare le caratteristiche del tuo processore, inclusa la voce 'Byte Order'.",
-      commands: ["lscpu"],
-      expectedOutput: "Byte Order",
-      hints: ["scrivi lscpu per vedere i dettagli dell'architettura"]
+      id: "hexdump-custom",
+      title: "Dump Manuale",
+      description: "Crea un file di 4 byte con 'ABCD' e visualizzalo con `hexdump` in formato esadecimale.",
+      commands: ["echo -n \"ABCD\" > test.bin", "hexdump -C test.bin"],
+      expectedOutput: "41 42 43 44",
+      hints: ["echo -n evita il newline finale"]
     }
   ]}
 />

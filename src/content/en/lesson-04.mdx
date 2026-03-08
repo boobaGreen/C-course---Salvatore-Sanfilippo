@@ -178,39 +178,38 @@ Try experimenting with `sizeof` and the `limits.h` constants like `INT_MIN` and 
 ### Terminal Challenge: Header Hunting 🕵️
 
 <HackerTerminal 
-  title="Hacker Challenge: Level 4 - Task 1"
-  description="Salvatore explained that to know the system limits (such as the maximum value of an integer), we must not guess, but use a standard header file. What is the name of this file?"
-  command="ls /usr/include/..."
-  expectedOutput="limits.h"
-  inputLabel="Header File:"
-  placeholder="e.g. stdio.h"
-  hint="It deals with the numeric 'limits' of the system."
-  explanation="Exactly! `limits.h` defines macros like `INT_MAX`, `SHRT_MIN`, etc. This allows your C code to be portable: if you compile it on a 16-bit machine, `INT_MAX` will be 32,767; on a 32-bit machine, it will be 2 billion."
-  xpReward={150}
-/>
-
-<HackerTerminal 
-  title="Hacker Challenge: Level 4 - Task 2"
-  description="For more precision, modern C (C99) introduces fixed-size types (e.g., int32_t). Which header file must you include to use them?"
-  command="ls /usr/include/..."
-  expectedOutput="stdint.h"
-  inputLabel="Header File:"
-  placeholder="e.g. stdio.h"
-  hint="It starts with 'std' and contains the word 'int'."
-  explanation="Great! `stdint.h` is essential for writing robust code that must work the same way on every machine, ensuring that an integer is exactly 32 or 64 bits."
-  xpReward={200}
-/>
-
-<HackerTerminal 
-  title="Hacker Challenge: Level 4 - Task 3"
-  description="The order of bytes in memory can be 'Little Endian' (most common on PC) or 'Big Endian'. Is there a Linux command to see the CPU architecture and the Byte Order? Which one?"
-  command="ls cpu"
-  expectedOutput="lscpu"
-  inputLabel="Command:"
-  placeholder="e.g. lscpu"
-  hint="It stands for 'list CPU'."
-  explanation="Executed! `lscpu` shows you if your machine is 'Little Endian'. In this case, the least significant byte is stored at the lowest address. This is a crucial detail when transmitting data over the network!"
-  xpReward={250}
+  challenges={[
+    {
+      id: "limits-header-en",
+      title: "The Guardian of Limits",
+      description: "What is the name of the standard header file that defines the minimum and maximum limits of integer types on your system?",
+      commands: ["ls /usr/include/limits.h"],
+      expectedOutput: "limits.h",
+      hints: ["It deals with numerical 'limits'"],
+      explanation: "Exactly! `limits.h` contains macros like `INT_MAX` and `CHAR_BIT`.",
+      xpReward: 150
+    },
+    {
+      id: "stdint-header-en",
+      title: "Surgical Precision",
+      description: "To use types with guaranteed size (e.g., int32_t), which header file must you include?",
+      commands: ["ls /usr/include/stdint.h"],
+      expectedOutput: "stdint.h",
+      hints: ["Starts with 'std' and contains 'int'"],
+      explanation: "Great! `stdint.h` is vital for code portability.",
+      xpReward: 200
+    },
+    {
+      id: "lscpu-endian-en",
+      title: "The Byte Order",
+      description: "Which Linux command shows the CPU architecture and whether the system is Little or Big Endian?",
+      commands: ["lscpu | grep \"Byte Order\""],
+      expectedOutput: "Little Endian",
+      hints: ["Stands for 'List CPU'"],
+      explanation: "Perfect! `lscpu` reveals how your CPU organizes bytes in memory.",
+      xpReward: 250
+    }
+  ]}
 />
 
 See you in the next lesson!

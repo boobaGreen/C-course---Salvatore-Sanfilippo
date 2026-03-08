@@ -178,39 +178,38 @@ Prova a sperimentare con `sizeof` e le costanti di `limits.h` come `INT_MIN` e `
 ### Terminal Challenge: Header Hunting 🕵️
 
 <HackerTerminal 
-  title="Hacker Challenge: Level 4 - Task 1"
-  description="Salvatore ha spiegato che per conoscere i limiti del sistema (come il valore massimo di un intero) non dobbiamo indovinare, ma usare un file header standard. Qual è il nome di questo file?"
-  command="ls /usr/include/..."
-  expectedOutput="limits.h"
-  inputLabel="File Header:"
-  placeholder="es. stdio.h"
-  hint="Si occupa dei 'limiti' numerici del sistema."
-  explanation="Esatto! `limits.h` definisce macro come `INT_MAX`, `SHRT_MIN`, ecc. Questo permette al tuo codice C di essere portabile: se lo compili su una macchina a 16 bit, `INT_MAX` sarà 32.767; su una a 32 bit, sarà 2 miliardi."
-  xpReward={150}
-/>
-
-<HackerTerminal 
-  title="Hacker Challenge: Level 4 - Task 2"
-  description="Per maggiore precisione, il C moderno (C99) introduce i tipi a dimensione fissa (es. int32_t). Quale file header devi includere per usarli?"
-  command="ls /usr/include/..."
-  expectedOutput="stdint.h"
-  inputLabel="File Header:"
-  placeholder="es. stdio.h"
-  hint="Inizia con 'std' e contiene la parola 'int'."
-  explanation="Ottimo! `stdint.h` è essenziale per scrivere codice robusto che deve funzionare allo stesso modo su ogni macchina, garantendo che un intero sia esattamente di 32 o 64 bit."
-  xpReward={200}
-/>
-
-<HackerTerminal 
-  title="Hacker Challenge: Level 4 - Task 3"
-  description="L'ordine dei byte in memoria può essere 'Little Endian' (più comune su PC) o 'Big Endian'. Esiste un comando Linux per vedere l'architettura della CPU e l'ordinamento dei byte (Byte Order). Quale?"
-  command="ls cpu"
-  expectedOutput="lscpu"
-  inputLabel="Comando:"
-  placeholder="es. lscpu"
-  hint="Significa 'list CPU'."
-  explanation="Eseguito! `lscpu` ti mostra se la tua macchina è 'Little Endian'. In questo caso, il byte meno significativo viene memorizzato all'indirizzo più basso. È un dettaglio cruciale quando si trasmettono dati in rete!"
-  xpReward={250}
+  challenges={[
+    {
+      id: "limits-header",
+      title: "Il Guardiano dei Limiti",
+      description: "Qual è il nome del file header standard che definisce i limiti minimi e massimi dei tipi interi nel tuo sistema?",
+      commands: ["ls /usr/include/limits.h"],
+      expectedOutput: "limits.h",
+      hints: ["Si occupa dei 'limiti' numerici"],
+      explanation: "Esatto! `limits.h` contiene macro come `INT_MAX` e `CHAR_BIT`.",
+      xpReward: 150
+    },
+    {
+      id: "stdint-header",
+      title: "Precisione Chirurgica",
+      description: "Per usare tipi con dimensione garantita (es. int32_t), quale file header devi includere?",
+      commands: ["ls /usr/include/stdint.h"],
+      expectedOutput: "stdint.h",
+      hints: ["Inizia con 'std' e contiene 'int'"],
+      explanation: "Ottimo! `stdint.h` è vitale per la portabilità del codice.",
+      xpReward: 200
+    },
+    {
+      id: "lscpu-endian",
+      title: "L'Ordine dei Byte",
+      description: "Quale comando Linux mostra l'architettura della CPU e se il sistema è Little o Big Endian?",
+      commands: ["lscpu | grep \"Byte Order\""],
+      expectedOutput: "Little Endian",
+      hints: ["Significa 'List CPU'"],
+      explanation: "Perfetto! `lscpu` rivela come la tua CPU organizza i byte in memoria.",
+      xpReward: 250
+    }
+  ]}
 />
 
 Ci vediamo alla prossima lezione!

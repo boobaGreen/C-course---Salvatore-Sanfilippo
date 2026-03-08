@@ -181,39 +181,38 @@ Salvatore also shows us `goto`, a way to jump directly to a label in the code. W
 ### Terminal Challenge: Logical Compilation 🧠
 
 <HackerTerminal 
-  title="Hacker Challenge: Level 6 - Task 1"
-  description="We saw that C uses 0 for False and everything else for True. If you wanted to compile your program and ask the compiler to report ALL possible errors and logical warnings (such as using = instead of ==), which option would you use?"
-  command="gcc main.c ..."
-  expectedOutput="-Wall"
-  inputLabel="GCC Flag:"
-  placeholder="e.g. -O2, -g..."
-  hint="The option stands for 'Warnings All'."
-  explanation="Excellent! `-Wall` is mandatory for every true hacker. It warns you if you are doing dangerous things, like assigning variables inside an `if` or forgetting to initialize data. It's like having Salvatore correct you as you write."
-  xpReward={150}
-/>
-
-<HackerTerminal 
-  title="Hacker Challenge: Level 6 - Task 2"
-  description="Sometimes we want to include extra code only during debugging. In C we use #ifdef DEBUG. How can you 'turn on' this macro directly from the compilation command without modifying the .c file?"
-  command="cat main.c"
-  expectedOutput="gcc -DDEBUG main.c"
-  inputLabel="GCC Command:"
-  placeholder="e.g. gcc -D... file.c"
-  hint="The option uses the letter 'D' which stands for 'Define'."
-  explanation="Great! The `-D` option allows defining macros on the fly. It's very useful for activating debug logs or changing program behavior during testing."
-  xpReward={200}
-/>
-
-<HackerTerminal 
-  title="Hacker Challenge: Level 6 - Task 3"
-  description="You have two versions of your code and want to see exactly what changed in the if logic. Which Linux command would you use to compare the two files?"
-  command="cat file1 file2"
-  expectedOutput="diff file1.c file2.c"
-  inputLabel="Command:"
-  placeholder="e.g. diff fileA fileB"
-  hint="It means 'difference'."
-  explanation="Perfect! `diff` is the basic tool for every developer to understand changes between different versions of code. It's the ancestor of what you see every day on GitHub."
-  xpReward={250}
+  challenges={[
+    {
+      id: "gcc-wall-en",
+      title: "Strict Compilation",
+      description: "Which GCC flag enables ALL common warning messages to find logical bugs (like using = instead of ==)?",
+      commands: ["gcc -Wall main.c"],
+      expectedOutput: "-Wall",
+      hints: ["The option stands for 'Warnings All'"],
+      explanation: "Excellent! `-Wall` is mandatory. It warns you if you are doing dangerous things.",
+      xpReward: 150
+    },
+    {
+      id: "gcc-define-en",
+      title: "Macro on the Fly",
+      description: "How can you 'turn on' a macro (e.g., DEBUG) directly from the compilation command without modifying the code?",
+      commands: ["gcc -DDEBUG main.c"],
+      expectedOutput: "DEBUG",
+      hints: ["The option uses the letter 'D' for 'Define'"],
+      explanation: "Great! `-D` allows defining macros on the fly during compilation.",
+      xpReward: 200
+    },
+    {
+      id: "diff-command-en",
+      title: "Hunt for Differences",
+      description: "Which Linux command would you use to compare two source files and see exactly what changed in the logic?",
+      commands: ["diff file1.c file2.c"],
+      expectedOutput: "---",
+      hints: ["It means 'difference'"],
+      explanation: "Perfect! `diff` is the basic tool for understanding changes between files.",
+      xpReward: 250
+    }
+  ]}
 />
 
 See you in the next lesson!

@@ -1,0 +1,260 @@
+
+import VideoEmbed from '../../components/content/VideoEmbed';
+import KeyConcepts from '../../components/content/KeyConcepts';
+import Callout from '../../components/content/Callout';
+import CodeEditor from '../../components/exercises/CodeEditor';
+import Quiz from '../../components/exercises/Quiz';
+import HackerTerminal from '../../components/content/HackerTerminal';
+import Infographic from '../../components/content/Infographic';
+import ComparisonTable from '../../components/content/ComparisonTable';
+
+# Lesson 14: Introduction to Structures (struct)
+
+"Structures are the only case where C steps out of the idea of manipulating just numbers." - Salvatore introduces us today to the concept of **Aggregate Data**. We stop thinking about scattered variables and start creating actual objects.
+
+<VideoEmbed videoId="p4IMHau2lq8" title="Lesson 14: Structures in C" />
+
+<KeyConcepts concepts={[
+  { title: "Data Abstraction", description: "Grouping variables of different types (e.g., int, char, pointers) under a single logical name." },
+  { title: "Contiguous Layout", description: "All struct fields live close together in memory, allowing for extremely high performance." },
+  { title: "Padding and Alignment", description: "Understanding why the CPU adds 'invisible' bytes to read data faster." }
+]} />
+
+## Why Structs? The Fraction Example
+
+Imagine you want to manage thousands of fractions. Without structs, you would need thousands of `num` and `den` variables. A nightmare. Salvatore shows us how a `struct` solves the problem:
+
+```c
+struct Fraction {
+    int num;  // Numerator
+    int den;  // Denominator
+};
+```
+
+### Anatomy of an Object in Memory
+
+A struct is a contiguous block of memory. If an `int` occupies 4 bytes, our `struct Fraction` will occupy exactly **8 bytes**.
+
+<Infographic 
+  title="struct Fraction Internal Layout"
+  description="Two integers side-by-side in physical addressing."
+  items={[
+    { label: "Offset 0", value: "Variable 'num' (4 bytes)", color: "emerald" },
+    { label: "Offset 4", value: "Variable 'den' (4 bytes)", color: "blue" }
+  ]}
+/>
+
+---
+
+## The Mystery of Padding (Hacker Knowledge)
+
+What happens if we add a `char` (1 byte) to our struct? We would expect a size of 9 bytes (4 + 4 + 1). But C surprises us: the size will be **12 bytes**.
+
+<ComparisonTable 
+  title="Padding and Memory Waste"
+  headers={["Field", "Real Size", "Occupied Space (with Padding)", "Why?"]}
+  rows={[
+    ["int num", "4 bytes", "4 bytes", "Already aligned"],
+    ["int den", "4 bytes", "4 bytes", "Already aligned"],
+    ["char color", "1 byte", "4 bytes", "The compiler adds 3 bytes to align to the 32-bit word"]
+  ]}
+/>
+
+<Callout type="warning" title="Optimization">
+To save memory, Salvatore suggests grouping fields by size: first the largest (pointers, long, int) and then the smallest (char). This reduces the padding inserted by the compiler!
+</Callout>
+
+---
+
+## Operations: Dot vs Arrow
+
+It's the classic confusion for every C student. Here is Salvatore's definitive rule dug out of the language's philosophy:
+
+- **Dot Operator (`.`)**: Used when you have the **physical variable** (on the stack or as a copy).
+- **Arrow Operator (`->`)**: Used when you have a **pointer** (memory address). It is shorthand for `(*ptr).field`.
+
+<Infographic 
+  title="Dot vs Arrow"
+  description="How to choose the right operator based on variable type."
+  items={[
+    { label: "Physical Variable", value: "Use '.' (Direct Access)", color: "blue" },
+    { label: "Address (Pointer)", value: "Use '->' (Dereferencing + Access)", color: "emerald" }
+  ]}
+/>
+
+<CodeEditor 
+  initialCode={`#include <stdio.h>
+#include <stdlib.h>
+
+struct Frac {
+    int num;
+    int den;
+};
+
+// Function accepting a POINTER (Pass by Reference)
+void simplify(struct Frac *f) {
+    if (f->num == f->den) {
+        f->num = 1;
+        f->den = 1;
+    }
+}
+
+int main() {
+    // 1. Physical variable
+    struct Frac a;
+    a.num = 10;
+    a.den = 10;
+    
+    // 2. Using the pointer
+    simplify(&a);
+    
+    printf("Simplified fraction: %d/%d\\n", a.num, a.den);
+    
+    // 3. Dynamic allocation on the HEAP
+    struct Frac *b = malloc(sizeof(struct Frac));
+    b->num = 3;
+    b->den = 4;
+    
+    printf("Fraction on the heap: %d/%d\\n", b->num, b->den);
+    
+    free(b);
+    return 0;
+}`} 
+  language="c" 
+/>
+
+---
+
+## Exercise
+
+<Quiz 
+  title="Standard Quiz"
+  questions={[
+    {
+      question: "What is the primary purpose of padding in structs?",
+      options: [
+        "To protect data from viruses",
+        "To align fields so the CPU can read them with a single bus cycle",
+        "To make the binary file larger for security",
+        "To hide secrets in empty bytes"
+      ],
+      correctAnswer: 1,
+      explanation: "Memory alignment allows for superior performance; reading 'unaligned' data would require the CPU to perform more expensive operations."
+    },
+    {
+      question: "What happens if we pass a huge struct to a function by VALUE (without a pointer)?",
+      options: [
+        "The program is extremely fast",
+        "The compiler automatically transforms it into a pointer",
+        "A byte-by-byte copy of the entire struct is performed (inefficient)",
+        "The function cannot access the fields"
+      ],
+      correctAnswer: 2,
+      explanation: "C faithfully copies the entire structure onto the function's stack, consuming time and memory."
+    },
+    {
+      question: "Can you assign one struct to another of the same type? (e.g. a = b;)",
+      options: [
+        "No, you must copy each field manually",
+        "Yes, C performs a bitwise copy of the memory",
+        "Only if they contain only integers",
+        "Only using memcpy"
+      ],
+      correctAnswer: 1,
+      explanation: "C supports assignment between identical structs, performing a complete copy of the structure's memory."
+    },
+    {
+      question: "Which operator is equivalent to `(*ptr).field`?",
+      options: [
+        "ptr.field",
+        "ptr->field",
+        "ptr&field",
+        "*ptr->field"
+      ],
+      correctAnswer: 1,
+      explanation: "The arrow `->` is the exact syntactic abbreviation for dereferencing and accessing."
+    },
+    {
+      question: "Where are struct fields allocated?",
+      options: [
+        "In different places in RAM for security",
+        "In contiguous memory blocks (one after another)",
+        "Only on the heap",
+        "Only on the stack"
+      ],
+      correctAnswer: 1,
+      explanation: "Contiguity is the strength of structs: it allows predicting exactly where each piece of data is relative to the start."
+    }
+  ]} 
+/>
+
+<Quiz 
+  title="Hacker Challenge"
+  questions={[
+    {
+      question: "If we define `struct { char a; int b; } __attribute__((packed)) s;`, what will `sizeof(s)` be on a 32-bit system?",
+      options: [
+        "8 bytes",
+        "5 bytes",
+        "4 bytes",
+        "12 bytes"
+      ],
+      correctAnswer: 1,
+      explanation: "The `packed` attribute tells GCC to eliminate all padding, so we have 1 (char) + 4 (int) = 5 bytes."
+    },
+    {
+      question: "A 'Bitfield' inside a struct allows you to:",
+      options: [
+        "Increase calculation speed",
+        "Specify how many individual BITS an integer variable should occupy",
+        "Encrypt data",
+        "Create infinite bit arrays"
+      ],
+      correctAnswer: 1,
+      explanation: "Bitfields are vital for microcontroller programming or protocols where every bit has a specific meaning."
+    },
+    {
+      question: "What happens if you try to compare two structs with `if (a == b)`?",
+      options: [
+        "C compares every field",
+        "Compilation error: C doesn't know how to compare two memory blocks automatically",
+        "C only compares the first field",
+        "Always returns true if they are of the same type"
+      ],
+      correctAnswer: 1,
+      explanation: "Unlike assignment, the `==` comparison is not defined for structs (due to padding that might contain garbage). You must compare fields or use `memcmp`."
+    }
+  ]} 
+/>
+
+<HackerTerminal 
+  challenges={[
+    {
+      id: "struct-offset",
+      title: "The Offset Hunter",
+      description: "Use GDB to find the exact offset of the `den` field in `struct Fraction`. What command would you use?",
+      commands: ["ptype /o struct Fraction"],
+      expectedOutput: "/* offset    |  size */",
+      hints: ["ptype /o shows offsets and padding"]
+    },
+    {
+      id: "nm-symbols",
+      title: "Global Symbols",
+      description: "If you declare a global struct, you can see its symbol in the executable. Use the `nm` command to search for symbols in your program.",
+      commands: ["nm ./program | grep \"a\""],
+      expectedOutput: "B a",
+      hints: ["Uninitialized global variables are in the BSS segment (B)"]
+    },
+    {
+      id: "packed-verify",
+      title: "The Acid Test",
+      description: "Write a small piece of code that prints the `sizeof` a struct with and without `__attribute__((packed))` and compile it with `gcc`.",
+      commands: ["gcc test.c -o test && ./test"],
+      expectedOutput: "12\n9",
+      hints: ["Use printf(\"%zu\\n\", sizeof(struct ...))"]
+    }
+  ]}
+/>
+
+### Final Summary
+Structures are the beating heart of professional C. They allow us to model reality (fractions, users, network packets) respecting the hard logic of physical memory. Remember: field order matters for padding, and the arrow is the key to manipulating dynamic objects!

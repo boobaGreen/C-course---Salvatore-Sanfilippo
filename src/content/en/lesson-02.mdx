@@ -256,39 +256,38 @@ On Linux, you can see the return value of the last command by typing `echo $?` i
 ### Terminal Challenge: Investigating Memory 🔍
 
 <HackerTerminal 
-  title="Hacker Challenge: Level 2 - Task 1"
-  description="Salvatore mentioned a tool to look 'inside' executables and see strings and other binary data. If you wanted to see the binary content of the 'a.out' file, which command would you use?"
-  command="ls -l a.out"
-  expectedOutput="xxd a.out"
-  inputLabel="Complete Command:"
-  placeholder="e.g. xxd filename"
-  hint="It starts with 'x' and is used for hexadecimal dumps."
-  explanation="Great! `xxd` (or `hexdump`) is the fundamental tool for every C hacker. It allows you to see exactly what's inside a binary file, including the bytes that make up your instructions and strings."
-  xpReward={150}
-/>
-
-<HackerTerminal 
-  title="Hacker Challenge: Level 2 - Task 2"
-  description="Every function you write (like main or sum) becomes a 'symbol' inside the binary file. Which command would you use to list all symbols present in a.out?"
-  command="ls a.out"
-  expectedOutput="nm a.out"
-  inputLabel="Command:"
-  placeholder="e.g. nm filename"
-  hint="It's a two-letter command, short for 'names' or 'symbol names'."
-  explanation="Exactly! `nm` shows you the list of symbols. You'll see 'T' for functions in the text segment and 'U' for undefined ones (like printf, which is in an external library)."
-  xpReward={200}
-/>
-
-<HackerTerminal 
-  title="Hacker Challenge: Level 2 - Task 3"
-  description="You need to see the entry point (the starting point) of your program and other information from the file header. Which command would you use to view the executable header?"
-  command="cat a.out"
-  expectedOutput="objdump -f a.out"
-  inputLabel="Command:"
-  placeholder="e.g. objdump -f filename"
-  hint="It starts with 'obj' and is used to dump object information."
-  explanation="Perfect! `objdump -f` shows you the memory address of the starting instruction (start address). This is the very first step when performing malware analysis or low-level debugging."
-  xpReward={250}
+  challenges={[
+    {
+      id: "xxd-dump-en",
+      title: "Seeing the Unseen",
+      description: "Salvatore mentioned a tool to look 'inside' executables. Which command would you use to see the hexadecimal content of `a.out`?",
+      commands: ["xxd a.out"],
+      expectedOutput: "00000000:",
+      hints: ["It starts with 'x' and performs a hex dump"],
+      explanation: "Great! `xxd` is fundamental for seeing the actual bytes of a binary.",
+      xpReward: 150
+    },
+    {
+      id: "nm-symbols-en",
+      title: "The Name List",
+      description: "Every function becomes a 'symbol'. Which command lists all symbols (function and variable names) in `a.out`?",
+      commands: ["nm a.out"],
+      expectedOutput: "0000000000001000 T main",
+      hints: ["Two-letter command, short for 'names'"],
+      explanation: "Exactly! `nm` lets you see which functions are defined in your code.",
+      xpReward: 200
+    },
+    {
+      id: "objdump-header-en",
+      title: "The Header",
+      description: "Which command would you use to view the executable header and find its entry point?",
+      commands: ["objdump -f a.out"],
+      expectedOutput: "start address",
+      hints: ["Starts with 'obj'"],
+      explanation: "Perfect! `objdump -f` shows vital binary metadata.",
+      xpReward: 250
+    }
+  ]}
 />
 
 See you in the next lesson!

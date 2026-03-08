@@ -163,39 +163,38 @@ Sapevi che se passi un `char` a una funzione con argomenti variabili (come `prin
 ### Terminal Challenge: Manual Hunting 📖
 
 <HackerTerminal 
-  title="Hacker Challenge: Level 5 - Task 1"
-  description="Abbiamo imparato a usare le funzioni di output. Qual è il comando del terminale per leggere il 'manuale' di una funzione come printf per scoprirne tutti i segreti?"
-  command="google printf help"
-  expectedOutput="man printf"
-  inputLabel="Comando completo:"
-  placeholder="es. man nomefunzione"
-  hint="È l'abbreviazione di 'manual'."
-  explanation="Esatto! `man` è il migliore amico di un programmatore C. Ti dà la documentazione ufficiale, dettagliata e precisa per ogni funzione di libreria e comando di sistema."
-  xpReward={150}
-/>
-
-<HackerTerminal 
-  title="Hacker Challenge: Level 5 - Task 2"
-  description="In C puoi convertire un carattere da minuscolo a maiuscolo sottraendo 32. Esiste un comando shell che può fare la stessa cosa per un intero file o input. Quale useresti per trasformare 'ciao' in 'CIAO'?"
-  command="echo 'ciao' | ..."
-  expectedOutput="tr 'a-z' 'A-Z'"
-  inputLabel="Comando (tr):"
-  placeholder="es. tr 'set1' 'set2'"
-  hint="Il comando sta per 'translate' o 'transliterate'."
-  explanation="Ottimo! `tr` è potentissimo per manipolare flussi di caratteri, replicando la logica di conversione che faremmo in C ma direttamente sulla riga di comando."
-  xpReward={200}
-/>
-
-<HackerTerminal 
-  title="Hacker Challenge: Level 5 - Task 3"
-  description="Vuoi vedere il valore esadecimale di ogni singolo carattere contenuto in un file 'testo.txt'. Quale comando useresti per fare un dump in esadecimale byte per byte?"
-  command="cat testo.txt"
-  expectedOutput="od -A n -t x1 testo.txt"
-  inputLabel="Comando (od):"
-  placeholder="es. od -opzioni nomefile"
-  hint="Il comando sta per 'Octal Dump', ma con l'opzione -t x1 mostra esadecimali."
-  explanation="Bravissimo! `od` ti permette di vedere la 'carne nuda' del file, mostrando i codici ASCII in formato esadecimale, decimale o ottale. Indispensabile per il debug di file corrotti."
-  xpReward={250}
+  challenges={[
+    {
+      id: "man-printf",
+      title: "Il Manuale del Programmatore",
+      description: "Qual è il comando fondamentale per leggere la documentazione ufficiale di una funzione come `printf`?",
+      commands: ["man printf"],
+      expectedOutput: "PRINTF(1)",
+      hints: ["È l'abbreviazione di 'manual'"],
+      explanation: "Esatto! `man` è lo strumento essenziale per ogni sviluppatore C su Linux.",
+      xpReward: 150
+    },
+    {
+      id: "tr-upper",
+      title: "Traduttore di Caratteri",
+      description: "Quale comando shell useresti per trasformare tutto il testo minuscolo in maiuscolo (es. 'ciao' -> 'CIAO')?",
+      commands: ["echo \"ciao\" | tr 'a-z' 'A-Z'"],
+      expectedOutput: "CIAO",
+      hints: ["Il comando sta per 'translate'"],
+      explanation: "Ottimo! `tr` permette di manipolare set di caratteri in modo rapidissimo.",
+      xpReward: 200
+    },
+    {
+      id: "od-dump",
+      title: "L'Ispezione dei Byte",
+      description: "Quale comando permette di vedere il contenuto di un file in formato ottale o esadecimale byte per byte?",
+      commands: ["od -t x1 testo.txt"],
+      expectedOutput: "0000000",
+      hints: ["Significa 'Octal Dump'"],
+      explanation: "Bravissimo! `od` ti permette di vedere la 'carne nuda' dei file.",
+      xpReward: 250
+    }
+  ]}
 />
 
 Ci vediamo alla prossima lezione!

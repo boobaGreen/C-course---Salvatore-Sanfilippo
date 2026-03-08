@@ -230,39 +230,38 @@ What happens if you add 1 to the maximum possible value for a type?
 ### Terminal Challenge: Promotion Hunting 🏹
 
 <HackerTerminal 
-  title="Hacker Challenge: Level 3 - Task 1"
-  description="We saw that promotions can be subtle. If you want to force the compiler to treat a constant as an 'unsigned' integer, which suffix must you add to the number?"
-  command="echo 'int x = 100...;' > test.c"
-  expectedOutput="u"
-  inputLabel="Suffix:"
-  placeholder="e.g. f, l, u..."
-  hint="It's just one letter, the first letter of the word 'unsigned'."
-  explanation="Exactly! The suffix 'u' (e.g., `100u`) or 'U' instructs the compiler to treat the literal as an `unsigned int`, preventing or forcing certain promotions during calculations."
-  xpReward={150}
-/>
-
-<HackerTerminal 
-  title="Hacker Challenge: Level 3 - Task 2"
-  description="You want to check how much space a 'long' takes on a 32-bit system while you're on a 64-bit machine. Which GCC flag would you use to force a 32-bit compilation?"
-  command="gcc main.c ..."
-  expectedOutput="-m32"
-  inputLabel="GCC Flag:"
-  placeholder="e.g. -m..."
-  hint="It refers to the 32-bit architecture 'model'."
-  explanation="Great! `-m32` instructs the compiler to generate code for 32-bit x86 architectures, where pointers and 'longs' are usually 4 bytes instead of 8."
-  xpReward={200}
-/>
-
-<HackerTerminal 
-  title="Hacker Challenge: Level 3 - Task 3"
-  description="Every compiled program is divided into sections: .text (code), .data (initialized variables), and .bss (zeroed variables). Which command would you use to see the sizes of these sections in your a.out file?"
-  command="ls -l a.out"
-  expectedOutput="size a.out"
-  inputLabel="Command:"
-  placeholder="e.g. size filename"
-  hint="It's the tool for knowing the 'size' of sections."
-  explanation="Excellent! The `size` command is fundamental for those working in embedded systems to understand how much RAM and Flash the program will occupy."
-  xpReward={250}
+  challenges={[
+    {
+      id: "unsigned-suffix-en",
+      title: "The Magic Suffix",
+      description: "If you want to force the compiler to treat a constant as 'unsigned', which letter must you add after the number?",
+      commands: ["echo 'unsigned int x = 100u;' > test.c"],
+      expectedOutput: "u",
+      hints: ["It's the first letter of 'unsigned'"],
+      explanation: "Exactly! The 'u' suffix instructs the compiler to treat the literal as unsigned.",
+      xpReward: 150
+    },
+    {
+      id: "m32-flag-en",
+      title: "Back to the Past",
+      description: "Which GCC flag would you use to force 32-bit compilation on a 64-bit machine?",
+      commands: ["gcc -m32 main.c"],
+      expectedOutput: "-m32",
+      hints: ["It refers to the 32-bit model"],
+      explanation: "Great! `-m32` emulates a 32-bit architecture, reducing pointer size.",
+      xpReward: 200
+    },
+    {
+      id: "size-command-en",
+      title: "Dissecting the Binary",
+      description: "Which command shows the sizes of the .text, .data, and .bss sections of your `a.out` file?",
+      commands: ["size a.out"],
+      expectedOutput: "text\t   data\t    bss",
+      hints: ["It means 'size' in English"],
+      explanation: "Perfect! `size` is fundamental for understanding how much RAM your program occupies.",
+      xpReward: 250
+    }
+  ]}
 />
 
 See you in the next lesson!

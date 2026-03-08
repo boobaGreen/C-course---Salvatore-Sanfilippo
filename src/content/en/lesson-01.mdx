@@ -244,39 +244,38 @@ See you in the next lesson!
 ### Terminal Challenge: The Optimization Trap 🕵️
 
 <HackerTerminal 
-  title="Hacker Challenge: Level 1 - Task 1"
-  description="You compiled a program that uses printf to print the string 'Hello World' (without % or other variables). You used the -O2 optimization. If you look at the generated assembly, which function do you expect to find instead of printf?"
-  command="gcc -O2 -S hello.c && grep 'call' hello.s"
-  expectedOutput="puts"
-  inputLabel="Expected Function:"
-  placeholder="e.g. puts"
-  hint="Salvatore explained that the compiler 'downgrades' printf to a simpler function if there is no formatting."
-  explanation="Exactly! Since printf is a heavy function that must parse the string to find %, if the string is static and simple, the compiler replaces it with 'puts' (Put String) which is much lighter and faster."
-  xpReward={150}
-/>
-
-<HackerTerminal 
-  title="Hacker Challenge: Level 1 - Task 2"
-  description="The 'a.out' executable file is not just a sequence of numbers. It is a structured file (usually ELF on Linux). Which command would you use to find out what type of file it is and for which architecture it was compiled?"
-  command="ls -l a.out"
-  expectedOutput="file a.out"
-  inputLabel="Command:"
-  placeholder="e.g. file filename"
-  hint="It is a one-word command that refers to a 'document' or 'record'."
-  explanation="Great! The `file` command analyzes the binary's header and tells you if it's 64-bit, if it's dynamic or static, and for which operating system it was created."
-  xpReward={200}
-/>
-
-<HackerTerminal 
-  title="Hacker Challenge: Level 1 - Task 3"
-  description="Executables often contain 'symbols' (function and variable names) that are useful for debugging but take up space. Which command would you use to 'clean' the a.out executable of these symbols and make it smaller?"
-  command="ls -sh a.out"
-  expectedOutput="strip a.out"
-  inputLabel="Command:"
-  placeholder="e.g. strip filename"
-  hint="It means to 'remove' or 'peel off'."
-  explanation="Excellent! `strip` removes the symbol table and debug information. It is a common technique to reduce the size of binaries before distributing them, also making reverse engineering more difficult."
-  xpReward={250}
+  challenges={[
+    {
+      id: "opt-trap-en",
+      title: "The Subtle Optimization",
+      description: "You compiled a program that prints 'Hello World' with `printf`. If you look at the assembly generated with `-O2`, which simpler function do you find instead of printf?",
+      commands: ["gcc -O2 -S hello.c", "grep 'call' hello.s"],
+      expectedOutput: "puts",
+      hints: ["The compiler 'downgrades' the function if there's no formatting"],
+      explanation: "Exactly! The compiler replaces printf with puts for simple static strings because it's much more efficient.",
+      xpReward: 150
+    },
+    {
+      id: "elf-check-en",
+      title: "Binary Anatomy",
+      description: "A Linux executable isn't just code. Which command identifies the file structure and the architecture it was created for?",
+      commands: ["file a.out"],
+      expectedOutput: "ELF 64-bit",
+      hints: ["Look for a command that means 'document' or 'record'"],
+      explanation: "Great! The `file` command reads the ELF header to determine the binary type.",
+      xpReward: 200
+    },
+    {
+      id: "strip-symbols-en",
+      title: "Final Cleanup",
+      description: "Which command removes the symbol table and debug info to reduce the file size?",
+      commands: ["strip a.out"],
+      expectedOutput: "",
+      hints: ["It means to 'peel off' or 'remove'"],
+      explanation: "Perfect! `strip` makes the binary smaller and harder to analyze with reverse engineering.",
+      xpReward: 250
+    }
+  ]}
 />
 
 See you in the next lesson!

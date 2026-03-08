@@ -1,0 +1,285 @@
+
+import VideoEmbed from '../../components/content/VideoEmbed';
+import KeyConcepts from '../../components/content/KeyConcepts';
+import Callout from '../../components/content/Callout';
+import CodeEditor from '../../components/exercises/CodeEditor';
+import Quiz from '../../components/exercises/Quiz';
+import HackerTerminal from '../../components/content/HackerTerminal';
+import Infographic from '../../components/content/Infographic';
+import PointerArithmetic from '../../components/content/PointerArithmetic';
+import ComparisonTable from '../../components/content/ComparisonTable';
+import BinaryVisualizer from '../../components/content/BinaryVisualizer';
+
+# Lesson 13: Higher Level Strings and Hidden Metadata
+
+Welcome to one of the most crucial lessons of the course. Today we will learn to "sculpt" memory to create intelligent objects. We will move from simple C strings to real modern string objects (similar to Redis's SDS), capable of knowing their own length instantaneously and being compatible with the entire existing C ecosystem.
+
+<VideoEmbed videoId="9AhaOdEBmPc" title="Lesson 13: Higher Level Strings" />
+
+<KeyConcepts concepts={[
+  { title: "Total Interoperability", description: "Creating advanced strings that 'pretend' to be standard C strings to work with printf and external libraries." },
+  { title: "Metadata Hiding", description: "The art of hiding technical info (like length or ref count) 'behind' the pointer delivered to the user." },
+  { title: "O(1) Efficiency", description: "Stopping character counting (O(N)) and starting to read length directly from memory in constant time." }
+]} />
+
+## The Problem with Pascal Strings
+
+In the last lesson, we saw prefixed length strings. They worked, but they had a fatal flaw: if you passed a Pascal string to `printf`, it would "go crazy" because the first byte (the length) was interpreted as a character.
+
+Salvatore teaches us the **veteran's trick**: move the prefix **before** the memory address we give to the user.
+
+### Anatomy of a "Hacker String"
+
+Here's how the memory of our evolved string looks:
+
+<Infographic 
+  title="SDS-style Memory Layout"
+  description="The header is invisible to the user but fundamental for the system."
+  items={[
+    { label: "Header (4+ bytes)", value: "Contains the Length (uint32_t) and potentially the Ref Count.", color: "purple" },
+    { label: "User Pointer", value: "Points here! Standard C text starts from this address.", color: "blue" },
+    { label: "String Body", value: "The actual text (e.g., 'Hacker').", color: "emerald" },
+    { label: "Null Terminator", value: "The trailing '\\0' byte for compatibility.", color: "amber" }
+  ]}
+/>
+
+---
+
+## Pointer Arithmetic: Moving Between Worlds
+
+To handle this layout, we must master pointer arithmetic. We're not just adding numbers; we're navigating between metadata and data.
+
+<PointerArithmetic 
+  title="Header-Data Navigation"
+  baseAddress="0x1000"
+  steps={[
+    { offset: 0, label: "Allocation Start (malloc)", description: "Here we save the length (4 bytes)." },
+    { offset: 4, label: "User Address (s + 4)", description: "The address we return. For C, the string starts here." },
+    { offset: -4, label: "Return to Header (s - 4)", description: "When we need to know the length or free memory (free)." }
+  ]}
+/>
+
+### Why `uint32_t` from `<stdint.h>`?
+
+Salvatore is categorical: we cannot use a simple `int`.
+An `int` on a 16-bit system occupies 2 bytes, on a 32-bit one it's 4. If we want our strings to be portable and our header to **always** occupy the same space, we must use fixed-size types.
+
+<ComparisonTable 
+  title="Standard Int vs stdint.h"
+  headers={["Type", "Size", "Portability", "Recommended Use"]}
+  rows={[
+    ["int", "Variable (2-4-8 bytes)", "❌ Low", "Generic counters"],
+    ["uint32_t", "Always 4 bytes (32-bit)", "✅ Total", "Headers, Protocols, Binary files"],
+    ["size_t", "RAM address size", "✅ Good", "Array indices and malloc"]
+  ]}
+/>
+
+---
+
+## Implementing the `ps_string` Library
+
+Here is the complete code discussed by Salvatore, including the logic for **creation**, **O(1) access**, and **correct freeing**.
+
+<CodeEditor 
+  initialCode={`#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdint.h>
+
+// Define a 4-byte header (uint32_t)
+#define HDR_SIZE sizeof(uint32_t)
+
+// Create an evolved string from a C string
+char *ps_create(char *init) {
+    uint32_t len = strlen(init);
+    // Allocate: Length (4) + Text + '\\0' (1)
+    char *p = malloc(HDR_SIZE + len + 1);
+    if (!p) return NULL;
+
+    // Write the length at the start
+    *((uint32_t*)p) = len;
+
+    // Point to the text (skip the header)
+    char *s = p + HDR_SIZE;
+    // Copy the text (including C compatibility)
+    strcpy(s, init);
+    
+    return s;
+}
+
+// Return length in CONSTANT O(1) time
+uint32_t ps_len(char *s) {
+    // Go back 4 bytes and read the value
+    return *((uint32_t*)(s - HDR_SIZE));
+}
+
+// Correctly free the memory
+void ps_free(char *s) {
+    // CRITICAL: We must free from the ORIGINAL address (p)
+    free(s - HDR_SIZE);
+}
+
+int main() {
+    char *my_str = ps_create("Salvatore C Course");
+    
+    // Interoperability: printf sees a normal C string!
+    printf("Text: %s\\n", my_str);
+    
+    // Power: We know the length without scanning the string
+    printf("Length (O(1)): %u\\n", ps_len(my_str));
+    
+    ps_free(my_str);
+    return 0;
+}`} 
+  language="c" 
+/>
+
+<Callout type="hacker" title="Reference Counting (Teaser)">
+Towards the end of the lesson, Salvatore introduces an advanced concept: adding **another 4 bytes** in the header for the `ref_count`. This allows multiple variables to point to the same string without duplicating it in memory. When a variable "stops" using it, it decrements the counter. Only when the counter reaches zero is `free` actually called.
+</Callout>
+
+---
+
+## Performance Simulation: O(N) vs O(1)
+
+Imagine a string 10 million characters long.
+- `strlen` (Standard C) must read **10,000,000 bytes** to find the trailing zero.
+- `ps_len` (Ours) must read **only 1 number** at a fixed offset.
+
+**Time difference:** From milliseconds to nanoseconds. On a large scale, this changes everything.
+
+---
+
+## Exercise
+
+<Quiz 
+  title="Standard Quiz"
+  questions={[
+    {
+      question: "Why do we return `p + 4` instead of `p` in the `ps_create` function?",
+      options: [
+        "To purposely waste memory",
+        "So that the pointer points to the start of the text, ensuring compatibility with C functions",
+        "Because strings must always start at an odd address",
+        "To encrypt the string"
+      ],
+      correctAnswer: 1,
+      explanation: "By returning the address after the header, functions like `printf` start reading characters and not the length metadata."
+    },
+    {
+      question: "What is the theoretical maximum size of a string if the length header is a `uint32_t`?",
+      options: [
+        "64 Kilobytes",
+        "2 Gigabytes",
+        "4 Gigabytes (2^32 bytes)",
+        "Unlimited"
+      ],
+      correctAnswer: 2,
+      explanation: "A 32-bit unsigned integer can represent values up to 4,294,967,295."
+    },
+    {
+      question: "What happens if you forget the `- HDR_SIZE` in the `ps_free` function?",
+      options: [
+        "Only part of the memory is freed",
+        "Immediate crash or heap corruption (Malloc Error)",
+        "The compiler fixes the error",
+        "The string remains in memory forever (Minor leak)"
+      ],
+      correctAnswer: 1,
+      explanation: "The `free` function only accepts pointers returned exactly by `malloc`. If you pass a 'shifted' pointer, the allocator no longer knows how to handle that block."
+    },
+    {
+      question: "In terms of computational complexity (O Notation), how fast is `strlen`?",
+      options: [
+        "O(1)",
+        "O(log N)",
+        "O(N)",
+        "O(N^2)"
+      ],
+      correctAnswer: 2,
+      explanation: "`strlen` must scan every single character (`N` characters) until it finds the zero."
+    },
+    {
+      question: "Which library must we include to use types like `uint32_t`?",
+      options: [
+        "stdio.h",
+        "stdlib.h",
+        "stdint.h",
+        "string.h"
+      ],
+      correctAnswer: 2,
+      explanation: "The `stdint.h` (Standard Integer) library defines types with guaranteed sizes."
+    }
+  ]} 
+/>
+
+<Quiz 
+  title="Hacker Challenge"
+  questions={[
+    {
+      question: "If we implement Reference Counting, when should we actually call `free`?",
+      options: [
+        "Every time we use the string",
+        "Never, the operating system handles it",
+        "Only when the reference counter reaches zero",
+        "When the program ends"
+      ],
+      correctAnswer: 2,
+      explanation: "If the counter is > 0, someone else is still using that string. Freeing it would cause a segmentation fault elsewhere."
+    },
+    {
+      question: "Why does Salvatore say that `s[j]` still works correctly even though the pointer is shifted?",
+      options: [
+        "Compiler magic",
+        "Because the `[]` operator uses the base address of the pointer we give it and adds the offset `j` ",
+        "Because we recalculated the indices",
+        "It doesn't work, it's an error in the video"
+      ],
+      correctAnswer: 1,
+      explanation: "The `s[j]` operator is equivalent to `*(s + j)`. If `s` points to the first letter, `s[0]` is the first letter, `s[1]` the second, and so on."
+    },
+    {
+      question: "What is the main disadvantage of this 'Header-Hidden' approach compared to an explicit struct?",
+      options: [
+        "It is slower",
+        "It uses less memory",
+        "It is less readable in code (requires many manual casts and subtractions)",
+        "It is not compatible with Windows"
+      ],
+      correctAnswer: 2,
+      explanation: "Manually manipulating offsets (like `s - 4`) is error-prone. This is why Salvatore introduces `structs` as a cleaner solution at the end of the lesson."
+    }
+  ]} 
+/>
+
+<HackerTerminal 
+  challenges={[
+    {
+      id: "hexdump-string",
+      title: "Seeing the Invisible",
+      description: "Suppose you created the string 'ABC' with header 3. Which Linux command would you use to see the raw bytes of a binary file and confirm the first 4 bytes contain 0x03?",
+      commands: ["hexdump -C string.bin", "od -t x1 string.bin"],
+      expectedOutput: "00000000  03 00 00 00 41 42 43 00",
+      hints: ["The output shows the length first (little-endian) and then the ASCII codes for A, B, C."]
+    },
+    {
+      id: "valgrind-check",
+      title: "Malloc Debugging",
+      description: "Which `valgrind` option would you use to see exactly WHERE a memory block you're trying to erroneously free was allocated?",
+      commands: ["valgrind --leak-check=full --track-origins=yes"],
+      expectedOutput: "Address 0x... is inside a block of size 8 alloc'd",
+      hints: ["The track-origins option helps trace back to the source."]
+    },
+    {
+      id: "grep-header",
+      title: "Digging into the System",
+      description: "Find where the `stdint.h` file is located on your Linux system using `locate` or `find`.",
+      commands: ["find /usr/include -name stdint.h", "locate stdint.h"],
+      expectedOutput: "/usr/include/stdint.h",
+      hints: ["Look in the standard include directory."]
+    }
+  ]}
+/>
+
+### Final Summary
+Today we dug beneath the surface. We learned that a pointer is a compass: if we know where we're pointing, we can move forward to see data or backward to see metadata. This technique is at the heart of databases like Redis and many high-level languages (like Python) that need to manage strings efficiently.

@@ -1,0 +1,242 @@
+import VideoEmbed from '../../components/content/VideoEmbed';
+import Callout from '../../components/content/Callout';
+import KeyConcepts from '../../components/content/KeyConcepts';
+import CodeEditor from '../../components/exercises/CodeEditor';
+import Quiz from '../../components/exercises/Quiz';
+import HackerTerminal from '../../components/content/HackerTerminal';
+import Infographic from '../../components/content/Infographic';
+
+# Lezione 18: Typedef e File I/O Standard
+
+In questa lezione faremo un salto di qualità verso il C professionale. Impareremo come nascondere la complessità usando `typedef` e come interagire con il mondo esterno salvando e leggendo dati su disco usando la libreria standard.
+
+<VideoEmbed videoId="3w73xjUSUEU" title="Lezione 18: Typedef e File I/O" />
+
+<KeyConcepts concepts={[
+  { title: "Alias di Tipo (typedef)", description: "Creare nomi mnemonici per i tipi complessi per rendere il codice più leggibile e facile da manutenere." },
+  { title: "Standard FILE API", description: "Padroneggiare fopen, fread, fwrite e fclose per la gestione universale dei file in C." },
+  { title: "Tipi Opachi", description: "La tecnica di nascondere l'implementazione interna delle struct per creare interfacce pulite." }
+]} />
+
+## Usare Typedef
+
+`typedef` non crea un nuovo tipo, ma un "soprannome" per un tipo esistente. Salvatore lo consiglia caldamente per evitare di scrivere `struct` ogni volta.
+
+```c
+typedef struct {
+    int x;
+    int y;
+} Point;
+
+Point p; // Molto più pulito di 'struct Point p'
+```
+
+<ComparisonTable 
+  title="Typedef: Prima vs Dopo"
+  headers={["Senza Typedef", "Con Typedef", "Vantaggio"]}
+  rows={[
+    ["struct User u;", "User u;", "Leggibilità"],
+    ["unsigned long long int x;", "u64 x;", "Sinteticità"],
+    ["struct Node *next;", "Node *next;", "Astrazione"]
+  ]}
+/>
+
+---
+
+## L'API dei File (stdio.h)
+
+In C, un file è visto come uno **stream** di byte. La libreria standard ci fornisce un puntatore a una struttura speciale chiamata `FILE`.
+
+<Infographic 
+  title="Ciclo di Vita di un File"
+  description="I 4 passaggi fondamentali per non corrompere i dati."
+  items={[
+    { label: "Apertura", value: "fopen(nome, modo) - Esempio modo: 'r', 'w', 'a', 'rb'", color: "blue" },
+    { label: "Operazione", value: "fread / fwrite / fprintf - Leggere o scrivere dati", color: "emerald" },
+    { label: "Posizionamento", value: "fseek / ftell - Muoversi dentro il file come in un array", color: "purple" },
+    { label: "Chiusura", value: "fclose(fp) - Svuotare i buffer e rilasciare la risorsa", color: "amber" }
+  ]}
+/>
+
+<ComparisonTable 
+  title="Modalità Testo vs Binaria"
+  headers={["Caratteristica", "Testo ('r', 'w')", "Binaria ('rb', 'wb')"]}
+  rows={[
+    ["Traduzione", "✅ Sì (es. \\n diventa \\r\\n su Win)", "❌ No (byte per byte)"],
+    ["Velocità", "Lenta (conversione)", "Massima (copia diretta)"],
+    ["Contenuto", "Leggibile dall'uomo", "Dati grezzi (struct, immagini)"]
+  ]}
+/>
+
+### Esempio: Scrivere e Leggere un Binario
+
+<CodeEditor 
+  initialCode={`#include <stdio.h>
+#include <stdint.h>
+
+typedef struct {
+    uint32_t id;
+    float score;
+} Player;
+
+int main() {
+    Player p1 = {1, 95.5f};
+    
+    // Scrittura
+    FILE *fout = fopen("save.dat", "wb");
+    if (fout) {
+        fwrite(&p1, sizeof(Player), 1, fout);
+        fclose(fout);
+    }
+    
+    // Lettura
+    Player loaded;
+    FILE *fin = fopen("save.dat", "rb");
+    if (fin) {
+        fread(&loaded, sizeof(Player), 1, fin);
+        printf("ID: %u, Score: %.1f\\n", loaded.id, loaded.score);
+        fclose(fin);
+    }
+    
+    return 0;
+}`} 
+  language="c" 
+/>
+
+---
+
+## Esercitazione
+
+<Quiz 
+  questions={[
+    {
+      question: "Qual è lo scopo principale del comando `typedef`?",
+      options: [
+        "Definire una nuova variabile",
+        "Creare un alias (soprannome) per un tipo di dato esistente",
+        "Allocare memoria nell'heap",
+        "Includere una libreria"
+      ],
+      correctAnswer: 1,
+      explanation: "typedef permette di abbreviare nomi complessi (come le struct) rendendo il codice più pulito."
+    },
+    {
+      question: "Quale modalità di `fopen` sceglieresti per aggiungere dati alla FINE di un file di testo senza cancellare il contenuto esistente?",
+      options: [
+        " 'r' ",
+        " 'w' ",
+        " 'a' ",
+        " 'rb' "
+      ],
+      correctAnswer: 2,
+      explanation: " 'a' sta per 'Append' (aggiungi in coda)."
+    },
+    {
+      question: "Cosa succede se apri un file in modalità 'w' ma il file non esiste?",
+      options: [
+        "Il programma crasha",
+        "fopen ritorna NULL",
+        "Il file viene creato automaticamente",
+        "Il computer emette un beep"
+      ],
+      correctAnswer: 2,
+      explanation: "La modalità 'w' (write) crea il file se non esiste, o lo svuota completamente se esiste già."
+    },
+    {
+      question: "Perché `fread` e `fwrite` sono considerate funzioni efficienti?",
+      options: [
+        "Perché sono scritte in Assembly",
+        "Perché leggono/scrivono interi blocchi di memoria binaria in un colpo solo invece di un carattere alla volta",
+        "Perché usano internet",
+        "Perché non usano la RAM"
+      ],
+      correctAnswer: 1,
+      explanation: "Lavorando in binario, non c'è bisogno di conversioni testo->numero, risparmiando cicli CPU."
+    },
+    {
+      question: "Quale funzione useresti per trovare la dimensione totale in byte di un file dopo averlo aperto?",
+      options: [
+        "sizeof(FILE)",
+        "Combinazione di fseek(fp, 0, SEEK_END) e ftell(fp)",
+        "strlen(file)",
+        "file_size(fp)"
+      ],
+      correctAnswer: 1,
+      explanation: "Ti sposti alla fine con `fseek` e poi chiedi a `ftell` a che posizione sei arrivato."
+    }
+  ]} 
+/>
+
+<Quiz 
+  title="Hacker Challenge"
+  questions={[
+    {
+      id: 1,
+      question: "Che differenza c'è tra 'r' e 'rb' in `fopen` su sistemi Windows?",
+      options: [
+        "Nessuna",
+        " 'r' traduce automaticamente i caratteri newline (\\n) mentre 'rb' legge i byte grezzi senza modifiche",
+        " 'rb' è più veloce",
+        " 'r' è solo per file di sola lettura"
+      ],
+      correctAnswer: 1,
+      explanation: "Su Linux non c'è differenza, ma su Windows la modalità testo 'r' può alterare i byte durante la traduzione dei fine riga CRLF."
+    },
+    {
+      id: 2,
+      question: "Cos'è un 'Tipo Opaco' (Opaque Type)?",
+      options: [
+        "Un tipo che non occupa memoria",
+        "Una struct la cui definizione è nascosta nel file .c e l'utente riceve solo un puntatore generico",
+        "Un tipo di dato protetto da password",
+        "Una variabile che scompare se non usata"
+      ],
+      correctAnswer: 1,
+      explanation: "È il segreto dell'incapsulamento in C: l'utente usa l'oggetto ma non può vederne (né romperne) i campi interni."
+    },
+    {
+      id: 3,
+      question: "Cosa fa la funzione `rewind(fp)`?",
+      options: [
+        "Chiude il file e lo riapre",
+        "Cancella il contenuto del file",
+        "Riporta il cursore di lettura all'inizio del file (offset 0)",
+        "Inverte l'ordine dei caratteri"
+      ],
+      correctAnswer: 2,
+      explanation: "È equivalente a fseek(fp, 0, SEEK_SET)."
+    }
+  ]} 
+/>
+
+<HackerTerminal 
+  challenges={[
+    {
+      id: "file-inspect",
+      title: "Ispezione Binaria",
+      description: "Esegui un programma che scrive la struct Player su disco (save.dat). Quale comando useresti per vedere i byte reali del file e riconoscere il valore float?",
+      commands: ["hexdump -C save.dat"],
+      expectedOutput: "00000000  01 00 00 00 00 00 bf 42",
+      hints: ["Cerca lo 01 iniziale dell'ID (Little Endian)."]
+    },
+    {
+      id: "count-chars-wc",
+      title: "Contatore Veloce",
+      description: "Senza scrivere codice C, usa il comando `wc` per contare quanti BYTE (non caratteri) ci sono nel file `save.dat`.",
+      commands: ["wc -c save.dat"],
+      expectedOutput: "8 save.dat",
+      hints: ["L'opzione per i byte è -c (chars) o --bytes."]
+    },
+    {
+      id: "lsof-hacker",
+      title: "File Aperti",
+      description: "Mentre il tuo programma C è in pausa dopo una `fopen`, quale comando Linux ti mostra l'elenco di tutti i file aperti dal processo?",
+      commands: ["lsof -p <PID>", "ls /proc/self/fd"],
+      expectedOutput: "save.dat",
+      hints: ["lsof sta per 'List Open Files'."]
+    }
+  ]}
+/>
+
+### Riassunto Finale
+Abbiamo dato un nome alle nostre strutture e una persistenza ai nostri dati. `typedef` e la `FILE` API sono le fondamenta su cui costruirete software che non muore quando si chiude il terminale, ma che può scambiare dati con l'intero ecosistema digitale.
