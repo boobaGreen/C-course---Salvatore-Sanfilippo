@@ -240,30 +240,40 @@ int main() {
 <HackerTerminal 
   challenges={[
     {
-      id: "struct-offset",
-      title: "Il Cacciatore di Offset",
-      description: "Usa GDB per trovare l'offset esatto del campo `den` nella `struct Frazione`. Quale comando useresti?",
-      commands: ["ptype /o struct Frazione"],
-      expectedOutput: "/* offset    |  size */",
-      hints: ["ptype /o mostra gli offset e il padding"]
+        id: "struct-offset",
+        title: "Il Cacciatore di Offset",
+        description: "Usa GDB per trovare l'offset esatto del campo `den` nella `struct Frazione`. Quale comando useresti?",
+        commands: [],
+        expectedOutput: "/* offset    |  size */",
+        hints: [
+            "ptype /o mostra gli offset e il padding"
+        ],
+        expectedCommand: "ptype /o struct Frazione"
     },
     {
-      id: "nm-symbols",
-      title: "Simboli Globali",
-      description: "Se dichiari una struct globale, puoi vederne il simbolo nell'eseguibile. Usa il comando `nm` per cercare i simboli nel tuo programma.",
-      commands: ["nm ./programma | grep \"a\""],
-      expectedOutput: "B a",
-      hints: ["Le variabili globali non inizializzate sono nel segmento BSS (B)"]
+        id: "nm-symbols",
+        title: "Simboli Globali",
+        description: "Se dichiari una struct globale, puoi vederne il simbolo nell'eseguibile. Usa il comando `nm` per cercare i simboli nel tuo programma.",
+        commands: [],
+        expectedOutput: "B a",
+        hints: [
+            "Le variabili globali non inizializzate sono nel segmento BSS (B)"
+        ],
+        expectedCommand: "nm ./programma | grep \"a\""
     },
     {
-      id: "packed-verify",
-      title: "La Prova del Nove",
-      description: "Scrivi un piccolo codice che stampa `sizeof` di una struct con e senza `__attribute__((packed))` e compilalo con `gcc`.",
-      commands: ["gcc test.c -o test && ./test"],
-      expectedOutput: "12\n9",
-      hints: ["Usa printf(\"%zu\\n\", sizeof(struct ...))"]
+        id: "packed-verify",
+        title: "La Prova del Nove",
+        description: "Scrivi un piccolo codice che stampa `sizeof` di una struct con e senza `__attribute__((packed))` e compilalo con `gcc`.",
+        commands: [
+            "gcc test.c -o test && ./test"
+        ],
+        expectedOutput: "12\n9",
+        hints: [
+            "Usa printf(\"%zu\\n\", sizeof(struct ...))"
+        ]
     }
-  ]}
+]}
 />
 
 ### Riassunto Finale

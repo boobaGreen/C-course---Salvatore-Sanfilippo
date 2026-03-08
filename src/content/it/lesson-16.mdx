@@ -272,30 +272,43 @@ Salvatore suggerisce di usare le macro del preprocessore (`#ifdef DEBUG`) per in
 <HackerTerminal 
   challenges={[
     {
-      id: "magic-search",
-      title: "Caccia all'Esadecimale",
-      description: "Usa `hexdump` sul tuo eseguibile (o un dump di memoria) per cercare la costante `0xDEADBEEF`. Quale comando useresti?",
-      commands: ["grep", "hexdump"],
-      expectedOutput: "ef be ad de",
-      hints: ["Cerca l'ordine Little Endian!"]
+        id: "magic-search",
+        title: "Caccia all'Esadecimale",
+        description: "Usa `hexdump` sul tuo eseguibile (o un dump di memoria) per cercare la costante `0xDEADBEEF`. Quale comando useresti?",
+        commands: [],
+        expectedOutput: "ef be ad de",
+        hints: [
+            "Cerca l'ordine Little Endian!"
+        ],
+        expectedCommand: "grep"
     },
     {
-      id: "gcc-flexible",
-      title: "Standard C99",
-      description: "Prova a compilare una struct con `char str[0]` invece di `char str[]`. Quale versione corregge GCC per compatibilità?",
-      commands: ["gcc -std=c89", "gcc -std=c99"],
-      expectedOutput: "c99",
-      hints: ["Il flexible array non-standard [0] era un'estensione GCC prima di C99."]
+        id: "gcc-flexible",
+        title: "Standard C99",
+        description: "Prova a compilare una struct con `char str[0]` invece di `char str[]`. Quale versione corregge GCC per compatibilità?",
+        commands: [
+            "gcc -std=c89",
+            "gcc -std=c99"
+        ],
+        expectedOutput: "c99",
+        hints: [
+            "Il flexible array non-standard [0] era un'estensione GCC prima di C99."
+        ]
     },
     {
-      id: "mem-limit-check",
-      title: "Stress Test Refs",
-      description: "Crea un loop che alloca 1 milione di stringhe e verifica con `top` o `htop` l'occupazione di memoria.",
-      commands: ["htop", "top"],
-      expectedOutput: "mem usage",
-      hints: ["Controlla la colonna RES (Resident Memory)."]
+        id: "mem-limit-check",
+        title: "Stress Test Refs",
+        description: "Crea un loop che alloca 1 milione di stringhe e verifica con `top` o `htop` l'occupazione di memoria.",
+        commands: [
+            "htop",
+            "top"
+        ],
+        expectedOutput: "mem usage",
+        hints: [
+            "Controlla la colonna RES (Resident Memory)."
+        ]
     }
-  ]}
+]}
 />
 
 ### Riassunto Finale

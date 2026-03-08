@@ -211,36 +211,47 @@ Prova a sperimentare con `sizeof` e le costanti di `limits.h` come `INT_MIN` e `
 <HackerTerminal 
   challenges={[
     {
-      id: "limits-header",
-      title: "Il Guardiano dei Limiti",
-      description: "Qual è il nome del file header standard che definisce i limiti minimi e massimi dei tipi interi nel tuo sistema?",
-      commands: ["ls /usr/include/limits.h"],
-      expectedOutput: "limits.h",
-      hints: ["Si occupa dei 'limiti' numerici"],
-      explanation: "Esatto! `limits.h` contiene macro come `INT_MAX` e `CHAR_BIT`.",
-      xpReward: 150
+        id: "limits-header",
+        title: "Il Guardiano dei Limiti",
+        description: "Qual è il nome del file header standard che definisce i limiti minimi e massimi dei tipi interi nel tuo sistema?",
+        commands: [
+            "ls /usr/include/limits.h"
+        ],
+        expectedOutput: "limits.h",
+        hints: [
+            "Si occupa dei 'limiti' numerici"
+        ],
+        explanation: "Esatto! `limits.h` contiene macro come `INT_MAX` e `CHAR_BIT`.",
+        xpReward: 150
     },
     {
-      id: "stdint-header",
-      title: "Precisione Chirurgica",
-      description: "Per usare tipi con dimensione garantita (es. int32_t), quale file header devi includere?",
-      commands: ["ls /usr/include/stdint.h"],
-      expectedOutput: "stdint.h",
-      hints: ["Inizia con 'std' e contiene 'int'"],
-      explanation: "Ottimo! `stdint.h` è vitale per la portabilità del codice.",
-      xpReward: 200
+        id: "stdint-header",
+        title: "Precisione Chirurgica",
+        description: "Per usare tipi con dimensione garantita (es. int32_t), quale file header devi includere?",
+        commands: [
+            "ls /usr/include/stdint.h"
+        ],
+        expectedOutput: "stdint.h",
+        hints: [
+            "Inizia con 'std' e contiene 'int'"
+        ],
+        explanation: "Ottimo! `stdint.h` è vitale per la portabilità del codice.",
+        xpReward: 200
     },
     {
-      id: "lscpu-endian",
-      title: "L'Ordine dei Byte",
-      description: "Quale comando Linux mostra l'architettura della CPU e se il sistema è Little o Big Endian?",
-      commands: ["lscpu | grep \"Byte Order\""],
-      expectedOutput: "Little Endian",
-      hints: ["Significa 'List CPU'"],
-      explanation: "Perfetto! `lscpu` rivela come la tua CPU organizza i byte in memoria.",
-      xpReward: 250
+        id: "lscpu-endian",
+        title: "L'Ordine dei Byte",
+        description: "Quale comando Linux mostra l'architettura della CPU e se il sistema è Little o Big Endian?",
+        commands: [],
+        expectedOutput: "Little Endian",
+        hints: [
+            "Significa 'List CPU'"
+        ],
+        explanation: "Perfetto! `lscpu` rivela come la tua CPU organizza i byte in memoria.",
+        xpReward: 250,
+        expectedCommand: "lscpu | grep \"Byte Order\""
     }
-  ]}
+]}
 />
 
 Ci vediamo alla prossima lezione!

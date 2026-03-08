@@ -262,36 +262,47 @@ Cosa succede se aggiungi 1 al massimo valore possibile per un tipo?
 <HackerTerminal 
   challenges={[
     {
-      id: "unsigned-suffix",
-      title: "Il Suffisso Magico",
-      description: "Se vuoi forzare il compilatore a trattare una costante come 'unsigned', quale lettera devi aggiungere dopo il numero?",
-      commands: ["echo 'unsigned int x = 100u;' > test.c"],
-      expectedOutput: "u",
-      hints: ["È la prima lettera di 'unsigned'"],
-      explanation: "Esatto! Il suffisso 'u' istruisce il compilatore a trattare il letterale come senza segno.",
-      xpReward: 150
+        id: "unsigned-suffix",
+        title: "Il Suffisso Magico",
+        description: "Se vuoi forzare il compilatore a trattare una costante come 'unsigned', quale lettera devi aggiungere dopo il numero?",
+        commands: [
+            "echo 'unsigned int x = 100u;' > test.c"
+        ],
+        expectedOutput: "u",
+        hints: [
+            "È la prima lettera di 'unsigned'"
+        ],
+        explanation: "Esatto! Il suffisso 'u' istruisce il compilatore a trattare il letterale come senza segno.",
+        xpReward: 150
     },
     {
-      id: "m32-flag",
-      title: "Ritorno al Passato",
-      description: "Quale flag di GCC useresti per forzare la compilazione a 32 bit su una macchina a 64 bit?",
-      commands: ["gcc -m32 main.c"],
-      expectedOutput: "-m32",
-      hints: ["Si riferisce al modello a 32 bit"],
-      explanation: "Ottimo! `-m32` emula un'architettura a 32 bit, riducendo la dimensione dei puntatori.",
-      xpReward: 200
+        id: "m32-flag",
+        title: "Ritorno al Passato",
+        description: "Quale flag di GCC useresti per forzare la compilazione a 32 bit su una macchina a 64 bit?",
+        commands: [
+            "gcc -m32 main.c"
+        ],
+        expectedOutput: "-m32",
+        hints: [
+            "Si riferisce al modello a 32 bit"
+        ],
+        explanation: "Ottimo! `-m32` emula un'architettura a 32 bit, riducendo la dimensione dei puntatori.",
+        xpReward: 200
     },
     {
-      id: "size-command",
-      title: "Sezionare il Binario",
-      description: "Quale comando mostra le dimensioni delle sezioni .text, .data e .bss del tuo file `a.out`?",
-      commands: ["size a.out"],
-      expectedOutput: "text\t   data\t    bss",
-      hints: ["Significa 'taglia' o 'dimensione' in inglese"],
-      explanation: "Perfetto! `size` è fondamentale per capire quanta RAM occupa il tuo programma.",
-      xpReward: 250
+        id: "size-command",
+        title: "Sezionare il Binario",
+        description: "Quale comando mostra le dimensioni delle sezioni .text, .data e .bss del tuo file `a.out`?",
+        commands: [],
+        expectedOutput: "text\t   data\t    bss",
+        hints: [
+            "Significa 'taglia' o 'dimensione' in inglese"
+        ],
+        explanation: "Perfetto! `size` è fondamentale per capire quanta RAM occupa il tuo programma.",
+        xpReward: 250,
+        expectedCommand: "size a.out"
     }
-  ]}
+]}
 />
 
 Ci vediamo alla prossima lezione!

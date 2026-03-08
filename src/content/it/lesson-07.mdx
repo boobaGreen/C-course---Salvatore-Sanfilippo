@@ -287,36 +287,46 @@ Prova a trasformare questo ciclo `while` in un ciclo `for`.
 <HackerTerminal 
   challenges={[
     {
-      id: "grep-while",
-      title: "Caccia ai Pattern",
-      description: "Salvatore analizza spesso il codice per trovare pattern. Quale comando useresti per cercare la parola 'while' in tutti i file .c della cartella?",
-      commands: ["grep \"while\" *.c"],
-      expectedOutput: "while",
-      hints: ["È il comando standard per cercare testo"],
-      explanation: "Esatto! `grep` è fondamentale per l'analisi del codice.",
-      xpReward: 150
+        id: "grep-while",
+        title: "Caccia ai Pattern",
+        description: "Salvatore analizza spesso il codice per trovare pattern. Quale comando useresti per cercare la parola 'while' in tutti i file .c della cartella?",
+        commands: [],
+        expectedOutput: "while",
+        hints: [
+            "È il comando standard per cercare testo"
+        ],
+        explanation: "Esatto! `grep` è fondamentale per l'analisi del codice.",
+        xpReward: 150,
+        expectedCommand: "grep \"while\" *.c"
     },
     {
-      id: "time-perf",
-      title: "Cronometro ad Alta Precisione",
-      description: "Quale comando del terminale useresti per misurare esattamente quanto tempo impiega il tuo programma `./a.out`?",
-      commands: ["time ./a.out"],
-      expectedOutput: "real",
-      hints: ["Si usa per misurare il 'tempo'"],
-      explanation: "Ottimo! `time` ti mostra i tempi di esecuzione reali, utente e di sistema.",
-      xpReward: 200
+        id: "time-perf",
+        title: "Cronometro ad Alta Precisione",
+        description: "Quale comando del terminale useresti per misurare esattamente quanto tempo impiega il tuo programma `./a.out`?",
+        commands: [],
+        expectedOutput: "real",
+        hints: [
+            "Si usa per misurare il 'tempo'"
+        ],
+        explanation: "Ottimo! `time` ti mostra i tempi di esecuzione reali, utente e di sistema.",
+        xpReward: 200,
+        expectedCommand: "time ./a.out"
     },
     {
-      id: "ls-recursive",
-      title: "Esplorazione Ricorsiva",
-      description: "Quale flag del comando `ls` useresti per elencare tutti i file in modo ricorsivo nelle sottocartelle?",
-      commands: ["ls -R"],
-      expectedOutput: "./",
-      hints: ["La lettera sta per 'Recursive'"],
-      explanation: "Bravissimo! `ls -R` esplora l'intera struttura delle directory.",
-      xpReward: 250
+        id: "ls-recursive",
+        title: "Esplorazione Ricorsiva",
+        description: "Quale flag del comando `ls` useresti per elencare tutti i file in modo ricorsivo nelle sottocartelle?",
+        commands: [
+            "ls -R"
+        ],
+        expectedOutput: "./",
+        hints: [
+            "La lettera sta per 'Recursive'"
+        ],
+        explanation: "Bravissimo! `ls -R` esplora l'intera struttura delle directory.",
+        xpReward: 250
     }
-  ]}
+]}
 />
 
 Ci vediamo alla prossima lezione!

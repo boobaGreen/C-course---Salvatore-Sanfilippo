@@ -227,30 +227,40 @@ In C, la memoria appena allocata o dichiarata sullo stack contiene "spazzatura".
 <HackerTerminal 
   challenges={[
     {
-      id: "xdump-test",
-      title: "Visione a Raggi X",
-      description: "Quale comando Linux visualizza la memoria di un file in formato esadecimale e ASCII simultaneamente (simile al nostro xdump)?",
-      commands: ["hexdump -C", "od -cx"],
-      expectedOutput: "00000000",
-      hints: ["L'opzione -C è la più famosa del comando 'hex dump'."]
+        id: "xdump-test",
+        title: "Visione a Raggi X",
+        description: "Quale comando Linux visualizza la memoria di un file in formato esadecimale e ASCII simultaneamente (simile al nostro xdump)?",
+        commands: [],
+        expectedOutput: "00000000",
+        hints: [
+            "L'opzione -C è la più famosa del comando 'hex dump'."
+        ],
+        expectedCommand: "hexdump -C"
     },
     {
-      id: "ternary-bash",
-      title: "Logic in a Line",
-      description: "Simula un operatore ternario in Bash: stampa 'VERO' se il file 'test' esiste, altrimenti 'FALSO'.",
-      commands: ["[ -f test ] && echo 'VERO' || echo 'FALSO'"],
-      expectedOutput: "FALSO",
-      hints: ["&& e || in successione imitano il ternario in Bash."]
+        id: "ternary-bash",
+        title: "Logic in a Line",
+        description: "Simula un operatore ternario in Bash: stampa 'VERO' se il file 'test' esiste, altrimenti 'FALSO'.",
+        commands: [
+            "[ -f test ] && echo 'VERO' || echo 'FALSO'"
+        ],
+        expectedOutput: "FALSO",
+        hints: [
+            "&& e || in successione imitano il ternario in Bash."
+        ]
     },
     {
-      id: "memset-zero-file",
-      title: "Piazza Pulita",
-      description: "Quale comando Linux scriverebbe 1024 byte di zeri (null bytes) in un file chiamato 'zero.bin'?",
-      commands: ["dd if=/dev/zero of=zero.bin bs=1024 count=1"],
-      expectedOutput: "1024 bytes copied",
-      hints: ["dd è il disk destroyer (ma anche un ottimo copiatore), /dev/zero è la fonte infinita di null."]
+        id: "memset-zero-file",
+        title: "Piazza Pulita",
+        description: "Quale comando Linux scriverebbe 1024 byte di zeri (null bytes) in un file chiamato 'zero.bin'?",
+        commands: [],
+        expectedOutput: "1024 bytes copied",
+        hints: [
+            "dd è il disk destroyer (ma anche un ottimo copiatore), /dev/zero è la fonte infinita di null."
+        ],
+        expectedCommand: "dd if=/dev/zero of=zero.bin bs=1024 count=1"
     }
-  ]}
+]}
 />
 
 ### Riassunto Finale

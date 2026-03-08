@@ -230,36 +230,46 @@ int main() {
 <HackerTerminal 
   challenges={[
     {
-      id: "wc-lines",
-      title: "Metriche del Codice",
-      description: "Salvatore ha scritto il codice live. Quale comando Linux useresti per contare quante righe di codice ha il file `life.c`?",
-      commands: ["wc -l life.c"],
-      expectedOutput: "life.c",
-      hints: ["Il comando sta per 'Word Count'"],
-      explanation: "Ottimo! `wc -l` è essenziale per monitorare la crescita del tuo progetto.",
-      xpReward: 150
+        id: "wc-lines",
+        title: "Metriche del Codice",
+        description: "Salvatore ha scritto il codice live. Quale comando Linux useresti per contare quante righe di codice ha il file `life.c`?",
+        commands: [],
+        expectedOutput: "life.c",
+        hints: [
+            "Il comando sta per 'Word Count'"
+        ],
+        explanation: "Ottimo! `wc -l` è essenziale per monitorare la crescita del tuo progetto.",
+        xpReward: 150,
+        expectedCommand: "wc -l life.c"
     },
     {
-      id: "grep-define",
-      title: "Caccia alle Costanti",
-      description: "Vuoi trovare velocemente tutte le macro `#define` usate per configurare la griglia. Quale comando useresti?",
-      commands: ["grep \"#define\" life.c"],
-      expectedOutput: "#define",
-      hints: ["Usa grep per cercare la stringa"],
-      explanation: "Perfetto! `grep` ti permette di isolare la configurazione del programma in un istante.",
-      xpReward: 200
+        id: "grep-define",
+        title: "Caccia alle Costanti",
+        description: "Vuoi trovare velocemente tutte le macro `#define` usate per configurare la griglia. Quale comando useresti?",
+        commands: [],
+        expectedOutput: "#define",
+        hints: [
+            "Usa grep per cercare la stringa"
+        ],
+        explanation: "Perfetto! `grep` ti permette di isolare la configurazione del programma in un istante.",
+        xpReward: 200,
+        expectedCommand: "grep \"#define\" life.c"
     },
     {
-      id: "nano-editor",
-      title: "Editor da Terminale",
-      description: "Vuoi modificare i parametri senza uscire dal terminale. Quale editor useresti (quello che inizia per 'n')?",
-      commands: ["nano life.c"],
-      expectedOutput: "",
-      hints: ["È molto user-friendly e tipico dei sistemi Linux"],
-      explanation: "Esatto! `nano` è l'amico del principiante per modifiche veloci via SSH.",
-      xpReward: 250
+        id: "nano-editor",
+        title: "Editor da Terminale",
+        description: "Vuoi modificare i parametri senza uscire dal terminale. Quale editor useresti (quello che inizia per 'n')?",
+        commands: [
+            "nano life.c"
+        ],
+        expectedOutput: "",
+        hints: [
+            "È molto user-friendly e tipico dei sistemi Linux"
+        ],
+        explanation: "Esatto! `nano` è l'amico del principiante per modifiche veloci via SSH.",
+        xpReward: 250
     }
-  ]}
+]}
 />
 
 Ci vediamo alla prossima lezione per addentrarci nei puntatori!

@@ -176,36 +176,46 @@ Sapevi che se passi un `char` a una funzione con argomenti variabili (come `prin
 <HackerTerminal 
   challenges={[
     {
-      id: "man-printf",
-      title: "Il Manuale del Programmatore",
-      description: "Qual è il comando fondamentale per leggere la documentazione ufficiale di una funzione come `printf`?",
-      commands: ["man printf"],
-      expectedOutput: "PRINTF(1)",
-      hints: ["È l'abbreviazione di 'manual'"],
-      explanation: "Esatto! `man` è lo strumento essenziale per ogni sviluppatore C su Linux.",
-      xpReward: 150
+        id: "man-printf",
+        title: "Il Manuale del Programmatore",
+        description: "Qual è il comando fondamentale per leggere la documentazione ufficiale di una funzione come `printf`?",
+        commands: [
+            "man printf"
+        ],
+        expectedOutput: "PRINTF(1)",
+        hints: [
+            "È l'abbreviazione di 'manual'"
+        ],
+        explanation: "Esatto! `man` è lo strumento essenziale per ogni sviluppatore C su Linux.",
+        xpReward: 150
     },
     {
-      id: "tr-upper",
-      title: "Traduttore di Caratteri",
-      description: "Quale comando shell useresti per trasformare tutto il testo minuscolo in maiuscolo (es. 'ciao' -> 'CIAO')?",
-      commands: ["echo \"ciao\" | tr 'a-z' 'A-Z'"],
-      expectedOutput: "CIAO",
-      hints: ["Il comando sta per 'translate'"],
-      explanation: "Ottimo! `tr` permette di manipolare set di caratteri in modo rapidissimo.",
-      xpReward: 200
+        id: "tr-upper",
+        title: "Traduttore di Caratteri",
+        description: "Quale comando shell useresti per trasformare tutto il testo minuscolo in maiuscolo (es. 'ciao' -> 'CIAO')?",
+        commands: [],
+        expectedOutput: "CIAO",
+        hints: [
+            "Il comando sta per 'translate'"
+        ],
+        explanation: "Ottimo! `tr` permette di manipolare set di caratteri in modo rapidissimo.",
+        xpReward: 200,
+        expectedCommand: "echo \"ciao\" | tr 'a-z' 'A-Z'"
     },
     {
-      id: "od-dump",
-      title: "L'Ispezione dei Byte",
-      description: "Quale comando permette di vedere il contenuto di un file in formato ottale o esadecimale byte per byte?",
-      commands: ["od -t x1 testo.txt"],
-      expectedOutput: "0000000",
-      hints: ["Significa 'Octal Dump'"],
-      explanation: "Bravissimo! `od` ti permette di vedere la 'carne nuda' dei file.",
-      xpReward: 250
+        id: "od-dump",
+        title: "L'Ispezione dei Byte",
+        description: "Quale comando permette di vedere il contenuto di un file in formato ottale o esadecimale byte per byte?",
+        commands: [],
+        expectedOutput: "0000000",
+        hints: [
+            "Significa 'Octal Dump'"
+        ],
+        explanation: "Bravissimo! `od` ti permette di vedere la 'carne nuda' dei file.",
+        xpReward: 250,
+        expectedCommand: "od -t x1 testo.txt"
     }
-  ]}
+]}
 />
 
 Ci vediamo alla prossima lezione!

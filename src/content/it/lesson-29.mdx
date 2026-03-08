@@ -178,30 +178,41 @@ Mentre miglioriamo il workflow, miglioriamo anche l'interprete. Introduciamo una
 <HackerTerminal 
   challenges={[
     {
-      id: "make-touch",
-      title: "Il Trucco di Touch",
-      description: "Il binario è aggiornato, ma vuoi forzare la ricompilazione. Quale comando cambia la data del file sorgente senza editarlo?",
-      commands: ["touch toyfort.c"],
-      expectedOutput: "",
-      hints: ["Inizia con 't' e finisce con 'h'."]
+        id: "make-touch",
+        title: "Il Trucco di Touch",
+        description: "Il binario è aggiornato, ma vuoi forzare la ricompilazione. Quale comando cambia la data del file sorgente senza editarlo?",
+        commands: [],
+        expectedOutput: "",
+        hints: [
+            "Inizia con 't' e finisce con 'h'."
+        ],
+        expectedCommand: "touch toyfort.c"
     },
     {
-      id: "git-commit",
-      title: "Salvataggio",
-      description: "Qual è il comando per salvare le modifiche in Git specificando un messaggio?",
-      commands: ["git commit -m"],
-      expectedOutput: "",
-      hints: ["Usa il flag -m."]
+        id: "git-commit",
+        title: "Salvataggio",
+        description: "Qual è il comando per salvare le modifiche in Git specificando un messaggio?",
+        commands: [
+            "git commit -m"
+        ],
+        expectedOutput: "",
+        hints: [
+            "Usa il flag -m."
+        ]
     },
     {
-      id: "makefile-syntax",
-      title: "Pulizia",
-      description: "Nel Makefile, come si chiama convenzionalmente il target per rimuovere i binari?",
-      commands: ["clean"],
-      expectedOutput: "",
-      hints: ["Significa 'pulire' in inglese."]
+        id: "makefile-syntax",
+        title: "Pulizia",
+        description: "Nel Makefile, come si chiama convenzionalmente il target per rimuovere i binari?",
+        commands: [
+            "clean"
+        ],
+        expectedOutput: "",
+        hints: [
+            "Significa 'pulire' in inglese."
+        ]
     }
-  ]}
+]}
 />
 
 ### Conclusione

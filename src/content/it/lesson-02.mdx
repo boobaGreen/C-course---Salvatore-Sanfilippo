@@ -297,36 +297,45 @@ I **Registri** sono piccole "variabili" dentro la CPU, velocissime. La **RAM** �
 <HackerTerminal 
   challenges={[
     {
-      id: "xxd-dump",
-      title: "Vedere l'Invisibile",
-      description: "Salvatore ha menzionato uno strumento per guardare 'dentro' gli eseguibili. Quale comando useresti per vedere il contenuto esadecimale di `a.out`?",
-      commands: ["xxd a.out"],
-      expectedOutput: "00000000:",
-      hints: ["Inizia con 'x' e fa il dump esadecimale"],
-      explanation: "Ottimo! `xxd` è fondamentale per vedere i byte reali di un binario.",
-      xpReward: 150
+        id: "xxd-dump",
+        title: "Vedere l'Invisibile",
+        description: "Salvatore ha menzionato uno strumento per guardare 'dentro' gli eseguibili. Quale comando useresti per vedere il contenuto esadecimale di `a.out`?",
+        commands: [],
+        expectedOutput: "00000000:",
+        hints: [
+            "Inizia con 'x' e fa il dump esadecimale"
+        ],
+        explanation: "Ottimo! `xxd` è fondamentale per vedere i byte reali di un binario.",
+        xpReward: 150,
+        expectedCommand: "xxd a.out"
     },
     {
-      id: "nm-symbols",
-      title: "La Lista dei Nomi",
-      description: "Ogni funzione diventa un 'simbolo'. Quale comando elenca tutti i simboli (nomi di funzioni e variabili) in `a.out`?",
-      commands: ["nm a.out"],
-      expectedOutput: "0000000000001000 T main",
-      hints: ["Comando di due lettere, abbreviazione di 'names'"],
-      explanation: "Esatto! `nm` ti permette di vedere quali funzioni sono definite nel tuo codice.",
-      xpReward: 200
+        id: "nm-symbols",
+        title: "La Lista dei Nomi",
+        description: "Ogni funzione diventa un 'simbolo'. Quale comando elenca tutti i simboli (nomi di funzioni e variabili) in `a.out`?",
+        commands: [],
+        expectedOutput: "0000000000001000 T main",
+        hints: [
+            "Comando di due lettere, abbreviazione di 'names'"
+        ],
+        explanation: "Esatto! `nm` ti permette di vedere quali funzioni sono definite nel tuo codice.",
+        xpReward: 200,
+        expectedCommand: "nm a.out"
     },
     {
-      id: "objdump-header",
-      title: "L'Intestazione",
-      description: "Quale comando useresti per visualizzare l'header dell'eseguibile e trovarne il punto di ingresso (entry point)?",
-      commands: ["objdump -f a.out"],
-      expectedOutput: "start address",
-      hints: ["Inizia con 'obj'"],
-      explanation: "Perfetto! `objdump -f` mostra i metadati vitali del binario.",
-      xpReward: 250
+        id: "objdump-header",
+        title: "L'Intestazione",
+        description: "Quale comando useresti per visualizzare l'header dell'eseguibile e trovarne il punto di ingresso (entry point)?",
+        commands: [],
+        expectedOutput: "start address",
+        hints: [
+            "Inizia con 'obj'"
+        ],
+        explanation: "Perfetto! `objdump -f` mostra i metadati vitali del binario.",
+        xpReward: 250,
+        expectedCommand: "objdump -f a.out"
     }
-  ]}
+]}
 />
 
 Ci vediamo alla prossima lezione!

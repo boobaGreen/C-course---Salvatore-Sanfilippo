@@ -263,36 +263,47 @@ Il prototipo serve a dire al compilatore: *"Esiste una funzione chiamata `printf
 <HackerTerminal 
   challenges={[
     {
-      id: "opt-trap",
-      title: "L'Ottimizzazione Subdola",
-      description: "Hai compilato un programma che stampa 'Hello World' con `printf`. Se guardi l'assembly generato con `-O2`, quale funzione più semplice trovi al posto di printf?",
-      commands: ["gcc -O2 -S hello.c", "grep 'call' hello.s"],
-      expectedOutput: "puts",
-      hints: ["Il compilatore 'declassa' la funzione se non ci sono formattazioni"],
-      explanation: "Esatto! Il compilatore sostituisce printf con puts per stringhe statiche semplici, poiché è molto più efficiente.",
-      xpReward: 150
+        id: "opt-trap",
+        title: "L'Ottimizzazione Subdola",
+        description: "Hai compilato un programma che stampa 'Hello World' con `printf`. Se guardi l'assembly generato con `-O2`, quale funzione più semplice trovi al posto di printf?",
+        commands: [
+            "gcc -O2 -S hello.c",
+            "grep 'call' hello.s"
+        ],
+        expectedOutput: "puts",
+        hints: [
+            "Il compilatore 'declassa' la funzione se non ci sono formattazioni"
+        ],
+        explanation: "Esatto! Il compilatore sostituisce printf con puts per stringhe statiche semplici, poiché è molto più efficiente.",
+        xpReward: 150
     },
     {
-      id: "elf-check",
-      title: "Anatomia del Binario",
-      description: "Un eseguibile Linux non è solo codice. Quale comando identifica la struttura del file e l'architettura per cui è stato creato?",
-      commands: ["file a.out"],
-      expectedOutput: "ELF 64-bit",
-      hints: ["Cerca un comando che significa 'documento' o 'archivio'"],
-      explanation: "Ottimo! Il comando `file` legge l'header ELF per determinare il tipo di binario.",
-      xpReward: 200
+        id: "elf-check",
+        title: "Anatomia del Binario",
+        description: "Un eseguibile Linux non è solo codice. Quale comando identifica la struttura del file e l'architettura per cui è stato creato?",
+        commands: [],
+        expectedOutput: "ELF 64-bit",
+        hints: [
+            "Cerca un comando che significa 'documento' o 'archivio'"
+        ],
+        explanation: "Ottimo! Il comando `file` legge l'header ELF per determinare il tipo di binario.",
+        xpReward: 200,
+        expectedCommand: "file a.out"
     },
     {
-      id: "strip-symbols",
-      title: "Pulizia Finale",
-      description: "Quale comando rimuove la symbol table e le info di debug per ridurre la dimensione del file?",
-      commands: ["strip a.out"],
-      expectedOutput: "",
-      hints: ["Significa 'spogliare' o 'togliere' in inglese"],
-      explanation: "Perfetto! `strip` rende il binario più piccolo e difficile da analizzare con il reverse engineering.",
-      xpReward: 250
+        id: "strip-symbols",
+        title: "Pulizia Finale",
+        description: "Quale comando rimuove la symbol table e le info di debug per ridurre la dimensione del file?",
+        commands: [],
+        expectedOutput: "",
+        hints: [
+            "Significa 'spogliare' o 'togliere' in inglese"
+        ],
+        explanation: "Perfetto! `strip` rende il binario più piccolo e difficile da analizzare con il reverse engineering.",
+        xpReward: 250,
+        expectedCommand: "strip a.out"
     }
-  ]}
+]}
 />
 
 Ci vediamo alla prossima lezione!

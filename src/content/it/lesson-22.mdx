@@ -191,30 +191,40 @@ int main() {
 <HackerTerminal 
   challenges={[
     {
-      id: "nm-symbols",
-      title: "Caccia ai Simboli",
-      description: "Usa il comando `nm` su un binario compilato. Quale lettera indica una funzione che si trova nella sezione 'Text' (eseguibile)?",
-      commands: ["nm a.out | grep main"],
-      expectedOutput: "T main",
-      hints: ["Cerca la T (Text/Code)."]
+        id: "nm-symbols",
+        title: "Caccia ai Simboli",
+        description: "Usa il comando `nm` su un binario compilato. Quale lettera indica una funzione che si trova nella sezione 'Text' (eseguibile)?",
+        commands: [],
+        expectedOutput: "T main",
+        hints: [
+            "Cerca la T (Text/Code)."
+        ],
+        expectedCommand: "nm a.out | grep main"
     },
     {
-      id: "objdump-disas",
-      title: "Raggi X al Codice",
-      description: "Usa `objdump -d` per vedere il codice assembly di una funzione. Dove punta tecnicamente il puntatore a funzione?",
-      commands: ["objdump -d a.out | grep -A 5 '<main>:'"],
-      expectedOutput: "main>:",
-      hints: ["Punta esattamente all'indirizzo della prima istruzione della funzione."]
+        id: "objdump-disas",
+        title: "Raggi X al Codice",
+        description: "Usa `objdump -d` per vedere il codice assembly di una funzione. Dove punta tecnicamente il puntatore a funzione?",
+        commands: [
+            "objdump -d a.out | grep -A 5 '<main>:'"
+        ],
+        expectedOutput: "main>:",
+        hints: [
+            "Punta esattamente all'indirizzo della prima istruzione della funzione."
+        ]
     },
     {
-      id: "ldd-check",
-      title: "Dipendenze Dinamiche",
-      description: "Quale comando Linux mostra quali librerie condivise (che contengono funzioni esterne) sono caricate dal tuo programma?",
-      commands: ["ldd ./a.out"],
-      expectedOutput: "libc.so",
-      hints: ["ldd = List Dynamic Dependencies."]
+        id: "ldd-check",
+        title: "Dipendenze Dinamiche",
+        description: "Quale comando Linux mostra quali librerie condivise (che contengono funzioni esterne) sono caricate dal tuo programma?",
+        commands: [],
+        expectedOutput: "libc.so",
+        hints: [
+            "ldd = List Dynamic Dependencies."
+        ],
+        expectedCommand: "ldd ./a.out"
     }
-  ]}
+]}
 />
 
 ### Riassunto Finale

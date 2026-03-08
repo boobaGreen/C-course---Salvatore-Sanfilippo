@@ -274,30 +274,41 @@ int main(int argc, char **argv) {
 <HackerTerminal 
   challenges={[
     {
-      id: "tac-usage",
-      title: "Invertire il Sistema",
-      description: "Prova ad usare il comando reale di Linux. Visualizza il contenuto di `/etc/passwd` al contrario.",
-      commands: ["tac /etc/passwd"],
-      expectedOutput: "root:x:0:0:root:/root:/bin/bash",
-      hints: ["Usa tac seguito dal path del file"]
+        id: "tac-usage",
+        title: "Invertire il Sistema",
+        description: "Prova ad usare il comando reale di Linux. Visualizza il contenuto di `/etc/passwd` al contrario.",
+        commands: [
+            "tac /etc/passwd"
+        ],
+        expectedOutput: "root:x:0:0:root:/root:/bin/bash",
+        hints: [
+            "Usa tac seguito dal path del file"
+        ]
     },
     {
-      id: "check-leaks-tac",
-      title: "Caccia al Leak",
-      description: "Compila il programma TAC e usa `valgrind` per verificare se hai liberato tutti i nodi della lista prima di uscire.",
-      commands: ["valgrind --leak-check=full ./tac file.txt"],
-      expectedOutput: "All heap blocks were freed -- no leaks are possible",
-      hints: ["valgrind è lo strumento principe per l'heap"]
+        id: "check-leaks-tac",
+        title: "Caccia al Leak",
+        description: "Compila il programma TAC e usa `valgrind` per verificare se hai liberato tutti i nodi della lista prima di uscire.",
+        commands: [
+            "valgrind --leak-check=full ./tac file.txt"
+        ],
+        expectedOutput: "All heap blocks were freed -- no leaks are possible",
+        hints: [
+            "valgrind è lo strumento principe per l'heap"
+        ]
     },
     {
-      id: "file-descriptors-limit",
-      title: "Il Limite Fisico",
-      description: "Usa il comando `ulimit` per vedere quanti file puoi tenere aperti contemporaneamente sul tuo utente Linux.",
-      commands: ["ulimit -n"],
-      expectedOutput: "1024",
-      hints: ["l'opzione è -n (number of files)"]
+        id: "file-descriptors-limit",
+        title: "Il Limite Fisico",
+        description: "Usa il comando `ulimit` per vedere quanti file puoi tenere aperti contemporaneamente sul tuo utente Linux.",
+        commands: [],
+        expectedOutput: "1024",
+        hints: [
+            "l'opzione è -n (number of files)"
+        ],
+        expectedCommand: "ulimit -n"
     }
-  ]}
+]}
 />
 
 ### Riassunto Finale

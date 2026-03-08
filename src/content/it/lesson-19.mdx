@@ -213,30 +213,40 @@ Quando una syscall fallisce (ritorna -1), il Kernel imposta un numero globale ch
 <HackerTerminal 
   challenges={[
     {
-      id: "man-syscall",
-      title: "Il Manuale del Kernel",
-      description: "Usa il comando `man` per leggere la documentazione della syscall `read`. Specifica la sezione corretta.",
-      commands: ["man 2 read"],
-      expectedOutput: "READ(2)",
-      hints: ["La sezione 2 è dedicata alle chiamate di sistema."]
+        id: "man-syscall",
+        title: "Il Manuale del Kernel",
+        description: "Usa il comando `man` per leggere la documentazione della syscall `read`. Specifica la sezione corretta.",
+        commands: [],
+        expectedOutput: "READ(2)",
+        hints: [
+            "La sezione 2 è dedicata alle chiamate di sistema."
+        ],
+        expectedCommand: "man 2 read"
     },
     {
-      id: "strace-write",
-      title: "Spiare il Programma",
-      description: "Scrivi un programma che usa `write()` e usa `strace` per confermare che la chiamata avvenga realmente.",
-      commands: ["strace ./programma | grep write"],
-      expectedOutput: "write(3, \"Saluti",
-      hints: ["strace intercetta le syscall in tempo reale."]
+        id: "strace-write",
+        title: "Spiare il Programma",
+        description: "Scrivi un programma che usa `write()` e usa `strace` per confermare che la chiamata avvenga realmente.",
+        commands: [
+            "strace ./programma | grep write"
+        ],
+        expectedOutput: "write(3, \"Saluti",
+        hints: [
+            "strace intercetta le syscall in tempo reale."
+        ]
     },
     {
-      id: "errno-list",
-      title: "Catalogo Errori",
-      description: "Usa il comando `errno -l` (se installato) o cerca nel file header di sistema dove sono definiti i nomi degli errori.",
-      commands: ["grep -R \"EACCES\" /usr/include"],
-      expectedOutput: "#define EACCES",
-      hints: ["EACCES è l'errore di 'Permission Denied'."]
+        id: "errno-list",
+        title: "Catalogo Errori",
+        description: "Usa il comando `errno -l` (se installato) o cerca nel file header di sistema dove sono definiti i nomi degli errori.",
+        commands: [],
+        expectedOutput: "#define EACCES",
+        hints: [
+            "EACCES è l'errore di 'Permission Denied'."
+        ],
+        expectedCommand: "grep -R \"EACCES\" /usr/include"
     }
-  ]}
+]}
 />
 
 ### Riassunto Finale

@@ -205,30 +205,40 @@ Elimina il passaggio di copia dei dati tra lo spazio Kernel e lo spazio Utente. 
 <HackerTerminal 
   challenges={[
     {
-      id: "strace-mmap",
-      title: "Geografia della Memoria",
-      description: "Usa `strace` su un comando semplice come `cat` e osserva quante volte appare la chiamata `mmap`. Perché lo fa?",
-      commands: ["strace cat /etc/passwd 2>&1 | grep mmap"],
-      expectedOutput: "mmap(NULL, ...",
-      hints: ["Il caricatore del sistema usa mmap per caricare le librerie condivise (.so)."]
+        id: "strace-mmap",
+        title: "Geografia della Memoria",
+        description: "Usa `strace` su un comando semplice come `cat` e osserva quante volte appare la chiamata `mmap`. Perché lo fa?",
+        commands: [
+            "strace cat /etc/passwd 2>&1 | grep mmap"
+        ],
+        expectedOutput: "mmap(NULL, ...",
+        hints: [
+            "Il caricatore del sistema usa mmap per caricare le librerie condivise (.so)."
+        ]
     },
     {
-      id: "pmap-inspect",
-      title: "Mappa del Processo",
-      description: "Mentre un programma è in esecuzione, usa il comando `pmap` seguito dal suo PID per vedere dove sono mappati i file in memoria.",
-      commands: ["pmap <PID>"],
-      expectedOutput: "00007f... bin/libc.so",
-      hints: ["pmap mostra l'intera mappa degli indirizzi del processo."]
+        id: "pmap-inspect",
+        title: "Mappa del Processo",
+        description: "Mentre un programma è in esecuzione, usa il comando `pmap` seguito dal suo PID per vedere dove sono mappati i file in memoria.",
+        commands: [],
+        expectedOutput: "00007f... bin/libc.so",
+        hints: [
+            "pmap mostra l'intera mappa degli indirizzi del processo."
+        ],
+        expectedCommand: "pmap <PID>"
     },
     {
-      id: "time-compare",
-      title: "Sfida di Velocità",
-      description: "Usa il comando `time` per confrontare la velocità di lettura di un file enorme usando un buffer piccolo vs un buffer grande.",
-      commands: ["time dd if=/dev/urandom of=test bs=1k count=1000", "time dd if=/dev/urandom of=test bs=1M count=1"],
-      expectedOutput: "real 0m...",
-      hints: ["Noterai che meno blocchi (ma più grandi) significano meno syscall e più velocità."]
+        id: "time-compare",
+        title: "Sfida di Velocità",
+        description: "Usa il comando `time` per confrontare la velocità di lettura di un file enorme usando un buffer piccolo vs un buffer grande.",
+        commands: [],
+        expectedOutput: "real 0m...",
+        hints: [
+            "Noterai che meno blocchi (ma più grandi) significano meno syscall e più velocità."
+        ],
+        expectedCommand: "time dd if=/dev/urandom of=test bs=1k count=1000"
     }
-  ]}
+]}
 />
 
 ### Riassunto Finale

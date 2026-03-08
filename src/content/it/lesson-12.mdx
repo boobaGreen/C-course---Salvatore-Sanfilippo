@@ -275,28 +275,38 @@ int main() {
 <HackerTerminal 
   challenges={[
     {
-      id: "valgrind-basic",
-      title: "Il Cacciatore di Memory Leaks",
-      description: "Compila un programma `test.c` che contiene un leak. Quale strumento formidabile di Linux usi eseguendo `strumeto ./test` per scoprire se hai dimenticato una free, e ti indica anche a quale riga di codice?",
-      commands: ["valgrind"],
-      expectedOutput: "valgrind ./test",
-      hints: ["Cerca 'linux memory debugger' (valgrind)"]
+        id: "valgrind-basic",
+        title: "Il Cacciatore di Memory Leaks",
+        description: "Compila un programma `test.c` che contiene un leak. Quale strumento formidabile di Linux usi eseguendo `strumeto ./test` per scoprire se hai dimenticato una free, e ti indica anche a quale riga di codice?",
+        commands: [
+            "valgrind"
+        ],
+        expectedOutput: "valgrind ./test",
+        hints: [
+            "Cerca 'linux memory debugger' (valgrind)"
+        ]
     },
     {
-      id: "check-heap-limits",
-      title: "Limitare la Memoria",
-      description: "A volte vuoi testare cosa succede se `malloc` fallisce (restituendo NULL). Usa il comando bash che gestisce i limiti fisici per limitare la memoria virtuale del tuo processo a circa 10 Megabyte (10000 kb).",
-      commands: ["ulimit"],
-      expectedOutput: "ulimit -v 10000",
-      hints: ["usa ulimit -v"]
+        id: "check-heap-limits",
+        title: "Limitare la Memoria",
+        description: "A volte vuoi testare cosa succede se `malloc` fallisce (restituendo NULL). Usa il comando bash che gestisce i limiti fisici per limitare la memoria virtuale del tuo processo a circa 10 Megabyte (10000 kb).",
+        commands: [],
+        expectedOutput: "ulimit -v 10000",
+        hints: [
+            "usa ulimit -v"
+        ],
+        expectedCommand: "ulimit"
     },
     {
-      id: "mem-free-status",
-      title: "Quanta RAM ci rimane?",
-      description: "Prima di chiedere gigantesche malloc da GiB in C, quale comando shell digiti per vedere la RAM Libera (Free) e Usata in formato human-readable (MB/GB) sull'intero sistema Ubuntu/Linux?",
-      commands: ["free"],
-      expectedOutput: "free -h",
-      hints: ["comando: free con opzione human"]
+        id: "mem-free-status",
+        title: "Quanta RAM ci rimane?",
+        description: "Prima di chiedere gigantesche malloc da GiB in C, quale comando shell digiti per vedere la RAM Libera (Free) e Usata in formato human-readable (MB/GB) sull'intero sistema Ubuntu/Linux?",
+        commands: [],
+        expectedOutput: "free -h",
+        hints: [
+            "comando: free con opzione human"
+        ],
+        expectedCommand: "free"
     }
-  ]}
+]}
 />

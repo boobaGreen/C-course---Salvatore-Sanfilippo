@@ -271,28 +271,40 @@ int main() {
 <HackerTerminal 
   challenges={[
     {
-      id: "endian-check",
-      title: "Il Rilevatore di Endianness",
-      description: "Usa il comando `lscpu` e filtra l'output per vedere l'ordine dei byte del tuo processore.",
-      commands: ["lscpu | grep \"Byte Order\""],
-      expectedOutput: "Byte Order:            Little Endian",
-      hints: ["Usa grep per cercare Byte Order"]
+        id: "endian-check",
+        title: "Il Rilevatore di Endianness",
+        description: "Usa il comando `lscpu` e filtra l'output per vedere l'ordine dei byte del tuo processore.",
+        commands: [],
+        expectedOutput: "Byte Order:            Little Endian",
+        hints: [
+            "Usa grep per cercare Byte Order"
+        ],
+        expectedCommand: "lscpu | grep \"Byte Order\""
     },
     {
-      id: "python-hex-check",
-      title: "Python come Calcolatrice Hex",
-      description: "Usa python3 per stampare il valore decimale del numero esadecimale 0x61.",
-      commands: ["python3 -c \"print(0x61)\""],
-      expectedOutput: "97",
-      hints: ["-c permette di eseguire codice dalla riga di comando"]
+        id: "python-hex-check",
+        title: "Python come Calcolatrice Hex",
+        description: "Usa python3 per stampare il valore decimale del numero esadecimale 0x61.",
+        commands: [
+            "python3 -c \"print(0x61)\""
+        ],
+        expectedOutput: "97",
+        hints: [
+            "-c permette di eseguire codice dalla riga di comando"
+        ]
     },
     {
-      id: "hexdump-custom",
-      title: "Dump Manuale",
-      description: "Crea un file di 4 byte con 'ABCD' e visualizzalo con `hexdump` in formato esadecimale.",
-      commands: ["echo -n \"ABCD\" > test.bin", "hexdump -C test.bin"],
-      expectedOutput: "41 42 43 44",
-      hints: ["echo -n evita il newline finale"]
+        id: "hexdump-custom",
+        title: "Dump Manuale",
+        description: "Crea un file di 4 byte con 'ABCD' e visualizzalo con `hexdump` in formato esadecimale.",
+        commands: [
+            "echo -n \"ABCD\" > test.bin",
+            "hexdump -C test.bin"
+        ],
+        expectedOutput: "41 42 43 44",
+        hints: [
+            "echo -n evita il newline finale"
+        ]
     }
-  ]}
+]}
 />

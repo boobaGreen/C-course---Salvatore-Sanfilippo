@@ -8,8 +8,9 @@ interface Challenge {
     id: string;
     title: string;
     description: string;
-    commands: string[];
+    commands: string[]; // Still used to show context or previous commands
     expectedOutput: string;
+    expectedCommand?: string; // New: If present, user must guess the command
     hints?: string[];
     explanation?: string;
     xpReward?: number;
@@ -29,15 +30,22 @@ export default function HackerTerminal({ challenges }: HackerTerminalProps) {
     const { t } = useTranslation();
 
     const currentChallenge = challenges[currentStep];
+    const isCommandMode = !!currentChallenge.expectedCommand;
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if (completedTasks[currentChallenge.id]) return;
 
         const normalizedInput = inputValue.trim();
-        const normalizedExpected = currentChallenge.expectedOutput.trim();
         
-        const correct = normalizedInput === normalizedExpected;
+        let correct = false;
+        if (isCommandMode && currentChallenge.expectedCommand) {
+            const expected = currentChallenge.expectedCommand.trim();
+            correct = normalizedInput === expected || normalizedInput === expected.replace(/^sudo\s+/, '');
+        } else {
+            const expected = currentChallenge.expectedOutput.trim();
+            correct = normalizedInput === expected;
+        }
         
         setIsCorrect(prev => ({ ...prev, [currentChallenge.id]: correct }));
 
@@ -112,7 +120,7 @@ export default function HackerTerminal({ challenges }: HackerTerminalProps) {
                     </p>
                     
                     <div className="space-y-3">
-                        {currentChallenge.commands.map((cmd, idx) => (
+                        {currentChallenge.commands?.map((cmd, idx) => (
                             <div key={idx} className="bg-black/40 rounded-xl p-4 border border-white/5 flex items-center justify-between group">
                                 <code className="text-[var(--color-brand-primary)] font-mono text-sm">
                                     <span className="opacity-50 mr-2">$</span>
@@ -121,20 +129,34 @@ export default function HackerTerminal({ challenges }: HackerTerminalProps) {
                                 <Cpu size={16} className="text-zinc-600 group-hover:text-[var(--color-brand-primary)] transition-colors" />
                             </div>
                         ))}
+                        
+                        {isCommandMode && (
+                             <div className="bg-black/40 rounded-xl p-4 border border-white/5 flex flex-col gap-2 group">
+                                <div className="text-xs text-zinc-500 font-bold uppercase tracking-wider mb-2">Risultato Atteso / Contesto:</div>
+                                <code className="text-zinc-300 font-mono text-sm whitespace-pre-wrap">
+                                    {currentChallenge.expectedOutput}
+                                </code>
+                            </div>
+                        )}
                     </div>
                 </div>
 
                 <form onSubmit={handleSubmit} className="relative mt-8">
                     <label className="block text-xs font-bold text-zinc-500 uppercase tracking-widest mb-2 ml-1">
-                        Predict System Output:
+                        {isCommandMode ? "Type the command:" : "Predict System Output:"}
                     </label>
                     <div className="flex flex-col sm:flex-row gap-2">
+                        {isCommandMode && (
+                             <div className="flex items-center justify-center px-4 bg-black border border-white/10 border-r-0 rounded-l-xl text-zinc-500 font-mono text-sm mt-[1px] mb-[1px] -mr-3 z-10">
+                                $
+                             </div>
+                        )}
                         <input
                             type="text"
                             value={inputValue}
                             onChange={(e) => setInputValue(e.target.value)}
                             disabled={completedTasks[currentChallenge.id]}
-                            placeholder="Type the expected output..."
+                            placeholder={isCommandMode ? "eg. ls -la /var/log" : "Type the expected output..."}
                             className={`flex-1 bg-black border ${
                                 isCorrect[currentChallenge.id] === true ? 'border-green-500/50' : 
                                 isCorrect[currentChallenge.id] === false ? 'border-red-500/50' : 'border-white/10'

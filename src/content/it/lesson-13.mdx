@@ -288,30 +288,42 @@ Immagina una stringa lunga 10 milioni di caratteri.
 <HackerTerminal 
   challenges={[
     {
-      id: "hexdump-string",
-      title: "Vedere l'Invisibile",
-      description: "Supponi di aver creato la stringa 'ABC' con l'header 3. Quale comando Linux useresti per vedere i byte grezzi di un file binario e confermare che i primi 4 byte contengono il valore 0x03?",
-      commands: ["hexdump -C string.bin", "od -t x1 string.bin"],
-      expectedOutput: "00000000  03 00 00 00 41 42 43 00",
-      hints: ["L'output mostra prima la lunghezza (little-endian) e poi i codici ASCII di A, B, C."]
+        id: "hexdump-string",
+        title: "Vedere l'Invisibile",
+        description: "Supponi di aver creato la stringa 'ABC' con l'header 3. Quale comando Linux useresti per vedere i byte grezzi di un file binario e confermare che i primi 4 byte contengono il valore 0x03?",
+        commands: [],
+        expectedOutput: "00000000  03 00 00 00 41 42 43 00",
+        hints: [
+            "L'output mostra prima la lunghezza (little-endian) e poi i codici ASCII di A, B, C."
+        ],
+        expectedCommand: "hexdump -C string.bin"
     },
     {
-      id: "valgrind-check",
-      title: "Malloc Debugging",
-      description: "Quale opzione di `valgrind` useresti per vedere esattamente DOVE è stata allocata una memoria che stai cercando di liberare in modo errato?",
-      commands: ["valgrind --leak-check=full --track-origins=yes"],
-      expectedOutput: "Address 0x... is inside a block of size 8 alloc'd",
-      hints: ["L'opzione track-origins aiuta a risalire alla sorgente."]
+        id: "valgrind-check",
+        title: "Malloc Debugging",
+        description: "Quale opzione di `valgrind` useresti per vedere esattamente DOVE è stata allocata una memoria che stai cercando di liberare in modo errato?",
+        commands: [
+            "valgrind --leak-check=full --track-origins=yes"
+        ],
+        expectedOutput: "Address 0x... is inside a block of size 8 alloc'd",
+        hints: [
+            "L'opzione track-origins aiuta a risalire alla sorgente."
+        ]
     },
     {
-      id: "grep-header",
-      title: "Scavare nel Sistema",
-      description: "Trova dove si trova il file `stdint.h` sul tuo sistema Linux usando il comando `locate` o `find`.",
-      commands: ["find /usr/include -name stdint.h", "locate stdint.h"],
-      expectedOutput: "/usr/include/stdint.h",
-      hints: ["Cerca nella directory standard degli include."]
+        id: "grep-header",
+        title: "Scavare nel Sistema",
+        description: "Trova dove si trova il file `stdint.h` sul tuo sistema Linux usando il comando `locate` o `find`.",
+        commands: [
+            "find /usr/include -name stdint.h",
+            "locate stdint.h"
+        ],
+        expectedOutput: "/usr/include/stdint.h",
+        hints: [
+            "Cerca nella directory standard degli include."
+        ]
     }
-  ]}
+]}
 />
 
 ### Riassunto Finale

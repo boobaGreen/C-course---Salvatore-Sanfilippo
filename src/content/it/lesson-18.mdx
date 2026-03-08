@@ -229,30 +229,39 @@ int main() {
 <HackerTerminal 
   challenges={[
     {
-      id: "file-inspect",
-      title: "Ispezione Binaria",
-      description: "Esegui un programma che scrive la struct Player su disco (save.dat). Quale comando useresti per vedere i byte reali del file e riconoscere il valore float?",
-      commands: ["hexdump -C save.dat"],
-      expectedOutput: "00000000  01 00 00 00 00 00 bf 42",
-      hints: ["Cerca lo 01 iniziale dell'ID (Little Endian)."]
+        id: "file-inspect",
+        title: "Ispezione Binaria",
+        description: "Esegui un programma che scrive la struct Player su disco (save.dat). Quale comando useresti per vedere i byte reali del file e riconoscere il valore float?",
+        commands: [],
+        expectedOutput: "00000000  01 00 00 00 00 00 bf 42",
+        hints: [
+            "Cerca lo 01 iniziale dell'ID (Little Endian)."
+        ],
+        expectedCommand: "hexdump -C save.dat"
     },
     {
-      id: "count-chars-wc",
-      title: "Contatore Veloce",
-      description: "Senza scrivere codice C, usa il comando `wc` per contare quanti BYTE (non caratteri) ci sono nel file `save.dat`.",
-      commands: ["wc -c save.dat"],
-      expectedOutput: "8 save.dat",
-      hints: ["L'opzione per i byte è -c (chars) o --bytes."]
+        id: "count-chars-wc",
+        title: "Contatore Veloce",
+        description: "Senza scrivere codice C, usa il comando `wc` per contare quanti BYTE (non caratteri) ci sono nel file `save.dat`.",
+        commands: [],
+        expectedOutput: "8 save.dat",
+        hints: [
+            "L'opzione per i byte è -c (chars) o --bytes."
+        ],
+        expectedCommand: "wc -c save.dat"
     },
     {
-      id: "lsof-hacker",
-      title: "File Aperti",
-      description: "Mentre il tuo programma C è in pausa dopo una `fopen`, quale comando Linux ti mostra l'elenco di tutti i file aperti dal processo?",
-      commands: ["lsof -p <PID>", "ls /proc/self/fd"],
-      expectedOutput: "save.dat",
-      hints: ["lsof sta per 'List Open Files'."]
+        id: "lsof-hacker",
+        title: "File Aperti",
+        description: "Mentre il tuo programma C è in pausa dopo una `fopen`, quale comando Linux ti mostra l'elenco di tutti i file aperti dal processo?",
+        commands: [],
+        expectedOutput: "save.dat",
+        hints: [
+            "lsof sta per 'List Open Files'."
+        ],
+        expectedCommand: "lsof -p <PID>"
     }
-  ]}
+]}
 />
 
 ### Riassunto Finale
