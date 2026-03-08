@@ -28,6 +28,10 @@ Ogni processo Linux nasce con tre canali di comunicazione già aperti:
 
 <Callout type="info" title="Perché i numeri?">
 Il Kernel è pigro (o meglio, efficiente). Non vuole gestire stringhe lunghe per ogni file. Usa un semplice array per ogni processo, e l'indice di quell'array è il nostro **File Descriptor**.
+
+<Callout type="hacker" title="Tutto è un File">
+  Questa è la filosofia zen di Unix: file su disco, tastiera, monitor e persino la scheda di rete vengono trattati tutti come **File Descriptors**. Puoi usare `write()` per salvare un documento o per inviare un messaggio su internet: per il programmatore C, la logica è la stessa.
+</Callout>
 </Callout>
 
 <LimitsExplorer 
@@ -94,6 +98,10 @@ Le system calls che vedi qui (come `open`) sono state definite negli anni '70 pe
 
 ### errno e perror
 Quando una syscall fallisce (ritorna -1), il Kernel imposta un numero globale chiamato `errno`. La funzione `perror` legge quel numero e lo traduce in un messaggio umano (es. "No such file or directory").
+
+<Callout type="warning" title="Costo delle Syscalls">
+  Chiamare una syscall è "costoso". La CPU deve fermare il tuo programma, cambiare modalità (da User a Kernel), fare il lavoro e tornare indietro. È per questo che `printf` usa un buffer: accumula i dati e fa una sola `write()` finale invece di cento piccole chiamate, risparmiando tempo prezioso.
+</Callout>
 
 ---
 

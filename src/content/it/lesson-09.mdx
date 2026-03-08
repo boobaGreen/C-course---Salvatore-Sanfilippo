@@ -43,6 +43,10 @@ L'asterisco ha due scopi diversi:
 1. **Dichiarazione**: `int *p;` -> "Voglio una variabile che contenga un indirizzo".
 2. **Espressione**: `*p = 10;` -> "Vai all'indirizzo contenuto in p e scrivici 10".
 Non confonderli!
+
+<Callout type="info" title="Potere della Deferenziazione">
+  È qui che il C diventa "magico". Attraverso `*p`, una funzione che è a migliaia di byte di distanza può modificare una variabile che vive da un'altra parte. È come avere un telecomando per la RAM.
+</Callout>
 </Callout>
 
 ## Visualizing Memory

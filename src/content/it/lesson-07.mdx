@@ -63,6 +63,10 @@ Usiamo il `for` quando sappiamo già quante volte iterare, e il `while` quando l
 In C, le tre parti del `for` (inizializzazione, condizione, incremento) sono opzionali!
 - `for(;;)` è un modo idiomatico per scrivere un **loop infinito**.
 - Puoi omettere l'incremento se lo fai dentro il corpo del ciclo.
+
+<Callout type="warning" title="Loop Unrolling">
+  Il compilatore può decidere di "srotolare" un ciclo `for` corto (es. 4 iterazioni) scrivendo direttamente le 4 istruzioni una dopo l'altra. Questo elimina il costo del controllo della condizione `i < 4` a ogni giro.
+</Callout>
 </Callout>
 
 ### Esempio Pratico: Ricerca in un Array
@@ -115,6 +119,10 @@ Se la ricorsione non ha una 'condizione di uscita' (base case), continuerà a cr
 
 <Callout type="hacker" title="Jump Tables">
 Sotto il cofano, se i casi sono vicini (es. 1, 2, 3), il compilatore non fa tanti `if`. Crea una **Jump Table**: una tabella di indirizzi dove il processore "salta" istantaneamente al caso giusto. È incredibilmente veloce!
+</Callout>
+
+<Callout type="info" title="La Velocità dello Switch">
+  A differenza di una catena di `if-else` che è O(N), lo `switch` con Jump Table è **O(1)**. Non importa se hai 10 o 100 casi: il tempo per saltare a quello giusto rimane lo stesso.
 </Callout>
 
 <Callout type="info" title="L'importanza del break">

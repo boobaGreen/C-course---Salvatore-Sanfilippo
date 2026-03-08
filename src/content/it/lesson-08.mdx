@@ -36,6 +36,10 @@ Oggi non impareremo molti nuovi concetti teorici, ma metteremo alla prova tutto 
 
 <Callout type="warning" title="L'Importanza dell'Errore">
 Noterete che Salvatore sbaglia e corregge in tempo reale. Questo è fondamentale: la programmazione non è scrivere codice perfetto al primo colpo, ma saper interpretare i bug e risolverli.
+
+<Callout type="info" title="Double Buffering">
+  Perché Salvatore usa due griglie invece di una? Se modificassimo la griglia mentre la leggiamo, le celle calcolate dopo vedrebbero i vicini già "morti" o "nati", rompendo la sincronicità del tempo. Usare due spazi di memoria è una tecnica base della computer grafica (per evitare sfarfallii) chiamata **Double Buffering**.
+</Callout>
 </Callout>
 
 ## Le Regole del Gioco

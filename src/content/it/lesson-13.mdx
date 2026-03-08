@@ -22,6 +22,12 @@ Benvenuti ad una delle lezioni più cruciali del corso. Oggi impareremo a "scolp
   { title: "Efficienza O(1)", description: "Smettere di contare i caratteri (O(N)) e iniziare a leggere la lunghezza direttamente dalla memoria in tempo costante." }
 ]} />
 
+A differenza delle stringhe standard, le nostre PLS (Prefixed Length Strings) possono contenere byte a zero (`0x00`) nel mezzo del testo senza "rompersi", perché ci affidiamo al numero scritto nell'header invece di cercare il terminatore.
+
+<Callout type="warning" title="Sicurezza dei Metadati">
+  Salvando la lunghezza *prima* del puntatore, proteggiamo il nostro sistema. Se un utente malintenzionato prova a inviare una stringa troppo lunga tramite `strcpy`, sovrascriverà i dati *dopo* la stringa, ma non toccherà la lunghezza (che sta *prima*), rendendo più difficile corrompere la struttura logica del programma.
+</Callout>
+
 ## Il Problema delle Stringhe Pascal
 
 Nella scorsa lezione abbiamo visto le stringhe a lunghezza prefissa. Funzionavano, ma avevano un difetto fatale: se passavi una stringa Pascal a `printf`, lei "impazziva" perché il primo byte (la lunghezza) veniva interpretato come un carattere. 

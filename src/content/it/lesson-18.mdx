@@ -59,6 +59,10 @@ In C, un file è visto come uno **stream** di byte. La libreria standard ci forn
 Il tipo `FILE` è il primo esempio di **Tipo Opaco** che incontriamo. Noi non sappiamo (e non dobbiamo sapere) cosa c'è dentro la struttura `FILE`. Usiamo solo il puntatore e le funzioni (`fopen`, `fread`, ecc.) per manipolarlo. Questo è l'eccellenza del design: nascondere la complessità interna.
 </Callout>
 
+<Callout type="info" title="Il Vantaggio dell'Opacità">
+  Usando tipi opachi, gli sviluppatori della libreria C possono cambiare completamente come funziona `FILE` (magari per renderlo più veloce) senza che tu debba cambiare una singola riga del tuo programma. È il principio del **minimo privilegio**: meno sai di come è fatta una cosa, meno puoi romperla.
+</Callout>
+
 <Infographic 
   title="Ciclo di Vita di un File"
   description="I 4 passaggi fondamentali per non corrompere i dati."

@@ -12,7 +12,7 @@ export default function EvoSimulator() {
         if (running && gen < 100) {
             timer = setInterval(() => {
                 setGen(prev => prev + 1);
-                setNoiseLevel(prev => Math.max(0, 1 - (gen / 80)));
+                setNoiseLevel(Math.max(0, 1 - (gen / 80)));
             }, 50);
         } else if (gen >= 100) {
             setRunning(false);

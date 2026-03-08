@@ -45,6 +45,10 @@ Quando leggiamo `*p`, stiamo leggendo solo **il primo byte** (`0x02`, che in dec
 <Callout type="hacker">
 **Type Punning**
 Questa tecnica di leggere la memoria di un tipo attraverso un puntatore di un altro tipo si chiama "Type Punning". È potente per la programmazione di sistema, ma può causare comportamenti indefiniti se non si rispettano le regole di allineamento (che vedremo in futuro).
+
+<Callout type="danger" title="Strict Aliasing Rule">
+  Il compilatore assume che due puntatori di tipo diverso (es. `int*` e `float*`) non puntino mai alla stessa zona di memoria. Se rompi questa regola con il casting selvaggio, l'ottimizzatore potrebbe cancellare pezzi del tuo codice pensando che le variabili siano indipendenti. Accedere alla stessa memoria con tipi diversi è un terreno minato!
+</Callout>
 </Callout>
 
 ### Endianness: La guerra dei Byte

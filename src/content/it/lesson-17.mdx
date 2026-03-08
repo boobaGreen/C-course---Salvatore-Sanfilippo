@@ -116,6 +116,10 @@ In C, la memoria appena allocata o dichiarata sullo stack contiene "spazzatura".
   ]}
 />
 
+<Callout type="info" title="Ottimizzazione di memset">
+  Il compilatore è così intelligente che se vede un `memset` seguito immediatamente da una `free`, potrebbe decidere di **non eseguirlo** (perché "non serve" a nulla per la logica del programma). Questo è un problema se stai azzerando una password in memoria per sicurezza! In quei casi si usano funzioni speciali come `explicit_bzero`.
+</Callout>
+
 ---
 
 ## Esercitazione

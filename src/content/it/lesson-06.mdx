@@ -40,6 +40,10 @@ In C non esiste un tipo `bool` nativo (almeno nelle versioni classiche). Per il 
 - **0** è Falso.
 - **Qualsiasi altra cosa** (1, -5, 42) è Vero.
 Questo è il motivo per cui puoi scrivere `if (count)` per controllare se un contatore non è zero!
+
+<Callout type="info" title="Ottimizzazione del Flusso">
+  Sapevi che le CPU moderne cercano di "indovinare" quale strada prenderà il tuo `if` prima ancora di valutarlo? Si chiama **Branch Prediction**. Scrivere codice con rami "prevedibili" (es. controllare se un errore è raro) aiuta la CPU a correre più veloce.
+</Callout>
 </Callout>
 
 <BranchingSimulator />

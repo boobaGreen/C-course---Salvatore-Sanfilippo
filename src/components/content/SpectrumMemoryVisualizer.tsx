@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Cpu, Layout, Palmtree } from 'lucide-react';
+import { Cpu, Layout } from 'lucide-react';
 
 export default function SpectrumMemoryVisualizer() {
     const [selectedRegion, setSelectedRegion] = useState<string | null>(null);

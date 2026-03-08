@@ -142,6 +142,18 @@ int main() {
   language="c" 
 />
 
+Salvatore implementa un Reference Counting manuale. Ogni volta che un pezzo di codice "prende" l'oggetto chiama `retain`, quando finisce chiama `release`.
+
+<RefcountCycleSim />
+
+<Callout type="danger" title="Reference Counting Atomico">
+  Salvatore avverte: in un programma multi-thread, `ref_count++` non è sicuro! Due thread potrebbero incrementarlo contemporaneamente portando a corruzione della memoria. Nei sistemi professionali (come il kernel Linux), si usano funzioni "atomiche" speciali che garantiscono la sicurezza tra i thread.
+</Callout>
+
+<Callout type="danger" title="Integrità dei Magic Numbers">
+  Il valore `0xDEADBEEF` non è solo per bellezza. Se durante un `ps_release` il Magic Number è diverso, significa che qualcuno ha scritto fuori dai bordi (Buffer Overflow) corrompendo l'header. Fermare il programma immediatamente (`abort()`) è meglio che lasciarlo girare con dati corrotti.
+</Callout>
+
 <Callout type="hacker" title="Magic Numbers">
 Perché Salvatore usa `0xDEADBEEF`? È un valore facile da riconoscere in un esadecimale (hexdump). Se vedi `00000000` dove dovrebbe esserci il magic, sai che stai usando un oggetto già liberato!
 </Callout>

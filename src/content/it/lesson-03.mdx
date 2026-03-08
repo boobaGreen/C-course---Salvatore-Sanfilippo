@@ -131,6 +131,11 @@ printf("Esadecimale: %x\n", a); // Stampa a
 Il C è un linguaggio "pericoloso": se dici alla `printf` di stampare un float (`%f`) ma gli passi un `int`, il programma leggerà la memoria in modo errato, stampando valori senza senso o crashando. Il compilatore ti darà un **warning**, ma ti lascerà compilare!
 </Callout>
 
+<Callout type="warning" title="La Trappola della Promozione">
+  Sapevi che se confronti un `int` negativo con un `unsigned int`, il risultato potrebbe essere... falso?
+  `if (-1 > 1u)` risulta **VERO** in C. Perché? Perché `-1` viene "promosso" al tipo più grande (`unsigned`), diventando un numero enorme (es. 4 miliardi). Mai mischiare signed e unsigned nei confronti!
+</Callout>
+
 ---
 
 ## Attenzione all'Overflow!

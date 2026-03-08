@@ -110,7 +110,11 @@ Le variabili definite dentro una funzione vivono in una zona di memoria chiamata
 Quando una funzione viene chiamata, viene creato un **Stack Frame**. 
 
 <Callout type="info" title="Creazione e Distruzione">
-  Le variabili locali (inclusi gli argomenti della funzione) vengono create "al volo" ogni volta che chiami la funzione. Quando la funzione ritorna con `return`, lo spazio viene liberato. Attenzione: "liberato" non significa "cancellato"! I dati rimangono lì finché un'altra funzione non li sovrascrive, motivo per cui le variabili non inizializzate sono pericolose.
+  Le variabili locali (inclusi gli argomenti della funzione) vengono create "al volo" ogni volta che chiami la funzione. Quando la funzione ritorna con `return`, lo spazio viene liberato. 
+</Callout>
+
+<Callout type="warning" title="The Ghost in the Stack">
+  **Attenzione**: "liberato" non significa "cancellato"! In C, per motivi di performance, la memoria non viene azzerata quando una funzione termina. I dati rimangono lì finché un'altra funzione non sovrascrive quel pezzetto di Stack. Se dichiari `int x;` senza inizializzarla, leggerai i "fantasmi" di chi ha usato quel posto prima di te.
 </Callout>
 
 Quando la funzione termina (`return`), il suo frame viene "distrutto" e la memoria liberata.

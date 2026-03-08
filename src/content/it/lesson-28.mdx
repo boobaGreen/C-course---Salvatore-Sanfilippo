@@ -135,6 +135,10 @@ int main() {
 
 <Callout type="hacker" title="Zero Type Safety">
 Attenzione: `va_arg` non controlla se il tipo è giusto! Se passi un `double` ma chiedi un `int`, otterrai valori spazzatura o un crash. È responsabilità del programmatore garantire la coerenza.
+
+<Callout type="danger" title="L'Attacco Format String">
+  Mai passare una stringa ricevuta dall'utente direttamente come primo argomento di una funzione variadica (es. `printf(user_input)`). Un hacker potrebbe inserire simboli come `%n` per scrivere nella memoria del tuo programma e prenderne il controllo. Usa sempre `printf("%s", user_input)`.
+</Callout>
 </Callout>
 
 ---

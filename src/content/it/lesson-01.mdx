@@ -95,9 +95,11 @@ L'Assembly è il linguaggio "quasi" macchina: è leggibile dagli esseri umani ma
   Guardare l'Assembly non è un esercizio accademico. È l'unico modo per capire *davvero* quanto è efficiente il tuo codice e cosa sta facendo il compilatore alle tue spalle.
 </Callout>
 
-Come hai visto nell'explorer qui sopra, se compiliamo con il flag `-O2` (ottimizzazione di livello 2), noteremo una cosa sorprendente: **la funzione `printf` scompare**! 
+The compilatore, accorgendosi che stiamo stampando una stringa semplice seguita da un ritorno a capo (`\n`), sostituisce automaticamente la `printf` con la funzione `puts`, che è più veloce ed efficiente per questo scopo specifico.
 
-Il compilatore, accorgendosi che stiamo stampando una stringa semplice seguita da un ritorno a capo (`\n`), sostituisce automaticamente la `printf` con la funzione `puts`, che è più veloce ed efficiente per questo scopo specifico.
+<Callout type="info" title="Intelligenza del Compilatore">
+  Questo è il primo esempio di **ottimizzazione trasparente**. Il compilatore non si limita a tradurre, ma "capisce" l'intento del codice e lo riscrive per essere più performante. È per questo che il C, nonostante l'età, rimane imbattibile: i compilatori moderni hanno accumulato 50 anni di astuzie matematiche.
+</Callout>
 
 ---
 

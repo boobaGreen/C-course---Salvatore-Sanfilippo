@@ -76,6 +76,10 @@ if (numeri == NULL) {
 
 // QUANDO HO FINITO, DEVO RESTITUIRE LA MEMORIA!
 free(numeri);
+
+<Callout type="info" title="L'angelo custode: Valgrind">
+  Come fai a sapere se hai dimenticato una `free`? Su Linux esiste uno strumento chiamato **Valgrind**. Esegue il tuo programma "sotto la lente d'ingrandimento" e alla fine ti dice esattamente quanti byte hai perso e a quale riga di codice li hai allocati. È il migliore amico di ogni programmatore C.
+</Callout>
 ```
 
 <Callout type="warning" title="Usa sempre sizeof()">

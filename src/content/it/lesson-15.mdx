@@ -129,6 +129,10 @@ int main(int argc, char **argv) {
 
 <Callout type="info">
 `strdup` è una funzione comodissima che fa `malloc` + `strcpy` in un colpo solo. Ricordati però che dovrai fare `free` sia di `text` che del nodo stesso!
+
+<Callout type="danger" title="Puntatori Ciondolanti (Dangling)">
+  Quando liberi un nodo con `free(curr)`, il puntatore `curr` contiene ancora l'indirizzo della memoria (ormai rubata dal SO). Usarlo dopo la `free` è catastrofico. Buona prassi: dopo ogni `free(p)`, assegna `p = NULL;`.
+</Callout>
 </Callout>
 
 ---

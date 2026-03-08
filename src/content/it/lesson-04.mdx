@@ -75,6 +75,10 @@ Il computer non lancia i byte a caso nella RAM. Li organizza in celle, e spesso 
   caption="Come un mix di tipi diversi viene impilato nella RAM."
 />
 
+<Callout type="info" title="Perché l'Allineamento?">
+  La CPU non legge la memoria byte per byte, ma a "parole" (word) di 4 o 8 byte. Se un `int` a 4 byte iniziasse a un indirizzo "dispari", la CPU dovrebbe fare due letture e "incollare" i pezzi, dimezzando la velocità. Il compilatore inserisce byte vuoti (padding) per evitare questo collo di bottiglia.
+</Callout>
+
 ## Il Ritorno al Passato: VT100 ed Escape Codes
 Salvatore ci ha mostrato come "pulire lo schermo" non con un comando magico, ma inviando byte speciali al terminale. Questi sono gli **Escape Codes**.
 

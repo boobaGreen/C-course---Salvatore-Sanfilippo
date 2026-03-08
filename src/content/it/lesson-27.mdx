@@ -129,6 +129,14 @@ Per cercare una funzione nella tabella, dobbiamo confrontare il nome del simbolo
 
 <Callout type="info" title="L'Efficienza di memcmp">
 Usiamo `memcmp` per comparare i byte. È una funzione di libreria estremamente ottimizzata (spesso scritta in Assembly) che processa blocchi di memoria molto più velocemente di un ciclo `while` manuale.
+
+<Callout type="hacker" title="Potenza delle SIMD">
+  `memcmp` non confronta un byte alla volta. Le CPU moderne hanno istruzioni **SIMD** (come AVX o NEON) che possono confrontare 16, 32 o persino 64 byte in un solo colpo d'occhio. Usare le funzioni standard significa sfruttare gratuitamente tutta la potenza dell'hardware moderno.
+</Callout>
+
+<Callout type="info" title="String Interning">
+  In molti interpreti, invece di comparare le stringhe ogni volta, si usa il "String Interning": si salva ogni stringa unica in una tabella globale e si usa solo il suo indirizzo. Se due indirizzi sono uguali, le stringhe sono uguali. Questo trasforma un confronto $O(N)$ in un istantaneo $O(1)$.
+</Callout>
 </Callout>
 
 ```c

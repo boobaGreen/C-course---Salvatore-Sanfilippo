@@ -41,6 +41,10 @@ Questa è una delle differenze più "bastarde" per chi viene da Python o JS:
 - `'A'` (apici singoli) è un **numero intero** (65). Occupa 1 byte.
 - `"A"` (virgolette) è una **stringa**. È un array che contiene 'A' e un carattere invisibile `\0` (zero) per segnare la fine. Occupa 2 byte.
 Scambiarli manderà in crisi il compilatore!
+
+<Callout type="info" title="Il Terminatore NULL (\0)">
+  In C, le stringhe non sanno quanto sono lunghe. L'unico modo per sapere dove finisce una stringa è cercare il byte con valore **0**. È una convenzione che ha reso il C velocissimo ma anche vulnerabile (se dimentichi lo zero, la `printf` continuerà a leggere la RAM finché non trova uno zero a caso o il programma crasha).
+</Callout>
 </Callout>
 
 <Infographic 

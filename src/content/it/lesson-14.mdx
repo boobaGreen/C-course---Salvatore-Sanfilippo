@@ -62,6 +62,10 @@ Cosa succede se aggiungiamo un `char` (1 byte) alla nostra struct? Ci aspetterem
 
 <Callout type="warning" title="Ottimizzazione">
 Per risparmiare memoria, Salvatore consiglia di raggruppare i campi per dimensione: prima i più grandi (puntatori, long, int) e poi i più piccoli (char). Questo riduce il padding inserito dal compilatore!
+
+<Callout type="hacker" title="Attribute Packed">
+  In casi estremi (es. pacchetti di rete che devono essere identici al millimetro), puoi dire al GCC: `__attribute__((packed))`. Questo forza il compilatore a rimuovere **tutto** il padding. Attenzione: il programma diventerà leggermente più lento perché la CPU dovrà fare più fatica a leggere i dati disallineati.
+</Callout>
 </Callout>
 
 <Callout type="info" title="L'origine della Freccia ->">
