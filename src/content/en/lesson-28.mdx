@@ -1,0 +1,228 @@
+import VideoEmbed from '../../components/content/VideoEmbed';
+import Callout from '../../components/content/Callout';
+import KeyConcepts from '../../components/content/KeyConcepts';
+import CodeEditor from '../../components/exercises/CodeEditor';
+import Quiz from '../../components/exercises/Quiz';
+import HackerTerminal from '../../components/content/HackerTerminal';
+import Infographic from '../../components/content/Infographic';
+import ComparisonTable from '../../components/content/ComparisonTable';
+
+# Lesson 28: Variadic Functions and stdarg.h
+
+How does `printf` accept an infinite number of arguments? In this lesson, we'll discover the secret of **Variadic Functions** in C and how to use them to build powerful tools, like a custom logging system for our interpreter.
+
+<VideoEmbed videoId="nHzlRqPnlrE" title="Lesson 28: Variadic Functions" />
+
+<KeyConcepts concepts={[
+  { title: "The '...' Syntax", description: "The ellipsis that tells the compiler that the function accepts extra arguments." },
+  { title: "va_list and va_start", description: "The mandatory macros to initialize access to variable arguments." },
+  { title: "printf Wrappers", description: "How to 'package' standard printing functions to add features (e.g., timestamps or prefixes)." }
+]} />
+
+---
+
+## Anatomy of a Variadic Function
+
+To declare a variadic function, you need at least one "fixed" argument followed by the ellipsis `...`.
+
+```c
+#include <stdarg.h>
+
+void log_error(const char *fmt, ...) {
+    va_list ap;
+    va_start(ap, fmt); // Starts after 'fmt'
+    
+    // ... extracting arguments ...
+    
+    va_end(ap); // Mandatory cleanup
+}
+```
+
+<Callout type="warning" title="The Importance of va_end">
+Never forget `va_end(ap)`. While it does nothing on many architectures, on some platforms it's critical to avoid stack corruption or memory leaks.
+</Callout>
+
+---
+
+## Extracting Arguments with `va_arg`
+
+In C, the function doesn't automatically know "how many" arguments were passed. We must tell it through a format (like in printf) or a terminator.
+
+<CodeEditor 
+  initialCode={`#include <stdio.h>
+#include <stdarg.h>
+
+void print_numbers(int count, ...) {
+    va_list ap;
+    va_start(ap, count);
+    
+    for (int i = 0; i < count; i++) {
+        int num = va_arg(ap, int); // Specify the TYPE!
+        printf("Arg %d: %d\\n", i, num);
+    }
+    
+    va_end(ap);
+}
+
+int main() {
+    print_numbers(3, 10, 20, 30);
+    return 0;
+}`}
+  language="c"
+/>
+
+<Callout type="hacker" title="Zero Type Safety">
+Warning: `va_arg` doesn't check if the type is correct! If you pass a `double` but ask for an `int`, you'll get garbage values or a crash. It is the programmer's responsibility to ensure consistency.
+</Callout>
+
+---
+
+## Creating Printf Wrappers
+
+One of the most common uses is `vprintf`, which takes a `va_list` instead of loose variable arguments. This allows you to create your own version of printf.
+
+<Infographic 
+  title="The Journey of a Log"
+  description="How to pass variable arguments between functions."
+  items={[
+    { label: "1. Call", value: "User calls my_printf('Error %d', 404)", color: "blue" },
+    { label: "2. Pack", value: "va_start packs 404 into a va_list", color: "purple" },
+    { label: "3. Delegation", value: "We pass the va_list to vprintf()", color: "amber" },
+    { label: "4. Output", value: "vprintf prints the final format", color: "emerald" }
+  ]}
+/>
+
+---
+
+## Exercises
+
+<Quiz 
+  questions={[
+    {
+      question: "Which header is needed for variadic functions?",
+      options: [
+        "stdio.h",
+        "stdarg.h",
+        "vararg.h",
+        "stdlib.h"
+      ],
+      correctAnswer: 1,
+      explanation: "stdarg.h (Standard Arguments) contains the macros va_list, va_start, va_arg, and va_end."
+    },
+    {
+      question: "What does the ellipsis '...' indicate in a function signature?",
+      options: [
+        "That the function is incomplete",
+        "That it accepts a variable number of arguments",
+        "That the function is a pointer",
+        "That it must be called recursively"
+      ],
+      correctAnswer: 1,
+      explanation: "The eliditica syntax signals the compiler not to check the number and type of arguments after the fixed ones."
+    },
+    {
+      question: "What is `va_list`?",
+      options: [
+        "A string array",
+        "A special type that holds information about variable arguments",
+        "A function that prints lists",
+        "A macro that terminates the program"
+      ],
+      correctAnswer: 1,
+      explanation: "It is an opaque data type that manages progress while reading arguments from the stack."
+    },
+    {
+      question: "What does `va_arg(ap, double)` do?",
+      options: [
+        "Converts an int to double",
+        "Extracts the next argument treating it as a double",
+        "Moves the cursor to the beginning of the list",
+        "Deletes the last argument"
+      ],
+      correctAnswer: 1,
+      explanation: "It extracts the value and simultaneously moves the internal pointer by `sizeof(double)` bytes."
+    },
+    {
+      question: "What is the primary limitation of variadic functions in C?",
+      options: [
+        "They can only have 10 arguments",
+        "They offer no type-safety (do not know the actual type of passed arguments)",
+        "They are slower than loops",
+        "They cannot be used with pointers"
+      ],
+      correctAnswer: 1,
+      explanation: "C does not save type metadata at runtime; if you read a type wrongly with va_arg, you corrupt access to all subsequent arguments."
+    }
+  ]} 
+/>
+
+<Quiz 
+  title="Hacker Challenge"
+  questions={[
+    {
+      question: "Why does `va_start` require the name of the last fixed argument?",
+      options: [
+        "Only for documentation",
+        "To know where to start extraction in the stack (offset)",
+        "Because the POSIX standard requires it",
+        "To initialize the random number generator"
+      ],
+      correctAnswer: 1,
+      explanation: "The compiler needs to know where the known part of the stack ends to calculate the address of the first variable argument."
+    },
+    {
+      question: "What is the difference between `printf` and `vprintf`?",
+      options: [
+        "vprintf is faster",
+        "vprintf takes a va_list instead of variable arguments (...) directly",
+        "printf does not support numbers",
+        "They are identical, only the name changes"
+      ],
+      correctAnswer: 1,
+      explanation: "vprintf is the 'delegated' version: it is essential for writing wrappers because you cannot easily pass '...' from one function to another."
+    },
+    {
+      question: "What happens if you call `va_arg` more times than arguments were actually passed?",
+      options: [
+        "You get 0",
+        "The program crashes or reads random stack values (Undefined Behavior)",
+        "It returns a NULL error",
+        "An exception is thrown"
+      ],
+      correctAnswer: 1,
+      explanation: "C doesn't know when arguments end; it will keep reading bytes from the stack, causing unpredictable behavior."
+    }
+  ]} 
+/>
+
+<HackerTerminal 
+  challenges={[
+    {
+      id: "stdarg-init-en",
+      title: "Initialization",
+      description: "Declare a variable to manage variable arguments: '_______ ap;'",
+      commands: ["va_list"],
+      expectedOutput: "va_list",
+      hints: ["It's the type defined in stdarg.h."]
+    },
+    {
+      id: "va-syntax-en",
+      title: "Variadic Signature",
+      description: "Complete the signature: 'void my_func(int n, ___)'",
+      commands: ["..."],
+      expectedOutput: "...",
+      hints: ["Three dots (ellipsis)."]
+    },
+    {
+      id: "vformat-check-en",
+      title: "Wrapper Power",
+      description: "Which function do you use to print a va_list to a string? 'vsn______'",
+      commands: ["printf"],
+      expectedOutput: "printf",
+      hints: ["vsnprintf (Variadic-Size-Next-Printf)."]
+    }
+  ]}
+/>
+
+### Conclusion
+Variadic functions are the "magic" behind C's flexibility. Now we are ready to implement a professional error management system in our ToyFort interpreter!

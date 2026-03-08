@@ -176,4 +176,32 @@ export const lessons = [
         videoId: '-QxrmHo-V7Y',
         duration: '55:06',
     },
+    {
+        id: 25,
+        slug: 'lesson-25',
+        title: { it: 'Lezione 25: ToyFort Parser (Parte 1)', en: 'Lesson 25: ToyFort Parser (Part 1)' },
+        videoId: 'vYODKK8TQGE',
+        duration: '35:20',
+    },
+    {
+        id: 26,
+        slug: 'lesson-26',
+        title: { it: 'Lezione 26: ToyFort Eval & Memoria', en: 'Lesson 26: ToyFort Eval & Memory' },
+        videoId: 'nHzlRqPnlrE',
+        duration: '42:15',
+    },
+    {
+        id: 27,
+        slug: 'lesson-27',
+        title: { it: 'Lezione 27: Function Tables', en: 'Lesson 27: Function Tables' },
+        videoId: 'vYODKK8TQGE',
+        duration: '31:45',
+    },
+    {
+        id: 28,
+        slug: 'lesson-28',
+        title: { it: 'Lezione 28: Funzioni Variadiche', en: 'Lesson 28: Variadic Functions' },
+        videoId: 'nHzlRqPnlrE',
+        duration: '28:50',
+    },
 ];

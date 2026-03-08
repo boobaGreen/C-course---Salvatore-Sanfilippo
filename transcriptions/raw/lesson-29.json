@@ -1,0 +1,1887 @@
+[
+  {
+    "start": 41.32,
+    "end": 48.18,
+    "text": " Allora amici, dobbiamo continuare il nostro Toy Fort. L'ultima volta ci siamo tolti il"
+  },
+  {
+    "start": 48.18,
+    "end": 55.02,
+    "text": " problema delle funzioni in C con un numero variabile di argomenti. Ora abbiamo un altro"
+  },
+  {
+    "start": 55.02,
+    "end": 59.78,
+    "text": " problema, ho fatto qua questa directory, Toy Fort, perché ogni volta dobbiamo scrivere"
+  },
+  {
+    "start": 59.78,
+    "end": 71.14,
+    "text": " cc toyfort meno 2 meno o meno o meno wall meno v meno o toy fort eccetera. Per cui ci serve"
+  },
+  {
+    "start": 71.14,
+    "end": 79.44,
+    "text": " in realtà spostare il nostro programma toyfort.sin, la sua directory, andare in questa directory,"
+  },
+  {
+    "start": 79.44,
+    "end": 89.98,
+    "text": " c'è solo lui e fare un bel makefile. Abbiamo solo questo file, come potete vedere, poi vi farò"
+  },
+  {
+    "start": 89.98,
+    "end": 95.4,
+    "text": " vedere che cambiano delle cose perché dobbiamo fare sia il makefile che anche il repository"
+  },
+  {
+    "start": 95.4,
+    "end": 102.38,
+    "text": " git in modo che possiamo fare un commit ogni modifica. Vi dico da cosa nasce tra l'altro"
+  },
+  {
+    "start": 102.38,
+    "end": 107.58,
+    "text": " questa esigenza. L'altra volta non mi ha raccorto che quando ho iniziato a registrare l'appuntata"
+  },
+  {
+    "start": 109.14,
+    "end": 115.44,
+    "text": " c'era questo ammanco conoscitivo delle funzioni con un numero variabile di argomenti per cui"
+  },
+  {
+    "start": 115.44,
+    "end": 121.4,
+    "text": " sinceramente devono messo a fare la continuazione del nostro interpret. Poi mi sono accorto di"
+  },
+  {
+    "start": 121.4,
+    "end": 128.66,
+    "text": " questa cosa e avevo modificato il programma in modo che poi era un problema perché dovevo"
+  },
+  {
+    "start": 128.66,
+    "end": 132.98,
+    "text": " tornare indietro la versione precedente per fare questa puntata qui. Quindi sono dovuto andare a"
+  },
+  {
+    "start": 132.98,
+    "end": 140.42,
+    "text": " prendere questa versione che per fortuna avevo salvato nei transcript dei gemini che avevano"
+  },
+  {
+    "start": 141.16,
+    "end": 147.0,
+    "text": " usato per fare il clean up dei sottotitoli. Insomma ci serve un repository git perché questo esempio"
+  },
+  {
+    "start": 147.0,
+    "end": 157.17999999999998,
+    "text": " è un po' diverso dagli altri. È il programma molto più grande, c-l-toyfort.c, siamo a 428 righe,"
+  },
+  {
+    "start": 158.16000000000003,
+    "end": 164.16,
+    "text": " serve utilizzarlo stesso programma in diverse lezioni per cui avere uno storico e avere quindi"
+  },
+  {
+    "start": 164.16,
+    "end": 173.48,
+    "text": " git è utile. Poi tutto gestiamo il make file, editiamo un file make file, il nostro target di"
+  },
+  {
+    "start": 173.48,
+    "end": 185.44,
+    "text": " default è toyfort. Allora il make file è una serie di un file che diciamo che dichiara le cose che"
+  },
+  {
+    "start": 185.44,
+    "end": 193.02,
+    "text": " bisogna fare per compilare il programma o per fare altre operazioni intorno alla building system"
+  },
+  {
+    "start": 193.02,
+    "end": 198.12,
+    "text": " del programma, intorno alla sua compilazione, al clean up dei file, a dei prerequisiti che possono"
+  },
+  {
+    "start": 198.12,
+    "end": 207.84,
+    "text": " servire per esempio scaricare una dipendenza e cose del genere. Ogni linea è composta dal"
+  },
+  {
+    "start": 207.84,
+    "end": 214.28,
+    "text": " nome di un target che io voglio effettivamente riuscire a compilare e dai prerequisiti di quel"
+  },
+  {
+    "start": 214.28,
+    "end": 220.5,
+    "text": " target. I prerequisiti possono essere o dei file nel sistema o altri target che sono specificati"
+  },
+  {
+    "start": 220.5,
+    "end": 225.92,
+    "text": " sempre nel make file. Di solito si parte scrivendo all 2 punti il nome del programma che noi vogliamo"
+  },
+  {
+    "start": 225.92,
+    "end": 234.02,
+    "text": " effettivamente creare, cioè compilare. Ma questo all non è speciale semplicemente il target di default"
+  },
+  {
+    "start": 234.02,
+    "end": 241.46,
+    "text": " di make, se uno scrive make è quello che vuoi diciamo compilare tipo make toyfort, farà toyfort,"
+  },
+  {
+    "start": 241.46,
+    "end": 247.36,
+    "text": " se scrivi solo make il target è il primo target che c'è nel file, quindi questo all 2 punti"
+  },
+  {
+    "start": 247.36,
+    "end": 255.96,
+    "text": " toyfort serve per creare un target diciamo di default se l'utente non specifica niente quando"
+  },
+  {
+    "start": 255.96,
+    "end": 262.66,
+    "text": " scrive make, ma in realtà all non è speciale potrei scrivere pip può essere vero stesso e"
+  },
+  {
+    "start": 262.66,
+    "end": 269.76,
+    "text": " semplicemente il primo target nel file. Questo punto vado a definire il mio target toyfort."
+  },
+  {
+    "start": 270.7,
+    "end": 282.52,
+    "text": " Allora toyfort qui a destra deve avere una lista di cose che da cui dipende e dipende da toyfort.c"
+  },
+  {
+    "start": 282.52,
+    "end": 291.12,
+    "text": " dal file.c queste possono essere appunto o file e in tal caso se c'è poi un target che"
+  },
+  {
+    "start": 291.16,
+    "end": 301.14,
+    "text": " dice come fare un dato file verrà usato ma se non c'è un target che dice come fare uno"
+  },
+  {
+    "start": 301.14,
+    "end": 308.32,
+    "text": " specifico file perché il file esiste già semplicemente quello che accadrà è che se il file è"
+  },
+  {
+    "start": 310.53999999999996,
+    "end": 317.32,
+    "text": " aggiornato rispetto al binario che noi abbiamo abbiamo creato verrà cioè se praticamente il tempo"
+  },
+  {
+    "start": 317.32,
+    "end": 323.84,
+    "text": " dell'ultima modifica di questi file possono essere più di uno che io listo qui. Se l'ultima"
+  },
+  {
+    "start": 323.84,
+    "end": 330.24,
+    "text": " modifica è superiore nel tempo più avanti nel tempo rispetto al binario che io ho creato"
+  },
+  {
+    "start": 330.24,
+    "end": 339.5,
+    "text": " ripartirà la compilazione altrimenti se i file da cui dipende questo binario hanno tutti una data"
+  },
+  {
+    "start": 339.5,
+    "end": 346.68,
+    "text": " di modifica di ultima modifica che è andecidente significa che non sono cambiati e make non farà"
+  },
+  {
+    "start": 346.68,
+    "end": 351.14,
+    "text": " alcuna operazione le cose che ho detto diventeranno più chiare immediatamente allora dopo che io"
+  },
+  {
+    "start": 351.14,
+    "end": 358.5,
+    "text": " scrivo praticamente qual è il mio target da cosa dipende devo scrivere in che modo questo target"
+  },
+  {
+    "start": 358.5,
+    "end": 366.38,
+    "text": " può essere effettivamente creato toyfort come può essere creato e io utilizzo cc che è il"
+  },
+  {
+    "start": 366.38,
+    "end": 374.36,
+    "text": " combinatore di default questa variabile è valorizzata al combinatore di default del sistema che di"
+  },
+  {
+    "start": 374.36,
+    "end": 388.16,
+    "text": " solito è semplicemente cc cc toyfort dot si meno wall meno v meno o 2 questo è questi sono tutti"
+  },
+  {
+    "start": 388.16,
+    "end": 392.92,
+    "text": " warning questi sono altri warning questa è l'ottimizzazione di livello 2 quindi un'utilizzazione"
+  },
+  {
+    "start": 393.86000000000007,
+    "end": 403.22,
+    "text": " assai estrema nella velocità diciamo del binario che io otterrò ma non al livello di otterrai"
+  },
+  {
+    "start": 403.22,
+    "end": 408.96,
+    "text": " quindi senza di solito loop a rolling e cose che hanno un impatto troppo significativo sulla"
+  },
+  {
+    "start": 408.96,
+    "end": 415.0,
+    "text": " dimensione del binario meno quindi come si chiamerà il file di auto potrei si dovrà chiamare con"
+  },
+  {
+    "start": 415.0,
+    "end": 423.84,
+    "text": " il nostro target toyfort poi mi serve un altro target che si chiama clean e fa semplicemente"
+  },
+  {
+    "start": 423.84,
+    "end": 431.84,
+    "text": " rmf toyfort per cancellare il nostro binario allora se io ora salvo questo file scrivo make"
+  },
+  {
+    "start": 432.73999999999995,
+    "end": 437.22,
+    "text": " come allora ovviamente il nostro brava non combina perché ci mancano delle funzioni ma come vedete"
+  },
+  {
+    "start": 437.22,
+    "end": 444.24,
+    "text": " questo ha stimolato l'esecuzione del combinatore c col file toyfort punto c con gli switch che"
+  },
+  {
+    "start": 444.24,
+    "end": 453.06,
+    "text": " avevamo dato se ora noi effettivamente allora noi ora potremmo fare una cosa cp toyfort punto"
+  },
+  {
+    "start": 456.2,
+    "end": 466.06,
+    "text": " c il file originale con tex stack push con tex stack pop compiliamo tutte le robe che ci servono"
+  },
+  {
+    "start": 466.96,
+    "end": 475.58,
+    "text": " affinché sta roba compilita vero and the client identifier effettivamente io ora questo qui"
+  },
+  {
+    "start": 475.58,
+    "end": 482.54,
+    "text": " tf object ab inizia iniziamoli"
+  },
+  {
+    "start": 490.53999999999996,
+    "end": 500.64,
+    "text": " make 296 questo qui lo convidiamo pure non ci serve resals set but not used warning va"
+  },
+  {
+    "start": 500.64,
+    "end": 505.98,
+    "text": " beh mi ha dato due warning non ce ne frega assolutamente niente il fatto è che ha convirato"
+  },
+  {
+    "start": 505.98,
+    "end": 511.34,
+    "text": " da avere il programma se io scrivo di nuovo make guardate non succede niente perché il file da"
+  },
+  {
+    "start": 511.34,
+    "end": 519.04,
+    "text": " cui toyfort dipende che toyfort dot si che dipende da esso noi l'abbiamo spiegato qui nel make file"
+  },
+  {
+    "start": 521.04,
+    "end": 532.44,
+    "text": " a un tempo superiore o qual abbe qua noi non vediamo i secondi ma vedete toyfort due dot si"
+  },
+  {
+    "start": 532.44,
+    "end": 539.64,
+    "text": " non è più un nuovo di toyfort se io ora invece faccio un touch di questo file touch serve solo"
+  },
+  {
+    "start": 539.64,
+    "end": 547.7,
+    "text": " a cambiare l'ultimo tempo di modifica guardate ora questo è delle 12 20 invece questo è delle"
+  },
+  {
+    "start": 547.7,
+    "end": 554.44,
+    "text": " 12 19 se faccio make il building la combinazione viene ripetuta perché a questo punto è necessaria"
+  },
+  {
+    "start": 554.44,
+    "end": 561.06,
+    "text": " oppure un target clean che cancella il file di del binario quindi ora posso riscriver"
+  },
+  {
+    "start": 561.06,
+    "end": 566.34,
+    "text": " make vera combinato di nuovo solo se il file del binario si steggia non verrà riconbinato"
+  },
+  {
+    "start": 566.34,
+    "end": 574.84,
+    "text": " se la catena di dipendenze diciamo è soddisfatta e non ci sono problemi posso scrivere di tend"
+  },
+  {
+    "start": 574.84,
+    "end": 585.12,
+    "text": " a make toyfort se scrivo semplicemente make non c'è niente da fare per holl perché holl ha come"
+  },
+  {
+    "start": 585.12,
+    "end": 590.92,
+    "text": " unica dipendenza il fatto che si deve fare toyfort toyfort non si farà perché toyfort dot"
+  },
+  {
+    "start": 590.92,
+    "end": 595.5,
+    "text": " si ha aggiornato quindi non succede niente questo è il modo in cui si può creare un make file"
+  },
+  {
+    "start": 595.5,
+    "end": 605.86,
+    "text": " molto semplice ora noi facciamo una move di toyfort.c.origi a toyfort.c. yes overwrite ci"
+  },
+  {
+    "start": 605.86,
+    "end": 612.38,
+    "text": " becchiamo di nuovo il nostro file originale senza aver tolto le cose che avevo tolto quindi"
+  },
+  {
+    "start": 613.3,
+    "end": 618.7,
+    "text": " ancora non compinerà ma pazienza a questo punto ci serve appunto un repository git init"
+  },
+  {
+    "start": 618.7,
+    "end": 628.52,
+    "text": " inizializziamo un repository vuoto git add make file toyfort.c. y.gitignore"
+  },
+  {
+    "start": 628.52,
+    "end": 639.68,
+    "text": " i file da ignorare sono toyfort sostanzialmente sì git status ok ho questi due file c'ho git ignore"
+  },
+  {
+    "start": 639.68,
+    "end": 650.64,
+    "text": " ignore che lo aggiungo pure perfetto git comit meno a meno a è me first git version"
+  },
+  {
+    "start": 652.0999999999999,
+    "end": 660.48,
+    "text": " ho fatto il comit git log io ho un alias di git log gl per avere il log combatto first"
+  },
+  {
+    "start": 660.48,
+    "end": 667.38,
+    "text": " first git version e c'ho anche il mio file git quindi se ora io modifico il mio programma come ho"
+  },
+  {
+    "start": 667.38,
+    "end": 681.18,
+    "text": " fatto poco fa tipo un bilato sta roba qui tf object a uguale a null b uguale a null guardate la"
+  },
+  {
+    "start": 681.18,
+    "end": 685.48,
+    "text": " differenza rispetto a fare quello che alcuni consigliano di metterli a stirisco qui che"
+  },
+  {
+    "start": 685.48,
+    "end": 694.58,
+    "text": " non avrebbe ora assolutamente senso sta roba qua e ora posso fare make context stack push"
+  },
+  {
+    "start": 694.58,
+    "end": 702.08,
+    "text": " devo compilare pure posso fare make perfetto il file viene compilato ma io con git diff posso"
+  },
+  {
+    "start": 702.08,
+    "end": 707.88,
+    "text": " vedere che in effetti ho modificato il mio programma git reset meno non hard e sono di nuovo al"
+  },
+  {
+    "start": 707.88,
+    "end": 715.44,
+    "text": " programma originale senza le mie modifiche che non compirà più come vedete tutto il workflow così"
+  },
+  {
+    "start": 715.44,
+    "end": 724.46,
+    "text": " assume un altro significato è molto più comodo programmare in questo modo ora andiamo a vedere"
+  },
+  {
+    "start": 724.46,
+    "end": 732.74,
+    "text": " dove ero arrivato allora noi avremmo get function by name per fare la registrazione"
+  },
+  {
+    "start": 732.74,
+    "end": 738.48,
+    "text": " della funzione e noi in questo momento possiamo registrare solo funzioni in c e poi c'era una"
+  },
+  {
+    "start": 738.48,
+    "end": 745.34,
+    "text": " funzione col symbol che provava effettivamente a seguire questa funzione qua col symbol"
+  },
+  {
+    "start": 747.6,
+    "end": 758.14,
+    "text": " allora col symbol risolve la funzione che con get function by name se non c'è se c'è errore"
+  },
+  {
+    "start": 758.14,
+    "end": 766.22,
+    "text": " ritorna un attente ritorna a 0 ma questo 1 per segnalare errore 0 noi facciamo una cosa define"
+  },
+  {
+    "start": 767.2800000000001,
+    "end": 777.94,
+    "text": " tf ok 0 define tf r 1 creiamo uno standard nel nostro interpret per i valori di ritorno quindi"
+  },
+  {
+    "start": 777.94,
+    "end": 790.62,
+    "text": " col symbol tf r altrimenti tf ok se effettivamente siamo riusciti a chiamare il simbolo col symbol"
+  },
+  {
+    "start": 792.9,
+    "end": 804.12,
+    "text": " dovrebbe utilizzare allora questo qui se noi che riusciamo effettivamente a chiamare il simbolo"
+  },
+  {
+    "start": 804.12,
+    "end": 814.48,
+    "text": " per ora facciamo fin da siccome non abbiamo alt if e fe fun entry andiamo a vedere la nostra"
+  },
+  {
+    "start": 814.48,
+    "end": 833.1,
+    "text": " struttura function table fun entry col back user fun implement mi anzi tu tu"
+  },
+  {
+    "start": 835.4000000000001,
+    "end": 842.26,
+    "text": " perché noi stiamo sopportando soltanto le funzioni in cui c'è la col back col back che la col"
+  },
+  {
+    "start": 842.26,
+    "end": 855.92,
+    "text": " back che argomenti prendeva il contesto è il nome il contesto noi ce l'abbiamo e il nome"
+  },
+  {
+    "start": 855.92,
+    "end": 875.44,
+    "text": " effe name sì il nome in che modo lo prendeva tf object name va non è il massimo questo ma"
+  },
+  {
+    "start": 875.44,
+    "end": 897.5,
+    "text": " secondo me jar jar name perché così noi facciamo effe name punto allora name str punto le string"
+  },
+  {
+    "start": 897.5,
+    "end": 908.36,
+    "text": " in che modo erano pointer tanto sono string già null terminate non è il caso nella col"
+  },
+  {
+    "start": 908.36,
+    "end": 926.84,
+    "text": " back di avere questa complicazione semantica di esporre gli oggetti toy fort passiamo in un"
+  },
+  {
+    "start": 927.8000000000001,
+    "end": 943.12,
+    "text": " jar name questo diventa name di zero e basta sembriamo sta cosa un'altra roba che è utile in"
+  },
+  {
+    "start": 943.12,
+    "end": 955.24,
+    "text": " realtà è che queste funzioni qui facciamo di ritornare a sto punto retarna tfr in caso di"
+  },
+  {
+    "start": 955.24,
+    "end": 969.08,
+    "text": " errore invece qui retarna tfr ok quindi io questa col back la voglio cambiare così"
+  },
+  {
+    "start": 972.6,
+    "end": 984.98,
+    "text": " vediamo in quale altri punti viene utilizzata qua int va bene invece se c'è la cambia dal"
+  },
+  {
+    "start": 984.98,
+    "end": 991.12,
+    "text": " chiamare il simbolo se è una funzione in c facciamo così altrimenti noi ovviamente qua"
+  },
+  {
+    "start": 991.12,
+    "end": 998.04,
+    "text": " chiameremo la exec qua noi chiameremo la exec eccetera eccetera a be qua in realtà noi"
+  },
+  {
+    "start": 998.04,
+    "end": 1003.58,
+    "text": " probabilmente dobbiamo chiamar introdurre il concetto di stack frame perché ogni funzione"
+  },
+  {
+    "start": 1003.58,
+    "end": 1009.28,
+    "text": " chiamata una dentro l'altra deve avere uno stato per esempio se ci abbiamo delle variabili locali"
+  },
+  {
+    "start": 1009.28,
+    "end": 1014.56,
+    "text": " se vogliamo implementare quella roba che vi dicevo ma anche solo per selvarsi qual è la"
+  },
+  {
+    "start": 1014.56,
+    "end": 1019.74,
+    "text": " catena delle funzioni che sono state chiamate potrebbe essere utile quindi noi secondo me finiremo"
+  },
+  {
+    "start": 1019.74,
+    "end": 1025.24,
+    "text": " per introdurre questo stack frame a be poi lo facciamo a questo punto qui c'è una cosa da"
+  },
+  {
+    "start": 1025.24,
+    "end": 1034.94,
+    "text": " fare se noi chiamiamo il simbolo esatto allora guardate qua noi possiamo fare anche"
+  },
+  {
+    "start": 1035.9399999999998,
+    "end": 1044.04,
+    "text": " qua più che altro a questo punto ritorniamo questo perché questo ritorni a sua volta tfr"
+  },
+  {
+    "start": 1044.04,
+    "end": 1064.92,
+    "text": " tf ok è qua però a ritard tfr perché non è implementata allora dicevo la col simbolo quando"
+  },
+  {
+    "start": 1065.64,
+    "end": 1071.24,
+    "text": " va be qua ci sarà poi della una printf di errore di qualche tipo"
+  },
+  {
+    "start": 1071.24,
+    "end": 1079.14,
+    "text": " da error però scriviamo sta cosa super generica ma sì"
+  },
+  {
+    "start": 1081.64,
+    "end": 1090.0,
+    "text": " e poi ritann tfr qua ritorniamo con un errore questo punto lecsec diventa pure lei int"
+  },
+  {
+    "start": 1091.8200000000002,
+    "end": 1098.62,
+    "text": " ritanno tf ok la ecsec chi la usa in questo momento la usa solo qui ma noi non stiamo"
+  },
+  {
+    "start": 1098.62,
+    "end": 1109.3,
+    "text": " già controllando neanche il ritorno della ecsec ok ma allora per riuscire a eseguire un"
+  },
+  {
+    "start": 1109.3,
+    "end": 1115.2,
+    "text": " programma questo robo qui a noi ci manghe che non abbiamo ne context stack pop pop ne context stack"
+  },
+  {
+    "start": 1115.2,
+    "end": 1118.44,
+    "text": " push ne context stack min lan"
+  },
+  {
+    "start": 1122.26,
+    "end": 1128.3,
+    "text": " non abbiamo niente di tutto ciò stai roba qui dove le metteremo allora da"
+  },
+  {
+    "start": 1128.3,
+    "end": 1133.44,
+    "text": " dobbiamo iniziare questo qui c'è tutta qua la parte di compilazione eccetera eccetera ma"
+  },
+  {
+    "start": 1133.44,
+    "end": 1142.22,
+    "text": " in realtà questa basic standard libra li deve andare dopo sta roba qua è l'ultima cosa la"
+  },
+  {
+    "start": 1142.22,
+    "end": 1148.82,
+    "text": " definizione delle funzioni in questo modo ovviamente qui noi avremo in questo"
+  },
+  {
+    "start": 1151.16,
+    "end": 1156.38,
+    "text": " ecsec in context ci servono anche noi queste funzioni di gestione dello stack"
+  },
+  {
+    "start": 1157.98,
+    "end": 1160.06,
+    "text": " iniziamo a implementarne qualcuna"
+  },
+  {
+    "start": 1162.48,
+    "end": 1167.68,
+    "text": " allora prendiamo ci una due tre copiamo tutta sta roba qui"
+  },
+  {
+    "start": 1167.68,
+    "end": 1177.7,
+    "text": " così ci mettiamo qua i prototipi di quello che ci serve e queste qui sono queste tre"
+  },
+  {
+    "start": 1179.36,
+    "end": 1187.52,
+    "text": " allora in context stack cioè tf context context in the count min"
+  },
+  {
+    "start": 1187.52,
+    "end": 1191.92,
+    "text": " min si questo è uno dei prototipi"
+  },
+  {
+    "start": 1194.4,
+    "end": 1208.16,
+    "text": " poi context stack pop tf object context stack pop tf context context e qua è"
+  },
+  {
+    "start": 1209.44,
+    "end": 1216.82,
+    "text": " in type il tipo che noi ci aspettiamo abbia l'oggetto di cui facciamo"
+  },
+  {
+    "start": 1220.3200000000002,
+    "end": 1225.5,
+    "text": " e questo lo facciamo void diciamo il tipo dell'oggetto che vogliamo trovare sullo stack"
+  },
+  {
+    "start": 1225.5,
+    "end": 1233.72,
+    "text": " in cima lo stack context stack push facciamo che void perché tanto noi se abbiamo proprio"
+  },
+  {
+    "start": 1233.72,
+    "end": 1246.62,
+    "text": " i memori andiamo bellamente in crash tf context context e qua è una tf object object che è l'oggetto"
+  },
+  {
+    "start": 1246.62,
+    "end": 1254.04,
+    "text": " che vogliamo effettivamente di cui vogliamo fare il push tra l'altro context stack push noi lo usiamo qui"
+  },
+  {
+    "start": 1257.14,
+    "end": 1266.24,
+    "text": " ma in realtà noi lo dovremmo usare anche altrove quando noi abbiamo la xec ah esatto"
+  },
+  {
+    "start": 1268.6,
+    "end": 1276.22,
+    "text": " ah ecco context stack list push ok che noi la list push ce l'abbiamo si ma questo è"
+  },
+  {
+    "start": 1276.22,
+    "end": 1283.36,
+    "text": " in realtà è una context stack push context word"
+  },
+  {
+    "start": 1285.22,
+    "end": 1287.1,
+    "text": " e non ve lo spazio la sciam"
+  },
+  {
+    "start": 1291.02,
+    "end": 1296.54,
+    "text": " esatto esatto in realtà quello che noi vedevamo qui scusate"
+  },
+  {
+    "start": 1298.44,
+    "end": 1304.98,
+    "text": " list push context stack word word sarai il modo in cui context stack push è implementato però"
+  },
+  {
+    "start": 1304.98,
+    "end": 1307.14,
+    "text": " in giusto astrarre"
+  },
+  {
+    "start": 1310.02,
+    "end": 1310.66,
+    "text": " allora"
+  },
+  {
+    "start": 1313.22,
+    "end": 1323.26,
+    "text": " iniziamo da qui che l'abbiamo appena vista quindi list push context stack object"
+  },
+  {
+    "start": 1325.22,
+    "end": 1328.94,
+    "text": " ok questo è veramente banalissima"
+  },
+  {
+    "start": 1331.7,
+    "end": 1332.52,
+    "text": " il popping"
+  },
+  {
+    "start": 1335.54,
+    "end": 1337.28,
+    "text": " context stack pop"
+  },
+  {
+    "start": 1341.1799999999998,
+    "end": 1347.6200000000001,
+    "text": " a questo punto così come abbiamo implementato list push dovremmo implementare list pop"
+  },
+  {
+    "start": 1352.06,
+    "end": 1356.16,
+    "text": " anzi list pop non la implementiamo, copiamo ci sta roba qua"
+  },
+  {
+    "start": 1357.14,
+    "end": 1360.9,
+    "text": " vi dico perché perché è strano fare list pop condizionata dal tipo"
+  },
+  {
+    "start": 1360.9,
+    "end": 1366.56,
+    "text": " quindi implementiamola in questo caso per esempio astrarre troppo la list pop"
+  },
+  {
+    "start": 1366.56,
+    "end": 1370.94,
+    "text": " sarebbe stata un errore poi farse la list pop ci servirà però questa è una funzione che fa una"
+  },
+  {
+    "start": 1370.94,
+    "end": 1377.38,
+    "text": " roba un po' diversa allora tanto per iniziare se allora io vi dico una cosa sto mettendo"
+  },
+  {
+    "start": 1377.38,
+    "end": 1381.58,
+    "text": " molti meno commenti di quelli che metto di solito durante la programmazione"
+  },
+  {
+    "start": 1384.8,
+    "end": 1390.82,
+    "text": " qui dovremmo aggiungerli perché sono diciamo sono preso dal flusso e non voglio verbalizzare"
+  },
+  {
+    "start": 1390.82,
+    "end": 1394.16,
+    "text": " troppo sta roba mentre sono a video ma in realtà lo dobbiamo fare"
+  },
+  {
+    "start": 1394.16,
+    "end": 1402.18,
+    "text": " chiede funzione nel mio nome risolvete la funzione scandando la funzione tabula"
+  },
+  {
+    "start": 1402.82,
+    "end": 1413.88,
+    "text": " cercando per una nascita di modificazione se una funzione di modificazione non è trovata"
+  },
+  {
+    "start": 1413.88,
+    "end": 1415.9,
+    "text": " non è trovata"
+  },
+  {
+    "start": 1417.9999999999998,
+    "end": 1427.98,
+    "text": " altrimenti la funzione trovata la funzione di obgetti"
+  },
+  {
+    "start": 1432.92,
+    "end": 1439.68,
+    "text": " solo uscire l'obgetto sul stagione interpritore"
+  },
+  {
+    "start": 1444.8400000000001,
+    "end": 1445.62,
+    "text": " pop"
+  },
+  {
+    "start": 1450.2800000000002,
+    "end": 1454.2,
+    "text": " top element in the con interpreter"
+  },
+  {
+    "start": 1456.5200000000002,
+    "end": 1458.22,
+    "text": " main stack from"
+  },
+  {
+    "start": 1479.46,
+    "end": 1480.46,
+    "text": " assi"
+  },
+  {
+    "start": 1480.46,
+    "end": 1485.62,
+    "text": " allora dobbiamo iniziare qua if l if context stack"
+  },
+  {
+    "start": 1487.4399999999998,
+    "end": 1493.46,
+    "text": " list lan equal zero brutal null"
+  },
+  {
+    "start": 1494.9799999999998,
+    "end": 1499.38,
+    "text": " qua non abbiamo niente a ritornare se non c'è proprio un pifero nello stack"
+  },
+  {
+    "start": 1501.1399999999999,
+    "end": 1507.76,
+    "text": " ma anche se context stack list l d"
+  },
+  {
+    "start": 1510.7,
+    "end": 1512.72,
+    "text": " l n minus 1"
+  },
+  {
+    "start": 1520.32,
+    "end": 1527.56,
+    "text": " punto type no no type chiamo type giusto sì type"
+  },
+  {
+    "start": 1528.64,
+    "end": 1536.08,
+    "text": " se non è uguale al tipo che noi speriamo di beccare eterna null anche in questo caso"
+  },
+  {
+    "start": 1536.08,
+    "end": 1540.8,
+    "text": " se invece abbiamo avuto la fortuna che è"
+  },
+  {
+    "start": 1541.36,
+    "end": 1545.18,
+    "text": " quando abbiamo capito come gestiamo come gestiamo il reference counting"
+  },
+  {
+    "start": 1545.18,
+    "end": 1548.52,
+    "text": " ma noi non lo tocchiamo the reference"
+  },
+  {
+    "start": 1551.28,
+    "end": 1564.18,
+    "text": " counting of the popped object is not touched modified it is assuming that we just transfer"
+  },
+  {
+    "start": 1564.18,
+    "end": 1570.38,
+    "text": " the ownership from the stack stack to the caller"
+  },
+  {
+    "start": 1571.6799999999998,
+    "end": 1576.04,
+    "text": " comunque una referenza c'era qua una referenza c'era poi chi si pia l'oggetto"
+  },
+  {
+    "start": 1576.04,
+    "end": 1578.68,
+    "text": " per cui noi non la tocchiamo sta roba qui"
+  },
+  {
+    "start": 1580.0,
+    "end": 1585.0,
+    "text": " guardate in questi casi che c'è da ripetere context stack troppe volte"
+  },
+  {
+    "start": 1585.8799999999999,
+    "end": 1591.38,
+    "text": " io quello che normalmente faccio è per esempio tf object stack uguale context stack"
+  },
+  {
+    "start": 1592.5800000000002,
+    "end": 1595.42,
+    "text": " ok e poi qui userei solo stack"
+  },
+  {
+    "start": 1596.7800000000002,
+    "end": 1600.44,
+    "text": " non è da tutti fare questa cosa qui è una questione stilistica"
+  },
+  {
+    "start": 1601.96,
+    "end": 1608.64,
+    "text": " però io ecco faccio preferisco così a questo punto guardate che succede"
+  },
+  {
+    "start": 1611.5600000000002,
+    "end": 1615.66,
+    "text": " a parte il fatto che io non farò realloc"
+  },
+  {
+    "start": 1617.6399999999999,
+    "end": 1621.54,
+    "text": " negativamente anche se in realtà si dovrebbe fare invece che infatti lo faccio"
+  },
+  {
+    "start": 1621.54,
+    "end": 1625.72,
+    "text": " quindi ora faccio tf object poppad"
+  },
+  {
+    "start": 1626.76,
+    "end": 1630.2,
+    "text": " diciamo allamento che ho preso"
+  },
+  {
+    "start": 1630.2,
+    "end": 1635.02,
+    "text": " infatti guardate questo è interessante farlo qui poppad è questo qui"
+  },
+  {
+    "start": 1638.86,
+    "end": 1640.38,
+    "text": " l'ultimo elemento"
+  },
+  {
+    "start": 1642.6399999999999,
+    "end": 1645.52,
+    "text": " dello stack chiamiamolo tu pop"
+  },
+  {
+    "start": 1646.6,
+    "end": 1651.98,
+    "text": " perché non siamo ancora sicuri che lo effettivamente preleveremo"
+  },
+  {
+    "start": 1651.98,
+    "end": 1656.78,
+    "text": " dallo stag dallo stack padre per eleva ci conegi con alcun"
+  },
+  {
+    "start": 1657.46,
+    "end": 1664.22,
+    "text": " tu pop type non è qual è type per età null a questo punto invece ci sono tutte le"
+  },
+  {
+    "start": 1665.22,
+    "end": 1671.3,
+    "text": " le carte in regola per fare effettivamente il popping dello oggetto dello stack quindi"
+  },
+  {
+    "start": 1671.3,
+    "end": 1673.1,
+    "text": " noi facciamo realloc"
+  },
+  {
+    "start": 1678.0,
+    "end": 1679.92,
+    "text": " della nostra"
+  },
+  {
+    "start": 1684.02,
+    "end": 1686.22,
+    "text": " allora qui la chiamavamo l"
+  },
+  {
+    "start": 1686.22,
+    "end": 1691.2,
+    "text": " noi la chiamiamo stack stack"
+  },
+  {
+    "start": 1693.78,
+    "end": 1698.14,
+    "text": " size of object stack list lan"
+  },
+  {
+    "start": 1702.24,
+    "end": 1702.96,
+    "text": " esatto"
+  },
+  {
+    "start": 1705.22,
+    "end": 1712.06,
+    "text": " stack list lan meno meno quindi accorciamo tanto noi la riferimento riferimento il puntatore"
+  },
+  {
+    "start": 1712.06,
+    "end": 1714.2,
+    "text": " il nostro oggetto ci lo siamo beccati qua"
+  },
+  {
+    "start": 1714.2,
+    "end": 1719.64,
+    "text": " accorciamo la dimensione della nostra lista che usiamo anche come stack in questo caso"
+  },
+  {
+    "start": 1720.44,
+    "end": 1727.44,
+    "text": " facciamo il realloc della memoria così l'allocatore se abbastanza furbo riuscirà a rilasciare un"
+  },
+  {
+    "start": 1727.44,
+    "end": 1734.72,
+    "text": " po' di memoria questo lo mettiamo qua che è più carino e ritorniamo tu pop"
+  },
+  {
+    "start": 1738.06,
+    "end": 1744.74,
+    "text": " ok ci dovremmo essere ci dovremmo essere in teoria"
+  },
+  {
+    "start": 1746.1000000000001,
+    "end": 1749.76,
+    "text": " in teoria realloc con una"
+  },
+  {
+    "start": 1752.38,
+    "end": 1758.06,
+    "text": " dimensione di zero che succede quando è così che proprio lo stack è completamente vuoto noi"
+  },
+  {
+    "start": 1758.06,
+    "end": 1759.5,
+    "text": " probabilmente lo dovremmo"
+  },
+  {
+    "start": 1761.46,
+    "end": 1763.1,
+    "text": " context stack"
+  },
+  {
+    "start": 1765.78,
+    "end": 1769.02,
+    "text": " create list object lui parte a null"
+  },
+  {
+    "start": 1771.44,
+    "end": 1772.4,
+    "text": " allora"
+  },
+  {
+    "start": 1774.22,
+    "end": 1778.52,
+    "text": " width length of zero è equivo a length two three"
+  },
+  {
+    "start": 1785.6599999999999,
+    "end": 1790.52,
+    "text": " ok it depends on which c standard historical behavior"
+  },
+  {
+    "start": 1792.78,
+    "end": 1795.66,
+    "text": " in blendation defined that's the only"
+  },
+  {
+    "start": 1797.1799999999998,
+    "end": 1805.36,
+    "text": " at 17 the standard in blended if size is the behavior is implementation defined"
+  },
+  {
+    "start": 1805.96,
+    "end": 1809.22,
+    "text": " either null point is the time the memory block pointed by paetone"
+  },
+  {
+    "start": 1809.22,
+    "end": 1812.34,
+    "text": " or non point is the time it should not be the reference"
+  },
+  {
+    "start": 1814.34,
+    "end": 1815.58,
+    "text": " memory freed"
+  },
+  {
+    "start": 1819.46,
+    "end": 1824.42,
+    "text": " no non va bene ah questo ha cambiato ancora di nuovo"
+  },
+  {
+    "start": 1825.26,
+    "end": 1834.4,
+    "text": " e ora and the find behavior okay faccio una cosa quindi if stack list length equal a zero else"
+  },
+  {
+    "start": 1837.78,
+    "end": 1845.8,
+    "text": " se è zero che non ci sono più le mendi stack list l è uguale a null"
+  },
+  {
+    "start": 1849.8,
+    "end": 1857.8,
+    "text": " free stack list l quindi lo dello chiamo la memoria ecco lo settiamo a null"
+  },
+  {
+    "start": 1858.3200000000002,
+    "end": 1861.5,
+    "text": " allora questo è un problema perché questa logica qui"
+  },
+  {
+    "start": 1862.48,
+    "end": 1869.46,
+    "text": " dovrebbe essere in realtà la logica effettivamente di list pop"
+  },
+  {
+    "start": 1871.54,
+    "end": 1873.04,
+    "text": " di list pop"
+  },
+  {
+    "start": 1876.3999999999999,
+    "end": 1880.36,
+    "text": " quindi noi l abbiamo chiamato in realtà context stack pop"
+  },
+  {
+    "start": 1882.36,
+    "end": 1887.08,
+    "text": " e dovrebbe essere list pop perché ormai c'è troppa logica che che fare con l'implementazione"
+  },
+  {
+    "start": 1887.08,
+    "end": 1894.58,
+    "text": " della lista al contrario di quello che credevo all'inizio quindi noi facciamo ora una cosa"
+  },
+  {
+    "start": 1898.0600000000002,
+    "end": 1904.7,
+    "text": " define tf object type all 255"
+  },
+  {
+    "start": 1906.4199999999998,
+    "end": 1919.08,
+    "text": " used by list pop and other functions a questo punto context stack pop"
+  },
+  {
+    "start": 1922.06,
+    "end": 1923.12,
+    "text": " fa sta roba qui"
+  },
+  {
+    "start": 1927.32,
+    "end": 1931.2,
+    "text": " pop type allora guardate che facciamo noi"
+  },
+  {
+    "start": 1933.1999999999998,
+    "end": 1934.2,
+    "text": " facciamo ci furbi"
+  },
+  {
+    "start": 1938.2399999999998,
+    "end": 1946.3999999999999,
+    "text": " allora list pop type questa la chiamiamo list pop type"
+  },
+  {
+    "start": 1951.48,
+    "end": 1957.76,
+    "text": " andiamo a mettere vicino all'implementazione del list push perché appartiene a essa poi io avrò"
+  },
+  {
+    "start": 1957.76,
+    "end": 1967.14,
+    "text": " sicuramente una list pop generica che fa il popping di un elemento o qualche sia che non ha questo type"
+  },
+  {
+    "start": 1967.14,
+    "end": 1974.56,
+    "text": " che farà retard list pop type context tf"
+  },
+  {
+    "start": 1979.74,
+    "end": 1981.16,
+    "text": " tf object"
+  },
+  {
+    "start": 1983.2800000000002,
+    "end": 1991.74,
+    "text": " all type all perfetto questa qui è una list pop normale che qualsiasi sia l'oggetto te lo"
+  },
+  {
+    "start": 1991.74,
+    "end": 1997.58,
+    "text": " ritorna o ti ritorna nulla questa invece è una list pop che ti fai il popping solo se il tipo"
+  },
+  {
+    "start": 1998.22,
+    "end": 2009.72,
+    "text": " ftm è quello giusto e qui è scritto sale type non è tf object type all e quindi se l'utente"
+  },
+  {
+    "start": 2009.72,
+    "end": 2015.52,
+    "text": " ha specificato un tipo e non ha detto all e effettivamente il tipo dell'oggetto alla nella"
+  },
+  {
+    "start": 2015.52,
+    "end": 2020.46,
+    "text": " cima dello stack non è quello che vogliamo allora ritorniamo nulla in questo modo abbiamo"
+  },
+  {
+    "start": 2020.46,
+    "end": 2029.84,
+    "text": " ricondotto tutto alla alla logica a questo punto con the stack pop altra non è che"
+  },
+  {
+    "start": 2030.78,
+    "end": 2039.44,
+    "text": " sta roba qua return list pop type context virgola type va beh esattamente"
+  },
+  {
+    "start": 2040.22,
+    "end": 2043.48,
+    "text": " praticamente la list pop type però siccome questa è gestione dello stack"
+  },
+  {
+    "start": 2044.04,
+    "end": 2047.44,
+    "text": " e domani io potrei cambiare la mia implementazione dello stack"
+  },
+  {
+    "start": 2048.6,
+    "end": 2054.58,
+    "text": " per maggiore efficienza quel che volete e a quel punto voglio che le cose funzionino in maniera"
+  },
+  {
+    "start": 2056.62,
+    "end": 2059.44,
+    "text": " diversa context check stack minlent"
+  },
+  {
+    "start": 2063.2400000000002,
+    "end": 2068.08,
+    "text": " noi in guarda non abbiamo un modo di settare l'errole nel contesto a quindi per ora ci accontenderemo"
+  },
+  {
+    "start": 2068.08,
+    "end": 2071.24,
+    "text": " di ritornare se mi dicendo un errore se cercherò di dire così ti non so"
+  },
+  {
+    "start": 2072.2000000000003,
+    "end": 2078.72,
+    "text": " soddisfatti if context stack list"
+  },
+  {
+    "start": 2083.82,
+    "end": 2088.82,
+    "text": " len è minore di min del numero minimo di elementi che io voglio return"
+  },
+  {
+    "start": 2088.82,
+    "end": 2100.6600000000003,
+    "text": " andiamo a retornare questa cosa è vera tf object l altrimenti tfr altrimenti tf ok"
+  },
+  {
+    "start": 2106.1800000000003,
+    "end": 2110.76,
+    "text": " quando è che sta push l'abbiamo implementato pop ce l'abbiamo abbiamo tutto"
+  },
+  {
+    "start": 2114.6800000000003,
+    "end": 2120.58,
+    "text": " allora 319 questo dovrebbe essere size t"
+  },
+  {
+    "start": 2123.1600000000003,
+    "end": 2127.0,
+    "text": " noi che problema abbiamo a farlo size t"
+  },
+  {
+    "start": 2129.5600000000004,
+    "end": 2136.38,
+    "text": " un combat equal function pointer callback int callback user function"
+  },
+  {
+    "start": 2145.42,
+    "end": 2156.24,
+    "text": " no scusate dov'è l'errore 381 callback uguale a callback e qual è il problema è questo il problema"
+  },
+  {
+    "start": 2157.6400000000003,
+    "end": 2166.32,
+    "text": " char questo l'abbiamo cambiato l'abbiamo semplificato in questo modo"
+  },
+  {
+    "start": 2172.7200000000003,
+    "end": 2175.8,
+    "text": " l'altro ragazzi ci credete che io praticamente"
+  },
+  {
+    "start": 2187.96,
+    "end": 2194.3,
+    "text": " non sono del tutto sicuro del fatto che qui effettivamente noi dobbiamo passare un char non"
+  },
+  {
+    "start": 2194.3,
+    "end": 2200.7,
+    "text": " l'oggetto però l'induito mi dice che sarebbe too much verremo"
+  },
+  {
+    "start": 2203.1000000000004,
+    "end": 2213.82,
+    "text": " use of undeclayed in the identifier basic math function 394 perché non è definito basic math function"
+  },
+  {
+    "start": 2215.8,
+    "end": 2224.68,
+    "text": " package sounds perché questa è la riga 434 questa è la riga 394 quindi io proprio bisogna anche"
+  },
+  {
+    "start": 2224.68,
+    "end": 2240.38,
+    "text": " dei prototipi di queste funzioni qui standard library prototypes ok ora è"
+  },
+  {
+    "start": 2240.38,
+    "end": 2250.42,
+    "text": " test punto toy fort 10 10 più toy fort test punto toy fort"
+  },
+  {
+    "start": 2251.5,
+    "end": 2262.78,
+    "text": " oh invece funziona stack content at end 21 più 21 ragazzi siamo arrivati al punto che"
+  },
+  {
+    "start": 2262.78,
+    "end": 2273.98,
+    "text": " sta roba esegue effettivamente un programma il che è bene effettivamente siamo arrivati"
+  },
+  {
+    "start": 2273.98,
+    "end": 2286.74,
+    "text": " a questo punto a questo punto noi facciamo una cosa cat toy fort c pb copy new chat di clod this is a"
+  },
+  {
+    "start": 2286.74,
+    "end": 2295.68,
+    "text": " lavoro in progresso c programma per un vero e semplice fort in deprater"
+  },
+  {
+    "start": 2296.3399999999997,
+    "end": 2305.94,
+    "text": " effettivamente è una forte come deprater non è davvero forti io comprendo"
+  },
+  {
+    "start": 2307.52,
+    "end": 2320.34,
+    "text": " there are missing parts such as context set error stack frames and so forth however please tell me"
+  },
+  {
+    "start": 2320.34,
+    "end": 2332.0,
+    "text": " if you can spot any obvious bug in what already written allora vi dico che io ormai considero una"
+  },
+  {
+    "start": 2333.52,
+    "end": 2338.3,
+    "text": " un imperativo morale dei programmatori fare delle quadra view con le ai"
+  },
+  {
+    "start": 2346.64,
+    "end": 2349.2,
+    "text": " allora abbiamo un basic memory leak"
+  },
+  {
+    "start": 2351.28,
+    "end": 2361.98,
+    "text": " when you pop from the stack you are transfer your own a shit to the color giustissimo andiamo a"
+  },
+  {
+    "start": 2362.86,
+    "end": 2368.64,
+    "text": " mesi basic mat function che poi lavamo detto l'altra volta ma poi non abbiamo fatto niente"
+  },
+  {
+    "start": 2369.82,
+    "end": 2378.54,
+    "text": " quando io crea ormai il risultato io devo fare release a e release b perché attentivamente"
+  },
+  {
+    "start": 2378.54,
+    "end": 2384.82,
+    "text": " questi oggetti rimangono allocati guardate ancora tutto funzionerà come prima non c'è più questo"
+  },
+  {
+    "start": 2384.82,
+    "end": 2389.06,
+    "text": " leak in type mi smec c'è un leak"
+  },
+  {
+    "start": 2396.46,
+    "end": 2399.8,
+    "text": " pure qui in realtà qua sbagliato"
+  },
+  {
+    "start": 2404.32,
+    "end": 2405.0,
+    "text": " allora"
+  },
+  {
+    "start": 2406.24,
+    "end": 2410.66,
+    "text": " e bauti ui io credo che non sei certo perché"
+  },
+  {
+    "start": 2418.92,
+    "end": 2420.0,
+    "text": " con le stack pop"
+  },
+  {
+    "start": 2421.24,
+    "end": 2423.96,
+    "text": " non non ha ragione ragione"
+  },
+  {
+    "start": 2425.56,
+    "end": 2433.6,
+    "text": " ha ragione perché ha può capitare che effettivamente sia prelevato e bino"
+  },
+  {
+    "start": 2434.24,
+    "end": 2440.26,
+    "text": " perché il problema è solo il secondo ma qui il problema è più complicato perché"
+  },
+  {
+    "start": 2440.26,
+    "end": 2449.68,
+    "text": " noi abbiamo fatto il pop e in realtà è un po un casotto perché sarebbe interessante"
+  },
+  {
+    "start": 2449.68,
+    "end": 2455.2,
+    "text": " in realtà lasciarlo stack esattamente alla condizione in cui era quindi noi dovremmo fare"
+  },
+  {
+    "start": 2455.2,
+    "end": 2458.72,
+    "text": " una cosa if b è uguale uguale a nulla"
+  },
+  {
+    "start": 2462.02,
+    "end": 2475.42,
+    "text": " return tf error if a è uguale uguale a nulla context stack push"
+  },
+  {
+    "start": 2478.52,
+    "end": 2484.94,
+    "text": " context virgola a cioè io lo rimettiamo nello stack sostanzialmente"
+  },
+  {
+    "start": 2487.82,
+    "end": 2493.16,
+    "text": " e ritorniamo tfr questa sarebbe una possibilità"
+  },
+  {
+    "start": 2498.06,
+    "end": 2501.2,
+    "text": " ma c'è di meglio c'è di meglio"
+  },
+  {
+    "start": 2504.54,
+    "end": 2505.1,
+    "text": " allora"
+  },
+  {
+    "start": 2510.32,
+    "end": 2512.94,
+    "text": " baut problem to you what about this"
+  },
+  {
+    "start": 2516.14,
+    "end": 2518.98,
+    "text": " vediamo se lo capisce miel perché non ho fatto come diceva lui"
+  },
+  {
+    "start": 2529.02,
+    "end": 2534.2400000000002,
+    "text": " se pus appointment, po эта Linda credo di venire ancora новa guru era lumpitio"
+  },
+  {
+    "start": 2535.08,
+    "end": 2536.12,
+    "text": " ma quando è800."
+  },
+  {
+    "start": 2537.0,
+    "end": 2538.8,
+    "text": " ad esempio in tuo gioco che pare, tu disconnecti tutti sono"
+  },
+  {
+    "start": 2538.8,
+    "end": 2541.54,
+    "text": " e se non Shy malf нашsel suffica se non Shy occidentale"
+  },
+  {
+    "start": 2541.54,
+    "end": 2548.96,
+    "text": " e lumpiti unouição di questovest Key repertoire"
+  },
+  {
+    "start": 2548.96,
+    "end": 2548.96,
+    "text": ""
+  },
+  {
+    "start": 2554.56,
+    "end": 2556.52,
+    "text": " Non lo sta capendo."
+  },
+  {
+    "start": 2559.96,
+    "end": 2568.96,
+    "text": " Il problema è che se una funzione fa di fare, credo che il stuck deve essere incontrato."
+  },
+  {
+    "start": 2568.96,
+    "end": 2576.38,
+    "text": " Ma anche con la riferenza che ti ha incontrato."
+  },
+  {
+    "start": 2577.3,
+    "end": 2579.26,
+    "text": " Questo è quello che sta passando."
+  },
+  {
+    "start": 2581.46,
+    "end": 2587.3,
+    "text": " Dopo il pop, il stuck di la funzione è l'almer."
+  },
+  {
+    "start": 2589.96,
+    "end": 2591.36,
+    "text": " dl"
+  },
+  {
+    "start": 2591.36,
+    "end": 2591.36,
+    "text": ""
+  },
+  {
+    "start": 2591.36,
+    "end": 2593.3,
+    "text": " qu molto"
+  },
+  {
+    "start": 2598.6,
+    "end": 2598.6,
+    "text": ""
+  },
+  {
+    "start": 2598.6,
+    "end": 2598.6,
+    "text": ""
+  },
+  {
+    "start": 2600.2599999999998,
+    "end": 2602.82,
+    "text": " sul curare"
+  },
+  {
+    "start": 2602.82,
+    "end": 2604.8,
+    "text": " il Guierno"
+  },
+  {
+    "start": 2604.8,
+    "end": 2605.78,
+    "text": " devoted a"
+  },
+  {
+    "start": 2605.78,
+    "end": 2605.78,
+    "text": ""
+  },
+  {
+    "start": 2605.78,
+    "end": 2617.28,
+    "text": " però capite che è thinner Bri"
+  },
+  {
+    "start": 2647.28,
+    "end": 2655.7,
+    "text": " è un caso in cui se uno è meno esperto di tot, ovviamente ti dice una cosa che cazzo è opus4.5"
+  },
+  {
+    "start": 2655.7,
+    "end": 2658.36,
+    "text": " tu dici mi che avevo sbagliato invece anche no."
+  },
+  {
+    "start": 2658.78,
+    "end": 2665.48,
+    "text": " Potenzial difference null, main, qua io ne sto fregando di fare questo check qua."
+  },
+  {
+    "start": 2666.02,
+    "end": 2667.66,
+    "text": " La giusta soluzione serve un'altra."
+  },
+  {
+    "start": 2668.26,
+    "end": 2669.1,
+    "text": " If context."
+  },
+  {
+    "start": 2669.82,
+    "end": 2673.9,
+    "text": " Check stack minlan, context check types."
+  },
+  {
+    "start": 2674.98,
+    "end": 2686.2,
+    "text": " E io qua farei context tf object type int tf object type int virgola meno 1."
+  },
+  {
+    "start": 2686.4,
+    "end": 2692.16,
+    "text": " Meno 1 è il terminatore perché userei una funzione variatica di quello che abbiamo visto."
+  },
+  {
+    "start": 2692.28,
+    "end": 2697.72,
+    "text": " In pratica io avrei una funzione che controlla i tipi prima ancora di fare pop."
+  },
+  {
+    "start": 2698.42,
+    "end": 2702.34,
+    "text": " E quindi questo pop condizionato per tipo non sarebbe più neanche necessario."
+  },
+  {
+    "start": 2702.34,
+    "end": 2703.42,
+    "text": " Vi dico la verità."
+  },
+  {
+    "start": 2703.78,
+    "end": 2707.94,
+    "text": " Il design non è ideale ma lo correggeremo nella prossima lezione."
+  },
+  {
+    "start": 2708.24,
+    "end": 2713.82,
+    "text": " Per ora lasciamo almeno le cose in maniera corretta, perché vedete le evoluzioni di programmi che,"
+  },
+  {
+    "start": 2713.88,
+    "end": 2716.88,
+    "text": " non so, diciamo banali, segue questo tipo di corso."
+  },
+  {
+    "start": 2718.32,
+    "end": 2722.94,
+    "text": " Ok, oltre alle cose che ci siamo detti comunque mi rimane questo tipo qui."
+  },
+  {
+    "start": 2724.46,
+    "end": 2732.24,
+    "text": " Perché effettivamente qua ho sbagliato ovviamente se non ho potuto prelevare il secondo oggetto,"
+  },
+  {
+    "start": 2732.24,
+    "end": 2734.26,
+    "text": " io devo andare a fare il push db."
+  },
+  {
+    "start": 2734.42,
+    "end": 2735.98,
+    "text": " Qua c'è scritto e te sbagliato."
+  },
+  {
+    "start": 2736.12,
+    "end": 2737.04,
+    "text": " Poi io fare una cosa."
+  },
+  {
+    "start": 2738.54,
+    "end": 2740.7,
+    "text": " Facciamo make, seguiamo il programma."
+  },
+  {
+    "start": 2741.2,
+    "end": 2746.24,
+    "text": " Ora cambiamo il programma in modo che in effetti c'è un errore perché non è sufficiente."
+  },
+  {
+    "start": 2748.06,
+    "end": 2749.52,
+    "text": " Esattamente, però andai merrore."
+  },
+  {
+    "start": 2749.66,
+    "end": 2753.82,
+    "text": " No ma facciamo anche l'errore di metterci dentro una stringa."
+  },
+  {
+    "start": 2754.14,
+    "end": 2755.94,
+    "text": " Ah non abbiamo ancora le stringe."
+  },
+  {
+    "start": 2756.18,
+    "end": 2757.84,
+    "text": " Scusate non abbiamo messo un tipo."
+  },
+  {
+    "start": 2758.32,
+    "end": 2760.28,
+    "text": " Oltre ai numeri noi non l'abbiamo imprendato."
+  },
+  {
+    "start": 2762.7000000000003,
+    "end": 2763.34,
+    "text": " Niente."
+  },
+  {
+    "start": 2764.72,
+    "end": 2767.02,
+    "text": " Allora le stringa quindi non le passiamo ancora."
+  },
+  {
+    "start": 2767.64,
+    "end": 2768.46,
+    "text": " Mamma mia."
+  },
+  {
+    "start": 2769.82,
+    "end": 2770.5,
+    "text": " Che situation."
+  },
+  {
+    "start": 2773.1,
+    "end": 2773.74,
+    "text": " PartsNumber."
+  },
+  {
+    "start": 2775.8,
+    "end": 2776.44,
+    "text": " PartsSymbol."
+  },
+  {
+    "start": 2777.38,
+    "end": 2778.36,
+    "text": " Ah abbiamo i simboli."
+  },
+  {
+    "start": 2779.3,
+    "end": 2780.74,
+    "text": " Ok, mi sta bene."
+  },
+  {
+    "start": 2781.36,
+    "end": 2782.74,
+    "text": " Quindi qua metto foo."
+  },
+  {
+    "start": 2783.56,
+    "end": 2786.82,
+    "text": " Ah ma non abbiamo i simboli quotati quindi proverà a perseguirli."
+  },
+  {
+    "start": 2787.42,
+    "end": 2790.12,
+    "text": " Cazzo non abbiamo niente, non abbiamo nessun altro tipo."
+  },
+  {
+    "start": 2792.48,
+    "end": 2794.14,
+    "text": " Vediamo la funzione parsing."
+  },
+  {
+    "start": 2794.7,
+    "end": 2796.62,
+    "text": " Sì, non abbiamo niente."
+  },
+  {
+    "start": 2796.68,
+    "end": 2799.76,
+    "text": " Non posso fare questa prova in cui c'è un type mismatch."
+  },
+  {
+    "start": 2800.8,
+    "end": 2805.08,
+    "text": " Vabbè, ho fatto questa prova effettivamente del programma viene interrotto."
+  },
+  {
+    "start": 2805.86,
+    "end": 2812.7,
+    "text": " Allora che cos'è che abbiamo fatto noi oggi con GitDev possiamo anche vedere che caspita abbiamo fatto."
+  },
+  {
+    "start": 2813.92,
+    "end": 2817.04,
+    "text": " ListPopType quindi abbiamo completato l'imprimendazione dello stack."
+  },
+  {
+    "start": 2817.04,
+    "end": 2821.4,
+    "text": " È chiamato i simboli e basic math function."
+  },
+  {
+    "start": 2828.54,
+    "end": 2829.24,
+    "text": " Context."
+  },
+  {
+    "start": 2831.1400000000003,
+    "end": 2836.86,
+    "text": " StackHandling and basic math ops working."
+  },
+  {
+    "start": 2838.68,
+    "end": 2840.8,
+    "text": " Quindi ora abbiamo due comit."
+  },
+  {
+    "start": 2841.3,
+    "end": 2845.08,
+    "text": " First Git StackHandling and basic math operations working."
+  },
+  {
+    "start": 2846.28,
+    "end": 2850.08,
+    "text": " Ci lo facciamo passare, anche perché non so quanto tempo è passato."
+  },
+  {
+    "start": 2850.28,
+    "end": 2854.02,
+    "text": " Anche perché mentre c'è qualcuno che si sta facendo la doccia e si sente allo scarico e l'umore"
+  },
+  {
+    "start": 2854.02,
+    "end": 2858.22,
+    "text": " che io cangelerò con DaVingi Resolve, quanto più affirmiamente è possibile."
+  },
+  {
+    "start": 2858.78,
+    "end": 2858.98,
+    "text": " Ciao!"
+  }
+]
