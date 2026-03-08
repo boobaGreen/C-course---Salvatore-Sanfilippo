@@ -169,39 +169,38 @@ Did you know that if you pass a `char` to a function with variable arguments (li
 ### Terminal Challenge: Manual Hunting 📖
 
 <HackerTerminal 
-  title="Hacker Challenge: Level 5 - Task 1"
-  description="We learned how to use output functions. What is the terminal command to read the 'manual' of a function like printf to discover all its secrets?"
-  command="google printf help"
-  expectedOutput="man printf"
-  inputLabel="Complete Command:"
-  placeholder="e.g. man function_name"
-  hint="It's short for 'manual'."
-  explanation="Exactly! `man` is a C programmer's best friend. It gives you the official, detailed, and precise documentation for every library function and system command."
-  xpReward={150}
-/>
-
-<HackerTerminal 
-  title="Hacker Challenge: Level 5 - Task 2"
-  description="In C you can convert a character from lowercase to uppercase by subtracting 32. There is a shell command that can do the same for an entire file or input. Which one would you use to transform 'hi' into 'HI'?"
-  command="echo 'hi' | ..."
-  expectedOutput="tr 'a-z' 'A-Z'"
-  inputLabel="Command (tr):"
-  placeholder="e.g. tr 'set1' 'set2'"
-  hint="The command stands for 'translate' or 'transliterate'."
-  explanation="Great! `tr` is very powerful for manipulating utility character streams, replicating the conversion logic we would do in C but directly on the command line."
-  xpReward={200}
-/>
-
-<HackerTerminal 
-  title="Hacker Challenge: Level 5 - Task 3"
-  description="You want to see the hexadecimal value of every single character contained in a 'text.txt' file. Which command would you use to perform a byte-by-byte hexadecimal dump?"
-  command="cat text.txt"
-  expectedOutput="od -A n -t x1 text.txt"
-  inputLabel="Command (od):"
-  placeholder="e.g. od -options filename"
-  hint="The command stands for 'Octal Dump', but with the -t x1 option it shows hexadecimals."
-  explanation="Excellent! `od` allows you to see the 'naked flesh' of the file, showing ASCII codes in hexadecimal, decimal, or octal format. Indispensable for debugging corrupt files."
-  xpReward={250}
+  challenges={[
+    {
+      id: "man-printf",
+      title: "The Programmer's Manual",
+      description: "What is the fundamental terminal command to read the official documentation for a function like `printf`?",
+      commands: ["man printf"],
+      expectedOutput: "PRINTF(1)",
+      hints: ["It's short for 'manual'"],
+      explanation: "Exactly! `man` is a C programmer's best friend. It gives you the official, detailed, and precise documentation for every library function and system command.",
+      xpReward: 150
+    },
+    {
+      id: "tr-upper",
+      title: "Character Translator",
+      description: "In C you can convert a character from lowercase to uppercase by subtracting 32. Which shell command would you use to transform all lowercase text to uppercase (e.g., 'hi' -> 'HI')?",
+      commands: ["echo \"hi\" | tr 'a-z' 'A-Z'"],
+      expectedOutput: "HI",
+      hints: ["The command stands for 'translate' or 'transliterate'"],
+      explanation: "Great! `tr` is very powerful for manipulating character streams, replicating the conversion logic we would do in C but directly on the command line.",
+      xpReward: 200
+    },
+    {
+      id: "od-dump",
+      title: "Byte Inspector",
+      description: "You want to see the hexadecimal value of every single character in a 'text.txt' file. Which command would you use for a byte-by-byte hexadecimal dump?",
+      commands: ["od -t x1 text.txt"],
+      expectedOutput: "0000000",
+      hints: ["The command stands for 'Octal Dump', but with the -t x1 option it shows hexadecimals"],
+      explanation: "Excellent! `od` allows you to see the 'naked flesh' of the file, showing ASCII codes in hexadecimal, decimal, or octal format. Indispensable for debugging corrupt files.",
+      xpReward: 250
+    }
+  ]}
 />
 
 See you in the next lesson!
