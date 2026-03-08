@@ -66,7 +66,8 @@ Why don't we use `strcmp`? Because our string objects save their length and don'
 <MemoryCaster />
 
 <Callout type="info" title="The Efficiency of memcmp">
-We use `memcmp` to compare---
+We use `memcmp` to compare byte-by-byte. It is an extremely optimized library function (often written in Assembly) that processes memory blocks much faster than a manual `while` loop.
+</Callout>
 
 ## Symbols vs. Strings: What's the Difference?
 

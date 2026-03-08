@@ -68,10 +68,10 @@ Salvatore nota che senza un `\\n` finale, la shell (come la Z-shell o `zsh`) pot
 
 <Callout type="info" title="Perché la Ricorsione?">
 Non è un esercizio accademico! La ricorsione è il modo più naturale per navigare strutture "ad albero" come i programmi. Senza di essa, dovremmo gestire manualmente uno stack complicatissimo.
+</Callout>
 
 <Callout type="warning" title="Limite della Ricorsione">
   Attenzione: se un utente malintenzionato crea una lista annidata 1 milione di volte (es. `[[[[...]]]]`), la funzione `print_object` esaurirà lo spazio della RAM dello stack della CPU (Stack Overflow). Salvatore consiglia di mettere sempre un contatore di profondità massima nelle funzioni ricorsive.
-</Callout>
 </Callout>
 
 ---

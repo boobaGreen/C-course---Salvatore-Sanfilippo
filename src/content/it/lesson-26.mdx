@@ -92,6 +92,7 @@ void release_object(TFObject *o) {
 
 <Callout type="warning" title="La trappola del Pop">
 Quando estrai un oggetto dallo stack con una `pop`, ne diventi il proprietario unico. Se ti dimentichi di chiamare `release` alla fine della funzione, quell'oggetto non verrà mai liberato!
+</Callout>
 
 <Callout type="danger" title="Pericolo: Double Free">
   Se chiami `release_object` su un puntatore che è già stato liberato (ref_count era già 0), il programma crasherà o, peggio, corromperà la memoria. Il Reference Counting non ti protegge dagli errori di logica; ti aiuta solo a gestire la condivisione.
@@ -99,7 +100,6 @@ Quando estrai un oggetto dallo stack con una `pop`, ne diventi il proprietario u
 
 <Callout type="warning" title="Assert in Produzione">
   Le macro `assert` scompaiono completamente se compili con il flag `-DNDEBUG`. Questo significa che il programma sarà più veloce, ma non avrà più i controlli di sicurezza. Usa le asserzioni per trovare i bug durante lo sviluppo, ma non affidarti a loro per gestire gli errori dell'utente!
-</Callout>
 </Callout>
 
 ---

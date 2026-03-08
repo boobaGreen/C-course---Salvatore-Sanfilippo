@@ -142,12 +142,16 @@ int main() {
   language="c" 
 />
 
-<Callout type="hacker" title="Magic Numbers">
-Why does Salvatore use `0xDEADBEEF`? It's easy to recognize in a hexadecimal dump (hexdump). If you see `00000000` where the magic should be, you know you're using an object that's already been freed!
-</Callout>
-
 <Callout type="info" title="Debugging with Macros">
 Salvatore suggests using preprocessor macros (`#ifdef DEBUG`) to include the `magic` field only during development. This way, the "production" version of the software will be 4 bytes lighter per string, but you'll have had all the necessary safety during testing.
+</Callout>
+
+Salvatore implements a manual Reference Counting. Every time a piece of code "takes" the object, it calls `retain`; when it finishes, it calls `release`.
+
+<RefcountCycleSim />
+
+<Callout type="danger" title="Atomic Reference Counting">
+  Salvatore warns: in a multi-threaded program, `ref_count++` is not safe! Two threads could increment it simultaneously leading to memory corruption. In professional systems (like the Linux kernel), special "atomic" functions are used to guarantee thread safety.
 </Callout>
 
 ### Reference Maintenance

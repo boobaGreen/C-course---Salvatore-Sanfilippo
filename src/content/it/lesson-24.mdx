@@ -73,10 +73,10 @@ Quando usiamo `realloc` per far crescere la lista (come visto in `list_push`), S
 
 <Callout type="warning" title="Memory Safety">
 Ricorda: ogni volta che fai `pop` dallo stack, stai acquisendo la proprietà di quel puntatore. È fondamentale chiamare `release` (o `free`) alla fine della funzione per evitare memory leak!
+</Callout>
 
 <Callout type="danger" title="Sicurezza dell'Interprete">
   In un interprete reale, non puoi fidarti del codice dell'utente. Se il programma prova a fare `+` con un solo elemento nello stack, il tuo interprete crasherà cercando di accedere a un puntatore nullo. Un interprete "robusto" controlla sempre la profondità dello stack prima di ogni operazione.
-</Callout>
 </Callout>
 
 ---

@@ -87,14 +87,10 @@ Immagina di aver bisogno di un valore che va solo da 0 a 15. Ti servono solo 4 b
 
 <Callout type="warning" title="Portabilità">
 Il modo in cui i bit vengono impacchettati (ordine e allineamento) non è garantito dallo standard ANSI C e dipende dal compilatore e dall'architettura. Salvatore consiglia di usarli con cautela per protocolli di rete rigidi.
-
-<Callout type="danger" title="Bitfields e il Network">
-  Non inviare mai una struct con bitfield direttamente su una connessione di rete! Se la macchina che riceve ha un'architettura diversa (es. Big Endian vs Little Endian) o un compilatore diverso, i bit potrebbero essere letti in ordine inverso o con padding differente. Per la rete, usa sempre operazioni manuali con `&` e `|`.
 </Callout>
 
 <Callout type="danger" title="Bitfields e il Network">
-  Non inviare mai una struct con bitfield direttamente su una connessione di rete! Se la macchina che riceve ha un'architettura diversa (es. Big Endian vs Little Endian) o un compilatore diverso, i bit potrebbero essere letti in ordine inverso o con padding differente. Per la rete, usa sempre operazioni manuali con `&` e `|`.
-</Callout>
+  Non inviare mai una struct con bitfield direttamente su una connessione di rete! Se la macchina che riceve ha un'architettura diversa (es. Big Endian vs Little Endian) o un compilatore diverso, i bit potrebbe essere letti in ordine inverso o con padding differente. Per la rete, usa sempre operazioni manuali con `&` e `|`.
 </Callout>
 
 ### L'Antenato: IP Header (1981)
