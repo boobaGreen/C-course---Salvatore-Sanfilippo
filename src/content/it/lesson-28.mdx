@@ -268,30 +268,37 @@ Uno degli usi più comuni è `vprintf`, che accetta una `va_list` invece di argo
 <HackerTerminal 
   challenges={[
     {
-      id: "stdarg-init",
-      title: "Inizializzazione",
-      description: "Dichiara una variabile per gestire gli argomenti variabili: '_______ ap;'",
-      commands: ["va_list"],
-      expectedOutput: "va_list",
-      hints: ["È il tipo definito in stdarg.h."]
+        id: "stdarg-init",
+        title: "Inizializzazione",
+        description: "Dichiara una variabile per gestire gli argomenti variabili: '_______ ap;'",
+        commands: [],
+        expectedOutput: "va_list",
+        hints: [
+            "È il tipo definito in stdarg.h."
+        ]
     },
     {
-      id: "va-syntax",
-      title: "Variadic Signature",
-      description: "Completa la firma: 'void my_func(int n, ___)'",
-      commands: ["..."],
-      expectedOutput: "...",
-      hints: ["Tre puntini (ellissi)."]
+        id: "va-syntax",
+        title: "Variadic Signature",
+        description: "Completa la firma: 'void my_func(int n, ___)'",
+        commands: [],
+        expectedOutput: "...",
+        hints: [
+            "Tre puntini (ellissi)."
+        ]
     },
     {
-      id: "vformat-check",
-      title: "Wrapper Power",
-      description: "Quale funzione usi per stampare una va_list su stringa? 'vsn______'",
-      commands: ["printf"],
-      expectedOutput: "printf",
-      hints: ["vsnprintf (Variadic-Size-Next-Printf)."]
+        id: "vformat-check",
+        title: "Wrapper Power",
+        description: "Quale funzione usi per stampare una va_list su stringa? 'vsn______'",
+        commands: [],
+        expectedOutput: "printf",
+        hints: [
+            "vsnprintf (Variadic-Size-Next-Printf)."
+        ],
+        expectedCommand: "printf"
     }
-  ]}
+]}
 />
 
 ### Conclusione

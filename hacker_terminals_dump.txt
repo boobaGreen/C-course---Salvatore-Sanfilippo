@@ -7,16 +7,14 @@
         id: "opt-trap",
         title: "L'Ottimizzazione Subdola",
         description: "Hai compilato un programma che stampa 'Hello World' con `printf`. Se guardi l'assembly generato con `-O2`, quale funzione più semplice trovi al posto di printf?",
-        commands: [
-            "gcc -O2 -S hello.c",
-            "grep 'call' hello.s"
-        ],
+        commands: [],
         expectedOutput: "puts",
         hints: [
             "Il compilatore 'declassa' la funzione se non ci sono formattazioni"
         ],
         explanation: "Esatto! Il compilatore sostituisce printf con puts per stringhe statiche semplici, poiché è molto più efficiente.",
-        xpReward: 150
+        xpReward: 150,
+        expectedCommand: "grep 'call' hello.s"
     },
     {
         id: "elf-check",
@@ -113,15 +111,14 @@
         id: "m32-flag",
         title: "Ritorno al Passato",
         description: "Quale flag di GCC useresti per forzare la compilazione a 32 bit su una macchina a 64 bit?",
-        commands: [
-            "gcc -m32 main.c"
-        ],
+        commands: [],
         expectedOutput: "-m32",
         hints: [
             "Si riferisce al modello a 32 bit"
         ],
         explanation: "Ottimo! `-m32` emula un'architettura a 32 bit, riducendo la dimensione dei puntatori.",
-        xpReward: 200
+        xpReward: 200,
+        expectedCommand: "gcc -m32 main.c"
     },
     {
         id: "size-command",
@@ -193,15 +190,14 @@
         id: "man-printf",
         title: "Il Manuale del Programmatore",
         description: "Qual è il comando fondamentale per leggere la documentazione ufficiale di una funzione come `printf`?",
-        commands: [
-            "man printf"
-        ],
+        commands: [],
         expectedOutput: "PRINTF(1)",
         hints: [
             "È l'abbreviazione di 'manual'"
         ],
         explanation: "Esatto! `man` è lo strumento essenziale per ogni sviluppatore C su Linux.",
-        xpReward: 150
+        xpReward: 150,
+        expectedCommand: "man printf"
     },
     {
         id: "tr-upper",
@@ -239,15 +235,14 @@
         id: "gcc-wall",
         title: "Compilazione Rigorosa",
         description: "Quale flag di GCC abilita TUTTI i messaggi di avvertimento comuni per trovare bug logici (come l'uso di = invece di ==)?",
-        commands: [
-            "gcc -Wall main.c"
-        ],
+        commands: [],
         expectedOutput: "-Wall",
         hints: [
             "L'opzione sta per 'Warnings All'"
         ],
         explanation: "Bravissimo! `-Wall` è obbligatorio. Ti avvisa se stai facendo cose pericolose.",
-        xpReward: 150
+        xpReward: 150,
+        expectedCommand: "gcc -Wall main.c"
     },
     {
         id: "gcc-define",
@@ -312,15 +307,14 @@
         id: "ls-recursive",
         title: "Esplorazione Ricorsiva",
         description: "Quale flag del comando `ls` useresti per elencare tutti i file in modo ricorsivo nelle sottocartelle?",
-        commands: [
-            "ls -R"
-        ],
+        commands: [],
         expectedOutput: "./",
         hints: [
             "La lettera sta per 'Recursive'"
         ],
         explanation: "Bravissimo! `ls -R` esplora l'intera struttura delle directory.",
-        xpReward: 250
+        xpReward: 250,
+        expectedCommand: "ls -R"
     }
 ]}
 />
@@ -512,13 +506,12 @@
         id: "valgrind-basic",
         title: "Il Cacciatore di Memory Leaks",
         description: "Compila un programma `test.c` che contiene un leak. Quale strumento formidabile di Linux usi eseguendo `strumeto ./test` per scoprire se hai dimenticato una free, e ti indica anche a quale riga di codice?",
-        commands: [
-            "valgrind"
-        ],
+        commands: [],
         expectedOutput: "valgrind ./test",
         hints: [
             "Cerca 'linux memory debugger' (valgrind)"
-        ]
+        ],
+        expectedCommand: "valgrind"
     },
     {
         id: "check-heap-limits",
@@ -874,30 +867,39 @@
 <HackerTerminal 
   challenges={[
     {
-      id: "check-endian",
-      title: "Il Rilevatore di Endianness",
-      description: "Usa una union per scrivere un programma C che stampi 'LITTLE' se il sistema è Little Endian, altrimenti 'BIG'.",
-      commands: ["./check_endian"],
-      expectedOutput: "LITTLE",
-      hints: ["Setta un int a 1 e controlla il primo byte dell'array di char."]
+        id: "check-endian",
+        title: "Il Rilevatore di Endianness",
+        description: "Usa una union per scrivere un programma C che stampi 'LITTLE' se il sistema è Little Endian, altrimenti 'BIG'.",
+        commands: [
+            "./check_endian"
+        ],
+        expectedOutput: "LITTLE",
+        hints: [
+            "Setta un int a 1 e controlla il primo byte dell'array di char."
+        ]
     },
     {
-      id: "bits-size",
-      title: "Conta i Bit",
-      description: "Qual è la dimensione in byte di una struct con tre bitfield da 2, 3 e 3 bit usando `unsigned char` come tipo base?",
-      commands: ["1"],
-      expectedOutput: "1",
-      hints: ["2 + 3 + 3 = 8 bit. Quanti byte sono?"]
+        id: "bits-size",
+        title: "Conta i Bit",
+        description: "Qual è la dimensione in byte di una struct con tre bitfield da 2, 3 e 3 bit usando `unsigned char` come tipo base?",
+        commands: [],
+        expectedOutput: "1",
+        hints: [
+            "2 + 3 + 3 = 8 bit. Quanti byte sono?"
+        ]
     },
     {
-      id: "redis-object",
-      title: "Codice Sorgente",
-      description: "Quale macro di Redis è famosa per usare i bitfield per gestire il Reference Counting e il tipo dell'oggetto?",
-      commands: ["redisObject"],
-      expectedOutput: "unsigned type:4",
-      hints: ["Cerca la definizione di 'robj' o 'redisObject' nel sorgente di Redis."]
+        id: "redis-object",
+        title: "Codice Sorgente",
+        description: "Quale macro di Redis è famosa per usare i bitfield per gestire il Reference Counting e il tipo dell'oggetto?",
+        commands: [],
+        expectedOutput: "unsigned type:4",
+        hints: [
+            "Cerca la definizione di 'robj' o 'redisObject' nel sorgente di Redis."
+        ],
+        expectedCommand: "redisObject"
     }
-  ]}
+]}
 />
 
 --- FILE: lesson-22.mdx ---
@@ -944,180 +946,218 @@
 <HackerTerminal 
   challenges={[
     {
-      id: "stack-visual",
-      title: "Trace dello Stack",
-      description: "Dato il programma `10 20 SWAP -`, quale valore rimane nello stack alla fine? (SWAP scambia i due elementi in cima)",
-      commands: ["10"],
-      expectedOutput: "10",
-      hints: ["10, 20 -> SWAP -> 20, 10 -> Sottrai 20 - 10."]
+        id: "stack-visual",
+        title: "Trace dello Stack",
+        description: "Dato il programma `10 20 SWAP -`, quale valore rimane nello stack alla fine? (SWAP scambia i due elementi in cima)",
+        commands: [],
+        expectedOutput: "10",
+        hints: [
+            "10, 20 -> SWAP -> 20, 10 -> Sottrai 20 - 10."
+        ]
     },
     {
-      id: "type-detect",
-      title: "Riconoscimento Tipi",
-      description: "Nel parser di Salvatore, se una parola inizia con '\"', quale tipo di oggetto viene creato?",
-      commands: ["TF_STR"],
-      expectedOutput: "TF_STR",
-      hints: ["Le virgolette delimitano le stringhe."]
+        id: "type-detect",
+        title: "Riconoscimento Tipi",
+        description: "Nel parser di Salvatore, se una parola inizia con '\"', quale tipo di oggetto viene creato?",
+        commands: [],
+        expectedOutput: "TF_STR",
+        hints: [
+            "Le virgolette delimitano le stringhe."
+        ]
     },
     {
-      id: "recursive-list",
-      title: "Profondità Liste",
-      description: "Quanti asterischi servirebbero per dichiarare un puntatore a un array di puntatori a oggetti se non usassimo i typedef?",
-      commands: ["**"],
-      expectedOutput: "**",
-      hints: ["È un puntatore alla base di un array di puntatori."]
+        id: "recursive-list",
+        title: "Profondità Liste",
+        description: "Quanti asterischi servirebbero per dichiarare un puntatore a un array di puntatori a oggetti se non usassimo i typedef?",
+        commands: [],
+        expectedOutput: "**",
+        hints: [
+            "È un puntatore alla base di un array di puntatori."
+        ]
     }
-  ]}
+]}
 />
 
 --- FILE: lesson-24.mdx ---
 <HackerTerminal 
   challenges={[
     {
-      id: "eval-trace",
-      title: "Debug dell'Eval",
-      description: "Analizza il programma `5 [ 10 + ] exec`. Quale valore finisce nello stack? (exec esegue la lista in cima)",
-      commands: ["15"],
-      expectedOutput: "15",
-      hints: ["5 va nello stack, la lista [10 +] va nello stack, exec la preleva e la esegue."]
+        id: "eval-trace",
+        title: "Debug dell'Eval",
+        description: "Analizza il programma `5 [ 10 + ] exec`. Quale valore finisce nello stack? (exec esegue la lista in cima)",
+        commands: [],
+        expectedOutput: "15",
+        hints: [
+            "5 va nello stack, la lista [10 +] va nello stack, exec la preleva e la esegue."
+        ]
     },
     {
-      id: "ref-count-logic",
-      title: "Logica Ref Count",
-      description: "Se un oggetto ha ref_count=1 e viene fatto il PUSH nello stack, a quanto deve passare il ref_count?",
-      commands: ["1"],
-      expectedOutput: "1",
-      hints: ["Dipende dall'implementazione: se lo stack prende la proprietà dall'allocatore, rimane 1. Se lo aggiunge come nuovo proprietario, passa a 2."]
+        id: "ref-count-logic",
+        title: "Logica Ref Count",
+        description: "Se un oggetto ha ref_count=1 e viene fatto il PUSH nello stack, a quanto deve passare il ref_count?",
+        commands: [],
+        expectedOutput: "1",
+        hints: [
+            "Dipende dall'implementazione: se lo stack prende la proprietà dall'allocatore, rimane 1. Se lo aggiunge come nuovo proprietario, passa a 2."
+        ]
     },
     {
-      id: "symbol-lookup",
-      title: "Lookup Simboli",
-      description: "Quale funzione C useresti per confrontare il nome del simbolo nel dizionario?",
-      commands: ["strcmp"],
-      expectedOutput: "strcmp",
-      hints: ["Confronto tra stringhe standard."]
+        id: "symbol-lookup",
+        title: "Lookup Simboli",
+        description: "Quale funzione C useresti per confrontare il nome del simbolo nel dizionario?",
+        commands: [],
+        expectedOutput: "strcmp",
+        hints: [
+            "Confronto tra stringhe standard."
+        ],
+        expectedCommand: "strcmp"
     }
-  ]}
+]}
 />
 
 --- FILE: lesson-25.mdx ---
 <HackerTerminal 
   challenges={[
     {
-      id: "parser-trace",
-      title: "Traccia del Parser",
-      description: "Il parser riceve '123 hello'. Qual è il tipo del secondo token?",
-      commands: ["TF_SYM"],
-      expectedOutput: "TF_SYM",
-      hints: ["'123' è un intero, 'hello' non inizia con numeri."]
+        id: "parser-trace",
+        title: "Traccia del Parser",
+        description: "Il parser riceve '123 hello'. Qual è il tipo del secondo token?",
+        commands: [],
+        expectedOutput: "TF_SYM",
+        hints: [
+            "'123' è un intero, 'hello' non inizia con numeri."
+        ]
     },
     {
-      id: "pointer-diff",
-      title: "Pointer Math",
-      description: "Se 'start' punta a 'h' e 'p' punta allo spazio dopo 'hello', quanto vale 'p - start'?",
-      commands: ["5"],
-      expectedOutput: "5",
-      hints: ["H-E-L-L-O = 5 caratteri."]
+        id: "pointer-diff",
+        title: "Pointer Math",
+        description: "Se 'start' punta a 'h' e 'p' punta allo spazio dopo 'hello', quanto vale 'p - start'?",
+        commands: [],
+        expectedOutput: "5",
+        hints: [
+            "H-E-L-L-O = 5 caratteri."
+        ]
     },
     {
-      id: "header-check",
-      title: "Header Hunting",
-      description: "Quale header standard serve per usare 'isalpha' e 'isdigit'?",
-      commands: ["ctype.h"],
-      expectedOutput: "ctype.h",
-      hints: ["C-Type (Character Type)."]
+        id: "header-check",
+        title: "Header Hunting",
+        description: "Quale header standard serve per usare 'isalpha' e 'isdigit'?",
+        commands: [],
+        expectedOutput: "ctype.h",
+        hints: [
+            "C-Type (Character Type)."
+        ]
     }
-  ]}
+]}
 />
 
 --- FILE: lesson-26.mdx ---
 <HackerTerminal 
   challenges={[
     {
-      id: "retain-count",
-      title: "Logica dei Proprietari",
-      description: "Un oggetto viene creato (1), messo in una lista (2) e poi in un'altra (3). Qual è il valore di ref_count?",
-      commands: ["3"],
-      expectedOutput: "3",
-      hints: ["Ogni inserimento deve chiamare retain."]
+        id: "retain-count",
+        title: "Logica dei Proprietari",
+        description: "Un oggetto viene creato (1), messo in una lista (2) e poi in un'altra (3). Qual è il valore di ref_count?",
+        commands: [],
+        expectedOutput: "3",
+        hints: [
+            "Ogni inserimento deve chiamare retain."
+        ]
     },
     {
-      id: "assert-header",
-      title: "Invarianti",
-      description: "Quale header devi includere per usare la macro 'assert'?",
-      commands: ["assert.h"],
-      expectedOutput: "assert.h",
-      hints: ["È lo stesso nome della funzione."]
+        id: "assert-header",
+        title: "Invarianti",
+        description: "Quale header devi includere per usare la macro 'assert'?",
+        commands: [],
+        expectedOutput: "assert.h",
+        hints: [
+            "È lo stesso nome della funzione."
+        ]
     },
     {
-      id: "eval-logic",
-      title: "Eval Flow",
-      description: "Se il parser legge '[ 1 2 + ]', l'eval esegue subito il '+'?",
-      commands: ["no"],
-      expectedOutput: "no",
-      hints: ["Le liste sono dati: vengono 'pusciate' come blocchi unici."]
+        id: "eval-logic",
+        title: "Eval Flow",
+        description: "Se il parser legge '[ 1 2 + ]', l'eval esegue subito il '+'?",
+        commands: [],
+        expectedOutput: "no",
+        hints: [
+            "Le liste sono dati: vengono 'pusciate' come blocchi unici."
+        ]
     }
-  ]}
+]}
 />
 
 --- FILE: lesson-27.mdx ---
 <HackerTerminal 
   challenges={[
     {
-      id: "memcmp-test",
-      title: "Binary Match",
-      description: "Dati 'ABC' e 'ABD', cosa ritorna memcmp sulla parte comune di lunghezza 3?",
-      commands: ["-1"],
-      expectedOutput: "-1",
-      hints: ["'C' (67) viene prima di 'D' (68)."]
+        id: "memcmp-test",
+        title: "Binary Match",
+        description: "Dati 'ABC' e 'ABD', cosa ritorna memcmp sulla parte comune di lunghezza 3?",
+        commands: [],
+        expectedOutput: "-1",
+        hints: [
+            "'C' (67) viene prima di 'D' (68)."
+        ]
     },
     {
-      id: "callback-syntax",
-      title: "Function Pointers",
-      description: "Sostituisci i puntini: 'void (____ f)(int)' per dichiarare un puntatore a funzione.",
-      commands: ["*"],
-      expectedOutput: "*",
-      hints: ["L'asterisco identifica il puntatore."]
+        id: "callback-syntax",
+        title: "Function Pointers",
+        description: "Sostituisci i puntini: 'void (____ f)(int)' per dichiarare un puntatore a funzione.",
+        commands: [],
+        expectedOutput: "*",
+        hints: [
+            "L'asterisco identifica il puntatore."
+        ]
     },
     {
-      id: "lookup-fail",
-      title: "Logic Case",
-      description: "Se get_function ritorna NULL, quale valore booleano rappresenta in C?",
-      commands: ["false"],
-      expectedOutput: "false",
-      hints: ["NULL è valutato come 0."]
+        id: "lookup-fail",
+        title: "Logic Case",
+        description: "Se get_function ritorna NULL, quale valore booleano rappresenta in C?",
+        commands: [],
+        expectedOutput: "false",
+        hints: [
+            "NULL è valutato come 0."
+        ]
     }
-  ]}
+]}
 />
 
 --- FILE: lesson-28.mdx ---
 <HackerTerminal 
   challenges={[
     {
-      id: "stdarg-init",
-      title: "Inizializzazione",
-      description: "Dichiara una variabile per gestire gli argomenti variabili: '_______ ap;'",
-      commands: ["va_list"],
-      expectedOutput: "va_list",
-      hints: ["È il tipo definito in stdarg.h."]
+        id: "stdarg-init",
+        title: "Inizializzazione",
+        description: "Dichiara una variabile per gestire gli argomenti variabili: '_______ ap;'",
+        commands: [],
+        expectedOutput: "va_list",
+        hints: [
+            "È il tipo definito in stdarg.h."
+        ]
     },
     {
-      id: "va-syntax",
-      title: "Variadic Signature",
-      description: "Completa la firma: 'void my_func(int n, ___)'",
-      commands: ["..."],
-      expectedOutput: "...",
-      hints: ["Tre puntini (ellissi)."]
+        id: "va-syntax",
+        title: "Variadic Signature",
+        description: "Completa la firma: 'void my_func(int n, ___)'",
+        commands: [],
+        expectedOutput: "...",
+        hints: [
+            "Tre puntini (ellissi)."
+        ]
     },
     {
-      id: "vformat-check",
-      title: "Wrapper Power",
-      description: "Quale funzione usi per stampare una va_list su stringa? 'vsn______'",
-      commands: ["printf"],
-      expectedOutput: "printf",
-      hints: ["vsnprintf (Variadic-Size-Next-Printf)."]
+        id: "vformat-check",
+        title: "Wrapper Power",
+        description: "Quale funzione usi per stampare una va_list su stringa? 'vsn______'",
+        commands: [],
+        expectedOutput: "printf",
+        hints: [
+            "vsnprintf (Variadic-Size-Next-Printf)."
+        ],
+        expectedCommand: "printf"
     }
-  ]}
+]}
 />
 
 --- FILE: lesson-29.mdx ---
@@ -1138,13 +1178,12 @@
         id: "git-commit",
         title: "Salvataggio",
         description: "Qual è il comando per salvare le modifiche in Git specificando un messaggio?",
-        commands: [
-            "git commit -m"
-        ],
+        commands: [],
         expectedOutput: "",
         hints: [
             "Usa il flag -m."
-        ]
+        ],
+        expectedCommand: "git commit -m"
     },
     {
         id: "makefile-syntax",
@@ -1165,148 +1204,180 @@
 <HackerTerminal 
   challenges={[
     {
-      id: "spectrum-bits",
-      title: "Bit Math",
-      description: "Quanti pixel sono controllati da un singolo byte nella zona BITMAP?",
-      commands: ["8"],
-      expectedOutput: "8",
-      hints: ["1 bit = 1 pixel. 1 byte = ?"]
+        id: "spectrum-bits",
+        title: "Bit Math",
+        description: "Quanti pixel sono controllati da un singolo byte nella zona BITMAP?",
+        commands: [],
+        expectedOutput: "8",
+        hints: [
+            "1 bit = 1 pixel. 1 byte = ?"
+        ]
     },
     {
-      id: "attr-math",
-      title: "Attribute Offset",
-      description: "Se la bitmap finisce all'indirizzo 6143, a che indirizzo inizia il primo byte di attributo?",
-      commands: ["6144"],
-      expectedOutput: "6144",
-      hints: ["È l'indirizzo immediatamente successivo."]
+        id: "attr-math",
+        title: "Attribute Offset",
+        description: "Se la bitmap finisce all'indirizzo 6143, a che indirizzo inizia il primo byte di attributo?",
+        commands: [],
+        expectedOutput: "6144",
+        hints: [
+            "È l'indirizzo immediatamente successivo."
+        ]
     },
     {
-      id: "color-count",
-      title: "Spectrum Colors",
-      description: "Considerando BRIGHT, quanti colori totali può visualizzare lo Spectrum (inclusi i neri)?",
-      commands: ["15"],
-      expectedOutput: "15",
-      hints: ["8 colori base x 2 (normal/bright). Ma il nero bright è uguale al nero normale..."]
+        id: "color-count",
+        title: "Spectrum Colors",
+        description: "Considerando BRIGHT, quanti colori totali può visualizzare lo Spectrum (inclusi i neri)?",
+        commands: [],
+        expectedOutput: "15",
+        hints: [
+            "8 colori base x 2 (normal/bright). Ma il nero bright è uguale al nero normale..."
+        ]
     }
-  ]}
+]}
 />
 
 --- FILE: lesson-31.mdx ---
 <HackerTerminal 
   challenges={[
     {
-      id: "bigO-diff",
-      title: "Big O Analysis",
-      description: "Se la funzione prima iterava su W*H pixel, e ora su 8*8 pixel. Come si indica la nuova complessità temporale asintotica (Big-O) rispetto alla grandezza dell'immagine?",
-      commands: ["O(1)"],
-      expectedOutput: "O(1)",
-      hints: ["La grandezza dell'operazione è costante (64 iterazioni) indipendentemente dalle dimensioni dell'immagine totale."]
+        id: "bigO-diff",
+        title: "Big O Analysis",
+        description: "Se la funzione prima iterava su W*H pixel, e ora su 8*8 pixel. Come si indica la nuova complessità temporale asintotica (Big-O) rispetto alla grandezza dell'immagine?",
+        commands: [],
+        expectedOutput: "O(1)",
+        hints: [
+            "La grandezza dell'operazione è costante (64 iterazioni) indipendentemente dalle dimensioni dell'immagine totale."
+        ]
     },
     {
-      id: "sample-cmd",
-      title: "macOS Profiler",
-      description: "Qual è il tool da riga di comando per macOS usato da Salvatore per fare profiling campionando lo stack?",
-      commands: ["sample"],
-      expectedOutput: "sample",
-      hints: ["È il nome del comando stesso, utile per catturare trace di CPU."]
+        id: "sample-cmd",
+        title: "macOS Profiler",
+        description: "Qual è il tool da riga di comando per macOS usato da Salvatore per fare profiling campionando lo stack?",
+        commands: [],
+        expectedOutput: "sample",
+        hints: [
+            "È il nome del comando stesso, utile per catturare trace di CPU."
+        ]
     },
     {
-      id: "dithering-kernel",
-      title: "Kernel Size",
-      description: "Il calcolo di dithering usato nell'immagine esaminava gruppi di NxN pixel. Quanto vale N (secondo il feedback dato da Salvatore all'AI)?",
-      commands: ["2"],
-      expectedOutput: "2",
-      hints: ["Il kernel size era 2x2."]
+        id: "dithering-kernel",
+        title: "Kernel Size",
+        description: "Il calcolo di dithering usato nell'immagine esaminava gruppi di NxN pixel. Quanto vale N (secondo il feedback dato da Salvatore all'AI)?",
+        commands: [],
+        expectedOutput: "2",
+        hints: [
+            "Il kernel size era 2x2."
+        ]
     }
-  ]}
+]}
 />
 
 --- FILE: special-bst.mdx ---
 <HackerTerminal 
   challenges={[
     {
-      id: "bst-insert",
-      title: "Logica di Inserimento",
-      description: "Albero con root=10. Inserisci 5 e 15. Dove finisce il 15?",
-      commands: ["right"],
-      expectedOutput: "right",
-      hints: ["15 è maggiore di 10."]
+        id: "bst-insert",
+        title: "Logica di Inserimento",
+        description: "Albero con root=10. Inserisci 5 e 15. Dove finisce il 15?",
+        commands: [],
+        expectedOutput: "right",
+        hints: [
+            "15 è maggiore di 10."
+        ]
     },
     {
-      id: "bst-recursion",
-      title: "Recursion Depth",
-      description: "In un albero con 3 livelli, quante volte viene chiamata print_sorted (in totale, inclusi i NULL)?",
-      commands: ["15"],
-      expectedOutput: "15",
-      hints: ["Ogni nodo chiama se stesso 2 volte. 7 nodi totali + 1 chiamata iniziale? No, 7 nodi -> 7*2 + 1 = 15."]
+        id: "bst-recursion",
+        title: "Recursion Depth",
+        description: "In un albero con 3 livelli, quante volte viene chiamata print_sorted (in totale, inclusi i NULL)?",
+        commands: [],
+        expectedOutput: "15",
+        hints: [
+            "Ogni nodo chiama se stesso 2 volte. 7 nodi totali + 1 chiamata iniziale? No, 7 nodi -> 7*2 + 1 = 15."
+        ]
     },
     {
-      id: "bst-malloc",
-      title: "Heap Check",
-      description: "Qual è il valore ritornato da malloc() se la memoria è esaurita?",
-      commands: ["NULL"],
-      expectedOutput: "NULL",
-      hints: ["È il valore nullo del C."]
+        id: "bst-malloc",
+        title: "Heap Check",
+        description: "Qual è il valore ritornato da malloc() se la memoria è esaurita?",
+        commands: [],
+        expectedOutput: "NULL",
+        hints: [
+            "È il valore nullo del C."
+        ]
     }
-  ]}
+]}
 />
 
 --- FILE: special-random-vars.mdx ---
 <HackerTerminal 
   challenges={[
     {
-      id: "rand-mod",
-      title: "Range Limit",
-      description: "Scrivi l'espressione per ottenere un numero casuale tra 0 e 99 (incluso).",
-      commands: ["rand() % 100"],
-      expectedOutput: "",
-      hints: ["Usa l'operatore modulo."]
+        id: "rand-mod",
+        title: "Range Limit",
+        description: "Scrivi l'espressione per ottenere un numero casuale tra 0 e 99 (incluso).",
+        commands: [],
+        expectedOutput: "",
+        hints: [
+            "Usa l'operatore modulo."
+        ],
+        expectedCommand: "rand() % 100"
     },
     {
-      id: "time-header",
-      title: "Time is Money",
-      description: "Quale header standard serve per usare la funzione 'time()'?",
-      commands: ["time.h"],
-      expectedOutput: "time.h",
-      hints: ["Inizia con 't' e finisce con '.h'."]
+        id: "time-header",
+        title: "Time is Money",
+        description: "Quale header standard serve per usare la funzione 'time()'?",
+        commands: [],
+        expectedOutput: "time.h",
+        hints: [
+            "Inizia con 't' e finisce con '.h'."
+        ]
     },
     {
-      id: "spectrum-math",
-      title: "Bit Count",
-      description: "Quante celle 8x8 ci sono in uno schermo 256x192?",
-      commands: ["768"],
-      expectedOutput: "768",
-      hints: ["(256/8) * (192/8) = ?"]
+        id: "spectrum-math",
+        title: "Bit Count",
+        description: "Quante celle 8x8 ci sono in uno schermo 256x192?",
+        commands: [],
+        expectedOutput: "768",
+        hints: [
+            "(256/8) * (192/8) = ?"
+        ]
     }
-  ]}
+]}
 />
 
 --- FILE: special-ref-counting.mdx ---
 <HackerTerminal 
   challenges={[
     {
-      id: "ref-logic",
-      title: "Logica di Conteggio",
-      description: "Oggetto A creato (RC=1). Viene messo in una lista (RC=?). Poi la lista viene liberata. Qual è l'RC finale?",
-      commands: ["2", "1"],
-      expectedOutput: "1",
-      hints: ["Creazione = 1. Inserimento = +1. Liberazione lista = -1."]
+        id: "ref-logic",
+        title: "Logica di Conteggio",
+        description: "Oggetto A creato (RC=1). Viene messo in una lista (RC=?). Poi la lista viene liberata. Qual è l'RC finale?",
+        commands: [],
+        expectedOutput: "1",
+        hints: [
+            "Creazione = 1. Inserimento = +1. Liberazione lista = -1."
+        ]
     },
     {
-      id: "free-danger",
-      title: "Il Pericolo",
-      description: "Se facciamo 'free(ptr)' mentre 'RC' è 2, cosa accade all'altro proprietario?",
-      commands: ["Segmentation Fault"],
-      expectedOutput: "Segmentation Fault",
-      hints: ["L'altro proprietario proverà a usare memoria liberata."]
+        id: "free-danger",
+        title: "Il Pericolo",
+        description: "Se facciamo 'free(ptr)' mentre 'RC' è 2, cosa accade all'altro proprietario?",
+        commands: [],
+        expectedOutput: "Segmentation Fault",
+        hints: [
+            "L'altro proprietario proverà a usare memoria liberata."
+        ]
     },
     {
-      id: "incref-macro",
-      title: "Macro Potenza",
-      description: "In molti progetti C, 'retain' è una macro che chiama una funzione. Quale macro si usa spesso per incrementare?",
-      commands: ["incref"],
-      expectedOutput: "incref",
-      hints: ["In-cref (Increase Reference)."]
+        id: "incref-macro",
+        title: "Macro Potenza",
+        description: "In molti progetti C, 'retain' è una macro che chiama una funzione. Quale macro si usa spesso per incrementare?",
+        commands: [],
+        expectedOutput: "incref",
+        hints: [
+            "In-cref (Increase Reference)."
+        ],
+        expectedCommand: "incref"
     }
-  ]}
+]}
 />

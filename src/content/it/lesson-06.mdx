@@ -216,15 +216,14 @@ Una funzione può chiamare se stessa. È un modo elegante per contare o risolver
         id: "gcc-wall",
         title: "Compilazione Rigorosa",
         description: "Quale flag di GCC abilita TUTTI i messaggi di avvertimento comuni per trovare bug logici (come l'uso di = invece di ==)?",
-        commands: [
-            "gcc -Wall main.c"
-        ],
+        commands: [],
         expectedOutput: "-Wall",
         hints: [
             "L'opzione sta per 'Warnings All'"
         ],
         explanation: "Bravissimo! `-Wall` è obbligatorio. Ti avvisa se stai facendo cose pericolose.",
-        xpReward: 150
+        xpReward: 150,
+        expectedCommand: "gcc -Wall main.c"
     },
     {
         id: "gcc-define",

@@ -209,30 +209,36 @@ Quando estrai un oggetto dallo stack con una `pop`, ne diventi il proprietario u
 <HackerTerminal 
   challenges={[
     {
-      id: "retain-count",
-      title: "Logica dei Proprietari",
-      description: "Un oggetto viene creato (1), messo in una lista (2) e poi in un'altra (3). Qual è il valore di ref_count?",
-      commands: ["3"],
-      expectedOutput: "3",
-      hints: ["Ogni inserimento deve chiamare retain."]
+        id: "retain-count",
+        title: "Logica dei Proprietari",
+        description: "Un oggetto viene creato (1), messo in una lista (2) e poi in un'altra (3). Qual è il valore di ref_count?",
+        commands: [],
+        expectedOutput: "3",
+        hints: [
+            "Ogni inserimento deve chiamare retain."
+        ]
     },
     {
-      id: "assert-header",
-      title: "Invarianti",
-      description: "Quale header devi includere per usare la macro 'assert'?",
-      commands: ["assert.h"],
-      expectedOutput: "assert.h",
-      hints: ["È lo stesso nome della funzione."]
+        id: "assert-header",
+        title: "Invarianti",
+        description: "Quale header devi includere per usare la macro 'assert'?",
+        commands: [],
+        expectedOutput: "assert.h",
+        hints: [
+            "È lo stesso nome della funzione."
+        ]
     },
     {
-      id: "eval-logic",
-      title: "Eval Flow",
-      description: "Se il parser legge '[ 1 2 + ]', l'eval esegue subito il '+'?",
-      commands: ["no"],
-      expectedOutput: "no",
-      hints: ["Le liste sono dati: vengono 'pusciate' come blocchi unici."]
+        id: "eval-logic",
+        title: "Eval Flow",
+        description: "Se il parser legge '[ 1 2 + ]', l'eval esegue subito il '+'?",
+        commands: [],
+        expectedOutput: "no",
+        hints: [
+            "Le liste sono dati: vengono 'pusciate' come blocchi unici."
+        ]
     }
-  ]}
+]}
 />
 
 ### Conclusione

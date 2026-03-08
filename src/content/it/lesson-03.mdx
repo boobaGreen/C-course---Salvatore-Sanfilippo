@@ -279,15 +279,14 @@ Cosa succede se aggiungi 1 al massimo valore possibile per un tipo?
         id: "m32-flag",
         title: "Ritorno al Passato",
         description: "Quale flag di GCC useresti per forzare la compilazione a 32 bit su una macchina a 64 bit?",
-        commands: [
-            "gcc -m32 main.c"
-        ],
+        commands: [],
         expectedOutput: "-m32",
         hints: [
             "Si riferisce al modello a 32 bit"
         ],
         explanation: "Ottimo! `-m32` emula un'architettura a 32 bit, riducendo la dimensione dei puntatori.",
-        xpReward: 200
+        xpReward: 200,
+        expectedCommand: "gcc -m32 main.c"
     },
     {
         id: "size-command",

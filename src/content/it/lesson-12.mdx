@@ -278,13 +278,12 @@ int main() {
         id: "valgrind-basic",
         title: "Il Cacciatore di Memory Leaks",
         description: "Compila un programma `test.c` che contiene un leak. Quale strumento formidabile di Linux usi eseguendo `strumeto ./test` per scoprire se hai dimenticato una free, e ti indica anche a quale riga di codice?",
-        commands: [
-            "valgrind"
-        ],
+        commands: [],
         expectedOutput: "valgrind ./test",
         hints: [
             "Cerca 'linux memory debugger' (valgrind)"
-        ]
+        ],
+        expectedCommand: "valgrind"
     },
     {
         id: "check-heap-limits",

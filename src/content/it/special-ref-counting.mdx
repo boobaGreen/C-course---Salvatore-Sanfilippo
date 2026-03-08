@@ -171,30 +171,37 @@ Salvatore usa questa tecnica in **Redis** con la libreria `sds` (Simple Dynamic 
 <HackerTerminal 
   challenges={[
     {
-      id: "ref-logic",
-      title: "Logica di Conteggio",
-      description: "Oggetto A creato (RC=1). Viene messo in una lista (RC=?). Poi la lista viene liberata. Qual è l'RC finale?",
-      commands: ["2", "1"],
-      expectedOutput: "1",
-      hints: ["Creazione = 1. Inserimento = +1. Liberazione lista = -1."]
+        id: "ref-logic",
+        title: "Logica di Conteggio",
+        description: "Oggetto A creato (RC=1). Viene messo in una lista (RC=?). Poi la lista viene liberata. Qual è l'RC finale?",
+        commands: [],
+        expectedOutput: "1",
+        hints: [
+            "Creazione = 1. Inserimento = +1. Liberazione lista = -1."
+        ]
     },
     {
-      id: "free-danger",
-      title: "Il Pericolo",
-      description: "Se facciamo 'free(ptr)' mentre 'RC' è 2, cosa accade all'altro proprietario?",
-      commands: ["Segmentation Fault"],
-      expectedOutput: "Segmentation Fault",
-      hints: ["L'altro proprietario proverà a usare memoria liberata."]
+        id: "free-danger",
+        title: "Il Pericolo",
+        description: "Se facciamo 'free(ptr)' mentre 'RC' è 2, cosa accade all'altro proprietario?",
+        commands: [],
+        expectedOutput: "Segmentation Fault",
+        hints: [
+            "L'altro proprietario proverà a usare memoria liberata."
+        ]
     },
     {
-      id: "incref-macro",
-      title: "Macro Potenza",
-      description: "In molti progetti C, 'retain' è una macro che chiama una funzione. Quale macro si usa spesso per incrementare?",
-      commands: ["incref"],
-      expectedOutput: "incref",
-      hints: ["In-cref (Increase Reference)."]
+        id: "incref-macro",
+        title: "Macro Potenza",
+        description: "In molti progetti C, 'retain' è una macro che chiama una funzione. Quale macro si usa spesso per incrementare?",
+        commands: [],
+        expectedOutput: "incref",
+        hints: [
+            "In-cref (Increase Reference)."
+        ],
+        expectedCommand: "incref"
     }
-  ]}
+]}
 />
 
 ### Conclusione

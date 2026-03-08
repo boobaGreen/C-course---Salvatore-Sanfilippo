@@ -217,30 +217,36 @@ Salvatore sottolinea come non serva imparare il codice a memoria: se capisci che
 <HackerTerminal 
   challenges={[
     {
-      id: "bst-insert",
-      title: "Logica di Inserimento",
-      description: "Albero con root=10. Inserisci 5 e 15. Dove finisce il 15?",
-      commands: ["right"],
-      expectedOutput: "right",
-      hints: ["15 è maggiore di 10."]
+        id: "bst-insert",
+        title: "Logica di Inserimento",
+        description: "Albero con root=10. Inserisci 5 e 15. Dove finisce il 15?",
+        commands: [],
+        expectedOutput: "right",
+        hints: [
+            "15 è maggiore di 10."
+        ]
     },
     {
-      id: "bst-recursion",
-      title: "Recursion Depth",
-      description: "In un albero con 3 livelli, quante volte viene chiamata print_sorted (in totale, inclusi i NULL)?",
-      commands: ["15"],
-      expectedOutput: "15",
-      hints: ["Ogni nodo chiama se stesso 2 volte. 7 nodi totali + 1 chiamata iniziale? No, 7 nodi -> 7*2 + 1 = 15."]
+        id: "bst-recursion",
+        title: "Recursion Depth",
+        description: "In un albero con 3 livelli, quante volte viene chiamata print_sorted (in totale, inclusi i NULL)?",
+        commands: [],
+        expectedOutput: "15",
+        hints: [
+            "Ogni nodo chiama se stesso 2 volte. 7 nodi totali + 1 chiamata iniziale? No, 7 nodi -> 7*2 + 1 = 15."
+        ]
     },
     {
-      id: "bst-malloc",
-      title: "Heap Check",
-      description: "Qual è il valore ritornato da malloc() se la memoria è esaurita?",
-      commands: ["NULL"],
-      expectedOutput: "NULL",
-      hints: ["È il valore nullo del C."]
+        id: "bst-malloc",
+        title: "Heap Check",
+        description: "Qual è il valore ritornato da malloc() se la memoria è esaurita?",
+        commands: [],
+        expectedOutput: "NULL",
+        hints: [
+            "È il valore nullo del C."
+        ]
     }
-  ]}
+]}
 />
 
 ### Conclusione

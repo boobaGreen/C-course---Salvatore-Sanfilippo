@@ -244,30 +244,36 @@ Nota come `TFObject` possa contenere una lista di altri `TFObject`. Questa strut
 <HackerTerminal 
   challenges={[
     {
-      id: "stack-visual",
-      title: "Trace dello Stack",
-      description: "Dato il programma `10 20 SWAP -`, quale valore rimane nello stack alla fine? (SWAP scambia i due elementi in cima)",
-      commands: ["10"],
-      expectedOutput: "10",
-      hints: ["10, 20 -> SWAP -> 20, 10 -> Sottrai 20 - 10."]
+        id: "stack-visual",
+        title: "Trace dello Stack",
+        description: "Dato il programma `10 20 SWAP -`, quale valore rimane nello stack alla fine? (SWAP scambia i due elementi in cima)",
+        commands: [],
+        expectedOutput: "10",
+        hints: [
+            "10, 20 -> SWAP -> 20, 10 -> Sottrai 20 - 10."
+        ]
     },
     {
-      id: "type-detect",
-      title: "Riconoscimento Tipi",
-      description: "Nel parser di Salvatore, se una parola inizia con '\"', quale tipo di oggetto viene creato?",
-      commands: ["TF_STR"],
-      expectedOutput: "TF_STR",
-      hints: ["Le virgolette delimitano le stringhe."]
+        id: "type-detect",
+        title: "Riconoscimento Tipi",
+        description: "Nel parser di Salvatore, se una parola inizia con '\"', quale tipo di oggetto viene creato?",
+        commands: [],
+        expectedOutput: "TF_STR",
+        hints: [
+            "Le virgolette delimitano le stringhe."
+        ]
     },
     {
-      id: "recursive-list",
-      title: "Profondità Liste",
-      description: "Quanti asterischi servirebbero per dichiarare un puntatore a un array di puntatori a oggetti se non usassimo i typedef?",
-      commands: ["**"],
-      expectedOutput: "**",
-      hints: ["È un puntatore alla base di un array di puntatori."]
+        id: "recursive-list",
+        title: "Profondità Liste",
+        description: "Quanti asterischi servirebbero per dichiarare un puntatore a un array di puntatori a oggetti se non usassimo i typedef?",
+        commands: [],
+        expectedOutput: "**",
+        hints: [
+            "È un puntatore alla base di un array di puntatori."
+        ]
     }
-  ]}
+]}
 />
 
 ### Prossimi Passi

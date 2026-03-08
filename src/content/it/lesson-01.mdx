@@ -266,16 +266,14 @@ Il prototipo serve a dire al compilatore: *"Esiste una funzione chiamata `printf
         id: "opt-trap",
         title: "L'Ottimizzazione Subdola",
         description: "Hai compilato un programma che stampa 'Hello World' con `printf`. Se guardi l'assembly generato con `-O2`, quale funzione più semplice trovi al posto di printf?",
-        commands: [
-            "gcc -O2 -S hello.c",
-            "grep 'call' hello.s"
-        ],
+        commands: [],
         expectedOutput: "puts",
         hints: [
             "Il compilatore 'declassa' la funzione se non ci sono formattazioni"
         ],
         explanation: "Esatto! Il compilatore sostituisce printf con puts per stringhe statiche semplici, poiché è molto più efficiente.",
-        xpReward: 150
+        xpReward: 150,
+        expectedCommand: "grep 'call' hello.s"
     },
     {
         id: "elf-check",

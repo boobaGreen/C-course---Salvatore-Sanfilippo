@@ -258,30 +258,36 @@ int compare_string_objects(TFObject *a, TFObject *b) {
 <HackerTerminal 
   challenges={[
     {
-      id: "memcmp-test",
-      title: "Binary Match",
-      description: "Dati 'ABC' e 'ABD', cosa ritorna memcmp sulla parte comune di lunghezza 3?",
-      commands: ["-1"],
-      expectedOutput: "-1",
-      hints: ["'C' (67) viene prima di 'D' (68)."]
+        id: "memcmp-test",
+        title: "Binary Match",
+        description: "Dati 'ABC' e 'ABD', cosa ritorna memcmp sulla parte comune di lunghezza 3?",
+        commands: [],
+        expectedOutput: "-1",
+        hints: [
+            "'C' (67) viene prima di 'D' (68)."
+        ]
     },
     {
-      id: "callback-syntax",
-      title: "Function Pointers",
-      description: "Sostituisci i puntini: 'void (____ f)(int)' per dichiarare un puntatore a funzione.",
-      commands: ["*"],
-      expectedOutput: "*",
-      hints: ["L'asterisco identifica il puntatore."]
+        id: "callback-syntax",
+        title: "Function Pointers",
+        description: "Sostituisci i puntini: 'void (____ f)(int)' per dichiarare un puntatore a funzione.",
+        commands: [],
+        expectedOutput: "*",
+        hints: [
+            "L'asterisco identifica il puntatore."
+        ]
     },
     {
-      id: "lookup-fail",
-      title: "Logic Case",
-      description: "Se get_function ritorna NULL, quale valore booleano rappresenta in C?",
-      commands: ["false"],
-      expectedOutput: "false",
-      hints: ["NULL è valutato come 0."]
+        id: "lookup-fail",
+        title: "Logic Case",
+        description: "Se get_function ritorna NULL, quale valore booleano rappresenta in C?",
+        commands: [],
+        expectedOutput: "false",
+        hints: [
+            "NULL è valutato come 0."
+        ]
     }
-  ]}
+]}
 />
 
 ### Conclusione

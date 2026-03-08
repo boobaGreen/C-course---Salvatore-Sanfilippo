@@ -171,30 +171,36 @@ La funzione `compute_diff` è il cuore del programma. Tratta i colori RGB come c
 <HackerTerminal 
   challenges={[
     {
-      id: "spectrum-bits",
-      title: "Bit Math",
-      description: "Quanti pixel sono controllati da un singolo byte nella zona BITMAP?",
-      commands: ["8"],
-      expectedOutput: "8",
-      hints: ["1 bit = 1 pixel. 1 byte = ?"]
+        id: "spectrum-bits",
+        title: "Bit Math",
+        description: "Quanti pixel sono controllati da un singolo byte nella zona BITMAP?",
+        commands: [],
+        expectedOutput: "8",
+        hints: [
+            "1 bit = 1 pixel. 1 byte = ?"
+        ]
     },
     {
-      id: "attr-math",
-      title: "Attribute Offset",
-      description: "Se la bitmap finisce all'indirizzo 6143, a che indirizzo inizia il primo byte di attributo?",
-      commands: ["6144"],
-      expectedOutput: "6144",
-      hints: ["È l'indirizzo immediatamente successivo."]
+        id: "attr-math",
+        title: "Attribute Offset",
+        description: "Se la bitmap finisce all'indirizzo 6143, a che indirizzo inizia il primo byte di attributo?",
+        commands: [],
+        expectedOutput: "6144",
+        hints: [
+            "È l'indirizzo immediatamente successivo."
+        ]
     },
     {
-      id: "color-count",
-      title: "Spectrum Colors",
-      description: "Considerando BRIGHT, quanti colori totali può visualizzare lo Spectrum (inclusi i neri)?",
-      commands: ["15"],
-      expectedOutput: "15",
-      hints: ["8 colori base x 2 (normal/bright). Ma il nero bright è uguale al nero normale..."]
+        id: "color-count",
+        title: "Spectrum Colors",
+        description: "Considerando BRIGHT, quanti colori totali può visualizzare lo Spectrum (inclusi i neri)?",
+        commands: [],
+        expectedOutput: "15",
+        hints: [
+            "8 colori base x 2 (normal/bright). Ma il nero bright è uguale al nero normale..."
+        ]
     }
-  ]}
+]}
 />
 
 ### Conclusione

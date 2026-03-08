@@ -205,30 +205,37 @@ Salvatore implementa un parser "carattere per carattere". Funzioni come `skipSpa
 <HackerTerminal 
   challenges={[
     {
-      id: "eval-trace",
-      title: "Debug dell'Eval",
-      description: "Analizza il programma `5 [ 10 + ] exec`. Quale valore finisce nello stack? (exec esegue la lista in cima)",
-      commands: ["15"],
-      expectedOutput: "15",
-      hints: ["5 va nello stack, la lista [10 +] va nello stack, exec la preleva e la esegue."]
+        id: "eval-trace",
+        title: "Debug dell'Eval",
+        description: "Analizza il programma `5 [ 10 + ] exec`. Quale valore finisce nello stack? (exec esegue la lista in cima)",
+        commands: [],
+        expectedOutput: "15",
+        hints: [
+            "5 va nello stack, la lista [10 +] va nello stack, exec la preleva e la esegue."
+        ]
     },
     {
-      id: "ref-count-logic",
-      title: "Logica Ref Count",
-      description: "Se un oggetto ha ref_count=1 e viene fatto il PUSH nello stack, a quanto deve passare il ref_count?",
-      commands: ["1"],
-      expectedOutput: "1",
-      hints: ["Dipende dall'implementazione: se lo stack prende la proprietà dall'allocatore, rimane 1. Se lo aggiunge come nuovo proprietario, passa a 2."]
+        id: "ref-count-logic",
+        title: "Logica Ref Count",
+        description: "Se un oggetto ha ref_count=1 e viene fatto il PUSH nello stack, a quanto deve passare il ref_count?",
+        commands: [],
+        expectedOutput: "1",
+        hints: [
+            "Dipende dall'implementazione: se lo stack prende la proprietà dall'allocatore, rimane 1. Se lo aggiunge come nuovo proprietario, passa a 2."
+        ]
     },
     {
-      id: "symbol-lookup",
-      title: "Lookup Simboli",
-      description: "Quale funzione C useresti per confrontare il nome del simbolo nel dizionario?",
-      commands: ["strcmp"],
-      expectedOutput: "strcmp",
-      hints: ["Confronto tra stringhe standard."]
+        id: "symbol-lookup",
+        title: "Lookup Simboli",
+        description: "Quale funzione C useresti per confrontare il nome del simbolo nel dizionario?",
+        commands: [],
+        expectedOutput: "strcmp",
+        hints: [
+            "Confronto tra stringhe standard."
+        ],
+        expectedCommand: "strcmp"
     }
-  ]}
+]}
 />
 
 ### Conclusione

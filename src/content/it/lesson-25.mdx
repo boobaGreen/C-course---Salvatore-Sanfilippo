@@ -210,30 +210,36 @@ int is_symbol_char(int c) {
 <HackerTerminal 
   challenges={[
     {
-      id: "parser-trace",
-      title: "Traccia del Parser",
-      description: "Il parser riceve '123 hello'. Qual è il tipo del secondo token?",
-      commands: ["TF_SYM"],
-      expectedOutput: "TF_SYM",
-      hints: ["'123' è un intero, 'hello' non inizia con numeri."]
+        id: "parser-trace",
+        title: "Traccia del Parser",
+        description: "Il parser riceve '123 hello'. Qual è il tipo del secondo token?",
+        commands: [],
+        expectedOutput: "TF_SYM",
+        hints: [
+            "'123' è un intero, 'hello' non inizia con numeri."
+        ]
     },
     {
-      id: "pointer-diff",
-      title: "Pointer Math",
-      description: "Se 'start' punta a 'h' e 'p' punta allo spazio dopo 'hello', quanto vale 'p - start'?",
-      commands: ["5"],
-      expectedOutput: "5",
-      hints: ["H-E-L-L-O = 5 caratteri."]
+        id: "pointer-diff",
+        title: "Pointer Math",
+        description: "Se 'start' punta a 'h' e 'p' punta allo spazio dopo 'hello', quanto vale 'p - start'?",
+        commands: [],
+        expectedOutput: "5",
+        hints: [
+            "H-E-L-L-O = 5 caratteri."
+        ]
     },
     {
-      id: "header-check",
-      title: "Header Hunting",
-      description: "Quale header standard serve per usare 'isalpha' e 'isdigit'?",
-      commands: ["ctype.h"],
-      expectedOutput: "ctype.h",
-      hints: ["C-Type (Character Type)."]
+        id: "header-check",
+        title: "Header Hunting",
+        description: "Quale header standard serve per usare 'isalpha' e 'isdigit'?",
+        commands: [],
+        expectedOutput: "ctype.h",
+        hints: [
+            "C-Type (Character Type)."
+        ]
     }
-  ]}
+]}
 />
 
 ### Conclusione

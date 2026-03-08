@@ -186,30 +186,36 @@ Il *dithering* è l'arte di affiancare pixel di due colori per imitarne un terzo
 <HackerTerminal 
   challenges={[
     {
-      id: "bigO-diff",
-      title: "Big O Analysis",
-      description: "Se la funzione prima iterava su W*H pixel, e ora su 8*8 pixel. Come si indica la nuova complessità temporale asintotica (Big-O) rispetto alla grandezza dell'immagine?",
-      commands: ["O(1)"],
-      expectedOutput: "O(1)",
-      hints: ["La grandezza dell'operazione è costante (64 iterazioni) indipendentemente dalle dimensioni dell'immagine totale."]
+        id: "bigO-diff",
+        title: "Big O Analysis",
+        description: "Se la funzione prima iterava su W*H pixel, e ora su 8*8 pixel. Come si indica la nuova complessità temporale asintotica (Big-O) rispetto alla grandezza dell'immagine?",
+        commands: [],
+        expectedOutput: "O(1)",
+        hints: [
+            "La grandezza dell'operazione è costante (64 iterazioni) indipendentemente dalle dimensioni dell'immagine totale."
+        ]
     },
     {
-      id: "sample-cmd",
-      title: "macOS Profiler",
-      description: "Qual è il tool da riga di comando per macOS usato da Salvatore per fare profiling campionando lo stack?",
-      commands: ["sample"],
-      expectedOutput: "sample",
-      hints: ["È il nome del comando stesso, utile per catturare trace di CPU."]
+        id: "sample-cmd",
+        title: "macOS Profiler",
+        description: "Qual è il tool da riga di comando per macOS usato da Salvatore per fare profiling campionando lo stack?",
+        commands: [],
+        expectedOutput: "sample",
+        hints: [
+            "È il nome del comando stesso, utile per catturare trace di CPU."
+        ]
     },
     {
-      id: "dithering-kernel",
-      title: "Kernel Size",
-      description: "Il calcolo di dithering usato nell'immagine esaminava gruppi di NxN pixel. Quanto vale N (secondo il feedback dato da Salvatore all'AI)?",
-      commands: ["2"],
-      expectedOutput: "2",
-      hints: ["Il kernel size era 2x2."]
+        id: "dithering-kernel",
+        title: "Kernel Size",
+        description: "Il calcolo di dithering usato nell'immagine esaminava gruppi di NxN pixel. Quanto vale N (secondo il feedback dato da Salvatore all'AI)?",
+        commands: [],
+        expectedOutput: "2",
+        hints: [
+            "Il kernel size era 2x2."
+        ]
     }
-  ]}
+]}
 />
 
 ### Conclusione

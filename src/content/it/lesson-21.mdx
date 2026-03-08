@@ -203,30 +203,39 @@ I Bitfield sono nati per gestire protocolli come l'IP (Internet Protocol), dove 
 <HackerTerminal 
   challenges={[
     {
-      id: "check-endian",
-      title: "Il Rilevatore di Endianness",
-      description: "Usa una union per scrivere un programma C che stampi 'LITTLE' se il sistema è Little Endian, altrimenti 'BIG'.",
-      commands: ["./check_endian"],
-      expectedOutput: "LITTLE",
-      hints: ["Setta un int a 1 e controlla il primo byte dell'array di char."]
+        id: "check-endian",
+        title: "Il Rilevatore di Endianness",
+        description: "Usa una union per scrivere un programma C che stampi 'LITTLE' se il sistema è Little Endian, altrimenti 'BIG'.",
+        commands: [
+            "./check_endian"
+        ],
+        expectedOutput: "LITTLE",
+        hints: [
+            "Setta un int a 1 e controlla il primo byte dell'array di char."
+        ]
     },
     {
-      id: "bits-size",
-      title: "Conta i Bit",
-      description: "Qual è la dimensione in byte di una struct con tre bitfield da 2, 3 e 3 bit usando `unsigned char` come tipo base?",
-      commands: ["1"],
-      expectedOutput: "1",
-      hints: ["2 + 3 + 3 = 8 bit. Quanti byte sono?"]
+        id: "bits-size",
+        title: "Conta i Bit",
+        description: "Qual è la dimensione in byte di una struct con tre bitfield da 2, 3 e 3 bit usando `unsigned char` come tipo base?",
+        commands: [],
+        expectedOutput: "1",
+        hints: [
+            "2 + 3 + 3 = 8 bit. Quanti byte sono?"
+        ]
     },
     {
-      id: "redis-object",
-      title: "Codice Sorgente",
-      description: "Quale macro di Redis è famosa per usare i bitfield per gestire il Reference Counting e il tipo dell'oggetto?",
-      commands: ["redisObject"],
-      expectedOutput: "unsigned type:4",
-      hints: ["Cerca la definizione di 'robj' o 'redisObject' nel sorgente di Redis."]
+        id: "redis-object",
+        title: "Codice Sorgente",
+        description: "Quale macro di Redis è famosa per usare i bitfield per gestire il Reference Counting e il tipo dell'oggetto?",
+        commands: [],
+        expectedOutput: "unsigned type:4",
+        hints: [
+            "Cerca la definizione di 'robj' o 'redisObject' nel sorgente di Redis."
+        ],
+        expectedCommand: "redisObject"
     }
-  ]}
+]}
 />
 
 ### Riassunto Finale
