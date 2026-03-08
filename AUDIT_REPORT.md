@@ -252,8 +252,8 @@ Ispirandosi alle piattaforme educative più innovative (CodeCombat, Screeps, Che
 1. **~~Fixare EN lesson-05.mdx~~** *(Completato)* — riportato il HackerTerminal nel formato `challenges={[...]}` come tutte le altre lezioni
 
 ### Priorità Media 🟡
-2. **Aggiungere `title="Quiz Standard"`** al primo Quiz in lezioni 1-10 e 17-31 per uniformità visiva
-3. **Allineare componenti visivi EN/IT** nelle lezioni con differenze (17, 22)
+2. **~~Aggiungere `title="Quiz Standard"`~~** *(Completato)* — aggiunto al primo Quiz in tutte le lezioni rilevanti tramite script per uniformità visiva.
+3. **~~Allineare componenti visivi EN/IT~~** *(Completato)* — aggiunti i componenti Callout mancanti nelle lezioni EN 17 e 22 per pareggiare le versioni IT.
 
 ### Priorità Bassa / Evolutiva 🟢
 4. **~~Implementare 2-3 nuovi giochi~~** *(Completato)* — Creati e integrati PointerMaze, LinkedListSurgeon, e FormatStringExploit.
