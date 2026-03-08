@@ -148,4 +148,32 @@ export const lessons = [
         videoId: 'yKavhObop5I',
         duration: '38:35',
     },
+    {
+        id: 21,
+        slug: 'lesson-21',
+        title: { it: 'Lezione 21: Unioni e Bitfield', en: 'Lesson 21: Unions and Bitfields' },
+        videoId: 'TM4jgODgdFY',
+        duration: '25:10',
+    },
+    {
+        id: 22,
+        slug: 'lesson-22',
+        title: { it: 'Lezione 22: Puntatori a Funzioni', en: 'Lesson 22: Function Pointers' },
+        videoId: 'OIseV5lcx8w',
+        duration: '24:35',
+    },
+    {
+        id: 23,
+        slug: 'lesson-23',
+        title: { it: 'Lezione 23: Interprete Stack-based (ToyFort)', en: 'Lesson 23: Stack-based Interpreter (ToyFort)' },
+        videoId: 'vYODKK8TQGE',
+        duration: '37:52',
+    },
+    {
+        id: 24,
+        slug: 'lesson-24',
+        title: { it: 'Lezione 24: L\'Interprete ToyFort (Parte 2)', en: 'Lesson 24: The ToyFort Interpreter (Part 2)' },
+        videoId: '-QxrmHo-V7Y',
+        duration: '55:06',
+    },
 ];

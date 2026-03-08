@@ -1,0 +1,216 @@
+import VideoEmbed from '../../components/content/VideoEmbed';
+import Callout from '../../components/content/Callout';
+import KeyConcepts from '../../components/content/KeyConcepts';
+import CodeEditor from '../../components/exercises/CodeEditor';
+import Quiz from '../../components/exercises/Quiz';
+import HackerTerminal from '../../components/content/HackerTerminal';
+import Infographic from '../../components/content/Infographic';
+
+# Lesson 22: Function Pointers
+
+So far, we have seen pointers that point to data (integers, strings, structures). But in C, functions also reside in memory and have an address. A **Function Pointer** allows us to treat code as if it were data, opening the doors to callbacks and advanced abstractions.
+
+<VideoEmbed videoId="OIseV5lcx8w" title="Lesson 22: Function Pointers" />
+
+<KeyConcepts concepts={[
+  { title: "Functions as Addresses", description: "The name of a function, just like an array's name, is technically a pointer to its entry point in memory." },
+  { title: "Mechanical Syntax", description: "Learn how to declare a pointer that respects the prototype (return type and parameters)." },
+  { title: "Abstraction with Callbacks", description: "Use function pointers to write generic algorithms (like qsort) that don't need to know about the data they manipulate." }
+]} />
+
+## The "Strange" Syntax
+
+Declaring a function pointer can seem intimidating. Salvatore's golden rule is: "Take the prototype, wrap the name in parentheses, and put an asterisk in front of it."
+
+<Infographic 
+  title="Anatomy of a Function Pointer"
+  description="How to read the declaration `int (*f)(int, int)`"
+  items={[
+    { label: "int", value: "Return type", color: "blue" },
+    { label: "(*f)", value: "This is a pointer named f", color: "purple" },
+    { label: "(int, int)", value: "Parameters it receives", color: "emerald" }
+  ]}
+/>
+
+### Basic Example: Calling via Pointer
+
+<CodeEditor 
+  initialCode={`#include <stdio.h>
+
+void hello() {
+    printf("Hello world!\\n");
+}
+
+int main() {
+    // Declaration: void (*ptr)()
+    void (*ptr)() = hello;
+    
+    // Calling
+    ptr(); 
+    
+    return 0;
+}`} 
+  language="c" 
+/>
+
+---
+
+## The Real Power: QSort and Interfaces
+
+The most famous use case is the standard library's `qsort` function. `qsort` knows how to sort anything, but it doesn't know *how* to compare your specific data. To solve this, it asks you for a comparison function pointer.
+
+<CodeEditor 
+  initialCode={`#include <stdio.h>
+#include <stdlib.h>
+
+// Comparison Callback
+int compare(const void *a, const void *b) {
+    return (*(int*)a - *(int*)b);
+}
+
+int main() {
+    int array[] = {7, 1, 9, 3, 5};
+    int n = 5;
+
+    qsort(array, n, sizeof(int), compare);
+
+    for(int i=0; i<n; i++) printf("%d ", array[i]);
+    return 0;
+}`} 
+  language="c" 
+/>
+
+---
+
+## Exercises
+
+<Quiz 
+  questions={[
+    {
+      question: "What happens if you print a function name with `%p` in C?",
+      options: [
+        "You get a compilation error",
+        "It prints the memory address where the function code resides",
+        "It prints the function's return value",
+        "It prints the function name as a string"
+      ],
+      correctAnswer: 1,
+      explanation: "A function name decays into a pointer to the memory address of the function itself."
+    },
+    {
+      question: "How do you declare a pointer to a function that receives a `float` and returns an `int`?",
+      options: [
+        "int *f(float);",
+        "int (*f)(float);",
+        "int f*(float);",
+        "void *f(int, float);"
+      ],
+      correctAnswer: 1,
+      explanation: "Parentheses around `*f` are mandatory; otherwise, you'd be declaring a function that returns an `int*`."
+    },
+    {
+      question: "Why does `qsort` accept parameters as `const void *`?",
+      options: [
+        "Because `void` is faster",
+        "To be able to accept pointers to any data type (int, struct, strings)",
+        "Because of a historical error",
+        "Because function pointers require it"
+      ],
+      correctAnswer: 1,
+      explanation: "`void*` is the generic pointer in C, allowing the function to be polymorphic (universal)."
+    },
+    {
+      question: "What is the main advantage of function pointers?",
+      options: [
+        "They make the program smaller",
+        "They allow writing generic code that can execute different functions at runtime (polymorphism)",
+        "They speed up CPU execution",
+        "They replace for loops"
+      ],
+      correctAnswer: 1,
+      explanation: "They allow passing 'behavior' as a parameter, just like lambdas or callbacks in modern languages."
+    },
+    {
+      question: "What happens if you call a function pointer that is set to `NULL`?",
+      options: [
+        "The program prints 'NULL'",
+        "Segmentation Fault (crash)",
+        "The function is not executed and the program continues",
+        "The compiler automatically fixes it"
+      ],
+      correctAnswer: 1,
+      explanation: "Attempting to execute code at address 0 (NULL) is an illegal memory access."
+    }
+  ]} 
+/>
+
+<Quiz 
+  title="Hacker Challenge"
+  questions={[
+    {
+      question: "What does `void (*f[10])(int);` represent?",
+      options: [
+        "A function that returns 10 integers",
+        "An array of 10 function pointers that receive an int and return void",
+        "A pointer to an array of 10 integers",
+        "Invalid syntax"
+      ],
+      correctAnswer: 1,
+      explanation: "It is an array of function pointers, extremely useful for creating 'jump tables' or managing game states."
+    },
+    {
+      question: "In `qsort(..., compare)`, why don't we include parentheses `compare()`?",
+      options: [
+        "Because it's an aesthetic choice",
+        "Because parentheses would call the function immediately, while we want to pass the address of the function itself",
+        "Because there are no parameters",
+        "Because the compiler would add them anyway"
+      ],
+      correctAnswer: 1,
+      explanation: "By passing the name without parentheses, we pass the pointer (the address). With parentheses, we would invoke the function."
+    },
+    {
+      question: "What is a 'Table of Function Pointers'?",
+      options: [
+        "A SQL database written in C",
+        "A technique for implementing polymorphism or state machines by loading functions into an array",
+        "A set of rules for naming functions",
+        "A trick to save heap memory"
+      ],
+      correctAnswer: 1,
+      explanation: "It is the basis for how C++ compilers implement `vtables` for classes."
+    }
+  ]} 
+/>
+
+<HackerTerminal 
+  challenges={[
+    {
+      id: "nm-symbols-en",
+      title: "Symbol Hunt",
+      description: "Use the `nm` command on a compiled binary. Which letter indicates a function located in the 'Text' (executable) section?",
+      commands: ["nm a.out | grep main"],
+      expectedOutput: "T main",
+      hints: ["Look for the T (Text/Code)."]
+    },
+    {
+      id: "objdump-disas-en",
+      title: "Code X-Ray",
+      description: "Use `objdump -d` to see the assembly code of a function. Where does the function pointer technically point?",
+      commands: ["objdump -d a.out | grep -A 5 '<main>:'"],
+      expectedOutput: "main>:",
+      hints: ["It points exactly to the address of the first instruction of the function."]
+    },
+    {
+      id: "ldd-check-en",
+      title: "Dynamic Dependencies",
+      description: "Which Linux command shows which shared libraries (containing external functions) are loaded by your program?",
+      commands: ["ldd ./a.out"],
+      expectedOutput: "libc.so",
+      hints: ["ldd = List Dynamic Dependencies."]
+    }
+  ]}
+/>
+
+### Final Summary
+We have broken the last barrier between code and data. Function pointers allow us to create flexible systems, universal algorithms, and even emulate object-oriented behavior in pure C. It is the secret that lets libraries like the standard library be so powerful and reusable.

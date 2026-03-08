@@ -1,0 +1,256 @@
+import VideoEmbed from '../../components/content/VideoEmbed';
+import Callout from '../../components/content/Callout';
+import KeyConcepts from '../../components/content/KeyConcepts';
+import CodeEditor from '../../components/exercises/CodeEditor';
+import Quiz from '../../components/exercises/Quiz';
+import HackerTerminal from '../../components/content/HackerTerminal';
+import Infographic from '../../components/content/Infographic';
+
+# Lezione 23: Interprete Stack-based (ToyFort)
+
+Benvenuti nella fase "evoluta" del corso. Dopo aver accumulato una solida base di C, è il momento di costruire qualcosa di reale: un **interprete per un linguaggio di programmazione**. In questa lezione inizieremo a scrivere **ToyFort**, un linguaggio ispirato a FORTH che utilizza una pila (stack) per ogni operazione.
+
+<VideoEmbed videoId="vYODKK8TQGE" title="Lezione 23: Interprete Stack-based (ToyFort)" />
+
+<KeyConcepts concepts={[
+  { title: "Linguaggi Stack-based", description: "Linguaggi dove i valori vengono salvati in una pila. Le funzioni (parole) prelevano i parametri dallo stack e inseriscono il risultato." },
+  { title: "Strutture Dati Ricorsive", description: "Definire oggetti che possono contenere altri oggetti dello stesso tipo (es. una lista di liste)." },
+  { title: "Ciclo di Vita: Compile & Exec", description: "Trasformare una stringa di testo in una lista di oggetti pronti per essere eseguiti dall'interprete." },
+  { title: "Bootstrapping (Argv)", description: "Usare argc e argv per caricare il programma e capire come l'interprete può cambiare comportamento in base al nome del binario." }
+]} />
+
+## Lo Stack e la Logica di ToyFort
+
+In ToyFort, se vuoi sommare 5 e 5, scrivi `5 5 +`. 
+1. `5` viene messo nello stack.
+2. Un altro `5` viene messo nello stack.
+3. `+` preleva i due 5, li somma e mette `10` nello stack.
+
+### Visualizzazione dello Stack Flow
+
+<Infographic 
+  title="Esempio: 5 DUP +"
+  description="Come cambia lo stack durante l'esecuzione."
+  items={[
+    { label: "Step 1: 5", value: "Stack: [5]", color: "blue" },
+    { label: "Step 2: DUP", value: "Stack: [5, 5]", color: "purple" },
+    { label: "Step 3: +", value: "Stack: [10]", color: "emerald" }
+  ]}
+/>
+
+---
+
+## Progettare gli Oggetti (TFObject)
+
+Per rappresentare i dati di ToyFort (interi, stringhe, simboli, liste), usiamo le **Unioni** e il **Reference Counting** che abbiamo imparato nelle lezioni precedenti.
+
+<CodeEditor 
+  initialCode={`#include <stdio.h>
+#include <stdlib.h>
+
+typedef enum { TF_INT, TF_STR, TF_SYM, TF_LIST } TFType;
+
+// L'oggetto principale di ToyFort
+typedef struct TFObject {
+    TFType type;
+    int ref_count;
+    union {
+        long long i;
+        struct { char *ptr; size_t len; } s; // Stringhe e Simboli
+        struct { struct TFObject **ele; size_t len; } l; // Liste (Programmi)
+    };
+} TFObject;
+
+// Stato del Parser durante la lettura del codice
+typedef struct TFParser {
+    char *prg;              // Il testo intero del programma
+    char *next_token;       // Il punto dove siamo arrivati a leggere
+} TFParser;
+
+// Contesto di Esecuzione (permette più interpreti isolati)
+typedef struct TFContext {
+    TFObject *stack;        // La nostra lista globale (usata come stack)
+} TFContext;
+
+// Funzione helper per allocazione sicura (xmalloc)
+void* xmalloc(size_t size) {
+    void *ptr = malloc(size);
+    if (!ptr) { 
+        fprintf(stderr, "Fatal: Out of memory\\n"); 
+        exit(1); 
+    }
+    return ptr;
+}
+
+int main(int argc, char **argv) {
+    if (argc < 2) {
+        fprintf(stderr, "Usage: %s <program_file>\\n", argv[0]);
+        return 1;
+    }
+    printf("Interprete ToyFort inizializzato per %s\\n", argv[1]);
+    return 0;
+}`} 
+  language="c" 
+/>
+
+<Callout type="tip" title="xmalloc & Panic">
+Salvatore introduce `xmalloc`: un wrapper intorno a `malloc` che interrompe il programma se la memoria finisce. È una pratica comune nei sistemi dove non è possibile gestire l'errore di memoria in modo sensato.
+</Callout>
+
+---
+
+## Controllo del Flusso: IF-ELSE Stack-based
+
+Salvatore spiega come implementare una condizionale usando le liste come "sottoprogrammi". In ToyFort, l'istruzione `IF` (o meglio `IF-ELSE`) preleva tre elementi dallo stack:
+1. Una lista che rappresenta il ramo **falso**.
+2. Una lista che rappresenta il ramo **vero**.
+3. Un booleano (**condizione**).
+
+<ComparisonTable 
+  title="Esecuzione IF-ELSE"
+  headers={["Passo", "Azione dello Stack", "Risultato"]}
+  rows={[
+    ["Input", "Push [RAMO_FALSO] [RAMO_VERO] COND", "Stack pronto"],
+    ["Esecuzione IF", "Pop 3 elementi", "Solo il ramo corretto viene 'valutato'"],
+    ["Esempio", "10 20 < [ \"Vero\" ] [ \"Falso\" ] IF", "Stack contiene \"Vero\""]
+  ]}
+/>
+
+<Callout type="info" title="Curiosità: argv[0] e Link Simbolici">
+Durante la lezione, Salvatore fa un excursus su come i programmi (come `ls` o `vim`) possano cambiare comportamento in base al nome con cui vengono richiamati (usando `argv[0]`). Questo è possibile grazie ai link simbolici in Unix ed è una tecnica potente per il bootstrapping di sistemi.
+</Callout>
+
+---
+
+## Esercitazione
+
+<Quiz 
+  questions={[
+    {
+      question: "Cosa significa che un linguaggio è 'Stack-based'?",
+      options: [
+        "Che usa molta memoria stack della CPU",
+        "Che le operazioni leggono e scrivono dati in una pila logica LIFO",
+        "Che non può usare variabili globali",
+        "Che è scritto in C"
+      ],
+      correctAnswer: 1,
+      explanation: "LIFO (Last In, First Out) è la logica fondamentale di ToyFort: l'ultimo valore inserito è il primo a essere usato dalle funzioni."
+    },
+    {
+      question: "Qual è l'effetto del comando `5 DUP *` in ToyFort?",
+      options: [
+        "Mette 5 e poi lo cancella",
+        "Eleva 5 al quadrato (mette 25 nello stack)",
+        "Somma 5 + 5",
+        "Stampa 5 due volte"
+      ],
+      correctAnswer: 1,
+      explanation: "DUP duplica il 5, * moltiplica i due 5 presenti in cima alla pila."
+    },
+    {
+      question: "Perché usiamo `struct TFObject **ele` per le liste?",
+      options: [
+        "È un errore di battitura",
+        "Perché una lista è un array di puntatori a oggetti, permettendo l'eterogeneità",
+        "Perché le liste sono più veloci con due asterischi",
+        "Per compatibilità con Windows"
+      ],
+      correctAnswer: 1,
+      explanation: "Un array di puntatori permette alla lista di contenere contemporaneamente un intero, una stringa o un'altra lista."
+    },
+    {
+      question: "A cosa serve il campo `ref_count` in TFObject?",
+      options: [
+        "A contare quante volte viene chiamata la funzione",
+        "A gestire la memoria in modo semi-automatico, eliminando l'oggetto quando nessuno lo usa più",
+        "A contare quanti bit occupa l'oggetto",
+        "È il numero di serie dell'oggetto"
+      ],
+      correctAnswer: 1,
+      explanation: "Il Reference Counting permette di condividere lo stesso oggetto in più liste o stack senza duplicarlo in RAM."
+    },
+    {
+      question: "Cosa fa la funzione `xmalloc`?",
+      options: [
+        "Alloca memoria extra",
+        "È una malloc che termina il programma in caso di errore (Out of Memory)",
+        "Libera la memoria automaticamente",
+        "Cripta i dati allocati"
+      ],
+      correctAnswer: 1,
+      explanation: "Serve a semplificare il codice evitando migliaia di controlli `if (ptr == NULL)` sparsi nel programma."
+    }
+  ]} 
+/>
+
+<Quiz 
+  title="Hacker Challenge"
+  questions={[
+    {
+      question: "In ToyFort, come scriveresti l'espressione `(3 + 4) * 2`?",
+      options: [
+        "3 + 4 * 2",
+        "3 4 + 2 *",
+        "* + 3 4 2",
+        "2 3 4 + *"
+      ],
+      correctAnswer: 1,
+      explanation: "In notazione postfissa (RPN): metti 3 e 4, esegui +, metti 2, esegui *. Risultato 14."
+    },
+    {
+      question: "Se implementiamo l'IF come `condizione [ramo_vero] [ramo_falso] IF`, cosa deve fare la funzione IF internamente?",
+      options: [
+        "Eseguire entrambi i rami",
+        "Prelevare 3 elementi, controllare il booleano ed eseguire la lista corrispondente",
+        "Stampare un errore",
+        "Riavviare l'interprete"
+      ],
+      correctAnswer: 1,
+      explanation: "L'IF in ToyFort consuma la condizione e i due blocchi di codice (liste) dallo stack, decidendo quale 'valutare' (exec)."
+    },
+    {
+      question: "Perché un'unione anonima è utile in `TFObject`?",
+      options: [
+        "Perché è più sicura",
+        "Per accedere direttamente ai campi (es. `obj->i`) senza dover scrivere il nome dell'unione intermedia",
+        "Perché occupa meno spazio di un'unione normale",
+        "Non è possibile usare unioni anonime in C"
+      ],
+      correctAnswer: 1,
+      explanation: "Semplifica molto la sintassi del codice nell'interprete, rendendolo più leggibile e simile a un linguaggio ad alto livello."
+    }
+  ]} 
+/>
+
+<HackerTerminal 
+  challenges={[
+    {
+      id: "stack-visual",
+      title: "Trace dello Stack",
+      description: "Dato il programma `10 20 SWAP -`, quale valore rimane nello stack alla fine? (SWAP scambia i due elementi in cima)",
+      commands: ["10"],
+      expectedOutput: "10",
+      hints: ["10, 20 -> SWAP -> 20, 10 -> Sottrai 20 - 10."]
+    },
+    {
+      id: "type-detect",
+      title: "Riconoscimento Tipi",
+      description: "Nel parser di Salvatore, se una parola inizia con '\"', quale tipo di oggetto viene creato?",
+      commands: ["TF_STR"],
+      expectedOutput: "TF_STR",
+      hints: ["Le virgolette delimitano le stringhe."]
+    },
+    {
+      id: "recursive-list",
+      title: "Profondità Liste",
+      description: "Quanti asterischi servirebbero per dichiarare un puntatore a un array di puntatori a oggetti se non usassimo i typedef?",
+      commands: ["**"],
+      expectedOutput: "**",
+      hints: ["È un puntatore alla base di un array di puntatori."]
+    }
+  ]}
+/>
+
+### Prossimi Passi
+Nella prossima lezione passeremo all'azione implementando il parser e il ciclo di esecuzione (eval). Per ora, assicuratevi di aver compreso bene come modellare la memoria per ospitare un intero linguaggio!

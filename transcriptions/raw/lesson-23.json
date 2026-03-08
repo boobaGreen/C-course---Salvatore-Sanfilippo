@@ -1,0 +1,1432 @@
+[
+  {
+    "start": 40.39999999999999,
+    "end": 44.9,
+    "text": " Bene, bene, a questo punto siamo in una fase evoluta di questo corso di programmazione"
+  },
+  {
+    "start": 44.9,
+    "end": 50.82,
+    "text": " in C, nel senso che abbiamo esplorato una quantità di concetti di questo linguaggio"
+  },
+  {
+    "start": 50.82,
+    "end": 58.42,
+    "text": " dalle strutture, le puntatori a funzione, a come si usano i puntatori per manipolare"
+  },
+  {
+    "start": 58.42,
+    "end": 64.86,
+    "text": " i dati in memoria, e così via che possiamo dire di avere una quantità sufficiente di strumenti"
+  },
+  {
+    "start": 64.86,
+    "end": 71.26,
+    "text": " per cimentarci a fare qualcosa di vero, perché noi potremmo continuare nelle sporre delle"
+  },
+  {
+    "start": 71.26,
+    "end": 76.56,
+    "text": " funzionalità del C o della libreria standard o potremmo addendrarci come faremo prima o"
+  },
+  {
+    "start": 76.56,
+    "end": 84.5,
+    "text": " poi nelle chiamate di sistema POSIX, ma per imparare a usare il C davvero e non è una"
+  },
+  {
+    "start": 84.8,
+    "end": 88.68,
+    "text": " versione che è limitata solo a questo linguaggio di programmazione, ma per imparare a programmare"
+  },
+  {
+    "start": 88.68,
+    "end": 95.78,
+    "text": " in maniera forte bisogna capire come questi strumenti si mettono assieme quando si deve"
+  },
+  {
+    "start": 95.78,
+    "end": 101.94,
+    "text": " realizzare qualcosa di non banale. Una cosa non banale è un'interprete per un linguaggio"
+  },
+  {
+    "start": 101.94,
+    "end": 106.76,
+    "text": " di programmazione, è il più semplice linguaggio di programmazione che noi possiamo scrivere"
+  },
+  {
+    "start": 106.76,
+    "end": 113.42,
+    "text": " a iniziare da questa lezione, non credo che finiremo in 20 minuti, è una versione giocattolo"
+  },
+  {
+    "start": 113.42,
+    "end": 122.42,
+    "text": " di FORT, FORT è un linguaggio basato sullo STARK. Per esempio un programma FORT o meglio"
+  },
+  {
+    "start": 122.42,
+    "end": 128.22,
+    "text": " qui non utilizzeremo davvero la sintasse esatta di FORT in tutti i casi, ma di questo"
+  },
+  {
+    "start": 128.22,
+    "end": 132.48,
+    "text": " ideale il linguaggio di programmazione che noi vogliamo scrivere, però per esempio"
+  },
+  {
+    "start": 132.48,
+    "end": 140.3,
+    "text": " se io scrivo 5 5 più è un programma che somma il numero 5 con numero 5 o potrei scriverlo"
+  },
+  {
+    "start": 140.3,
+    "end": 145.92,
+    "text": " stesso programma come 5 dup più. Andiamo a vedere cos'è che fanno questi programmi"
+  },
+  {
+    "start": 145.92,
+    "end": 151.54,
+    "text": " e che cos'è un linguaggio di programmazione basato sullo STARK. Quindi io faccio finta,"
+  },
+  {
+    "start": 151.78,
+    "end": 156.46,
+    "text": " questo è il programma 1 e questo è il programma 2, sono due programmi diversi, facciamo finta"
+  },
+  {
+    "start": 156.46,
+    "end": 162.74,
+    "text": " di essere l'interprete, inizio dal programma 1, 5, io ho una pila che si chiama lo STARK"
+  },
+  {
+    "start": 162.74,
+    "end": 170.6,
+    "text": " di valori, quando incontro 5 che è un valore letterale io metto 5 nello STARK, questo"
+  },
+  {
+    "start": 170.6,
+    "end": 178.1,
+    "text": " è il mio STARK, il mio STARK era contiene 5, poi quindi questo parola, allora i linguaggi"
+  },
+  {
+    "start": 178.1,
+    "end": 184.08,
+    "text": " STARK basati sono basati sull'idea di parola, è una sequenza di parole quindi sostanzialmente"
+  },
+  {
+    "start": 184.08,
+    "end": 190.38,
+    "text": " il programma è una lista. Vado alla seconda parola e c'è di nuovo 5, siccome è sempre"
+  },
+  {
+    "start": 190.38,
+    "end": 201.26,
+    "text": " un valore e non è una funzione, io accodo di nuovo 5 il mio STARK. Finalmente trovo come"
+  },
+  {
+    "start": 201.26,
+    "end": 207.6,
+    "text": " terza parola del mio programma una funzione, siccome questa è una funzione io invoco questa"
+  },
+  {
+    "start": 207.6,
+    "end": 216.02,
+    "text": " funzione più, questa funzione fa di prelevare i due valori sullo STARK che sono i più,"
+  },
+  {
+    "start": 216.54000000000002,
+    "end": 222.46,
+    "text": " gli ultimi due che sono stati inseriti, quindi i due valori in cima allo STARK, lì"
+  },
+  {
+    "start": 222.46,
+    "end": 229.12,
+    "text": " somma quindi lì preleva, non ci sono più, ma ci sono diciamo qua dentro del contesto della"
+  },
+  {
+    "start": 229.88,
+    "end": 237.36,
+    "text": " funzione più, lì preleva, lì somma, è questo il risultato, è inserisce estudi, nello STARK il valore"
+  },
+  {
+    "start": 238.4,
+    "end": 245.22,
+    "text": " risultato, quindi il mio STARK vorrà 10 alla fine di questo programma. Andiamo ora a"
+  },
+  {
+    "start": 245.22,
+    "end": 252.22,
+    "text": " eseguire partendo con lo stack vuoto e il programma numero 2, incontro 5 e siccome un valore lo metto dentro lo stack"
+  },
+  {
+    "start": 253.32,
+    "end": 258.02,
+    "text": " incontro stavolta direttamente una funzione dupe, dupe fa questa cosa"
+  },
+  {
+    "start": 260.06,
+    "end": 269.86,
+    "text": " preleva o possiamo dire che o preleva dallo stack il valore più in cima 5 e lo inserisceий 2 volte"
+  },
+  {
+    "start": 270.52000000000004,
+    "end": 278.42,
+    "text": " o potremmo dire che è un'alternativa di implementazione, che è guarda che valore c'è in GimalOstack"
+  },
+  {
+    "start": 278.42,
+    "end": 285.04,
+    "text": " lo reinserisce nella risultato e è di duplicare l'ultimo valore in GimalOstack."
+  },
+  {
+    "start": 285.28,
+    "end": 294.44,
+    "text": " Quindi io gioco a 5 e 5 e poi, quando incontro più e succede quello che succedeva prima, prendo 5 e 5 risommo,"
+  },
+  {
+    "start": 294.44,
+    "end": 299.4,
+    "text": " li prellevo dello stack risommo e metto 10 come risultato."
+  },
+  {
+    "start": 300.24,
+    "end": 304.68,
+    "text": " Un linguaggio stack based fa esattamente questo."
+  },
+  {
+    "start": 305.74,
+    "end": 315.02,
+    "text": " Uno potrebbe chiedersi ma come faccio poi a t'andare oltre, come faccio fare un IFF,"
+  },
+  {
+    "start": 315.22,
+    "end": 318.5,
+    "text": " come faccio fare un ciclo e tutte queste cose."
+  },
+  {
+    "start": 318.74,
+    "end": 321.34,
+    "text": " Lo vedremo dopo, però ve lo voglio accennare immediatamente."
+  },
+  {
+    "start": 322.84000000000003,
+    "end": 328.5,
+    "text": " Io ho visto che 5 è un valore, può essere anche un valore, per esempio un programma"
+  },
+  {
+    "start": 328.5,
+    "end": 335.02,
+    "text": " valido potrebbe essere Hello World e STRLN."
+  },
+  {
+    "start": 335.56,
+    "end": 338.78,
+    "text": " Questo valore farà questo programma avrà questo effetto."
+  },
+  {
+    "start": 338.92,
+    "end": 345.68,
+    "text": " Io prima incontro questo valore, stringa, lo metto sullo stack, poi c'ho questa funzione"
+  },
+  {
+    "start": 346.98,
+    "end": 356.84,
+    "text": " STRLN che prende il valore in cima allo stack e lo preleva, quindi non c'è più, guarda"
+  },
+  {
+    "start": 356.84,
+    "end": 362.5,
+    "text": " quando è lunga questa stringa, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 e mette sullo stack"
+  },
+  {
+    "start": 362.5,
+    "end": 369.54,
+    "text": " il valore 11 e poi magari potevo avere anche un apprint e l'apprint preleva dallo stack"
+  },
+  {
+    "start": 369.54,
+    "end": 377.34,
+    "text": " l'ultimo valore è lo stampa avvito, quindi il risultato sarebbe stato di avere 11 stampato"
+  },
+  {
+    "start": 377.34,
+    "end": 381.5,
+    "text": " avvito, quindi questo è l'output del programma."
+  },
+  {
+    "start": 384.04,
+    "end": 391.8,
+    "text": " Ora, visto che i diversi valori possono essere non solo numerici, perché io non potrei avere"
+  },
+  {
+    "start": 391.8,
+    "end": 396.7,
+    "text": " come valore un sottoprogramma."
+  },
+  {
+    "start": 396.7,
+    "end": 400.04,
+    "text": " Abbiamo detto che un programma alla fine in questo tipo di linguaggio è una lista."
+  },
+  {
+    "start": 400.86,
+    "end": 409.56,
+    "text": " Quindi io posso fare per esempio che DUP per, quindi sostanzialmente questo programma qui"
+  },
+  {
+    "start": 409.56,
+    "end": 413.66,
+    "text": " farebbe l'elevazione al quadrato del numero che c'è in gimalo stack, perché DUP lo duplica"
+  },
+  {
+    "start": 413.66,
+    "end": 420.6,
+    "text": " e PER fa l'uno per l'altro e siccome due valori sono uguali è x per x, quindi l'eleva"
+  },
+  {
+    "start": 420.6,
+    "end": 421.22,
+    "text": " al quadrato."
+  },
+  {
+    "start": 422.40000000000003,
+    "end": 427.86,
+    "text": " Ma io posso fare invece anche DUP plus, quindi questi sono due sottoprogrammi e questo è"
+  },
+  {
+    "start": 427.86,
+    "end": 434.32,
+    "text": " il ramo vero dell'IF, questo è il ramo falso dell'IF e qua ci metto un'espressione che"
+  },
+  {
+    "start": 434.32,
+    "end": 442.46,
+    "text": " è quella che deve essere verificata, per esempio se è 10 minore di 20, IF, qua a questo punto"
+  },
+  {
+    "start": 442.46,
+    "end": 450.92,
+    "text": " è anche questo un sottoprogramma e no scusate l'ho sbagliato, ecco così."
+  },
+  {
+    "start": 451.68,
+    "end": 455.98,
+    "text": " In sostanza quello che succede, guardate in questo programma che cosa succede, come è"
+  },
+  {
+    "start": 455.98,
+    "end": 457.06,
+    "text": " implementata l'IF."
+  },
+  {
+    "start": 459.02,
+    "end": 464.76,
+    "text": " Quindi c'è questo stack, incontro un primo valore, questo è un valore che è una lista,"
+  },
+  {
+    "start": 464.98,
+    "end": 470.5,
+    "text": " che in qualità caso rappresendo un programma, e lo metto nel mio stack, incontro il secondo"
+  },
+  {
+    "start": 470.5,
+    "end": 477.46,
+    "text": " valore e lo metto nel mio stack, incontro il terzo valore, però questo qui scusate,"
+  },
+  {
+    "start": 477.68,
+    "end": 483.42,
+    "text": " devo scriverlo così perché l'operatore qua va sempre a destra, prima devo fare il push"
+  },
+  {
+    "start": 483.42,
+    "end": 487.98,
+    "text": " nello stack dei miei valori e poi c'è la mia funzione che opera sui valori."
+  },
+  {
+    "start": 488.24,
+    "end": 493.64,
+    "text": " Ok, comunque questo significa, se 10 minore a 20 bisogna un po' abituarsi alla sintassi,"
+  },
+  {
+    "start": 493.64,
+    "end": 494.22,
+    "text": " lo capisco."
+  },
+  {
+    "start": 495.22,
+    "end": 500.7,
+    "text": " Quindi metto anche questa lista che però rappresenta un programma nel mio stack, quando"
+  },
+  {
+    "start": 500.7,
+    "end": 506.46,
+    "text": " poi viene chiamata l'IF alla fine, l'IF non fa che prelevare tutta sta roba dallo stack."
+  },
+  {
+    "start": 506.96,
+    "end": 513.42,
+    "text": " Prima esegue questo sottoprogramma qui, il terzo, quindi tutti e tre i argomenti della"
+  },
+  {
+    "start": 513.42,
+    "end": 520.26,
+    "text": " IF devono essere liste di questo nostro linguaggio di programmazione valide, lo esegue, quindi"
+  },
+  {
+    "start": 520.26,
+    "end": 524.84,
+    "text": " 10 è minore di 20 sì, quindi restituisceectorie nello stack."
+  },
+  {
+    "start": 527.1,
+    "end": 529.0,
+    "text": " Ma beh non è anche che ci passa lo stack."
+  },
+  {
+    "start": 529.42,
+    "end": 536.22,
+    "text": " Se invece guarda se quella espressione ritorna a un valore vero o meglio, siccome segue il"
+  },
+  {
+    "start": 536.22,
+    "end": 542.86,
+    "text": " programma, va a finire effettivamente nello stack perché stai seguendo un programma e"
+  },
+  {
+    "start": 542.86,
+    "end": 547.9,
+    "text": " quindi noi abbiamo uno stack unico e globale in questo linguaggio di programmazione e quindi"
+  },
+  {
+    "start": 547.9,
+    "end": 556.58,
+    "text": " qua diventa true, poi preleva dallo stack questo valore, lo osserva se è vero esegue"
+  },
+  {
+    "start": 557.34,
+    "end": 562.84,
+    "text": " il primo sottoprogramma che ha prelevato, se è falso esegue il secondo sottoprogramma,"
+  },
+  {
+    "start": 562.88,
+    "end": 567.78,
+    "text": " in questo caso è true, quindi facciamo finta che prima lo stack aveva qua a 20, prima"
+  },
+  {
+    "start": 567.78,
+    "end": 572.9,
+    "text": " ancora di esserci quel true che avevamo inserito, quindi esegue questo sottoprogramma, duplica"
+  },
+  {
+    "start": 572.9,
+    "end": 583.56,
+    "text": " il valore lo multiplica e quindi vendi per vendi 2 per 2, 4 non fa 400, e qui lo stack"
+  },
+  {
+    "start": 583.56,
+    "end": 589.2,
+    "text": " avrà solo 400, quindi si possono implementare anche le condizionali, voi direte caspita"
+  },
+  {
+    "start": 589.2,
+    "end": 595.48,
+    "text": " ma estrana la condizionale scritta così, però poi ci aiuta il fatto di scriverla così"
+  },
+  {
+    "start": 598.4,
+    "end": 608.38,
+    "text": " duplas, magari questi qua si possono anche indentare così 10-20, ok quindi praticamente"
+  },
+  {
+    "start": 608.38,
+    "end": 613.6,
+    "text": " l'indendazione funzionerebbe in questo caso esattamente al contrario, sono dei linguaggi"
+  },
+  {
+    "start": 613.6,
+    "end": 620.88,
+    "text": " che hanno una logica diciamo diversa, in realtà per rendere questo problema più leggibile"
+  },
+  {
+    "start": 620.88,
+    "end": 630.42,
+    "text": " è meglio se la condizione è il primo argomento, in questo modo il programma diventa più"
+  },
+  {
+    "start": 630.42,
+    "end": 639.32,
+    "text": " leggibile che perché diventa così, condizione questo o questo, if, mi sembra un modo più"
+  },
+  {
+    "start": 639.32,
+    "end": 645.62,
+    "text": " interessante di distrutturarlo, e poi inoltre anche vero che questo qui si dovrebbe chiamare"
+  },
+  {
+    "start": 645.62,
+    "end": 656.38,
+    "text": " ifelse, perché if sarebbe la forma più compatta in cui io posso fare if, quindi questa operazione"
+  },
+  {
+    "start": 656.38,
+    "end": 663.24,
+    "text": " viene svolta solo se in effetti questo programma qui è vero, bene, come si fa a fare tutta"
+  },
+  {
+    "start": 663.24,
+    "end": 668.64,
+    "text": " sta roba qui? Dobbiamo usare ovviamente le strutture per rappresentare i nostri oggetti,"
+  },
+  {
+    "start": 668.78,
+    "end": 674.2,
+    "text": " dobbiamo usare i puntatori per fare il parsing di questo programma, dobbiamo usare i puntatori"
+  },
+  {
+    "start": 674.2,
+    "end": 682.28,
+    "text": " a funzione probabilmente, ora vedremo per modellare comunque i diversi tipi di comandi"
+  },
+  {
+    "start": 682.28,
+    "end": 688.38,
+    "text": " che diciamo di funzioni che questo nostro linguaggio di programmazione accetta è così via, questo"
+  },
+  {
+    "start": 688.38,
+    "end": 694.2,
+    "text": " mi sembra comunque veramente mettere assieme tanta della roba che noi c'eravamo, c'eravamo"
+  },
+  {
+    "start": 694.2,
+    "end": 699.44,
+    "text": " detti, la prima cosa da fare quando si scrive, allora questo qui siccome sono tutti derivati"
+  },
+  {
+    "start": 699.44,
+    "end": 707.62,
+    "text": " dal fort chiamiamolo toyfort.c, quando si crea un programma di ricerta o complessità"
+  },
+  {
+    "start": 708.32,
+    "end": 714.2,
+    "text": " è bene partire dalle strutture dati, quindi io avrò una rappresentazione di degli oggetti"
+  },
+  {
+    "start": 714.2,
+    "end": 723.24,
+    "text": " di questo linguaggio di programmazione, la posso chiamare strac, tfeo, toyfort object,"
+  },
+  {
+    "start": 723.24,
+    "end": 735.58,
+    "text": " object e avrà questo toy object un type, perché può essere un intero, una string,"
+  },
+  {
+    "start": 735.92,
+    "end": 749.56,
+    "text": " può essere tante cose che ora vedremo, qua definiamo tfeo type int zero, tfeo type str1,"
+  },
+  {
+    "start": 749.56,
+    "end": 756.52,
+    "text": " no, qua si poteva usare dell'enum che noi non abbiamo ancora trattato ma comunque"
+  },
+  {
+    "start": 756.52,
+    "end": 759.76,
+    "text": " è equivalente, non è questo il punto, il punto è capire come si mettono assieme le"
+  },
+  {
+    "start": 759.76,
+    "end": 771.34,
+    "text": " cose ad alto livello, dal basso all'alto livello, str list, anzi prima i booleani perché poi"
+  },
+  {
+    "start": 771.34,
+    "end": 778.74,
+    "text": " abbiamo le comparazioni per fare appunto cicli if, cicli for, tutte le cose qua che"
+  },
+  {
+    "start": 778.74,
+    "end": 788.84,
+    "text": " ci possono servire, forse che poi la lista comunque è anche il tipo nativo del linguaggio"
+  },
+  {
+    "start": 788.84,
+    "end": 797.58,
+    "text": " quando si vuole diciamo appunto programmare, che poi la lista è tra l'altro la restesa"
+  },
+  {
+    "start": 797.58,
+    "end": 803.14,
+    "text": " la presentazione che si usa per i programmi stessi in questo toyfort, dopo di che qui"
+  },
+  {
+    "start": 803.14,
+    "end": 810.44,
+    "text": " dobbiamo usare una union, le nostre union anonime di cui avevamo parlato, allora in base al"
+  },
+  {
+    "start": 810.44,
+    "end": 818.56,
+    "text": " tipo ovviamente qui vogliamo un intero, o meglio, forse qui facciamo una cosa, allora"
+  },
+  {
+    "start": 818.56,
+    "end": 824.24,
+    "text": " int, in realtà ci servirebbero va bene anche tipi floating point, ma ci incazziamo troppo"
+  },
+  {
+    "start": 824.24,
+    "end": 836.82,
+    "text": " per ora facciamo le cose semplici, i, poi la stringa sarebbe struct str, quacci vuole"
+  },
+  {
+    "start": 836.82,
+    "end": 845.66,
+    "text": " un char str, poi inter, size tlen, perché la nostra stringa deve avere un puntatore, dobbiamo"
+  },
+  {
+    "start": 845.66,
+    "end": 852.62,
+    "text": " sapere anche quando è lunga, così non abbiamo neanche da crearci problemi con null termination"
+  },
+  {
+    "start": 852.62,
+    "end": 860.94,
+    "text": " eccetera eccetera, poi il buleano, ma beh lo mettiamo sempre qui, che poi alla fine"
+  },
+  {
+    "start": 861.74,
+    "end": 867.48,
+    "text": " b, cioè potremmo usare per i buleani potremmo usare benissimo e forzarlo a essere true"
+  },
+  {
+    "start": 867.48,
+    "end": 875.64,
+    "text": " or false, e invece la lista era cosa un po' più complicata, sostanzialmente struct tf"
+  },
+  {
+    "start": 875.64,
+    "end": 890.56,
+    "text": " object, allora struct list ed è un puntatore, ha un puntatore di, la chiamo elements, ele,"
+  },
+  {
+    "start": 892.08,
+    "end": 899.16,
+    "text": " e poi size tlen, allora qui perché ho fatto questa cosa qua? Perché qui noi finiremo"
+  },
+  {
+    "start": 899.16,
+    "end": 907.26,
+    "text": " per avere questa lista che è un array di puntatori ad oggetti tf object, perché ci vanno dentro"
+  },
+  {
+    "start": 907.26,
+    "end": 915.12,
+    "text": " questa lista altri oggetti dello stesso tipo, quindi è una definizione ricorsiva, e quindi"
+  },
+  {
+    "start": 915.12,
+    "end": 925.8,
+    "text": " il mio array è un puntatore a dei puntatori di tipo struct tf object, quindi qua ci vogliono"
+  },
+  {
+    "start": 925.8,
+    "end": 936.42,
+    "text": " due asterischi, e non uno, questo significa che se io scrivo per dire l di zero, devo togliere"
+  },
+  {
+    "start": 936.42,
+    "end": 943.52,
+    "text": " un asterisco e quindi mi ritrovo un puntatore a quell'elemento, d'accordo? E quindi poi"
+  },
+  {
+    "start": 943.52,
+    "end": 948.06,
+    "text": " lo posso manipolare, quindi voi pensate sempre che quando ve referenziate il puntatore con"
+  },
+  {
+    "start": 948.06,
+    "end": 953.22,
+    "text": " la parentesi quadre, togliete un asterisco di qua, e quello che vi resta è appunto un"
+  },
+  {
+    "start": 953.22,
+    "end": 958.68,
+    "text": " puntatore a un oggetto che poi potete utilizzare come volete, quindi qua di solito quello"
+  },
+  {
+    "start": 958.68,
+    "end": 963.58,
+    "text": " che faremo è quando abbiamo una lista noi avremo un ciclo for e faremo l di zero, l di"
+  },
+  {
+    "start": 963.58,
+    "end": 972.88,
+    "text": " uno, l di due, l di tre e avremo tutti i puntatori degli oggetti contenuti. Mi sa che per semplificarci"
+  },
+  {
+    "start": 972.88,
+    "end": 980.92,
+    "text": " la vita, qui ci mettiamo pure un in-draft count, usiamo il reference counting in questo piccolo"
+  },
+  {
+    "start": 980.92,
+    "end": 986.14,
+    "text": " linguaggio di programmazione, perché così ci togliamo dalle scatole una quantità bestiale"
+  },
+  {
+    "start": 986.14,
+    "end": 994.8,
+    "text": " di cose. In realtà, noi possiamo usare addirittura, perché ci serve un stack, avete visto che"
+  },
+  {
+    "start": 994.8,
+    "end": 999.2,
+    "text": " noi abbiamo gli stack in questo linguaggio? Eh, lo stack è una cosa fondamentale, lo stack"
+  },
+  {
+    "start": 999.2,
+    "end": 1006.2,
+    "text": " globale dove i valori vengono inseriti e tolti, ma tutto sommato noi possiamo usare la lista"
+  },
+  {
+    "start": 1006.2,
+    "end": 1010.96,
+    "text": " come stack, perché questa lista è un array di elementi, noi possiamo accodare elementi,"
+  },
+  {
+    "start": 1011.06,
+    "end": 1016.14,
+    "text": " possiamo prenderli dalla fine e toglierli, insomma possiamo fare tutto quello che ci serve con la"
+  },
+  {
+    "start": 1016.14,
+    "end": 1021.88,
+    "text": " lista, quindi questa cosa qui effettivamente la riusciamo a scavalcare così. Ci serve"
+  },
+  {
+    "start": 1021.88,
+    "end": 1028.58,
+    "text": " ancora un'altra cosa, noi abbiamo la necessità di avere una funzione che è dato un programma tipo"
+  },
+  {
+    "start": 1028.58,
+    "end": 1035.7,
+    "text": " 5.5.dupp che è una stringa incisa sostanzialmente che ci arrivata qualche parte, la leggiamo dal"
+  },
+  {
+    "start": 1035.7,
+    "end": 1044.68,
+    "text": " file, ci ha scrive l'utende in modalità interattiva, qualche volete, deve trasformare questa stringa"
+  },
+  {
+    "start": 1044.68,
+    "end": 1058.38,
+    "text": " in un oggetto tf object, tra l'altro qua facciamo una cosa, type def struct tf object tf object, così"
+  },
+  {
+    "start": 1058.38,
+    "end": 1066.04,
+    "text": " che noi non dobbiamo scrivere ogni volta struct tf object, ma possiamo scrivere tf object e basta,"
+  },
+  {
+    "start": 1066.16,
+    "end": 1073.98,
+    "text": " visto che lo scriveremo miliardo di volte, però dicevo a noi ci serve poi una funzione che,"
+  },
+  {
+    "start": 1074.78,
+    "end": 1083.66,
+    "text": " data la stringa del programma, ci ritornerebbe in realtà un oggetto tf object che lo ha toccanizzato,"
+  },
+  {
+    "start": 1083.66,
+    "end": 1090.92,
+    "text": " lo ha tagliato in parti, tipo in le parti qui quali sono, sono il 5.5.dupp, però dobbiamo sapere che,"
+  },
+  {
+    "start": 1092.8,
+    "end": 1099.68,
+    "text": " ah attenzione però, attenzione, questo qui dupp è una cosa diversa da tutti questi tipi qui,"
+  },
+  {
+    "start": 1099.92,
+    "end": 1105.18,
+    "text": " è sostanzialmente un simbolo si chiama, diciamo le linguaggi di programmazione e gli interpreti"
+  },
+  {
+    "start": 1105.18,
+    "end": 1114.3,
+    "text": " di solito, una cosa che non è nessun tipo letterale, ma che comunque, cioè o meglio noi chiamiamo questa"
+  },
+  {
+    "start": 1114.3,
+    "end": 1119.54,
+    "text": " roba qui, questo tipo di dato qui che non è tra virgolette ed è una parola singola,"
+  },
+  {
+    "start": 1119.64,
+    "end": 1123.7,
+    "text": " non ha caratteri speciali o meglio alcuni caratteri speciali, ah perché simboli possono"
+  },
+  {
+    "start": 1123.7,
+    "end": 1128.98,
+    "text": " essere pure più eccetera eccetera, lo chiamiamo simbolo così, sappiamo che quando troviamo un simbolo,"
+  },
+  {
+    "start": 1129.34,
+    "end": 1133.92,
+    "text": " noi vogliamo eseguire quel simbolo e non metterlo dentro lo stack, quindi questo simbolo"
+  },
+  {
+    "start": 1133.92,
+    "end": 1139.92,
+    "text": " sarà effettivamente associato, poi ci sarà una tabella che collega il nome del simbolo alla"
+  },
+  {
+    "start": 1139.92,
+    "end": 1153.46,
+    "text": " funzione da chiamare, quindi io qua ho bisogno di define tfog type symbol 4, allora qua type"
+  },
+  {
+    "start": 1153.46,
+    "end": 1161.86,
+    "text": " mettiamo tfog type a sterisco per fare capire che queste define poi sono i valori che prende"
+  },
+  {
+    "start": 1161.86,
+    "end": 1172.22,
+    "text": " sta roba qui, il type, ehh, quaccia int, facciamo una cosa, noi per il simbolo utilizzeremo"
+  },
+  {
+    "start": 1172.22,
+    "end": 1177.08,
+    "text": " sostanzialmente questo qui la stringa, quindi non dobbiamo definire un'altra struttura perché"
+  },
+  {
+    "start": 1177.08,
+    "end": 1184.06,
+    "text": " è questa no, pondatore lunghezza, allora per fare il parsing e di doccanizzare questa cosa,"
+  },
+  {
+    "start": 1184.16,
+    "end": 1190.42,
+    "text": " trasformarla poi alla fine in una struttura, allora ci serve una struct, allora sembra che facciamo"
+  },
+  {
+    "start": 1190.42,
+    "end": 1207.58,
+    "text": " type def struct tf toyfort parser tf parser, allora per fare il parsing noi che ci serve,"
+  },
+  {
+    "start": 1207.58,
+    "end": 1220.3,
+    "text": " ci serve charp dove siamo arrivati allo a char prg, program to compile, into a list,"
+  },
+  {
+    "start": 1223.7,
+    "end": 1232.38,
+    "text": " charp next token to parse, così noi ci portiamo avanti questo, questo oggetto qui, ci lo passiamo"
+  },
+  {
+    "start": 1232.38,
+    "end": 1237.08,
+    "text": " in giro per le nostre funzioni di parsing e abbiamo sempre l'inizio della stringa che"
+  },
+  {
+    "start": 1237.08,
+    "end": 1242.98,
+    "text": " è la prigena del programma e in questo caso ci accondendiamo benissimo che sia terminato da null"
+  },
+  {
+    "start": 1242.98,
+    "end": 1249.62,
+    "text": " perché comunque dentro del nostro programma un byte a zero non si può avere, quindi ci sta benissimo"
+  },
+  {
+    "start": 1249.62,
+    "end": 1256.72,
+    "text": " che le cose vado così senza complicarci la vita con lunghezza e cose del genere e qua invece"
+  },
+  {
+    "start": 1258.6200000000001,
+    "end": 1264.76,
+    "text": " charp next token to parse, dove siamo arrivati col parsing quindi noi questo qui praticamente"
+  },
+  {
+    "start": 1264.76,
+    "end": 1271.72,
+    "text": " all'inizio è coincite con prg, poi mamma mia facciamo il parsing, andiamo avanti e così via,"
+  },
+  {
+    "start": 1272.1,
+    "end": 1284.4,
+    "text": " ok int main void int argc in char argv dovremmo leggere praticamente un programma da un file,"
+  },
+  {
+    "start": 1285.5600000000002,
+    "end": 1292.62,
+    "text": " guarda all'inizio facciamo una cosa, facciamo la più facile usiamo la funzione,"
+  },
+  {
+    "start": 1293.96,
+    "end": 1298.34,
+    "text": " cioè leggiamo una riga praticamente direttamente dallo standard input,"
+  },
+  {
+    "start": 1298.6,
+    "end": 1302.32,
+    "text": " cioè noi abbiamo il nostro programma linguaggio di pronazione, l'agente ci scrive praticamente"
+  },
+  {
+    "start": 1302.32,
+    "end": 1307.82,
+    "text": " quando un piccolo prompt, il programma pre-main-view il programma viene seguito perché così il ciclo"
+  },
+  {
+    "start": 1307.82,
+    "end": 1313.86,
+    "text": " di sviluppo è più veloce o forse ci incasiniamo che ogni volta dobbiamo ripetere, stiamo guardando"
+  },
+  {
+    "start": 1313.86,
+    "end": 1322.44,
+    "text": " facciamo una cosa invece andiamo int char argv int argc, così a noi ci arriva un"
+  },
+  {
+    "start": 1322.44,
+    "end": 1328.78,
+    "text": " array di string che sono quelle date nella linea di comando dal c e quando ne abbiamo,"
+  },
+  {
+    "start": 1329.7000000000003,
+    "end": 1334.9,
+    "text": " allora quando già solo solo per il fatto che io ho eseguito il programma, guardate,"
+  },
+  {
+    "start": 1336.9,
+    "end": 1344.08,
+    "text": " argv di 0 è sempre il nome del mio programma e argc è 1 quindi non può essere mai 0,"
+  },
+  {
+    "start": 1345.08,
+    "end": 1371.94,
+    "text": " compiliamo questo programma che non funziona niente, allora prendete tutto include std io.h ed è"
+  },
+  {
+    "start": 1371.94,
+    "end": 1383.8,
+    "text": " str, str andava qui e anche qui che non è il nome della struttura che la struttura qua"
+  },
+  {
+    "start": 1383.8,
+    "end": 1388.58,
+    "text": " non mi non è in questo caso è proprio direttamente la definizione di un membro noi non lo stiamo"
+  },
+  {
+    "start": 1388.58,
+    "end": 1394.22,
+    "text": " chiamando in nessun modo questa struttura perché ci serve solo una volta e quindi non la chiameremo"
+  },
+  {
+    "start": 1394.74,
+    "end": 1406.36,
+    "text": " str list first parameter of main scusate qua ho invertito stupidamente queste due cose"
+  },
+  {
+    "start": 1409.34,
+    "end": 1415.32,
+    "text": " esatto guardate quando io eseguo questo programma vedete il nome del programma è il primo argomento"
+  },
+  {
+    "start": 1415.32,
+    "end": 1420.78,
+    "text": " che viene passato al programma stesso questo è utile perché a volte ci sono dei programmi che"
+  },
+  {
+    "start": 1420.78,
+    "end": 1426.46,
+    "text": " sono lo stesso binario ma in base a come vengono chiamati cioè se lo chiami tipo ls fa una cosa"
+  },
+  {
+    "start": 1426.46,
+    "end": 1432.92,
+    "text": " se lo chiami con un altro nome fa un'altra cosa in unix è molto molto facile che a cada"
+  },
+  {
+    "start": 1432.92,
+    "end": 1443.54,
+    "text": " ciò ls user ls meno l usr bin vediamo se qua ne trovo qualcuno che è un link simbolico wish why"
+  },
+  {
+    "start": 1443.54,
+    "end": 1452.88,
+    "text": " view ec guardate per esempio se io condrò dentro i binari qua di maccos guardate ci sono"
+  },
+  {
+    "start": 1452.88,
+    "end": 1462.8,
+    "text": " diversi link simbolici per esempio why è linkato a vim ma a volte può capitare che se il vim è"
+  },
+  {
+    "start": 1462.8,
+    "end": 1468.24,
+    "text": " chiamato tramite il suo link simbolico why e lui si ne accorge che il primo argomento è effettivamente"
+  },
+  {
+    "start": 1468.24,
+    "end": 1474.56,
+    "text": " why non vim cambia alcuni comportamenti per avere una compatibilità più stretta con why non"
+  },
+  {
+    "start": 1474.56,
+    "end": 1480.5,
+    "text": " so se succede molto probabile che ciò accada è così via quindi comunque questa cosa è utile"
+  },
+  {
+    "start": 1480.5,
+    "end": 1497.48,
+    "text": " da sapere scusate toy fort allora facciamo una cosa noi vogliamo tanto per iniziare che quindi"
+  },
+  {
+    "start": 1497.48,
+    "end": 1508.04,
+    "text": " if arc ci non è uguale a due che io c'ho il nome del mio programma toy fort è il file che"
+  },
+  {
+    "start": 1508.04,
+    "end": 1517.92,
+    "text": " voglio seguire diamo errore printf setti dr eff printf allora effe printf come la printf ma ha un"
+  },
+  {
+    "start": 1517.92,
+    "end": 1526.14,
+    "text": " primo argomento che gli specifica un oggetto file dove vuoi scrivere e l'oggetto file settr è definito"
+  },
+  {
+    "start": 1526.14,
+    "end": 1531.52,
+    "text": " direttamente dalla libreria standard significa che voi scrive nello standard error sembra il"
+  },
+  {
+    "start": 1531.52,
+    "end": 1537.02,
+    "text": " terminale ma il terminale a due canali uno per l'autoput normale uno per lo standard error in"
+  },
+  {
+    "start": 1537.02,
+    "end": 1543.64,
+    "text": " questo modo puoi praticamente catturare l'autoput di un programma senza farti catturare gli errori"
+  },
+  {
+    "start": 1543.64,
+    "end": 1552.32,
+    "text": " avviciversa quindi questa è una cosa utile e noi qua scriviamo correttamente lo standard error come"
+  },
+  {
+    "start": 1552.32,
+    "end": 1564.32,
+    "text": " dovremmo usage do string che che è il nostro il nome del programma col sia sia sia argv0 file"
+  },
+  {
+    "start": 1564.32,
+    "end": 1571.48,
+    "text": " ma così gli spieghiamo come che lo deve usare all'utente che non passa esattamente due argomenti"
+  },
+  {
+    "start": 1571.48,
+    "end": 1578.4,
+    "text": " retorno uno e ritorniamo un errore se ora convido io sto robo qui se lo seguo così mi"
+  },
+  {
+    "start": 1578.4,
+    "end": 1587.58,
+    "text": " dà errore se lo seguo con un argomento non mi dà più errore il che è bene ciò che voglio"
+  },
+  {
+    "start": 1587.58,
+    "end": 1595.16,
+    "text": " fare è anche di caricare questo programma da qualche parte in memoria in un buffer così poi"
+  },
+  {
+    "start": 1595.16,
+    "end": 1602.26,
+    "text": " posso chiamare la mia bo credo che si chiamerà compile quindi tf object prg che il mio programma"
+  },
+  {
+    "start": 1602.26,
+    "end": 1617.36,
+    "text": " compile prg text il testo del programma e poi farò qualcosa come exec o eval no eval sarebbe"
+  },
+  {
+    "start": 1617.36,
+    "end": 1625.2,
+    "text": " diciamo l'unione di compile exec no facciamo exec prg text anzi prima devo creare un contesto di"
+  },
+  {
+    "start": 1625.2,
+    "end": 1638.8,
+    "text": " esecuzione esatto ci manco una struttura qua perché noi qui abbiamo il parser ma ci serve"
+  },
+  {
+    "start": 1638.8,
+    "end": 1645.36,
+    "text": " una struttura che faccia da contesto perché io voglio poter utilizzare più interpreti nello"
+  },
+  {
+    "start": 1645.36,
+    "end": 1651.62,
+    "text": " stesso momento di toy fort e ognuno avrà il suo stack e ognuno avrà non lo so quelle altre"
+  },
+  {
+    "start": 1651.62,
+    "end": 1659.12,
+    "text": " informazioni che che possono servire quindi type def strutt tf c tx questo è il mio contesto di"
+  },
+  {
+    "start": 1659.12,
+    "end": 1669.24,
+    "text": " esecuzione tf c tx e cos'è che avrà il mio contesto di esecuzione avrà tf object stack questo"
+  },
+  {
+    "start": 1669.24,
+    "end": 1677.88,
+    "text": " è lo stack principale e poi avrà ce lo teniamo riferimento al programma che stiamo eseguendo"
+  },
+  {
+    "start": 1677.88,
+    "end": 1688.04,
+    "text": " ma questa cosa la vedremo dopo questa cosa la vedremo dopo se vogliamo farlo o meno però"
+  },
+  {
+    "start": 1688.04,
+    "end": 1694.78,
+    "text": " avremo il nostro compile allora ci serve anche un'altra cosa prima di poter continuare siccome il"
+  },
+  {
+    "start": 1694.78,
+    "end": 1702.54,
+    "text": " nostro stack di fatto è un obbiett un oggetto di tipo tf object ci serve in realtà anche una"
+  },
+  {
+    "start": 1702.54,
+    "end": 1714.0,
+    "text": " funzione che ci crea un oggetto nuovo di ognuno di questi tipi ok perché io devo poter creare"
+  },
+  {
+    "start": 1714.0,
+    "end": 1719.76,
+    "text": " effettivamente un oggetto stack devo poter creare un oggetto intero devo poter creare un"
+  },
+  {
+    "start": 1719.76,
+    "end": 1729.5,
+    "text": " oggetto del tipo che che mi pare quindi facciamo facciamo questa funzione qua allora quindi queste"
+  },
+  {
+    "start": 1729.5,
+    "end": 1741.1,
+    "text": " sono le strutture quindi qua facciamo un po di object object related functions"
+  },
+  {
+    "start": 1743.96,
+    "end": 1758.98,
+    "text": " e queste sono le mie data structures separiamo un po quando vedo un cat spito ok devo fatti"
+  },
+  {
+    "start": 1764.1399999999999,
+    "end": 1781.54,
+    "text": " giusti questo è un po di artigianato del software allora a me mi serve"
+  },
+  {
+    "start": 1784.4199999999998,
+    "end": 1806.76,
+    "text": " stf obbiett create object in type create allocate and initialize a new toy port object"
+  },
+  {
+    "start": 1811.4,
+    "end": 1820.66,
+    "text": " una cosa molto importante qua ce ne fregheremo di gestire gli out of memory però faremo una cosa"
+  },
+  {
+    "start": 1820.66,
+    "end": 1826.32,
+    "text": " poi dobbiamo usare dei wrappere allora iniziamo subito a fare questa cosa qui ora lo faccio vedere"
+  },
+  {
+    "start": 1826.32,
+    "end": 1840.04,
+    "text": " allora in questo caso io farò tf obb g o uguale a malloc size of tf obb g o di type uguale"
+  },
+  {
+    "start": 1840.04,
+    "end": 1846.2,
+    "text": " type che è l'unica cosa che mi che mi passa qua il convento o di ref count uguale a zero quindi"
+  },
+  {
+    "start": 1846.2,
+    "end": 1851.94,
+    "text": " no il condo di referenza parte a 1 perché lo sto ritornando e qualcuno lo segnerà da qualche"
+  },
+  {
+    "start": 1851.94,
+    "end": 1859.12,
+    "text": " parte una variabile per cui effettivamente io qui parto con reference counting settato a 1 però"
+  },
+  {
+    "start": 1859.12,
+    "end": 1881.92,
+    "text": " siccome poi ho il problema che dovrei cercare sempre di controllare se malloc eccetera eccetera"
+  },
+  {
+    "start": 1885.26,
+    "end": 1897.22,
+    "text": " e scrivo guardate mi vado a prendere il prototipo della malloc che è semplicissimo ma il punto"
+  },
+  {
+    "start": 1897.22,
+    "end": 1903.0,
+    "text": " è che io voglio che la mia x malloc sia esattamente uguale solo che farà questa cosa qua voi"
+  },
+  {
+    "start": 1903.0,
+    "end": 1910.22,
+    "text": " ptr uguale il puntatore che ritorna alla malloc esattamente noi chiamiamo la malloc se il"
+  },
+  {
+    "start": 1910.22,
+    "end": 1926.62,
+    "text": " puntatore è nulla f print f std out of memory out of memory allocating bytes il numero di byte"
+  },
+  {
+    "start": 1926.62,
+    "end": 1937.8,
+    "text": " che stava mallocando exit 1 la exit è una che è un sistema definita in unix standard quindi andiamo"
+  },
+  {
+    "start": 1937.8,
+    "end": 1943.9,
+    "text": " a mettere questa cosa qua altrimenti ritorniamo il nostro puntatore allora questa è una versione"
+  },
+  {
+    "start": 1943.9,
+    "end": 1954.0,
+    "text": " di malloc che semplicemente va in panico quando non non c'è abbastanza memoria poi noi avremo pure"
+  },
+  {
+    "start": 1954.0,
+    "end": 1960.0,
+    "text": " realoc che mi sa che non ho mai spiegato ma la useremo molto all'interno di questo programma"
+  },
+  {
+    "start": 1960.0,
+    "end": 1966.34,
+    "text": " e la devo spiegare sì allora faccio una precisazione siccome io questo programma qui che sto scrivendo"
+  },
+  {
+    "start": 1966.34,
+    "end": 1971.52,
+    "text": " non me l'ero preparato perché se non non c'è bello è finito diciamo la parte di apprendimento"
+  },
+  {
+    "start": 1971.52,
+    "end": 1976.48,
+    "text": " di tutti queste robe qui perché se non vado in difficoltà io stesso nel pensare a come devo"
+  },
+  {
+    "start": 1976.48,
+    "end": 1984.4,
+    "text": " fare le cose la il valore didattico di questa lezione sarebbe veramente basso quindi non è"
+  },
+  {
+    "start": 1984.4,
+    "end": 1988.86,
+    "text": " detto che noi finiremo per usare veramente le strutture nelle prossime lezioni che io qua"
+  },
+  {
+    "start": 1988.86,
+    "end": 1996.32,
+    "text": " sto definendo si vedrà però ora ci abbiamo creat object è quello che possiamo fare che"
+  },
+  {
+    "start": 1996.32,
+    "end": 2003.0,
+    "text": " poi comunque dobbiamo avere altre altre altre funzioni per esempio create string object"
+  },
+  {
+    "start": 2003.0,
+    "end": 2014.02,
+    "text": " char pointer side t lan si qua invece di pointer piamo s perché la se la stringa e questa"
+  },
+  {
+    "start": 2014.02,
+    "end": 2032.34,
+    "text": " funzione che vi farà tf object o è uguale create object tf object type str o di str punto"
+  },
+  {
+    "start": 2032.34,
+    "end": 2044.88,
+    "text": " così la pointer ptr si è uguale s o di str lan è uguale al lan allora qua stiamo andando a"
+  },
+  {
+    "start": 2044.88,
+    "end": 2051.28,
+    "text": " settare noi visto che la nostra struttura questa union è ognuno di queste elementi della union"
+  },
+  {
+    "start": 2051.28,
+    "end": 2057.48,
+    "text": " sarà utilizzato da un tipo diverso il tipo stringa utilizza ovviamente questo str qui questa"
+  },
+  {
+    "start": 2057.48,
+    "end": 2063.42,
+    "text": " struttura che dove viene settato l'inizio della stringa il puntatore dove inizia la stringa è"
+  },
+  {
+    "start": 2063.42,
+    "end": 2072.88,
+    "text": " la lunghezza della string e fin qui mi pare che ci siamo poi a me mi serve pure tf object create"
+  },
+  {
+    "start": 2072.88,
+    "end": 2087.32,
+    "text": " in object in i qui quello che farò è questo me lo copio così come è qua retarne o è anche qua"
+  },
+  {
+    "start": 2087.32,
+    "end": 2097.86,
+    "text": " retarne o se non lo ritorno non ho fatto un bel niente qui il tipo è intero qui quello che"
+  },
+  {
+    "start": 2097.86,
+    "end": 2111.64,
+    "text": " setto è i uguale a i retarne o facciamo a questo punto tutti gli altri quindi qua abbiamo"
+  },
+  {
+    "start": 2114.64,
+    "end": 2124.54,
+    "text": " stringa il boleano che praticamente è uguale all'intero ne più e ne meno però lo dobbiamo"
+  },
+  {
+    "start": 2124.54,
+    "end": 2142.1,
+    "text": " creare lo stesso perché cambia questo il tipo e cioè molto importante è il simbolo pure che è"
+  },
+  {
+    "start": 2142.1,
+    "end": 2150.62,
+    "text": " praticamente identico alla all'oggetto stringa qui possiamo fare una coposa tf object create"
+  },
+  {
+    "start": 2153.2400000000002,
+    "end": 2163.94,
+    "text": " simbol object char s side t lan potrebbe avere senso qua fare tf object o uguale a create string"
+  },
+  {
+    "start": 2163.94,
+    "end": 2170.46,
+    "text": " object s virgola lan perché sono uguali è l'unica cosa che cambia il tipo è qui il tipo lo settiamo"
+  },
+  {
+    "start": 2170.46,
+    "end": 2179.46,
+    "text": " al simbolo scusate esatto per questo è un trucco per non ripetere la logica il codice se poi"
+  },
+  {
+    "start": 2179.46,
+    "end": 2186.5,
+    "text": " domani cambieremo ptr l n qui non lo dobbiamo cambiare anche per il simbolo qui in teoria noi"
+  },
+  {
+    "start": 2186.5,
+    "end": 2192.06,
+    "text": " dovremmo mettere anche dei commenti però siccome qua è troppo ovvio effettivamente quello che"
+  },
+  {
+    "start": 2192.06,
+    "end": 2196.92,
+    "text": " sta succedendo in queste funzioni neanche lo mettiamo qua quello che dovrebbe io quello"
+  },
+  {
+    "start": 2196.92,
+    "end": 2207.4,
+    "text": " che farei in questo caso è mettere qui un commento in cui dico dico the following functions"
+  },
+  {
+    "start": 2207.4,
+    "end": 2220.52,
+    "text": " allocate toy for objects of different types scriviamo così poi magari questa questa roba qui si"
+  },
+  {
+    "start": 2220.52,
+    "end": 2227.74,
+    "text": " potrà estendere però fino a troppo semplice per per mettere altri commenti e poi che abbiamo"
+  },
+  {
+    "start": 2227.74,
+    "end": 2243.16,
+    "text": " la mia lista si la mia lista la mia lista list object ed di tipo lista ecco ecco ci siamo"
+  },
+  {
+    "start": 2243.16,
+    "end": 2273.14,
+    "text": " o di list dot l l ho chiamato l l è uguale null perché all'inizio è vuota o list punto l n"
+  },
+  {
+    "start": 2274.14,
+    "end": 2279.78,
+    "text": " perché ho scritto su ok"
+  },
+  {
+    "start": 2282.44,
+    "end": 2289.16,
+    "text": " ref count novembre ref count ci manca una n"
+  },
+  {
+    "start": 2291.0800000000004,
+    "end": 2295.78,
+    "text": " convidiamo non void function non ritorna una fava"
+  },
+  {
+    "start": 2298.5800000000004,
+    "end": 2305.26,
+    "text": " the term o convidiamo e va bella funzione compa il non esiste la funzione exec non esiste"
+  },
+  {
+    "start": 2305.26,
+    "end": 2314.44,
+    "text": " tutto vero ma poi le riempiremo con calma va bene credo che questa lezione è andata già"
+  },
+  {
+    "start": 2314.44,
+    "end": 2323.02,
+    "text": " abbastanza lunga chi volesse perché no si potrebbe lanciare già implementare sta roba qui potrebbe"
+  },
+  {
+    "start": 2323.02,
+    "end": 2328.7,
+    "text": " essere comunque una cosa interessante da fare o se ancora non vi sentite pronti guarderete"
+  },
+  {
+    "start": 2328.7,
+    "end": 2334.4,
+    "text": " la prossima lezione la prossima settimana e man mano quando vi sentite pronti a un certo punto"
+  },
+  {
+    "start": 2334.4,
+    "end": 2341.36,
+    "text": " vi sganjate dalle lezioni andate in una mascoperta implementate da soli toy fort e poi tornate qui e"
+  },
+  {
+    "start": 2341.36,
+    "end": 2344.1,
+    "text": " vedete man mano come implemento io ciao raga"
+  }
+]

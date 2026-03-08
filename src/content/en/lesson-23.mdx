@@ -1,0 +1,256 @@
+import VideoEmbed from '../../components/content/VideoEmbed';
+import Callout from '../../components/content/Callout';
+import KeyConcepts from '../../components/content/KeyConcepts';
+import CodeEditor from '../../components/exercises/CodeEditor';
+import Quiz from '../../components/exercises/Quiz';
+import HackerTerminal from '../../components/content/HackerTerminal';
+import Infographic from '../../components/content/Infographic';
+
+# Lesson 23: Stack-based Interpreter (ToyFort)
+
+Welcome to the "evolved" phase of the course. After building a solid foundation in C, it's time to create something real: a **programming language interpreter**. In this lesson, we'll start writing **ToyFort**, a language inspired by FORTH that uses a stack for every operation.
+
+<VideoEmbed videoId="vYODKK8TQGE" title="Lesson 23: Stack-based Interpreter (ToyFort)" />
+
+<KeyConcepts concepts={[
+  { title: "Stack-based Languages", description: "Languages where values are saved in a stack. Functions (words) take parameters from the stack and push the result back." },
+  { title: "Recursive Data Structures", description: "Defining objects that can contain other objects of the same type (e.g., a list of lists)." },
+  { title: "Lifecycle: Compile & Exec", description: "Methodically transforming a text string into a list of objects ready to be executed by the interpreter." },
+  { title: "Bootstrapping (Argv)", description: "Using argc and argv to load the program and understanding how the interpreter can change behavior based on the binary name." }
+]} />
+
+## The Stack and ToyFort Logic
+
+In ToyFort, if you want to add 5 and 5, you write `5 5 +`. 
+1. `5` is pushed onto the stack.
+2. Another `5` is pushed onto the stack.
+3. `+` pops the two 5s, adds them, and pushes `10` onto the stack.
+
+### Visualizing the Stack Flow
+
+<Infographic 
+  title="Example: 5 DUP +"
+  description="How the stack changes during execution."
+  items={[
+    { label: "Step 1: 5", value: "Stack: [5]", color: "blue" },
+    { label: "Step 2: DUP", value: "Stack: [5, 5]", color: "purple" },
+    { label: "Step 3: +", value: "Stack: [10]", color: "emerald" }
+  ]}
+/>
+
+---
+
+## Designing Objects (TFObject)
+
+To represent ToyFort's data (integers, strings, symbols, lists), we use **Unions** and **Reference Counting** learned in previous lessons.
+
+<CodeEditor 
+  initialCode={`#include <stdio.h>
+#include <stdlib.h>
+
+typedef enum { TF_INT, TF_STR, TF_SYM, TF_LIST } TFType;
+
+// The main object of ToyFort
+typedef struct TFObject {
+    TFType type;
+    int ref_count;
+    union {
+        long long i;
+        struct { char *ptr; size_t len; } s; // Strings and Symbols
+        struct { struct TFObject **ele; size_t len; } l; // Lists (Programs)
+    };
+} TFObject;
+
+// Parser state during code reading
+typedef struct TFParser {
+    char *prg;              // Full program text
+    char *next_token;       // Current reading point
+} TFParser;
+
+// Execution Context (allows multiple isolated interpreters)
+typedef struct TFContext {
+    TFObject *stack;        // Our global list (used as a stack)
+} TFContext;
+
+// Helper function for safe allocation (xmalloc)
+void* xmalloc(size_t size) {
+    void *ptr = malloc(size);
+    if (!ptr) { 
+        fprintf(stderr, "Fatal: Out of memory\\n"); 
+        exit(1); 
+    }
+    return ptr;
+}
+
+int main(int argc, char **argv) {
+    if (argc < 2) {
+        fprintf(stderr, "Usage: %s <program_file>\\n", argv[0]);
+        return 1;
+    }
+    printf("ToyFort interpreter initialized for %s\\n", argv[1]);
+    return 0;
+}`} 
+  language="c" 
+/>
+
+<Callout type="tip" title="xmalloc & Panic">
+Salvatore introduces `xmalloc`: a wrapper around `malloc` that halts the program if memory runs out. It's a common practice in systems where handling out-of-memory errors gracefully is not feasible.
+</Callout>
+
+---
+
+## Flow Control: Stack-based IF-ELSE
+
+Salvatore explains how to implement a conditional using lists as "sub-programs". In ToyFort, the `IF` instruction (or rather `IF-ELSE`) pops three elements from the stack:
+1. A list representing the **false** branch.
+2. A list representing the **true** branch.
+3. A boolean (**condition**).
+
+<ComparisonTable 
+  title="Executing IF-ELSE"
+  headers={["Step", "Stack Action", "Result"]}
+  rows={[
+    ["Input", "Push [FALSE_BRANCH] [TRUE_BRANCH] COND", "Stack ready"],
+    ["Execute IF", "Pop 3 elements", "Only the correct branch is 'evaluated'"],
+    ["Example", "10 20 < [ \"True\" ] [ \"False\" ] IF", "Stack contains \"True\""]
+  ]}
+/>
+
+<Callout type="info" title="Deep Dive: argv[0] and Symbolic Links">
+During the lesson, Salvatore goes on a detour about how programs (like `ls` or `vim`) can change their behavior based on the name they are called by (using `argv[0]`). This is possible thanks to symbolic links in Unix and is a powerful technique for system bootstrapping.
+</Callout>
+
+---
+
+## Exercises
+
+<Quiz 
+  questions={[
+    {
+      question: "What does it mean for a language to be 'Stack-based'?",
+      options: [
+        "It uses a lot of CPU stack memory",
+        "Operations read and write data in a LIFO logic stack",
+        "It cannot use global variables",
+        "It is written in C"
+      ],
+      correctAnswer: 1,
+      explanation: "LIFO (Last In, First Out) is the fundamental logic of ToyFort: the last value entered is the first to be used by functions."
+    },
+    {
+      question: "What is the effect of the command `5 DUP *` in ToyFort?",
+      options: [
+        "Pushes 5 and then deletes it",
+        "Squares 5 (pushes 25 onto the stack)",
+        "Adds 5 + 5",
+        "Prints 5 twice"
+      ],
+      correctAnswer: 1,
+      explanation: "DUP duplicates the 5, * multiplies the two 5s at the top of the stack."
+    },
+    {
+      question: "Why do we use `struct TFObject **ele` for lists?",
+      options: [
+        "It is a typo",
+        "Because a list is an array of pointers to objects, allowing heterogeneity",
+        "Because lists are faster with two asterisks",
+        "For Windows compatibility"
+      ],
+      correctAnswer: 1,
+      explanation: "An array of pointers allows the list to simultaneously contain an integer, a string, or another list."
+    },
+    {
+      question: "What is the `ref_count` field in TFObject used for?",
+      options: [
+        "To count how many times the function is called",
+        "To manage memory semi-automatically, deleting the object when no one uses it anymore",
+        "To count how many bits the object occupies",
+        "It is the serial number of the object"
+      ],
+      correctAnswer: 1,
+      explanation: "Reference Counting allows sharing the same object across multiple lists or stacks without duplicating it in RAM."
+    },
+    {
+      question: "What does the `xmalloc` function do?",
+      options: [
+        "Allocates extra memory",
+        "It's a malloc that terminates the program on error (Out of Memory)",
+        "Freely frees memory automatically",
+        "Encrypts allocated data"
+      ],
+      correctAnswer: 1,
+      explanation: "It simplifies the code by avoiding thousands of `if (ptr == NULL)` checks scattered throughout the program."
+    }
+  ]} 
+/>
+
+<Quiz 
+  title="Hacker Challenge"
+  questions={[
+    {
+      question: "In ToyFort, how would you write the expression `(3 + 4) * 2`?",
+      options: [
+        "3 + 4 * 2",
+        "3 4 + 2 *",
+        "* + 3 4 2",
+        "2 3 4 + *"
+      ],
+      correctAnswer: 1,
+      explanation: "In postfix notation (RPN): push 3 and 4, execute +, push 2, execute *. Result 14."
+    },
+    {
+      question: "If we implement IF as `condition [true_branch] [false_branch] IF`, what must the IF function do internally?",
+      options: [
+        "Execute both branches",
+        "Pop 3 elements, check the boolean, and execute the corresponding list",
+        "Print an error",
+        "Restart the interpreter"
+      ],
+      correctAnswer: 1,
+      explanation: "The IF in ToyFort consumes the condition and the two code blocks (lists) from the stack, deciding which one to 'evaluate' (exec)."
+    },
+    {
+      question: "Why is an anonymous union useful in `TFObject`?",
+      options: [
+        "Because it is more secure",
+        "To access fields directly (e.g., `obj->i`) without having to write the intermediate union name",
+        "Because it takes up less space than a normal union",
+        "It is not possible to use anonymous unions in C"
+      ],
+      correctAnswer: 1,
+      explanation: "It greatly simplifies the code syntax in the interpreter, making it more readable and similar to a high-level language."
+    }
+  ]} 
+/>
+
+<HackerTerminal 
+  challenges={[
+    {
+      id: "stack-visual-en",
+      title: "Stack Trace",
+      description: "Given the program `10 20 SWAP -`, what value remains in the stack at the end? (SWAP swaps the two elements at the top)",
+      commands: ["10"],
+      expectedOutput: "10",
+      hints: ["10, 20 -> SWAP -> 20, 10 -> Subtract 20 - 10."]
+    },
+    {
+      id: "type-detect-en",
+      title: "Type Detection",
+      description: "In Salvatore's parser, if a word starts with '\"', what type of object is created?",
+      commands: ["TF_STR"],
+      expectedOutput: "TF_STR",
+      hints: ["Quotes delimit strings."]
+    },
+    {
+      id: "recursive-list-en",
+      title: "List Depth",
+      description: "How many asterisks would be needed to declare a pointer to an array of pointers to objects if we didn't use typedefs?",
+      commands: ["**"],
+      expectedOutput: "**",
+      hints: ["It's a pointer to the base of an array of pointers."]
+    }
+  ]}
+/>
+
+### Final Summary
+We have broken the last barrier between code and data. Function pointers allow us to create flexible systems, universal algorithms, and even emulate object-oriented behavior in pure C. It is the secret that lets libraries like the standard library be so powerful and reusable.

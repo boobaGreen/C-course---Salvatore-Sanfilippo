@@ -1,0 +1,221 @@
+import VideoEmbed from '../../components/content/VideoEmbed';
+import Callout from '../../components/content/Callout';
+import KeyConcepts from '../../components/content/KeyConcepts';
+import CodeEditor from '../../components/exercises/CodeEditor';
+import Quiz from '../../components/exercises/Quiz';
+import HackerTerminal from '../../components/content/HackerTerminal';
+import Infographic from '../../components/content/Infographic';
+import BinaryVisualizer from '../../components/content/BinaryVisualizer';
+import ComparisonTable from '../../components/content/ComparisonTable';
+
+# Lesson 21: Unions and Bitfields
+
+In this lesson, Salvatore addresses the "technical debt" accumulated while talking about structures: **Unions** and **Bitfields**. These tools provide even more granular control over memory, allowing us to overlap variables or use individual bits.
+
+<VideoEmbed videoId="TM4jgODgdFY" title="Lesson 21: Unions and Bitfields" />
+
+<KeyConcepts concepts={[
+  { title: "Unions (union)", description: "Variables that share the same memory space. Useful for interpreting the same bytes in different ways or saving space." },
+  { title: "Bitfields", description: "Specifying how many bits a struct field should occupy. Ideal for boolean flags and network protocols." },
+  { title: "Anonymous Unions", description: "Unions without a name inside structures for transparent access to overlapping fields." }
+]} />
+
+## What is a Union?
+
+While in a `struct` every field has its own unique address, in a `union` all fields start at the same **offset 0**.
+
+<ComparisonTable 
+  title="Struct vs Union"
+  headers={["Feature", "Struct", "Union"]}
+  rows={[
+    ["Memory", "Sum of field sizes (plus padding)", "Size of the largest field"],
+    ["Access", "All fields are valid simultaneously", "Only one field is 'active' at a time"],
+    ["Offset", "Each field has its progressive offset", "All fields start at the same address"]
+  ]}
+/>
+
+### Example: Memory Overlap
+
+<BinaryVisualizer 
+  title="Overlap in a Union"
+  description="An integer and a 4-char array sharing the same RAM."
+  data={[
+    { label: "int i (Value 10)", bytes: ["0A", "00", "00", "00"], address: "0x400" },
+    { label: "unsigned char a[4]", bytes: ["0A", "00", "00", "00"], address: "0x400" }
+  ]}
+/>
+
+<CodeEditor 
+  initialCode={`#include <stdio.h>
+
+typedef union {
+    int i;
+    unsigned char a[4];
+} Foo;
+
+int main() {
+    Foo f;
+    f.i = 10; // On Little Endian, the first byte will be 10
+    
+    printf("Integer f.i: %d\\n", f.i);
+    printf("Byte f.a[0]: %d (same as f.i!)\\n", f.a[0]);
+    
+    return 0;
+}`} 
+  language="c" 
+/>
+
+---
+
+## Bitfields: Saving the Impossible
+
+Imagine you need a value that only goes from 0 to 15. You only need 4 bits, but a `char` takes up 8. With Bitfields, you can tell C to use only the necessary space.
+
+<Infographic 
+  title="Anatomy of a Bitfield"
+  description="Packing multiple values into a single byte."
+  items={[
+    { label: "Field A", value: "4 bits (0-15)", color: "blue" },
+    { label: "Field B", value: "4 bits (0-15)", color: "emerald" },
+    { label: "Total", value: "1 Byte!", color: "amber" }
+  ]}
+/>
+
+<Callout type="warning" title="Portability">
+How bits are packed (order and alignment) is not guaranteed by the ANSI C standard and depends on the compiler and architecture. Salvatore recommends using them with caution for rigid network protocols.
+</Callout>
+
+---
+
+## Exercises
+
+<Quiz 
+  questions={[
+    {
+      question: "In a `union`, where do the fields start in memory?",
+      options: [
+        "One after another",
+        "All at the same address (offset 0)",
+        "At addresses chosen randomly by the compiler",
+        "Depends on the size of the int"
+      ],
+      correctAnswer: 1,
+      explanation: "By definition, the fields of a union share the beginning of the memory block."
+    },
+    {
+      question: "What is the size of a `union` containing a `double c[2]` (16 bytes) and an `int i` (4 bytes)?",
+      options: [
+        "20 bytes",
+        "4 bytes",
+        "16 bytes",
+        "8 bytes"
+      ],
+      correctAnswer: 2,
+      explanation: "The size of a union is equal to the size of its largest field (16 bytes in this case)."
+    },
+    {
+      question: "What happens if you declare a field `unsigned int flag : 1;`?",
+      options: [
+        "You get a normal integer",
+        "You get a bitfield that can only contain 0 or 1",
+        "It is a syntax error",
+        "The integer is multiplied by 1"
+      ],
+      correctAnswer: 1,
+      explanation: "The : n syntax specifies the number of bits dedicated to that field."
+    },
+    {
+      question: "Why does Salvatore use unions in the Redis parser?",
+      options: [
+        "To make the code more complicated",
+        "Because a token can be ONLY one type at a time (number OR string), saving memory",
+        "To encrypt data",
+        "Because structs are slow"
+      ],
+      correctAnswer: 1,
+      explanation: "By using unions, the allocated memory is only that of the largest type, avoiding the waste of allocating space for all types simultaneously."
+    },
+    {
+      question: "What is meant by 'Anonymous Union'?",
+      options: [
+        "A union declared without the `union` keyword",
+        "A union inside a struct that is not given a name, allowing direct access to its fields",
+        "A union that takes up no memory",
+        "A compiler error"
+      ],
+      correctAnswer: 1,
+      explanation: "Introduced in more recent standards, they allow syntax like `f.field` instead of `f.u.field`."
+    }
+  ]} 
+/>
+
+<Quiz 
+  title="Hacker Challenge"
+  questions={[
+    {
+      question: "Given `unsigned int x : 4;`, what happens if you assign `x = 17;`?",
+      options: [
+        "The value becomes 17",
+        "The program crashes",
+        "It is truncated and becomes 1 (17 is 10001 in binary, the low 4 bits are 0001)",
+        "It is rounded to 15"
+      ],
+      correctAnswer: 2,
+      explanation: "Extra bits are ignored. Since 17 in binary is 10001, only the 4 least significant bits (0001) are saved."
+    },
+    {
+      question: "Why are bitfields 'not very portable'?",
+      options: [
+        "Because they take up too much space",
+        "Because bit order (Bit-endianness) varies between architectures",
+        "Because they don't work on Windows",
+        "Because they require special libraries"
+      ],
+      correctAnswer: 1,
+      explanation: "Different compilers may pack bits from right to left or vice versa, making it difficult to exchange raw binary data between different machines."
+    },
+    {
+      question: "What is the advantage of using `union` for casting (Type Punning) compared to pointers?",
+      options: [
+        "It's slower",
+        "It avoids some 'Strict Aliasing Rule' violations and is more readable",
+        "None",
+        "It allowed changing the pointer value"
+      ],
+      correctAnswer: 1,
+      explanation: "Accessing the bytes of an integer via a union is a standard and clean way to inspect memory without abusing complex pointer casts."
+    }
+  ]} 
+/>
+
+<HackerTerminal 
+  challenges={[
+    {
+      id: "check-endian-en",
+      title: "Endianness Detector",
+      description: "Use a union to write a C program that prints 'LITTLE' if the system is Little Endian, otherwise 'BIG'.",
+      commands: ["./check_endian"],
+      expectedOutput: "LITTLE",
+      hints: ["Set an int to 1 and check the first byte of the char array."]
+    },
+    {
+      id: "bits-size-en",
+      title: "Count the Bits",
+      description: "What is the size in bytes of a struct with three bitfields of 2, 3, and 3 bits using `unsigned char` as the base type?",
+      commands: ["1"],
+      expectedOutput: "1",
+      hints: ["2 + 3 + 3 = 8 bits. How many bytes is that?"]
+    },
+    {
+      id: "redis-object-en",
+      title: "Source Code",
+      description: "Which Redis macro is famous for using bitfields to manage Reference Counting and object type?",
+      commands: ["redisObject"],
+      expectedOutput: "unsigned type:4",
+      hints: ["Look for the definition of 'robj' or 'redisObject' in the Redis source."]
+    }
+  ]}
+/>
+
+### Final Summary
+We have learned to squeeze every single bit from our RAM. `unions` allow us to see memory from different angles, while `bitfields` give us surgical control over space. Together, these techniques make C the language of choice for high-performance systems like Redis.

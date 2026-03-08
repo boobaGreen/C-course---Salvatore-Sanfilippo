@@ -37,6 +37,15 @@ void xdump(void *p, int len) {
     printf("\\n");
 }
 
+<ComparisonTable 
+  title="char vs unsigned char"
+  headers={["Tipo", "Range di Valori", "Interpretazione Bit", "Utilizzo"]}
+  rows={[
+    ["char", "da -128 a 127", "Il bit più alto è il Segno", "Testo (ASCII)"],
+    ["unsigned char", "da 0 a 255", "Tutti i bit sono Valore", "Dati Binari, Memory Dump"]
+  ]}
+/>
+
 int main() {
     int x = 0x41424344; // "ABCD" in hex
     xdump(&x, sizeof(x));
@@ -60,6 +69,15 @@ Esempio:
 ## Memset: Pulizia Profonda
 
 In C, la memoria appena allocata o dichiarata sullo stack contiene "spazzatura". Con `memset` possiamo azzerare tutto in un colpo solo.
+
+<BinaryVisualizer 
+  title="Effetto di memset(p, 0, 4)"
+  description="Prima e dopo la pulizia di un intero in memoria."
+  data={[
+    { label: "Prima (Spazzatura)", bytes: ["A2", "3F", "00", "B1"], address: "0x300" },
+    { label: "Dopo memset", bytes: ["00", "00", "00", "00"], address: "0x300" }
+  ]}
+/>
 
 <Infographic 
   title="Funzionamento di memset"

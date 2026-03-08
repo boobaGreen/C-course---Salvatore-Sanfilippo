@@ -17,8 +17,8 @@ def download_audio(video_url, output_path):
     print("Download complete.")
 
 def transcribe_lesson(audio_path, output_path):
-    print(f"Loading Whisper small on CPU...")
-    model = whisper.load_model("small", device="cpu")
+    print(f"Loading Whisper tiny on CPU...")
+    model = whisper.load_model("tiny", device="cpu")
     
     print(f"Transcribing {audio_path}...")
     result = model.transcribe(

@@ -38,6 +38,17 @@ A pointer is also a variable, and as such, it has its own memory address. We can
 
 All pointers (to `char`, `int`, or other pointers) have the **same size** (8 bytes on 64-bit systems) because they always contain a memory address.
 
+<ComparisonTable 
+  title="Pointers vs Arrays"
+  headers={["Feature", "Array", "Pointer"]}
+  rows={[
+    ["Allocation", "Fixed block of memory", "Variable holding an address"],
+    ["Size", "sizeof(array) = total space", "sizeof(ptr) = 8 bytes (on 64-bit)"],
+    ["Mutability", "Base address is constant", "Can be reassigned (p++)"],
+    ["Access", "Notation [index]", "Notation [index] or dereference (*)"]
+  ]}
+/>
+
 ## Explorer: Pointer Arithmetic
 
 Experiment with how the pointer displacement changes depending on the selected data type.

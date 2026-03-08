@@ -38,6 +38,17 @@ Anche un puntatore è una variabile, e come tale ha un suo indirizzo di memoria.
 
 Tutti i puntatori (a `char`, `int`, o altri puntatori) hanno la **stessa dimensione** (8 byte su sistemi a 64 bit), perché contengono sempre un indirizzo di memoria.
 
+<ComparisonTable 
+  title="Puntatori vs Array"
+  headers={["Caratteristica", "Array", "Puntatore"]}
+  rows={[
+    ["Allocazione", "Blocco fisso di memoria", "Variabile che tiene un indirizzo"],
+    ["Dimensione", "sizeof(array) = spazio totale", "sizeof(ptr) = 8 byte (su 64-bit)"],
+    ["Mutabilità", "L'indirizzo base è costante", "Può essere riassegnato (p++)"],
+    ["Accesso", "Notazione [index]", "Notazione [index] o dereferenziazione (*)"]
+  ]}
+/>
+
 ## Explorer: Pointer Arithmetic
 
 Sperimenta come cambia lo spostamento del puntatore in base al tipo di dato selezionato.

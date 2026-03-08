@@ -1,0 +1,222 @@
+import VideoEmbed from '../../components/content/VideoEmbed';
+import Callout from '../../components/content/Callout';
+import KeyConcepts from '../../components/content/KeyConcepts';
+import CodeEditor from '../../components/exercises/CodeEditor';
+import Quiz from '../../components/exercises/Quiz';
+import HackerTerminal from '../../components/content/HackerTerminal';
+import Infographic from '../../components/content/Infographic';
+
+# Lesson 24: The ToyFort Interpreter (Part 2)
+
+In this second part, we take our **ToyFort** interpreter to the next level. We move from simply defining data structures to building its "beating heart": the execution loop (**eval**) and the management of built-in functions.
+
+<VideoEmbed videoId="-QxrmHo-V7Y" title="Lesson 24: The ToyFort Interpreter (Part 2)" />
+
+<KeyConcepts concepts={[
+  { title: "Eval Loop", description: "The loop that traverses program instructions and executes the correct action for each object." },
+  { title: "Function Dictionary", description: "Mapping symbol names (like '+', 'DUP') to their respective C functions." },
+  { title: "Argument Handling", description: "Popping values from the stack, checking their types, and handling runtime errors." }
+]} />
+
+## The Heart of the Interpreter: `eval()`
+
+The `eval` function is responsible for deciding what to do with a ToyFort object. If it's a value (integer, string), it pushes it onto the stack. If it's a symbol, it looks up the function in the dictionary and executes it.
+
+<Infographic 
+  title="Eval Flow"
+  description="How the interpreter processes a symbol."
+  items={[
+    { label: "1. Reading", value: "Reads object from program list", color: "blue" },
+    { label: "2. Check", value: "Is it a Symbol? (e.g., '+')", color: "purple" },
+    { label: "3. Lookup", value: "Finds '+' in the dictionary", color: "amber" },
+    { label: "4. Execution", value: "Calls the associated C function", color: "emerald" }
+  ]}
+/>
+
+---
+
+## Implementing Built-in Functions
+
+Every function in ToyFort must have a C counterpart. These functions interact directly with the `TFContext` (the stack).
+
+<CodeEditor 
+  initialCode={`#include <stdio.h>
+#include <string.h>
+
+// Example implementation of the '+' (plus) function
+void tf_plus(TFContext *ctx) {
+    // 1. Pop the last two elements
+    TFObject *b = tf_stack_pop(ctx);
+    TFObject *a = tf_stack_pop(ctx);
+
+    if (a->type == TF_INT && b->type == TF_INT) {
+        // 2. Calculate the result
+        long long res = a->i + b->i;
+        // 3. Create a new object and PUSH it onto the stack
+        tf_stack_push(ctx, create_int_object(res));
+    } else {
+        fprintf(stderr, "Runtime Error: + expects two integers\\n");
+    }
+
+    // 4. Memory management (Reference Counting)
+    tf_object_release(a);
+    tf_object_release(b);
+}
+`} 
+  language="c" 
+/>
+
+<Callout type="warning" title="Memory Safety">
+Remember: every time you `pop` from the stack, you are taking ownership of that pointer. It is critical to call `release` (or `free`) at the end of the function to avoid memory leaks!
+</Callout>
+
+---
+
+## Parsing Lists and Programs
+
+In ToyFort, a program is itself a **list** of objects. This allows for the implementation of conditionals and loops by passing entire lists as parameters to other functions.
+
+<ComparisonTable 
+  title="Symbols vs Lists"
+  headers={["Concept", "Interpretation", "Usage"]}
+  rows={[
+    ["Symbol (+)", "Immediate Action", "Arithmetic, logic operations"],
+    ["List [ ... ]", "Data (Program)", "IF branches, loop bodies"],
+    ["Numbers/Strings", "Literal Values", "Automatic push to stack"]
+  ]}
+/>
+
+---
+
+## Exercises
+
+<Quiz 
+  questions={[
+    {
+      question: "What is the primary task of the 'eval' loop?",
+      options: [
+        "To translate code into machine language",
+        "To sequentially execute objects in a ToyFort program",
+        "To manage the interpreter's graphical interface",
+        "To encrypt source code"
+      ],
+      correctAnswer: 1,
+      explanation: "Eval traverses the list representing the program and decides whether to push a value onto the stack or execute a function for each element."
+    },
+    {
+      question: "What happens if the interpreter encounters a symbol not defined in the dictionary?",
+      options: [
+        "It reverses the stack",
+        "It generates a runtime error (Unknown symbol)",
+        "It ignores it and continues",
+        "It shuts down the computer"
+      ],
+      correctAnswer: 1,
+      explanation: "The interpreter must report that it does not know the requested 'word' (function) to avoid unpredictable behavior."
+    },
+    {
+      question: "Why is it necessary to release objects after a 'pop'?",
+      options: [
+        "Because they take up too much CPU",
+        "Because we implemented Reference Counting and want to avoid leaks",
+        "Because C doesn't allow too many pointers",
+        "It is an optional choice"
+      ],
+      correctAnswer: 1,
+      explanation: "Pop extracts the object from the stack. If we don't release it after use, its counter will never drop to zero and memory will never be freed."
+    },
+    {
+      question: "In ToyFort, is a list `[ 1 2 + ]` executed immediately when encountered?",
+      options: [
+        "Yes, always",
+        "No, it's pushed onto the stack as a single list object",
+        "Only if followed by a semicolon",
+        "It depends on text color"
+      ],
+      correctAnswer: 1,
+      explanation: "Lists are data. They can contain code, but are only executed if a function (like `exec` or `if`) decides to 'evaluate' them."
+    },
+    {
+      question: "What does using a function dictionary allow?",
+      options: [
+        "It makes the program heavier",
+        "It allows adding new 'words' to the language without changing the core eval loop",
+        "It's only for spell checking",
+        "It's for translating ToyFort to English"
+      ],
+      correctAnswer: 1,
+      explanation: "The dictionary abstracts execution: eval looks up a name and calls a function pointer, making the language easily extensible."
+    }
+  ]} 
+/>
+
+<Quiz 
+  title="Hacker Challenge"
+  questions={[
+    {
+      question: "If you were to implement the `DUP` function in C, what should you do to the object's reference counter?",
+      options: [
+        "Decrement it",
+        "Increment it (tf_object_retain)",
+        "Leave it unchanged",
+        "Zero it"
+      ],
+      correctAnswer: 1,
+      explanation: "DUP creates a new reference to the same object in the stack. We must increment the ref_count to indicate there are now two owners."
+    },
+    {
+      question: "How would you handle a type error (e.g., string instead of integer) inside a built-in function?",
+      options: [
+        "By exiting the program with exit(1)",
+        "By printing an error and perhaps clearing the stack or stopping the current eval",
+        "By pretending nothing happened",
+        "By restarting the stack"
+      ],
+      correctAnswer: 1,
+      explanation: "A good interpreter reports the error informatively (Runtime Error) and handles the cleanup of the involved memory."
+    },
+    {
+      question: "What is the advantage of passing a `TFContext*` to all functions?",
+      options: [
+        "It's a compiler requirement",
+        "It allows having multiple isolated interpreter instances (multithreading or different contexts)",
+        "None, it would be better to use global variables",
+        "It makes the .c file smaller"
+      ],
+      correctAnswer: 1,
+      explanation: "Avoiding global variables is a best practice: it allows running multiple independent ToyFort programs in the same C process."
+    }
+  ]} 
+/>
+
+<HackerTerminal 
+  challenges={[
+    {
+      id: "eval-trace-en",
+      title: "Eval Debug",
+      description: "Analyze the program `5 [ 10 + ] exec`. What value ends up on the stack? (exec runs the top list)",
+      commands: ["15"],
+      expectedOutput: "15",
+      hints: ["5 goes onto the stack, the list [10 +] goes onto the stack, exec pops it and runs it."]
+    },
+    {
+      id: "ref-count-logic-en",
+      title: "Ref Count Logic",
+      description: "If an object has ref_count=1 and is PUSHed onto the stack, what should the ref_count become?",
+      commands: ["1"],
+      expectedOutput: "1",
+      hints: ["It depends on the implementation: if the stack takes ownership from the allocator, it stays 1. If it adds as a new owner, it becomes 2."]
+    },
+    {
+      id: "symbol-lookup-en",
+      title: "Symbol Lookup",
+      description: "Which C function would you use to compare the symbol name in the dictionary?",
+      commands: ["strcmp"],
+      expectedOutput: "strcmp",
+      hints: ["Standard string comparison."]
+    }
+  ]}
+/>
+
+### Conclusion
+We have built the engine of ToyFort! Now the language can 'reason' and execute complex operations. In future lessons, we will see how to further extend the dictionary and handle programs loaded from external files.
