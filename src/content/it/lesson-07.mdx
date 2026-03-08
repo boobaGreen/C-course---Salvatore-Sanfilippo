@@ -165,6 +165,28 @@ Prova a trasformare questo ciclo `while` in un ciclo `for`.
       ],
       correctAnswer: 1,
       explanation: "La ricorsione è ideale per strutture dati ricorsive (come alberi) e per l'approccio 'divide et impera'."
+    },
+    {
+      question: "Cosa fa l'istruzione 'continue' dentro un ciclo?",
+      options: [
+        "Ferma il programma",
+        "Salta il resto del codice nel corpo del ciclo per questo giro e passa alla prossima iterazione",
+        "Esce dal ciclo definitivamente",
+        "Ricomincia il programma da capo"
+      ],
+      correctAnswer: 1,
+      explanation: "A differenza di break, continue non ferma il ciclo, ma passa solo al 'giro' successivo."
+    },
+    {
+      question: "Perché Salvatore dice che `do { ... } while(0)` è utile nelle macro?",
+      options: [
+        "Per renderle più lente",
+        "Per permettere l'uso di variabili locali e garantire che la macro si comporti come una singola istruzione finendo col punto e virgola",
+        "Perché è un errore di sintassi",
+        "Per confondere il compilatore"
+      ],
+      correctAnswer: 1,
+      explanation: "È un trucco standard del C (usato molto in Redis o nel kernel Linux) per creare macro sicure che possono essere usate ovunque un'istruzione singola sia attesa (es. dopo un if senza graffe)."
     }
   ]}
 />
@@ -205,6 +227,18 @@ Prova a trasformare questo ciclo `while` in un ciclo `for`.
       ],
       correctAnswer: 1,
       explanation: "Efficienza stellare! Con `if-else`, la CPU deve controllare ogni condizione una per una. Con `switch`, il compilatore crea una tabella di indirizzi: la CPU guarda il valore, calcola l'indice nella tabella e salta direttamente al codice giusto in un colpo solo."
+    },
+    {
+      id: 3,
+      question: "Cos'è il 'Duff's Device' citato dai programmatori C esperti?",
+      options: [
+        "Un tipo di processore",
+        "Una tecnica che combina switch e cicli for/while per fare 'loop unrolling' e velocizzare operazioni seriali",
+        "Un comando per formattare il disco",
+        "Un virus degli anni '80"
+      ],
+      correctAnswer: 1,
+      explanation: "È una delle curiosità più famose del C. Sfrutta il fall-through dello switch per 'srotolare' un ciclo, riducendo il numero di controlli sulla condizione e aumentando le performance in casi critici."
     }
   ]}
 />
@@ -212,7 +246,7 @@ Prova a trasformare questo ciclo `while` in un ciclo `for`.
 ### Terminal Challenge: Pattern Searching 🔎
 
 <HackerTerminal 
-  title="Hacker Challenge: Level 7"
+  title="Hacker Challenge: Level 7 - Task 1"
   description="Abbiamo visto che Salvatore analizza spesso il codice sorgente per trovare pattern. Se volessi cercare tutte le occorrenze della parola 'while' all'interno di tutti i file .c della tua cartella, quale comando useresti?"
   command="find while ..."
   expectedOutput="grep while *.c"
@@ -220,6 +254,31 @@ Prova a trasformare questo ciclo `while` in un ciclo `for`.
   placeholder="es. grep pattern file"
   hint="È il comando standard per cercare testo nei file."
   explanation="Esatto! `grep` è lo strumento principe per l'analisi statica manuale. Ti permette di trovare velocemente dove usi certi costrutti o variabili in tutto il tuo progetto."
+  xpReward={150}
+/>
+
+<HackerTerminal 
+  title="Hacker Challenge: Level 7 - Task 2"
+  description="Salvatore insiste molto sulle performance. Quale comando del terminale useresti per misurare esattamente quanto tempo (in millisecondi e secondi) impiega il tuo programma './a.out' ad essere eseguito?"
+  command="run ./a.out"
+  expectedOutput="time ./a.out"
+  inputLabel="Comando:"
+  placeholder="es. time comando"
+  hint="Si usa per misurare il 'tempo'."
+  explanation="Ottimo! `time` ti mostra il tempo 'real' (totale), 'user' (tempo CPU in modo utente) e 'sys' (tempo CPU in chiamate di sistema). Indispensabile per ottimizzare i tuoi loop."
+  xpReward={200}
+/>
+
+<HackerTerminal 
+  title="Hacker Challenge: Level 7 - Task 3"
+  description="La ricorsione nel file system significa entrare nelle sottocartelle in modo automatico. Quale flag del comando 'ls' useresti per elencare tutti i file in modo ricorsivo partendo dalla cartella attuale?"
+  command="ls -l"
+  expectedOutput="ls -R"
+  inputLabel="Comando ls:"
+  placeholder="es. ls -..."
+  hint="La lettera sta per 'Recursive'."
+  explanation="Bravissimo! `ls -R` esplora l'intera struttura delle directory in modo ricorsivo, replicando la logica che useremmo per attraversare un albero di dati in C."
+  xpReward={250}
 />
 
 Ci vediamo alla prossima lezione!

@@ -169,6 +169,28 @@ Try transforming this `while` loop into a `for` loop.
       ],
       correctAnswer: 1,
       explanation: "Recursion is ideal for recursive data structures (like trees) and for the 'divide and conquer' approach."
+    },
+    {
+      question: "What does the 'continue' statement do inside a loop?",
+      options: [
+        "Stops the program",
+        "Skips the rest of the code in the loop body for this turn and proceeds to the next iteration",
+        "Exits the loop permanently",
+        "Restarts the program from the beginning"
+      ],
+      correctAnswer: 1,
+      explanation: "Unlike break, continue does not stop the loop, but only moves to the next 'turn'."
+    },
+    {
+      question: "Why does Salvatore say that `do { ... } while(0)` is useful in macros?",
+      options: [
+        "To make them slower",
+        "To allow the use of local variables and ensure the macro behaves as a single statement ending with a semicolon",
+        "Because it's a syntax error",
+        "To confuse the compiler"
+      ],
+      correctAnswer: 1,
+      explanation: "It is a standard C trick (used a lot in Redis or the Linux kernel) to create safe macros that can be used anywhere a single statement is expected (e.g., after an if without braces)."
     }
   ]}
 />
@@ -209,6 +231,18 @@ Try transforming this `while` loop into a `for` loop.
       ],
       correctAnswer: 1,
       explanation: "Stellar efficiency! With `if-else`, the CPU must check every condition one by one. With `switch`, the compiler creates an address table: the CPU looks at the value, calculates the index in the table, and jumps directly to the right code in one go."
+    },
+    {
+      id: 3,
+      question: "What is 'Duff's Device' cited by expert C programmers?",
+      options: [
+        "A type of processor",
+        "A technique that combines switch and for/while loops to do 'loop unrolling' and speed up serial operations",
+        "A command to format the disk",
+        "A virus from the 80s"
+      ],
+      correctAnswer: 1,
+      explanation: "It is one of C's most famous curiosities. It exploits the fall-through of the switch to 'unroll' a loop, reducing the number of condition checks and increasing performance in critical cases."
     }
   ]}
 />
@@ -216,14 +250,39 @@ Try transforming this `while` loop into a `for` loop.
 ### Terminal Challenge: Pattern Searching 🔎
 
 <HackerTerminal 
-  title="Hacker Challenge: Level 7"
+  title="Hacker Challenge: Level 7 - Task 1"
   description="We saw that Salvatore often analyzes source code to find patterns. If you wanted to search for all occurrences of the word 'while' within all .c files in your folder, which command would you use?"
   command="find while ..."
   expectedOutput="grep while *.c"
   inputLabel="Complete Command:"
   placeholder="e.g. grep pattern file"
-  hint="It is the standard command for searching for text in files."
-  explanation="Exactly! `grep` is the primary tool for manual static analysis. It allows you to quickly find where you are using certain constructs or variables throughout your project."
+  hint="It is the standard command for searching text in files."
+  explanation="Exactly! `grep` is the primary tool for manual static analysis. It allows you to quickly find where you use certain constructs or variables across your entire project."
+  xpReward={150}
+/>
+
+<HackerTerminal 
+  title="Hacker Challenge: Level 7 - Task 2"
+  description="Salvatore emphasizes performance a lot. Which terminal command would you use to measure exactly how much time (in milliseconds and seconds) it takes for your './a.out' program to run?"
+  command="run ./a.out"
+  expectedOutput="time ./a.out"
+  inputLabel="Command:"
+  placeholder="e.g. time command"
+  hint="It is used to measure 'time'."
+  explanation="Great! `time` shows you 'real' time (total), 'user' (CPU time in user mode), and 'sys' (CPU time in system calls). Indispensable for optimizing your loops."
+  xpReward={200}
+/>
+
+<HackerTerminal 
+  title="Hacker Challenge: Level 7 - Task 3"
+  description="Recursion in the file system means entering subfolders automatically. Which flag of the 'ls' command would you use to list all files recursively starting from the current folder?"
+  command="ls -l"
+  expectedOutput="ls -R"
+  inputLabel="ls Command:"
+  placeholder="e.g. ls -..."
+  hint="The letter stands for 'Recursive'."
+  explanation="Excellent! `ls -R` explores the entire directory structure recursively, replicating the logic we would use to traverse a data tree in C."
+  xpReward={250}
 />
 
 See you in the next lesson!
