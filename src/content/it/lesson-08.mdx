@@ -1,0 +1,253 @@
+import VideoEmbed from '../../components/content/VideoEmbed';
+import Callout from '../../components/content/Callout';
+import KeyConcepts from '../../components/content/KeyConcepts';
+import CodeEditor from '../../components/exercises/CodeEditor';
+import Quiz from '../../components/exercises/Quiz';
+import HackerTerminal from '../../components/content/HackerTerminal';
+import GameOfLife from '../../components/content/GameOfLife';
+import Infographic from '../../components/content/Infographic';
+
+# Lezione 8: Game of Life - Problem Solving in C
+
+Oggi non impareremo molti nuovi concetti teorici, ma metteremo alla prova tutto quello visto finora per costruire un vero e proprio universo simulato: il **John Conway's Game of Life**. Questa è una lezione di puro **Problem Solving**.
+
+<VideoEmbed videoId="c5atNuYdKK8" title="Lezione 8: Implementazione Game of Life" />
+
+<KeyConcepts 
+  concepts={[
+    {
+      title: "Problem Solving Live",
+      description: "Salvatore scrive il codice senza esserselo preparato: un'occasione unica per vedere come ragiona un professionista davanti agli errori."
+    },
+    {
+      title: "Specializzare il Linguaggio",
+      description: "In C, il primo passo è creare astrazioni (funzioni) che 'alzano' il livello del linguaggio per renderlo adatto al problema."
+    },
+    {
+      title: "Uso delle Macro (#define)",
+      description: "Sostituzioni testuali del preprocessore per configurare la griglia in modo centralizzato."
+    },
+    {
+      title: "L'Universo Toroidale",
+      description: "Implementazione del wrapping spaziale usando l'operatore modulo (%)."
+    }
+  ]} 
+/>
+
+<Callout type="warning" title="L'Importanza dell'Errore">
+Noterete che Salvatore sbaglia e corregge in tempo reale. Questo è fondamentale: la programmazione non è scrivere codice perfetto al primo colpo, ma saper interpretare i bug e risolverli.
+</Callout>
+
+## Le Regole del Gioco
+
+Il Gioco della Vita è un automa cellulare. Ogni cella può essere **VIVA** (1) o **MORTA** (0). Lo stato successivo dipende solo dai suoi 8 vicini.
+
+<GameOfLife />
+
+<Callout type="info" title="L'Universo Toroidale">
+Salvatore usa un trucco geniale: l'operatore **modulo** (`%`). 
+Invece di controllare se siamo usciti dai bordi dell'array, usiamo `x % WIDTH`. 
+Se arriviamo alla colonna 25 in una griglia di 25, il risultato è 0. Siamo "saltati" dall'altra parte!
+</Callout>
+
+## Scomposizione del Problema
+
+Salvatore ci mostra come "specializzare il linguaggio" creando una "scala" di astrazioni. Invece di scrivere tutto nel `main`, creiamo dei piccoli mattoncini:
+
+1.  **`sell_to_index`**: Il cuore granulare. Converte coordinate (x, y) in un indice lineare, gestendo il wrapping (se esco a 25, rientro a 0).
+2.  **`get_cell` / `set_cell`**: Useranno `sell_to_index` per leggere o scrivere nella memoria senza preoccuparsi dei calcoli ogni volta.
+3.  **`count_living_neighbors`**: Cicla intorno a una cella (8 vicini) e conta quanti sono vivi. Salta se stessa (offset 0,0).
+4.  **`compute_new_state`**: Applica le regole di Conway per decidere se una cella vivrà o morirà nella prossima generazione.
+
+<Callout type="hacker" title="Il 'Cheat' dei Puntatori">
+Anche se non li abbiamo ancora studiati formalmente, Salvatore deve usare i **puntatori** (`char *grid`) per passare la griglia alle funzioni. Senza di essi, le funzioni lavorerebbero su una copia della griglia e non potrebbero modificare l'originale!
+</Callout>
+
+## Il Codice della Simulazione
+
+Prova a modificare la velocità o i caratteri usati per rappresentare la vita.
+
+<CodeEditor 
+  initialCode={`#include <stdio.h>
+#include <unistd.h>
+
+#define COLS 20
+#define ROWS 20
+#define ALIVE '#'
+#define DEAD ' '
+
+void print_grid(char *grid) {
+    printf("\\033[H"); // Sposta il cursore in alto a sinistra
+    for (int y = 0; y < ROWS; y++) {
+        for (int x = 0; x < COLS; x++) {
+            printf("%c ", grid[y * COLS + x]);
+        }
+        printf("\\n");
+    }
+}
+
+int main() {
+    char grid[COLS * ROWS];
+    // Inizializza e avvia il loop...
+    return 0;
+}`}
+  language="c"
+/>
+
+---
+
+<KeyConcepts title="Hacker Key Concepts">
+  - **Wrapping con %**: Simulare spazi infiniti con memoria finita.
+  - **Funzioni come Layer**: Costruire una "scala" di astrazioni per non affogare nei dettagli.
+  - **Escape Sequences**: Usare codici come `\033[H` per controllare il terminale (pulire lo schermo senza `system("clear")`).
+</KeyConcepts>
+
+---
+
+## Quiz di Verifica
+
+<Quiz 
+  questions={[
+    {
+      question: "Perché Salvatore usa l'operatore modulo (%) nella funzione di traduzione delle coordinate?",
+      options: [
+        "Per rendere il calcolo più lento",
+        "Per gestire automaticamente il 'wrapping' ai bordi della griglia",
+        "Perché non si possono usare le divisioni",
+        "Per motivi estetici"
+      ],
+      correctAnswer: 1,
+      explanation: "Il modulo permette di riportare coordinate fuori range (es. 25 su 25) all'inizio (0), creando un effetto di continuità spaziale."
+    },
+    {
+      question: "In C, se passi un array `char grid[]` a una funzione, cosa stai passando realmente?",
+      options: [
+        "Una copia completa di tutti i dati",
+        "Solo il primo elemento",
+        "L'indirizzo di memoria del primo elemento (puntatore)",
+        "Niente, scompare"
+      ],
+      correctAnswer: 2,
+      explanation: "In C, gli array decadono in puntatori quando passati alle funzioni. Questo è efficiente perché non richiede di copiare grandi quantità di dati."
+    },
+    {
+      question: "Cosa fa la sequenza di escape '\\033[H' vista nel video?",
+      options: [
+        "Spegne il computer",
+        "Stampa una 'H' gigante",
+        "Riposiziona il cursore del terminale all'inizio (Home)",
+        "Cambia il colore in verde"
+      ],
+      correctAnswer: 2,
+      explanation: "È un codice ANSI. Permette di sovrascrivere la vecchia griglia con la nuova senza dover pulire tutto lo schermo convulsamente, riducendo lo sfarfallio."
+    },
+    {
+      question: "Qual è il vantaggio di definire ROWS e COLS con #define invece di variabili normali?",
+      options: [
+        "Nessuno, è solo più vecchio",
+        "Il compilatore le sostituisce ovunque prima di compilare, ottimizzando lo spazio e impedendo modifiche accidentali",
+        "Le macro sono più facili da debuggare",
+        "Perché così occupano meno RAM"
+      ],
+      correctAnswer: 1,
+      explanation: "Le #define sono costanti del preprocessore. Sono immutabili e permettono di cambiare la dimensione di tutto il programma modificando un solo valore."
+    },
+    {
+      question: "Nello sviluppo del Game of Life, Salvatore consiglia di:",
+      options: [
+        "Scrivere tutto nel main()",
+        "Scomporre il problema in piccole funzioni specializzate",
+        "Non usare funzioni perché rallentano",
+        "Copiare il codice da Wikipedia"
+      ],
+      correctAnswer: 1,
+      explanation: "La scomposizione è l'arma segreta del programmatore. Funzioni come 'get_cell' permettono di ignorare la complessità del wrapping mentre scrivi la logica dei vicini."
+    }
+  ]}
+/>
+
+---
+
+### Hacker Challenge 🏆
+
+<Quiz 
+  title="Hacker Challenge: Game Logic & Systems"
+  questions={[
+    {
+      id: 1,
+      question: "Qual è la complessità computazionale (notazione O) per calcolare una singola generazione in una griglia N x M?",
+      options: [
+        "O(1)",
+        "O(N + M)",
+        "O(N * M)",
+        "O((N * M)^2)"
+      ],
+      correctAnswer: 2,
+      explanation: "Dobbiamo processare ogni singola cella della griglia una volta. Se la griglia è N x M, il costo è proporzionale al numero totale di celle."
+    },
+    {
+      id: 2,
+      question: "Perché Salvatore usa due griglie (old_grid e new_grid)?",
+      options: [
+        "Perché ha molta RAM a disposizione",
+        "Per non sovrascrivere lo stato attuale mentre calcoli i vicini delle celle successive",
+        "Perché gli array in C sono piccoli",
+        "È un bug nel codice"
+      ],
+      correctAnswer: 1,
+      explanation: "Fondamentale! Se modificassimo la griglia mentre la leggiamo, le celle calcolate dopo vedrebbero vicini già 'aggiornati' al futuro, rompendo la sincronicità delle regole di Conway."
+    },
+    {
+      id: 3,
+      question: "Che tipo di dato è più efficiente usare per memorizzare le celle (0 o 1) se vogliamo risparmiare ogni singolo bit?",
+      options: [
+        "int (4 byte)",
+        "char (1 byte)",
+        "short (2 byte)",
+        "float (4 byte)"
+      ],
+      correctAnswer: 1,
+      explanation: "Salvatore usa 'char' perché occupa solo 8 bit. Anche se basterebbe 1 solo bit, il 'char' è l'unità minima di memoria indirizzabile comodamente in C."
+    }
+  ]}
+/>
+
+### Terminal Challenge: Time & Space ⚡
+
+<HackerTerminal 
+  title="Hacker Challenge: Level 8 - Task 1"
+  description="Salvatore ha scritto il codice live. Se volessi contare quante righe di codice ha il suo file 'life.c', quale comando Linux useresti?"
+  command="cat life.c ..."
+  expectedOutput="wc -l life.c"
+  inputLabel="Comando:"
+  placeholder="es. count life.c"
+  hint="Il comando sta per 'Word Count'."
+  explanation="Ottimo! `wc -l` è essenziale per monitorare la crescita del tuo progetto e la verbosità del codice."
+  xpReward={150}
+/>
+
+<HackerTerminal 
+  title="Hacker Challenge: Level 8 - Task 2"
+  description="Hai compilato il simulatore con 'gcc life.c'. Ora vuoi misurare quanto tempo di CPU effettiva ha consumato il programma in un'esecuzione. Quale comando precede l'esecuzione per darti il report?"
+  command="./a.out"
+  expectedOutput="time ./a.out"
+  inputLabel="Comando:"
+  placeholder="time ..."
+  hint="L'abbiamo visto nella lezione precedente, è fondamentale per le performance."
+  explanation="Perfetto. Ricorda che 'user time' è il tempo speso dal tuo codice, 'sys time' è quello speso dal kernel per te (es. stampando a video)."
+  xpReward={200}
+/>
+
+<HackerTerminal 
+  title="Hacker Challenge: Level 8 - Task 3"
+  description="Vuoi modificare i parametri ROWS e COLS senza uscire dal terminale. Quale editor integrato useresti (quello che usa spesso anche Salvatore)?"
+  command="editor life.c"
+  expectedOutput="nano life.c"
+  inputLabel="Editor:"
+  placeholder="es. notepad life.c"
+  hint="Inizia per 'n' ed è molto user-friendly."
+  explanation="Nano è l'amico del principiante! Per i veri hacker c'è anche Vim o Emacs, ma Nano ti salva la vita nelle modifiche veloci via SSH."
+  xpReward={250}
+/>
+
+Ci vediamo alla prossima lezione per addentrarci nei puntatori!

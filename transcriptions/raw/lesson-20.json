@@ -1,0 +1,3312 @@
+[
+  {
+    "start": 39.18,
+    "end": 48.74,
+    "text": " Questa lezione noi abbiamo fatto questa cosa interessante di riscrivere il nostro Xdump"
+  },
+  {
+    "start": 49.879999999999995,
+    "end": 58.5,
+    "text": " attraverso le chiamate di sistema POSIX, quindi non la libc ma le system call di UNIX,"
+  },
+  {
+    "start": 58.5,
+    "end": 69.26,
+    "text": " Open, Read, Close etc. Giustamente qualcuno mi ha fatto una domanda nei commenti del video"
+  },
+  {
+    "start": 69.26,
+    "end": 77.56,
+    "text": " dicendo ma quando è appropriato utilizzare una tecnica cioè la libc e quando è appropriato"
+  },
+  {
+    "start": 77.56,
+    "end": 85.18,
+    "text": " utilizzare le chiamate di sistema direttamente ma questa domanda può essere declinata in diversi"
+  },
+  {
+    "start": 85.18,
+    "end": 92.24,
+    "text": " modi qual è la tecnica più veloce tra le due e così via. Per rispondere a queste domande in"
+  },
+  {
+    "start": 92.24,
+    "end": 101.14,
+    "text": " maniera diciamo adeguata, intelligente è necessario prima di tutto capire qual è il ruolo della libc"
+  },
+  {
+    "start": 101.14,
+    "end": 109.6,
+    "text": " cos'è che fa questa astrazione del file che ci viene data dalla libc per fare ciò possiamo"
+  },
+  {
+    "start": 109.6,
+    "end": 115.06,
+    "text": " fare una cosa molto semplice tanto per il serviciamo un esperimento vi faccio vedere questa cosa"
+  },
+  {
+    "start": 115.06,
+    "end": 129.7,
+    "text": " qui apre il file stdio 3.c, include stdio.h e include anche unix standard .h perché ci servirà"
+  },
+  {
+    "start": 129.7,
+    "end": 140.62,
+    "text": " la chiamata di sistema sleep questa chiamata come si capisce deberà diciamo dal suo nome molto"
+  },
+  {
+    "start": 140.62,
+    "end": 146.08,
+    "text": " banalmente blocca il processo per alcuni secondi."
+  },
+  {
+    "start": 146.1,
+    "end": 149.04,
+    "text": " Allora, c'è uno stramale main."
+  },
+  {
+    "start": 151.28,
+    "end": 155.58,
+    "text": " Guardate, slip 5, return 0."
+  },
+  {
+    "start": 156.36,
+    "end": 158.84,
+    "text": " Compidiamo il programma."
+  },
+  {
+    "start": 162.62,
+    "end": 165.62,
+    "text": " Guardate, il processo si blocca per 5 secondi"
+  },
+  {
+    "start": 166.58,
+    "end": 168.66,
+    "text": " e poi continua."
+  },
+  {
+    "start": 169.54,
+    "end": 175.12,
+    "text": " Bisogna notare il fatto che questo modalità di bloccare il processo"
+  },
+  {
+    "start": 175.12,
+    "end": 180.4,
+    "text": " è ben diverso da fare tipo while 1, un ciclo infinito o cose del genere."
+  },
+  {
+    "start": 183.16,
+    "end": 188.76,
+    "text": " Perché in questo momento il processo non è in alcun modo in esecuzione"
+  },
+  {
+    "start": 188.76,
+    "end": 190.28,
+    "text": " mentre c'è la slip attiva."
+  },
+  {
+    "start": 190.9,
+    "end": 193.36,
+    "text": " Come è possibile questa cosa? C'avete mai pensato?"
+  },
+  {
+    "start": 194.34,
+    "end": 198.04,
+    "text": " Questo sistema che io sto utilizzando è un sistema multitasking."
+  },
+  {
+    "start": 198.74,
+    "end": 205.44,
+    "text": " Significa che il kernel del sistema può dare tempo di c più ai vari processi."
+  },
+  {
+    "start": 205.72,
+    "end": 210.58,
+    "text": " Quindi praticamente il kernel ha la possibilità di mandare in esecuzione un processo,"
+  },
+  {
+    "start": 210.98,
+    "end": 213.74,
+    "text": " metterlo in pausa, dare tempo a un altro processo,"
+  },
+  {
+    "start": 214.2,
+    "end": 215.86,
+    "text": " rimetterlo in pausa e così via."
+  },
+  {
+    "start": 216.28,
+    "end": 220.48,
+    "text": " In questo modo, anche se questo sistema avesse soltanto un core,"
+  },
+  {
+    "start": 220.48,
+    "end": 227.36,
+    "text": " non è così, ma in generale quando ci sono più processi che core nelle c più,"
+  },
+  {
+    "start": 228.12,
+    "end": 236.28,
+    "text": " è possibile praticamente lo stesso che tutti questi processi continuino ad essere seguiti in maniera concorrente,"
+  },
+  {
+    "start": 236.6,
+    "end": 237.38,
+    "text": " tutti assieme."
+  },
+  {
+    "start": 238.1,
+    "end": 240.28,
+    "text": " Questo è il multitasking preemptive."
+  },
+  {
+    "start": 240.78,
+    "end": 247.54,
+    "text": " Ma la cosa interessante del multitasking preemptive è che esiste un algoritmo dentro ogni kernel"
+  },
+  {
+    "start": 247.54,
+    "end": 250.32,
+    "text": " che ha questa funzionalità che si chiama Scheduler."
+  },
+  {
+    "start": 250.72,
+    "end": 256.64,
+    "text": " Lo Scheduler decide a chi dare tempo di esecuzione tra i tutti i processi che in quel momento vogliono essere seguiti."
+  },
+  {
+    "start": 258.32,
+    "end": 262.44,
+    "text": " Ora, questo Scheduler, se è un certo punto,"
+  },
+  {
+    "start": 263.3,
+    "end": 272.24,
+    "text": " un processo è in una condizione di blocco, per esempio sta leggendo con una chiamata di sistema read."
+  },
+  {
+    "start": 272.44,
+    "end": 274.44,
+    "text": " Vi ricordate che abbiamo visto le chiamate di sistema read?"
+  },
+  {
+    "start": 274.44,
+    "end": 281.46,
+    "text": " Eccometiamo che la read viene eseguita in un file descriptor che è in realtà un socket,"
+  },
+  {
+    "start": 283.06,
+    "end": 286.72,
+    "text": " TCP, sta aspettando altri dati dalla rete."
+  },
+  {
+    "start": 287.44,
+    "end": 290.94,
+    "text": " Se questi dati non arrivano, non sono disponibili,"
+  },
+  {
+    "start": 291.02,
+    "end": 295.08,
+    "text": " il processo non viene più eseguito, viene messo in stallo in attesa,"
+  },
+  {
+    "start": 295.5,
+    "end": 301.18,
+    "text": " fino a quando effettivamente in quella connessione non arrivino altri dati,"
+  },
+  {
+    "start": 301.18,
+    "end": 306.82,
+    "text": " e quindi il processo può essere svegliato, la chiamata di sistema read può essere ritornata così via."
+  },
+  {
+    "start": 307.22,
+    "end": 310.68,
+    "text": " Slip utilizza un sistema diverso ma è molto simile,"
+  },
+  {
+    "start": 310.8,
+    "end": 315.54,
+    "text": " cioè in quel momento il processo va in blocco, non viene più eseguito,"
+  },
+  {
+    "start": 315.72,
+    "end": 319.66,
+    "text": " quindi viene messo in pausa e non utilizza nessun tempo di cipio."
+  },
+  {
+    "start": 321.74,
+    "end": 323.54,
+    "text": " Perché a noi ci serve la slip?"
+  },
+  {
+    "start": 323.9,
+    "end": 327.94,
+    "text": " Per fare vedere come funziona da certi punti di vista la libci."
+  },
+  {
+    "start": 327.94,
+    "end": 337.32,
+    "text": " Guardate io ora scrivo printf hello world senza l'andata capo, ok?"
+  },
+  {
+    "start": 339.64,
+    "end": 345.1,
+    "text": " Quindi questo qui dovrebbe stampare nello standard output hello world,"
+  },
+  {
+    "start": 345.22,
+    "end": 349.1,
+    "text": " poi aspettare 5 secondi e poi il processo termina,"
+  },
+  {
+    "start": 349.16,
+    "end": 351.42,
+    "text": " ma non andrà così ve lo dico subito."
+  },
+  {
+    "start": 351.54,
+    "end": 355.52,
+    "text": " Guardate invece che succede, prima c'è l'attesa,"
+  },
+  {
+    "start": 358.44,
+    "end": 360.26,
+    "text": " e solo dopo c'è l'output."
+  },
+  {
+    "start": 361.7,
+    "end": 362.62,
+    "text": " Strano no?"
+  },
+  {
+    "start": 363.06,
+    "end": 376.2,
+    "text": " Il motivo per il quale ciò accade è da ricercarsi nel fatto che una delle cose che la libci implementa nella sua astrazione d'input e output è il buffering."
+  },
+  {
+    "start": 377.32,
+    "end": 381.12,
+    "text": " In sostanza ogni volta che io chiamo la mia chiamata di sistema tipo write,"
+  },
+  {
+    "start": 381.8,
+    "end": 385.42,
+    "text": " io devo andare in kernel space e tornare alle chiamate di sistema,"
+  },
+  {
+    "start": 385.42,
+    "end": 390.62,
+    "text": " anche se nei kernel moderni sono molto più efficaci che un tempo,"
+  },
+  {
+    "start": 391.06,
+    "end": 393.8,
+    "text": " ma le chiamate di sistema sono costose."
+  },
+  {
+    "start": 394.46,
+    "end": 396.76,
+    "text": " Per cui la libci cos'è che fa?"
+  },
+  {
+    "start": 397.36,
+    "end": 401.82,
+    "text": " Penza, ma non è che questo qua magari questo programmatore o questa programmatrice"
+  },
+  {
+    "start": 401.82,
+    "end": 406.68,
+    "text": " mi scrive un byte ogni volta e io per ogni byte devo chiamare la write,"
+  },
+  {
+    "start": 406.68,
+    "end": 410.66,
+    "text": " per dire, se io avessi scritto, guardate,"
+  },
+  {
+    "start": 412.14,
+    "end": 414.74,
+    "text": " questo programma invece di così,"
+  },
+  {
+    "start": 415.4,
+    "end": 420.2,
+    "text": " avessi scritto char mai str uguale allow world,"
+  },
+  {
+    "start": 421.29999999999995,
+    "end": 427.66,
+    "text": " size t len uguale string.h,"
+  },
+  {
+    "start": 427.82,
+    "end": 430.52,
+    "text": " includiamo str len mai str,"
+  },
+  {
+    "start": 430.8,
+    "end": 432.68,
+    "text": " quindi io so qual'è la lunghezza della mia stringa,"
+  },
+  {
+    "start": 433.11,
+    "end": 434.83,
+    "text": " vi ricordate come fanno?"
+  },
+  {
+    "start": 435.11,
+    "end": 440.33,
+    "text": " str len inizia dal puntatore che io io ho dato a vedere quanti caratteri"
+  },
+  {
+    "start": 440.33,
+    "end": 442.53,
+    "text": " ci sono prima del primo byte a z a zero,"
+  },
+  {
+    "start": 443.57,
+    "end": 449.53,
+    "text": " e poi io posso fare for size tj uguale a zero,"
+  },
+  {
+    "start": 449.71,
+    "end": 452.03,
+    "text": " j minore di len, j più più,"
+  },
+  {
+    "start": 452.57,
+    "end": 459.95,
+    "text": " put char mai str tj."
+  },
+  {
+    "start": 461.31,
+    "end": 465.13,
+    "text": " Questo programma tecnicamente uguale a quello di prima,"
+  },
+  {
+    "start": 466.13,
+    "end": 467.83,
+    "text": " però non usa più la printf,"
+  },
+  {
+    "start": 468.05,
+    "end": 470.03,
+    "text": " ma usa una funzione molto più di base,"
+  },
+  {
+    "start": 470.61,
+    "end": 473.55,
+    "text": " la put char che può farla di un solo caratteri per volta."
+  },
+  {
+    "start": 474.67,
+    "end": 481.03,
+    "text": " Ecco, se io qui invece di put char avessi write"
+  },
+  {
+    "start": 484.63,
+    "end": 490.13,
+    "text": " str file, mi pare che è così,"
+  },
+  {
+    "start": 491.41,
+    "end": 496.15,
+    "text": " mai str più j,"
+  },
+  {
+    "start": 496.63,
+    "end": 499.01,
+    "text": " allora guardate io qualche fatto,"
+  },
+  {
+    "start": 499.19,
+    "end": 501.39,
+    "text": " vi ricordate la chiamata di sistema read,"
+  },
+  {
+    "start": 501.51,
+    "end": 502.53,
+    "text": " la write è molto simile,"
+  },
+  {
+    "start": 502.69,
+    "end": 505.39,
+    "text": " quindi write, il file descriptor,"
+  },
+  {
+    "start": 505.49,
+    "end": 507.67,
+    "text": " e ci sono delle macro definite,"
+  },
+  {
+    "start": 508.53,
+    "end": 513.93,
+    "text": " in questo caso io il file descriptor che è l'output del mio terminale,"
+  },
+  {
+    "start": 514.09,
+    "end": 516.05,
+    "text": " non lo devo aprire, è già aperto,"
+  },
+  {
+    "start": 516.13,
+    "end": 519.41,
+    "text": " me lo apre a me il sistema operativo quando avvia il processo,"
+  },
+  {
+    "start": 520.19,
+    "end": 522.43,
+    "text": " e questo qui che probabilmente vale 1,"
+  },
+  {
+    "start": 523.01,
+    "end": 525.15,
+    "text": " probabilmente sono 0 standard input 1,"
+  },
+  {
+    "start": 525.27,
+    "end": 527.29,
+    "text": " lo standard output 2, lo standard error,"
+  },
+  {
+    "start": 527.47,
+    "end": 530.6700000000001,
+    "text": " non credo che ci sia però una garanzia ufficiale di ciò,"
+  },
+  {
+    "start": 531.45,
+    "end": 532.59,
+    "text": " quindi uno usa la macro,"
+  },
+  {
+    "start": 532.97,
+    "end": 535.45,
+    "text": " questo è il file descriptor già aperto verso il mio terminale,"
+  },
+  {
+    "start": 535.45,
+    "end": 537.29,
+    "text": " qua io guardate, prendo il mio puntatore,"
+  },
+  {
+    "start": 537.43,
+    "end": 540.39,
+    "text": " gli aggiungo j, quindi vado avanti con il mio puntatore,"
+  },
+  {
+    "start": 541.01,
+    "end": 544.45,
+    "text": " appundare altre parti della mia stringa,"
+  },
+  {
+    "start": 545.05,
+    "end": 547.53,
+    "text": " e faccio la write per un byte solo,"
+  },
+  {
+    "start": 549.51,
+    "end": 552.33,
+    "text": " questo, tutto ciò è esattamente equivalente,"
+  },
+  {
+    "start": 552.39,
+    "end": 553.25,
+    "text": " ciò che accadeva prima,"
+  },
+  {
+    "start": 553.35,
+    "end": 558.05,
+    "text": " ma stavolta funzionerà davvero che io vedo la stringa prima della slip,"
+  },
+  {
+    "start": 560.47,
+    "end": 563.37,
+    "text": " però anche se io vedo la stringa prima della slip,"
+  },
+  {
+    "start": 563.37,
+    "end": 566.41,
+    "text": " qui per scrivere n caratteri,"
+  },
+  {
+    "start": 566.57,
+    "end": 569.67,
+    "text": " ho usato n diverse chiamate di sistema,"
+  },
+  {
+    "start": 569.83,
+    "end": 571.45,
+    "text": " cioè io continuo a chiamare questa write,"
+  },
+  {
+    "start": 572.01,
+    "end": 576.59,
+    "text": " un bot di volte, e ciò è lendo, è molto lendo,"
+  },
+  {
+    "start": 576.87,
+    "end": 578.97,
+    "text": " perché la chiamata di sistema ogni volta è costosa,"
+  },
+  {
+    "start": 579.07,
+    "end": 584.95,
+    "text": " allora la libc, quindi quando io invece uso non questa,"
+  },
+  {
+    "start": 584.95,
+    "end": 591.63,
+    "text": " ma put char miestrdj,"
+  },
+  {
+    "start": 592.91,
+    "end": 597.13,
+    "text": " succede una cosa, la libc invece di veramente chiamare write,"
+  },
+  {
+    "start": 598.39,
+    "end": 601.81,
+    "text": " cioè la chiamata di sistema per fare davvero l'output sul file,"
+  },
+  {
+    "start": 602.37,
+    "end": 606.57,
+    "text": " ogni volta che io scrivo qualcosa sul file,"
+  },
+  {
+    "start": 607.4300000000001,
+    "end": 608.97,
+    "text": " utilizza una buffer,"
+  },
+  {
+    "start": 609.55,
+    "end": 612.33,
+    "text": " cioè all'ho con un pezzettino di memoria con malloc,"
+  },
+  {
+    "start": 612.33,
+    "end": 616.21,
+    "text": " è ogni volta che io scrivo sul file,"
+  },
+  {
+    "start": 616.49,
+    "end": 618.61,
+    "text": " in realtà sul file non viene scritto niente,"
+  },
+  {
+    "start": 618.81,
+    "end": 620.97,
+    "text": " ma viene scritto tutto in questo buffer."
+  },
+  {
+    "start": 621.71,
+    "end": 624.43,
+    "text": " Quando poi capita che il buffer si riempie,"
+  },
+  {
+    "start": 625.37,
+    "end": 629.39,
+    "text": " o se capita per esempio che c'è una newline a un certo punto,"
+  },
+  {
+    "start": 629.83,
+    "end": 631.77,
+    "text": " se io per esempio qua scrivo put char,"
+  },
+  {
+    "start": 636.6700000000001,
+    "end": 639.95,
+    "text": " mallestr, put char, di solito i newline"
+  },
+  {
+    "start": 640.8100000000001,
+    "end": 645.01,
+    "text": " che fanno anche da trigger per davvero svuotare il buffer nella write,"
+  },
+  {
+    "start": 645.59,
+    "end": 649.23,
+    "text": " è davvero quindi scrivere nel file, vediamo se è il caso,"
+  },
+  {
+    "start": 650.23,
+    "end": 657.53,
+    "text": " vedete che ora praticamente viene scritto prima della slip,"
+  },
+  {
+    "start": 658.03,
+    "end": 658.89,
+    "text": " vedete la scrittà,"
+  },
+  {
+    "start": 659.37,
+    "end": 660.41,
+    "text": " beh il motivo è obbvio,"
+  },
+  {
+    "start": 660.51,
+    "end": 661.95,
+    "text": " se io praticamente c'è un messaggio,"
+  },
+  {
+    "start": 662.03,
+    "end": 664.53,
+    "text": " se quella printf o con un'altra chiamata libreria,"
+  },
+  {
+    "start": 665.27,
+    "end": 667.89,
+    "text": " scrivo effettivamente un messaggio che ha la newline,"
+  },
+  {
+    "start": 667.89,
+    "end": 670.21,
+    "text": " significa che davvero voglio visualizzare subito,"
+  },
+  {
+    "start": 670.69,
+    "end": 675.11,
+    "text": " e quindi a quel punto il buffer della libc del mio file"
+  },
+  {
+    "start": 675.11,
+    "end": 677.89,
+    "text": " verrà svuotato davvero sul file fisico,"
+  },
+  {
+    "start": 678.57,
+    "end": 680.13,
+    "text": " cioè verrà scritto sul file fisico,"
+  },
+  {
+    "start": 680.21,
+    "end": 681.77,
+    "text": " e verrà resettato all offset,"
+  },
+  {
+    "start": 681.77,
+    "end": 685.23,
+    "text": " quindi il mio buffer è nuovamente vuote e lo posso utilizzare."
+  },
+  {
+    "start": 685.79,
+    "end": 689.83,
+    "text": " C'è anche una chiamata di libreria"
+  },
+  {
+    "start": 689.83,
+    "end": 693.83,
+    "text": " che si può utilizzare per forzare questo comportamento,"
+  },
+  {
+    "start": 693.97,
+    "end": 695.97,
+    "text": " quindi io qua ho scritto per esempio,"
+  },
+  {
+    "start": 695.97,
+    "end": 698.23,
+    "text": " guardate, qui ho la mia put char,"
+  },
+  {
+    "start": 698.47,
+    "end": 701.13,
+    "text": " quindi ho riembito il buffer della libc,"
+  },
+  {
+    "start": 701.67,
+    "end": 706.85,
+    "text": " e a questo punto chiamo fflash std alt,"
+  },
+  {
+    "start": 707.45,
+    "end": 708.87,
+    "text": " std alt,"
+  },
+  {
+    "start": 710.17,
+    "end": 714.29,
+    "text": " fflash significa io ti do un file descriptor,"
+  },
+  {
+    "start": 714.37,
+    "end": 715.63,
+    "text": " però non quello di unix,"
+  },
+  {
+    "start": 716.07,
+    "end": 718.55,
+    "text": " quello ritornato diciamo dalla open,"
+  },
+  {
+    "start": 720.25,
+    "end": 722.89,
+    "text": " da fopen, ecco qui,"
+  },
+  {
+    "start": 724.41,
+    "end": 728.51,
+    "text": " quindi ti do un descriptore della libc file,"
+  },
+  {
+    "start": 730.03,
+    "end": 732.73,
+    "text": " un handle, o quello me lo volete chiamare,"
+  },
+  {
+    "start": 736.03,
+    "end": 740.71,
+    "text": " e tu, se ci sono dei dati pendenti che sono stati scritti,"
+  },
+  {
+    "start": 741.23,
+    "end": 743.93,
+    "text": " ma tu non li hai scritti dentro il file,"
+  },
+  {
+    "start": 744.11,
+    "end": 745.53,
+    "text": " fammi la cortesia di scriverli."
+  },
+  {
+    "start": 745.89,
+    "end": 748.13,
+    "text": " Stavolta quindi io prima con put char,"
+  },
+  {
+    "start": 748.47,
+    "end": 750.25,
+    "text": " ormai noi sappiamo il comportamento,"
+  },
+  {
+    "start": 750.39,
+    "end": 751.45,
+    "text": " riembirò solo il buffer,"
+  },
+  {
+    "start": 751.45,
+    "end": 755.29,
+    "text": " quando arrivo qua il buffer sarà veramente scritto sul file,"
+  },
+  {
+    "start": 755.89,
+    "end": 757.17,
+    "text": " sul descriptore del file,"
+  },
+  {
+    "start": 757.41,
+    "end": 759.77,
+    "text": " quel famoso std alt, file number,"
+  },
+  {
+    "start": 760.37,
+    "end": 761.13,
+    "text": " e poi c'è la slip,"
+  },
+  {
+    "start": 761.39,
+    "end": 764.45,
+    "text": " quindi il comportamento nuovo della mia programma,"
+  },
+  {
+    "start": 765.13,
+    "end": 766.05,
+    "text": " guardate questo,"
+  },
+  {
+    "start": 766.65,
+    "end": 767.37,
+    "text": " è lo world,"
+  },
+  {
+    "start": 767.93,
+    "end": 769.99,
+    "text": " e poi finalmente il programma termine,"
+  },
+  {
+    "start": 770.07,
+    "end": 772.27,
+    "text": " tra l'altro se io qua aggiungo"
+  },
+  {
+    "start": 773.6500000000001,
+    "end": 776.29,
+    "text": " una slip anche qua dentro,"
+  },
+  {
+    "start": 776.85,
+    "end": 779.77,
+    "text": " è la fflash, la metto qua dentro,"
+  },
+  {
+    "start": 779.77,
+    "end": 783.17,
+    "text": " quindi ogni volta io scrivo un carattere,"
+  },
+  {
+    "start": 785.07,
+    "end": 786.77,
+    "text": " forzo la scrittura di questo carattere"
+  },
+  {
+    "start": 787.47,
+    "end": 788.73,
+    "text": " sullo schermo,"
+  },
+  {
+    "start": 788.83,
+    "end": 789.87,
+    "text": " e aspetto,"
+  },
+  {
+    "start": 790.59,
+    "end": 793.45,
+    "text": " si crea un effetto carino in cui io vedo"
+  },
+  {
+    "start": 793.45,
+    "end": 795.97,
+    "text": " sostanzialmente i caratteri che appaiono uno dopo l'altro"
+  },
+  {
+    "start": 795.97,
+    "end": 797.59,
+    "text": " con l'endezza."
+  },
+  {
+    "start": 800.0300000000001,
+    "end": 803.01,
+    "text": " La slip è troppo lenta per avere un bel effetto,"
+  },
+  {
+    "start": 803.11,
+    "end": 804.45,
+    "text": " usiamola useLip,"
+  },
+  {
+    "start": 807.39,
+    "end": 812.73,
+    "text": " quindi io qua specifico i milionessimi di secondo a questo punto,"
+  },
+  {
+    "start": 813.09,
+    "end": 814.31,
+    "text": " invece che i secondi,"
+  },
+  {
+    "start": 814.41,
+    "end": 818.73,
+    "text": " quindi questo è quivale sostanzialmente a 100 mili secondi,"
+  },
+  {
+    "start": 818.73,
+    "end": 820.57,
+    "text": " che è più interessante,"
+  },
+  {
+    "start": 821.75,
+    "end": 823.45,
+    "text": " esatto, poi aspetto cinque secondi,"
+  },
+  {
+    "start": 824.27,
+    "end": 825.33,
+    "text": " ed esce."
+  },
+  {
+    "start": 829.9699999999999,
+    "end": 833.81,
+    "text": " Quindi prima questione che accade"
+  },
+  {
+    "start": 833.81,
+    "end": 836.35,
+    "text": " quando si usa la lip c invece della libra"
+  },
+  {
+    "start": 836.35,
+    "end": 837.85,
+    "text": " del chiamato di sistema,"
+  },
+  {
+    "start": 838.55,
+    "end": 841.11,
+    "text": " i programmi scritti così come capita"
+  },
+  {
+    "start": 841.11,
+    "end": 842.41,
+    "text": " saranno più veloci,"
+  },
+  {
+    "start": 842.85,
+    "end": 844.95,
+    "text": " grazie all'implementazione del buffering,"
+  },
+  {
+    "start": 845.75,
+    "end": 847.93,
+    "text": " anche se i programmi scritti"
+  },
+  {
+    "start": 847.93,
+    "end": 849.85,
+    "text": " con la massima efficacia in mente"
+  },
+  {
+    "start": 849.85,
+    "end": 851.47,
+    "text": " usando le chiamate di sistema"
+  },
+  {
+    "start": 851.47,
+    "end": 854.97,
+    "text": " saranno ancora più veloci, perché tu ti implementi il tuo buffering"
+  },
+  {
+    "start": 854.97,
+    "end": 857.67,
+    "text": " per come ti serve, non quello della lip c,"
+  },
+  {
+    "start": 857.99,
+    "end": 860.19,
+    "text": " ma in generale la lip c è più veloce."
+  },
+  {
+    "start": 861.51,
+    "end": 864.73,
+    "text": " Questo buffering viene utilizzato anche in lettura,"
+  },
+  {
+    "start": 865.3299999999999,
+    "end": 868.01,
+    "text": " quindi quando io praticamente per dire uso"
+  },
+  {
+    "start": 868.01,
+    "end": 871.71,
+    "text": " delle chiamate della libreria c che leggono,"
+  },
+  {
+    "start": 871.75,
+    "end": 874.33,
+    "text": " per esempio una riga indera ogni volta del fight,"
+  },
+  {
+    "start": 874.47,
+    "end": 877.41,
+    "text": " ecco io con questa capacità per esempio"
+  },
+  {
+    "start": 877.41,
+    "end": 880.55,
+    "text": " di leggere a righe, non ce l'ho con le chiamate di sistema,"
+  },
+  {
+    "start": 880.63,
+    "end": 882.09,
+    "text": " le chiamate di sistema sono brutali,"
+  },
+  {
+    "start": 882.57,
+    "end": 884.39,
+    "text": " questo è il fightescriptor, questo è il mio buffer,"
+  },
+  {
+    "start": 884.47,
+    "end": 885.91,
+    "text": " legge ne bite, fine,"
+  },
+  {
+    "start": 886.43,
+    "end": 889.37,
+    "text": " invece c'è la manfgatz,"
+  },
+  {
+    "start": 890.99,
+    "end": 893.25,
+    "text": " questa chiamate di libreria"
+  },
+  {
+    "start": 893.25,
+    "end": 898.73,
+    "text": " legge una linea indera,"
+  },
+  {
+    "start": 898.95,
+    "end": 901.19,
+    "text": " la lettura si ferma al primo newline,"
+  },
+  {
+    "start": 902.53,
+    "end": 904.21,
+    "text": " carattere di newline incontrato,"
+  },
+  {
+    "start": 904.29,
+    "end": 908.39,
+    "text": " sempre se la size è sufficiente per la lunghezza della riga,"
+  },
+  {
+    "start": 908.39,
+    "end": 913.19,
+    "text": " o alla fine del fight, se c'è un errore."
+  },
+  {
+    "start": 914.59,
+    "end": 917.55,
+    "text": " Il newline se c'è, viene ritenuto,"
+  },
+  {
+    "start": 917.55,
+    "end": 920.23,
+    "text": " quindi questa qui è una rid"
+  },
+  {
+    "start": 920.23,
+    "end": 923.09,
+    "text": " di più alto livello che legge dal mio file,"
+  },
+  {
+    "start": 924.17,
+    "end": 925.83,
+    "text": " questa chiamata di sistema,"
+  },
+  {
+    "start": 926.45,
+    "end": 928.51,
+    "text": " siccome si basa sulla libreria,"
+  },
+  {
+    "start": 930.4100000000001,
+    "end": 932.93,
+    "text": " sulla implementazione dei file della libc,"
+  },
+  {
+    "start": 933.13,
+    "end": 935.89,
+    "text": " utilizza il buffering, quindi sarà più veloce,"
+  },
+  {
+    "start": 937.1500000000001,
+    "end": 940.83,
+    "text": " rispetto per esempio a una modalità di lettura"
+  },
+  {
+    "start": 940.83,
+    "end": 943.31,
+    "text": " banalotta in cui per dire io"
+  },
+  {
+    "start": 943.31,
+    "end": 946.85,
+    "text": " inizio a leggere un carattere dopo l'altro facendo una rid,"
+  },
+  {
+    "start": 946.85,
+    "end": 949.27,
+    "text": " cioè proprio una chiamata di sistema rid"
+  },
+  {
+    "start": 949.85,
+    "end": 952.61,
+    "text": " in cui leggo ogni volta un solo bite,"
+  },
+  {
+    "start": 954.45,
+    "end": 956.91,
+    "text": " e rispetto il newline mi fermo"
+  },
+  {
+    "start": 956.91,
+    "end": 959.37,
+    "text": " e man mano che leggo a qualcuno in un buffer, etc."
+  },
+  {
+    "start": 960.21,
+    "end": 962.17,
+    "text": " Quindi una implementazione cattiva"
+  },
+  {
+    "start": 962.85,
+    "end": 965.79,
+    "text": " delle stesse cose che fa la libc sarà più lenta"
+  },
+  {
+    "start": 965.79,
+    "end": 968.89,
+    "text": " della libc, quindi la libc ci dà questa"
+  },
+  {
+    "start": 970.61,
+    "end": 971.85,
+    "text": " minima garanzia di performance,"
+  },
+  {
+    "start": 972.59,
+    "end": 975.21,
+    "text": " di non fare le cose proprio in maniera a basso livello."
+  },
+  {
+    "start": 976.23,
+    "end": 979.21,
+    "text": " C'è di più un sacco di programmi"
+  },
+  {
+    "start": 979.77,
+    "end": 982.03,
+    "text": " abbastanza interessanti e utili,"
+  },
+  {
+    "start": 982.25,
+    "end": 985.93,
+    "text": " si possono scrivere con la libc"
+  },
+  {
+    "start": 985.93,
+    "end": 987.77,
+    "text": " ed essere portabili."
+  },
+  {
+    "start": 988.33,
+    "end": 992.21,
+    "text": " Quindi io questo programma"
+  },
+  {
+    "start": 993.15,
+    "end": 994.95,
+    "text": " che scrivo questo programma qui,"
+  },
+  {
+    "start": 995.43,
+    "end": 996.55,
+    "text": " se io gli tolgo la slip,"
+  },
+  {
+    "start": 997.09,
+    "end": 1000.03,
+    "text": " ecco vedete già anche la slip per esempio in unit standard,"
+  },
+  {
+    "start": 1000.51,
+    "end": 1003.71,
+    "text": " e quindi non è parte del c, e quindi io devo togliere"
+  },
+  {
+    "start": 1003.71,
+    "end": 1006.63,
+    "text": " questa slip, ma a questo punto questo programma"
+  },
+  {
+    "start": 1006.63,
+    "end": 1010.81,
+    "text": " è un programma in c, in anzi c,"
+  },
+  {
+    "start": 1011.51,
+    "end": 1012.99,
+    "text": " che è lo standard del c,"
+  },
+  {
+    "start": 1013.51,
+    "end": 1015.13,
+    "text": " e quindi io lo posso compilare"
+  },
+  {
+    "start": 1015.71,
+    "end": 1017.03,
+    "text": " su Linux, su Windows,"
+  },
+  {
+    "start": 1020.3299999999999,
+    "end": 1022.41,
+    "text": " se c'era un compilatore"
+  },
+  {
+    "start": 1023.27,
+    "end": 1025.11,
+    "text": " di un computer vecchio, per esempio"
+  },
+  {
+    "start": 1025.11,
+    "end": 1027.97,
+    "text": " l'amiga aveva un buon compilatore c, lo posso compilare"
+  },
+  {
+    "start": 1027.97,
+    "end": 1030.91,
+    "text": " sua amica, anche se è un hardware"
+  },
+  {
+    "start": 1030.91,
+    "end": 1033.67,
+    "text": " di 30 anni fa, è ancora il programma"
+  },
+  {
+    "start": 1033.67,
+    "end": 1035.83,
+    "text": " funziona perfettamente, quindi"
+  },
+  {
+    "start": 1036.61,
+    "end": 1039.57,
+    "text": " se uno può utilizzare la libc, perché deve scrivere"
+  },
+  {
+    "start": 1039.57,
+    "end": 1042.09,
+    "text": " di faccio un esempio, devo scrivere una utility"
+  },
+  {
+    "start": 1043.95,
+    "end": 1045.71,
+    "text": " che non è necessario che sia"
+  },
+  {
+    "start": 1045.71,
+    "end": 1048.89,
+    "text": " la più veloce del mondo, che legge un file audio"
+  },
+  {
+    "start": 1048.89,
+    "end": 1051.91,
+    "text": " e mi dice per esempio qual è il volume"
+  },
+  {
+    "start": 1052.75,
+    "end": 1055.29,
+    "text": " medio di questo file audio, di questo file wave."
+  },
+  {
+    "start": 1055.85,
+    "end": 1057.99,
+    "text": " Se io lo scrivo utilizzando solo e discursivamente"
+  },
+  {
+    "start": 1057.99,
+    "end": 1060.53,
+    "text": " la libc, tanto poi una libc c,"
+  },
+  {
+    "start": 1060.57,
+    "end": 1062.91,
+    "text": " in burtout potrei posso leggere il file c,"
+  },
+  {
+    "start": 1064.35,
+    "end": 1066.87,
+    "text": " mat.h con le funzioni matematico,"
+  },
+  {
+    "start": 1067.01,
+    "end": 1069.99,
+    "text": " che mi serve fare calcolare"
+  },
+  {
+    "start": 1069.99,
+    "end": 1072.67,
+    "text": " la deviazione standard"
+  },
+  {
+    "start": 1073.87,
+    "end": 1076.47,
+    "text": " il valore assoluto, quello che mi serve."
+  },
+  {
+    "start": 1077.51,
+    "end": 1079.97,
+    "text": " Quindi perché scrivere in tal caso"
+  },
+  {
+    "start": 1079.97,
+    "end": 1082.87,
+    "text": " un programma che non sa se era apportabile"
+  },
+  {
+    "start": 1082.87,
+    "end": 1085.07,
+    "text": " è molto interessante, invece a mettere"
+  },
+  {
+    "start": 1085.07,
+    "end": 1088.37,
+    "text": " questo programma su GitHub, e dire su qualsiasi"
+  },
+  {
+    "start": 1088.37,
+    "end": 1090.61,
+    "text": " sistema che ha un combinatore"
+  },
+  {
+    "start": 1090.61,
+    "end": 1093.51,
+    "text": " anzici, vi serve solo scrivere gcc"
+  },
+  {
+    "start": 1094.07,
+    "end": 1097.09,
+    "text": " questo nome del file e così via. Tuttavia"
+  },
+  {
+    "start": 1097.09,
+    "end": 1100.21,
+    "text": " le cose avanzate non si possono"
+  },
+  {
+    "start": 1100.21,
+    "end": 1100.79,
+    "text": " fare"
+  },
+  {
+    "start": 1103.2899999999997,
+    "end": 1105.59,
+    "text": " senza andare, scavare invece"
+  },
+  {
+    "start": 1105.59,
+    "end": 1109.23,
+    "text": " nella libc, diciamo oltre a libc"
+  },
+  {
+    "start": 1109.23,
+    "end": 1112.43,
+    "text": " verso il che chiamo dei sistemi. Da questo punto di vista"
+  },
+  {
+    "start": 1112.43,
+    "end": 1115.27,
+    "text": " volevo introdurre un"
+  },
+  {
+    "start": 1115.27,
+    "end": 1117.99,
+    "text": " concetto molto affascinante, avanzato"
+  },
+  {
+    "start": 1117.99,
+    "end": 1121.67,
+    "text": " ma che mi sembra veramente importantissimo."
+  },
+  {
+    "start": 1122.49,
+    "end": 1124.03,
+    "text": " Noi abbiamo detto che il processo"
+  },
+  {
+    "start": 1124.03,
+    "end": 1127.47,
+    "text": " non può dialogare col mondo esterno se non chiede"
+  },
+  {
+    "start": 1127.47,
+    "end": 1128.43,
+    "text": " aiuto al kernel."
+  },
+  {
+    "start": 1130.61,
+    "end": 1133.13,
+    "text": " Abbiamo visto che la modalità normale"
+  },
+  {
+    "start": 1133.13,
+    "end": 1136.09,
+    "text": " di dialogo col mondo esterno è chiamare delle chiamate"
+  },
+  {
+    "start": 1136.09,
+    "end": 1139.13,
+    "text": " dei sistemi. In realtà però il processo ha"
+  },
+  {
+    "start": 1139.13,
+    "end": 1141.99,
+    "text": " un'altra possibilità di parlare"
+  },
+  {
+    "start": 1141.99,
+    "end": 1144.81,
+    "text": " con l'esterno, utilizzando"
+  },
+  {
+    "start": 1144.81,
+    "end": 1147.67,
+    "text": " il fatto che può leggere scrivere da memoria."
+  },
+  {
+    "start": 1148.55,
+    "end": 1150.91,
+    "text": " Una volta nei computer vecchi o"
+  },
+  {
+    "start": 1150.91,
+    "end": 1153.97,
+    "text": " nei computer embedding, tipo NLM,"
+  },
+  {
+    "start": 1154.15,
+    "end": 1157.07,
+    "text": " C, tipo le Raspberry Pico,"
+  },
+  {
+    "start": 1157.39,
+    "end": 1159.61,
+    "text": " le Rp2040, le Rp2050,"
+  },
+  {
+    "start": 1159.89,
+    "end": 1162.95,
+    "text": " questi piccoli microcontrollori"
+  },
+  {
+    "start": 1162.95,
+    "end": 1166.07,
+    "text": " utilizzano ancora così come lo utilizzava il Commodore 64"
+  },
+  {
+    "start": 1166.07,
+    "end": 1169.19,
+    "text": " l'amiga, il Memory Mapping, ovvero ci sono"
+  },
+  {
+    "start": 1169.19,
+    "end": 1172.55,
+    "text": " delle locazioni di memoria che invece di essere"
+  },
+  {
+    "start": 1172.55,
+    "end": 1174.83,
+    "text": " davvero memoria uno scrive in quelle"
+  },
+  {
+    "start": 1174.83,
+    "end": 1178.57,
+    "text": " locazioni per scrivere a un device fisico esterno"
+  },
+  {
+    "start": 1178.57,
+    "end": 1181.31,
+    "text": " quindi ha un altro integrato, un altro"
+  },
+  {
+    "start": 1181.31,
+    "end": 1184.73,
+    "text": " chip, e legge per leggere da quel chip."
+  },
+  {
+    "start": 1185.99,
+    "end": 1187.87,
+    "text": " Anche se sono passati così tanti anni"
+  },
+  {
+    "start": 1187.87,
+    "end": 1189.91,
+    "text": " questa tecnica ancora è utile."
+  },
+  {
+    "start": 1190.55,
+    "end": 1192.87,
+    "text": " C'è una chiamata di sistema POSIX"
+  },
+  {
+    "start": 1193.99,
+    "end": 1194.99,
+    "text": " M-MAP"
+  },
+  {
+    "start": 1197.0500000000002,
+    "end": 1200.03,
+    "text": " che può mappare un file,"
+  },
+  {
+    "start": 1200.55,
+    "end": 1202.11,
+    "text": " il contenuto di un file,"
+  },
+  {
+    "start": 1202.8300000000002,
+    "end": 1205.01,
+    "text": " nello spazio di memoria del processo."
+  },
+  {
+    "start": 1205.71,
+    "end": 1208.03,
+    "text": " A quel punto io per leggere scrivere il file"
+  },
+  {
+    "start": 1208.87,
+    "end": 1213.13,
+    "text": " non ho più bisogno di alle chiamate di sistema, ma posso accedervi tramite un puntatore."
+  },
+  {
+    "start": 1213.95,
+    "end": 1217.11,
+    "text": " Siccome il C è un linguaggio a basso livello che col puntato"
+  },
+  {
+    "start": 1217.11,
+    "end": 1220.17,
+    "text": " con i puntatori può fare il cappero che gli pare"
+  },
+  {
+    "start": 1220.17,
+    "end": 1222.81,
+    "text": " qualsiasi cosa, capirete che"
+  },
+  {
+    "start": 1222.81,
+    "end": 1225.87,
+    "text": " la M-MAP è molto potente in relazione"
+  },
+  {
+    "start": 1225.87,
+    "end": 1226.93,
+    "text": " al linguaggio C."
+  },
+  {
+    "start": 1227.77,
+    "end": 1230.29,
+    "text": " È una tecnica chiamata di sistema un po' complicata,"
+  },
+  {
+    "start": 1230.39,
+    "end": 1233.35,
+    "text": " ma in realtà ne è anche tanto. Allora, guardate"
+  },
+  {
+    "start": 1234.53,
+    "end": 1236.01,
+    "text": " Nella M-MAP io"
+  },
+  {
+    "start": 1236.01,
+    "end": 1239.27,
+    "text": " io dico quale indirizzo desidererei"
+  },
+  {
+    "start": 1239.81,
+    "end": 1242.77,
+    "text": " la mappatura venisse"
+  },
+  {
+    "start": 1243.5500000000002,
+    "end": 1245.37,
+    "text": " effettuata, in quale indirizzo memoria"
+  },
+  {
+    "start": 1245.37,
+    "end": 1248.83,
+    "text": " venisse effettuata la mappatura, ma poi in realtà non è detto che questo indirizzo"
+  },
+  {
+    "start": 1248.83,
+    "end": 1251.37,
+    "text": " è disponibile, quindi io poi la mappatura"
+  },
+  {
+    "start": 1251.37,
+    "end": 1254.35,
+    "text": " che M-MAP mi dà all'inizio"
+  },
+  {
+    "start": 1254.35,
+    "end": 1257.09,
+    "text": " della mia indirizzo, inizio"
+  },
+  {
+    "start": 1257.09,
+    "end": 1260.43,
+    "text": " della mappa in memoria, quale indirizzo basa"
+  },
+  {
+    "start": 1260.43,
+    "end": 1262.79,
+    "text": " e me lo dà col valore di ritorno di M-MAP"
+  },
+  {
+    "start": 1263.79,
+    "end": 1266.67,
+    "text": " ma io posso chiederne uno in particolare"
+  },
+  {
+    "start": 1266.67,
+    "end": 1269.57,
+    "text": " o qua credo che posso mettere anche nullo"
+  },
+  {
+    "start": 1269.57,
+    "end": 1272.37,
+    "text": " poi dico quale è la grandezza"
+  },
+  {
+    "start": 1273.71,
+    "end": 1274.93,
+    "text": " in byte"
+  },
+  {
+    "start": 1274.93,
+    "end": 1278.71,
+    "text": " di questa mappatura tra memoria e file"
+  },
+  {
+    "start": 1278.71,
+    "end": 1281.59,
+    "text": " perché io voglio il tipo di protezioni, i flag"
+  },
+  {
+    "start": 1281.59,
+    "end": 1283.49,
+    "text": " il file de scripter"
+  },
+  {
+    "start": 1283.49,
+    "end": 1287.35,
+    "text": " e a quale offset del file deve venire questa"
+  },
+  {
+    "start": 1287.35,
+    "end": 1290.37,
+    "text": " mappatura, quindi se è zero sin dall'inizio del file"
+  },
+  {
+    "start": 1290.37,
+    "end": 1292.91,
+    "text": " altrimenti io gli posso dire da byte 1000"
+  },
+  {
+    "start": 1292.91,
+    "end": 1295.25,
+    "text": " fanno questa mappatura"
+  },
+  {
+    "start": 1295.93,
+    "end": 1299.15,
+    "text": " Allora andiamo a vedere gli argomenti di M-MAP"
+  },
+  {
+    "start": 1302.71,
+    "end": 1306.13,
+    "text": " L'arcomendo adder è utilizzato al sistema per determinare"
+  },
+  {
+    "start": 1306.13,
+    "end": 1308.61,
+    "text": " l'indirizzo di partenza della mappatura"
+  },
+  {
+    "start": 1311.13,
+    "end": 1314.25,
+    "text": " e la sua interpretazione dipende"
+  },
+  {
+    "start": 1314.25,
+    "end": 1316.61,
+    "text": " dal settaggio di map fixed"
+  },
+  {
+    "start": 1317.13,
+    "end": 1319.57,
+    "text": " se map fixed è specificato nei flag"
+  },
+  {
+    "start": 1320.13,
+    "end": 1323.45,
+    "text": " il sistema tenterà di piazzare la mappatura"
+  },
+  {
+    "start": 1323.45,
+    "end": 1325.33,
+    "text": " all'indirizzo specificato"
+  },
+  {
+    "start": 1326.13,
+    "end": 1328.01,
+    "text": " possibilmente rimuovendo"
+  },
+  {
+    "start": 1328.01,
+    "end": 1332.07,
+    "text": " una mappatura che esiste già in quella locazione"
+  },
+  {
+    "start": 1332.07,
+    "end": 1334.49,
+    "text": " se avevo chiamato M-MAP prima"
+  },
+  {
+    "start": 1334.49,
+    "end": 1337.39,
+    "text": " se map fixed non è specificato"
+  },
+  {
+    "start": 1337.39,
+    "end": 1340.51,
+    "text": " allora il sistema tenterà di usare il range"
+  },
+  {
+    "start": 1340.51,
+    "end": 1343.63,
+    "text": " specificato nell'indirizzo che io do"
+  },
+  {
+    "start": 1343.63,
+    "end": 1345.05,
+    "text": " quindi è solo una desiderata"
+  },
+  {
+    "start": 1345.05,
+    "end": 1348.77,
+    "text": " se non c'è un overlap con una mappa precedente"
+  },
+  {
+    "start": 1349.9499999999998,
+    "end": 1352.47,
+    "text": " inclusive la mappatura che può ovviamente"
+  },
+  {
+    "start": 1352.47,
+    "end": 1354.69,
+    "text": " creare malloc, perché M-MAP"
+  },
+  {
+    "start": 1354.69,
+    "end": 1357.55,
+    "text": " è molto complicata diciamo semanticamente"
+  },
+  {
+    "start": 1357.55,
+    "end": 1360.99,
+    "text": " si può usare sì per vedere in uno spazio di memoria"
+  },
+  {
+    "start": 1360.99,
+    "end": 1363.63,
+    "text": " il contenuto di un file, si può usare anche"
+  },
+  {
+    "start": 1363.63,
+    "end": 1367.65,
+    "text": " per allocare nuove pagine di memoria a specifici indirizi"
+  },
+  {
+    "start": 1367.65,
+    "end": 1369.73,
+    "text": " quindi la malloc può utilizzare"
+  },
+  {
+    "start": 1369.73,
+    "end": 1374.65,
+    "text": " M-MAP come diciamo allocatore di livello basso"
+  },
+  {
+    "start": 1374.65,
+    "end": 1377.13,
+    "text": " per allocare pagine di memoria"
+  },
+  {
+    "start": 1378.11,
+    "end": 1381.61,
+    "text": " altrimenti il sistema cercherà di utilizzare"
+  },
+  {
+    "start": 1383.45,
+    "end": 1386.27,
+    "text": " sceglierà un indirizzo"
+  },
+  {
+    "start": 1386.27,
+    "end": 1389.09,
+    "text": " indiverso per la mappa"
+  },
+  {
+    "start": 1389.09,
+    "end": 1390.97,
+    "text": " e lo ritenderà come una mappa"
+  },
+  {
+    "start": 1390.97,
+    "end": 1391.87,
+    "text": " come per ora di ritorno"
+  },
+  {
+    "start": 1391.87,
+    "end": 1394.77,
+    "text": " in altre parole senza map fixed"
+  },
+  {
+    "start": 1394.77,
+    "end": 1398.21,
+    "text": " se hai il range specificato già utilizzato"
+  },
+  {
+    "start": 1398.21,
+    "end": 1401.33,
+    "text": " tenterà di utilizzare un altro indirizzo"
+  },
+  {
+    "start": 1401.33,
+    "end": 1403.41,
+    "text": " se hai un indirizzo zero quindi il pondatore null"
+  },
+  {
+    "start": 1403.41,
+    "end": 1406.01,
+    "text": " M-MAP-FIX è specificato"
+  },
+  {
+    "start": 1406.01,
+    "end": 1408.59,
+    "text": " allora il indirizzo sarà selezionato al sistema"
+  },
+  {
+    "start": 1408.59,
+    "end": 1411.87,
+    "text": " in automatico in modo da non avere nessun overlap"
+  },
+  {
+    "start": 1411.87,
+    "end": 1414.73,
+    "text": " queste sono invece le protezioni"
+  },
+  {
+    "start": 1414.73,
+    "end": 1417.03,
+    "text": " quindi il tipo di accesso"
+  },
+  {
+    "start": 1417.73,
+    "end": 1420.27,
+    "text": " non, quindi non c'è nessun tipo di accesso"
+  },
+  {
+    "start": 1420.27,
+    "end": 1422.07,
+    "text": " read, write, execute"
+  },
+  {
+    "start": 1422.07,
+    "end": 1425.51,
+    "text": " quindi in basso al fatto che un di solito un range di memoria"
+  },
+  {
+    "start": 1425.51,
+    "end": 1428.45,
+    "text": " può essere o letto, o scritto o eseguito"
+  },
+  {
+    "start": 1428.45,
+    "end": 1432.43,
+    "text": " queste sono diciamo le capacità che di solito"
+  },
+  {
+    "start": 1432.43,
+    "end": 1436.79,
+    "text": " il processore ha rispetto a un determinato indirizzo memoria"
+  },
+  {
+    "start": 1436.79,
+    "end": 1439.03,
+    "text": " poi ci sono processori che hanno"
+  },
+  {
+    "start": 1439.03,
+    "end": 1441.99,
+    "text": " ad un addirittura delle funzioni"
+  },
+  {
+    "start": 1441.99,
+    "end": 1443.93,
+    "text": " ancora più specifici e più sottili"
+  },
+  {
+    "start": 1443.93,
+    "end": 1447.09,
+    "text": " ma diciamo storicamente queste sono le modalità in cui"
+  },
+  {
+    "start": 1447.09,
+    "end": 1449.97,
+    "text": " si può accedere alla memoria, in lettura, in scrittura, in esecuzione"
+  },
+  {
+    "start": 1449.97,
+    "end": 1453.19,
+    "text": " ecco invece ci sono dei sistemi che hanno invece le limitazioni"
+  },
+  {
+    "start": 1453.19,
+    "end": 1456.27,
+    "text": " alcuni ti dicono guardate che in alcune piattaforme"
+  },
+  {
+    "start": 1456.27,
+    "end": 1459.99,
+    "text": " se tu hai accesso in scrittura lo hai anche in lettura"
+  },
+  {
+    "start": 1461.8899999999999,
+    "end": 1463.29,
+    "text": " anche la lettura può"
+  },
+  {
+    "start": 1464.11,
+    "end": 1465.99,
+    "text": " implicare che tu puoi eseguire quegli indirizi"
+  },
+  {
+    "start": 1467.41,
+    "end": 1468.67,
+    "text": " eccetera eccetera in realtà"
+  },
+  {
+    "start": 1468.67,
+    "end": 1472.11,
+    "text": " i sistemi moderni solito hanno questa granolarità"
+  },
+  {
+    "start": 1472.11,
+    "end": 1475.13,
+    "text": " andiamo invece al tipo di mappa possibile"
+  },
+  {
+    "start": 1475.13,
+    "end": 1476.51,
+    "text": " quindi queste sono le protezioni"
+  },
+  {
+    "start": 1477.8899999999999,
+    "end": 1481.47,
+    "text": " Anonima o Anon, mappa anonymous memory"
+  },
+  {
+    "start": 1481.47,
+    "end": 1483.67,
+    "text": " memoria in nota società di buitini specific file"
+  },
+  {
+    "start": 1484.97,
+    "end": 1486.71,
+    "text": " quindi io posso creare anche"
+  },
+  {
+    "start": 1486.71,
+    "end": 1489.53,
+    "text": " una mappa che non è effettivamente"
+  },
+  {
+    "start": 1489.53,
+    "end": 1491.93,
+    "text": " legata a un file, l'abbiamo detto"
+  },
+  {
+    "start": 1491.93,
+    "end": 1495.55,
+    "text": " ma noi oggi invece vogliamo map file"
+  },
+  {
+    "start": 1496.83,
+    "end": 1498.17,
+    "text": " questo l'abbiamo visto"
+  },
+  {
+    "start": 1498.17,
+    "end": 1501.35,
+    "text": " va bene, poi ci sono altre cose più complicate"
+  },
+  {
+    "start": 1502.37,
+    "end": 1504.73,
+    "text": " se le modifiche sono o meno davvero"
+  },
+  {
+    "start": 1508.29,
+    "end": 1511.39,
+    "text": " scritt sul file, se io scrivo nel puntatore che mi ha ritornato"
+  },
+  {
+    "start": 1511.39,
+    "end": 1514.45,
+    "text": " memmap o no, ma oggi noi utilizziamo solo memmap"
+  },
+  {
+    "start": 1514.45,
+    "end": 1516.65,
+    "text": " in modalità ridonli"
+  },
+  {
+    "start": 1519.95,
+    "end": 1522.03,
+    "text": " allora, proviamo a ci stare roba qua"
+  },
+  {
+    "start": 1528.8700000000001,
+    "end": 1529.71,
+    "text": " include"
+  },
+  {
+    "start": 1532.97,
+    "end": 1534.45,
+    "text": " sysmman.h"
+  },
+  {
+    "start": 1534.45,
+    "end": 1535.83,
+    "text": " memory management"
+  },
+  {
+    "start": 1537.15,
+    "end": 1538.81,
+    "text": " string non mi serve"
+  },
+  {
+    "start": 1538.81,
+    "end": 1541.59,
+    "text": " stdio ce lo teniamo"
+  },
+  {
+    "start": 1541.59,
+    "end": 1546.17,
+    "text": " include fnthl.h"
+  },
+  {
+    "start": 1546.17,
+    "end": 1549.27,
+    "text": " file control, per usare la open"
+  },
+  {
+    "start": 1549.27,
+    "end": 1552.91,
+    "text": " perché non mi serve il file descriptor, ovvero deve essere abbastanza"
+  },
+  {
+    "start": 1552.91,
+    "end": 1556.45,
+    "text": " quindi per dire, io eviterò anche di"
+  },
+  {
+    "start": 1556.45,
+    "end": 1558.21,
+    "text": " avere il test"
+  },
+  {
+    "start": 1558.21,
+    "end": 1560.51,
+    "text": " per vedere il test sul descriptore"
+  },
+  {
+    "start": 1560.51,
+    "end": 1564.35,
+    "text": " se il file è stato aperto no, fidiamoci"
+  },
+  {
+    "start": 1564.35,
+    "end": 1566.75,
+    "text": " così questo esempio lo rende più facile"
+  },
+  {
+    "start": 1566.75,
+    "end": 1570.31,
+    "text": " quindi OpenSTD.io3.dochi"
+  },
+  {
+    "start": 1570.31,
+    "end": 1573.03,
+    "text": " ci fidiamo del fatto che il file esista"
+  },
+  {
+    "start": 1574.7300000000002,
+    "end": 1578.45,
+    "text": " redd.onli, mi ero indicato l'op, per questo non lo vedevo"
+  },
+  {
+    "start": 1579.4499999999998,
+    "end": 1581.73,
+    "text": " hanno l'highlights e ne fotte lo stesso"
+  },
+  {
+    "start": 1582.6899999999998,
+    "end": 1585.27,
+    "text": " ah beh, qua il file ci lo possiamo anche fare scrivere"
+  },
+  {
+    "start": 1594.23,
+    "end": 1597.51,
+    "text": " ecco, il file è 3, perché 0, 1 e 2 sono già utilizzati"
+  },
+  {
+    "start": 1597.51,
+    "end": 1599.57,
+    "text": " standard input, standard output, standard error"
+  },
+  {
+    "start": 1600.0699999999997,
+    "end": 1603.45,
+    "text": " il terzo, il numero 3 è il primo file descriptor disponibile"
+  },
+  {
+    "start": 1605.0099999999998,
+    "end": 1607.43,
+    "text": " vi voglio fare notare una cosa, se io eseguo di nuovo"
+  },
+  {
+    "start": 1607.43,
+    "end": 1610.39,
+    "text": " questo programma, sempre 3, perché quando il processo"
+  },
+  {
+    "start": 1610.39,
+    "end": 1613.29,
+    "text": " viene terminato, tutti i file vengono chiusi, tutte le socket"
+  },
+  {
+    "start": 1613.29,
+    "end": 1616.53,
+    "text": " vengono chiusi, tutto viene chiuso, viene distrutto tutto"
+  },
+  {
+    "start": 1617.33,
+    "end": 1619.53,
+    "text": " c'è una solo rarissime cose che"
+  },
+  {
+    "start": 1619.53,
+    "end": 1622.47,
+    "text": " rarissime che hanno dei sistemi, che un processo può eseguire"
+  },
+  {
+    "start": 1622.47,
+    "end": 1625.03,
+    "text": " che hanno effetti che poi diciamo"
+  },
+  {
+    "start": 1625.03,
+    "end": 1628.21,
+    "text": " procurano l'eek, di solito tutto viene azerato"
+  },
+  {
+    "start": 1628.21,
+    "end": 1631.17,
+    "text": " tutto viene chiuso, se non sarebbe un casino, ogni bug"
+  },
+  {
+    "start": 1631.17,
+    "end": 1634.07,
+    "text": " in un processo significerebbe poi che"
+  },
+  {
+    "start": 1634.91,
+    "end": 1637.87,
+    "text": " il kernel si ritrova con file descriptor aperti"
+  },
+  {
+    "start": 1637.87,
+    "end": 1639.69,
+    "text": " di processi che sono morti, un disastro"
+  },
+  {
+    "start": 1641.1299999999999,
+    "end": 1643.73,
+    "text": " ora che io ho... allora"
+  },
+  {
+    "start": 1643.73,
+    "end": 1647.07,
+    "text": " boh, open file descriptor"
+  },
+  {
+    "start": 1649.73,
+    "end": 1651.51,
+    "text": " mai teniamo c'è questa cosa"
+  },
+  {
+    "start": 1655.07,
+    "end": 1656.75,
+    "text": " allora la mia mmap, void"
+  },
+  {
+    "start": 1659.23,
+    "end": 1659.97,
+    "text": " mem"
+  },
+  {
+    "start": 1661.8700000000001,
+    "end": 1664.19,
+    "text": " mmap, adjust noi, quali diciamo"
+  },
+  {
+    "start": 1664.19,
+    "end": 1665.43,
+    "text": " null, se la vede lui"
+  },
+  {
+    "start": 1666.05,
+    "end": 1666.61,
+    "text": " len"
+  },
+  {
+    "start": 1667.6100000000001,
+    "end": 1670.69,
+    "text": " sendo byte, non so se questo qua deve essere"
+  },
+  {
+    "start": 1670.69,
+    "end": 1672.97,
+    "text": " un multiplo della grandezza della pagina"
+  },
+  {
+    "start": 1674.3700000000001,
+    "end": 1678.67,
+    "text": " the page size, if of certain is not a multiple of page size"
+  },
+  {
+    "start": 1678.67,
+    "end": 1681.47,
+    "text": " demat per un extend past specified range"
+  },
+  {
+    "start": 1681.47,
+    "end": 1685.31,
+    "text": " ah beh sì, dovevo utilizzarlo, altrimenti mi fanno estensione lui"
+  },
+  {
+    "start": 1685.31,
+    "end": 1687.91,
+    "text": " ah beh in realtà tipo ma per a tipo 16"
+  },
+  {
+    "start": 1690.3500000000001,
+    "end": 1692.65,
+    "text": " 16k avrò una mappe 16k"
+  },
+  {
+    "start": 1692.65,
+    "end": 1695.79,
+    "text": " e quello mappa diciamo altri file saranno tutti zero"
+  },
+  {
+    "start": 1695.79,
+    "end": 1697.49,
+    "text": " credo, protection"
+  },
+  {
+    "start": 1697.49,
+    "end": 1700.87,
+    "text": " andiamo alla protection, plot read"
+  },
+  {
+    "start": 1704.45,
+    "end": 1705.27,
+    "text": " flex"
+  },
+  {
+    "start": 1709.0900000000001,
+    "end": 1710.73,
+    "text": " map file"
+  },
+  {
+    "start": 1716.55,
+    "end": 1719.15,
+    "text": " file descriptor fd"
+  },
+  {
+    "start": 1719.15,
+    "end": 1720.43,
+    "text": " perché è la mia variabile qua"
+  },
+  {
+    "start": 1720.43,
+    "end": 1723.61,
+    "text": " offset zero"
+  },
+  {
+    "start": 1724.99,
+    "end": 1726.69,
+    "text": " file mappad"
+  },
+  {
+    "start": 1726.69,
+    "end": 1728.39,
+    "text": " at"
+  },
+  {
+    "start": 1728.39,
+    "end": 1731.13,
+    "text": " sto puntatore qui, mem"
+  },
+  {
+    "start": 1731.13,
+    "end": 1733.67,
+    "text": " vediamo se funziona"
+  },
+  {
+    "start": 1733.67,
+    "end": 1735.21,
+    "text": " se mi ha ritornato null"
+  },
+  {
+    "start": 1736.4499999999998,
+    "end": 1740.01,
+    "text": " e infatti c'è qualcosa che non va"
+  },
+  {
+    "start": 1740.01,
+    "end": 1740.71,
+    "text": " ovaltimamente"
+  },
+  {
+    "start": 1740.71,
+    "end": 1743.61,
+    "text": " allora vediamo subito printf"
+  },
+  {
+    "start": 1745.6299999999999,
+    "end": 1746.35,
+    "text": " dollaro"
+  },
+  {
+    "start": 1747.95,
+    "end": 1750.19,
+    "text": " percentuale c mem di zero"
+  },
+  {
+    "start": 1750.19,
+    "end": 1753.03,
+    "text": " vediamo se c'è un carattere legibile"
+  },
+  {
+    "start": 1755.21,
+    "end": 1757.07,
+    "text": " allora facciamo una cosa"
+  },
+  {
+    "start": 1761.35,
+    "end": 1762.07,
+    "text": " char"
+  },
+  {
+    "start": 1764.55,
+    "end": 1767.03,
+    "text": " faccio il casting in commutatore al carattere"
+  },
+  {
+    "start": 1767.03,
+    "end": 1770.29,
+    "text": " e mi prendo il primo byte"
+  },
+  {
+    "start": 1770.29,
+    "end": 1771.73,
+    "text": " segmentation fault, no"
+  },
+  {
+    "start": 1771.73,
+    "end": 1773.53,
+    "text": " la mia mmap"
+  },
+  {
+    "start": 1778.03,
+    "end": 1780.13,
+    "text": " mi ha ritornato"
+  },
+  {
+    "start": 1780.13,
+    "end": 1782.07,
+    "text": " errore"
+  },
+  {
+    "start": 1784.6499999999999,
+    "end": 1786.29,
+    "text": " vediamo perché"
+  },
+  {
+    "start": 1787.03,
+    "end": 1790.25,
+    "text": " forse le devo specificare per forza per esempio questo"
+  },
+  {
+    "start": 1790.25,
+    "end": 1792.27,
+    "text": " ma io in realtà voglio"
+  },
+  {
+    "start": 1792.27,
+    "end": 1793.19,
+    "text": " mapshare"
+  },
+  {
+    "start": 1795.21,
+    "end": 1797.29,
+    "text": " non qui"
+  },
+  {
+    "start": 1801.01,
+    "end": 1804.15,
+    "text": " esatto ora funziona"
+  },
+  {
+    "start": 1804.15,
+    "end": 1806.27,
+    "text": " ora funziona perfettamente"
+  },
+  {
+    "start": 1806.27,
+    "end": 1807.65,
+    "text": " tuttavia"
+  },
+  {
+    "start": 1808.19,
+    "end": 1809.99,
+    "text": " vorrei capire una cosa"
+  },
+  {
+    "start": 1809.99,
+    "end": 1813.45,
+    "text": " allora attenzione che praticamente quando c'è un errore"
+  },
+  {
+    "start": 1813.45,
+    "end": 1815.21,
+    "text": " la mmap"
+  },
+  {
+    "start": 1815.21,
+    "end": 1817.87,
+    "text": " non ritorna nulla"
+  },
+  {
+    "start": 1817.87,
+    "end": 1819.51,
+    "text": " ma ritorna mapfailed"
+  },
+  {
+    "start": 1819.51,
+    "end": 1823.03,
+    "text": " per questo abbiamo visto questo strano indirizzo che praticamente"
+  },
+  {
+    "start": 1823.03,
+    "end": 1823.99,
+    "text": " è la fine"
+  },
+  {
+    "start": 1825.03,
+    "end": 1826.71,
+    "text": " del mio spazio di indirizzamento"
+  },
+  {
+    "start": 1831.49,
+    "end": 1833.35,
+    "text": " guardate questo numero qui"
+  },
+  {
+    "start": 1833.35,
+    "end": 1834.91,
+    "text": " è lo stesso"
+  },
+  {
+    "start": 1835.8300000000002,
+    "end": 1837.99,
+    "text": " di 2 elevato a 64"
+  },
+  {
+    "start": 1841.03,
+    "end": 1841.41,
+    "text": " nemmeno 1"
+  },
+  {
+    "start": 1841.41,
+    "end": 1843.55,
+    "text": " quindi è l'ultimo byte"
+  },
+  {
+    "start": 1843.55,
+    "end": 1845.75,
+    "text": " nel mio spazio indirizzando il processo"
+  },
+  {
+    "start": 1847.13,
+    "end": 1848.63,
+    "text": " questa cosa qua"
+  },
+  {
+    "start": 1848.63,
+    "end": 1850.27,
+    "text": " perché così"
+  },
+  {
+    "start": 1851.05,
+    "end": 1852.07,
+    "text": " io non lo so"
+  },
+  {
+    "start": 1852.07,
+    "end": 1853.71,
+    "text": " ma io voglio vedere se gemini"
+  },
+  {
+    "start": 1854.85,
+    "end": 1855.37,
+    "text": " sa"
+  },
+  {
+    "start": 1856.69,
+    "end": 1859.07,
+    "text": " allora perché me map non ritorna nulla"
+  },
+  {
+    "start": 1859.07,
+    "end": 1860.07,
+    "text": " ma ritorna"
+  },
+  {
+    "start": 1860.07,
+    "end": 1861.45,
+    "text": " sta roba qui"
+  },
+  {
+    "start": 1865.73,
+    "end": 1866.77,
+    "text": " perché nulla"
+  },
+  {
+    "start": 1866.77,
+    "end": 1868.71,
+    "text": " comunque non è che un puntatore valido"
+  },
+  {
+    "start": 1868.71,
+    "end": 1869.99,
+    "text": " da cui fare iniziare"
+  },
+  {
+    "start": 1869.99,
+    "end": 1873.23,
+    "text": " o ci sono delle situazioni in cui io voglio"
+  },
+  {
+    "start": 1873.23,
+    "end": 1874.33,
+    "text": " che la mia memoria"
+  },
+  {
+    "start": 1874.33,
+    "end": 1875.99,
+    "text": " sia mappata da zero"
+  },
+  {
+    "start": 1877.99,
+    "end": 1878.97,
+    "text": " eh sì"
+  },
+  {
+    "start": 1879.87,
+    "end": 1881.63,
+    "text": " vogliono che sia possibile"
+  },
+  {
+    "start": 1882.3899999999999,
+    "end": 1884.51,
+    "text": " mappare anche il puntatore nulla"
+  },
+  {
+    "start": 1884.51,
+    "end": 1886.63,
+    "text": " quindi fare una mappa che inizia da zero"
+  },
+  {
+    "start": 1886.63,
+    "end": 1888.37,
+    "text": " chissà forse"
+  },
+  {
+    "start": 1888.37,
+    "end": 1890.65,
+    "text": " in casi particolari può essere utile"
+  },
+  {
+    "start": 1890.65,
+    "end": 1892.27,
+    "text": " che tutto lo spazio indirizzamento"
+  },
+  {
+    "start": 1892.27,
+    "end": 1894.07,
+    "text": " va bene"
+  },
+  {
+    "start": 1896.23,
+    "end": 1897.93,
+    "text": " abbiamo scoperto anche questo"
+  },
+  {
+    "start": 1897.93,
+    "end": 1899.77,
+    "text": " quindi praticamente"
+  },
+  {
+    "start": 1901.07,
+    "end": 1902.37,
+    "text": " ora vi faccio vedere"
+  },
+  {
+    "start": 1902.37,
+    "end": 1904.23,
+    "text": " che noi possiamo accedere a questo file"
+  },
+  {
+    "start": 1904.23,
+    "end": 1906.27,
+    "text": " attraverso il puntatore"
+  },
+  {
+    "start": 1906.27,
+    "end": 1908.37,
+    "text": " il che è veramente una figata bestiale"
+  },
+  {
+    "start": 1908.37,
+    "end": 1910.23,
+    "text": " quindi io uso un puntatore"
+  },
+  {
+    "start": 1910.23,
+    "end": 1911.37,
+    "text": " di typoczar che chiamo"
+  },
+  {
+    "start": 1911.37,
+    "end": 1911.99,
+    "text": " s"
+  },
+  {
+    "start": 1913.25,
+    "end": 1913.89,
+    "text": " signumem"
+  },
+  {
+    "start": 1913.89,
+    "end": 1915.91,
+    "text": " tanto sempre indirizzi memoria sono"
+  },
+  {
+    "start": 1915.91,
+    "end": 1916.99,
+    "text": " ricordate velo"
+  },
+  {
+    "start": 1916.99,
+    "end": 1919.23,
+    "text": " e void siccome un indirizzo memoria non tipizzato"
+  },
+  {
+    "start": 1919.81,
+    "end": 1921.17,
+    "text": " io non avrò nessun warning"
+  },
+  {
+    "start": 1921.17,
+    "end": 1922.67,
+    "text": " posso fare ciò che voglio"
+  },
+  {
+    "start": 1922.67,
+    "end": 1925.15,
+    "text": " ora faccio un ciclo fuori in cui faccio"
+  },
+  {
+    "start": 1925.15,
+    "end": 1927.31,
+    "text": " for in the j equal a zero"
+  },
+  {
+    "start": 1927.31,
+    "end": 1929.23,
+    "text": " j minore 10 j plus plus"
+  },
+  {
+    "start": 1933.0700000000002,
+    "end": 1933.89,
+    "text": " printf"
+  },
+  {
+    "start": 1935.6100000000001,
+    "end": 1936.43,
+    "text": " sd"
+  },
+  {
+    "start": 1936.43,
+    "end": 1937.35,
+    "text": " di"
+  },
+  {
+    "start": 1937.35,
+    "end": 1939.03,
+    "text": " un numero"
+  },
+  {
+    "start": 1939.03,
+    "end": 1939.23,
+    "text": " uguale"
+  },
+  {
+    "start": 1940.43,
+    "end": 1942.29,
+    "text": " il carattere che c'è a quel numero"
+  },
+  {
+    "start": 1942.29,
+    "end": 1944.47,
+    "text": " io qua faccio sd"
+  },
+  {
+    "start": 1944.47,
+    "end": 1945.23,
+    "text": " così mi spunta sd0"
+  },
+  {
+    "start": 1945.81,
+    "end": 1946.21,
+    "text": " sd1"
+  },
+  {
+    "start": 1946.21,
+    "end": 1948.83,
+    "text": " sd2 e quello che c'è è effettivamente"
+  },
+  {
+    "start": 1948.83,
+    "end": 1950.13,
+    "text": " sdj"
+  },
+  {
+    "start": 1953.19,
+    "end": 1954.01,
+    "text": " convidiamo"
+  },
+  {
+    "start": 1954.01,
+    "end": 1955.67,
+    "text": " ed eseguiamo"
+  },
+  {
+    "start": 1956.23,
+    "end": 1958.17,
+    "text": " vedete questo è praticamente ormai"
+  },
+  {
+    "start": 1958.17,
+    "end": 1959.23,
+    "text": " un array memoria"
+  },
+  {
+    "start": 1960.51,
+    "end": 1961.11,
+    "text": " include"
+  },
+  {
+    "start": 1961.11,
+    "end": 1964.15,
+    "text": " l'include che c'è all'inizio del file"
+  },
+  {
+    "start": 1964.15,
+    "end": 1965.85,
+    "text": " questi sono i primi byte del file"
+  },
+  {
+    "start": 1968.0300000000002,
+    "end": 1968.63,
+    "text": " ora"
+  },
+  {
+    "start": 1970.19,
+    "end": 1971.81,
+    "text": " vi svelo un segreto"
+  },
+  {
+    "start": 1971.81,
+    "end": 1974.07,
+    "text": " l'utilizzo a corto di mmap"
+  },
+  {
+    "start": 1974.07,
+    "end": 1976.21,
+    "text": " consente di scrivere i programmi"
+  },
+  {
+    "start": 1976.21,
+    "end": 1977.17,
+    "text": " più veloci"
+  },
+  {
+    "start": 1978.23,
+    "end": 1978.83,
+    "text": " possibile"
+  },
+  {
+    "start": 1980.17,
+    "end": 1981.39,
+    "text": " per interfacciarsi con i file"
+  },
+  {
+    "start": 1982.17,
+    "end": 1982.99,
+    "text": " ci sono un sacco di"
+  },
+  {
+    "start": 1982.99,
+    "end": 1985.57,
+    "text": " cose che diciamo"
+  },
+  {
+    "start": 1985.57,
+    "end": 1987.51,
+    "text": " che bisogna sapere di questo approccio"
+  },
+  {
+    "start": 1987.51,
+    "end": 1989.21,
+    "text": " specialmente quando si usa in scrittura"
+  },
+  {
+    "start": 1989.21,
+    "end": 1991.25,
+    "text": " perché guardate che succede"
+  },
+  {
+    "start": 1991.25,
+    "end": 1993.65,
+    "text": " in pratica l'unità di gestione"
+  },
+  {
+    "start": 1993.65,
+    "end": 1994.91,
+    "text": " delle memorie della cpu"
+  },
+  {
+    "start": 1997.15,
+    "end": 2000.05,
+    "text": " sa che quella lì è una allocazione speciale"
+  },
+  {
+    "start": 2000.05,
+    "end": 2001.57,
+    "text": " e si mette d'accordo con il kernel"
+  },
+  {
+    "start": 2001.57,
+    "end": 2003.11,
+    "text": " che quando c'è un accesso"
+  },
+  {
+    "start": 2003.11,
+    "end": 2004.63,
+    "text": " il kernel viene svegliato"
+  },
+  {
+    "start": 2004.63,
+    "end": 2007.15,
+    "text": " e allora ah mi si stanno accedendo"
+  },
+  {
+    "start": 2007.15,
+    "end": 2008.81,
+    "text": " a questo spazio memoria"
+  },
+  {
+    "start": 2008.81,
+    "end": 2011.33,
+    "text": " il kernel effettivamente va a leggere dal dispositivo"
+  },
+  {
+    "start": 2011.33,
+    "end": 2013.37,
+    "text": " e copia quel contenuto del file"
+  },
+  {
+    "start": 2013.37,
+    "end": 2014.45,
+    "text": " tutta la pagina"
+  },
+  {
+    "start": 2015.37,
+    "end": 2016.69,
+    "text": " che diciamo era"
+  },
+  {
+    "start": 2017.37,
+    "end": 2018.61,
+    "text": " all'interno di quella"
+  },
+  {
+    "start": 2019.7899999999997,
+    "end": 2022.27,
+    "text": " indirizzo a cui ho avuto accesso"
+  },
+  {
+    "start": 2022.27,
+    "end": 2023.21,
+    "text": " lo copia dal file"
+  },
+  {
+    "start": 2023.21,
+    "end": 2025.15,
+    "text": " alla memoria del mio processo"
+  },
+  {
+    "start": 2026.4499999999998,
+    "end": 2028.03,
+    "text": " quella pagina di memoria"
+  },
+  {
+    "start": 2029.4299999999998,
+    "end": 2031.53,
+    "text": " e avviene anche il contrario"
+  },
+  {
+    "start": 2031.53,
+    "end": 2033.65,
+    "text": " a un certo punto se io scrivo"
+  },
+  {
+    "start": 2033.65,
+    "end": 2035.11,
+    "text": " praticamente nella pagina di memoria"
+  },
+  {
+    "start": 2035.11,
+    "end": 2037.55,
+    "text": " che è neppiù e nemmeno a quel punto"
+  },
+  {
+    "start": 2037.55,
+    "end": 2039.25,
+    "text": " un pezzo di memoria del mio spazio"
+  },
+  {
+    "start": 2039.25,
+    "end": 2040.75,
+    "text": " di indirizzamento del processo"
+  },
+  {
+    "start": 2040.75,
+    "end": 2042.71,
+    "text": " a un certo punto io posso chiedere"
+  },
+  {
+    "start": 2042.71,
+    "end": 2044.89,
+    "text": " con una chiamata di sistema diversa"
+  },
+  {
+    "start": 2044.89,
+    "end": 2046.93,
+    "text": " dall'Mmap che quello"
+  },
+  {
+    "start": 2046.93,
+    "end": 2049.03,
+    "text": " che ci si che c'è"
+  },
+  {
+    "start": 2049.03,
+    "end": 2049.81,
+    "text": " di scritto"
+  },
+  {
+    "start": 2049.81,
+    "end": 2052.57,
+    "text": " venga effettivamente scritto dentro il file"
+  },
+  {
+    "start": 2052.57,
+    "end": 2054.45,
+    "text": " a volte lo può fare il kernel"
+  },
+  {
+    "start": 2054.45,
+    "end": 2056.83,
+    "text": " automaticamente delle pagine che si llamano"
+  },
+  {
+    "start": 2056.83,
+    "end": 2058.31,
+    "text": " dirti che sono sporche"
+  },
+  {
+    "start": 2058.31,
+    "end": 2060.37,
+    "text": " perché ancora non sono state davvero finalizzate"
+  },
+  {
+    "start": 2060.37,
+    "end": 2062.09,
+    "text": " nel file di passarle"
+  },
+  {
+    "start": 2062.09,
+    "end": 2064.39,
+    "text": " nel file altre volte praticamente"
+  },
+  {
+    "start": 2064.39,
+    "end": 2066.27,
+    "text": " devo chiederlo io se voglio che venga"
+  },
+  {
+    "start": 2066.27,
+    "end": 2068.51,
+    "text": " effettuata questa operazione di scrittura"
+  },
+  {
+    "start": 2068.51,
+    "end": 2070.45,
+    "text": " nel file della memoria immediatamente"
+  },
+  {
+    "start": 2070.45,
+    "end": 2072.61,
+    "text": " ma capirete che io senza"
+  },
+  {
+    "start": 2072.61,
+    "end": 2074.95,
+    "text": " chiamata di sistema posso scrivere"
+  },
+  {
+    "start": 2074.95,
+    "end": 2076.59,
+    "text": " un botto di cose in questo"
+  },
+  {
+    "start": 2076.59,
+    "end": 2078.45,
+    "text": " file che è mappato in memoria"
+  },
+  {
+    "start": 2078.45,
+    "end": 2080.89,
+    "text": " e poi con una chiamata di sistema singola"
+  },
+  {
+    "start": 2080.89,
+    "end": 2082.73,
+    "text": " dire al kernel di trasferire"
+  },
+  {
+    "start": 2082.73,
+    "end": 2084.35,
+    "text": " le scritture ecc."
+  },
+  {
+    "start": 2084.89,
+    "end": 2086.03,
+    "text": " o se noi immaginate per esempio"
+  },
+  {
+    "start": 2086.03,
+    "end": 2087.89,
+    "text": " l'implementazione di grep"
+  },
+  {
+    "start": 2088.51,
+    "end": 2090.61,
+    "text": " grep è quel file e quel comando"
+  },
+  {
+    "start": 2090.61,
+    "end": 2091.87,
+    "text": " unix che"
+  },
+  {
+    "start": 2092.63,
+    "end": 2094.73,
+    "text": " io posso utilizzare per esempio"
+  },
+  {
+    "start": 2094.73,
+    "end": 2095.11,
+    "text": " per"
+  },
+  {
+    "start": 2095.9300000000003,
+    "end": 2096.53,
+    "text": " cercare"
+  },
+  {
+    "start": 2097.11,
+    "end": 2099.25,
+    "text": " dentro diversi file se c'è una data"
+  },
+  {
+    "start": 2099.25,
+    "end": 2101.15,
+    "text": " stringa che è qua in tutti"
+  },
+  {
+    "start": 2101.15,
+    "end": 2102.07,
+    "text": " file.co"
+  },
+  {
+    "start": 2102.85,
+    "end": 2103.93,
+    "text": " così via"
+  },
+  {
+    "start": 2104.67,
+    "end": 2107.09,
+    "text": " se io implemento grep con il memory mapping"
+  },
+  {
+    "start": 2107.09,
+    "end": 2107.95,
+    "text": " beh"
+  },
+  {
+    "start": 2107.95,
+    "end": 2110.29,
+    "text": " c'ho praticamente"
+  },
+  {
+    "start": 2111.71,
+    "end": 2113.11,
+    "text": " la possibilità di utilizzare"
+  },
+  {
+    "start": 2113.67,
+    "end": 2115.11,
+    "text": " una programmazione anche più libera"
+  },
+  {
+    "start": 2115.73,
+    "end": 2116.87,
+    "text": " perché non devo fare"
+  },
+  {
+    "start": 2116.87,
+    "end": 2118.65,
+    "text": " ah read devo fare il buffering"
+  },
+  {
+    "start": 2118.65,
+    "end": 2120.69,
+    "text": " no io accedo a un puntatore"
+  },
+  {
+    "start": 2120.69,
+    "end": 2122.85,
+    "text": " vedo tutto il mio file, cerco con"
+  },
+  {
+    "start": 2122.85,
+    "end": 2124.21,
+    "text": " l'algoritmo più figo"
+  },
+  {
+    "start": 2124.21,
+    "end": 2126.77,
+    "text": " che posso utilizzare dove sono"
+  },
+  {
+    "start": 2126.77,
+    "end": 2128.69,
+    "text": " le mie occorrenze e così via"
+  },
+  {
+    "start": 2128.69,
+    "end": 2130.53,
+    "text": " quindi a volte memapp può essere"
+  },
+  {
+    "start": 2130.53,
+    "end": 2133.17,
+    "text": " anche utilizzata come semplificazione"
+  },
+  {
+    "start": 2133.17,
+    "end": 2134.33,
+    "text": " di una"
+  },
+  {
+    "start": 2134.93,
+    "end": 2137.01,
+    "text": " di una implementazione di un programma"
+  },
+  {
+    "start": 2137.01,
+    "end": 2138.85,
+    "text": " quindi allo stesso tempo diventa più semplice"
+  },
+  {
+    "start": 2138.85,
+    "end": 2140.23,
+    "text": " più veloce, insomma"
+  },
+  {
+    "start": 2140.23,
+    "end": 2142.91,
+    "text": " è una tecnica e un'amazione evoluta"
+  },
+  {
+    "start": 2142.91,
+    "end": 2143.83,
+    "text": " e molto potente"
+  },
+  {
+    "start": 2143.83,
+    "end": 2146.51,
+    "text": " tra l'altro è una di quelle cose che non vedrete"
+  },
+  {
+    "start": 2146.51,
+    "end": 2147.79,
+    "text": " mai se è programmate"
+  },
+  {
+    "start": 2148.37,
+    "end": 2150.25,
+    "text": " non lo so in python in javascript"
+  },
+  {
+    "start": 2150.25,
+    "end": 2152.27,
+    "text": " è raro che ci si imbatta"
+  },
+  {
+    "start": 2152.27,
+    "end": 2153.43,
+    "text": " in cose del genere"
+  },
+  {
+    "start": 2153.43,
+    "end": 2155.77,
+    "text": " quindi mi sembra molto interessante"
+  },
+  {
+    "start": 2155.77,
+    "end": 2157.39,
+    "text": " far vedere in questa prossima amazione"
+  },
+  {
+    "start": 2157.39,
+    "end": 2160.15,
+    "text": " beh siamo andati per le lunghe"
+  },
+  {
+    "start": 2160.15,
+    "end": 2162.73,
+    "text": " abbiamo toccato orgoglienti complessi"
+  },
+  {
+    "start": 2162.73,
+    "end": 2164.51,
+    "text": " comunque spero che sia stato utile"
+  },
+  {
+    "start": 2164.51,
+    "end": 2164.97,
+    "text": " ciao"
+  }
+]

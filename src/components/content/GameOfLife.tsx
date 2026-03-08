@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Play, Pause, RotateCcw, FastForward, Info, Binary, Maximize2 } from 'lucide-react';
 
@@ -28,8 +28,8 @@ export default function GameOfLife() {
     );
     const [isRunning, setIsRunning] = useState(false);
     const [generation, setGeneration] = useState(0);
-    const [speed, setSpeed] = useState(200);
-    const timerRef = useRef<NodeJS.Timeout | null>(null);
+    const [speed] = useState(200);
+    const timerRef = useRef<any>(null);
 
     const getNeighbors = (grid: number[][], x: number, y: number) => {
         let count = 0;
@@ -53,9 +53,9 @@ export default function GameOfLife() {
                 for (let j = 0; j < COLS; j++) {
                     const neighbors = getNeighbors(prev, i, j);
                     if (prev[i][j] === 1) {
-                        next[i][j] = neighbors === 2 || neighbors === 3 ? 1 : 0;
+                        next[i][j] = (neighbors === 2 || neighbors === 3) ? 1 : 0;
                     } else {
-                        next[i][j] = neighbors === 3 ? 1 : 0;
+                        next[i][j] = (neighbors === 3) ? 1 : 0;
                     }
                     if (next[i][j] !== prev[i][j]) changed = true;
                 }
@@ -92,8 +92,8 @@ export default function GameOfLife() {
         reset();
         const pattern = INITIAL_PATTERNS[type];
         const newGrid = Array(ROWS).fill(0).map(() => Array(COLS).fill(0));
-        const midR = Math.floor(ROWS / 2);
-        const midC = Math.floor(COLS / 2);
+        const midR = Math.floor(ROWS / 2) - 1;
+        const midC = Math.floor(COLS / 2) - 1;
         
         pattern.forEach((row, i) => {
             row.forEach((cell, j) => {
@@ -151,18 +151,32 @@ export default function GameOfLife() {
                     >
                         {grid.map((row, r) => 
                             row.map((cell, c) => (
-                                <div 
+                                <motion.div 
                                     key={`${r}-${c}`}
                                     onClick={() => toggleCell(r, c)}
-                                    className={`aspect-square rounded-[1px] transition-all cursor-crosshair ${
-                                        cell === 1 
-                                            ? 'bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.4)]' 
-                                            : 'bg-zinc-900/50 hover:bg-zinc-800'
-                                    }`}
+                                    animate={{ 
+                                        backgroundColor: cell === 1 ? 'rgba(34, 197, 94, 1)' : 'rgba(24, 24, 27, 0.5)',
+                                        scale: cell === 1 ? [1, 1.1, 1] : 1
+                                    }}
+                                    className={`aspect-square rounded-[1px] cursor-crosshair border border-white/5`}
                                 />
                             ))
                         )}
                     </div>
+                    <AnimatePresence>
+                        {isRunning && (
+                            <motion.div 
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                className="absolute top-2 right-2"
+                            >
+                                <div className="flex items-center gap-2 px-2 py-1 rounded bg-green-500 text-[8px] font-black text-white uppercase tracking-tighter animate-pulse">
+                                    Simulating
+                                </div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
                 </div>
 
                 {/* Controls & Rules */}
@@ -226,7 +240,7 @@ export default function GameOfLife() {
                 <div className="flex items-start gap-3">
                     <Maximize2 className="text-blue-500 mt-1 shrink-0" size={18} />
                     <p className="text-sm text-zinc-500 leading-relaxed">
-                        <strong>Hacker Detail:</strong> Salvatore implementa il "Wrapping" usando l'operatore modulo <code>%</code>. Quando una cella esce dal bordo destro, riappare a sinistra. Questo simula un universo "toroidale" (a forma di ciambella) infinito pur avendo memoria finita.
+                        <strong>Hacker Detail:</strong> Salvatore implementa il "Wrapping" usando l'operatore modulo <code>%</code>. Quando una cella esce dal bordo destro, riappare a sinistra. Questo simula un universo "toroidale" infinito.
                     </p>
                 </div>
             </div>

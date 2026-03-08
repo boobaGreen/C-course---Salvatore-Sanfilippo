@@ -1,0 +1,253 @@
+import VideoEmbed from '../../components/content/VideoEmbed';
+import Callout from '../../components/content/Callout';
+import KeyConcepts from '../../components/content/KeyConcepts';
+import CodeEditor from '../../components/exercises/CodeEditor';
+import Quiz from '../../components/exercises/Quiz';
+import HackerTerminal from '../../components/content/HackerTerminal';
+import GameOfLife from '../../components/content/GameOfLife';
+import Infographic from '../../components/content/Infographic';
+
+# Lesson 8: Game of Life - Problem Solving in C
+
+Today, we won't learn many new theoretical concepts. Instead, we'll put everything we've seen so far to the test by building a real simulated universe: **John Conway's Game of Life**. This is a pure **Problem Solving** lesson.
+
+<VideoEmbed videoId="c5atNuYdKK8" title="Lesson 8: Implementing Game of Life" />
+
+<KeyConcepts 
+  concepts={[
+    {
+      title: "Live Problem Solving",
+      description: "Salvatore writes code without preparing it beforehand: a unique chance to see how a professional thinks through errors."
+    },
+    {
+      title: "Specializing the Language",
+      description: "In C, the first step is creating abstractions (functions) that 'lift' the language level to suit the problem."
+    },
+    {
+      title: "Macro Usage (#define)",
+      description: "Textual substitutions by the preprocessor to centrally configure the grid."
+    },
+    {
+      title: "The Toroidal Universe",
+      description: "Implementing spatial wrapping using the modulo operator (%)."
+    }
+  ]} 
+/>
+
+<Callout type="warning" title="The Importance of Making Mistakes">
+You'll notice Salvatore making mistakes and correcting them in real-time. This is crucial: programming isn't about writing perfect code on the first try, but about knowing how to interpret and fix bugs.
+</Callout>
+
+## The Rules of the Game
+
+The Game of Life is a cellular automaton. Each cell can be **ALIVE** (1) or **DEAD** (0). The next state depends only on its 8 neighbors.
+
+<GameOfLife />
+
+<Callout type="info" title="The Toroidal Universe">
+Salvatore uses a brilliant trick: the **modulo** operator (`%`). 
+Instead of checking if we've gone off the edges of the array, we use `x % WIDTH`. 
+If we reach column 25 in a 25-wide grid, the result is 0. We've "jumped" to the other side!
+</Callout>
+
+## Problem Decomposition
+
+Salvatore shows us how to "specialize the language" by creating a "ladder" of abstractions. Instead of writing everything in `main`, we create small building blocks:
+
+1.  **`sell_to_index`**: The granular heart. Converts coordinates (x, y) into a linear index, handling wrapping (if I go out at 25, I come back at 0).
+2.  **`get_cell` / `set_cell`**: These use `sell_to_index` to read or write memory without worrying about calculations every time.
+3.  **`count_living_neighbors`**: Cycles around a cell (8 neighbors) and counts how many are alive. Skips itself (offset 0,0).
+4.  **`compute_new_state`**: Applies Conway's rules to decide if a cell will live or die in the next generation.
+
+<Callout type="hacker" title="The Pointer 'Cheat'">
+Even though we haven't formally studied them yet, Salvatore must use **pointers** (`char *grid`) to pass the grid to functions. Without them, the functions would work on a copy of the grid and couldn't modify the original!
+</Callout>
+
+## Simulation Code
+
+Try modifying the speed or the characters used to represent life.
+
+<CodeEditor 
+  initialCode={`#include <stdio.h>
+#include <unistd.h>
+
+#define COLS 20
+#define ROWS 20
+#define ALIVE '#'
+#define DEAD ' '
+
+void print_grid(char *grid) {
+    printf("\\033[H"); // Moves cursor to top-left
+    for (int y = 0; y < ROWS; y++) {
+        for (int x = 0; x < COLS; x++) {
+            printf("%c ", grid[y * COLS + x]);
+        }
+        printf("\\n");
+    }
+}
+
+int main() {
+    char grid[COLS * ROWS];
+    // Initialize and start the loop...
+    return 0;
+}`}
+  language="c"
+/>
+
+---
+
+<KeyConcepts title="Hacker Key Concepts">
+  - **Wrapping with %**: Simulating infinite spaces with finite memory.
+  - **Functions as Layers**: Building a "ladder" of abstractions to avoid drowning in details.
+  - **Escape Sequences**: Using codes like `\033[H` to control the terminal (cleaning the screen without `system("clear")`).
+</KeyConcepts>
+
+---
+
+## Verification Quiz
+
+<Quiz 
+  questions={[
+    {
+      question: "Why does Salvatore use the modulo operator (%) in the coordinate translation function?",
+      options: [
+        "To make the calculation slower",
+        "To automatically handle 'wrapping' at the edges of the grid",
+        "Because division cannot be used",
+        "For aesthetic reasons"
+      ],
+      correctAnswer: 1,
+      explanation: "Modulo allows mapping out-of-range coordinates (e.g., 25 on a 25-wide grid) back to the start (0), creating an effect of spatial continuity."
+    },
+    {
+      question: "In C, if you pass an array `char grid[]` to a function, what are you actually passing?",
+      options: [
+        "A full copy of all data",
+        "Only the first element",
+        "The memory address of the first element (pointer)",
+        "Nothing, it disappears"
+      ],
+      correctAnswer: 2,
+      explanation: "In C, arrays decay into pointers when passed to functions. This is efficient because it doesn't require copying large amounts of data."
+    },
+    {
+      question: "What does the escape sequence '\\033[H' seen in the video do?",
+      options: [
+        "Turns off the computer",
+        "Prints a giant 'H'",
+        "Repositions the terminal cursor to the start (Home)",
+        "Changes the color to green"
+      ],
+      correctAnswer: 2,
+      explanation: "It's an ANSI code. It allows overwriting the old grid with the new one without having to clear the entire screen repeatedly, reducing flickering."
+    },
+    {
+      question: "What is the advantage of defining ROWS and COLS with #define instead of normal variables?",
+      options: [
+        "None, it's just older",
+        "The compiler replaces them everywhere before compiling, optimizing space and preventing accidental changes",
+        "Macros are easier to debug",
+        "Because they occupy less RAM this way"
+      ],
+      correctAnswer: 1,
+      explanation: "#define are preprocessor constants. They are immutable and allow changing the size of the entire program by modifying a single value."
+    },
+    {
+      question: "During the development of the Game of Life, Salvatore recommends:",
+      options: [
+        "Writing everything in main()",
+        "Breaking the problem into small specialized functions",
+        "Not using functions because they slow down execution",
+        "Copying the code from Wikipedia"
+      ],
+      correctAnswer: 1,
+      explanation: "Decomposition is the programmer's secret weapon. Functions like 'get_cell' allow you to ignore wrapping complexity while writing the neighbor logic."
+    }
+  ]}
+/>
+
+---
+
+### Hacker Challenge 🏆
+
+<Quiz 
+  title="Hacker Challenge: Game Logic & Systems"
+  questions={[
+    {
+      id: 1,
+      question: "What is the computational complexity (O notation) for calculating a single generation in an N x M grid?",
+      options: [
+        "O(1)",
+        "O(N + M)",
+        "O(N * M)",
+        "O((N * M)^2)"
+      ],
+      correctAnswer: 2,
+      explanation: "We must process every single cell of the grid once. If the grid is N x M, the cost is proportional to the total number of cells."
+    },
+    {
+      id: 2,
+      question: "Why does Salvatore use two grids (old_grid and new_grid)?",
+      options: [
+        "Because he has a lot of RAM available",
+        "To avoid overwriting the current state while calculating neighbors for subsequent cells",
+        "Because arrays in C are small",
+        "It's a bug in the code"
+      ],
+      correctAnswer: 1,
+      explanation: "Crucial! If we modified the grid while reading it, cells calculated later would see neighbors already 'updated' to the future, breaking the synchronicity of Conway's rules."
+    },
+    {
+      id: 3,
+      question: "What data type is most efficient for storing cells (0 or 1) if we want to save every single bit?",
+      options: [
+        "int (4 bytes)",
+        "char (1 byte)",
+        "short (2 bytes)",
+        "float (4 bytes)"
+      ],
+      correctAnswer: 1,
+      explanation: "Salvatore uses 'char' because it occupies only 8 bits. Although 1 bit would suffice, 'char' is the smallest unit of memory that can be easily addressed in C."
+    }
+  ]}
+/>
+
+### Terminal Challenge: Time & Space ⚡
+
+<HackerTerminal 
+  title="Hacker Challenge: Level 8 - Task 1"
+  description="Salvatore wrote the code live. If you wanted to count how many lines of code his 'life.c' file has, which Linux command would you use?"
+  command="cat life.c ..."
+  expectedOutput="wc -l life.c"
+  inputLabel="Command:"
+  placeholder="e.g. count life.c"
+  hint="The command stands for 'Word Count'."
+  explanation="Excellent! `wc -l` is essential for monitoring the growth of your project and the verbosity of your code."
+  xpReward={150}
+/>
+
+<HackerTerminal 
+  title="Hacker Challenge: Level 8 - Task 2"
+  description="You've compiled the simulator with 'gcc life.c'. Now you want to measure exactly how much effective CPU time the program consumed in one run. Which command precedes the execution to give you the report?"
+  command="./a.out"
+  expectedOutput="time ./a.out"
+  inputLabel="Command:"
+  placeholder="time ..."
+  hint="We saw this in the previous lesson, it is fundamental for performance."
+  explanation="Perfect. Remember that 'user time' is the time spent by your code, 'sys time' is the time spent by the kernel for you (e.g., printing to the screen)."
+  xpReward={200}
+/>
+
+<HackerTerminal 
+  title="Hacker Challenge: Level 8 - Task 3"
+  description="You want to modify the ROWS and COLS parameters without leaving the terminal. Which integrated editor would you use (the one Salvatore often uses)?"
+  command="editor life.c"
+  expectedOutput="nano life.c"
+  inputLabel="Editor:"
+  placeholder="e.g. notepad life.c"
+  hint="Starts with 'n' and is very user-friendly."
+  explanation="Nano is the beginner's friend! For real hackers, there's also Vim or Emacs, but Nano saves your life for quick edits over SSH."
+  xpReward={250}
+/>
+
+See you in the next lesson to dive into pointers!

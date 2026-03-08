@@ -57,4 +57,11 @@ export const lessons = [
         videoId: 'HCRthhjbfAg',
         duration: '28:15',
     },
+    {
+        id: 8,
+        slug: 'lesson-08',
+        title: { it: 'Lezione 8: Game of Life', en: 'Lesson 8: Game of Life' },
+        videoId: 'c5atNuYdKK8',
+        duration: '34:00',
+    },
 ];
