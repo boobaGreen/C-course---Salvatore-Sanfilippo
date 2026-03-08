@@ -33,6 +33,11 @@ import MemoryCaster from '../components/content/MemoryCaster';
 import HeapAllocator from '../components/content/HeapAllocator';
 import BSTVisualizer from '../components/content/BSTVisualizer';
 import RefcountVisualizer from '../components/content/RefcountVisualizer';
+import SpectrumMemoryVisualizer from '../components/content/SpectrumMemoryVisualizer';
+import AttributeGrid from '../components/content/AttributeGrid';
+import EvoSimulator from '../components/content/EvoSimulator';
+import PerformanceChart from '../components/content/PerformanceChart';
+import WorkflowDiagram from '../components/content/WorkflowDiagram';
 
 // Mappa componenti MDX
 const mdxComponents = {
@@ -88,6 +93,11 @@ const mdxComponents = {
     HeapAllocator,
     BSTVisualizer,
     RefcountVisualizer,
+    SpectrumMemoryVisualizer,
+    AttributeGrid,
+    EvoSimulator,
+    PerformanceChart,
+    WorkflowDiagram,
 };
 
 export default function Lesson() {

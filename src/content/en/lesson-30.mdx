@@ -1,0 +1,186 @@
+# Lesson 30: Evolutionary Aesthetics and Ancient Hardware
+
+In this "midnight" lesson, Salvatore takes us on a journey through time and memory space, exploring how C can manipulate bits to interface with 40-year-old hardware: the **ZX Spectrum**.
+
+<VideoEmbed videoId="D1U3uCe-kok" title="Lesson 30: Evolutionary Algorithms and ZX Spectrum" />
+
+## Constraint as Opportunity
+
+The ZX Spectrum had extremely creative video memory management to save RAM. With just **6.75 KB**, it could drive a 256x192 pixel display.
+
+### The Memory Map
+Memory is not sequential: pixels are in one area, colors (attributes) in another.
+
+<SpectrumMemoryVisualizer />
+
+---
+
+## The Attribute Problem (Attribute Clash)
+
+Unlike modern computers where every pixel can have its own color, the Spectrum assigns colors in **8x8 blocks**. Each block has a single byte defining everything:
+
+<AttributeGrid />
+
+<Callout type="warning" title="Hardware Limits">
+In an 8x8 block, you can have only **two colors**: one for the background (PAPER) and one for active pixels (INK). If a colored character passes over a background of another color, the colors "clash."
+</Callout>
+
+---
+
+## Evolutionary Algorithms: Simulated Annealing
+
+How can we transform a modern photo (PNG) into an image that respects these brutal limits? Salvatore uses an **Evolutionary Algorithm**.
+
+1. **Mutation**: Randomly change some bits in the Spectrum's memory.
+2. **Rendering**: Transform that memory into an image.
+3. **Fitness**: Compare the resulting image with the original.
+4. **Selection**: If the new image is "closer" to the original, we keep it.
+
+<EvoSimulator />
+
+### Curriculum Learning
+Instead of optimizing everything at once, Salvatore uses a phased strategy:
+- **Phase 1**: Optimize pixels only (black and white).
+- **Phase 2**: Fix pixels and optimize colors.
+- **Phase 3**: Optimize everything together for fine-tuning.
+
+---
+
+## The Code: Calculating Distance
+
+The `compute_diff` function is the heart of the program. It treats RGB colors as coordinates in 3D space and calculates the Euclidean distance.
+
+<CodeEditor 
+  initialCode={`long long compute_diff(unsigned char *a, unsigned char *b) {
+    long long diff = 0;
+    for (int i = 0; i < WIDTH * HEIGHT * 3; i += 3) {
+        int r = a[i] - b[i];
+        int g = a[i+1] - b[i+1];
+        int b = a[i+2] - b[i+2];
+        // Quadratic distance (faster than square root)
+        diff += (r*r) + (g*g) + (b*b);
+    }
+    return diff;
+}`}
+  language="c"
+/>
+
+---
+
+## Exercise
+
+<Quiz 
+  questions={[
+    {
+      question: "How much memory does the ZX Spectrum video RAM occupy?",
+      options: ["1.5 KB", "6.75 KB", "64 KB", "1 MB"],
+      correctAnswer: 1,
+      explanation: "It's roughly 6KB for pixels and less than 1KB for color attributes."
+    },
+    {
+      question: "What is Attribute Clash?",
+      options: [
+        "A Z80 processor error",
+        "The limit of 2 colors per 8x8 block",
+        "A Git command",
+        "A type of void pointer"
+      ],
+      correctAnswer: 1,
+      explanation: "It's the physical limit of the Spectrum's ULA that prevents more than two colors in each 8x8 grid."
+    },
+    {
+      question: "What is the purpose of Simulated Annealing in this context?",
+      options: [
+        "Cooling down the CPU",
+        "Finding the best bit combination to approximate the image",
+        "Compressing the image into JPEG",
+        "Clearing the RAM"
+      ],
+      correctAnswer: 1,
+      explanation: "It simulates the metal cooling process to find a global minimum for error."
+    },
+    {
+      question: "What is 'Curriculum Learning'?",
+      options: [
+        "Studying for a C exam",
+        "Solving complex problems step-by-step (e.g., first pixels, then colors)",
+        "Printing your CV in C",
+        "A sorting algorithm"
+      ],
+      correctAnswer: 1,
+      explanation: "It's a technique where the algorithm learns increasingly difficult tasks in sequence."
+    },
+    {
+      question: "Why do we use the square of the difference (r*r) instead of the absolute value?",
+      options: [
+        "Because it looks cooler",
+        "To eliminate negative signs and weigh large differences more heavily",
+        "Because C doesn't have an absolute value function",
+        "To save electricity"
+      ],
+      correctAnswer: 1,
+      explanation: "Squaring keeps values positive and 'punishes' pixels that are very different (Euclidean distance)."
+    }
+  ]} 
+/>
+
+<Quiz 
+  title="Hacker Challenge"
+  questions={[
+    {
+      question: "Which part of the attribute byte defines if the color is 'bright'?",
+      options: ["Bit 0", "Bit 6 (Bright)", "Bit 7 (Flash)", "Bit 4"],
+      correctAnswer: 1,
+      explanation: "Bit 6 activates 'Bright' mode, increasing color intensity."
+    },
+    {
+      question: "In simulated annealing, what happens when the 'temperature' is high?",
+      options: [
+        "The program crashes",
+        "Worse solutions are accepted more easily to escape local minima",
+        "The image turns red",
+        "The computer heats up"
+      ],
+      correctAnswer: 1,
+      explanation: "High temperature allows exploring non-optimal solutions to avoid getting stuck in 'algorithmic dead ends'."
+    },
+    {
+      question: "What is the standard resolution of the ZX Spectrum?",
+      options: ["320x240", "256x192", "640x480", "800x600"],
+      correctAnswer: 1,
+      explanation: "256x192 pixels, divided into 32x24 attribute blocks."
+    }
+  ]} 
+/>
+
+<HackerTerminal 
+  challenges={[
+    {
+      id: "spectrum-bits-en",
+      title: "Bit Math",
+      description: "How many pixels are controlled by a single byte in the BITMAP area?",
+      commands: ["8"],
+      expectedOutput: "8",
+      hints: ["1 bit = 1 pixel. 1 byte = ?"]
+    },
+    {
+      id: "attr-math-en",
+      title: "Attribute Offset",
+      description: "If the bitmap ends at address 6143, at what address does the first attribute byte start?",
+      commands: ["6144"],
+      expectedOutput: "6144",
+      hints: ["It is the immediately following address."]
+    },
+    {
+      id: "color-count-en",
+      title: "Spectrum Colors",
+      description: "Considering BRIGHT, how many total colors can the Spectrum display (including blacks)?",
+      commands: ["15"],
+      expectedOutput: "15",
+      hints: ["8 base colors x 2 (normal/bright). But bright black is the same as normal black..."]
+    }
+  ]}
+/>
+
+### Conclusion
+Today we saw how C isn't just for "banks and databases," but a precision scalpel for manipulating reality (or at least 40-year-old pixels). In the next lesson, we'll see how to drastically optimize this algorithm using **Assisted Programming**.

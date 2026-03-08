@@ -1,0 +1,195 @@
+# Lesson 31: The Modern C Programmer and AI
+
+In this lesson, Salvatore abandons the classic approach to show us how an expert programmer works *today*: no longer writing every single line by hand, but guiding an AI agent (like Claude Code or Cursor) like an orchestra conductor.
+
+<VideoEmbed videoId="fZmdsh0gQig" title="Lesson 31: Assisted Programming and Optimization" />
+
+## The New Role of the Programmer
+
+The arrival of *Large Language Models (LLMs)* and coding agents has radically changed our profession. We no longer have to struggle for five or ten minutes writing boilerplate code; we can delegate the writing process and focus on **architecture** and **correctness**.
+
+<WorkflowDiagram />
+
+<Callout type="info" title="The Importance of Fundamentals">
+Why then have we learned raw C so far? Because to guide and *audit* (verify) an AI agent, you must perfectly understand memory, pointers, and machine limits. The AI writes the code, but **you** are responsible for the result.
+</Callout>
+
+---
+
+## Optimization: From Global to Local
+
+Let's return to the program from the last lesson. The problem was slowness: every time we randomly changed 3 bytes, the algorithm recalculated the difference over the **entire image** (49,152 pixels x 3 colors). Ridiculous!
+
+Salvatore asks the AI to change the logic: instead of calculating the global difference, we work on a single **8x8 block at a time**.
+
+<PerformanceChart />
+
+<CodeEditor 
+  initialCode={`// Before: O(N) where N is the entire image
+long long compute_diff_global() {
+    long long diff = 0;
+    for (int i = 0; i < WIDTH * HEIGHT * 3; i++) { ... }
+    return diff;
+}
+
+// After (with AI help): O(1) independent of image size!
+long long compute_block_diff(int start_x, int start_y) {
+    long long diff = 0;
+    for (int y = start_y; y < start_y + 8; y++) {
+        for (int x = start_x; x < start_x + 8; x++) { ... }
+    }
+    return diff;
+}`}
+  language="c"
+/>
+
+---
+
+## The Art of Prompting and Dithering
+
+Salvatore notices that restricting updates to isolated blocks creates "blocky artifacts" (similar to JPEG compression) because it ignores the edges.
+
+A true **technical conversation** begins with the AI:
+1. Asks to work only on local blocks.
+2. Annotates the AI's errors (e.g., the loss of the *dithering* effect).
+3. Proposes a solution: update colors by choosing coordinates **unaligned** with the physical 8x8 blocks, allowing overlaps.
+4. Corrects the AI regarding the fact that the 2x2 'kernel size' for *dithering* had been lost.
+
+<Callout type="hacker" title="Dithering with a 2x2 Kernel">
+*Dithering* is the art of placing pixels of two colors next to each other to imitate a third. By calculating the difference (error) considering groups of 2x2 pixels at a time (a kernel), Simulated Annealing understands when two adjacent pixels create a good gradient.
+</Callout>
+
+---
+
+## Exercise
+
+<Quiz 
+  questions={[
+    {
+      question: "Why did the AI agent initially fail to generate the gradient (dithering) effect?",
+      options: [
+        "Because AI doesn't know about colors",
+        "It had removed the '2x2 kernel' logic for calculating the error",
+        "It had used C++",
+        "It wasn't using the SDL library"
+      ],
+      correctAnswer: 1,
+      explanation: "The AI had simplified the code by removing the 4-pixel (2x2) group calculation, which was the secret trick to inducing the dithering effect."
+    },
+    {
+      question: "What does the 'sample' command on macOS do (used in the lesson)?",
+      options: [
+        "Creates music",
+        "Records audio samples",
+        "Analyzes where a program spends the most time (profiling)",
+        "Compiles the source code"
+      ],
+      correctAnswer: 2,
+      explanation: "Profiling stops the program at regular intervals and records which function it is in, designed to find bottlenecks."
+    },
+    {
+      question: "What was the bottleneck of the original ZX program?",
+      options: [
+        "The use of the SDL library",
+        "The slow hard drive",
+        "The compute_diff function consumed 94% of the time",
+        "The RGB colors"
+      ],
+      correctAnswer: 2,
+      explanation: "Recalculating the error for all pixels after every minor mutation was a massive waste of CPU cycles."
+    },
+    {
+      question: "How does the AI help the programmer in this new workflow?",
+      options: [
+        "It replaces the programmer",
+        "It implements boring details and allows iterating faster on architectural ideas",
+        "It creates unsolvable bugs",
+        "It makes coffee"
+      ],
+      correctAnswer: 1,
+      explanation: "The programmer becomes the architect who guides the design and corrects the AI's direction."
+    },
+    {
+      question: "How did Salvatore solve the 'blocky' artifacts problem (JPEG-like)?",
+      options: [
+        "Using a Blur filter",
+        "Calculating differences on 8x8 blocks NOT aligned to the hardware grid",
+        "Deleting the images",
+        "He didn't solve it"
+      ],
+      correctAnswer: 1,
+      explanation: "By optimizing blocks chosen randomly within the image (even crossing hardware borders), the results become smoother and more continuous."
+    }
+  ]} 
+/>
+
+<Quiz 
+  title="Hacker Challenge"
+  questions={[
+    {
+      question: "What data structure could be used to achieve an even more efficient O(1), without recalculating entire blocks?",
+      options: [
+        "B-Tree",
+        "A Map/Array tracking the previously calculated error (distance) for each pixel",
+        "Linked List",
+        "Heap"
+      ],
+      correctAnswer: 1,
+      explanation: "Salvatore explains this: by caching the differences pixel by pixel, you 'd just subtract the old diff of the single pixel and add the new one!"
+    },
+    {
+      question: "Why have an AI write an entire emulator (as Salvatore did for Zot)?",
+      options: [
+        "Because he didn't know how",
+        "To test the AI's 'spec inference' (ability to read complex manuals and produce working, non-copyrighted software)",
+        "To make quick money",
+        "Just for fun"
+      ],
+      correctAnswer: 1,
+      explanation: "The 'clean room' experiment proved that AI can read technical datasheets and write original implementations."
+    },
+    {
+      question: "What is the risk of using unaligned memory blocks when modifying the Spectrum's color attributes?",
+      options: [
+        "No risk",
+        "Different attributes can clash, since the hardware colors on a fixed 8x8 grid",
+        "Kernel panic",
+        "Monitor explosion"
+      ],
+      correctAnswer: 1,
+      explanation: "Modifying randomly requires understanding that every color change propagates across the entire 8x8 hardware block, potentially overriding adjacent previously modified pixels."
+    }
+  ]} 
+/>
+
+<HackerTerminal 
+  challenges={[
+    {
+      id: "bigO-diff-en",
+      title: "Big O Analysis",
+      description: "If the function previously iterated over W*H pixels, and now over 8*8 pixels. How do you denote the new asymptotic time complexity (Big-O) relative to the total image size?",
+      commands: ["O(1)"],
+      expectedOutput: "O(1)",
+      hints: ["The size of the operation is constant (64 iterations) regardless of the total image dimensions."]
+    },
+    {
+      id: "sample-cmd-en",
+      title: "macOS Profiler",
+      description: "What is the command-line tool for macOS used by Salvatore to profile by sampling the stack?",
+      commands: ["sample"],
+      expectedOutput: "sample",
+      hints: ["It's the name of the command itself, useful for capturing CPU traces."]
+    },
+    {
+      id: "dithering-kernel-en",
+      title: "Kernel Size",
+      description: "The dithering calculation used in the image examined groups of NxN pixels. What is the value of N (according to the feedback Salvatore gave to the AI)?",
+      commands: ["2"],
+      expectedOutput: "2",
+      hints: ["The kernel size was 2x2."]
+    }
+  ]}
+/>
+
+### Conclusion
+This video represents a turning point. We explored how C, a 50-year-old language, interacts with future challenges and automation. Never stop writing code by hand to learn, but be ready to direct machines to produce. See you next time!

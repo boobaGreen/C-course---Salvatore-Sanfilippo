@@ -1,0 +1,195 @@
+# Lezione 31: Il Programmatore C Moderno e l'IA
+
+In questa lezione, Salvatore abbandona l'approccio classico per mostrarci come lavora *oggi* un programmatore esperto: non più scrivendo ogni singola linea a mano, ma guidando un agente AI (come Claude Code o Cursor) come un direttore d'orchestra.
+
+<VideoEmbed videoId="fZmdsh0gQig" title="Lezione 31: Programmazione Assistita e Ottimizzazione" />
+
+## Il Nuovo Ruolo del Programmatore
+
+L'arrivo dei *Large Language Models (LLMs)* e dei coding agent ha cambiato radicalmente il nostro mestiere. Non dobbiamo più lottare per cinque o dieci minuti scrivendo codice boilerplate; possiamo delegare la scrittura e concentrarci sull'**architettura** e la **correttezza**.
+
+<WorkflowDiagram />
+
+<Callout type="info" title="L'Importanza delle Basi">
+Perché allora abbiamo imparato il C nudo e crudo finora? Perché per guidare e *auditare* (verificare) un agente AI, devi conoscere perfettamente la memoria, i puntatori e i limiti della macchina. L'IA scrive il codice, ma **tu** sei responsabile del risultato.
+</Callout>
+
+---
+
+## Ottimizzazione: Da Globale a Locale
+
+Riprendiamo il programma della scorsa lezione. Il problema era la lentezza: ogni volta che cambiavamo 3 byte a caso, l'algoritmo ricalcolava la differenza sull'**intera immagine** (49.152 pixel x 3 colori). Assurdo!
+
+Salvatore chiede all'AI di cambiare la logica: invece di calcolare la differenza globale, lavoriamo su un singolo **blocco 8x8 alla volta**.
+
+<PerformanceChart />
+
+<CodeEditor 
+  initialCode={`// Prima: O(N) dove N è l'intera immagine
+long long compute_diff_global() {
+    long long diff = 0;
+    for (int i = 0; i < WIDTH * HEIGHT * 3; i++) { ... }
+    return diff;
+}
+
+// Dopo (con l'aiuto dell'AI): O(1) indipendente dalla grandezza dell'immagine!
+long long compute_block_diff(int start_x, int start_y) {
+    long long diff = 0;
+    for (int y = start_y; y < start_y + 8; y++) {
+        for (int x = start_x; x < start_x + 8; x++) { ... }
+    }
+    return diff;
+}`}
+  language="c"
+/>
+
+---
+
+## L'Arte del Prompting e il Dithering
+
+Salvatore nota che limitando le modifiche a blocchi isolati, si creano "artefatti a blocchi" (simili alla compressione JPEG) perché non si tiene conto dei bordi.
+
+Inizia quindi una vera **conversazione tecnica** con l'AI:
+1. Chiede di lavorare solo su blocchi locali.
+2. Annota gli errori dell'AI (es. la perdita dell'effetto *dithering*).
+3. Propone una soluzione: aggiornare i colori scegliendo coordinate **non allineate** ai blocchi 8x8 fisici, in modo da avere sovrapposizioni.
+4. Richiama l'AI sul fatto che il 'kernel size' 2x2 per il *dithering* era stato perso.
+
+<Callout type="hacker" title="Dithering con Kernel 2x2">
+Il *dithering* è l'arte di affiancare pixel di due colori per imitarne un terzo. Calcolando la differenza (errore) considerando gruppi di 2x2 pixel alla volta (un kernel), il Simulated Annealing capisce quando due pixel vicini stanno creando una buona sfumatura.
+</Callout>
+
+---
+
+## Esercitazione
+
+<Quiz 
+  questions={[
+    {
+      question: "Perché l'Agente AI aveva fallito inizialmente nel generare l'effetto di sfumatura (dithering)?",
+      options: [
+        "Perché l'IA non sa di colori",
+        "Aveva rimosso la logica del 'kernel 2x2' per il calcolo dell'errore",
+        "Aveva usato il C++",
+        "Non usava la libreria SDL"
+      ],
+      correctAnswer: 1,
+      explanation: "L'AI aveva semplificato il codice togliendo il calcolo a gruppi di 4 pixel (2x2), che era il segreto per indurre l'effetto dithering."
+    },
+    {
+      question: "Cosa fa il comando 'sample' su macOS (usato nella lezione)?",
+      options: [
+        "Crea musica",
+        "Registra campioni audio",
+        "Analizza dove un programma perde più tempo (profiling)",
+        "Compila il codice sorgente"
+      ],
+      correctAnswer: 2,
+      explanation: "Il profiling ferma il programma a intervalli regolari e registra in quale funzione si trova, per trovare i colli di bottiglia."
+    },
+    {
+      question: "Qual era il collo di bottiglia del programma ZX originale?",
+      options: [
+        "L'uso della libreria SDL",
+        "Il disco fisso lento",
+        "La funzione compute_diff consumava il 94% del tempo",
+        "I colori RGB"
+      ],
+      correctAnswer: 2,
+      explanation: "Ricalcolare l'errore per tutti i pixel dopo ogni minima mutazione era uno spreco enorme di cicli CPU."
+    },
+    {
+      question: "In che modo l'AI aiuta il programmatore in questo nuovo flusso di lavoro?",
+      options: [
+        "Sostituisce il programmatore",
+        "Implementa i dettagli noiosi e permette di iterare più velocemente sulle idee architettoniche",
+        "Crea bug irrisolvibili",
+        "Fa il caffè"
+      ],
+      correctAnswer: 1,
+      explanation: "Il programmatore diventa l'architetto che guida la progettazione e corregge la direzione dell'AI."
+    },
+    {
+      question: "Come ha risolto Salvatore il problema degli artefatti 'a blocco' (simil-JPEG)?",
+      options: [
+        "Usando un filtro Blur",
+        "Calcolando differenze su blocchi 8x8 NON allineati alla griglia hardware",
+        "Cancellando le immagini",
+        "Non l'ha risolto"
+      ],
+      correctAnswer: 1,
+      explanation: "Ottimizzando blocchi presi a caso nell'immagine (anche scavalcando i bordi hardware), i risultati diventano più sfumati e continui."
+    }
+  ]} 
+/>
+
+<Quiz 
+  title="Hacker Challenge"
+  questions={[
+    {
+      question: "Quale struttura dati si potrebbe usare per avere un O(1) ancora più efficiente, senza ricalcolare blocchi completi?",
+      options: [
+        "B-Tree",
+        "Una mappa/Array in cui si tiene traccia dell'errore (distanza) calcolato in precedenza per ogni pixel",
+        "Linked List",
+        "Heap"
+      ],
+      correctAnswer: 1,
+      explanation: "Salvatore lo spiega: memorizzando la cache delle differenze pixel per pixel, basterebbe togliere la vecchia dif. del singolo pixel e sommare la nuova!"
+    },
+    {
+      question: "Perché far scrivere un emulatore intero a un AI (come ha fatto Salvatore per lo Zot)?",
+      options: [
+        "Perché non lo sapeva fare",
+        "Per testare la 'spec inference' dell'IA (capacità di leggere manuali complessi e trarne un software funzionante e non copiato via copyright)",
+        "Per fare soldi veloci",
+        "Solo per gioco"
+      ],
+      correctAnswer: 1,
+      explanation: "L'esperimento 'clean room' ha provato che l'AI può leggere i datasheet tecnici e scrivere implementazioni originali."
+    },
+    {
+      question: "Qual è il rischio di usare blocchi di memoria disallineati modificando gli attributi colore dello Spectrum?",
+      options: [
+        "Nessun rischio",
+        "Attributi diversi possono incrociarsi, dato che l'hardware colora su una griglia fissa 8x8",
+        "Kernel panic",
+        "Esplosione del monitor"
+      ],
+      correctAnswer: 1,
+      explanation: "Modificando a caso serve capire che ogni variazione di colore si propaga per l'intero blocco 8x8 hardware, potendo influenzare pixel adiacenti modificati prima."
+    }
+  ]} 
+/>
+
+<HackerTerminal 
+  challenges={[
+    {
+      id: "bigO-diff",
+      title: "Big O Analysis",
+      description: "Se la funzione prima iterava su W*H pixel, e ora su 8*8 pixel. Come si indica la nuova complessità temporale asintotica (Big-O) rispetto alla grandezza dell'immagine?",
+      commands: ["O(1)"],
+      expectedOutput: "O(1)",
+      hints: ["La grandezza dell'operazione è costante (64 iterazioni) indipendentemente dalle dimensioni dell'immagine totale."]
+    },
+    {
+      id: "sample-cmd",
+      title: "macOS Profiler",
+      description: "Qual è il tool da riga di comando per macOS usato da Salvatore per fare profiling campionando lo stack?",
+      commands: ["sample"],
+      expectedOutput: "sample",
+      hints: ["È il nome del comando stesso, utile per catturare trace di CPU."]
+    },
+    {
+      id: "dithering-kernel",
+      title: "Kernel Size",
+      description: "Il calcolo di dithering usato nell'immagine esaminava gruppi di NxN pixel. Quanto vale N (secondo il feedback dato da Salvatore all'AI)?",
+      commands: ["2"],
+      expectedOutput: "2",
+      hints: ["Il kernel size era 2x2."]
+    }
+  ]}
+/>
+
+### Conclusione
+Questo video rappresenta un punto di svolta. Abbiamo esplorato come il C, linguaggio di 50 anni fa, interagisce con le sfide del futuro e l'automazione. Non smettete di scrivere codice a mano per imparare, ma siate pronti a dirigere le macchine per produrre. Alla prossima!
