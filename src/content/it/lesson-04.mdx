@@ -30,14 +30,25 @@ Benvenuti alla quarta lezione! Oggi scaveremo sotto la superficie del C per capi
   ]} 
 />
 
-## Quanto è grande un intero?
+A differenza di linguaggi come Python, in C la dimensione di un `int` non è fissa per sempre. Dipende dalla tua **piattaforma** e dall'ambizione storica del C: girare su qualsiasi cosa, dallo **Z80 a 8-bit** ai supercomputer a 64-bit.
 
-A differenza di linguaggi come Python, in C la dimensione di un `int` non è fissa per sempre. Dipende dalla tua **piattaforma**.
+<ComparisonTable 
+  title="Dimensioni Tipiche per Architettura"
+  headers={["Tipo", "8-bit (Z80/6502)", "32-bit (x86)", "64-bit (x64)"]}
+  rows={[
+    ["char", "1 byte", "1 byte", "1 byte"],
+    ["short", "2 byte", "2 byte", "2 byte"],
+    ["int", "2 byte", "4 byte", "4 byte"],
+    ["long", "4 byte", "4 byte", "8 byte"]
+  ]}
+/>
 
 <LimitsExplorer />
 
 <Callout type="warning" title="Attenzione al Warning!">
-Quando usi `sizeof` nella `printf`, usa lo specificatore `%lu` (long unsigned) o fai un casting a `(int)`, altrimenti il compilatore ti avviserà che i tipi non corrispondono!
+Quando usi `sizeof` nella `printf`, il compilatore si aspetta spesso un `%lu` (long unsigned). Se vuoi usare `%d`, devi fare un **Casting**:
+`printf("%d", (int)sizeof(a));`
+Il casting dice al compilatore: "Fidati, converti temporaneamente questo valore in un intero".
 </Callout>
 
 ## La Danza dei Bit
@@ -61,6 +72,19 @@ Il computer non lancia i byte a caso nella RAM. Li organizza in celle, e spesso 
   alt="Visualizzazione della memoria e padding" 
   caption="Come un mix di tipi diversi viene impilato nella RAM."
 />
+
+## Il Ritorno al Passato: VT100 ed Escape Codes
+Salvatore ci ha mostrato come "pulire lo schermo" non con un comando magico, ma inviando byte speciali al terminale. Questi sono gli **Escape Codes**.
+
+<Callout type="info" title="VT100 e Terminali Vintage">
+  Negli anni '70, i terminali erano macchine fisiche (come il **DEC VT100**). Per fargli muovere il cursore o pulire lo schermo, si inviava il byte `0x1B` (Escape) seguito da una sequenza di controllo. Ancora oggi, i nostri terminali moderni emulano quegli stessi standard!
+</Callout>
+
+```c
+// Esempio di sequenza per pulire lo schermo
+printf("\033[H\033[2J"); 
+```
+`\033` è il carattere Escape in ottale. `[H` porta il cursore a casa (in alto a sinistra), `[2J` pulisce tutto il terminale.
 
 ## Laboratorio di Codice
 

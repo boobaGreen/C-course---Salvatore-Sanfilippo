@@ -68,10 +68,21 @@ Salvatore ci ha mostrato come definire una funzione per sommare due numeri. È i
 In C, a differenza di linguaggi come Python o JavaScript, devi **dichiarare esplicitamente** il tipo di ogni variabile. Il compilatore non fa "inferenza" automatica.
 
 ```c
-int a = 10;   // Dichiarazione e Inizializzazione
-int b;        // Sola Dichiarazione
-b = 20;       // Assegnazione successiva
+int a = 10;   // Dichiarazione e Inizializzazione (assegna 10 durante la creazione)
+int b;        // Sola Dichiarazione (contiene "spazzatura" della RAM)
+b = 20;       // Assegnazione (sovrascrive il valore precedente)
+int c = a + b; // Inizializzazione tramite espressione
 ```
+
+<ComparisonTable 
+  title="Dichiarazione vs Inizializzazione"
+  headers={["Operazione", "Esempio", "Effetto in Memoria"]}
+  rows={[
+    ["Dichiarazione", "<code>int x;</code>", "Prenota lo spazio, ma il contenuto è casuale."],
+    ["Inizializzazione", "<code>int x = 10;</code>", "Prenota lo spazio e scrive subito il valore."],
+    ["Assegnazione", "<code>x = 20;</code>", "Cambia il valore di uno spazio già esistente."]
+  ]}
+/>
 
 <Callout type="hacker" title="Hacker Mindset">
 Specificare il tipo (es. `int`) permette al compilatore di sapere esattamente quanti byte riservare in memoria e come interpretarli. Questo è il segreto delle performance del C!
@@ -86,7 +97,13 @@ Le variabili definite dentro una funzione vivono in una zona di memoria chiamata
 
 <StackVisualizer />
 
-Quando una funzione viene chiamata, viene creato un **Stack Frame**. Quando la funzione termina (`return`), il suo frame viene "distrutto" e la memoria liberata.
+Quando una funzione viene chiamata, viene creato un **Stack Frame**. 
+
+<Callout type="info" title="Creazione e Distruzione">
+  Le variabili locali (inclusi gli argomenti della funzione) vengono create "al volo" ogni volta che chiami la funzione. Quando la funzione ritorna con `return`, lo spazio viene liberato. Attenzione: "liberato" non significa "cancellato"! I dati rimangono lì finché un'altra funzione non li sovrascrive, motivo per cui le variabili non inizializzate sono pericolose.
+</Callout>
+
+Quando la funzione termina (`return`), il suo frame viene "distrutto" e la memoria liberata.
 
 ---
 
@@ -109,6 +126,13 @@ Perché `main` ritorna un `int`? Serve a comunicare al **Sistema Operativo** se 
 <Callout type="tip">
 Su Linux, puoi vedere il valore di ritorno dell'ultimo comando digitando `echo $?` nel terminale.
 </Callout>
+
+### Codici di Ritorno e Logica Shell
+Il valore di ritorno di `main` non è solo una formalità. In sistemi Unix, permette di concatenare programmi in base al loro successo.
+- **AND Logico (`&&`)**: `comando1 && comando2` -> `comando2` viene eseguito solo se `comando1` ritorna **0** (successo).
+- **OR Logico (`||`)**: `comando1 || comando2` -> `comando2` viene eseguito solo se `comando1` fallisce (diverso da 0).
+
+Questo meccanismo di "short-circuit" è fondamentale per automatizzare task complessi dove ogni passo dipende dal precedente.
 
 <Callout type="tip">
 I **Registri** sono piccole "variabili" dentro la CPU, velocissime. La **RAM** è più grande ma più lenta. Il compilatore C cerca di usare i registri il più possibile per velocizzare il tuo codice.

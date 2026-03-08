@@ -14,9 +14,14 @@ L'approccio sarà **estremamente operativo**: impareremo a programmare, programm
   - Scrivere il primo programma "Hello World"
   - Capire il processo di **compilazione**
   - Esplorare cosa fa il compilatore (anche a livello di Assembly)
+  - La democratizzazione del C: da Stallman a GCC
   - Comprendere le direttive del **preprocessore** (`#include`)
   - Scoprire i **prototipi di funzione**
 </KeyConcepts>
+
+<Callout type="info" title="Filosofia del Corso">
+  Questo corso segue uno stile **istintivo**. Non c'è una preparazione maniacale a monte, ma una freschezza dettata dalla pratica brutale. Impareremo il C come "effetto collaterale" della risoluzione di problemi reali.
+</Callout>
 
 ---
 
@@ -54,6 +59,9 @@ C è un linguaggio **compilato**. Questo significa che il codice che scriviamo n
 Dobbiamo usare il **compilatore C** (come `cc`, `gcc` o `clang`):
 
 <TerminalSimulation command="cc hello.c" output="" />
+
+### La Democratizzazione del C
+Storicamente, i compilatori erano strumenti costosi e proprietari (come l'**Intel C Compiler - ICC**). La svolta è arrivata con **Richard Stallman** e il progetto **GCC** (GNU Compiler Collection). Regalando un compilatore potente e gratuito al mondo, Stallman ha permesso a chiunque di imparare e usare il C, cambiando per sempre la storia del software libero.
 
 Questo comando genera un nuovo file eseguibile (tipicamente chiamato `a.out` su sistemi Unix). Questo file è un **binario** contenente il linguaggio macchina e alcune intestazioni specifiche del sistema operativo (Linux, macOS, Windows). Possiamo eseguirlo digitando:
 
@@ -93,6 +101,10 @@ Questa riga non fa parte del linguaggio C vero e proprio, ma è una **direttiva 
 
 <Callout type="info">
   Il C è un linguaggio "nudo". Senza librerie, non sa nemmeno come stampare un carattere a video. Tutto ciò che è "utile" si trova nella Libreria Standard.
+</Callout>
+
+<Callout type="warning" title="Sicurezza: printf vs puts">
+  Non usare mai `printf(buffer)` se `buffer` proviene da un input utente! Se l'utente inserisce stringhe tipo `%s%s%s`, può causare un **Format String Attack**. `puts` è intrinsecamente più sicuro perché non interpreta i segnaposto.
 </Callout>
 
 ### 2. File Header (`.h`) e Prototipi di Funzione

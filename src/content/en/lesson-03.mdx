@@ -14,15 +14,17 @@ Welcome to the third lesson! Today we continue to dig deeper into our "Hello Wor
 
 ---
 
-## Variable Scope: Where does your code "live"?
+Defined outside all functions. They exist for the entire duration of the program and can be accessed from anywhere in the code. They start their life when the process starts and end when it exits.
 
-In C, not all variables are created equal. Their "visibility" and "lifetime" depend on where they are declared.
-
-### 1. Local Variables
-Defined inside a function. They are born when the function is called and **die** when it returns. Every time you call the function, a new copy is created from scratch.
-
-### 2. Global Variables
-Defined outside all functions. They exist for the entire duration of the program and can be accessed from anywhere in the code.
+<ComparisonTable 
+  title="Types of Scope"
+  headers={["Type", "Keyword", "Lifetime", "Visibility"]}
+  rows={[
+    ["Local", "none", "During function call", "Only inside function"],
+    ["Global", "none", "Entire program", "Entire program"],
+    ["Static", "<code>static</code>", "Entire program", "Only inside function"]
+  ]}
+/>
 
 ### 3. Static Variables
 By using the `static` keyword inside a function, we create a variable that is "global" in duration (it doesn't lose its value between calls) but "local" in visibility (only that function can see it).
@@ -46,6 +48,10 @@ int incr(int x) {
     x = x + 1;
     return x;
 }
+
+<Callout type="warning" title="= vs ==">
+  Be careful: `=` is the **assignment** operator (moves a value), while `==` is the **comparison** operator. Writing `if (x = 5)` instead of `if (x == 5)` is one of the most common and tricky C errors, because it will assign 5 to x and the condition will always be true!
+</Callout>
 
 int main() {
     int a = 10;
@@ -91,6 +97,12 @@ When performing operations between different types, C applies "promotion" rules.
 For example, in functions like `printf` (variadic functions):
 - `short` and `char` are promoted to `int`.
 - `float` is promoted to `double`.
+
+This means that technically, `printf` doesn't "know" how to print a float: it always receives a double and treats it as such.
+
+<Callout type="info" title="Side Effects">
+  A `void` function that takes nothing and returns nothing (like `void hello(void)`) is only useful for its **side effects**: printing to the screen, writing to disk, or turning on an LED. In pure functional programming, these are "sins"; in C, they are daily business.
+</Callout>
 
 ## Hexadecimal and Advanced Formatting
 Did you know you can print a number in base 16 (hexadecimal) just by changing a letter?

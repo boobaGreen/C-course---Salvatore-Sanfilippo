@@ -14,9 +14,14 @@ The approach will be **extremely operational**: we'll learn to program by progra
   - Writing your first "Hello World" program
   - Understanding the **compilation** process
   - Exploring what the compiler does (down to the Assembly level)
+  - The democratization of C: from Stallman to GCC
   - Understanding **preprocessor** directives (#include)
   - Discovering **function prototypes**
 </KeyConcepts>
+
+<Callout type="info" title="Course Philosophy">
+  This course follows an **instinctive** style. There is no obsessive preparation beforehand, but a freshness dictated by brutal practice. We will learn C as a "side effect" of solving real-world problems.
+</Callout>
 
 ---
 
@@ -51,9 +56,10 @@ C is a **compiled** language. This means the code we write isn't read line-by-li
   caption="The 4 stages: Preprocessing, Compilation, Assembly, and Linking."
 />
 
-If we save this code in a file called `hello.c`, we cannot execute it as it is. We need to use the **C compiler** (like `cc`, `gcc`, or `clang`):
-
 <TerminalSimulation command="cc hello.c" output="" />
+
+### The Democratization of C
+Historically, compilers were expensive and proprietary tools (like the **Intel C Compiler - ICC**). The turning point came with **Richard Stallman** and the **GCC** (GNU Compiler Collection) project. By gifting a powerful and free compiler to the world, Stallman allowed anyone to learn and use C, changing the history of free software forever.
 
 This command generates a new executable file (typically named `a.out` on Unix systems). This file is a **binary** containing machine language and some operating system-specific headers (Linux, macOS, Windows). We can run it by typing:
 
@@ -95,6 +101,10 @@ Why do we need it? The C language itself has very few keywords (`return`, `int`,
 
 <Callout type="info">
   C is a "naked" language. Without libraries, it doesn't even know how to print a character to the screen. Everything "useful" is found in the Standard Library.
+</Callout>
+
+<Callout type="warning" title="Security: printf vs puts">
+  Never use `printf(buffer)` if `buffer` comes from user input! If the user enters strings like `%s%s%s`, it can cause a **Format String Attack**. `puts` is inherently safer because it does not interpret placeholders.
 </Callout>
 
 ### 2. Header Files (`.h`) and Function Prototypes

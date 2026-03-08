@@ -68,10 +68,21 @@ Salvatore showed us how to define a function to sum two numbers. It's important 
 In C, unlike languages like Python or JavaScript, you must **explicitly declare** the type of every variable. The compiler does not perform automatic "inference."
 
 ```c
-int a = 10;   // Declaration and Initialization
-int b;        // Declaration only
-b = 20;       // Subsequent assignment
+int a = 10;   // Declaration and Initialization (assigns 10 during creation)
+int b;        // Declaration only (contains RAM "garbage")
+b = 20;       // Subsequent assignment (overwrites previous value)
+int c = a + b; // Initialization via expression
 ```
+
+<ComparisonTable 
+  title="Declaration vs Initialization"
+  headers={["Operation", "Example", "Effect in Memory"]}
+  rows={[
+    ["Declaration", "<code>int x;</code>", "Reserves space, but content is random."],
+    ["Initialization", "<code>int x = 10;</code>", "Reserves space and writes the value immediately."],
+    ["Assignment", "<code>x = 20;</code>", "Changes the value of an existing space."]
+  ]}
+/>
 
 <Callout type="hacker" title="Hacker Mindset">
 Specifying the type (e.g., `int`) allows the compiler to know exactly how many bytes to reserve in memory and how to interpret them. This is the secret to C's performance!
@@ -86,7 +97,13 @@ Variables defined inside a function live in a memory area called the **Stack**.
 
 <StackVisualizer />
 
-When a function is called, a **Stack Frame** is created. When the function ends (`return`), its frame is "destroyed" and the memory is freed.
+When a function is called, a **Stack Frame** is created. 
+
+<Callout type="info" title="Creation and Destruction">
+  Local variables (including function arguments) are created "on the fly" every time you call the function. When the function returns, the space is released. Note: "released" does not mean "deleted"! The data stays there until another function overwrites it, which is why uninitialized variables are dangerous.
+</Callout>
+
+When the function ends (`return`), its frame is "destroyed" and the memory is freed.
 
 ---
 
@@ -109,6 +126,13 @@ Why does `main` return an `int`? It's used to tell the **Operating System** if t
 <Callout type="tip">
 On Linux, you can see the return value of the last command by typing `echo $?` in the terminal.
 </Callout>
+
+### Return Codes and Shell Logic
+The return value of `main` is not just a formality. In Unix-like systems, it allows chaining programs based on their success.
+- **Logical AND (`&&`)**: `command1 && command2` -> `command2` is executed only if `command1` returns **0** (success).
+- **Logical OR (`||`)**: `command1 || command2` -> `command2` is executed only if `command1` fails (non-zero code).
+
+This "short-circuit" mechanism is fundamental for automating complex tasks where each step depends on the previous one.
 
 <Callout type="tip">
 **Registers** are tiny, lightning-fast "variables" inside the CPU. **RAM** is larger but slower. The C compiler tries to use registers as much as possible to speed up your code.

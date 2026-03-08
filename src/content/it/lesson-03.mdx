@@ -14,15 +14,17 @@ Benvenuti alla terza lezione! In questa puntata continueremo a esplorare il nost
 
 ---
 
-## Lo Scope delle Variabili: Dove "vive" il tuo codice?
+Sono definite all'esterno di tutte le funzioni. Esistono per tutta la durata del programma e sono accessibili da qualsiasi punto del codice. Iniziano la loro vita all'avvio del processo e la terminano alla fine.
 
-In C, non tutte le variabili sono uguali. La loro "visibilità" e la loro "durata" dipendono da dove le dichiariamo.
-
-### 1. Variabili Locali
-Sono definite all'interno di una funzione. Nascono quando la funzione viene chiamata e **muoiono** quando la funzione termina. Se chiami la funzione più volte, ogni volta viene creata una nuova copia da zero.
-
-### 2. Variabili Globali
-Sono definite all'esterno di tutte le funzioni. Esistono per tutta la durata del programma e sono accessibili da qualsiasi punto del codice.
+<ComparisonTable 
+  title="Tipi di Visibilità (Scope)"
+  headers={["Tipo", "Keyword", "Durata (Lifetime)", "Visibilità"]}
+  rows={[
+    ["Locale", "nessuna", "Solo durante la chiamata", "Solo dentro la funzione"],
+    ["Global", "nessuna", "Sempre", "Tutto il programma"],
+    ["Static", "<code>static</code>", "Sempre", "Solo dentro la funzione"]
+  ]}
+/>
 
 ### 3. Variabili Statiche
 Usando la keyword `static` dentro una funzione, creiamo una variabile che è "globale" nella durata (non perde il valore tra una chiamata e l'altra) ma "locale" nella visibilità (solo quella funzione può vederla).
@@ -46,6 +48,10 @@ int incr(int x) {
     x = x + 1;
     return x;
 }
+
+<Callout type="warning" title="= vs ==">
+  Fai attenzione: `=` è l'operatore di **assegnamento** (sposta un valore), mentre `==` è l'operatore di **confronto**. Scrivere `if (x = 5)` invece di `if (x == 5)` è uno degli errori più comuni e bastardi del C, perché assegnerà 5 a x e la condizione risulterà sempre vera!
+</Callout>
 
 int main() {
     int a = 10;
@@ -91,6 +97,12 @@ Quando fai operazioni tra tipi diversi, il C applica delle regole di "promozione
 Ad esempio, in funzioni come `printf` (funzioni variadiche):
 - Gli `short` e i `char` vengono promossi a `int`.
 - I `float` vengono promossi a `double`.
+
+Questo significa che, tecnicamente, la `printf` non "sa" stampare un float: riceve sempre un double e lo tratta come tale.
+
+<Callout type="info" title="Side Effects (Effetti Collaterali)">
+  Una funzione `void` che non prende nulla e non restituisce nulla (come `void hello(void)`) ha valore solo per i suoi **side effects**: stampare a video, scrivere su disco o accendere un LED. In programmazione funzionale pura sono "peccati", in C sono il pane quotidiano.
+</Callout>
 
 ## Esadecimale e Formattazione Avanzata
 Sapevi che puoi stampare un numero in base 16 (esadecimale) semplicemente cambiando una lettera?
