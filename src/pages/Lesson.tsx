@@ -31,6 +31,8 @@ import PointerBasics from '../components/content/PointerBasics';
 import PointerArithmetic from '../components/content/PointerArithmetic';
 import MemoryCaster from '../components/content/MemoryCaster';
 import HeapAllocator from '../components/content/HeapAllocator';
+import BSTVisualizer from '../components/content/BSTVisualizer';
+import RefcountVisualizer from '../components/content/RefcountVisualizer';
 
 // Mappa componenti MDX
 const mdxComponents = {
@@ -84,6 +86,8 @@ const mdxComponents = {
     PointerArithmetic,
     MemoryCaster,
     HeapAllocator,
+    BSTVisualizer,
+    RefcountVisualizer,
 };
 
 export default function Lesson() {
