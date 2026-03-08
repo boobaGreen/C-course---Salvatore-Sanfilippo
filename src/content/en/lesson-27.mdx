@@ -1,0 +1,217 @@
+import VideoEmbed from '../../components/content/VideoEmbed';
+import Callout from '../../components/content/Callout';
+import KeyConcepts from '../../components/content/KeyConcepts';
+import CodeEditor from '../../components/exercises/CodeEditor';
+import Quiz from '../../components/exercises/Quiz';
+import HackerTerminal from '../../components/content/HackerTerminal';
+import Infographic from '../../components/content/Infographic';
+import ComparisonTable from '../../components/content/ComparisonTable';
+import MemoryCaster from '../../components/content/MemoryCaster';
+
+# Lesson 27: Function Tables and String Comparison
+
+In this lesson, we will link ToyFort symbols (like `+` or `print`) to real C functions. To do this, we'll implement a **Function Table** and learn how to compare our string objects efficiently.
+
+<VideoEmbed videoId="vYODKK8TQGE" title="Lesson 27: Function Tables" />
+
+<KeyConcepts concepts={[
+  { title: "Callbacks in C", description: "Using function pointers to map textual names to executable actions." },
+  { title: "Object Comparison", description: "Why `strcmp` is not enough for our `TFObject` and how to implement `compare_string_objects`." },
+  { title: "Dynamic Registration", description: "Adding new 'words' to the interpreter without modifying the main eval loop." }
+]} />
+
+---
+
+## Mapping Symbols: The Function Table
+
+Every command in ToyFort is an "entry" in a table. When the interpreter encounters a symbol, it looks for it in this list and, if found, calls the associated function.
+
+<Infographic 
+  title="Lookup Flow"
+  description="How a symbol becomes an action."
+  items={[
+    { label: "1. Match", value: "Search for 'SUM' in the table", color: "blue" },
+    { label: "2. Resolve", value: "Find the pointer to 'tf_sum' C function", color: "purple" },
+    { label: "3. Call", value: "Execute C function passing the context", color: "amber" },
+    { label: "4. Result", value: "The stack is updated", color: "emerald" }
+  ]}
+/>
+
+<CodeEditor 
+  initialCode={`typedef void (*TFFunc)(TFContext *ctx, TFObject *name);
+
+typedef struct {
+    TFObject *name;
+    TFFunc callback;
+} TFFunctionEntry;
+
+// Finding a function by name
+TFFunctionEntry* get_function(TFContext *ctx, TFObject *name) {
+    for (size_t i = 0; i < ctx->func_count; i++) {
+        if (compare_string_objects(ctx->functions[i]->name, name) == 0) {
+            return ctx->functions[i];
+        }
+    }
+    return NULL;
+}`}
+  language="c"
+/>
+
+---
+
+## Comparing Strings: Beyond `strcmp`
+
+Why don't we use `strcmp`? Because our string objects save their length and don't always end with `\0` (though Salvatore adds it for safety). Moreover, we need to compare the common part byte-by-byte.
+
+<MemoryCaster />
+
+<Callout type="info" title="The Efficiency of memcmp">
+We use `memcmp` to compare bytes. It is a highly optimized library function (often written in Assembly) that processes memory blocks much faster than a manual `while` loop.
+</Callout>
+
+```c
+int compare_string_objects(TFObject *a, TFObject *b) {
+    size_t min_len = (a->s.len < b->s.len) ? a->s.len : b->s.len;
+    int res = memcmp(a->s.ptr, b->s.ptr, min_len);
+    if (res == 0) {
+        if (a->s.len == b->s.len) return 0;
+        return (a->s.len > b->s.len) ? 1 : -1;
+    }
+    return (res > 0) ? 1 : -1;
+}
+```
+
+---
+
+## Exercises
+
+<Quiz 
+  questions={[
+    {
+      question: "What is a Function Table in the ToyFort interpreter?",
+      options: [
+        "A special file on the disk",
+        "A data structure mapping symbol names to C function pointers",
+        "A table that counts how many numbers are in the stack",
+        "A set of instructions for the compiler"
+      ],
+      correctAnswer: 1,
+      explanation: "The table acts as a dictionary: 'if you read this name, execute this piece of C code'."
+    },
+    {
+      question: "Why do we use `memcmp` instead of `strcmp`?",
+      options: [
+        "Because `strcmp` is deprecated",
+        "Because our string objects have an explicit length (they can contain null bytes)",
+        "Because `memcmp` is easier to write",
+        "Because the C99 standard requires it"
+      ],
+      correctAnswer: 1,
+      explanation: "memcmp works on raw memory, ignoring the null terminator. It's ideal for length-prefixed objects."
+    },
+    {
+      question: "What happens if we look for a function that doesn't exist?",
+      options: [
+        "The program is deleted",
+        "The interpreter ignores the command and continues",
+        "The get_function function returns NULL",
+        "A compilation error is generated"
+      ],
+      correctAnswer: 2,
+      explanation: "The search returns NULL; it will then be up to the caller (call_symbol) to decide whether to throw a runtime error."
+    },
+    {
+      question: "What does the ternary operator `(cond) ? a : b` allow?",
+      options: [
+        "Doing fast loops",
+        "Writing an if-else block in a single line",
+        "Multiplying three numbers",
+        "Defining global macros"
+      ],
+      correctAnswer: 1,
+      explanation: "It's a syntactic sugar widely used in C for assigning values based on a simple condition (e.g., calculating minimum)."
+    },
+    {
+      question: "What is the purpose of `TFFunc` defined as `void (*)(...)`?",
+      options: [
+        "A way to create new lists",
+        "Defining an 'Alias' (typedef) for a function pointer",
+        "Counting object references",
+        "It's a syntax error"
+      ],
+      correctAnswer: 1,
+      explanation: "Typedef makes code readable: instead of writing the full function signature every time, we use the name TFFunc."
+    }
+  ]} 
+/>
+
+<Quiz 
+  title="Hacker Challenge"
+  questions={[
+    {
+      question: "If we wanted to implement function overloading (same name, different types), where should we change the code?",
+      options: [
+        "In the parser",
+        "In free_object",
+        "In the Function Table lookup logic",
+        "In the C compiler"
+      ],
+      correctAnswer: 2,
+      explanation: "We would need to modify get_function to check not only the name but also the types of arguments present on the stack."
+    },
+    {
+      question: "What is the risk of excessive use of function pointers (callbacks)?",
+      options: [
+        "None",
+        "They make it hard for the compiler to apply certain optimizations (inlining)",
+        "They drastically increase the binary size",
+        "They require twice the RAM"
+      ],
+      correctAnswer: 1,
+      explanation: "Since the call is dynamic (resolved at runtime), the compiler cannot know which code will be executed and cannot easily optimize it."
+    },
+    {
+      question: "In `compare_string_objects`, what happens if one string is a prefix of the other?",
+      options: [
+        "They are considered equal",
+        "It returns an error",
+        "The shorter one is considered smaller",
+        "The longer one is considered smaller"
+      ],
+      correctAnswer: 2,
+      explanation: "After successfully comparing the common part, we check lengths: the string with fewer characters wins."
+    }
+  ]} 
+/>
+
+<HackerTerminal 
+  challenges={[
+    {
+      id: "memcmp-test-en",
+      title: "Binary Match",
+      description: "Given 'ABC' and 'ABD', what does memcmp return on the common part of length 3?",
+      commands: ["-1"],
+      expectedOutput: "-1",
+      hints: ["'C' (67) comes before 'D' (68)."]
+    },
+    {
+      id: "callback-syntax-en",
+      title: "Function Pointers",
+      description: "Replace the dots: 'void (____ f)(int)' to declare a function pointer.",
+      commands: ["*"],
+      expectedOutput: "*",
+      hints: ["The asterisk identifies the pointer."]
+    },
+    {
+      id: "lookup-fail-en",
+      title: "Logic Case",
+      description: "If get_function returns NULL, what boolean value does it represent in C?",
+      commands: ["false"],
+      expectedOutput: "false",
+      hints: ["NULL is evaluated as 0."]
+    }
+  ]}
+/>
+
+### Conclusion
+Now our interpreter knows how to "link" words to C actions! In the next lesson, we will see how to enhance our error reporting capability using **Variadic Functions**.

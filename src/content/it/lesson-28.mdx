@@ -1,0 +1,228 @@
+import VideoEmbed from '../../components/content/VideoEmbed';
+import Callout from '../../components/content/Callout';
+import KeyConcepts from '../../components/content/KeyConcepts';
+import CodeEditor from '../../components/exercises/CodeEditor';
+import Quiz from '../../components/exercises/Quiz';
+import HackerTerminal from '../../components/content/HackerTerminal';
+import Infographic from '../../components/content/Infographic';
+import ComparisonTable from '../../components/content/ComparisonTable';
+
+# Lezione 28: Funzioni Variadiche e stdarg.h
+
+Come fa la `printf` ad accettare un numero infinito di argomenti? In questa lezione scopriremo il segreto delle **Funzioni Variadiche** in C e come usarle per costruire strumenti potenti, come un sistema di log personalizzato per il nostro interprete.
+
+<VideoEmbed videoId="nHzlRqPnlrE" title="Lezione 28: Funzioni Variadiche" />
+
+<KeyConcepts concepts={[
+  { title: "Sintassi '...'", description: "I tre puntini che indicano al compilatore che la funzione accetta argomenti extra." },
+  { title: "va_list e va_start", description: "Le macro necessarie per inizializzare l'accesso agli argomenti variabili." },
+  { title: "Wrapper di printf", description: "Come 'impacchettare' le funzioni di stampa standard per aggiungere funzionalità (es. timestamp o prefissi)." }
+]} />
+
+---
+
+## Anatomia di una Funzione Variadica
+
+Per dichiarare una funzione variadica, serve almeno un argomento "fisso" seguito dai tre puntini `...`.
+
+```c
+#include <stdarg.h>
+
+void log_error(const char *fmt, ...) {
+    va_list ap;
+    va_start(ap, fmt); // Inizia dopo 'fmt'
+    
+    // ... estrazione argomenti ...
+    
+    va_end(ap); // Pulizia obbligatoria
+}
+```
+
+<Callout type="warning" title="L'importanza di va_end">
+Non dimenticare mai `va_end(ap)`. Anche se su molte architetture non fa nulla, su alcune piattaforme è fondamentale per evitare corruzione dello stack o memory leak.
+</Callout>
+
+---
+
+## Estrarre gli Argomenti con `va_arg`
+
+In C, la funzione non sa "quanti" argomenti le sono stati passati. Dobbiamo dirglielo noi tramite un formato (come nella printf) o un terminatore.
+
+<CodeEditor 
+  initialCode={`#include <stdio.h>
+#include <stdarg.h>
+
+void print_numbers(int count, ...) {
+    va_list ap;
+    va_start(ap, count);
+    
+    for (int i = 0; i < count; i++) {
+        int num = va_arg(ap, int); // Specifica il TIPO!
+        printf("Arg %d: %d\\n", i, num);
+    }
+    
+    va_end(ap);
+}
+
+int main() {
+    print_numbers(3, 10, 20, 30);
+    return 0;
+}`}
+  language="c"
+/>
+
+<Callout type="hacker" title="Zero Type Safety">
+Attenzione: `va_arg` non controlla se il tipo è giusto! Se passi un `double` ma chiedi un `int`, otterrai valori spazzatura o un crash. È responsabilità del programmatore garantire la coerenza.
+</Callout>
+
+---
+
+## Creare Wrapper della Printf
+
+Uno degli usi più comuni è `vprintf`, che accetta una `va_list` invece di argomenti sfusi. Questo permette di creare la propria versione della printf.
+
+<Infographic 
+  title="Il Viaggio di un Log"
+  description="Come passare argomenti variabili tra funzioni."
+  items={[
+    { label: "1. Chiamata", value: "User chiama my_printf('Error %d', 404)", color: "blue" },
+    { label: "2. Pack", value: "va_start impacchetta 404 in una va_list", color: "purple" },
+    { label: "3. Delegation", value: "Passiamo la va_list a vprintf()", color: "amber" },
+    { label: "4. Output", value: "vprintf stampa il formato finale", color: "emerald" }
+  ]}
+/>
+
+---
+
+## Esercitazione
+
+<Quiz 
+  questions={[
+    {
+      question: "Quale header serve per le funzioni variadiche?",
+      options: [
+        "stdio.h",
+        "stdarg.h",
+        "vararg.h",
+        "stdlib.h"
+      ],
+      correctAnswer: 1,
+      explanation: "stdarg.h (Standard Arguments) contiene le macro va_list, va_start, va_arg e va_end."
+    },
+    {
+      question: "Cosa indicano i tre puntini '...' in una firma di funzione?",
+      options: [
+        "Che la funzione è incompleta",
+        "Che accetta un numero variabile di argomenti",
+        "Che la funzione è un puntatore",
+        "Che deve essere chiamata ricorsivamente"
+      ],
+      correctAnswer: 1,
+      explanation: "La sintassi eliditica segnala al compilatore di non controllare il numero e il tipo degli argomenti dopo quelli fissi."
+    },
+    {
+      question: "Cos'è `va_list`?",
+      options: [
+        "Un array di stringhe",
+        "Un tipo speciale che contiene le informazioni sugli argomenti variabili",
+        "Una funzione che stampa liste",
+        "Una macro che termina il programma"
+      ],
+      correctAnswer: 1,
+      explanation: "È un tipo di dato opaco che gestisce lo stato di avanzamento durante la lettura degli argomenti nello stack."
+    },
+    {
+      question: "Cosa fa `va_arg(ap, double)`?",
+      options: [
+        "Converte un intero in double",
+        "Estrae il prossimo argomento trattandolo come un double",
+        "Sposta il cursore all'inizio della lista",
+        "Cancella l'ultimo argomento"
+      ],
+      correctAnswer: 1,
+      explanation: "Estrae il valore e contemporaneamente sposta il puntatore interno di `sizeof(double)` byte."
+    },
+    {
+      question: "Qual è il limite principale delle funzioni variadiche in C?",
+      options: [
+        "Possono avere solo 10 argomenti",
+        "Non offrono type-safety (non sanno il tipo reale degli argomenti passati)",
+        "Sono più lente dei loop",
+        "Non possono essere usate con i puntatori"
+      ],
+      correctAnswer: 1,
+      explanation: "Il C non salva metadati sui tipi a runtime; se sbagli a leggere un tipo con va_arg, corrompi l'accesso a tutti gli argomenti successivi."
+    }
+  ]} 
+/>
+
+<Quiz 
+  title="Hacker Challenge"
+  questions={[
+    {
+      question: "Perché `va_start` richiede il nome dell'ultimo argomento fisso?",
+      options: [
+        "Solo per documentazione",
+        "Per sapere da dove iniziare l'estrazione nello stack (offset)",
+        "Perché lo richiede lo standard POSIX",
+        "Per inizializzare il generatore di numeri casuali"
+      ],
+      correctAnswer: 1,
+      explanation: "Il compilatore ha bisogno di sapere dove finisce la parte nota dello stack per calcolare l'indirizzo del primo argomento variabile."
+    },
+    {
+      question: "Qual è la differenza tra `printf` e `vprintf`?",
+      options: [
+        "vprintf è più veloce",
+        "vprintf accetta una va_list invece di argomenti variabili (...) direttamente",
+        "printf non supporta i numeri",
+        "Sono identiche, cambia solo il nome"
+      ],
+      correctAnswer: 1,
+      explanation: "vprintf è la versione 'delegata': è fondamentale per scrivere wrapper perché non puoi passare '...' da una funzione all'altra facilmente."
+    },
+    {
+      question: "Cosa succede se chiami `va_arg` più volte di quanti sono gli argomenti realmente passati?",
+      options: [
+        "Ottieni 0",
+        "Il programma crasha o legge valori casuali dallo stack (Undefined Behavior)",
+        "Ritorna un errore NULL",
+        "Viene sollevata un'eccezione"
+      ],
+      correctAnswer: 1,
+      explanation: "Il C non sa quando finiscono gli argomenti; continuerà a leggere byte dallo stack, causando comportamenti imprevedibili."
+    }
+  ]} 
+/>
+
+<HackerTerminal 
+  challenges={[
+    {
+      id: "stdarg-init",
+      title: "Inizializzazione",
+      description: "Dichiara una variabile per gestire gli argomenti variabili: '_______ ap;'",
+      commands: ["va_list"],
+      expectedOutput: "va_list",
+      hints: ["È il tipo definito in stdarg.h."]
+    },
+    {
+      id: "va-syntax",
+      title: "Variadic Signature",
+      description: "Completa la firma: 'void my_func(int n, ___)'",
+      commands: ["..."],
+      expectedOutput: "...",
+      hints: ["Tre puntini (ellissi)."]
+    },
+    {
+      id: "vformat-check",
+      title: "Wrapper Power",
+      description: "Quale funzione usi per stampare una va_list su stringa? 'vsn______'",
+      commands: ["printf"],
+      expectedOutput: "printf",
+      hints: ["vsnprintf (Variadic-Size-Next-Printf)."]
+    }
+  ]}
+/>
+
+### Conclusione
+Le funzioni variadiche sono la "magia" dietro la flessibilità del C. Ora siamo pronti a implementare un sistema di gestione errori professionale nel nostro interprete ToyFort!

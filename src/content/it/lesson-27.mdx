@@ -1,0 +1,217 @@
+import VideoEmbed from '../../components/content/VideoEmbed';
+import Callout from '../../components/content/Callout';
+import KeyConcepts from '../../components/content/KeyConcepts';
+import CodeEditor from '../../components/exercises/CodeEditor';
+import Quiz from '../../components/exercises/Quiz';
+import HackerTerminal from '../../components/content/HackerTerminal';
+import Infographic from '../../components/content/Infographic';
+import ComparisonTable from '../../components/content/ComparisonTable';
+import MemoryCaster from '../../components/content/MemoryCaster';
+
+# Lezione 27: Function Tables e Comparazione Stringhe
+
+In questa lezione collegheremo i simboli di ToyFort (come `+` o `print`) a funzioni C reali. Per farlo, implementeremo una **Function Table** e impareremo a comparare i nostri oggetti stringa in modo efficiente.
+
+<VideoEmbed videoId="vYODKK8TQGE" title="Lezione 27: Function Tables" />
+
+<KeyConcepts concepts={[
+  { title: "Callback in C", description: "Usare puntatori a funzione per mappare nomi testuali ad azioni eseguibili." },
+  { title: "Comparazione di Oggetti", description: "Perché `strcmp` non basta per i nostri `TFObject` e come implementare `compare_string_objects`." },
+  { title: "Registrazione Dinamica", description: "Aggiungere nuove 'parole' all'interprete senza modificare il ciclo di eval principale." }
+]} />
+
+---
+
+## Mappare i Simboli: La Function Table
+
+Ogni comando in ToyFort è una "entry" in una tabella. Quando l'interprete incontra un simbolo, lo cerca in questa lista e, se lo trova, chiama la funzione associata.
+
+<Infographic 
+  title="Lookup Flow"
+  description="Come un simbolo diventa un'azione."
+  items={[
+    { label: "1. Match", value: "Cerca 'SUM' nella tabella", color: "blue" },
+    { label: "2. Resolve", value: "Trova il puntatore alla funzione 'tf_sum'", color: "purple" },
+    { label: "3. Call", value: "Esegue la funzione C passando il contesto", color: "amber" },
+    { label: "4. Result", value: "Lo stack viene aggiornato", color: "emerald" }
+  ]}
+/>
+
+<CodeEditor 
+  initialCode={`typedef void (*TFFunc)(TFContext *ctx, TFObject *name);
+
+typedef struct {
+    TFObject *name;
+    TFFunc callback;
+} TFFunctionEntry;
+
+// Ricerca di una funzione per nome
+TFFunctionEntry* get_function(TFContext *ctx, TFObject *name) {
+    for (size_t i = 0; i < ctx->func_count; i++) {
+        if (compare_string_objects(ctx->functions[i]->name, name) == 0) {
+            return ctx->functions[i];
+        }
+    }
+    return NULL;
+}`}
+  language="c"
+/>
+
+---
+
+## Comparare Stringhe: Oltre `strcmp`
+
+Perché non usiamo `strcmp`? Perché i nostri oggetti stringa salvano la lunghezza e non sempre terminano con `\0` (anche se Salvatore lo aggiunge per sicurezza). Inoltre, dobbiamo comparare byte per byte la parte comune.
+
+<MemoryCaster />
+
+<Callout type="info" title="L'Efficienza di memcmp">
+Usiamo `memcmp` per comparare i byte. È una funzione di libreria estremamente ottimizzata (spesso scritta in Assembly) che processa blocchi di memoria molto più velocemente di un ciclo `while` manuale.
+</Callout>
+
+```c
+int compare_string_objects(TFObject *a, TFObject *b) {
+    size_t min_len = (a->s.len < b->s.len) ? a->s.len : b->s.len;
+    int res = memcmp(a->s.ptr, b->s.ptr, min_len);
+    if (res == 0) {
+        if (a->s.len == b->s.len) return 0;
+        return (a->s.len > b->s.len) ? 1 : -1;
+    }
+    return (res > 0) ? 1 : -1;
+}
+```
+
+---
+
+## Esercitazione
+
+<Quiz 
+  questions={[
+    {
+      question: "Cos'è una Function Table nell'interprete ToyFort?",
+      options: [
+        "Un file speciale sul disco",
+        "Una struttura dati che mappa nomi di simboli a puntatori a funzione C",
+        "Una tabella che conta quanti numeri ci sono nello stack",
+        "Un set di istruzioni per il compilatore"
+      ],
+      correctAnswer: 1,
+      explanation: "La tabella funge da dizionario: 'se leggi questo nome, esegui questo pezzo di codice C'."
+    },
+    {
+      question: "Perché usiamo `memcmp` invece di `strcmp`?",
+      options: [
+        "Perché `strcmp` è deprecata",
+        "Perché i nostri oggetti stringa hanno una lunghezza esplicita (possono contenere byte nulli)",
+        "Perché `memcmp` è più facile da scrivere",
+        "Perché lo standard C99 lo impone"
+      ],
+      correctAnswer: 1,
+      explanation: "memcmp lavora sulla memoria pura, ignorando il terminatore nullo. È ideale per oggetti che salvano la propria dimensione (length-prefixed)."
+    },
+    {
+      question: "Cosa succede se cerchiamo una funzione che non esiste?",
+      options: [
+        "Il programma viene cancellato",
+        "L'interprete ignora il comando e continua",
+        "La funzione get_function ritorna NULL",
+        "Viene generato un errore di compilazione"
+      ],
+      correctAnswer: 2,
+      explanation: "La ricerca ritorna NULL; spetterà poi alla funzione chiamante (call_symbol) decidere se lanciare un errore di runtime."
+    },
+    {
+      question: "Cosa permette l'operatore ternario `(cond) ? a : b`?",
+      options: [
+        "Di fare loop veloci",
+        "Di scrivere un blocco if-else in una singola riga",
+        "Di moltiplicare tre numeri",
+        "Di definire macro globali"
+      ],
+      correctAnswer: 1,
+      explanation: "È uno zucchero sintattico molto usato in C per assegnare valori in base a una condizione semplice (es. calcolare il minimo)."
+    },
+    {
+      question: "A cosa serve `TFFunc` definito come `void (*)(...)`?",
+      options: [
+        "A creare nuove liste",
+        "A definire un 'Alias' (typedef) per un puntatore a funzione",
+        "A contare le referenze degli oggetti",
+        "È un errore di sintassi"
+      ],
+      correctAnswer: 1,
+      explanation: "Typedef rende il codice leggibile: invece di scrivere ogni volta la firma della funzione, usiamo il nome TFFunc."
+    }
+  ]} 
+/>
+
+<Quiz 
+  title="Hacker Challenge"
+  questions={[
+    {
+      question: "Se volessimo implementare l'overloading di funzioni (stesso nome, tipi diversi), dove dovremmo cambiare il codice?",
+      options: [
+        "Nel parser",
+        "Nella free_object",
+        "Nella logica di lookup della Function Table",
+        "Nel compilatore C"
+      ],
+      correctAnswer: 2,
+      explanation: "Dovremmo modificare get_function affinché controlli non solo il nome, ma anche i tipi degli argomenti presenti nello stack."
+    },
+    {
+      question: "Qual è il rischio dell'uso massivo di puntatori a funzione (callbacks)?",
+      options: [
+        "Nessuno",
+        "Rendono difficile per il compilatore applicare certe ottimizzazioni (inlining)",
+        "Aumentano drasticamente la dimensione del binario",
+        "Richiedono il doppio della RAM"
+      ],
+      correctAnswer: 1,
+      explanation: "Poiché la chiamata è dinamica (risolta a runtime), il compilatore non può sapere quale codice verrà eseguito e non può ottimizzarlo facilmente."
+    },
+    {
+      question: "In `compare_string_objects`, cosa succede se una stringa è il prefisso dell'altra?",
+      options: [
+        "Vengono considerate uguali",
+        "Ritorna un errore",
+        "Quella più corta viene considerata minore",
+        "Quella più lunga viene considerata minore"
+      ],
+      correctAnswer: 2,
+      explanation: "Dopo aver comparato la parte comune con successo, verifichiamo le lunghezze: la stringa con meno caratteri vince."
+    }
+  ]} 
+/>
+
+<HackerTerminal 
+  challenges={[
+    {
+      id: "memcmp-test",
+      title: "Binary Match",
+      description: "Dati 'ABC' e 'ABD', cosa ritorna memcmp sulla parte comune di lunghezza 3?",
+      commands: ["-1"],
+      expectedOutput: "-1",
+      hints: ["'C' (67) viene prima di 'D' (68)."]
+    },
+    {
+      id: "callback-syntax",
+      title: "Function Pointers",
+      description: "Sostituisci i puntini: 'void (____ f)(int)' per dichiarare un puntatore a funzione.",
+      commands: ["*"],
+      expectedOutput: "*",
+      hints: ["L'asterisco identifica il puntatore."]
+    },
+    {
+      id: "lookup-fail",
+      title: "Logic Case",
+      description: "Se get_function ritorna NULL, quale valore booleano rappresenta in C?",
+      commands: ["false"],
+      expectedOutput: "false",
+      hints: ["NULL è valutato come 0."]
+    }
+  ]}
+/>
+
+### Conclusione
+Ora il nostro interprete sa "collegare" le parole ad azioni C! Nella prossima lezione vedremo come potenziare la nostra capacità di segnalare errori usando le **Funzioni Variadiche**.

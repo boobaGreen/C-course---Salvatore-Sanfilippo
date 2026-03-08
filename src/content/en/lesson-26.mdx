@@ -1,0 +1,216 @@
+import VideoEmbed from '../../components/content/VideoEmbed';
+import Callout from '../../components/content/Callout';
+import KeyConcepts from '../../components/content/KeyConcepts';
+import CodeEditor from '../../components/exercises/CodeEditor';
+import Quiz from '../../components/exercises/Quiz';
+import HackerTerminal from '../../components/content/HackerTerminal';
+import Infographic from '../../components/content/Infographic';
+import ComparisonTable from '../../components/content/ComparisonTable';
+import StackVisualizer from '../../components/content/StackVisualizer';
+
+# Lesson 26: ToyFort - Eval and Memory Management
+
+In this lesson, we get to the heart of execution. We'll see how the interpreter transforms a list of objects into concrete actions and how to manage memory using **Reference Counting** to avoid leaks in a dynamic system.
+
+<VideoEmbed videoId="nHzlRqPnlrE" title="Lesson 26: ToyFort Eval" />
+
+<KeyConcepts concepts={[
+  { title: "Eval Loop", description: "The mechanism that traverses the program and decides whether to push a value onto the stack or execute a function." },
+  { title: "Reference Counting", description: "Memory management based on counting the owners (retain/release) of an object." },
+  { title: "Assertions (assert.h)", description: "Using memory-loaded invariants to stop the program as soon as a logical bug is detected." }
+]} />
+
+---
+
+## The Execution Cycle: `execute_program`
+
+The ToyFort interpreter loops over a list. If it finds a value, it "pushes" it onto the stack; if it finds a symbol, it executes it.
+
+<StackVisualizer />
+
+<CodeEditor 
+  initialCode={`void execute_program(TFContext *ctx, TFObject *prg) {
+    assert(prg->type == TF_LIST);
+    for (size_t i = 0; i < prg->l.len; i++) {
+        TFObject *word = prg->l.ele[i];
+        if (word->type == TF_SYM) {
+            call_symbol(ctx, word);
+        } else {
+            // If not a symbol, it's a value: push it onto the stack
+            retain_object(word); // Increment ref_count!
+            list_push(ctx->stack, word);
+        }
+    }
+}`}
+  language="c"
+/>
+
+---
+
+## Memory Management: Retain and Release
+
+In C, managing memory for an interpreter is complex because objects can be shared. Salvatore implements a **Reference Counting** system.
+
+<ComparisonTable 
+  title="Manual Management vs Ref Counting"
+  headers={["Method", "Advantage", "Disadvantage"]}
+  rows={[
+    ["Classic Malloc/Free", "Maximum speed", "High risk of double-free or leaks"],
+    ["Reference Counting", "Semi-automatic management", "Memory overhead and risk of cycles"],
+    ["Garbage Collector", "Fully automatic", "'Stop the world' pauses and complexity"]
+  ]}
+/>
+
+### How it works in code:
+
+```c
+void retain_object(TFObject *o) {
+    o->ref_count++;
+}
+
+void release_object(TFObject *o) {
+    o->ref_count--;
+    if (o->ref_count == 0) {
+        free_object(o); // Truly deallocates memory
+    }
+}
+```
+
+<Callout type="warning" title="The Pop Trap">
+When you extract an object from the stack with a `pop`, you become the sole owner. If you forget to call `release` at the end of your function, that object will never be freed!
+</Callout>
+
+---
+
+## Exercises
+
+<Quiz 
+  questions={[
+    {
+      question: "What is the function of the eval loop in ToyFort?",
+      options: [
+        "Converting text to numbers",
+        "Traversing the program list and executing each word",
+        "Clearing unused memory",
+        "Printing results to the screen"
+      ],
+      correctAnswer: 1,
+      explanation: "Eval is the engine: it reads one object at a time and decides if it's data or a command."
+    },
+    {
+      question: "Why do we use `retain_object` when pushing an object onto the stack?",
+      options: [
+        "To make it faster",
+        "Because the stack becomes a new 'owner' of the object",
+        "To convert it into a string",
+        "Because the compiler requires it"
+      ],
+      correctAnswer: 1,
+      explanation: "If an object is in both the program and the stack, it has two owners. The ref_count must reflect this."
+    },
+    {
+      question: "What happens if an object has a ref_count of 0?",
+      options: [
+        "It is saved to disk",
+        "It is ignored by the interpreter",
+        "free_object is invoked to deallocate memory",
+        "The program crashes"
+      ],
+      correctAnswer: 2,
+      explanation: "Zero owners means no one is using the object anymore: it's time to free it."
+    },
+    {
+      question: "What is the purpose of `assert(prg->type == TF_LIST)`?",
+      options: [
+        "To format the list",
+        "To guarantee we are trying to execute a list (program) and not an integer",
+        "To speed up the loop",
+        "To import external libraries"
+      ],
+      correctAnswer: 1,
+      explanation: "Assertions are guards: if the invariant fails, the program stops immediately, helping you find logical bugs."
+    },
+    {
+      question: "What is the advantage of grouping the stack in a `TFContext`?",
+      options: [
+        "None, it only complicates the code",
+        "It allows having multiple isolated interpreter instances in the same process",
+        "It reduces RAM usage",
+        "It makes C similar to Python"
+      ],
+      correctAnswer: 1,
+      explanation: "By avoiding global variables, we can run multiple independent ToyFort programs simultaneously."
+    }
+  ]} 
+/>
+
+<Quiz 
+  title="Hacker Challenge"
+  questions={[
+    {
+      question: "If you implemented a `SWAP` function that swaps two stack elements, how would the ref_count change?",
+      options: [
+        "It should increase for both",
+        "It should decrease for both",
+        "It shouldn't change at all",
+        "It should drop to zero"
+      ],
+      correctAnswer: 2,
+      explanation: "Moving an object (from one stack position to another) does not change the number of owners."
+    },
+    {
+      question: "What happens in a Reference Counting system if two objects point to each other (cycle)?",
+      options: [
+        "The ref_count correctly drops to zero",
+        "They will never be freed (Memory Leak)",
+        "The compiler prevents it",
+        "The computer restarts"
+      ],
+      correctAnswer: 1,
+      explanation: "Cycles are the Achilles' heel of Ref Counting: both will always have at least one owner (each other), preventing deallocation."
+    },
+    {
+      question: "Why is `xrealloc` preferred over standard `realloc` in this project?",
+      options: [
+        "Because it's implemented in Assembly",
+        "Because it centrally handles allocation failure (Panic)",
+        "Because it doesn't need the old pointer",
+        "Because it frees memory automatically"
+      ],
+      correctAnswer: 1,
+      explanation: "Like xmalloc, xrealloc stops the program if memory runs out, avoiding tedious local checks."
+    }
+  ]} 
+/>
+
+<HackerTerminal 
+  challenges={[
+    {
+      id: "retain-count-en",
+      title: "Ownership Logic",
+      description: "An object is created (1), put in a list (2), and then in another (3). What is the ref_count value?",
+      commands: ["3"],
+      expectedOutput: "3",
+      hints: ["Every insertion must call retain."]
+    },
+    {
+      id: "assert-header-en",
+      title: "Invariants",
+      description: "Which header do you need to include for the 'assert' macro?",
+      commands: ["assert.h"],
+      expectedOutput: "assert.h",
+      hints: ["It's the same name as the function."]
+    },
+    {
+      id: "eval-logic-en",
+      title: "Eval Flow",
+      description: "If the parser reads '[ 1 2 + ]', does eval execute the '+' immediately?",
+      commands: ["no"],
+      expectedOutput: "no",
+      hints: ["Lists are data: they are pushed as single blocks."]
+    }
+  ]}
+/>
+
+### Conclusion
+We have a running engine and solid memory management! In the next lesson, we'll see how to "map" symbols (like '+') to real C functions using the **Function Table**.

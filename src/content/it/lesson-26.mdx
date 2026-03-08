@@ -1,0 +1,216 @@
+import VideoEmbed from '../../components/content/VideoEmbed';
+import Callout from '../../components/content/Callout';
+import KeyConcepts from '../../components/content/KeyConcepts';
+import CodeEditor from '../../components/exercises/CodeEditor';
+import Quiz from '../../components/exercises/Quiz';
+import HackerTerminal from '../../components/content/HackerTerminal';
+import Infographic from '../../components/content/Infographic';
+import ComparisonTable from '../../components/content/ComparisonTable';
+import StackVisualizer from '../../components/content/StackVisualizer';
+
+# Lezione 26: ToyFort - Eval e Gestione Memoria
+
+In questa lezione entriamo nel vivo dell'esecuzione. Vedremo come l'interprete trasforma una lista di oggetti in azioni concrete e come gestire la memoria usando il **Reference Counting** per evitare leak in un sistema dinamico.
+
+<VideoEmbed videoId="nHzlRqPnlrE" title="Lezione 26: ToyFort Eval" />
+
+<KeyConcepts concepts={[
+  { title: "Ciclo di Eval", description: "Il meccanismo che percorre il programma e decide se mettere un valore nello stack o eseguire una funzione." },
+  { title: "Reference Counting", description: "Gestione della memoria basata sul conteggio dei proprietari (retain/release) di un oggetto." },
+  { title: "Asserzioni (assert.h)", description: "Usare invarianti caricate in memoria per fermare il programma non appena si verifica un bug logico." }
+]} />
+
+---
+
+## Il Ciclo di Esecuzione: `execute_program`
+
+L'interprete ToyFort cicla su una lista. Se trova un valore, lo "puscia" sullo stack; se trova un simbolo, lo esegue.
+
+<StackVisualizer />
+
+<CodeEditor 
+  initialCode={`void execute_program(TFContext *ctx, TFObject *prg) {
+    assert(prg->type == TF_LIST);
+    for (size_t i = 0; i < prg->l.len; i++) {
+        TFObject *word = prg->l.ele[i];
+        if (word->type == TF_SYM) {
+            call_symbol(ctx, word);
+        } else {
+            // Se non è un simbolo, è un valore: mettilo nello stack
+            retain_object(word); // Incrementa ref_count!
+            list_push(ctx->stack, word);
+        }
+    }
+}`}
+  language="c"
+/>
+
+---
+
+## Gestione Memoria: Retain e Release
+
+In C, gestire la memoria di un interprete è complesso perché gli oggetti possono essere condivisi. Salvatore implementa un sistema di **Reference Counting**.
+
+<ComparisonTable 
+  title="Gestione Manuale vs Ref Counting"
+  headers={["Metodo", "Vantaggio", "Svantaggio"]}
+  rows={[
+    ["Malloc/Free classica", "Massima velocità", "Rischio enorme di double-free o leak"],
+    ["Reference Counting", "Gestione semi-automatica", "Overhead di memoria e rischio di cicli"],
+    ["Garbage Collector", "Completamente automatico", "Pause 'Stop the world' e complessità"]
+  ]}
+/>
+
+### Come funziona nel codice:
+
+```c
+void retain_object(TFObject *o) {
+    o->ref_count++;
+}
+
+void release_object(TFObject *o) {
+    o->ref_count--;
+    if (o->ref_count == 0) {
+        free_object(o); // Libera davvero la memoria
+    }
+}
+```
+
+<Callout type="warning" title="La trappola del Pop">
+Quando estrai un oggetto dallo stack con una `pop`, ne diventi il proprietario unico. Se ti dimentichi di chiamare `release` alla fine della funzione, quell'oggetto non verrà mai liberato!
+</Callout>
+
+---
+
+## Esercitazione
+
+<Quiz 
+  questions={[
+    {
+      question: "Qual è la funzione del ciclo eval in ToyFort?",
+      options: [
+        "Convertire il testo in numeri",
+        "Atraversare la lista del programma ed eseguire ogni parola",
+        "Cancellare la memoria inutilizzata",
+        "Stampare i risultati a video"
+      ],
+      correctAnswer: 1,
+      explanation: "L'eval è il motore: legge un oggetto alla volta e decide se è un dato o un comando."
+    },
+    {
+      question: "Perché usiamo `retain_object` quando mettiamo un oggetto nello stack?",
+      options: [
+        "Per renderlo più veloce",
+        "Perché lo stack diventa un nuovo 'proprietario' dell'oggetto",
+        "Per convertirlo in stringa",
+        "Perché lo richiede il compilatore"
+      ],
+      correctAnswer: 1,
+      explanation: "Se un oggetto è sia nel programma che nello stack, ha due proprietari. Il ref_count deve riflettere questo fatto."
+    },
+    {
+      question: "Cosa succede se un oggetto ha ref_count pari a 0?",
+      options: [
+        "Viene salvato su disco",
+        "Viene ignorato dall'interprete",
+        "Viene invocata la free_object per deallocare la memoria",
+        "Il programma crasha"
+      ],
+      correctAnswer: 2,
+      explanation: "Zero proprietari significa che nessuno usa più l'oggetto: è il momento di liberarlo."
+    },
+    {
+      question: "A cosa serve `assert(prg->type == TF_LIST)`?",
+      options: [
+        "A formattare la lista",
+        "A garantire che stiamo cercando di eseguire una lista (programma) e non un intero",
+        "A velocizzare il loop",
+        "A importare librerie esterne"
+      ],
+      correctAnswer: 1,
+      explanation: "Le asserzioni sono guardie: se l'invariante fallisce, il programma si ferma subito, aiutandoti a trovare bug logici."
+    },
+    {
+      question: "Qual è il vantaggio di raggruppare lo stack in un `TFContext`?",
+      options: [
+        "Nessuno, complica solo il codice",
+        "Permette di avere più istanze isolate dell'interprete nello stesso processo",
+        "Riduce l'uso della RAM",
+        "Rende il C simile a Python"
+      ],
+      correctAnswer: 1,
+      explanation: "Evitando variabili globali, possiamo far girare più programmi ToyFort indipendenti contemporaneamente."
+    }
+  ]} 
+/>
+
+<Quiz 
+  title="Hacker Challenge"
+  questions={[
+    {
+      question: "Se implementassi una funzione `SWAP` che scambia due elementi dello stack, come cambierebbe il ref_count?",
+      options: [
+        "Dovrebbe aumentare per entrambi",
+        "Dovrebbe diminuire per entrambi",
+        "Non dovrebbe cambiare affatto",
+        "Dovrebbe azzerarsi"
+      ],
+      correctAnswer: 2,
+      explanation: "Lo spostamento di un oggetto (da una posizione all'altra dello stack) non cambia il numero di proprietari."
+    },
+    {
+      question: "Cosa succede in un sistema a Reference Counting se due oggetti si puntano a vicenda (ciclo)?",
+      options: [
+        "Il ref_count scende a zero correttamente",
+        "Non verranno mai liberati (Memory Leak)",
+        "Il compilatore lo impedisce",
+        "Il computer si riavvia"
+      ],
+      correctAnswer: 1,
+      explanation: "I cicli sono il tallone d'Achille del Ref Counting: entrambi avranno sempre almeno un proprietario (l'altro), impedendo la deallocazione."
+    },
+    {
+      question: "Perché `xrealloc` è preferibile alla `realloc` standard in questo progetto?",
+      options: [
+        "Perché è implementata in Assembly",
+        "Perché gestisce centralmente il fallimento dell'allocazione (Panic)",
+        "Perché non ha bisogno del puntatore vecchio",
+        "Perché libera la memoria automaticamente"
+      ],
+      correctAnswer: 1,
+      explanation: "Come xmalloc, xrealloc interrompe il programma se la memoria finisce, evitando noiosi controlli locali."
+    }
+  ]} 
+/>
+
+<HackerTerminal 
+  challenges={[
+    {
+      id: "retain-count",
+      title: "Logica dei Proprietari",
+      description: "Un oggetto viene creato (1), messo in una lista (2) e poi in un'altra (3). Qual è il valore di ref_count?",
+      commands: ["3"],
+      expectedOutput: "3",
+      hints: ["Ogni inserimento deve chiamare retain."]
+    },
+    {
+      id: "assert-header",
+      title: "Invarianti",
+      description: "Quale header devi includere per usare la macro 'assert'?",
+      commands: ["assert.h"],
+      expectedOutput: "assert.h",
+      hints: ["È lo stesso nome della funzione."]
+    },
+    {
+      id: "eval-logic",
+      title: "Eval Flow",
+      description: "Se il parser legge '[ 1 2 + ]', l'eval esegue subito il '+'?",
+      commands: ["no"],
+      expectedOutput: "no",
+      hints: ["Le liste sono dati: vengono 'pusciate' come blocchi unici."]
+    }
+  ]}
+/>
+
+### Conclusione
+Abbiamo un motore che gira e una gestione della memoria solida! Nella prossima lezione vedremo come "mappare" i simboli (come '+') a funzioni C reali tramite la **Function Table**.
