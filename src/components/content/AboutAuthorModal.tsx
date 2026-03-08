@@ -109,7 +109,7 @@ export default function AboutAuthorModal({ isOpen, onClose }: AboutAuthorModalPr
                                                 <a href="https://claudiodallara.it" target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-white transition-colors" title={t('developer.website')}>
                                                     <ExternalLink size={18} />
                                                 </a>
-                                                <a href="https://www.linkedin.com/in/claudiodallara/" target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-white transition-colors" title="LinkedIn">
+                                                <a href="https://www.linkedin.com/in/claudio-dall-ara-730aa0302/" target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-white transition-colors" title="LinkedIn">
                                                     <Linkedin size={18} />
                                                 </a>
                                             </div>
