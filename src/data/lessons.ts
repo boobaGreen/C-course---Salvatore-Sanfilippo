@@ -78,4 +78,18 @@ export const lessons = [
         videoId: 'lc7hL9Wt-ho',
         duration: '32:00',
     },
+    {
+        id: 11,
+        slug: 'lesson-11',
+        title: { it: 'Lezione 11: Casting ed Endianness', en: 'Lesson 11: Casting & Endianness' },
+        videoId: 'msGzuneFpDU',
+        duration: '24:00',
+    },
+    {
+        id: 12,
+        slug: 'lesson-12',
+        title: { it: 'Lezione 12: Memoria Dinamica', en: 'Lesson 12: Dynamic Memory' },
+        videoId: 'ZkaKwWXJXs8',
+        duration: '28:00',
+    },
 ];

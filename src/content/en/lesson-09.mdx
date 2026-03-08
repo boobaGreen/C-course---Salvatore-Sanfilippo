@@ -125,6 +125,28 @@ int main() {
       ],
       correctAnswer: 1,
       explanation: "This is called 'dereferencing'. You are working on the content at the pointed address."
+    },
+    {
+      question: "Why does `&5` (the address of the number 5) cause a compilation error?",
+      options: [
+        "Because 5 is too small",
+        "Because numeric literals do not have a permanently extractable memory address",
+        "Because you must write `&'5'`",
+        "Because 5 is already an address"
+      ],
+      correctAnswer: 1,
+      explanation: "The & operator requires an 'lvalue', meaning something that occupies a dedicated space in memory (like a variable), not a temporary constant value."
+    },
+    {
+      question: "If you print a pointer with `printf` in C, which format specifier should you use?",
+      options: [
+        "%d",
+        "%f",
+        "%p",
+        "%s"
+      ],
+      correctAnswer: 2,
+      explanation: "%p (pointer) prints the memory address in hexadecimal format (e.g., 0x7ffd5e...)."
     }
   ]}
 />
@@ -159,6 +181,18 @@ int main() {
       ],
       correctAnswer: 1,
       explanation: "Incrementing the pointer moves the address by the size of the base type (int = 4 bytes)."
+    },
+    {
+      id: 3,
+      question: "You have a function `void swap(int *a, int *b)`. What is the first logical operation inside to safely swap the values?",
+      options: [
+        "a = b;",
+        "int temp = *a;",
+        "*a = *b;",
+        "int *temp = a;"
+      ],
+      correctAnswer: 1,
+      explanation: "You must first park the _value_ of 'a' in a temporary variable (`int temp = *a`) before overwriting it with `*b`, otherwise the data of 'a' is lost forever."
     }
   ]}
 />
@@ -185,4 +219,15 @@ int main() {
   placeholder="e.g. memory"
   explanation="/proc/[pid]/maps shows exactly how your program's pointers map to physical RAM."
   xpReward={250}
+/>
+
+<HackerTerminal 
+  title="Hacker Challenge: Level 9 - Task 3"
+  description="How do we quickly verify if we are on a 32 or 64-bit OS from the terminal using the generic machine command?"
+  command="uname ..."
+  expectedOutput="uname -m"
+  inputLabel="Command:"
+  placeholder="e.g. uname system"
+  explanation="The architecture (e.g., x86_64) defines the width of the address bus, and therefore the byte size of your C program's pointers."
+  xpReward={150}
 />

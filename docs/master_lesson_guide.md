@@ -36,10 +36,9 @@ Every lesson must follow this exact order:
     - `**Bold**` for terminology.
     - `<Callout type="info|warning|hacker">` for sidebars.
 8.  **Code Editor**: `<CodeEditor initialCode="..." language="c" />` with a meaningful, runnable example from the lesson.
-9.  **Hacker Key Concepts**: A second `<KeyConcepts>` block specifically for "under the hood" details (memory, registers, CPU).
-10. **Standard Quiz**: `<Quiz questions={[...]} />` (at least 5 questions) to verify basics.
-11. **Hacker Challenge**: `<Quiz title="Hacker Challenge" questions={[...]} />` (at least 2-3 difficult questions).
-12. **Terminal Challenges**: `<HackerTerminal />` (at least 2-3 tasks) focused on Linux tools (`gdb`, `hexdump`, `time`, `valgrind`).
+10. **Standard Quiz**: `<Quiz questions={[...]} />` (**exactly 5 questions**) to verify basics.
+11. **Hacker Challenge**: `<Quiz title="Hacker Challenge" questions={[...]} />` (**exactly 3 questions**).
+12. **Terminal Challenges**: `<HackerTerminal />` (**exactly 3 tasks**) focused on Linux tools (`gdb`, `hexdump`, `time`, `valgrind`).
 
 ---
 

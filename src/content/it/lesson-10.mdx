@@ -117,6 +117,28 @@ int main() {
       ],
       correctAnswer: 1,
       explanation: "Il C non salva la lunghezza delle stringhe; usa uno zero binario per segnare la fine."
+    },
+    {
+      question: "Perché l'accesso fuori limite di un array tramite puntatori non viene sempre bloccato dal compilatore in C?",
+      options: [
+        "Perché il C non conosce la lunghezza degli array a runtime",
+        "Perché i compilatori moderni sono difettosi",
+        "Perché l'OS lo permette sempre",
+        "Perché lo standard vieta i controlli"
+      ],
+      correctAnswer: 0,
+      explanation: "A runtime, un array decade a un semplice indirizzo. Il C non inserisce 'metadata' (come la lunghezza) di default per massimizzare la velocità, affidando la responsabilità della sicurezza unicamente al programmatore."
+    },
+    {
+      question: "Cosa succede se sottraggo due puntatori dello stesso tipo? E.g. `p2 - p1`?",
+      options: [
+        "Ottengo un errore di sintassi",
+        "Ottengo la distanza in byte esatti tra i due puntatori",
+        "Ottengo un puntatore intermedio",
+        "Ottengo il numero di 'elementi' (della dimensione del tipo) che separano i due indirizzi"
+      ],
+      correctAnswer: 3,
+      explanation: "L'aritmetica dei puntatori scala anche per la sottrazione. `(p2 - p1)` ti dice quanti elementi di quel tipo ci sono in mezzo, non i byte fisici totali."
     }
   ]}
 />
@@ -151,6 +173,18 @@ int main() {
       ],
       correctAnswer: 1,
       explanation: "Accade quando il processore segnala al SO che il programma sta toccando memoria fuori dai suoi 'segmenti' validi."
+    },
+    {
+      id: 3,
+      question: "Quale stringa in C è tecnicamente mutabile a runtime senza causare undefined behavior?",
+      options: [
+        "char *s = \"Hello\";",
+        "#define S \"Hello\"",
+        "char s[] = \"Hello\";",
+        "Nessuna, sono tutte in sola lettura"
+      ],
+      correctAnswer: 2,
+      explanation: "`char s[] = \"Hello\";` alloca memoria locale (sullo stack) e _copia_ i caratteri, diventando modificabile. `char *s = \"Hello\";` punta a un segmento di dati read-only del binario."
     }
   ]}
 />
@@ -177,4 +211,15 @@ int main() {
   placeholder="es. abilita dump"
   explanation="Abilitando i core dump, puoi usare GDB per analizzare lo stato esatto dei puntatori al momento del crash."
   xpReward={250}
+/>
+
+<HackerTerminal 
+  title="Hacker Challenge: Level 10 - Task 3"
+  description="Oltre ai core dump e GDB, quale comando Linux traccia le chiamate di sistema che un programma effettua al Kernel, utilissimo per vedere esattamente prima di quale operazione avviene il crash?"
+  command="strace ..."
+  expectedOutput="strace ./a.out"
+  inputLabel="Tracciamento:"
+  placeholder="es. trace ./program"
+  explanation="Strace ti mostra l'ultima syscall invocata dal programma prima che ricevesse il segnale SIGSEGV dall'OS."
+  xpReward={200}
 />

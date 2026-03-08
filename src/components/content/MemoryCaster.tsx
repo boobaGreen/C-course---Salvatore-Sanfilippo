@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Info, AlertTriangle, ArrowRight, ArrowDown } from 'lucide-react';
 

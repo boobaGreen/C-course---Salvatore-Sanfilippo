@@ -125,6 +125,28 @@ int main() {
       ],
       correctAnswer: 1,
       explanation: "Questo si chiama 'deferenziare'. Intervieni sul contenuto all'indirizzo puntato."
+    },
+    {
+      question: "Perché `&5` (l'indirizzo del numero 5) è un errore di compilazione?",
+      options: [
+        "Perché 5 è troppo piccolo",
+        "Perché i numeri letterali non hanno un indirizzo di memoria permanente estraibile",
+        "Perché bisogna scrivere `&'5'`",
+        "Perché il 5 è già un indirizzo"
+      ],
+      correctAnswer: 1,
+      explanation: "L'operatore & richiede un 'lvalue', ovvero qualcosa che occupa un apposito spazio in memoria (come una variabile), non un valore costante temporaneo."
+    },
+    {
+      question: "Se stampi un puntatore con `printf` in C, quale specificatore di formato dovresti usare?",
+      options: [
+        "%d",
+        "%f",
+        "%p",
+        "%s"
+      ],
+      correctAnswer: 2,
+      explanation: "%p (pointer) stampa l'indirizzo di memoria in formato esadecimale (es. 0x7ffd5e...)."
     }
   ]}
 />
@@ -159,6 +181,18 @@ int main() {
       ],
       correctAnswer: 1,
       explanation: "Incrementare il puntatore sposta l'indirizzo della dimensione del tipo base (int = 4 byte)."
+    },
+    {
+      id: 3,
+      question: "Hai una funzione `void scambia(int *a, int *b)`. Qual è la prima operazione logica all'interno per scambiare i valori in modo sicuro?",
+      options: [
+        "a = b;",
+        "int temp = *a;",
+        "*a = *b;",
+        "int *temp = a;"
+      ],
+      correctAnswer: 1,
+      explanation: "Devi prima parcheggiare il _valore_ di 'a' in una variabile temporanea (`int temp = *a`) prima di sovrascriverlo con `*b`, altrimenti il dato di 'a' va perso per sempre."
     }
   ]}
 />

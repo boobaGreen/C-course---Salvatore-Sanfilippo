@@ -1,0 +1,249 @@
+
+
+import VideoEmbed from '../../components/content/VideoEmbed';
+import KeyConcepts from '../../components/content/KeyConcepts';
+import Callout from '../../components/content/Callout';
+import CodeEditor from '../../components/exercises/CodeEditor';
+import Quiz from '../../components/exercises/Quiz';
+import HackerTerminal from '../../components/content/HackerTerminal';
+import HeapAllocator from '../../components/content/HeapAllocator';
+
+# Lezione 12: Memoria Dinamica e Stringhe Custom 🧱
+
+<VideoEmbed videoId="ZkaKwWXJXs8" title="Lezione 12: Allocazione Dinamica e Stringhe" />
+
+<KeyConcepts concepts={[
+  { title: "La Memoria Dinamica (Heap)", description: "Memoria che richiedi esplicitamente al sistema operativo. Vive finché non la liberi tu." },
+  { title: "malloc() e free()", description: "Le due funzioni fondamentali: una chiede byte, l'altra li restituisce al SO." },
+  { title: "Memory Leaks", description: "Perdere il puntatore a un blocco allocato significa perdere per sempre quella memoria fino alla chiusura del programma." },
+  { title: "Stringhe Pascal 2.0", description: "Usare malloc per creare dinamicamente stringhe con lunghezza prefissa (32-bit invece di 8-bit)." }
+]} />
+
+## Oltre il Limite dello Stack
+
+Fino ad ora, ogni variabile che abbiamo creato viveva nello **Stack**. Lo stack è veloce, sicuro, ma ha due grandi difetti:
+1. Devi sapere la dimensione delle variabili **al momento della compilazione**.
+2. Quando una funzione termina, **tutto il suo stack viene distrutto**.
+
+Se vogliamo creare dati che "sopravvivono" alle funzioni, o dati la cui grandezza la sappiamo solo mentre il programma gira (es. un file testuale caricato dall'utente), dobbiamo usare l'**Heap**.
+
+<HeapAllocator />
+
+### Malloc e Free
+
+Per accedere allo Heap si usano funzioni della libreria standard `<stdlib.h>`:
+
+```c
+#include <stdlib.h>
+
+// Voglio spazio per 100 interi (100 * 4 byte = 400 byte)
+int *numeri = malloc(100 * sizeof(int));
+
+if (numeri == NULL) {
+    // RAM Piena! Il SO ha detto no.
+    return 1; 
+}
+
+// ... uso i numeri ...
+
+// QUANDO HO FINITO, DEVO RESTITUIRE LA MEMORIA!
+free(numeri);
+```
+
+<Callout type="warning" title="Usa sempre sizeof()">
+Non scrivere mai `malloc(400)`. Usa `malloc(100 * sizeof(int))`. Il compilatore sa esattamente quanti byte occupa un `int` su quella macchina specifica (potrebbe essere 2, 4 o 8 byte).
+</Callout>
+
+## Evoluzione delle Stringhe
+
+Nella lezione precedente abbiamo visto le *Pascal Strings* (lunghezza in un byte, max 255 caratteri).
+Ora che abbiamo `malloc`, possiamo creare un **Oggetto Stringa** serio.
+
+Il nostro formato personalizzato sarà:
+1. I primi **4 byte** (`int`) conterranno la lunghezza della stringa.
+2. I restanti byte conterranno i caratteri, più uno `\0` finale (per renderla compatibile con i comandi come `printf`).
+
+### Creazione di una stringa ad alte prestazioni
+
+<CodeEditor 
+  initialCode={`#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+// Funzione per creare la nostra Super Stringa
+char *crea_stringa(char *testo) {
+    int lunghezza = strlen(testo);
+    
+    // Alloco: 4 byte per l'int + lunghezza del testo + 1 byte per '\0'
+    char *nuova = malloc(sizeof(int) + lunghezza + 1);
+    
+    if (nuova == NULL) return NULL;
+    
+    // 1. Scrivo la lunghezza nei primi 4 byte usando il casting
+    *((int *)nuova) = lunghezza;
+    
+    // 2. Copio il testo nei byte successivi
+    char *inizio_testo = nuova + sizeof(int);
+    strcpy(inizio_testo, testo);
+    
+    return inizio_testo; // Ritorno il puntatore al TESTO, non alla lunghezza!
+}
+
+// Funzione per leggere istantaneamente la lunghezza in O(1)
+int lunghezza_v2(char *stringa_v2) {
+    // Faccio un passo indietro di 4 byte e leggo l'intero
+    return *((int *)(stringa_v2 - sizeof(int)));
+}
+
+int main() {
+    char *s = crea_stringa("Ciao Hacker!");
+    
+    printf("Testo: %s\\n", s);
+    printf("Lunghezza istantanea: %d\\n", lunghezza_v2(s));
+    
+    // Attenzione: free deve ricevere il puntatore originale!
+    free(s - sizeof(int));
+    
+    return 0;
+}`} 
+  language="c" 
+/>
+
+<KeyConcepts title="Hacker Key Concepts" concepts={[
+  { title: "Nascondere Metadati", description: "Salvando la lunghezza 'dietro' (prima) del puntatore ritornato all'utente, l'utente vede una stringa C standard, ma noi sappiamo che contiene metadati segreti." },
+  { title: "Compatibilità", description: "Aggiungere sempre il \\0 finale a stringhe custom permette di stamparle con printf('%s')." },
+  { title: "Pericolo Free", description: "La free() esige ESATTAMENTE lo stesso indirizzo restituito originariamente dalla malloc(). Se le passi un indirizzo spostato, il programma andrà in crash." }
+]} />
+
+---
+
+## Esercitazione
+
+<Quiz 
+  title="Quiz Standard"
+  questions={[
+    {
+      question: "Cosa restituisce la funzione `malloc` se non c'è più RAM disponibile nel sistema?",
+      options: [
+        "Fa crashare il programma immediatamente",
+        "Ritorna -1",
+        "Restituisce un puntatore speciale NULL (0x0)",
+        "Cancella altri programmi per fare spazio"
+      ],
+      correctAnswer: 2,
+      explanation: "malloc ritorna sempre un puntatore. Se fallisce, ritorna NULL. È tuo dovere vitale controllare sempre se il puntatore ritornato è != NULL."
+    },
+    {
+      question: "Cos'è un Memory Leak in C?",
+      options: [
+        "Un errore hardware della RAM",
+        "Un hacker che ti ruba i dati in memoria",
+        "Quando allochi memoria con malloc ma sovrascrivi o perdi il puntatore prima di chiamare free()",
+        "Quando cerchi di leggere oltre i limiti di un array"
+      ],
+      correctAnswer: 2,
+      explanation: "Se perdi l'indirizzo della memoria che hai allocato, non puoi più passarlo a free(). Quella memoria resterà occupata e 'sprecata' fino alla terminazione forzata del processo operativo."
+    },
+    {
+      question: "Per liberare la nostra stringa custom nel codice sopra, perché facciamo `free(s - sizeof(int))` invece di `free(s)`?",
+      options: [
+        "Perché le variabili intere non si possono liberare",
+        "Perché s puntava all'inizio del testo. L'indirizzo originale dato da malloc iniziava 4 byte prima (dove c'è l'intero).",
+        "Perché i puntatori char non supportano la funzione free",
+        "È un errore nel codice, andava fatto free(s)"
+      ],
+      correctAnswer: 1,
+      explanation: "malloc ci dà l'inizio assoluto del blocco. Poiché noi abbiamo 'nascosto' i metadati nei primi 4 byte tornando all'utente l'indirizzo base+4, durante la free dobbiamo ridare al SO l'indirizzo originale base."
+    },
+    {
+      question: "In termini di complessità (O-Grande), quanto è veloce calcolare la lunghezza della stringa custom rispetto a strlen?",
+      options: [
+        "O(N) rispetto a O(1)",
+        "O(1) rispetto a O(N)",
+        "Identico per entrambe",
+        "O(N^2) per la custom"
+      ],
+      correctAnswer: 1,
+      explanation: "strlen deve contare N caratteri (O(N)). La nostra legge direttamente il valore intero salvato in 1 istruzione CPU (O(1))."
+    },
+    {
+      question: "Cosa fa esattamente `sizeof(User)` come parametro per una malloc?",
+      options: [
+        "Conta quante stringhe ci sono in User",
+        "Genera un numero casuale",
+        "Calcola in fase di compilazione il totale esatto di byte necessari per ospitare la struttura User",
+        "Cerca quanti byte sono rimasti nel disco rigido"
+      ],
+      correctAnswer: 2,
+      explanation: "Il compilatore analizza struct e tipi, e sostituisce `sizeof()` con il numero esatto (es. 24) a livello fisico."
+    }
+  ]} 
+/>
+
+<Quiz 
+  title="Hacker Challenge"
+  questions={[
+    {
+      question: "Chiami `malloc(10)`. Il SO ti alloca un blocco. Scrivi 11 byte. Cosa succede *di solito*?",
+      options: [
+        "Crash immediato con un messaggio chiaro 'Superato di 1 byte'.",
+        "Non succede nulla, semplicemente l'11esimo byte non viene salvato.",
+        "Il programma continua a funzionare, ma hai corrotto i metadati dell'Heap del SO o una variabile adiacente. Crash imprevedibile futuro.",
+        "Il compilatore allarga in automatico la malloc a 11 byte come fa python."
+      ],
+      correctAnswer: 2,
+      explanation: "Questo è l'Heap Overflow. A differenza dei limiti fisici del file system, nell'Heap le allocazioni sono adiacenti. Sforare spesso corrompe le struttere vitali usate dalla stessa funzione free() invisibili all'utente."
+    },
+    {
+      question: "Fai `free(ptr)`. Subito dopo leggi il valore `*ptr`. Questo difetto critico si chiama:",
+      options: [
+        "Use-After-Free",
+        "Double-Free",
+        "Buffer Over-read",
+        "Type Confusion"
+      ],
+      correctAnswer: 0,
+      explanation: "L'Use-After-Free è una delle vulnerabilità di sicurezza informatica più gravi in assoluto in C/C++, spesso porta all'esecuzione remota di codice (RCE)."
+    },
+    {
+      question: "Fai `free(ptr)` due volte di seguito sullo stesso puntatore (senza cambiarlo o riassegnarlo). Cosa succede?",
+      options: [
+        "Nulla, il SO lo ignora la seconda volta",
+        "Raddoppia la memoria a disposizione",
+        "Corrompi i metadati dell'Heap allocator e al 99% il programma muore di abort()",
+        "Chiude il programma in sicurezza"
+      ],
+      correctAnswer: 2,
+      explanation: "Questo si chiama Double-Free. L'allocatore C inserisce il blocco restituito in una lista di blocchi liberi. Inserirlo due volte crea un loop infinito (circular link) nelle linked-list di gestione di libc, causando la morte del programma al prossimo malloc."
+    }
+  ]} 
+/>
+
+<HackerTerminal 
+  challenges={[
+    {
+      id: "valgrind-basic",
+      title: "Il Cacciatore di Memory Leaks",
+      description: "Compila un programma `test.c` che contiene un leak. Quale strumento formidabile di Linux usi eseguendo `strumeto ./test` per scoprire se hai dimenticato una free, e ti indica anche a quale riga di codice?",
+      commands: ["valgrind"],
+      expectedOutput: "valgrind ./test",
+      hints: ["Cerca 'linux memory debugger' (valgrind)"]
+    },
+    {
+      id: "check-heap-limits",
+      title: "Limitare la Memoria",
+      description: "A volte vuoi testare cosa succede se `malloc` fallisce (restituendo NULL). Usa il comando bash che gestisce i limiti fisici per limitare la memoria virtuale del tuo processo a circa 10 Megabyte (10000 kb).",
+      commands: ["ulimit"],
+      expectedOutput: "ulimit -v 10000",
+      hints: ["usa ulimit -v"]
+    },
+    {
+      id: "mem-free-status",
+      title: "Quanta RAM ci rimane?",
+      description: "Prima di chiedere gigantesche malloc da GiB in C, quale comando shell digiti per vedere la RAM Libera (Free) e Usata in formato human-readable (MB/GB) sull'intero sistema Ubuntu/Linux?",
+      commands: ["free"],
+      expectedOutput: "free -h",
+      hints: ["comando: free con opzione human"]
+    }
+  ]}
+/>

@@ -117,6 +117,28 @@ int main() {
       ],
       correctAnswer: 1,
       explanation: "C does not store string lengths; it uses a binary zero to mark the end."
+    },
+    {
+      question: "Why doesn't the compiler always block out-of-bounds array access via pointers in C?",
+      options: [
+        "Because C doesn't know the length of arrays at runtime",
+        "Because modern compilers are fundamentally broken",
+        "Because the OS always allows it",
+        "Because the standard forbids bounds checking"
+      ],
+      correctAnswer: 0,
+      explanation: "At runtime, an array decays into a mere address. C does not insert 'metadata' (like length) by default to maximize speed, entrusting security solely to the programmer."
+    },
+    {
+      question: "What happens if I subtract two pointers of the same type? E.g. `p2 - p1`?",
+      options: [
+        "I get a syntax error",
+        "I get the exact distance in bytes between the two pointers",
+        "I get an intermediate pointer",
+        "I get the number of 'elements' (of the type's size) that separate the two addresses"
+      ],
+      correctAnswer: 3,
+      explanation: "Pointer arithmetic scales for subtraction too. `(p2 - p1)` tells you how many elements of that type are in between, not the total physical bytes."
     }
   ]}
 />
@@ -151,6 +173,18 @@ int main() {
       ],
       correctAnswer: 1,
       explanation: "It happens when the processor signals the OS that the program is touching memory outside its valid 'segments'."
+    },
+    {
+      id: 3,
+      question: "Which C string is technically mutable at runtime without causing undefined behavior?",
+      options: [
+        "char *s = \"Hello\";",
+        "#define S \"Hello\"",
+        "char s[] = \"Hello\";",
+        "None, they are all strictly read-only"
+      ],
+      correctAnswer: 2,
+      explanation: "`char s[] = \"Hello\";` allocates local memory (on the stack) and _copies_ the characters, making it mutable. `char *s = \"Hello\";` points to a read-only data segment of the compiled binary."
     }
   ]}
 />
@@ -177,4 +211,15 @@ int main() {
   placeholder="e.g. enable dump"
   explanation="By enabling core dumps, you can use GDB to analyze the exact state of pointers at the time of the crash."
   xpReward={250}
+/>
+
+<HackerTerminal 
+  title="Hacker Challenge: Level 10 - Task 3"
+  description="In addition to core dumps and GDB, which Linux command traces the system calls a program makes to the Kernel, extremely useful to see exactly before which operation the crash occurs?"
+  command="strace ..."
+  expectedOutput="strace ./a.out"
+  inputLabel="Tracing:"
+  placeholder="e.g. trace ./program"
+  explanation="Strace shows you the very last syscall invoked by the program before it received the SIGSEGV signal from the OS."
+  xpReward={200}
 />

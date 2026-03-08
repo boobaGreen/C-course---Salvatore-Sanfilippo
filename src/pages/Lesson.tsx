@@ -29,6 +29,8 @@ import HackerTerminal from '../components/content/HackerTerminal';
 import GameOfLife from '../components/content/GameOfLife';
 import PointerBasics from '../components/content/PointerBasics';
 import PointerArithmetic from '../components/content/PointerArithmetic';
+import MemoryCaster from '../components/content/MemoryCaster';
+import HeapAllocator from '../components/content/HeapAllocator';
 
 // Mappa componenti MDX
 const mdxComponents = {
@@ -80,6 +82,8 @@ const mdxComponents = {
     GameOfLife,
     PointerBasics,
     PointerArithmetic,
+    MemoryCaster,
+    HeapAllocator,
 };
 
 export default function Lesson() {
