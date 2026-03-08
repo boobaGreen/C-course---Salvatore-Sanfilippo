@@ -1,0 +1,56 @@
+[
+  {
+    "file": "lesson-01.mdx",
+    "id": "opt-trap",
+    "desc": "Hai compilato un programma che stampa 'Hello World' con `printf`. Se guardi l'assembly generato con `-O2`, noterai che il compilatore ha sostituito la chiamata originale con una funzione più veloce per gestire stringhe costanti. Qual è il nome di questa funzione?",
+    "cmd": "grep 'call' hello.s"
+  },
+  {
+    "file": "lesson-06.mdx",
+    "id": "diff-command",
+    "desc": "Hai due versioni dello stesso sorgente C e vuoi stampare a video solo le righe che sono state modificate tra l'uno e l'altro. Quale classico programma UNIX usi?",
+    "cmd": "diff file1.c file2.c"
+  },
+  {
+    "file": "lesson-10.mdx",
+    "id": "ulimit-core-it",
+    "desc": "Il tuo programma va in Segmentation Fault ma scompare nel nulla. Per poter analizzare il crash post-mortem con GDB, devi rimuovere il limite alla dimensione dei file di dump. Qual è la parolina magica da passare a `ulimit -c`?",
+    "cmd": "ulimit -c unlimited"
+  },
+  {
+    "file": "lesson-12.mdx",
+    "id": "valgrind-basic",
+    "desc": "Compila un programma `test.c` che contiene un leak. Quale strumento formidabile di Linux usi eseguendo `strumeto ./test` per scoprire se hai dimenticato una free, e ti indica anche a quale riga di codice?",
+    "cmd": "valgrind"
+  },
+  {
+    "file": "lesson-21.mdx",
+    "id": "redis-object",
+    "desc": "Se esamini il sorgente del noto database in-memory creato da Salvatore, troverai una struttura fondamentale altamente ottimizzata che utilizza i bitfield per ospitare il tipo, la codifica e il reference count nello spazio minimo possibile. Come si chiama il tipo di questo oggetto?",
+    "cmd": "redisObject"
+  },
+  {
+    "file": "lesson-24.mdx",
+    "id": "symbol-lookup",
+    "desc": "Quale funzione C useresti per confrontare il nome del simbolo nel dizionario?",
+    "cmd": "strcmp"
+  },
+  {
+    "file": "lesson-28.mdx",
+    "id": "vformat-check",
+    "desc": "Vuoi scrivere il tuo personale wrapper per iniettare log e timestamp automaticamente, ma devi comunque supportare i classici parametri multipli (`%d`, `%s`, ecc.). A quale rinomata e sicura funzione della libreria standard passerai la tua `va_list` appena srotolata assieme al formato base?",
+    "cmd": "printf"
+  },
+  {
+    "file": "special-random-vars.mdx",
+    "id": "rand-mod",
+    "desc": "La funzione `rand()` ritorna un intero colossale. Quale operazione matematica scrivi in un'espressione C su una riga per 'schiacciare' costantemente l'uscita gigantesca di `rand()` restituendo solo valori compresi nel range da zero a novantanove limite massimo?",
+    "cmd": "rand() % 100"
+  },
+  {
+    "file": "special-ref-counting.mdx",
+    "id": "incref-macro",
+    "desc": "In moltissimi motori object-oriented costruiti in linguaggio puramente procedurale (come ad esempio in Python Core o altri interpreti citati), per dichiarare possesso di una stringa o risorsa se ne fa aumentare esplicitamente il contatore. Spesso questo si traduce in una chiamata a una specifica e diffusissima funzione o macro.",
+    "cmd": "incref"
+  }
+]

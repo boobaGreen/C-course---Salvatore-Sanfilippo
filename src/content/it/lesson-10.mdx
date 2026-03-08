@@ -262,7 +262,7 @@ Sfida te stesso: riesci a raggiungere l'indirizzo 0x10F seguendo solo le catene 
     {
         id: "ulimit-core-it",
         title: "Caccia al crash",
-        description: "Il tuo programma va in Segmentation Fault ma scompare nel nulla. Per poter analizzare il crash post-mortem con GDB, devi rimuovere il limite alla dimensione dei file di dump. Qual è la parolina magica da passare a `ulimit -c`?",
+        description: "Il tuo programma va in Segmentation Fault ma scompare nel nulla. Per poter analizzare il crash post-mortem con GDB, devi rimuovere il limite alla dimensione dei file di dump. Usa il comando `ulimit` con l'opzione `-c` e impostalo su illimitato.",
         commands: [],
         expectedOutput: "unlimited",
         hints: [

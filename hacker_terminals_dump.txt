@@ -6,7 +6,7 @@
     {
         id: "opt-trap",
         title: "L'Ottimizzazione Subdola",
-        description: "Hai compilato un programma che stampa 'Hello World' con `printf`. Se guardi l'assembly generato con `-O2`, quale funzione più semplice trovi al posto di printf?",
+        description: "Hai compilato un programma che stampa 'Hello World' con `printf`. Se guardi l'assembly generato con `-O2`, noterai che il compilatore ha sostituito la chiamata originale con una funzione più veloce per gestire stringhe costanti. Qual è il nome di questa funzione?",
         commands: [],
         expectedOutput: "puts",
         hints: [
@@ -142,7 +142,7 @@
     {
         id: "limits-header",
         title: "Il Guardiano dei Limiti",
-        description: "Qual è il nome del file header standard che definisce i limiti minimi e massimi dei tipi interi nel tuo sistema?",
+        description: "Se hai bisogno di conoscere il valore massimo che un `int` può contenere sulla tua architettura (es. `INT_MAX`), quale file header standard devi includere?",
         commands: [
             "ls /usr/include/limits.h"
         ],
@@ -156,7 +156,7 @@
     {
         id: "stdint-header",
         title: "Precisione Chirurgica",
-        description: "Per usare tipi con dimensione garantita (es. int32_t), quale file header devi includere?",
+        description: "Se vuoi essere assolutamente certo che una tua variabile occupi esattamente 32 bit su qualsiasi piattaforma, usi tipi come `int32_t`. Quale libreria standard fornisce queste definizioni?",
         commands: [
             "ls /usr/include/stdint.h"
         ],
@@ -189,7 +189,7 @@
     {
         id: "man-printf",
         title: "Il Manuale del Programmatore",
-        description: "Qual è il comando fondamentale per leggere la documentazione ufficiale di una funzione come `printf`?",
+        description: "Se ti trovi su un server Linux senza accesso a internet e hai scordato l'ordine dei parametri di `printf`, quale comando da terminale ti salverà mostrandoti le istruzioni ufficiali?",
         commands: [],
         expectedOutput: "PRINTF(1)",
         hints: [
@@ -247,7 +247,7 @@
     {
         id: "gcc-define",
         title: "Macro al Volo",
-        description: "Come puoi 'accendere' una macro (es. DEBUG) direttamente dal comando di compilazione senza modificare il codice?",
+        description: "Il tuo codice contiene blocchi `#ifdef DEBUG`. Quale argomento devi passare a `gcc` per compilare includendo quelle sezioni, definendo la macro direttamente da riga di comando?",
         commands: [
             "gcc -DDEBUG main.c"
         ],
@@ -261,7 +261,7 @@
     {
         id: "diff-command",
         title: "Caccia alle Differenze",
-        description: "Quale comando Linux useresti per confrontare due file sorgente e vedere esattamente cosa è cambiato nella logica?",
+        description: "Hai due versioni dello stesso sorgente C e vuoi stampare a video solo le righe che sono state modificate tra l'uno e l'altro. Quale classico programma UNIX usi?",
         commands: [],
         expectedOutput: "---",
         hints: [
@@ -351,7 +351,7 @@
     {
         id: "nano-editor",
         title: "Editor da Terminale",
-        description: "Vuoi modificare i parametri senza uscire dal terminale. Quale editor useresti (quello che inizia per 'n')?",
+        description: "Sei connesso in SSH e devi fare una piccola modifica veloce a un parametro nel sorgente `life.c` senza usare interfacce grafiche. Quale editor di testo semplice e amichevole puoi lanciare dal terminale?",
         commands: [
             "nano life.c"
         ],
@@ -384,7 +384,7 @@
     {
         id: "proc-maps-it",
         title: "Mappare la RAM",
-        description: "Quale file virtuale nel filesystem `/proc` mostra come sono mappate le sezioni di memoria di un processo?",
+        description: "Vuoi ispezionare gli indirizzi in cui sono stati caricati l'heap, lo stack e le librerie del tuo programma in esecuzione. Quale file all'interno di `/proc/self/` contiene questa tabella?",
         commands: [
             "cat /proc/self/maps"
         ],
@@ -431,7 +431,7 @@
     {
         id: "ulimit-core-it",
         title: "Caccia al crash",
-        description: "Quale comando permette di abilitare la creazione dei file di 'core dump' (usando ulimit -c)?",
+        description: "Il tuo programma va in Segmentation Fault ma scompare nel nulla. Per poter analizzare il crash post-mortem con GDB, devi rimuovere il limite alla dimensione dei file di dump. Qual è la parolina magica da passare a `ulimit -c`?",
         commands: [],
         expectedOutput: "unlimited",
         hints: [
@@ -463,7 +463,7 @@
     {
         id: "endian-check",
         title: "Il Rilevatore di Endianness",
-        description: "Usa il comando `lscpu` e filtra l'output per vedere l'ordine dei byte del tuo processore.",
+        description: "Esegui il comando utile per stampare le caratteristiche del processore e accoda un pipe per isolare solo la riga che parla di 'Byte Order'.",
         commands: [],
         expectedOutput: "Byte Order:            Little Endian",
         hints: [
@@ -516,7 +516,7 @@
     {
         id: "check-heap-limits",
         title: "Limitare la Memoria",
-        description: "A volte vuoi testare cosa succede se `malloc` fallisce (restituendo NULL). Usa il comando bash che gestisce i limiti fisici per limitare la memoria virtuale del tuo processo a circa 10 Megabyte (10000 kb).",
+        description: "Vuoi mettere sotto stress il tuo software e testare come gestisce l'esaurimento della RAM. Usa il builder della shell (`ulimit`) con il parametro per la memoria virtuale (`-v`) per restringere il limite a `10000` kb.",
         commands: [],
         expectedOutput: "ulimit -v 10000",
         hints: [
@@ -555,7 +555,7 @@
     {
         id: "valgrind-check",
         title: "Malloc Debugging",
-        description: "Quale opzione di `valgrind` useresti per vedere esattamente DOVE è stata allocata una memoria che stai cercando di liberare in modo errato?",
+        description: "Un memory leak è difficile da tracciare se non sai chi ha originariamente richiesto quella memoria. Quale flag specifico di `valgrind` (da settare a `=yes`) forza il tracciamento dettagliato di chi ha chiamato la `malloc` iniziale?",
         commands: [
             "valgrind --leak-check=full --track-origins=yes"
         ],
@@ -626,7 +626,7 @@
     {
         id: "tac-usage",
         title: "Invertire il Sistema",
-        description: "Prova ad usare il comando reale di Linux. Visualizza il contenuto di `/etc/passwd` al contrario.",
+        description: "Nel corso abbiamo replicato artigianalmente un famoso programmino UNIX che legge i file e li stampa partendo dall'ultima riga. Invoca la versione originale del sistema operativo sul file `/etc/passwd`.",
         commands: [
             "tac /etc/passwd"
         ],
@@ -638,7 +638,7 @@
     {
         id: "check-leaks-tac",
         title: "Caccia al Leak",
-        description: "Compila il programma TAC e usa `valgrind` per verificare se hai liberato tutti i nodi della lista prima di uscire.",
+        description: "Devi assicurarti che la tua implementazione di Liste Concatenate non abbia memory leaks. Quale profiler di memoria lanci davanti all'eseguibile `./tac file.txt` per analizzare il comportamento dell'heap?",
         commands: [
             "valgrind --leak-check=full ./tac file.txt"
         ],
@@ -667,7 +667,7 @@
     {
         id: "magic-search",
         title: "Caccia all'Esadecimale",
-        description: "Usa `hexdump` sul tuo eseguibile (o un dump di memoria) per cercare la costante `0xDEADBEEF`. Quale comando useresti?",
+        description: "Hai stampato il binario a video in formato hex usando `hexdump -C`. Ora vuoi filtrare l'output per trovare la riga esatta che contiene la parola magica `ef be ad de`. Quale utility UNIX usi in pipe per la ricerca?",
         commands: [],
         expectedOutput: "ef be ad de",
         hints: [
@@ -761,7 +761,7 @@
     {
         id: "count-chars-wc",
         title: "Contatore Veloce",
-        description: "Senza scrivere codice C, usa il comando `wc` per contare quanti BYTE (non caratteri) ci sono nel file `save.dat`.",
+        description: "Sappiamo quanti dati dovrebbe pesare un salvataggio della struct `Player`. Per confermarlo dalla shell usando `wc`, quale parametro passi per fargli contare la dimensione esatta in Bytes?",
         commands: [],
         expectedOutput: "8 save.dat",
         hints: [
@@ -772,7 +772,7 @@
     {
         id: "lsof-hacker",
         title: "File Aperti",
-        description: "Mentre il tuo programma C è in pausa dopo una `fopen`, quale comando Linux ti mostra l'elenco di tutti i file aperti dal processo?",
+        description: "Sei un detective dei sistemi UNIX. Un processo sospetto sta leggendo dei dati: devi scoprire l'elenco esatto dei File Descriptors che sta tenendo attivi. Quale comando (List Open Files) lanci passandogli il flag `-p` e il PID?",
         commands: [],
         expectedOutput: "save.dat",
         hints: [
@@ -789,7 +789,7 @@
     {
         id: "man-syscall",
         title: "Il Manuale del Kernel",
-        description: "Usa il comando `man` per leggere la documentazione della syscall `read`. Specifica la sezione corretta.",
+        description: "Stai cercando informazioni sulla primitiva del Kernel per leggere da un file descriptor. Se digiti solo il nome della funzione nel manuale, ti mostrerà il comando Bash omonimo. Come specifichi che vuoi leggere la 'Sezione 2' (quella delle chiamate di sistema)?",
         commands: [],
         expectedOutput: "READ(2)",
         hints: [
@@ -812,7 +812,7 @@
     {
         id: "errno-list",
         title: "Catalogo Errori",
-        description: "Usa il comando `errno -l` (se installato) o cerca nel file header di sistema dove sono definiti i nomi degli errori.",
+        description: "I nomi degli errori scaturiti dalle syscall (come 'Permission Denied') corrispondono a numeri gestiti dalla variabile `errno`. Quale comando puoi usare nella directory `/usr/include` flaggando la ricerca ricorsiva, per cercare il simbolo `EACCES`?",
         commands: [],
         expectedOutput: "#define EACCES",
         hints: [
@@ -829,7 +829,7 @@
     {
         id: "strace-mmap",
         title: "Geografia della Memoria",
-        description: "Usa `strace` su un comando semplice come `cat` e osserva quante volte appare la chiamata `mmap`. Perché lo fa?",
+        description: "Se ispezioni le chiamate di sistema eseguite all'avvio di un qualsiasi programma (es. `cat`), noterai che il caricatore del sistema operativo invoca molte volte una determinata syscall per allocare e mappare in memoria i file delle librerie condivise (`.so`). Di quale funzione parliamo?",
         commands: [
             "strace cat /etc/passwd 2>&1 | grep mmap"
         ],
@@ -891,7 +891,7 @@
     {
         id: "redis-object",
         title: "Codice Sorgente",
-        description: "Quale macro di Redis è famosa per usare i bitfield per gestire il Reference Counting e il tipo dell'oggetto?",
+        description: "Se esamini il sorgente del noto database in-memory creato da Salvatore, troverai una struttura fondamentale altamente ottimizzata che utilizza i bitfield per ospitare il tipo, la codifica e il reference count nello spazio minimo possibile. Come si chiama il tipo di questo oggetto?",
         commands: [],
         expectedOutput: "unsigned type:4",
         hints: [
@@ -919,7 +919,7 @@
     {
         id: "objdump-disas",
         title: "Raggi X al Codice",
-        description: "Usa `objdump -d` per vedere il codice assembly di una funzione. Dove punta tecnicamente il puntatore a funzione?",
+        description: "Quando disassembli un eseguibile, ogni funzione è contrassegnata da un'etichetta (es. `<main>:`). Quando passi in C l'indirizzo di una funzione come 'callback', verso quale elemento esatto della memoria della macchina statale punta tecnicamente quel valore?",
         commands: [
             "objdump -d a.out | grep -A 5 '<main>:'"
         ],
@@ -948,7 +948,7 @@
     {
         id: "stack-visual",
         title: "Trace dello Stack",
-        description: "Dato il programma `10 20 SWAP -`, quale valore rimane nello stack alla fine? (SWAP scambia i due elementi in cima)",
+        description: "Test mentale di logica RPN (Reverse Polish Notation): carichiamo i valori `10` e poi `20`. Invertiamo l'ordine dei primi due numeri in cima allo stack. Infine eseguiamo una sottrazione (il secondo meno il primo). Qual è il risultato netto?",
         commands: [],
         expectedOutput: "10",
         hints: [
@@ -984,7 +984,7 @@
     {
         id: "eval-trace",
         title: "Debug dell'Eval",
-        description: "Analizza il programma `5 [ 10 + ] exec`. Quale valore finisce nello stack? (exec esegue la lista in cima)",
+        description: "Esercizio mentale di valuzione funzionale: spingiamo `5` sulla pila, poi una 'lista' contenente i token `10` e `+`. Il comando `exec` estrae la lista in cima e la valuta nel contesto attuale. Quale sarà il valore finale rimasto sulla pila?",
         commands: [],
         expectedOutput: "15",
         hints: [
@@ -1103,7 +1103,7 @@
     {
         id: "callback-syntax",
         title: "Function Pointers",
-        description: "Sostituisci i puntini: 'void (____ f)(int)' per dichiarare un puntatore a funzione.",
+        description: "La sintassi in C per dichiarare una funzione che riceve a sua volta una funzione come parametro è leggendaria per la sua illeggibilità. Quale singolo carattere speciale devi inserire tra le parentesi tonde prima del nome dell'argomento `f` per indicare che non è un banale intero ma un *indirizzo* di funzione?",
         commands: [],
         expectedOutput: "*",
         hints: [
@@ -1129,7 +1129,7 @@
     {
         id: "stdarg-init",
         title: "Inizializzazione",
-        description: "Dichiara una variabile per gestire gli argomenti variabili: '_______ ap;'",
+        description: "Nelle funzioni variadiche, il primo passo è preparare un puntatore speciale che terrà traccia dell'argomento corrente che si sta estraendo dalla pila (lo stack). Qual è il tipo di dato astratto da utilizzare per dichiarare questa variabile di navigazione?",
         commands: [],
         expectedOutput: "va_list",
         hints: [
@@ -1149,7 +1149,7 @@
     {
         id: "vformat-check",
         title: "Wrapper Power",
-        description: "Quale funzione usi per stampare una va_list su stringa? 'vsn______'",
+        description: "Vuoi scrivere il tuo personale wrapper per iniettare log e timestamp automaticamente, ma devi comunque supportare i classici parametri multipli (`%d`, `%s`, ecc.). A quale rinomata e sicura funzione della libreria standard passerai la tua `va_list` appena srotolata assieme al formato base?",
         commands: [],
         expectedOutput: "printf",
         hints: [
@@ -1166,7 +1166,7 @@
     {
         id: "make-touch",
         title: "Il Trucco di Touch",
-        description: "Il binario è aggiornato, ma vuoi forzare la ricompilazione. Quale comando cambia la data del file sorgente senza editarlo?",
+        description: "Sei nello sviluppo iterativo: `make` rifiuta di ricompilare perché reputa che il file oggetto sia più recente del sorgente `toyfort.c`. Per ingannarlo aggiornando articialmente il timestamp di modifica del sorgente a 'ora' (senza aprirlo in nessun editor), quale iconico comando UNIX usi?",
         commands: [],
         expectedOutput: "",
         hints: [
@@ -1242,7 +1242,7 @@
     {
         id: "bigO-diff",
         title: "Big O Analysis",
-        description: "Se la funzione prima iterava su W*H pixel, e ora su 8*8 pixel. Come si indica la nuova complessità temporale asintotica (Big-O) rispetto alla grandezza dell'immagine?",
+        description: "Nel video è stata esposta la teoria dell'ottimizzazione del ricalcolo della mappa colore: l'algoritmo non deve più leggere l'intero schermo ad ogni ciclo, ma si confina in un raggio d'azione di entità fissa (la singola cella 8x8 alterata). In base all'analisi asintotica della complessità (Big-O), le prestazioni si dicono ora costanti, ovvero?",
         commands: [],
         expectedOutput: "O(1)",
         hints: [
@@ -1252,7 +1252,7 @@
     {
         id: "sample-cmd",
         title: "macOS Profiler",
-        description: "Qual è il tool da riga di comando per macOS usato da Salvatore per fare profiling campionando lo stack?",
+        description: "Durante la lezione, Salvatore ha mostrato come trovare il collo di bottiglia del programma eseguendo un campionamento statistico dello stack trace in tempo reale di un processo Mac OS attivo. Qual è il binario a riga di comando utilizzato per questa ispezione al volo?",
         commands: [],
         expectedOutput: "sample",
         hints: [
@@ -1278,7 +1278,7 @@
     {
         id: "bst-insert",
         title: "Logica di Inserimento",
-        description: "Albero con root=10. Inserisci 5 e 15. Dove finisce il 15?",
+        description: "Prova mentale sull'algoritmo di Tree Traversal: partendo da una root vuota inserisci in ordine i numeri `10`, `5` e `15`. Rispetto al nodo principale `10`, qual è il ramo in cui è finito adagiato l'elemento `15` secondo la convenzione degli alberi binari di ricerca?",
         commands: [],
         expectedOutput: "right",
         hints: [
@@ -1314,7 +1314,7 @@
     {
         id: "rand-mod",
         title: "Range Limit",
-        description: "Scrivi l'espressione per ottenere un numero casuale tra 0 e 99 (incluso).",
+        description: "La funzione `rand()` ritorna un intero colossale. Quale operazione matematica scrivi in un'espressione C su una riga per 'schiacciare' costantemente l'uscita gigantesca di `rand()` restituendo solo valori compresi nel range da zero a novantanove limite massimo?",
         commands: [],
         expectedOutput: "",
         hints: [
@@ -1351,7 +1351,7 @@
     {
         id: "ref-logic",
         title: "Logica di Conteggio",
-        description: "Oggetto A creato (RC=1). Viene messo in una lista (RC=?). Poi la lista viene liberata. Qual è l'RC finale?",
+        description: "Un oggetto viene allocato e restituito al chiamante (il suo 'reference count' o RC è 1 alla nascita). Esso viene inserito come elemento in un Array/Lista (l'Array ne acquisisce la possedienza e chiama la macro corretta). In un ciclo successivo, la Lista intera viene considerata inutile e svuotata o distrutta. A quanto ammonta l'RC esatto dell'oggetto figlio dopo queste traversie?",
         commands: [],
         expectedOutput: "1",
         hints: [
@@ -1371,7 +1371,7 @@
     {
         id: "incref-macro",
         title: "Macro Potenza",
-        description: "In molti progetti C, 'retain' è una macro che chiama una funzione. Quale macro si usa spesso per incrementare?",
+        description: "In moltissimi motori object-oriented costruiti in linguaggio puramente procedurale (come ad esempio in Python Core o altri interpreti citati), per dichiarare possesso di una stringa o risorsa se ne fa aumentare esplicitamente il contatore. Spesso questo si traduce in una chiamata a una specifica e diffusissima funzione o macro.",
         commands: [],
         expectedOutput: "incref",
         hints: [

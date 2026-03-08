@@ -1,0 +1,119 @@
+warning: in the working copy of 'hacker_terminals_dump.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/content/it/lesson-01.mdx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/content/it/lesson-06.mdx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/content/it/lesson-10.mdx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/content/it/lesson-12.mdx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/content/it/lesson-21.mdx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/content/it/lesson-24.mdx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/content/it/lesson-28.mdx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/content/it/special-random-vars.mdx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/content/it/special-ref-counting.mdx', LF will be replaced by CRLF the next time Git touches it
+[1mdiff --git a/hacker_terminals_dump.txt b/hacker_terminals_dump.txt[m
+[1mindex 2cb3058..9a974ef 100644[m
+[1m--- a/hacker_terminals_dump.txt[m
+[1m+++ b/hacker_terminals_dump.txt[m
+[36m@@ -6,7 +6,7 @@[m
+     {[m
+         id: "opt-trap",[m
+         title: "L'Ottimizzazione Subdola",[m
+[31m-        description: "Hai compilato un programma che stampa 'Hello World' con `printf`. Se guardi l'assembly generato con `-O2`, quale funzione più semplice trovi al posto di printf?",[m
+[32m+[m[32m        description: "Hai compilato un programma che stampa 'Hello World' con `printf`. Se guardi l'assembly generato con `-O2`, noterai che il compilatore ha sostituito la chiamata originale con una funzione più veloce per gestire stringhe costanti. Qual è il nome di questa funzione?",[m
+         commands: [],[m
+         expectedOutput: "puts",[m
+         hints: [[m
+[36m@@ -142,7 +142,7 @@[m
+     {[m
+         id: "limits-header",[m
+         title: "Il Guardiano dei Limiti",[m
+[31m-        description: "Qual è il nome del file header standard che definisce i limiti minimi e massimi dei tipi interi nel tuo sistema?",[m
+[32m+[m[32m        description: "Se hai bisogno di conoscere il valore massimo che un `int` può contenere sulla tua architettura (es. `INT_MAX`), quale file header standard devi includere?",[m
+         commands: [[m
+             "ls /usr/include/limits.h"[m
+         ],[m
+[36m@@ -156,7 +156,7 @@[m
+     {[m
+         id: "stdint-header",[m
+         title: "Precisione Chirurgica",[m
+[31m-        description: "Per usare tipi con dimensione garantita (es. int32_t), quale file header devi includere?",[m
+[32m+[m[32m        description: "Se vuoi essere assolutamente certo che una tua variabile occupi esattamente 32 bit su qualsiasi piattaforma, usi tipi come `int32_t`. Quale libreria standard fornisce queste definizioni?",[m
+         commands: [[m
+             "ls /usr/include/stdint.h"[m
+         ],[m
+[36m@@ -189,7 +189,7 @@[m
+     {[m
+         id: "man-printf",[m
+         title: "Il Manuale del Programmatore",[m
+[31m-        description: "Qual è il comando fondamentale per leggere la documentazione ufficiale di una funzione come `printf`?",[m
+[32m+[m[32m        description: "Se ti trovi su un server Linux senza accesso a internet e hai scordato l'ordine dei parametri di `printf`, quale comando da terminale ti salverà mostrandoti le istruzioni ufficiali?",[m
+         commands: [],[m
+         expectedOutput: "PRINTF(1)",[m
+         hints: [[m
+[36m@@ -247,7 +247,7 @@[m
+     {[m
+         id: "gcc-define",[m
+         title: "Macro al Volo",[m
+[31m-        description: "Come puoi 'accendere' una macro (es. DEBUG) direttamente dal comando di compilazione senza modificare il codice?",[m
+[32m+[m[32m        description: "Il tuo codice contiene blocchi `#ifdef DEBUG`. Quale argomento devi passare a `gcc` per compilare includendo quelle sezioni, definendo la macro direttamente da riga di comando?",[m
+         commands: [[m
+             "gcc -DDEBUG main.c"[m
+         ],[m
+[36m@@ -261,7 +261,7 @@[m
+     {[m
+         id: "diff-command",[m
+         title: "Caccia alle Differenze",[m
+[31m-        description: "Quale comando Linux useresti per confrontare due file sorgente e vedere esattamente cosa è cambiato nella logica?",[m
+[32m+[m[32m        description: "Hai due versioni dello stesso sorgente C e vuoi stampare a video solo le righe che sono state modificate tra l'uno e l'altro. Quale classico programma UNIX usi?",[m
+         commands: [],[m
+         expectedOutput: "---",[m
+         hints: [[m
+[36m@@ -351,7 +351,7 @@[m
+     {[m
+         id: "nano-editor",[m
+         title: "Editor da Terminale",[m
+[31m-        description: "Vuoi modificare i parametri senza uscire dal terminale. Quale editor useresti (quello che inizia per 'n')?",[m
+[32m+[m[32m        description: "Sei connesso in SSH e devi fare una piccola modifica veloce a un parametro nel sorgente `life.c` senza usare interfacce grafiche. Quale editor di testo semplice e amichevole puoi lanciare dal terminale?",[m
+         commands: [[m
+             "nano life.c"[m
+         ],[m
+[36m@@ -384,7 +384,7 @@[m
+     {[m
+         id: "proc-maps-it",[m
+         title: "Mappare la RAM",[m
+[31m-        description: "Quale file virtuale nel filesystem `/proc` mostra come sono mappate le sezioni di memoria di un processo?",[m
+[32m+[m[32m        description: "Vuoi ispezionare gli indirizzi in cui sono stati caricati l'heap, lo stack e le librerie del tuo programma in esecuzione. Quale file all'interno di `/proc/self/` contiene questa tabella?",[m
+         commands: [[m
+             "cat /proc/self/maps"[m
+         ],[m
+[36m@@ -431,7 +431,7 @@[m
+     {[m
+         id: "ulimit-core-it",[m
+         title: "Caccia al crash",[m
+[31m-        description: "Quale comando permette di abilitare la creazione dei file di 'core dump' (usando ulimit -c)?",[m
+[32m+[m[32m        description: "Il tuo programma va in Segmentation Fault ma scompare nel nulla. Per poter analizzare il crash post-mortem con GDB, devi rimuovere il limite alla dimensione dei file di dump. Qual è la parolina magica da passare a `ulimit -c`?",[m
+         commands: [],[m
+         expectedOutput: "unlimited",[m
+         hints: [[m
+[36m@@ -463,7 +463,7 @@[m
+     {[m
+         id: "endian-check",[m
+         title: "Il Rilevatore di Endianness",[m
+[31m-        description: "Usa il comando `lscpu` e filtra l'output per vedere l'ordine dei byte del tuo processore.",[m
+[32m+[m[32m        description: "Esegui il comando utile per stampare le caratteristiche del processore e accoda un pipe per isolare solo la riga che parla di 'Byte Order'.",[m
+         commands: [],[m
+         expectedOutput: "Byte Order:            Little Endian",[m
+         hints: [[m
+[36m@@ -516,7 +516,7 @@[m
+     {[m
+         id: "check-heap-limits",[m
+         title: "Limitare la Memoria",[m
+[31m-        description: "A volte vuoi testare cosa succede se `malloc` fallisce (restituendo NULL). Usa il comando bash che gestisce i limiti fisici per limitare la memoria virtuale del tuo processo a circa 10 Megabyte (10000 kb).",[m
+[32m+[m[32m        description: "Vuoi mettere sotto stress il tuo software e testare come gestisce l'esaurimento della RAM. Usa il builder della shell (`ulimit`) con il parametro per la memoria virtuale (`-v`) per restringere il limite a `10000` kb.",[m
+         commands: [],[m
+         expectedOutput: "ulimit -v 10000",[m
+         hints: [[m
+[36m@@ -555,7 +555,7 @@[m
+     {[m
+         id: "valgrind-check",[m
+         title: "Malloc Debugging",[m
+[31m-        description: "Quale opzione di `valgrind` useresti per vedere esattamente DOVE è stata allocata una memoria che stai cercando di liberare in modo errato?",[m
+[32m+[m[32m        description: "Un memory leak è difficile da tracciare se non sai chi 
