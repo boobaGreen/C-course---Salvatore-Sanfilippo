@@ -5,6 +5,7 @@ import CodeEditor from '../../components/exercises/CodeEditor';
 import Quiz from '../../components/exercises/Quiz';
 import HackerTerminal from '../../components/content/HackerTerminal';
 import Infographic from '../../components/content/Infographic';
+import ComparisonTable from '../../components/content/ComparisonTable';
 
 # Lesson 23: Stack-based Interpreter (ToyFort)
 
@@ -66,11 +67,16 @@ typedef struct TFParser {
     char *prg;              // Full program text
     char *next_token;       // Current reading point
 } TFParser;
+`} 
+  language="c" 
+/>
 
 <Callout type="hacker" title="Why two asterisks?">
-`TFObject **ele` is a pointer to an array of pointers. In C, to have a list that contains objects of different types (heterogeneous), we don't save the objects directly, but their addresses. By removing one asterisk (`ele[0]`), we get the pointer to the individual object.
+`TFObject **ele` is a pointer to an array of pointers. In C, to have a list that contains objects of different types (heterogeneous), we don't save the objects directly but their addresses. By removing one asterisk (`ele[0]`), we get the pointer to the individual object.
 </Callout>
 
+<CodeEditor 
+  initialCode={`
 // Execution Context (allows multiple isolated interpreters)
 typedef struct TFContext {
     TFObject *stack;        // Our global list (used as a stack)

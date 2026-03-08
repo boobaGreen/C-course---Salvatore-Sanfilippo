@@ -5,6 +5,7 @@ import CodeEditor from '../../components/exercises/CodeEditor';
 import Quiz from '../../components/exercises/Quiz';
 import HackerTerminal from '../../components/content/HackerTerminal';
 import Infographic from '../../components/content/Infographic';
+import ComparisonTable from '../../components/content/ComparisonTable';
 
 # Lezione 23: Interprete Stack-based (ToyFort)
 
@@ -66,11 +67,16 @@ typedef struct TFParser {
     char *prg;              // Il testo intero del programma
     char *next_token;       // Il punto dove siamo arrivati a leggere
 } TFParser;
+`} 
+  language="c" 
+/>
 
 <Callout type="hacker" title="Perché i due asterischi?">
 `TFObject **ele` è un puntatore a un array di puntatori. In C, per avere una lista che contiene oggetti di diverso tipo (eterogenea), non salviamo gli oggetti direttamente, ma i loro indirizzi. Rimuovendo un asterisco (`ele[0]`), otteniamo il puntatore al singolo oggetto.
 </Callout>
 
+<CodeEditor 
+  initialCode={`
 // Contesto di Esecuzione (permette più interpreti isolati)
 typedef struct TFContext {
     TFObject *stack;        // La nostra lista globale (usata come stack)

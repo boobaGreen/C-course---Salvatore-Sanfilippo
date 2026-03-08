@@ -5,6 +5,7 @@ import ASCIIConverter from '../../components/content/ASCIIConverter';
 import Infographic from '../../components/content/Infographic';
 import CodeEditor from '../../components/exercises/CodeEditor';
 import Quiz from '../../components/exercises/Quiz';
+import HackerTerminal from '../../components/content/HackerTerminal';
 
 # Lezione 5: Stringhe e Caratteri (ASCII)
 
@@ -35,7 +36,7 @@ Quando scrivi `char c = 'A';`, il computer non salva la lettera "A", ma il numer
 
 <ASCIIConverter />
 
-<Callout type="warning" title="Apici (') vs Virgolette (\")">
+<Callout type="warning" title="Apici (') vs Virgolette ('')">
 Questa è una delle differenze più "bastarde" per chi viene da Python o JS:
 - `'A'` (apici singoli) è un **numero intero** (65). Occupa 1 byte.
 - `"A"` (virgolette) è una **stringa**. È un array che contiene 'A' e un carattere invisibile `\0` (zero) per segnare la fine. Occupa 2 byte.

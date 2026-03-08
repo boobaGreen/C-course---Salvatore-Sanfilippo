@@ -5,6 +5,7 @@ import ASCIIConverter from '../../components/content/ASCIIConverter';
 import Infographic from '../../components/content/Infographic';
 import CodeEditor from '../../components/exercises/CodeEditor';
 import Quiz from '../../components/exercises/Quiz';
+import HackerTerminal from '../../components/content/HackerTerminal';
 
 # Lesson 5: Strings & Characters (ASCII)
 
@@ -35,7 +36,7 @@ When you write `char c = 'A';`, the computer doesn't save the letter "A", but th
 
 <ASCIIConverter />
 
-<Callout type="warning" title="Single (') vs Double (") Quotes">
+<Callout type="warning" title="Single (') vs Double ('') Quotes">
 This is one of the trickiest differences for those coming from Python or JS:
 - `'A'` (single quotes) is an **integer number** (65). It takes up 1 byte.
 - `"A"` (double quotes) is a **string**. It is an array containing 'A' and an invisible `\0` (zero) character to mark the end. It takes up 2 bytes.

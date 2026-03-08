@@ -3,6 +3,7 @@ import Callout from '../../components/content/Callout';
 import KeyConcepts from '../../components/content/KeyConcepts';
 import CodeEditor from '../../components/exercises/CodeEditor';
 import Quiz from '../../components/exercises/Quiz';
+import ComparisonTable from '../../components/content/ComparisonTable';
 import HackerTerminal from '../../components/content/HackerTerminal';
 import PointerArithmetic from '../../components/content/PointerArithmetic';
 
@@ -219,9 +220,9 @@ int main() {
 <HackerTerminal 
   challenges={[
     {
-      id: "hexdump-bin",
+      id: "hexdump-bin-it",
       title: "Lo Sguardo Binario",
-      description: "Quale comando Linux permette di vedere il contenuto di un file (anche eseguibile) in formato esadecimale?",
+      description: "Quale comando Linux permette di vedere il contenuto di un file (anche eseguibile) in formato esadecimale con l'opzione -C?",
       commands: ["hexdump -C a.out"],
       expectedOutput: "00000000",
       hints: ["Cerca un comando che significa 'hex dump'"],
@@ -229,19 +230,19 @@ int main() {
       xpReward: 150
     },
     {
-      id: "ulimit-core",
+      id: "ulimit-core-it",
       title: "Caccia al crash",
-      description: "Quale comando permette di abilitare la creazione dei file di 'core dump' (report post-crash)?",
+      description: "Quale comando permette di abilitare la creazione dei file di 'core dump' (usando ulimit -c)?",
       commands: ["ulimit -c unlimited"],
       expectedOutput: "unlimited",
-      hints: ["Usa 'ulimit' con l'opzione -c"],
+      hints: ["Usa 'ulimit' con l'opzione -c e il valore 'unlimited'"],
       explanation: "Ottimo! Abilitando i core dump puoi analizzare il Segfault con GDB.",
       xpReward: 250
     },
     {
-      id: "strace-sys",
+      id: "strace-sys-it",
       title: "Tracciamento di Sistema",
-      description: "Quale comando traccia tutte le chiamate di sistema (syscall) effettuate dal tuo programma `./a.out`?",
+      description: "Quale comando traccia tutte le chiamate di sistema (syscall) effettuate da un programma?",
       commands: ["strace ./a.out"],
       expectedOutput: "execve",
       hints: ["Significa 'System Trace'"],

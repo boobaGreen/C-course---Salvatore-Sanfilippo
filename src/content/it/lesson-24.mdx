@@ -5,6 +5,7 @@ import CodeEditor from '../../components/exercises/CodeEditor';
 import Quiz from '../../components/exercises/Quiz';
 import HackerTerminal from '../../components/content/HackerTerminal';
 import Infographic from '../../components/content/Infographic';
+import ComparisonTable from '../../components/content/ComparisonTable';
 
 # Lezione 24: L'Interprete ToyFort (Parte 2)
 
@@ -63,13 +64,13 @@ void tf_plus(TFContext *ctx) {
     tf_object_release(b);
 }
 ```
+`} 
+  language="c" 
+/>
 
 <Callout type="info" title="Complessità Ammortizzata">
 Quando usiamo `realloc` per far crescere la lista (come visto in `list_push`), Salvatore spiega che allochiamo per potenze di due o comunque sovrallochiamo. Questo rende l'operazione di aggiunta **O(1) ammortizzato**, ovvero efficiente quanto una linked list ma con i vantaggi di velocità di un array.
 </Callout>
-`} 
-  language="c" 
-/>
 
 <Callout type="warning" title="Memory Safety">
 Ricorda: ogni volta che fai `pop` dallo stack, stai acquisendo la proprietà di quel puntatore. È fondamentale chiamare `release` (o `free`) alla fine della funzione per evitare memory leak!

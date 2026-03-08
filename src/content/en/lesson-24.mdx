@@ -5,6 +5,7 @@ import CodeEditor from '../../components/exercises/CodeEditor';
 import Quiz from '../../components/exercises/Quiz';
 import HackerTerminal from '../../components/content/HackerTerminal';
 import Infographic from '../../components/content/Infographic';
+import ComparisonTable from '../../components/content/ComparisonTable';
 
 # Lesson 24: The ToyFort Interpreter (Part 2)
 
@@ -63,13 +64,13 @@ void tf_plus(TFContext *ctx) {
     tf_object_release(b);
 }
 ```
+`} 
+  language="c" 
+/>
 
 <Callout type="info" title="Amortized Complexity">
 When we use `realloc` to grow the list (as seen in `list_push`), Salvatore explains that we over-allocate or use powers of two. This makes the append operation **amortized O(1)**—as efficient as a linked list but with the cache-speed advantages of an array.
 </Callout>
-`} 
-  language="c" 
-/>
 
 <Callout type="warning" title="Memory Safety">
 Remember: every time you `pop` from the stack, you are taking ownership of that pointer. It is critical to call `release` (or `free`) at the end of the function to avoid memory leaks!

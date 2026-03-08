@@ -1,0 +1,1402 @@
+[
+  {
+    "start": 40.6,
+    "end": 49.14,
+    "text": " Sarò assai sincero con voi io non mi ricordo assolutamente niente di dove eravamo arrivati"
+  },
+  {
+    "start": 49.14,
+    "end": 62.32,
+    "text": " con toyfort o meglio o l'idea che non potevamo usare col simbolo perché questo simbolo non"
+  },
+  {
+    "start": 62.32,
+    "end": 70.3,
+    "text": " è risolto nella tabella delle funzioni ancora non ci infiliamo niente allora questo simbolo"
+  },
+  {
+    "start": 70.3,
+    "end": 76.66,
+    "text": " cosa doveva fare prova a risolvere e a chiamare la funzione associata con il simbolo che si chiama"
+  },
+  {
+    "start": 76.66,
+    "end": 92.26,
+    "text": " board? beh qua metteremo get symbol by name magari tf object hanno questo qui non è un tf"
+  },
+  {
+    "start": 92.26,
+    "end": 100.86,
+    "text": " object ma si come ecco una una entry si chiamava come function table entry"
+  },
+  {
+    "start": 102.62,
+    "end": 125.06,
+    "text": " va beh facciamo pure questa type def function table entry tf proc entry funk entry"
+  },
+  {
+    "start": 127.64000000000001,
+    "end": 141.28,
+    "text": " chiamiamola così anche se non mi piace chiamiamola proc entry va beh procedura perché la f con la f"
+  },
+  {
+    "start": 141.28,
+    "end": 155.3,
+    "text": " mi fa un po schifo tf proc entry quindi questa qui è sta roba qua la sostituiamo qua quindi"
+  },
+  {
+    "start": 155.3,
+    "end": 164.76,
+    "text": " questo tf proc entry che sostanzialmente sta roba qui qui ci sarà quindi praticamente tf proc"
+  },
+  {
+    "start": 164.76,
+    "end": 184.32,
+    "text": " entry proc entry pie è uguale resolve symbol anzi facciamo get function by name context"
+  },
+  {
+    "start": 184.32,
+    "end": 192.82,
+    "text": " virgo world quindi questo sostanzialmente faccia farà lo scanning di questa tabella qui dove c'hanno"
+  },
+  {
+    "start": 192.82,
+    "end": 221.38,
+    "text": " tutte le nostre funzioni definite e se non trova niente dovrà ritornare un errore quindi se"
+  },
+  {
+    "start": 221.38,
+    "end": 241.36,
+    "text": " la funzione è eseguita in un altro modo che abbiamo e poi dobbiamo chiamare questo simbolo e vedremo"
+  },
+  {
+    "start": 241.36,
+    "end": 246.96,
+    "text": " poi come che chiameremo il simbolo per una mano facciamo retran zero facendo finita che tutto è"
+  },
+  {
+    "start": 246.96,
+    "end": 251.04,
+    "text": " andato bene vi faccio presente che in questo momento il contesto non gestisce SQL in un gestice"
+  },
+  {
+    "start": 251.04,
+    "end": 258.88,
+    "text": " errori di runtime quindi se mentre noi seguiamo una data funzione in realtà non va nulla come dovrebbe"
+  },
+  {
+    "start": 258.88,
+    "end": 269.92,
+    "text": " andare niente un problema perché nel contesto dovrebbe essere segnalato che è ci è stato un problema in"
+  },
+  {
+    "start": 269.92,
+    "end": 275.66,
+    "text": " realtà tra l'altro persino col simbolo dovrebbe funzionare in questo modo cioè qua più che altro"
+  },
+  {
+    "start": 275.66,
+    "end": 283.46,
+    "text": " invece di tornare uno dovrebbe settare oltre a di tornare uno dovrebbe settare l'error nel contesto tipo"
+  },
+  {
+    "start": 283.46,
+    "end": 291.9,
+    "text": " function not found word ma però raccontendiamoci di quello che abbiamo fatto quindi questa col"
+  },
+  {
+    "start": 291.9,
+    "end": 298.88,
+    "text": " symbol dove viene chiamata avviene chiamata qua nell'exec e l'exec viene chiamata qua quindi"
+  },
+  {
+    "start": 298.88,
+    "end": 306.18,
+    "text": " questo è tutto questo cosa qua non può neanche funzionare minimamente ma quando io crea un nuovo"
+  },
+  {
+    "start": 306.18,
+    "end": 312.78,
+    "text": " contesto create context dovrei raggiungere raggiungere queste queste funzioni esattore"
+  },
+  {
+    "start": 312.78,
+    "end": 325.98,
+    "text": " register function con questo non va bene tf func andri non sarà bellissimo ma se chiamiamo"
+  },
+  {
+    "start": 325.98,
+    "end": 334.5,
+    "text": " comunque funzione dobbiamo continuare a chiamarla funzione quindi dicevo col symbol viene chiamato"
+  },
+  {
+    "start": 334.5,
+    "end": 344.72,
+    "text": " qui ma quando creiamo un contesto togliamo il volume il trimendi ci sono le notifiche di whatsapp"
+  },
+  {
+    "start": 345.68,
+    "end": 346.52,
+    "text": " diamo il volume"
+  },
+  {
+    "start": 349.72,
+    "end": 357.38,
+    "text": " anche da qua togliamo i volumi noi mi sa che dobbiamo implementare register function"
+  },
+  {
+    "start": 357.38,
+    "end": 366.0,
+    "text": " sì dobbiamo implementare register function"
+  },
+  {
+    "start": 369.0,
+    "end": 378.12,
+    "text": " get function by name non abbiamo ancora implementata quindi dobbiamo implementare"
+  },
+  {
+    "start": 378.12,
+    "end": 386.0,
+    "text": " register function in register function anzi void perché questa quiz per caso la funzione"
+  },
+  {
+    "start": 386.14,
+    "end": 394.06,
+    "text": " registrata fa l'overwrite tf context context"
+  },
+  {
+    "start": 396.44,
+    "end": 406.7,
+    "text": " char func name anzi name register function si capisce mik che il nome di una funzione e poi qua"
+  },
+  {
+    "start": 406.7,
+    "end": 422.72,
+    "text": " basic math function qua questa qui è register C function che dall'altro va prima ancora"
+  },
+  {
+    "start": 422.72,
+    "end": 435.32,
+    "text": " di create context perché poi è usata da create context e il prototipo delle mie callback è questo"
+  },
+  {
+    "start": 438.38,
+    "end": 446.12,
+    "text": " ok qua avremmo dovuto usare una type def in realtà per questo tipo di callback ma niente noi"
+  },
+  {
+    "start": 446.12,
+    "end": 456.76,
+    "text": " la scriviamo in line così non cambia molto quindi register C function get function by name prima"
+  },
+  {
+    "start": 456.76,
+    "end": 462.44,
+    "text": " ancora imprendiamo get function by name e ora vi dico perché perché poi la register function"
+  },
+  {
+    "start": 462.44,
+    "end": 471.02,
+    "text": " prima di tutto deve vedere se questa qui già esiste get function by name facciamo una cosa"
+  },
+  {
+    "start": 472.85999999999996,
+    "end": 488.14,
+    "text": " context str punto pointer no scusate word str punto pointer perché noi della stringa vogliamo prenderci"
+  },
+  {
+    "start": 488.14,
+    "end": 494.72,
+    "text": " semplicemente il puntatore perché sì i nomi delle funzioni facciamo che sono limitate limitati a"
+  },
+  {
+    "start": 494.72,
+    "end": 501.98,
+    "text": " diciamo a non avere lo zero dentro quindi sono delle stringa in C non delle stringa delle stringa in"
+  },
+  {
+    "start": 504.90000000000003,
+    "end": 515.0,
+    "text": " no veramente questa cosa non mi convince no questa cosa non mi piace queste qua devono essere in"
+  },
+  {
+    "start": 515.0,
+    "end": 522.62,
+    "text": " realtà i nomi delle funzioni degli oggetti stringa in di toy fort e vi dico perché perché"
+  },
+  {
+    "start": 526.9799999999999,
+    "end": 534.9,
+    "text": " ecco tf object name così incrementiamo il conto delle referenza il nome implicito qua quindi"
+  },
+  {
+    "start": 534.9,
+    "end": 544.26,
+    "text": " che significa questo che quando io registro una funzione in C questo name lo devo fare di vendare"
+  },
+  {
+    "start": 544.26,
+    "end": 558.86,
+    "text": " per un attimo l'oggetto più forte quindi io farò tf object on name è uguale create string"
+  },
+  {
+    "start": 558.86,
+    "end": 571.36,
+    "text": " object name virgola setterln di name quindi io creo questo on name e poi release on name"
+  },
+  {
+    "start": 571.36,
+    "end": 584.26,
+    "text": " qua lo rilascio qua farò get function by name questo l'ho usato anche qui però già questo"
+  },
+  {
+    "start": 584.26,
+    "end": 603.24,
+    "text": " è stato giù mi mania corretta virgola on name esatto allora tf punk andri e fe"
+  },
+  {
+    "start": 604.88,
+    "end": 616.32,
+    "text": " qua chiamiamo pure fe function andri perché era chiamato pie quindi ho questo andri se"
+  },
+  {
+    "start": 616.32,
+    "end": 627.8,
+    "text": " praticamente fe uguale get function by name se praticamente posso risolverla in questo modo"
+  },
+  {
+    "start": 627.8,
+    "end": 637.12,
+    "text": " cioè se esiste già che get function by name non mi ritornano nulla se esiste già devo fare"
+  },
+  {
+    "start": 637.12,
+    "end": 642.06,
+    "text": " una cosa se non esiste già deve fare un'altra la devo accodare altrimenti rimpiazzo"
+  },
+  {
+    "start": 642.06,
+    "end": 657.14,
+    "text": " l'endri con quella che c'è già quindi prima io creo il la tf funk andri get function by name"
+  },
+  {
+    "start": 657.8,
+    "end": 664.38,
+    "text": " questa poteva essere chiamata anche il cap function forse era un nome migliore con text virgola"
+  },
+  {
+    "start": 669.38,
+    "end": 678.98,
+    "text": " name e questa qui deve fare una cosa abbastanza semplicis semplicis qua"
+  },
+  {
+    "start": 678.98,
+    "end": 688.16,
+    "text": " abbiamo frullare noi dentro il contesto for questo funk count scusate"
+  },
+  {
+    "start": 692.28,
+    "end": 708.64,
+    "text": " side t for sides t già uguale a zero già minore di stero qua già più più per"
+  },
+  {
+    "start": 708.86,
+    "end": 716.24,
+    "text": " tutte le andri che ho nella mia tabella contest fun table fun table"
+  },
+  {
+    "start": 726.6,
+    "end": 738.84,
+    "text": " di già tf funk andri e fe quindi per ora c'ho in mano questa la prima che trovo"
+  },
+  {
+    "start": 739.38,
+    "end": 744.34,
+    "text": " a me mi serve una cosa ragazzi per l'oggetto stringa per io verificare che questo nome che a me"
+  },
+  {
+    "start": 744.34,
+    "end": 750.88,
+    "text": " mi hanno passato è uguale a quello che c'è dentro la andri mi serve una roba mi serve una"
+  },
+  {
+    "start": 750.88,
+    "end": 760.2,
+    "text": " funzione alla questo il list object prima del list object mettiamo gli string object"
+  },
+  {
+    "start": 763.1,
+    "end": 771.84,
+    "text": " c'endiamo il commento come se fosse una cosa importante la nostra vita e facciamo una cosa"
+  },
+  {
+    "start": 775.34,
+    "end": 787.52,
+    "text": " create string object anche simbolo object lo mettiamo qui perché questo è un tipo abbastanza"
+  },
+  {
+    "start": 787.52,
+    "end": 797.04,
+    "text": " complicato che non può stare la insieme alle altre roba e poi mi serve un ind compare string"
+  },
+  {
+    "start": 797.04,
+    "end": 812.78,
+    "text": " obbiettivo tf obbiettivo a tf obbiettivo b compare i tuoi obbietti a e b per il termine zero se"
+  },
+  {
+    "start": 812.78,
+    "end": 828.26,
+    "text": " sono le stesse una è se a è più di b minus una se a è più di b compare il son è"
+  },
+  {
+    "start": 828.3,
+    "end": 833.32,
+    "text": " perfondo usi mem compare"
+  },
+  {
+    "start": 836.18,
+    "end": 843.6,
+    "text": " so quindi non c'è nessuno gestione di caratteri speciali eccetera eccetera niente"
+  },
+  {
+    "start": 843.6,
+    "end": 848.08,
+    "text": " se mi gende come bite brutalmente così come sono"
+  },
+  {
+    "start": 853.28,
+    "end": 857.06,
+    "text": " allora come facciamo una comparazione di questo tipo"
+  },
+  {
+    "start": 862.5,
+    "end": 871.64,
+    "text": " una comparazione di questo tipo la si fa così quindi io ho le lunghezze di questi allora il tipo string str"
+  },
+  {
+    "start": 874.88,
+    "end": 878.14,
+    "text": " scusate il tipo stringa"
+  },
+  {
+    "start": 880.8,
+    "end": 884.72,
+    "text": " poi andare a l'anno allora tanto che iniziare"
+  },
+  {
+    "start": 891.76,
+    "end": 899.84,
+    "text": " guardiamo qual è la lunghezza minima tra le 3 2 ok"
+  },
+  {
+    "start": 910.5,
+    "end": 922.56,
+    "text": " e la è la quella minore allora il minore str punto l'altrimenti b str punto l'e"
+  },
+  {
+    "start": 922.56,
+    "end": 928.48,
+    "text": " questo è come una e si chiama peratore ternario l'abbiamo trattato in lezioni successivi"
+  },
+  {
+    "start": 928.48,
+    "end": 934.24,
+    "text": " precedenti se non capite come funziona fate copiate questa linea dentro"
+  },
+  {
+    "start": 934.24,
+    "end": 943.18,
+    "text": " claudice gpt gemini quello che vi pare di psico e ve lo spiega lui perché è semplice ma non ci"
+  },
+  {
+    "start": 943.18,
+    "end": 954.12,
+    "text": " possiamo fermare ogni volta e ora facciamo la comparazione della parte comune delle due string"
+  },
+  {
+    "start": 954.12,
+    "end": 960.46,
+    "text": " ora vi dico perché sto facendo così sembra che sia giusto ma che vado proprio di sì a 7"
+  },
+  {
+    "start": 960.46,
+    "end": 970.24,
+    "text": " e appunto poi intera b str punto poi intera l'ho mem compare è una funzione che noi non abbiamo"
+  },
+  {
+    "start": 970.24,
+    "end": 976.52,
+    "text": " visto si prende due puntatori di tipo void qualsiasi e li tratta come bite qualsiasi cosa ci sia"
+  },
+  {
+    "start": 976.52,
+    "end": 983.0,
+    "text": " dentro è una dimensione inizia a guardare dal primo bite di una di un puntatore dell'altro"
+  },
+  {
+    "start": 983.0,
+    "end": 988.36,
+    "text": " se man mano i bite sono uguali controllo il primo secondo il terzo appena trova due bite diversi"
+  },
+  {
+    "start": 989.4,
+    "end": 999.38,
+    "text": " ritorna se è più grande il primo o il secondo nello stesso modo in cui noi abbiamo scritto che"
+  },
+  {
+    "start": 999.38,
+    "end": 1006.56,
+    "text": " qui è meno uno zero o uno il valore di ritorno in base al fatto che a siamo in una di b uguale a b o"
+  },
+  {
+    "start": 1006.56,
+    "end": 1012.5,
+    "text": " ma gio del bil ma qui la nostra questione è più complicata di me compare perché mem compare"
+  },
+  {
+    "start": 1012.5,
+    "end": 1019.6,
+    "text": " s compara stringa delle stesse dimensioni min lenna e io qua ci comparo solo la parte comune"
+  },
+  {
+    "start": 1020.92,
+    "end": 1031.4,
+    "text": " dopo di che le questioni sono le seguenti if se il risultato alla comparazione è che il prefisso"
+  },
+  {
+    "start": 1031.4,
+    "end": 1051.88,
+    "text": " è uguale ok se a estere puntolenna è uguale a b estere puntolenna le stringa sono davvero"
+  },
+  {
+    "start": 1051.88,
+    "end": 1058.62,
+    "text": " uguali perché il prefisso è uguale e sono della stessa lunghezza se a estere puntolenna"
+  },
+  {
+    "start": 1058.62,
+    "end": 1070.82,
+    "text": " s il maggiore di b estere puntolenna sia più caratteri b a e maggiore a"
+  },
+  {
+    "start": 1072.3600000000001,
+    "end": 1082.72,
+    "text": " s per esclusione e maggiore b quindi a minore di b e ritorno uno se invece il risultato"
+  },
+  {
+    "start": 1082.72,
+    "end": 1092.82,
+    "text": " della comparazione non è aspettata ma in compare ritorna del ritorno value zero"
+  },
+  {
+    "start": 1092.82,
+    "end": 1098.78,
+    "text": " di stringa ridindica altra cosa è the difference between the two different bites allora qua facciamo"
+  },
+  {
+    "start": 1098.78,
+    "end": 1107.5,
+    "text": " una cosa va bene normalizziamo il valore di ritorno invece di fare la differenza che comunque un"
+  },
+  {
+    "start": 1107.5,
+    "end": 1112.64,
+    "text": " numero inferiori zero faccio proprio meno uno zero uno è un epioi un po più pulita"
+  },
+  {
+    "start": 1114.4199999999998,
+    "end": 1121.92,
+    "text": " se invece la comparazione è un un uguale se la comparazione è minori zero ritorniamo"
+  },
+  {
+    "start": 1121.92,
+    "end": 1132.98,
+    "text": " meno uno altrimenti ritorniamo ok allora qui per evitare che di avere introdotto bug"
+  },
+  {
+    "start": 1134.82,
+    "end": 1141.24,
+    "text": " apriamo bo clock anche si"
+  },
+  {
+    "start": 1144.52,
+    "end": 1146.46,
+    "text": " in dysfunction fa corretto"
+  },
+  {
+    "start": 1153.5,
+    "end": 1160.12,
+    "text": " Vabbè ho scritto cpm invece di cmp……"
+  },
+  {
+    "start": 1161.12,
+    "end": 1164.42,
+    "text": " giù sotto il giusto a parte questa"
+  },
+  {
+    "start": 1165.02,
+    "end": 1171.48,
+    "text": "وجica è corretta. All' pasta gestisce Wick run Volvo"
+  },
+  {
+    "start": 1171.48,
+    "end": 1172.84,
+    "text": " nel combustion� șiprus xperia"
+  },
+  {
+    "start": 1172.84,
+    "end": 1174.7,
+    "text": " con un per i prefi comuni se sono ееani"
+  },
+  {
+    "start": 1174.7,
+    "end": 1176.42,
+    "text": " Allora, eccetera, eccetera."
+  },
+  {
+    "start": 1176.76,
+    "end": 1179.16,
+    "text": " Allora, ragazzi, questo qui me l'ho voluto far..."
+  },
+  {
+    "start": 1179.86,
+    "end": 1183.54,
+    "text": " Ovviamente non poteva essere sbagliato alla funzione perché io non commetto"
+  },
+  {
+    "start": 1183.54,
+    "end": 1188.46,
+    "text": " nessun tipo di errore, ma più per assurdo ho provato questa cosa qua"
+  },
+  {
+    "start": 1188.46,
+    "end": 1195.0,
+    "text": " per farvi vedere qual è un buon utilizzo dei large language model"
+  },
+  {
+    "start": 1195.0,
+    "end": 1198.14,
+    "text": " nella programmazione per evitare gli errori che si producano."
+  },
+  {
+    "start": 1198.48,
+    "end": 1204.22,
+    "text": " Ovviamente sto scherzando, sbaglio un botto e umilmente chiedo a Cloud."
+  },
+  {
+    "start": 1207.38,
+    "end": 1211.32,
+    "text": " Compare string object. Perché questa roba qui a noi ci serve?"
+  },
+  {
+    "start": 1212.0,
+    "end": 1219.24,
+    "text": " È perché quando noi abbiamo questa roba qua, quindi ora io sto guardando una"
+  },
+  {
+    "start": 1219.24,
+    "end": 1225.14,
+    "text": " tabela di funzioni, tutti i nomi che ho, tutte le entri che ho di funzioni"
+  },
+  {
+    "start": 1225.14,
+    "end": 1233.92,
+    "text": " registrate. If compare string object fe name virguale name uguale uguale uguale"
+  },
+  {
+    "start": 1233.92,
+    "end": 1241.7,
+    "text": " uguale a zero è qua l'ho trovata. Ok? Quindi faccio return fe."
+  },
+  {
+    "start": 1244.88,
+    "end": 1253.38,
+    "text": " Se invece ho letto tutta la lista e non ho trovato nulla il cui nome è corretto,"
+  },
+  {
+    "start": 1254.3400000000001,
+    "end": 1259.22,
+    "text": " ritorno nulla. Allora guardate, lo vedete come noi questa roba qui l'ho fatta"
+  },
+  {
+    "start": 1259.22,
+    "end": 1263.1,
+    "text": " vedere quando abbiamo imblendato Game of Life, ma in una versione diciamo"
+  },
+  {
+    "start": 1263.1,
+    "end": 1268.54,
+    "text": " giocattolo di questo concetto, quasi inizia a vedere nella sua inderezza e"
+  },
+  {
+    "start": 1268.54,
+    "end": 1273.18,
+    "text": " bastità. Vedete qui come noi abbiamo astratto l'idea della comparazione"
+  },
+  {
+    "start": 1273.18,
+    "end": 1277.12,
+    "text": " string? Abbiamo questi objecti string ormai stiamo programmando in cima, è un"
+  },
+  {
+    "start": 1277.12,
+    "end": 1281.22,
+    "text": " po' come se programmassimo lo so in Python, perché abbiamo i objecti string che"
+  },
+  {
+    "start": 1281.22,
+    "end": 1285.42,
+    "text": " possono essere comparati liberamente senza curarci di quando sono lunghi, di"
+  },
+  {
+    "start": 1285.42,
+    "end": 1297.88,
+    "text": " dove sono allocati, ci interessa. Niente. Register C function tffang entry fe, quindi"
+  },
+  {
+    "start": 1297.88,
+    "end": 1310.58,
+    "text": " qua prendo la funzione. Se praticamente fe c'è già, se fe... Allora qui noi"
+  },
+  {
+    "start": 1310.58,
+    "end": 1317.4,
+    "text": " ingestivamo pure le funzioni quelle implementate in toy fort, quindi la"
+  },
+  {
+    "start": 1317.4,
+    "end": 1325.06,
+    "text": " funzione è definita all'utente, sarebbe user list. User list è veramente"
+  },
+  {
+    "start": 1325.06,
+    "end": 1329.0,
+    "text": " terribile. User rock, no, fang."
+  },
+  {
+    "start": 1332.9399999999998,
+    "end": 1341.14,
+    "text": " Altrimenti c'è la mia callback. If fe user fang, se era una funzione definita"
+  },
+  {
+    "start": 1341.14,
+    "end": 1348.48,
+    "text": " all'utente, sta roba qui, noi dobbiamo fare release, se no c'è un meury leak,"
+  },
+  {
+    "start": 1349.92,
+    "end": 1359.72,
+    "text": " anzi, non solo dobbiamo fare release fe user fang, ma in più questo campo qui,"
+  },
+  {
+    "start": 1359.9,
+    "end": 1365.26,
+    "text": " lo dobbiamo setter a null, perché nella entry della nostra tabela di"
+  },
+  {
+    "start": 1365.26,
+    "end": 1370.9,
+    "text": " funzioni la differenza per distinguere se è una funzione implementata in C dentro"
+  },
+  {
+    "start": 1370.9,
+    "end": 1375.34,
+    "text": " il nostro interpreter, è una funzione dell'utente, è il fatto che una 3 2 è null,"
+  },
+  {
+    "start": 1375.34,
+    "end": 1384.84,
+    "text": " o la callback in C o la user function, quindi la settiamo a null in tal caso e poi la"
+  },
+  {
+    "start": 1384.84,
+    "end": 1391.08,
+    "text": " rinviazziamo la callback con la callback che ci ha passato il nostro"
+  },
+  {
+    "start": 1391.08,
+    "end": 1397.48,
+    "text": " chiamante che è qui callback. E buonanotte, l'abbiamo rinviazzata. Se invece"
+  },
+  {
+    "start": 1397.48,
+    "end": 1404.36,
+    "text": " staccamo la diffunzione non c'è questa cavolo di funzione, allora noi dobbiamo"
+  },
+  {
+    "start": 1404.36,
+    "end": 1412.64,
+    "text": " fare la seguente cosa, fe, anzi, context."
+  },
+  {
+    "start": 1417.0800000000002,
+    "end": 1423.04,
+    "text": " Allora questa quindi in realtà ci serve una funzione che ci aiuta,"
+  },
+  {
+    "start": 1428.42,
+    "end": 1433.94,
+    "text": " la chiamiamo register function quindi noi abbiamo la register C function,"
+  },
+  {
+    "start": 1434.14,
+    "end": 1443.02,
+    "text": " avremo la register user function, la register function inserisce monitored semplicemente un"
+  },
+  {
+    "start": 1443.02,
+    "end": 1448.54,
+    "text": " elemento settando tutti e due i campi sia callback che user function a null ma"
+  },
+  {
+    "start": 1448.54,
+    "end": 1452.06,
+    "text": " perché poi ci servirà due volte, qua è inutile che vi metto a ripetere il"
+  },
+  {
+    "start": 1452.06,
+    "end": 1457.4,
+    "text": " poi faccio le factoring, mi serve un'altra volta e faccio le factoring, facciamo direttamente le"
+  },
+  {
+    "start": 1457.4,
+    "end": 1463.1599999999999,
+    "text": " factoring, sappiamo che la useremo un'altra volta. Quindi register isn't function, context"
+  },
+  {
+    "start": 1463.16,
+    "end": 1492.34,
+    "text": " VIRCULA ONAME, TF FUNK ENTERI, questa cosa devo chiamare TF FUNK, la sbagliata, register"
+  },
+  {
+    "start": 1492.34,
+    "end": 1498.52,
+    "text": " F object name, nome della funzione, e quando gli passiamo, ne call back neanche user function,"
+  },
+  {
+    "start": 1498.72,
+    "end": 1507.52,
+    "text": " perché questa cosa qui non la valgo z, non la valgo z, più a new function, entry in the"
+  },
+  {
+    "start": 1507.52,
+    "end": 1519.48,
+    "text": " context, it's up to the caller to set either the SQL back or the list representing the"
+  },
+  {
+    "start": 1519.48,
+    "end": 1537.84,
+    "text": " user defined function. Ok, allora sta cosa che deve fare? context fung table dot fung table equal"
+  },
+  {
+    "start": 1540.58,
+    "end": 1553.46,
+    "text": " x realoc, ce l'abbiamo sì, la vamo già definita, size of tf fung entry, puntatore al puntatore,"
+  },
+  {
+    "start": 1553.66,
+    "end": 1563.16,
+    "text": " no puntatore, questo è un puntatore al tf fung entry, perché la fung table non è altro che un"
+  },
+  {
+    "start": 1563.16,
+    "end": 1570.62,
+    "text": " puntatore, ha un array di puntatori e ogni puntatore dentro le array, si riferisce bezel"
+  },
+  {
+    "start": 1574.38,
+    "end": 1585.72,
+    "text": " a una mia, ad effect using hand gesture, ok, in italiana, apple, quindi noi, cioè l'array"
+  },
+  {
+    "start": 1585.72,
+    "end": 1593.74,
+    "text": " che elemento è composto di puntatori alla mia function entry, quindi size of function entry per"
+  },
+  {
+    "start": 1598.2400000000002,
+    "end": 1604.12,
+    "text": " parentesi, numero delle funzioni come è func count, come si chiamava, func count,"
+  },
+  {
+    "start": 1607.48,
+    "end": 1622.96,
+    "text": " plus 1, ok, faccio la mia realoc, poi, tf func entry, fe uguale x malloc,"
+  },
+  {
+    "start": 1623.76,
+    "end": 1634.26,
+    "text": " podevo allocare sta roba, size of func tf func entry, quindi ora ho creato un pezzo di memoria"
+  },
+  {
+    "start": 1634.26,
+    "end": 1643.52,
+    "text": " nel lipo, nel libero raneo, ha abbastanza grande da inserire la mia struttura che rappresenta una"
+  },
+  {
+    "start": 1643.52,
+    "end": 1655.4,
+    "text": " entry nella mia tabella di funzioni, fe name, è uguale, ah, tanto per iniziare, tf qua la"
+  },
+  {
+    "start": 1655.4,
+    "end": 1666.92,
+    "text": " tabella mia, all'attuale lunghezza, perché siccome l'idea è zero based, la lunghezza"
+  },
+  {
+    "start": 1666.92,
+    "end": 1674.84,
+    "text": " attuale è il prossimo elemento, ma io l'ho già illocato, è uguale a questa entry, ora ho"
+  },
+  {
+    "start": 1675.5,
+    "end": 1683.12,
+    "text": " una entry in più e quindi incremento il count e ora posso riempire il mio oggetto di roba,"
+  },
+  {
+    "start": 1683.32,
+    "end": 1692.74,
+    "text": " fe name è uguale a name, ce l'ho già, ma attenzione, attenzione, retain name, devo aumentare il conto"
+  },
+  {
+    "start": 1692.74,
+    "end": 1698.02,
+    "text": " delle referenze, guardate qui, register function io la chiamo da qui, qua io creo questo oggetto"
+  },
+  {
+    "start": 1698.02,
+    "end": 1703.94,
+    "text": " fittizio che ha il no, cioè no fittile, un oggetto tutti, un oggetto stringa, poi qua lo libero,"
+  },
+  {
+    "start": 1704.26,
+    "end": 1711.14,
+    "text": " ma quando io lo vado a liberare qui, siccome ho registrato in realtà qui una nuova funzione,"
+  },
+  {
+    "start": 1711.28,
+    "end": 1716.84,
+    "text": " c'è stato il retain, qua il conto delle referenze torna uno, non ha zero, quindi non si libera"
+  },
+  {
+    "start": 1716.84,
+    "end": 1722.72,
+    "text": " l'oggetto, vedete come il reference counting aiuta alla gestione complicata di queste robbe qui,"
+  },
+  {
+    "start": 1724.8,
+    "end": 1742.4,
+    "text": " retain name, fr, callback, lo qual è null, fr, user, func, lo qual è null,"
+  },
+  {
+    "start": 1743.8,
+    "end": 1750.14,
+    "text": " z tan, fr, e lo ritorno il mio oggetto, ecco era che il c è questo, questo lo che stiamo"
+  },
+  {
+    "start": 1750.14,
+    "end": 1757.24,
+    "text": " facendo ora è il c, noi io lo so, questo esempio è complicato, per qualcuno sarà un po' altre,"
+  },
+  {
+    "start": 1758.8799999999999,
+    "end": 1764.38,
+    "text": " ma dobbiamo capire un certo punto, cioè ragazzi noi questo corso dura da sei mesi,"
+  },
+  {
+    "start": 1764.42,
+    "end": 1769.58,
+    "text": " dobbiamo capire che cos'è il programma del c, ma ci torneremo, poi faremo degli esempi più"
+  },
+  {
+    "start": 1770.28,
+    "end": 1775.82,
+    "text": " semplici, cioè questo corso dienterà più facile dopo questa lezione, poi dienterà di"
+  },
+  {
+    "start": 1775.82,
+    "end": 1783.64,
+    "text": " nuovo più difficile, sarà andare a volte oltre l'angiale, il cuore oltre l'ostacolo,"
+  },
+  {
+    "start": 1783.88,
+    "end": 1792.1,
+    "text": " poi per riprenderlo, poi si è raccorso, poi si cammina, però dobbiamo fare un po' di roba seria."
+  },
+  {
+    "start": 1792.76,
+    "end": 1796.72,
+    "text": " Ok, ora che io ho registrato questa nuova funzione che ha un nome, tutto quello che mi interessa,"
+  },
+  {
+    "start": 1796.72,
+    "end": 1806.98,
+    "text": " callback, callback, setto la callback, ok, questa funzione ritorna voi perché non"
+  },
+  {
+    "start": 1806.98,
+    "end": 1816.62,
+    "text": " può fallire, register a new function with the given name in the function table of the context."
+  },
+  {
+    "start": 1819.3,
+    "end": 1832.76,
+    "text": " The function can't fail since if a name a function with the same name already exists,"
+  },
+  {
+    "start": 1833.26,
+    "end": 1844.02,
+    "text": " it gets replaced by the new one. Ok, noi abbiamo stacose qui, registrarsi function,"
+  },
+  {
+    "start": 1844.8200000000002,
+    "end": 1850.82,
+    "text": " create context, call symbol, qui ancora la chiamata, non l'abbiamo implementata,"
+  },
+  {
+    "start": 1852.14,
+    "end": 1863.1,
+    "text": " questa chiamata qua chiamerà ricorsivamente la exec, nel caso di, nel caso delle funzioni"
+  },
+  {
+    "start": 1863.1,
+    "end": 1868.06,
+    "text": " registrate dall'utente che sono liste che rappresentano programmi toyfort, nell'altro caso"
+  },
+  {
+    "start": 1868.06,
+    "end": 1871.78,
+    "text": " no, però noi non implementiamo niente di tutto questo, il problema è compilare questo programma"
+  },
+  {
+    "start": 1871.78,
+    "end": 1879.18,
+    "text": " che non compilerà mai e poi mai, con un sacco di errori, tra cui il fatto che noi non"
+  },
+  {
+    "start": 1879.18,
+    "end": 1887.96,
+    "text": " abbiamo implementato mai la nostra basic, allora qua dice incompati for function pointer,"
+  },
+  {
+    "start": 1894.0,
+    "end": 1902.38,
+    "text": " pressendo 25, iniziamo a questa errore che mi intriga particolarmente. Allora,"
+  },
+  {
+    "start": 1902.56,
+    "end": 1911.72,
+    "text": " la callback è definita come una funzione context name, tf context, tf object name,"
+  },
+  {
+    "start": 1911.72,
+    "end": 1922.96,
+    "text": " perché qua come è definita la callback, a dire il vero mi sembra esattamente la stessa cosa."
+  },
+  {
+    "start": 1929.2,
+    "end": 1935.72,
+    "text": " E cos'è che ci dice l'errore? Ah, poi questo erroro che vende si ripete perché l'ho sbagliato"
+  },
+  {
+    "start": 1936.78,
+    "end": 1963.0,
+    "text": " in tutte, void, struct, tf context, int, perché dice int? I don't understand, perché dice int?"
+  },
+  {
+    "start": 1963.0,
+    "end": 1972.7,
+    "text": " Callback, ah, perché questo qui dice questa cosa qua, perché lui non sa che cos'è una"
+  },
+  {
+    "start": 1974.2999999999997,
+    "end": 1981.68,
+    "text": " struct context qui, quindi default to indecare, cioè il c va in default, allora qua guardate,"
+  },
+  {
+    "start": 1981.84,
+    "end": 1988.3,
+    "text": " c'è questa funzione, questa struttura che ha bisogno di questa, è questa che ha bisogno di"
+  },
+  {
+    "start": 1988.3,
+    "end": 1993.96,
+    "text": " questa, questo incroci qua, meglio, poi serve questa qua, quella intermedia, si risolvono"
+  },
+  {
+    "start": 1993.96,
+    "end": 2006.94,
+    "text": " così, io gli dico guarda, esiste una struttura che si chiama tf, allora chiamo struct, tf context,"
+  },
+  {
+    "start": 2009.68,
+    "end": 2016.34,
+    "text": " tu fitati, siccome tanto un puntatore o un numero, non è che per creare poi l'immagine, diciamo,"
+  },
+  {
+    "start": 2016.34,
+    "end": 2020.3,
+    "text": " per sapere come è fatta questa struttura qua, hai bisogno di sapere esattamente che"
+  },
+  {
+    "start": 2020.3,
+    "end": 2028.36,
+    "text": " campi ci sono qua dentro, è un puntatore, una struttura, è un numero di 8 byte, quindi"
+  },
+  {
+    "start": 2028.36,
+    "end": 2035.2,
+    "text": " quando noi ora compiliamo quel problema, come vedete, è sparito, cioè sono il 54 di diversi,"
+  },
+  {
+    "start": 2035.2,
+    "end": 2060.58,
+    "text": " ma vediamo, hanno un type tf context, questo è vero? 41, struct, no aspetta, tf object,"
+  },
+  {
+    "start": 2061.58,
+    "end": 2076.3,
+    "text": " non tf object, ah qui non ha release, iniziamo dal primo, 106, ah quello lì è un altra"
+  },
+  {
+    "start": 2076.3,
+    "end": 2096.5,
+    "text": " error di prima, scusate, allora release, release parsed, ok, queste due funzioni release"
+  },
+  {
+    "start": 2096.5,
+    "end": 2104.9,
+    "text": " retain sono molto importanti e quindi noi le mettiamo dopo le strutture dati qua, i"
+  },
+  {
+    "start": 2104.9,
+    "end": 2114.78,
+    "text": " prototipi che dicono al C, alcune funzioni che noi definiremo dopo, pro function, pro"
+  },
+  {
+    "start": 2114.78,
+    "end": 2141.0,
+    "text": " types, ok, parametre name was not declared, 293, 293, qua ha fatto parametre un bordello,"
+  },
+  {
+    "start": 2141.0,
+    "end": 2153.68,
+    "text": " tf object name, bravissimo, complimenti, xrealloc, xrealloc ha bisogno ovviamente, come tutte"
+  },
+  {
+    "start": 2153.68,
+    "end": 2160.32,
+    "text": " le realloc che si rispettino, viene tutto di sapere quale puntatore sta rialocando, ok,"
+  },
+  {
+    "start": 2160.56,
+    "end": 2167.32,
+    "text": " questo è diventato un porcaio, quindi lo che facciamo così, xrealloc, size off di quello"
+  },
+  {
+    "start": 2167.32,
+    "end": 2176.8,
+    "text": " che è, è diventa più legibile, ma questo deve andare qua sotto, esatto, register"
+  },
+  {
+    "start": 2176.8,
+    "end": 2184.98,
+    "text": " function, basic, basic mat function, allora questa qui in effetti register function execution"
+  },
+  {
+    "start": 2184.98,
+    "end": 2197.9,
+    "text": " execution and context, basic standard library, del nostro linguaggio di programmazione, qual'è"
+  },
+  {
+    "start": 2197.9,
+    "end": 2208.82,
+    "text": " la libreria standard, basic mat function, che chiamate così, basic mat functions, questa"
+  },
+  {
+    "start": 2208.82,
+    "end": 2219.74,
+    "text": " col back qui, ma ritornava 0, 1, come era void, vero? Sì, void, e poi prendeva tf context,"
+  },
+  {
+    "start": 2220.08,
+    "end": 2232.56,
+    "text": " context tf object name, a beh questa qui, noi non la possiamo in realtà implementare,"
+  },
+  {
+    "start": 2232.56,
+    "end": 2239.5,
+    "text": " perché ci servono altre funzioni, allora questa funzione matematica qui che farà in base,"
+  },
+  {
+    "start": 2241.92,
+    "end": 2246.12,
+    "text": " allora tanto periziare verificherà che effettivamente ci sono almeno due,"
+  },
+  {
+    "start": 2246.12,
+    "end": 2256.54,
+    "text": " poi parà tipo context check stack, mean len context, ci sono almeno due elementi"
+  },
+  {
+    "start": 2256.54,
+    "end": 2264.92,
+    "text": " nello stack, poi noi faremo tipo, i numeri noi come ne eravamo fatti, come floating point,"
+  },
+  {
+    "start": 2266.6400000000003,
+    "end": 2280.0,
+    "text": " quindi il numero a sarà tipo context stack pick, che prende stack pick tipo context di zero,"
+  },
+  {
+    "start": 2280.0,
+    "end": 2292.84,
+    "text": " sarà prendere elemento più esterno allo stack, quindi noi dobbiamo dire in realtà meno,"
+  },
+  {
+    "start": 2293.26,
+    "end": 2304.62,
+    "text": " anzi usiamo i numeri interi, quindi uno sarà quello più in fondo, ebby sarà l'ultimo"
+  },
+  {
+    "start": 2306.1600000000003,
+    "end": 2319.34,
+    "text": " elemento dello stack, in realtà pick significa pick integer, pick indolor, in questo caso magari"
+  },
+  {
+    "start": 2319.34,
+    "end": 2325.54,
+    "text": " avremo degli helper che ci fanno sta roba qui, ma no è troppo complicato, quindi faremo tf object,"
+  },
+  {
+    "start": 2325.66,
+    "end": 2333.28,
+    "text": " ci facciamo ritornare direttamente a, è tf object db, allora in realtà non sarebbe male avere"
+  },
+  {
+    "start": 2333.28,
+    "end": 2340.8,
+    "text": " pick indolor eccetera eccetera per essere sicuri, ah facciamo una cosa stack pick,"
+  },
+  {
+    "start": 2341.3,
+    "end": 2349.92,
+    "text": " facciamo anche che gli specificiamo tf object type int, gli specificiamo anche il tipo, così"
+  },
+  {
+    "start": 2349.92,
+    "end": 2361.78,
+    "text": " praticamente se mi ritorna nulla, noi sappiamo che c'è un problema, se c'è type mi smatch,"
+  },
+  {
+    "start": 2361.78,
+    "end": 2369.82,
+    "text": " perché io voglio sommare c'è un delle string, in realtà mi ritorna nulla, e io posso effettivamente"
+  },
+  {
+    "start": 2369.82,
+    "end": 2374.58,
+    "text": " anche settare direttamente nella funzione context stack pick, perché devo prendere"
+  },
+  {
+    "start": 2374.58,
+    "end": 2380.02,
+    "text": " questi due numeri allo stack e sommarli, già che c'è un errore di type mi smatch, mi ritorna nulla,"
+  },
+  {
+    "start": 2380.02,
+    "end": 2395.78,
+    "text": " e io qua posso fare if, anche questo qui, allora if context check stack minlen 2 o"
+  },
+  {
+    "start": 2395.78,
+    "end": 2400.94,
+    "text": " qual o qual è 0, quindi se ha fallito la funzione facciamo che si ritorna a 0, in questo caso"
+  },
+  {
+    "start": 2400.94,
+    "end": 2408.02,
+    "text": " fallisce tape, anzi facciamo che se ritorna uno fallisce IP, quindi ritorniamo inmediatamente,"
+  },
+  {
+    "start": 2408.02,
+    "end": 2412.68,
+    "text": " e già nel contesto è stato settato l'errore di esecuzione, poi questa roba qua del contesto"
+  },
+  {
+    "start": 2412.68,
+    "end": 2416.66,
+    "text": " dell'errore di esecuzione dobbiamo gestire per forza, però ci siamo strafottuti."
+  },
+  {
+    "start": 2417.28,
+    "end": 2424.62,
+    "text": " Se invece a uguale a uguale a null, o b uguale a uguale a null, sono due le cose qui, o non"
+  },
+  {
+    "start": 2424.62,
+    "end": 2430.66,
+    "text": " erano interi, o... ah sì, solo non erano interi perché la lunghezza l'abbiamo controllata"
+  },
+  {
+    "start": 2430.66,
+    "end": 2439.82,
+    "text": " a monte, pre-tarn pure, se invece praticamente qui abbiamo finalmente i nostri due interi,"
+  },
+  {
+    "start": 2439.86,
+    "end": 2446.98,
+    "text": " abbiamo due oggetti interi che abbiamo presse dallo stack, poi dobbiamo in realtà quello più"
+  },
+  {
+    "start": 2446.98,
+    "end": 2451.82,
+    "text": " indietro che sarebbe a lo trasformiamo nel risultato dell'operazione e uno lo scartiamo"
+  },
+  {
+    "start": 2451.82,
+    "end": 2459.08,
+    "text": " con un'altra chiamata dallo stack che scarta l'ultimo oggetto che sarà semplicemente context stack"
+  },
+  {
+    "start": 2459.08,
+    "end": 2472.82,
+    "text": " pop, poi faremo tipo qualcosa tipo tf object di scarded, di scarded. Allora in realtà"
+  },
+  {
+    "start": 2472.82,
+    "end": 2477.52,
+    "text": " tutto questa roba qua non mi piace, facciamo una cosa più pulita anche se è meno efficiente,"
+  },
+  {
+    "start": 2479.1,
+    "end": 2492.28,
+    "text": " facciamo context stack pop, perché preleva l'oggetto più... quindi b, l'oggetto più"
+  },
+  {
+    "start": 2492.28,
+    "end": 2501.54,
+    "text": " indesta allo stack, poi a, quello più indietro, context stack pop da capo, non ci sono più"
+  },
+  {
+    "start": 2501.54,
+    "end": 2508.48,
+    "text": " indici, picco è utile perché indicizza al ritroso l'errei rappresentato allo stack diciamo,"
+  },
+  {
+    "start": 2509.8,
+    "end": 2514.86,
+    "text": " invece così noi diciamo semplicemente che vogliamo prelevare degli elementi dallo stack e ce li"
+  },
+  {
+    "start": 2514.86,
+    "end": 2521.56,
+    "text": " ritroviamo dentro la nostra variabile locali a e b, poi praticamente facciamo un conto di qualche"
+  },
+  {
+    "start": 2521.56,
+    "end": 2530.86,
+    "text": " tipo in cui abbiamo il risultato, in result per esempio uguale a e più b di e che sono i due"
+  },
+  {
+    "start": 2530.86,
+    "end": 2546.0,
+    "text": " inderi e poi context stack push, creiamo un nuovo indero, context virgola, create integer object"
+  },
+  {
+    "start": 2546.0,
+    "end": 2554.38,
+    "text": " result, ok sarà qualcosa del genere quello che noi avremo qua, ma siccome noi la stessa"
+  },
+  {
+    "start": 2554.38,
+    "end": 2559.76,
+    "text": " basic math function la vogliamo usare per fare più, meno, per, qui a un certo punto andiamo a"
+  },
+  {
+    "start": 2559.76,
+    "end": 2567.94,
+    "text": " controllare se il nome come prima opa, un più, un per, un diviso, quello che ha e invece di usare"
+  },
+  {
+    "start": 2567.94,
+    "end": 2578.14,
+    "text": " questo operatore fisso faremo una switch in cui fa, non lo so qualcosa come switch name str pointer"
+  },
+  {
+    "start": 2578.14,
+    "end": 2599.22,
+    "text": " d zero case plus in result, result questo qui se è meno l'operazione che deve fare questa qui"
+  },
+  {
+    "start": 2599.22,
+    "end": 2606.8,
+    "text": " se è per l'operazione che deve fare questa qui eccetera eccetera eccetera, va bene faremo"
+  },
+  {
+    "start": 2606.8,
+    "end": 2612.06,
+    "text": " sta roba qua ora non possiamo convirare perché abbiamo scritto altre funzioni che esistono"
+  },
+  {
+    "start": 2612.06,
+    "end": 2618.36,
+    "text": " solo in nostra immaginazione che non abbiamo proprio ammato ma spero che fin qui sia chiaro anche se"
+  },
+  {
+    "start": 2618.36,
+    "end": 2625.98,
+    "text": " credo che è chiaro sempre meno per sempre per meno persone di quelle che seguono questo corso"
+  },
+  {
+    "start": 2625.98,
+    "end": 2631.88,
+    "text": " ma in caso se vi andate a guardare i sorgenti di prima, ah volevo dire una cosa se qualcuno per"
+  },
+  {
+    "start": 2631.88,
+    "end": 2637.56,
+    "text": " caso ha tenuto traccia delle varie versioni che abbiamo fatto finora perché io ne sono brutalmente"
+  },
+  {
+    "start": 2637.56,
+    "end": 2646.82,
+    "text": " fottuto io qua c'ho una directory in cui eh eh edito quando c'ho 5 minuti di tempo libero eh"
+  },
+  {
+    "start": 2646.82,
+    "end": 2654.2,
+    "text": " quindi è questo il senso diciamo di questa funzione spero che sia stata di qualche chiarezza"
+  },
+  {
+    "start": 2654.2,
+    "end": 2664.44,
+    "text": " tutta questa roba qui e noi ci vediamo nel prossimo episodio di programmazione in C in cui continueremo"
+  },
+  {
+    "start": 2664.44,
+    "end": 2670.86,
+    "text": " questa programmazione qua e mi sa che tra una o due puntate al massimo finirà che questo interpreter"
+  },
+  {
+    "start": 2670.86,
+    "end": 2676.92,
+    "text": " inizia a funzionare e a eseguire dei programmi anche se poi ci toccherò ovviamente oltre a"
+  },
+  {
+    "start": 2676.92,
+    "end": 2682.62,
+    "text": " queste funzioni di base implementare almeno if implementare while dobbiamo avere qualcosa"
+  },
+  {
+    "start": 2682.62,
+    "end": 2689.48,
+    "text": " cosetta ma poi proveremo a implementare quando più possibile utilizzando il toy force stesso"
+  },
+  {
+    "start": 2690.8599999999997,
+    "end": 2692.98,
+    "text": " vi saluto a presto ciao"
+  }
+]

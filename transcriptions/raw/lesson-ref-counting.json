@@ -1,0 +1,477 @@
+[
+  {
+    "start": 0.0,
+    "end": 6.48,
+    "text": " C'è sempre una prima volta e questa è la prima lezione del corso NC che avviene in"
+  },
+  {
+    "start": 6.48,
+    "end": 9.48,
+    "text": " così nella modalità discorsiva del viaggio in macchina."
+  },
+  {
+    "start": 10.26,
+    "end": 18.08,
+    "text": " Però mi sono accorto che è necessario fare alcuni discorsi su una tecnica di gestione"
+  },
+  {
+    "start": 18.08,
+    "end": 25.28,
+    "text": " semi-automatica della memoria che stiamo utilizzando che si chiama reference counting."
+  },
+  {
+    "start": 26.080000000000002,
+    "end": 34.16,
+    "text": " Noi il reference counting lo abbiamo incontrato già due volte. Prima quando abbiamo implementato"
+  },
+  {
+    "start": 34.16,
+    "end": 47.42,
+    "text": " le string in C quelle binary safe che potevano contenere anche i zero dentro i byte e che avevano"
+  },
+  {
+    "start": 47.42,
+    "end": 52.9,
+    "text": " appunto una facilità di gestione rispetto alle string poi noi non abbiamo davvero implementato"
+  },
+  {
+    "start": 52.9,
+    "end": 58.86,
+    "text": " questa libreria fino in fondo ma abbiamo iniziato a fare i primi passi e poi vi ho detto in caso se"
+  },
+  {
+    "start": 58.86,
+    "end": 66.0,
+    "text": " volete vedere come ciò poi viene sviluppato in una libreria seria di gestione delle string"
+  },
+  {
+    "start": 66.0,
+    "end": 74.98,
+    "text": " andatevi a vedere la libreria sds symbol dynamic strings che uso in reddits ma che è disponibile"
+  },
+  {
+    "start": 74.98,
+    "end": 85.66,
+    "text": " anche come progetto a sé poi lo abbiamo visto il reference counting con toy fort ma vedo dalle"
+  },
+  {
+    "start": 85.66,
+    "end": 93.26,
+    "text": " domande che mi fanno sia sotto i video che nel canale telegram che questo argomento non è del"
+  },
+  {
+    "start": 93.26,
+    "end": 100.52,
+    "text": " tutto compreso partiamo da una domanda che mi hanno fatto e poi da un altro commento che è stato"
+  },
+  {
+    "start": 100.52,
+    "end": 111.22,
+    "text": " scritto un utente mi ha scritto ma se comunque per liberare la memoria io devo usare release che"
+  },
+  {
+    "start": 111.22,
+    "end": 118.78,
+    "text": " senso a usare il reference counting posso usare semplicemente malloc orialoc quando devo allocare"
+  },
+  {
+    "start": 118.78,
+    "end": 126.0,
+    "text": " la memoria è free quando devo liberarla perché c'è questa astelazione sia a me di fatto non mi"
+  },
+  {
+    "start": 126.0,
+    "end": 132.92,
+    "text": " da nulla in più comunque devo allocare la memoria devo liberare la memoria manualmente ma che abbiamo"
+  },
+  {
+    "start": 132.92,
+    "end": 143.62,
+    "text": " fatto come che funziona il reference counting per lo ricordate la enunciazione stessa del sistema"
+  },
+  {
+    "start": 144.52,
+    "end": 154.0,
+    "text": " risponde a questa domanda perché ogni volta che io ho una nuova referenza a quel puntatore a"
+  },
+  {
+    "start": 154.0,
+    "end": 160.4,
+    "text": " quell'oggetto quindi ogni volta che il puntatore viene registrato in una nuova parte in una nuova"
+  },
+  {
+    "start": 160.4,
+    "end": 167.84,
+    "text": " sede io aumento il conto delle referenze si chiama proprio reference counting quando io"
+  },
+  {
+    "start": 167.84,
+    "end": 176.16,
+    "text": " perdo un riferimento all'oggetto decremento il reference counting quando la conta delle"
+  },
+  {
+    "start": 176.16,
+    "end": 187.16,
+    "text": " referenze arriva a zero io libero l'oggetto allora se partiamo se pensiamo allontaniamoci"
+  },
+  {
+    "start": 187.16,
+    "end": 195.92,
+    "text": " per un attimo dal reference counting ma tenendolo in background nella nostra memoria e pensiamo"
+  },
+  {
+    "start": 195.92,
+    "end": 201.76,
+    "text": " invece un garbage collector il garbage collector di un linguaggio di programmazione quale rubbi per"
+  },
+  {
+    "start": 201.76,
+    "end": 208.7,
+    "text": " esempio che usa un garbage collector o javascript o java tutti i linguaggi che usano un garbage"
+  },
+  {
+    "start": 208.7,
+    "end": 218.04,
+    "text": " collector per la gestione automatica della memoria un linguaggio che usa una tale tecnica quando ha"
+  },
+  {
+    "start": 218.04,
+    "end": 224.38,
+    "text": " un oggetto in memoria l'oggetto non può essere liberato fino a quando esistono delle referenze a"
+  },
+  {
+    "start": 224.38,
+    "end": 229.8,
+    "text": " quell'oggetto l'oggetto può essere in un dato momento dentro un array può essere anche nella"
+  },
+  {
+    "start": 229.8,
+    "end": 235.2,
+    "text": " variabile locale del programma e può essere in quel momento anche passato come argomento a una"
+  },
+  {
+    "start": 235.2,
+    "end": 241.58,
+    "text": " funzione e così via per cui se ci sono dei riferimenti a quell'oggetto è per sbaglio il"
+  },
+  {
+    "start": 241.58,
+    "end": 248.36,
+    "text": " garbage collector perché ha per esempio un bug libera l'oggetto ugualmente quello che accade"
+  },
+  {
+    "start": 248.36,
+    "end": 253.28,
+    "text": " è che il programma va in crash perché accende a quell'oggetto che è stato già liberato un po'"
+  },
+  {
+    "start": 253.28,
+    "end": 262.08,
+    "text": " come crederebbe in c quando c'è uno use after free quando io per errore faccio la free di una"
+  },
+  {
+    "start": 262.08,
+    "end": 269.2,
+    "text": " parte dell'IP poi utilizzo l'oggetto che era allocato in quel pezzo di memoria corrotto praticamente la"
+  },
+  {
+    "start": 269.2,
+    "end": 278.04,
+    "text": " memoria il reference counting serve esattamente a ciò quando io ho solo una a un r cioè quando"
+  },
+  {
+    "start": 278.04,
+    "end": 284.92,
+    "text": " il mio oggetto ha un puntatore il puntatore il mio oggetto è registrato solo in una parte a"
+  },
+  {
+    "start": 284.92,
+    "end": 289.32,
+    "text": " meno mi serve assolutamente niente usare il reference counting tipo se io devo allocare un"
+  },
+  {
+    "start": 289.32,
+    "end": 298.58,
+    "text": " buffer copiarci dentro qualcosa che ho già fare un'operazione su questo buffer ottenere un risultato"
+  },
+  {
+    "start": 298.58,
+    "end": 306.2,
+    "text": " che ne so la media di numeri e poi di allocare questo buffer a me il reference counting non mi"
+  },
+  {
+    "start": 306.2,
+    "end": 312.08,
+    "text": " serve niente perché c'è un allocazione il puntatore registrato nella mia variabile locale faccio"
+  },
+  {
+    "start": 312.08,
+    "end": 319.36,
+    "text": " delle operazioni e poi c'era free perché devo liberare il mio la mia allocazione fine il problema"
+  },
+  {
+    "start": 319.36,
+    "end": 326.62,
+    "text": " è che con i programmi più complicati molto spesso capita che una allocazione ha diverse"
+  },
+  {
+    "start": 326.62,
+    "end": 333.94,
+    "text": " referenze in diverse parti del programma pensate per esempio il nostro interpretato i fortuna"
+  },
+  {
+    "start": 333.94,
+    "end": 339.64,
+    "text": " stringa può essere referenziata nello stack perché in quel momento è nello stack"
+  },
+  {
+    "start": 339.64,
+    "end": 345.84,
+    "text": " del del linguaggio di programmazione può essere allo stesso tempo il nome di una procedura che"
+  },
+  {
+    "start": 345.84,
+    "end": 350.68,
+    "text": " abbiamo registrato nell'ultima puntata c'è la registrazione delle delle funzioni"
+  },
+  {
+    "start": 350.68,
+    "end": 357.56,
+    "text": " definite dall'utente o delle funzioni scrittenci definita dall'interpreto stesso e quando noi"
+  },
+  {
+    "start": 358.5,
+    "end": 366.1,
+    "text": " creiamo questa entry che descrive una funzione chiamabile dall'utente c'è il suo nome ed è"
+  },
+  {
+    "start": 366.1,
+    "end": 373.36,
+    "text": " un oggetto triufort tf object quindi praticamente un oggetto può essere in diverse parti allo"
+  },
+  {
+    "start": 373.36,
+    "end": 379.26,
+    "text": " stesso momento in diverse riferenziato da tanti da tante parti di memoria del programma altre"
+  },
+  {
+    "start": 379.26,
+    "end": 387.54,
+    "text": " strutture che sono nel lipo variabili locali è così via ve lo immaginate che io dovrei tenere"
+  },
+  {
+    "start": 388.92,
+    "end": 396.22,
+    "text": " traccia manualmente in qualche modo di quali sono i punti in cui questo oggetto esiste prima di"
+  },
+  {
+    "start": 396.22,
+    "end": 405.7,
+    "text": " poterlo liberare cioè mi toccherebbe non lo so chiamare una funzione free object if safe che"
+  },
+  {
+    "start": 405.7,
+    "end": 410.12,
+    "text": " quando io gli passo il puntatore deve andare a guardare se questo oggetto non esiste nello stack"
+  },
+  {
+    "start": 410.12,
+    "end": 418.98,
+    "text": " del tuo forto non è registrato in nessun nome di funzione nel caso fosse una stringa e poi deve"
+  },
+  {
+    "start": 418.98,
+    "end": 425.88,
+    "text": " andare a vedere che questo oggetto non è neanche da nessuna parte referenziato in nessuno degli"
+  },
+  {
+    "start": 425.88,
+    "end": 431.42,
+    "text": " oggetti che in quel momento l'interprete ha allocato e solo in quel caso può liberarlo"
+  },
+  {
+    "start": 431.42,
+    "end": 437.48,
+    "text": " praticamente sto facendo un garbage collector che lì che viene seguito in tempo lineare o di n"
+  },
+  {
+    "start": 437.48,
+    "end": 443.4,
+    "text": " perché deve fare uno scan di tutto super inefficente per non avere il reference counting"
+  },
+  {
+    "start": 443.4,
+    "end": 451.08,
+    "text": " qual è il senso del reference counting il reference counting mi aiuta a tenere traccia di"
+  },
+  {
+    "start": 451.08,
+    "end": 459.72,
+    "text": " quante referenze ho all'oggetto e io non devo mai preoccuparmi davvero di liberare l'oggetto a mano"
+  },
+  {
+    "start": 459.72,
+    "end": 466.44,
+    "text": " devo solo occuparmi di quando aggiungo una nuova referenza cioè c'è un puntatore nuovo da qualche"
+  },
+  {
+    "start": 466.44,
+    "end": 474.66,
+    "text": " altra parte all'oggetto aumento il suo conto delle referenze quando io perdo una referenza perché"
+  },
+  {
+    "start": 474.66,
+    "end": 480.88,
+    "text": " per esempio c'è viene liberato lo stack di trifort chiamando una comando che siama reset"
+  },
+  {
+    "start": 480.88,
+    "end": 489.52,
+    "text": " resetta tutto o perché faccio una cioè nel caso in cui faccio magari una pop dallo stack no rimane"
+  },
+  {
+    "start": 489.52,
+    "end": 498.86,
+    "text": " ancora la owner diventa la variabile locale poi io chiamo release ho riliso decref count sono due"
+  },
+  {
+    "start": 498.86,
+    "end": 506.38,
+    "text": " le ho la stessa cosa è incref count con retain a me retain release mi piacciono di più ma reddice mi"
+  },
+  {
+    "start": 506.38,
+    "end": 512.56,
+    "text": " sa che usa invece le altre le altre due nomenclature perché in quel mando mi è venuto così ma retain"
+  },
+  {
+    "start": 512.56,
+    "end": 520.66,
+    "text": " release sono più bremi piacciono di più quindi praticamente mi devo solo occupare io di tenere il"
+  },
+  {
+    "start": 520.66,
+    "end": 526.02,
+    "text": " conto cioè di incrementare in un determinato caso decrementare nell'altro caso basta quando per"
+  },
+  {
+    "start": 526.02,
+    "end": 533.34,
+    "text": " caso chiamerò release e non ci saranno più referenze a quell'oggetto la free scatta in automatico"
+  },
+  {
+    "start": 533.34,
+    "end": 540.76,
+    "text": " questa e non è una semplificazione da poco questa cosa è assolutamente essenziale è vero la memoria"
+  },
+  {
+    "start": 540.76,
+    "end": 548.24,
+    "text": " ancora è gestita manualmente ma c'è una gestione semiautomatica in questo caso in che modo questa"
+  },
+  {
+    "start": 548.24,
+    "end": 556.94,
+    "text": " gestione diventa un po più automatica ci sono linguaggi di pronomazione a cui si può dire guarda"
+  },
+  {
+    "start": 556.94,
+    "end": 566.22,
+    "text": " che quando questa funzione ritorna mi devi decrementare il conto di questo oggetto qui e questo è un"
+  },
+  {
+    "start": 566.22,
+    "end": 573.36,
+    "text": " modo in cui per dire questo questo sistema può funzionare altri linguaggi di pronomazione usano"
+  },
+  {
+    "start": 573.36,
+    "end": 578.7,
+    "text": " assieme al reference counting i memory pool quindi praticamente io dico guarda fino a quando tutto"
+  },
+  {
+    "start": 578.7,
+    "end": 588.08,
+    "text": " questo memory pool è vivo io sto facendo delle cose quando poi chiudo la funzione chi ammazzo il"
+  },
+  {
+    "start": 588.08,
+    "end": 593.06,
+    "text": " memory pool le referenze a quegli oggetti dentro il memory pool vengono dialocate insomma ci sono"
+  },
+  {
+    "start": 593.06,
+    "end": 599.48,
+    "text": " vari sistemi per aument ma sono sempre dei trade off invece il reference counting a parte il trade"
+  },
+  {
+    "start": 599.48,
+    "end": 606.28,
+    "text": " off che devi occupare un deve avere un contator attaccato a ogni oggetto quindi utilizzi più memoria a"
+  },
+  {
+    "start": 606.28,
+    "end": 613.96,
+    "text": " sostanzialmente la stessa efficienza è precisione di memory reclaim and cioè tu liberi l'oggetto"
+  },
+  {
+    "start": 613.96,
+    "end": 620.52,
+    "text": " immediatamente non in un tempo futuro ok quando l'oggetto non di serve più lo liberi immediatamente"
+  },
+  {
+    "start": 620.52,
+    "end": 627.46,
+    "text": " come la più la pronomazione di più basso livello ma non devi contare il numero di referenze che"
+  },
+  {
+    "start": 627.46,
+    "end": 635.94,
+    "text": " hai a quello oggetto quindi è fondamentale l'altra domanda che mi avevano fatto simile a questa"
+  },
+  {
+    "start": 635.94,
+    "end": 642.88,
+    "text": " era a certo io capisco che toy fort in questo momento sta utilizzando un mix di reference"
+  },
+  {
+    "start": 642.88,
+    "end": 648.9,
+    "text": " counting ed oggetti che non utilizzano reference counting ma è proprio quello il motivo quando"
+  },
+  {
+    "start": 648.9,
+    "end": 657.0,
+    "text": " io per dire c'ho uno un oggetto che è implemento un errei gli oggetti che sono dentro le rei cioè"
+  },
+  {
+    "start": 657.0,
+    "end": 663.02,
+    "text": " l'allocazione per tenere i puntatori non usò il reference counting perché quella allocazione"
+  },
+  {
+    "start": 663.02,
+    "end": 668.98,
+    "text": " sarà solo in quell'oggetto avrò solo un puntatore dentro quello getto quindi il reference counting"
+  },
+  {
+    "start": 668.98,
+    "end": 676.16,
+    "text": " non avrebbe senso il reference counting ha senso solo solo quando i miei oggetti possono andare a finire"
+  },
+  {
+    "start": 676.16,
+    "end": 682.16,
+    "text": " in diverse parti della struttura in diverse strutture dati in diverse parti del programma e io voglio"
+  },
+  {
+    "start": 682.16,
+    "end": 688.68,
+    "text": " tenerne conto perché non posso liberare l'oggetto prima del tempo spero che questo chiarisca alcuni"
+  },
+  {
+    "start": 688.68,
+    "end": 691.82,
+    "text": " interrogativi che in effetti erano legiti ciao"
+  }
+]
