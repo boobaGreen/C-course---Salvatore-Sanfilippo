@@ -4,29 +4,94 @@ import { Search, Code, Cpu } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useProgression } from '../../hooks/useProgression';
 
-const ASSEMBLY_O0 = `main:
-    push    rbp
-    mov     rbp, rsp
-    sub     rsp, 16
-    mov     edi, OFFSET FLAT:.LC0
-    call    puts
-    mov     eax, 0
-    leave
-    ret
-
+const ASSEMBLY_O0 = `	.file	"hello.c"
+	.text
+	.section	.rodata
 .LC0:
-    .string "Hello, World!"`;
+	.string	"Hello, World!"
+	.text
+	.globl	main
+	.type	main, @function
+main:
+.LFB0:
+	.cfi_startproc
+	endbr64
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	leaq	.LC0(%rip), %rax
+	movq	%rax, %rdi
+	call	puts@PLT
+	movl	$0, %eax
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE0:
+	.size	main, .-main
+	.ident	"GCC: (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0"
+	.section	.note.GNU-stack,"",@progbits
+	.section	.note.gnu.property,"a"
+	.align 8
+	.long	1f - 0f
+	.long	4f - 1f
+	.long	5
+0:
+	.string	"GNU"
+1:
+	.align 8
+	.long	0xc0000002
+	.long	3f - 2f
+2:
+	.long	0x3
+3:
+	.align 8
+4:`;
 
-const ASSEMBLY_O2 = `main:
-    sub     rsp, 8
-    mov     edi, OFFSET FLAT:.LC0
-    call    puts
-    xor     eax, eax
-    add     rsp, 8
-    ret
-
+const ASSEMBLY_O2 = `	.file	"hello02.c"
+	.text
+	.section	.rodata.str1.1,"aMS",@progbits,1
 .LC0:
-    .string "Hello, World!"`;
+	.string	"Hello, World!"
+	.section	.text.startup,"ax",@progbits
+	.p2align 4
+	.globl	main
+	.type	main, @function
+main:
+.LFB23:
+	.cfi_startproc
+	endbr64
+	subq	$8, %rsp
+	.cfi_def_cfa_offset 16
+	leaq	.LC0(%rip), %rdi
+	call	puts@PLT
+	xorl	%eax, %eax
+	addq	$8, %rsp
+	.cfi_def_cfa_offset 8
+	ret
+	.cfi_endproc
+.LFE23:
+	.size	main, .-main
+	.ident	"GCC: (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0"
+	.section	.note.GNU-stack,"",@progbits
+	.section	.note.gnu.property,"a"
+	.align 8
+	.long	1f - 0f
+	.long	4f - 1f
+	.long	5
+0:
+	.string	"GNU"
+1:
+	.align 8
+	.long	0xc0000002
+	.long	3f - 2f
+2:
+	.long	0x3
+3:
+	.align 8
+4:`;
 
 export default function AssemblyExplorer() {
     const [optLevel, setOptLevel] = useState<'O0' | 'O2'>('O0');
@@ -88,7 +153,7 @@ export default function AssemblyExplorer() {
                         <Search size={14} />
                         <span className="text-[10px] uppercase font-bold tracking-tighter">{t('lesson.asm_explorer.output_label')}</span>
                     </div>
-                    <div className="font-mono text-xs space-y-1">
+                    <div className="font-mono text-xs space-y-1 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
                         <AnimatePresence mode="wait">
                             <motion.div
                                 key={optLevel}
