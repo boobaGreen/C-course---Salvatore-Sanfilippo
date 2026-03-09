@@ -10,11 +10,14 @@ export default function Header() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     const toggleLanguage = () => {
-        i18n.changeLanguage(i18n.language === 'it' ? 'en' : 'it');
+        const newLang = i18n.language === 'it' ? 'en' : 'it';
+        i18n.changeLanguage(newLang);
+        localStorage.setItem('app_language', newLang);
     };
 
     const toggleTheme = () => {
-        document.documentElement.classList.toggle('dark');
+        const isDark = document.documentElement.classList.toggle('dark');
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
     };
 
     // Close mobile menu on navigation

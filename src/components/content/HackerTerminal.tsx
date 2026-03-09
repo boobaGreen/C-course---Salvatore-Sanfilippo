@@ -215,7 +215,7 @@ export default function HackerTerminal({ challenges }: HackerTerminalProps) {
           </p>
 
           <div className="space-y-3">
-            {currentChallenge.commands?.map((cmd, idx) => (
+            {isRevealed && currentChallenge.commands?.map((cmd, idx) => (
               <div
                 key={idx}
                 className="bg-black/40 rounded-xl p-4 border border-white/5 flex items-center justify-between group"
@@ -231,7 +231,7 @@ export default function HackerTerminal({ challenges }: HackerTerminalProps) {
               </div>
             ))}
 
-            {isCommandMode && currentChallenge.expectedOutput && (
+            {isCommandMode && isRevealed && currentChallenge.expectedOutput && (
               <div className="bg-black/40 rounded-xl p-4 border border-white/5 flex flex-col gap-2 group">
                 <div className="text-xs text-zinc-500 font-bold uppercase tracking-wider mb-2">
                   Contesto / Indizio:
@@ -273,14 +273,25 @@ export default function HackerTerminal({ challenges }: HackerTerminalProps) {
               } rounded-xl px-4 py-3 font-mono text-sm text-zinc-200 focus:outline-none focus:border-[var(--color-brand-secondary)] transition-all placeholder:text-zinc-700`}
             />
             {!completedTasks[currentChallenge.id] ? (
-              <button
-                type="submit"
-                disabled={!inputValue.trim() || isCorrect[currentChallenge.id] === false}
-                className="w-full sm:w-auto px-6 py-3 sm:py-0 bg-[var(--color-brand-primary)] text-black rounded-xl font-bold flex items-center justify-center gap-2 hover:scale-105 transition-all disabled:opacity-50 disabled:scale-100"
-              >
-                <Send size={18} />
-                {t("common.submit", "Submit")}
-              </button>
+              <>
+                <button
+                  type="submit"
+                  disabled={!inputValue.trim() || isCorrect[currentChallenge.id] === false}
+                  className="w-full sm:w-auto px-6 py-3 sm:py-0 bg-[var(--color-brand-primary)] text-black rounded-xl font-bold flex items-center justify-center gap-2 hover:scale-105 transition-all disabled:opacity-50 disabled:scale-100"
+                >
+                  <Send size={18} />
+                  {t("common.submit", "Submit")}
+                </button>
+                {!isRevealed && (
+                  <button
+                    type="button"
+                    onClick={handleReveal}
+                    className="w-full sm:w-auto px-4 py-3 sm:py-0 bg-red-500/10 border border-red-500/20 text-red-500 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-red-500/20 transition-all"
+                  >
+                    <Eye size={18} />
+                  </button>
+                )}
+              </>
             ) : (
               <div className="w-full sm:w-auto px-6 py-3 sm:py-0 bg-green-500/10 text-green-500 border border-green-500/20 rounded-xl font-bold flex items-center justify-center gap-2">
                 <CheckCircle2 size={18} /> SUCCESS
