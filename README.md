@@ -1,94 +1,73 @@
 # Learn C with antirez (Salvatore Sanfilippo)
 
-**An interactive, bilingual (IT/EN) educational platform to master the C programming language, inspired by the YouTube lessons of Salvatore Sanfilippo.**
+**An interactive, professional bilingual (IT/EN) platform to master C programming, inspired by the legendary lessons of Salvatore Sanfilippo.**
+
+[![Project Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](file:///c:/Users/ClaudioDall'Ara/Desktop/c/temp_c_course/package.json)
+[![License: GPL](https://img.shields.io/badge/License-GPL-yellow.svg)](https://opensource.org/licenses/GPL-3.0)
 
 ---
 
-## 📖 Origin of the Project & The Idea
+## 📖 The Vision: Transmuting Video into Interaction
 
-This project was born out of my personal initiative to pay homage to the incredibly high-quality, free educational content made available by **Salvatore Sanfilippo** (known globally in the hacker community as `antirez`, creator of Redis). 
+This platform is a technical tribute to the educational legacy of **Salvatore Sanfilippo** (@antirez), creator of Redis. Salvatore's C course on YouTube is a masterpiece of technical communication, focusing not just on syntax, but on the "low-level soul" of computing: memory layout, CPU registers, and the art of professional C development.
 
-Salvatore published a legendary C programming course on YouTube, sharing not just syntax, but the true "hacker mindset": understanding CPU architecture, memory management, compilation phases, and system-level interactions. I wanted to transform those video lessons into a fully interactive, accessible, and practical learning platform.
+**Learn C** transforms these passive video lectures into an active, immersive experience where code isn't just watched; it's probed, executed, and understood.
 
-This platform bridges the gap between passive video watching and active coding. It provides students with a place to read comprehensive transcriptions, visualize complex memory structures, and execute C code directly in their browsers.
+---
 
-## 🎯 What We Built
+## 🚀 Key Features
 
-We took the raw video lessons and created a structured, 34-lesson bilingual curriculum:
-- **Transcriptions & Summaries**: We used localized, offline AI (Whisper) to accurately transcribe hours of technical video lessons, subsequently refined and formatted into markdown (`.mdx`) using LLMs.
-- **Bilingual Support**: All textual content, quizzes, and explanations are available in both Italian (IT) and English (EN).
-- **Interactive Quizzes & Challenges**: Every lesson features standard quizzes, "Hacker" challenges, and mock terminal challenges to solidify theoretical knowledge.
-- **In-Browser C Compilation**: A WebAssembly (WASM) powered C compiler allows users to write and execute code natively without leaving the page.
-- **Educational Games & Visualizers**: Custom React components that visually explain complex concepts:
-   - *PointerMaze*: A visual game to master pointer dereferencing.
-   - *LinkedListSurgeon*: Safe environment to practice relinking nodes in memory.
-   - *FormatStringExploit*: A hacking simulator teaching vulnerabilities in `printf`.
-   - *Memory/Stack Visualizers & Assembly Explorers*.
+### 🧩 Educational Games & Visualizers
 
-## 🛠️ Technology Stack
+We've integrated a suite of custom-built React tools to demystify complex C concepts:
 
-- **Vite + React (TS)**: Fast, reactive, and strictly-typed frontend framework.
-- **TailwindCSS (v4)**: Modern styling for a sleek, dark-themed "hacker" aesthetic.
-- **MDX**: For seamlessly mixing markdown text with interactive React components.
-- **React Router v7**: For client-side navigation.
-- **i18next**: For the IT/EN translation system.
-- **Shiki**: For beautiful, accurate syntax highlighting.
-- **Framer Motion**: Smooth animations.
-- **Local AI & Whisper**: Used to transcribe and translate the original video material offline.
+- **[PointerMaze](file:///c:/Users/ClaudioDall'Ara/Desktop/c/temp_c_course/src/components/games/PointerMaze.tsx)**: A maze-based puzzle where survival depends on understanding pointer dereferencing.
+- **[LinkedListSurgeon](file:///c:/Users/ClaudioDall'Ara/Desktop/c/temp_c_course/src/components/games/LinkedListSurgeon.tsx)**: An interactive lab for drag-and-drop manipulation of nodes and `next` pointers.
+- **[FormatStringExploit](file:///c:/Users/ClaudioDall'Ara/Desktop/c/temp_c_course/src/components/games/FormatStringExploit.tsx)**: A safe environment to learn about `printf` vulnerabilities.
+- **[EvoSimulator](file:///c:/Users/ClaudioDall'Ara/Desktop/c/temp_c_course/src/components/content/EvoSimulator.tsx)**: A visualizer for the evolution algorithms and ZX Spectrum graphics discussed in the final lessons.
+- **Stack & Heap Visualizers**: Real-time representation of memory allocation and stack frame growth.
 
-## 👨‍💻 Developer & Authorship
+### 📋 The Master Formula (5 + 3 + 3)
 
-- **Content Inspiration & Original Teacher**: Salvatore Sanfilippo ([antirez](http://invece.org/))
-- **Platform Developer & Creator**: [Claudio Dall'Ara](https://claudiodallara.it) ([@boobaGreen](https://github.com/boobaGreen))
+Every lesson is systematically structured for perfect retention:
 
-> *This platform is entirely free and created as a tribute to the open-source community.*
+1. **5 Standard Quizzes**: Covering video content and core syntax.
+2. **3 Hacker Quizzes**: Deep-dives into edge cases and advanced theory.
+3. **3 Hacker Terminal Challenges**: Practical terminal tasks requiring research and shell mastery.
 
-## 🤝 Contributing & Extending the Course
+### ⚡ Technical Excellence
 
-This project is **Open Source**, and contributions are highly encouraged! Whether you want to fix a typo, add a new interactive game, or create a brand new lesson, your help is welcome.
+- **WASM-Powered Compiler**: Compile and run C code directly in the browser using WebAssembly.
+- **Bilingual Core**: Seamless integration of Italian (Original) and English (Translated) content.
+- **Modern Tech Stack**: Vite, React 19, TailwindCSS v4, and MDX for a blazingly fast development-to-learning pipeline.
 
-### Adding New Lessons
-Lessons are written in `.mdx` format (Markdown + React components) and localized in `src/content/it/` and `src/content/en/`.
-To add a new lesson:
-1. Create a new file (e.g., `lesson-32.mdx`) in both language directories.
-2. Structure the content using standard Markdown syntax (`##`, `###`, etc.) and embed interactive components.
-3. Update `src/data/lessons.ts` to include the new lesson in the course index.
+---
 
-### Adding Quizzes
-We follow a "Master Formula" for every lesson: 5 Standard Quizzes, 3 Hacker Quizzes, and 3 Terminal Challenges. You can easily add more by using the `<Quiz>` component in the `.mdx` files:
-```tsx
-<Quiz 
-  title="Quiz Standard" // or "Hacker Challenge"
-  questions={[
-    {
-      question: "Your question here?",
-      options: ["Option A", "Option B", "Option C", "Option D"],
-      correctAnswer: 1, // Index of the correct option (0-based)
-      explanation: "Why this is the correct answer."
-    }
-  ]} 
-/>
+## 🏗️ Project Structure
+
+```text
+src/
+├── components/
+│   ├── content/    # Visualizers, Infographics, Diagrams
+│   ├── exercises/  # Quiz and CodeEditor components
+│   ├── games/      # Advanced interactive learning games
+│   └── layout/     # UI Shell (Header, Navigation)
+├── content/
+│   ├── it/         # Lesson MDX files (Italian)
+│   └── en/         # Lesson MDX files (English)
+├── data/           # Course mapping and lesson metadata
+└── hooks/          # Gamification (XP, Progress) & Navigation
 ```
 
-### Adding Terminal Challenges
-Terminal challenges enforce practical skills by simulating a Linux bash environment:
-```tsx
-<HackerTerminal 
-  challenges={[
-    {
-      id: "unique-challenge-id",
-      title: "Challenge Title",
-      description: "What the user needs to do.",
-      commands: ["ls -la", "grep foo bar"], // Acceptable commands to pass
-      expectedOutput: "Mock output shown to the user",
-      hints: ["Try looking at the hidden files"]
-    }
-  ]}
-/>
-```
+---
+
+## 👨‍💻 Authorship & Community
+
+- **Original Content & Teaching**: Salvatore Sanfilippo ([antirez](http://invece.org/))
+- **Platform Architecture & Development**: [Claudio Dall'Ara](https://claudiodallara.it) ([@boobaGreen](https://github.com/boobaGreen))
+
+_This project is built by hackers, for hackers._
 
 ## 📄 License
 
-This project is licensed under the **GNU General Public License (GPL)**. 
-
-The source code, the interactive components, and the structure are provided "as-is" under GPL, ensuring that the knowledge remains free, open, and accessible for everyone to study, modify, and distribute.
+This project is licensed under the **GNU General Public License (GPL)**. The knowledge remains open, free, and accessible for everyone to study and distribute.

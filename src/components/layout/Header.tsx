@@ -76,14 +76,19 @@ export default function Header() {
 
                     <div className="flex-1" />
 
-                    <button
-                        onClick={() => i18n.language === 'it' ? changeLanguage('en') : changeLanguage('it')}
-                        className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-black/10 dark:border-white/10 hover:border-[var(--color-brand-secondary)]/50 hover:bg-slate-100 dark:hover:bg-zinc-800/50 transition-all text-sm font-medium"
-                        title="Cambia lingua / Change language"
-                    >
-                        <Languages size={16} className="text-[var(--color-brand-secondary)]" />
-                        {i18n.language.toUpperCase()}
-                    </button>
+                    <div className="flex items-center gap-2">
+                        <span className="hidden lg:inline text-[10px] font-mono text-slate-400 dark:text-zinc-500 uppercase tracking-widest border border-black/5 dark:border-white/5 bg-black/5 dark:bg-white/5 px-2 py-0.5 rounded">
+                            v1.0.0
+                        </span>
+                        <button
+                            onClick={() => i18n.language === 'it' ? changeLanguage('en') : changeLanguage('it')}
+                            className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-black/10 dark:border-white/10 hover:border-[var(--color-brand-secondary)]/50 hover:bg-slate-100 dark:hover:bg-zinc-800/50 transition-all text-sm font-medium"
+                            title="Cambia lingua / Change language"
+                        >
+                            <Languages size={16} className="text-[var(--color-brand-secondary)]" />
+                            {i18n.language.toUpperCase()}
+                        </button>
+                    </div>
 
                     <button
                         onClick={toggleTheme}
