@@ -101,44 +101,41 @@ const mdxComponents = {
     ZXPalette,
 };
 
+
+import type { QuizProps } from '../components/exercises/Quiz';
+import type { HackerTerminalProps } from '../components/content/HackerTerminal';
+import type { TerminalSimulationProps } from '../components/content/TerminalSimulation';
+
 export default function Lesson() {
     const { slug } = useParams<{ slug: string }>();
     const { i18n } = useTranslation();
     const navigate = useNavigate();
-    const [LessonContent, setLessonContent] = useState<FunctionComponent<{ components: any }> | null>(null);
+    const [LessonContent, setLessonContent] = useState<FunctionComponent<{ components: Record<string, React.ElementType> }> | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
 
     // Mappa componenti MDX con iniezione dinamica dello slug per persistenza
     const components = {
         ...mdxComponents,
-        CodeEditor: (props: any) => <CodeEditor {...props} lessonSlug={slug} />,
-        Quiz: (props: any) => <Quiz {...props} lessonSlug={slug} />,
-        HackerTerminal: (props: any) => <HackerTerminal {...props} lessonSlug={slug} />,
-        TypeMatcher: (props: any) => <TypeMatcher {...props} lessonSlug={slug} />,
-        TerminalSimulation: (props: any) => <TerminalSimulation {...props} lessonSlug={slug} />,
+        CodeEditor: (props: { initialCode: string }) => <CodeEditor {...props} lessonSlug={slug} />,
+        Quiz: (props: QuizProps) => <Quiz {...props} lessonSlug={slug} />,
+        HackerTerminal: (props: HackerTerminalProps) => <HackerTerminal {...props} lessonSlug={slug} />,
+        TypeMatcher: (props: { lessonSlug?: string }) => <TypeMatcher {...props} lessonSlug={slug} />,
+        TerminalSimulation: (props: TerminalSimulationProps) => <TerminalSimulation {...props} lessonSlug={slug} />,
     };
 
+
+    // 1. Data Loading Effect
     useEffect(() => {
         if (!slug) return;
 
         setLoading(true);
         setError(false);
 
-        // Lazy load the MDX content based on language and slug
         const loadContent = async () => {
-            const mainElement = document.querySelector('main');
-            const currentScroll = mainElement?.scrollTop || 0;
             try {
-                // Usa import dinamico: Vite supporta variabili nei paths parzialmente
-                // Dobbiamo dirgli dove cercare esplicitamente
                 const module = await import(`../content/${i18n.language}/${slug}.mdx`);
                 setLessonContent(() => module.default);
-                if (mainElement) {
-                    setTimeout(() => {
-                        mainElement.scrollTop = currentScroll;
-                    }, 0);
-                }
             } catch (err) {
                 console.error("Error loading lesson:", err);
                 setError(true);
@@ -149,6 +146,51 @@ export default function Lesson() {
 
         loadContent();
     }, [slug, i18n.language]);
+
+    // 2. Scroll Restoration Effect - Fires when loading finishes
+    useEffect(() => {
+        if (!loading && LessonContent && slug) {
+            const mainElement = document.getElementById('main-content');
+            const savedScroll = localStorage.getItem(`lesson-scroll-${slug}`);
+            
+            if (mainElement && savedScroll) {
+                // Wait a tiny bit for the browser to paint the MDX content
+                const timer = setTimeout(() => {
+                    mainElement.scrollTop = parseInt(savedScroll, 10);
+                }, 100);
+                return () => clearTimeout(timer);
+            } else if (mainElement) {
+                // Default to top if no saved scroll
+                mainElement.scrollTop = 0;
+            }
+        }
+    }, [loading, LessonContent, slug]);
+
+    // 3. Scroll Saving Effect
+    useEffect(() => {
+        const mainElement = document.getElementById('main-content');
+        if (!mainElement || !slug) return;
+
+        let timeoutId: number;
+        const handleScroll = () => {
+            clearTimeout(timeoutId);
+            timeoutId = window.setTimeout(() => {
+                localStorage.setItem(`lesson-scroll-${slug}`, mainElement.scrollTop.toString());
+            }, 500);
+        };
+
+        mainElement.addEventListener('scroll', handleScroll);
+        
+        return () => {
+            // Save one last time on cleanup to catch navigations
+            const currentScroll = mainElement.scrollTop;
+            if (currentScroll > 0) {
+                localStorage.setItem(`lesson-scroll-${slug}`, currentScroll.toString());
+            }
+            mainElement.removeEventListener('scroll', handleScroll);
+            clearTimeout(timeoutId);
+        };
+    }, [slug]);
 
     if (loading) {
         return <div className="p-8 flex justify-center"><div className="animate-spin h-8 w-8 border-4 border-[var(--color-brand-primary)] border-t-transparent rounded-full"></div></div>;

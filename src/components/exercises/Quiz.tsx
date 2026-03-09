@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useProgression } from '../../hooks/useProgression';
 import { useTranslation } from 'react-i18next';
 
-interface Question {
+export interface Question {
     id: number;
     question: string;
     options: string[];
@@ -12,7 +12,7 @@ interface Question {
     explanation: string;
 }
 
-interface QuizProps {
+export interface QuizProps {
     questions: Question[];
     title?: string;
     lessonSlug?: string;

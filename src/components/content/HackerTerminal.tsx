@@ -14,7 +14,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useProgression } from "../../hooks/useProgression";
 import { useTranslation } from "react-i18next";
 
-interface Challenge {
+export interface Challenge {
   id: string;
   title: string;
   description: string;
@@ -27,7 +27,7 @@ interface Challenge {
   xpReward?: number;
 }
 
-interface HackerTerminalProps {
+export interface HackerTerminalProps {
   challenges: Challenge[];
   lessonSlug?: string;
 }

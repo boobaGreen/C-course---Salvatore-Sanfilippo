@@ -16,7 +16,7 @@ function App() {
         <Header />
         <div className="flex flex-1 overflow-hidden">
           <Sidebar />
-          <div className="flex-1 overflow-y-auto w-full flex flex-col bg-slate-50 dark:bg-[#0c0c0e]">
+          <div id="main-content" className="flex-1 overflow-y-auto w-full flex flex-col bg-slate-50 dark:bg-[#0c0c0e]">
             <main className="flex-1 w-full max-w-5xl mx-auto px-4 sm:px-8 py-8">
               <Routes>
                 <Route path="/" element={<Home />} />
