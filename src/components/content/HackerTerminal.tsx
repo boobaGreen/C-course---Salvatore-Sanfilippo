@@ -363,7 +363,8 @@ export default function HackerTerminal({ challenges }: HackerTerminalProps) {
                               </button>
                             )}
 
-                            {(showHint[currentChallenge.id] || !currentChallenge.hints) && !isRevealed && (
+                            {/* Mostra sempre il bottone "Mostra Soluzione" se c'è un errore, indipendentemente dagli hint */}
+                            {!isRevealed && (
                               <button
                                 onClick={handleReveal}
                                 className="px-4 py-2 bg-red-500/10 border border-red-500/20 rounded-lg text-red-500 text-xs font-bold uppercase tracking-wider hover:bg-red-500/20 transition-all flex items-center gap-2"
