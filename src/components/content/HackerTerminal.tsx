@@ -258,7 +258,7 @@ export default function HackerTerminal({ challenges }: HackerTerminalProps) {
               type="text"
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
-              disabled={completedTasks[currentChallenge.id]}
+              disabled={completedTasks[currentChallenge.id] || isCorrect[currentChallenge.id] === false}
               placeholder={
                 isCommandMode
                   ? "eg. ls -la /var/log"
@@ -275,7 +275,7 @@ export default function HackerTerminal({ challenges }: HackerTerminalProps) {
             {!completedTasks[currentChallenge.id] ? (
               <button
                 type="submit"
-                disabled={!inputValue.trim()}
+                disabled={!inputValue.trim() || isCorrect[currentChallenge.id] === false}
                 className="w-full sm:w-auto px-6 py-3 sm:py-0 bg-[var(--color-brand-primary)] text-black rounded-xl font-bold flex items-center justify-center gap-2 hover:scale-105 transition-all disabled:opacity-50 disabled:scale-100"
               >
                 <Send size={18} />

@@ -191,51 +191,6 @@ char \*s = crea_stringa("Ciao Hacker!");
 language="c"
 />
 
-import VideoEmbed from "../../components/content/VideoEmbed";
-import KeyConcepts from "../../components/content/KeyConcepts";
-import Callout from "../../components/content/Callout";
-import CodeEditor from "../../components/exercises/CodeEditor";
-import Quiz from "../../components/exercises/Quiz";
-import HackerTerminal from "../../components/content/HackerTerminal";
-import HeapAllocator from "../../components/content/HeapAllocator";
-import StackVisualizer from "../../components/content/StackVisualizer";
-import OverflowSimulator from "../../components/content/OverflowSimulator";
-import ComparisonTable from "../../components/content/ComparisonTable";
-import Infographic from "../../components/content/Infographic";
-
-# Lezione 12: Memoria Dinamica e Stringhe Custom
-
-<VideoEmbed
-  videoId="ZkaKwWXJXs8"
-  title="Lezione 12: Allocazione Dinamica e Stringhe"
-/>
-
-<KeyConcepts
-  concepts={[
-    {
-      title: "La Memoria Dinamica (Heap)",
-      description:
-        "Memoria che richiedi esplicitamente al sistema operativo. Vive finché non la liberi tu.",
-    },
-    {
-      title: "malloc() e free()",
-      description:
-        "Le due funzioni fondamentali: una chiede byte, l'altra li restituisce al SO.",
-    },
-    {
-      title: "Memory Leaks",
-      description:
-        "Perdere il puntatore a un blocco allocato significa perdere per sempre quella memoria fino alla chiusura del programma.",
-    },
-    {
-      title: "Stringhe Pascal 2.0",
-      description:
-        "Usare malloc per creare dinamicamente stringhe con lunghezza prefissa (32-bit invece di 8-bit).",
-    },
-  ]}
-/>
-
-## Oltre il Limite dello Stack
 
 Fino ad ora, ogni variabile che abbiamo creato viveva nello **Stack**. Lo stack è veloce, sicuro, ma ha due grandi difetti:
 
