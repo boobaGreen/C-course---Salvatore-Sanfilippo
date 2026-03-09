@@ -76,9 +76,13 @@ export default function Header() {
                     </div>
 
                     {/* Progress Indicator - Mobile condensed */}
-                    <div className="sm:hidden flex items-center gap-1.5 px-2.5 py-1 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-full ml-1">
-                        <Zap size={10} className="text-[var(--color-brand-primary)]" fill="currentColor" />
-                        <span className="text-[10px] font-black text-slate-900 dark:text-white">{level}</span>
+                    <div className="sm:hidden flex items-center gap-2 px-2.5 py-1 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-full ml-1">
+                        <div className="flex items-center gap-1">
+                            <Zap size={10} className="text-[var(--color-brand-primary)]" fill="currentColor" />
+                            <span className="text-[10px] font-black text-slate-900 dark:text-white">{level}</span>
+                        </div>
+                        <div className="w-px h-2 bg-black/10 dark:bg-white/10" />
+                        <span className="text-[9px] font-mono text-slate-500 dark:text-zinc-400 whitespace-nowrap">{xp} XP</span>
                     </div>
 
                     <div className="flex-1" />
