@@ -243,6 +243,7 @@ Premi il pulsante `*(deref)` per navigare nella memoria. Riuscirai a trovare l'i
   challenges={[
     {
         id: "gdb-debugger-it",
+        simulatedSuccessOutput: `GNU gdb (Ubuntu 12.1-0ubuntu1~22.04) 12.1\nReading symbols from ./a.out...\n(gdb) `,
         title: "Il Debugger Supremo",
         description: "Quale comando Linux ti permette di vedere i registri della CPU e analizzare la memoria durante il debug step-by-step?",
         commands: [],
@@ -256,6 +257,7 @@ Premi il pulsante `*(deref)` per navigare nella memoria. Riuscirai a trovare l'i
     },
     {
         id: "proc-maps-it",
+        simulatedSuccessOutput: `00400000-00401000 r-xp 00000000 08:01 12345 /tmp/a.out\n00600000-00601000 r--p 00001000 08:01 12345 /tmp/a.out\n00601000-00602000 rw-p 00002000 08:01 12345 /tmp/a.out`,
         title: "Mappare la RAM",
         description: "Vuoi ispezionare gli indirizzi in cui sono stati caricati l'heap, lo stack e le librerie del tuo programma in esecuzione. Quale file all'interno di `/proc/self/` contiene questa tabella?",
         commands: [
@@ -270,6 +272,7 @@ Premi il pulsante `*(deref)` per navigare nella memoria. Riuscirai a trovare l'i
     },
     {
         id: "pointer-size-it",
+        simulatedSuccessOutput: `8`,
         title: "Larghezza del Bus",
         description: "Su un sistema a 64 bit, quanti byte occupa un puntatore? Rispondi con il numero.",
         commands: [

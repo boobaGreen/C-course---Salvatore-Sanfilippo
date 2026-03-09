@@ -275,6 +275,7 @@ int main(int argc, char **argv) {
   challenges={[
     {
         id: "tac-usage",
+        simulatedSuccessOutput: `root:x:0:0:root:/root:/bin/bash\ndaemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin\nbin:x:2:2:bin:/bin:/usr/sbin/nologin`,
         title: "Invertire il Sistema",
         description: "Nel corso abbiamo replicato artigianalmente un famoso programmino UNIX che legge i file e li stampa partendo dall'ultima riga. Invoca la versione originale del sistema operativo sul file `/etc/passwd`.",
         commands: [
@@ -287,6 +288,7 @@ int main(int argc, char **argv) {
     },
     {
         id: "check-leaks-tac",
+        simulatedSuccessOutput: `==12345== HEAP SUMMARY:\n==12345==     in use at exit: 0 bytes in 0 blocks\n==12345==   total heap usage: 4 allocs, 4 frees, 4,096 bytes allocated\n==12345== \n==12345== All heap blocks were freed -- no leaks are possible`,
         title: "Caccia al Leak",
         description: "Devi assicurarti che la tua implementazione di Liste Concatenate non abbia memory leaks. Quale profiler di memoria lanci davanti all'eseguibile `./tac file.txt` per analizzare il comportamento dell'heap?",
         commands: [
@@ -299,6 +301,7 @@ int main(int argc, char **argv) {
     },
     {
         id: "file-descriptors-limit",
+        simulatedSuccessOutput: `1024`,
         title: "Il Limite Fisico",
         description: "Usa il comando `ulimit` per vedere quanti file puoi tenere aperti contemporaneamente sul tuo utente Linux.",
         commands: [],

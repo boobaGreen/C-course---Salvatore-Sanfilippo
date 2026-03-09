@@ -248,6 +248,7 @@ Sfida te stesso: riesci a raggiungere l'indirizzo 0x10F seguendo solo le catene 
   challenges={[
     {
         id: "hexdump-bin-it",
+        simulatedSuccessOutput: `00000000  7f 45 4c 46 02 01 01 00  00 00 00 00 00 00 00 00  |.ELF............|`,
         title: "Lo Sguardo Binario",
         description: "Quale comando Linux permette di vedere il contenuto di un file (anche eseguibile) in formato esadecimale con l'opzione -C?",
         commands: [],
@@ -261,6 +262,7 @@ Sfida te stesso: riesci a raggiungere l'indirizzo 0x10F seguendo solo le catene 
     },
     {
         id: "ulimit-core-it",
+        simulatedSuccessOutput: ``,
         title: "Caccia al crash",
         description: "Il tuo programma va in Segmentation Fault ma scompare nel nulla. Per poter analizzare il crash post-mortem con GDB, devi rimuovere il limite alla dimensione dei file di dump. Usa il comando `ulimit` con l'opzione `-c` e impostalo su illimitato.",
         commands: [],
@@ -274,6 +276,7 @@ Sfida te stesso: riesci a raggiungere l'indirizzo 0x10F seguendo solo le catene 
     },
     {
         id: "strace-sys-it",
+        simulatedSuccessOutput: `execve("./a.out", ["./a.out"], 0x7ffd5a98e3b0 /* 53 vars */) = 0\nbrk(NULL)                               = 0x55f1a5a8a000\nwrite(1, "Hello\n", 6)                  = 6`,
         title: "Tracciamento di Sistema",
         description: "Quale comando traccia tutte le chiamate di sistema (syscall) effettuate da un programma?",
         commands: [],

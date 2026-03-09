@@ -218,6 +218,7 @@ Elimina il passaggio di copia dei dati tra lo spazio Kernel e lo spazio Utente. 
     },
     {
         id: "pmap-inspect",
+        simulatedSuccessOutput: `12345:   ./a.out\n0000555555554000      4K r--p  /tmp/a.out\n0000555555555000      4K r-xp  /tmp/a.out`,
         title: "Mappa del Processo",
         description: "Mentre un programma è in esecuzione, usa il comando `pmap` seguito dal suo PID per vedere dove sono mappati i file in memoria.",
         commands: [],
@@ -229,6 +230,7 @@ Elimina il passaggio di copia dei dati tra lo spazio Kernel e lo spazio Utente. 
     },
     {
         id: "time-compare",
+        simulatedSuccessOutput: `1000+0 records in\n1000+0 records out\n1024000 bytes (1.0 MB, 977 KiB) copied, 0.002888 s, 355 MB/s\n\nreal    0m0.007s\nuser    0m0.000s\nsys     0m0.007s`,
         title: "Sfida di Velocità",
         description: "Usa il comando `time` per confrontare la velocità di lettura di un file enorme usando un buffer piccolo vs un buffer grande.",
         commands: [],

@@ -231,6 +231,7 @@ int main() {
   challenges={[
     {
         id: "wc-lines",
+        simulatedSuccessOutput: `142 life.c`,
         title: "Metriche del Codice",
         description: "Salvatore ha scritto il codice live. Quale comando Linux useresti per contare quante righe di codice ha il file `life.c`?",
         commands: [],
@@ -244,6 +245,7 @@ int main() {
     },
     {
         id: "grep-define",
+        simulatedSuccessOutput: `#define ROWS 20\n#define COLS 40\n#define ALIVE 'O'\n#define DEAD '.'`,
         title: "Caccia alle Costanti",
         description: "Vuoi trovare velocemente tutte le macro `#define` usate per configurare la griglia. Quale comando useresti?",
         commands: [],
@@ -257,6 +259,7 @@ int main() {
     },
     {
         id: "nano-editor",
+        simulatedSuccessOutput: ``,
         title: "Editor da Terminale",
         description: "Sei connesso in SSH e devi fare una piccola modifica veloce a un parametro nel sorgente `life.c` senza usare interfacce grafiche. Quale editor di testo semplice e amichevole puoi lanciare dal terminale?",
         commands: [

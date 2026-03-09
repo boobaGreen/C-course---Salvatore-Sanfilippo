@@ -273,6 +273,7 @@ Salvatore suggerisce di usare le macro del preprocessore (`#ifdef DEBUG`) per in
   challenges={[
     {
         id: "magic-search",
+        simulatedSuccessOutput: `ef be ad de`,
         title: "Caccia all'Esadecimale",
         description: "Hai stampato il binario a video in formato hex usando `hexdump -C`. Ora vuoi filtrare l'output per trovare la riga esatta che contiene la parola magica `ef be ad de`. Quale utility UNIX usi in pipe per la ricerca?",
         commands: [],
@@ -284,6 +285,7 @@ Salvatore suggerisce di usare le macro del preprocessore (`#ifdef DEBUG`) per in
     },
     {
         id: "gcc-flexible",
+        simulatedSuccessOutput: ``,
         title: "Standard C99",
         description: "Prova a compilare una struct con `char str[0]` invece di `char str[]`. Quale versione corregge GCC per compatibilità?",
         commands: [
@@ -297,6 +299,7 @@ Salvatore suggerisce di usare le macro del preprocessore (`#ifdef DEBUG`) per in
     },
     {
         id: "mem-limit-check",
+        simulatedSuccessOutput: `  PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND\n12345 user      20   0 1024.5M 950.2M   1234 R  99.9  11.5   0:01.23 a.out`,
         title: "Stress Test Refs",
         description: "Crea un loop che alloca 1 milione di stringhe e verifica con `top` o `htop` l'occupazione di memoria.",
         commands: [

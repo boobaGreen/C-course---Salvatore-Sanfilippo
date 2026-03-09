@@ -179,6 +179,7 @@ Mentre miglioriamo il workflow, miglioriamo anche l'interprete. Introduciamo una
   challenges={[
     {
         id: "make-touch",
+        simulatedSuccessOutput: ``,
         title: "Il Trucco di Touch",
         description: "Sei nello sviluppo iterativo: `make` rifiuta di ricompilare perché reputa che il file oggetto sia più recente del sorgente `toyfort.c`. Per ingannarlo aggiornando articialmente il timestamp di modifica del sorgente a 'ora' (senza aprirlo in nessun editor), quale iconico comando UNIX usi?",
         commands: [],
@@ -190,6 +191,7 @@ Mentre miglioriamo il workflow, miglioriamo anche l'interprete. Introduciamo una
     },
     {
         id: "git-commit",
+        simulatedSuccessOutput: `[main 4a8b23c] Initial commit of toyfort\n 1 file changed, 10 insertions(+)\n create mode 100644 toyfort.c`,
         title: "Salvataggio",
         description: "Qual è il comando per salvare le modifiche in Git specificando un messaggio?",
         commands: [],

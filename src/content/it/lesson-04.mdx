@@ -212,6 +212,7 @@ Prova a sperimentare con `sizeof` e le costanti di `limits.h` come `INT_MIN` e `
   challenges={[
     {
         id: "limits-header",
+        simulatedSuccessOutput: `/usr/include/limits.h`,
         title: "Il Guardiano dei Limiti",
         description: "Se hai bisogno di conoscere il valore massimo che un `int` può contenere sulla tua architettura (es. `INT_MAX`), quale file header standard devi includere?",
         commands: [
@@ -226,6 +227,7 @@ Prova a sperimentare con `sizeof` e le costanti di `limits.h` come `INT_MIN` e `
     },
     {
         id: "stdint-header",
+        simulatedSuccessOutput: `/usr/include/stdint.h`,
         title: "Precisione Chirurgica",
         description: "Se vuoi essere assolutamente certo che una tua variabile occupi esattamente 32 bit su qualsiasi piattaforma, usi tipi come `int32_t`. Quale libreria standard fornisce queste definizioni?",
         commands: [
@@ -240,6 +242,7 @@ Prova a sperimentare con `sizeof` e le costanti di `limits.h` come `INT_MIN` e `
     },
     {
         id: "lscpu-endian",
+        simulatedSuccessOutput: `Byte Order:            Little Endian`,
         title: "L'Ordine dei Byte",
         description: "Quale comando Linux mostra l'architettura della CPU e se il sistema è Little o Big Endian?",
         commands: [],

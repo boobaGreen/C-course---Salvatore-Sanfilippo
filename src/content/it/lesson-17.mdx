@@ -228,6 +228,7 @@ In C, la memoria appena allocata o dichiarata sullo stack contiene "spazzatura".
   challenges={[
     {
         id: "xdump-test",
+        simulatedSuccessOutput: `00000000  ef be ad de 00 00 00 00  00 00 00 00 00 00 00 00  |................|`,
         title: "Visione a Raggi X",
         description: "Quale comando Linux visualizza la memoria di un file in formato esadecimale e ASCII simultaneamente (simile al nostro xdump)?",
         commands: [],
@@ -239,6 +240,7 @@ In C, la memoria appena allocata o dichiarata sullo stack contiene "spazzatura".
     },
     {
         id: "ternary-bash",
+        simulatedSuccessOutput: `FALSO`,
         title: "Logic in a Line",
         description: "Simula un operatore ternario in Bash: stampa 'VERO' se il file 'test' esiste, altrimenti 'FALSO'.",
         commands: [
@@ -251,6 +253,7 @@ In C, la memoria appena allocata o dichiarata sullo stack contiene "spazzatura".
     },
     {
         id: "memset-zero-file",
+        simulatedSuccessOutput: `1+0 records in\n1+0 records out\n1024 bytes copied, 0.000123 s, 8.3 MB/s`,
         title: "Piazza Pulita",
         description: "Quale comando Linux scriverebbe 1024 byte di zeri (null bytes) in un file chiamato 'zero.bin'?",
         commands: [],

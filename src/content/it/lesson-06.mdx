@@ -214,6 +214,7 @@ Una funzione può chiamare se stessa. È un modo elegante per contare o risolver
   challenges={[
     {
         id: "gcc-wall",
+        simulatedSuccessOutput: ``,
         title: "Compilazione Rigorosa",
         description: "Quale flag di GCC abilita TUTTI i messaggi di avvertimento comuni per trovare bug logici (come l'uso di = invece di ==)?",
         commands: [],
@@ -227,6 +228,7 @@ Una funzione può chiamare se stessa. È un modo elegante per contare o risolver
     },
     {
         id: "gcc-define",
+        simulatedSuccessOutput: ``,
         title: "Macro al Volo",
         description: "Il tuo codice contiene blocchi `#ifdef DEBUG`. Quale argomento devi passare a `gcc` per compilare includendo quelle sezioni, definendo la macro direttamente da riga di comando?",
         commands: [
@@ -241,6 +243,7 @@ Una funzione può chiamare se stessa. È un modo elegante per contare o risolver
     },
     {
         id: "diff-command",
+        simulatedSuccessOutput: `1c1\n< int main() { return 0; }\n---\n> int main(void) { return 0; }`,
         title: "Caccia alle Differenze",
         description: "Hai due versioni dello stesso sorgente C e vuoi stampare a video solo le righe che sono state modificate tra l'uno e l'altro. Lancia il classico programma UNIX passandogli `file1.c` e `file2.c`.",
         commands: [],

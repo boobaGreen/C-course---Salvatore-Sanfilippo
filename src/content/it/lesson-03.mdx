@@ -263,6 +263,7 @@ Cosa succede se aggiungi 1 al massimo valore possibile per un tipo?
   challenges={[
     {
         id: "unsigned-suffix",
+        simulatedSuccessOutput: ``,
         title: "Il Suffisso Magico",
         description: "Se vuoi forzare il compilatore a trattare una costante come 'unsigned', quale lettera devi aggiungere dopo il numero?",
         commands: [
@@ -277,6 +278,7 @@ Cosa succede se aggiungi 1 al massimo valore possibile per un tipo?
     },
     {
         id: "m32-flag",
+        simulatedSuccessOutput: ``,
         title: "Ritorno al Passato",
         description: "Quale flag di GCC useresti per forzare la compilazione a 32 bit su una macchina a 64 bit?",
         commands: [],
@@ -290,6 +292,7 @@ Cosa succede se aggiungi 1 al massimo valore possibile per un tipo?
     },
     {
         id: "size-command",
+        simulatedSuccessOutput: `   text\t   data\t    bss\t    dec\t    hex\tfilename\n   1405\t    600\t      8\t   2013\t    7dd\ta.out`,
         title: "Sezionare il Binario",
         description: "Quale comando mostra le dimensioni delle sezioni .text, .data e .bss del tuo file `a.out`?",
         commands: [],

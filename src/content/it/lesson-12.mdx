@@ -536,6 +536,7 @@ language="c"
   challenges={[
     {
       id: "valgrind-basic",
+        simulatedSuccessOutput: `==12345== Memcheck, a memory error detector\n==12345== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.\n==12345== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info\n==12345== Command: ./test\n==12345== \n==12345== HEAP SUMMARY:\n==12345==     in use at exit: 0 bytes in 0 blocks\n==12345==   total heap usage: 1 allocs, 1 frees, 1,024 bytes allocated\n==12345== \n==12345== All heap blocks were freed -- no leaks are possible`,
       title: "Il Cacciatore di Memory Leaks",
       description:
         "Compila un programma `test.c` che contiene un leak. Esegui il formidabile strumento di Linux per la gestione della memoria per scoprire se hai dimenticato una `free` (digita solo il nome dell'eseguibile dello strumento).",
@@ -546,6 +547,7 @@ language="c"
     },
     {
       id: "check-heap-limits",
+        simulatedSuccessOutput: ``,
       title: "Limitare la Memoria",
       description:
         "Vuoi mettere sotto stress il tuo software e testare come gestisce l'esaurimento della RAM. Usa il builder della shell (`ulimit`) con il parametro per la memoria virtuale (`-v`) per restringere il limite a `10000` kb.",
@@ -556,6 +558,7 @@ language="c"
     },
     {
       id: "mem-free-status",
+        simulatedSuccessOutput: `               total        used        free      shared  buff/cache   available\nMem:           16Gi       4.2Gi       8.1Gi       125Mi       3.9Gi        11Gi\nSwap:          16Gi          0B        16Gi`,
       title: "Quanta RAM ci rimane?",
       description:
         "Prima di chiedere gigantesche malloc da GiB in C, quale comando shell digiti per vedere la RAM Libera (Free) e Usata in formato human-readable (MB/GB) sull'intero sistema Ubuntu/Linux?",

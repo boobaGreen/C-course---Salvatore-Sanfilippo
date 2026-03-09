@@ -230,6 +230,7 @@ int main() {
   challenges={[
     {
         id: "file-inspect",
+        simulatedSuccessOutput: `00000000  01 00 00 00 00 00 bf 42                           |.......B|`,
         title: "Ispezione Binaria",
         description: "Esegui un programma che scrive la struct Player su disco (save.dat). Quale comando useresti per vedere i byte reali del file e riconoscere il valore float?",
         commands: [],
@@ -241,6 +242,7 @@ int main() {
     },
     {
         id: "count-chars-wc",
+        simulatedSuccessOutput: `8 save.dat`,
         title: "Contatore Veloce",
         description: "Sappiamo quanti dati dovrebbe pesare un salvataggio della struct `Player`. Per confermarlo dalla shell usando `wc`, quale parametro passi per fargli contare la dimensione esatta in Bytes?",
         commands: [],
@@ -252,6 +254,7 @@ int main() {
     },
     {
         id: "lsof-hacker",
+        simulatedSuccessOutput: `COMMAND   PID USER   FD   TYPE DEVICE SIZE/OFF   NODE NAME\na.out   12345 user  cwd    DIR    8,1     4096 123456 /tmp\na.out   12345 user  rtd    DIR    8,1     4096      2 /\na.out   12345 user    3r   REG    8,1        8 345678 /tmp/save.dat`,
         title: "File Aperti",
         description: "Sei un detective dei sistemi UNIX. Un processo sospetto sta leggendo dei dati: devi scoprire l'elenco esatto dei File Descriptors che sta tenendo attivi. Quale comando (List Open Files) lanci passandogli il flag `-p` e il PID?",
         commands: [],

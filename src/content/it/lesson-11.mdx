@@ -272,6 +272,7 @@ int main() {
   challenges={[
     {
         id: "endian-check",
+        simulatedSuccessOutput: `Byte Order:            Little Endian`,
         title: "Il Rilevatore di Endianness",
         description: "Esegui il comando utile per stampare le caratteristiche del processore e accoda un pipe per isolare solo la riga che parla di 'Byte Order'.",
         commands: [],
@@ -283,6 +284,7 @@ int main() {
     },
     {
         id: "python-hex-check",
+        simulatedSuccessOutput: `97`,
         title: "Python come Calcolatrice Hex",
         description: "Usa python3 per stampare il valore decimale del numero esadecimale 0x61.",
         commands: [
@@ -295,6 +297,7 @@ int main() {
     },
     {
         id: "hexdump-custom",
+        simulatedSuccessOutput: `00000000  41 42 43 44                                       |ABCD|`,
         title: "Dump Manuale",
         description: "Crea un file di 4 byte con 'ABCD' e visualizzalo con `hexdump` in formato esadecimale.",
         commands: [

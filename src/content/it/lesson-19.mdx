@@ -214,6 +214,7 @@ Quando una syscall fallisce (ritorna -1), il Kernel imposta un numero globale ch
   challenges={[
     {
         id: "man-syscall",
+        simulatedSuccessOutput: `READ(2)                    Linux Programmer's Manual                   READ(2)\n\nNAME\n       read - read from a file descriptor`,
         title: "Il Manuale del Kernel",
         description: "Stai cercando informazioni sulla primitiva del Kernel per leggere da un file descriptor. Se digiti solo il nome della funzione nel manuale, ti mostrerà il comando Bash omonimo. Come specifichi che vuoi leggere la 'Sezione 2' (quella delle chiamate di sistema)?",
         commands: [],
@@ -237,6 +238,7 @@ Quando una syscall fallisce (ritorna -1), il Kernel imposta un numero globale ch
     },
     {
         id: "errno-list",
+        simulatedSuccessOutput: `/usr/include/asm-generic/errno-base.h:#define\tENOENT\t\t 2\t/* No such file or directory */`,
         title: "Catalogo Errori",
         description: "I nomi degli errori scaturiti dalle syscall (come 'Permission Denied') corrispondono a numeri gestiti dalla variabile `errno`. Quale comando puoi usare nella directory `/usr/include` flaggando la ricerca ricorsiva, per cercare il simbolo `EACCES`?",
         commands: [],

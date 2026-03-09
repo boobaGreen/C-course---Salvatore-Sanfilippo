@@ -87,6 +87,19 @@ export default function Home() {
                         <p className="text-slate-500 dark:text-zinc-400 text-sm leading-relaxed">{t('home.features.simulations_desc')}</p>
                     </div>
                 </div>
+
+                {/* Info block: Quiz vs Hacker Terminal Challenges */}
+                <div className="glass-panel p-6 rounded-2xl border-[var(--color-brand-accent)]/20 mt-12 flex flex-col sm:flex-row gap-6 items-start shadow-[0_4px_24px_-12px_rgba(244,63,94,0.15)]">
+                    <div className="w-12 h-12 shrink-0 rounded-lg bg-[var(--color-brand-accent)]/10 text-[var(--color-brand-accent)] flex items-center justify-center mb-0 sm:mb-4">
+                        <Info size={24} />
+                    </div>
+                    <div>
+                        <h3 className="text-lg font-bold text-slate-900 dark:text-zinc-100 mb-2">{t('home.questions_info.title')}</h3>
+                        <p className="text-slate-500 dark:text-zinc-400 text-sm leading-relaxed">
+                            {t('home.questions_info.description')}
+                        </p>
+                    </div>
+                </div>
             </div>
 
             <AboutAuthorModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />

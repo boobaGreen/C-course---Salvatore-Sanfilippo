@@ -241,6 +241,7 @@ int main() {
   challenges={[
     {
         id: "struct-offset",
+        simulatedSuccessOutput: `/* offset      |  size */  type = struct Frazione {\n/*      0      |     4 */    int num;\n/*      4      |     4 */    int den;\n\n                           /* total size (bytes):    8 */\n                         }`,
         title: "Il Cacciatore di Offset",
         description: "Usa GDB per trovare l'offset esatto del campo `den` nella `struct Frazione`. Quale comando useresti?",
         commands: [],
@@ -252,6 +253,7 @@ int main() {
     },
     {
         id: "nm-symbols",
+        simulatedSuccessOutput: `0000000000001130 T main\n                 U puts@GLIBC_2.2.5\n0000000000001000 t _init`,
         title: "Simboli Globali",
         description: "Se dichiari una struct globale, puoi vederne il simbolo nell'eseguibile. Usa il comando `nm` per cercare i simboli nel tuo programma.",
         commands: [],
@@ -263,6 +265,7 @@ int main() {
     },
     {
         id: "packed-verify",
+        simulatedSuccessOutput: `12\n9`,
         title: "La Prova del Nove",
         description: "Scrivi un piccolo codice che stampa `sizeof` di una struct con e senza `__attribute__((packed))` e compilalo con `gcc`.",
         commands: [

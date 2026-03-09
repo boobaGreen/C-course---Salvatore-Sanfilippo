@@ -321,6 +321,7 @@ Il prototipo serve a dire al compilatore: _"Esiste una funzione chiamata `printf
   challenges={[
     {
       id: "opt-trap",
+        simulatedSuccessOutput: `        call    puts@PLT`,
       title: "L'Ottimizzazione Subdola",
       description:
         "Hai compilato un programma che stampa 'Hello World' con `printf`. Se guardi l'assembly generato con `-O2`, noterai che il compilatore ha sostituito la chiamata originale con una funzione più veloce per gestire stringhe costanti. Usa `grep` per cercare la riga che chiama una funzione (contiene 'call') all'interno del file assembly `hello.s`.",
@@ -336,6 +337,7 @@ Il prototipo serve a dire al compilatore: _"Esiste una funzione chiamata `printf
     },
     {
       id: "elf-check",
+        simulatedSuccessOutput: `a.out: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=..., for GNU/Linux 3.2.0, not stripped`,
       title: "Anatomia del Binario",
       description:
         "Un eseguibile Linux non è solo codice. Quale comando identifica la struttura del file e l'architettura per cui è stato creato?",
@@ -349,6 +351,7 @@ Il prototipo serve a dire al compilatore: _"Esiste una funzione chiamata `printf
     },
     {
       id: "strip-symbols",
+        simulatedSuccessOutput: ``,
       title: "Pulizia Finale",
       description:
         "Quale comando rimuove la symbol table e le info di debug per ridurre la dimensione del file?",

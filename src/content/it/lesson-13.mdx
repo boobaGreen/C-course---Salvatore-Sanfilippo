@@ -289,6 +289,7 @@ Immagina una stringa lunga 10 milioni di caratteri.
   challenges={[
     {
         id: "hexdump-string",
+        simulatedSuccessOutput: `00000000  03 00 00 00 41 42 43 00                           |....ABC.|`,
         title: "Vedere l'Invisibile",
         description: "Supponi di aver creato la stringa 'ABC' con l'header 3. Quale comando Linux useresti per vedere i byte grezzi di un file binario e confermare che i primi 4 byte contengono il valore 0x03?",
         commands: [],
@@ -300,6 +301,7 @@ Immagina una stringa lunga 10 milioni di caratteri.
     },
     {
         id: "valgrind-check",
+        simulatedSuccessOutput: `==12345== Conditional jump or move depends on uninitialised value(s)\n==12345==    at 0x10915E: main (test.c:5)\n==12345==  Uninitialised value was created by a heap allocation\n==12345==    at 0x484DA83: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)\n==12345==    by 0x109139: main (test.c:4)`,
         title: "Malloc Debugging",
         description: "Un memory leak è difficile da tracciare se non sai chi ha originariamente richiesto quella memoria. Quale flag specifico di `valgrind` (da settare a `=yes`) forza il tracciamento dettagliato di chi ha chiamato la `malloc` iniziale?",
         commands: [
@@ -312,6 +314,7 @@ Immagina una stringa lunga 10 milioni di caratteri.
     },
     {
         id: "grep-header",
+        simulatedSuccessOutput: `/usr/include/stdint.h`,
         title: "Scavare nel Sistema",
         description: "Trova dove si trova il file `stdint.h` sul tuo sistema Linux usando il comando `locate` o `find`.",
         commands: [

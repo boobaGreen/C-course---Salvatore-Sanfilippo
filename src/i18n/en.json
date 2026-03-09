@@ -78,6 +78,10 @@
             "games_desc": "Challenge yourself with interactive games designed to test your knowledge in a fun way.",
             "simulations_title": "Interactive Simulations",
             "simulations_desc": "Visualize low-level concepts through high-fidelity animated simulations."
+        },
+        "questions_info": {
+            "title": "Types of questions",
+            "description": "Basic questions (Quizzes) cover topics from the video, the transcript, or the lesson text. The \"Hacker Terminal Challenge\" questions, on the other hand, are designed to push you further: they may cover material not explicitly taught and will require active research on external sources."
         }
     },
     "footer": {

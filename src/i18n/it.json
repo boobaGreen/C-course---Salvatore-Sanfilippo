@@ -78,6 +78,10 @@
             "games_desc": "Mettiti alla prova con giochi interattivi progettati per testare le tue conoscenze divertendoti.",
             "simulations_title": "Simulazioni Interattive",
             "simulations_desc": "Visualizza concetti di basso livello attraverso simulazioni animate ad alta fedeltà."
+        },
+        "questions_info": {
+            "title": "Tipologia di domande",
+            "description": "Le domande base (Quiz) vertono sugli argomenti del video, della trascrizione o del testo della lezione. Le domande \"Hacker Terminal Challenge\", invece, sono pensate per spingerti oltre: possono riguardare materiale non trattato esplicitamente e richiederanno una ricerca attiva su fonti esterne."
         }
     },
     "footer": {

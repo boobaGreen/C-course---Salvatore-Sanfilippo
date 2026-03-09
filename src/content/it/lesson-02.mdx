@@ -298,6 +298,7 @@ I **Registri** sono piccole "variabili" dentro la CPU, velocissime. La **RAM** Ã
   challenges={[
     {
         id: "xxd-dump",
+        simulatedSuccessOutput: `00000000: 7f45 4c46 0201 0100 0000 0000 0000 0000  .ELF............\n00000010: 0300 3e00 0100 0000 4010 0000 0000 0000  ..>.....@.......`,
         title: "Vedere l'Invisibile",
         description: "Salvatore ha menzionato uno strumento per guardare 'dentro' gli eseguibili. Quale comando useresti per vedere il contenuto esadecimale di `a.out`?",
         commands: [],
@@ -311,6 +312,7 @@ I **Registri** sono piccole "variabili" dentro la CPU, velocissime. La **RAM** Ã
     },
     {
         id: "nm-symbols",
+        simulatedSuccessOutput: `0000000000001130 T main\n                 U puts@GLIBC_2.2.5\n0000000000001000 t _init`,
         title: "La Lista dei Nomi",
         description: "Ogni funzione diventa un 'simbolo'. Quale comando elenca tutti i simboli (nomi di funzioni e variabili) in `a.out`?",
         commands: [],
@@ -324,6 +326,7 @@ I **Registri** sono piccole "variabili" dentro la CPU, velocissime. La **RAM** Ã
     },
     {
         id: "objdump-header",
+        simulatedSuccessOutput: `a.out:     file format elf64-x86-64\narchitecture: i386:x86-64, flags 0x00000150:\nHAS_SYMS, DYNAMIC, D_PAGED\nstart address 0x0000000000001040`,
         title: "L'Intestazione",
         description: "Quale comando useresti per visualizzare l'header dell'eseguibile e trovarne il punto di ingresso (entry point)?",
         commands: [],
