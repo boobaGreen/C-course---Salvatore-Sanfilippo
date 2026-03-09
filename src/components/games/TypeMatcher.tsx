@@ -16,7 +16,11 @@ const shuffleArray = <T,>(array: T[]): T[] => {
     return [...array].sort(() => Math.random() - 0.5);
 };
 
-export default function TypeMatcher() {
+interface TypeMatcherProps {
+    lessonSlug?: string;
+}
+
+export default function TypeMatcher({ lessonSlug = "unknown" }: TypeMatcherProps) {
     const [matches, setMatches] = useState<Record<string, string>>({});
     const [selectedType, setSelectedType] = useState<string | null>(null);
     const [isCompleted, setIsCompleted] = useState(false);
@@ -29,9 +33,9 @@ export default function TypeMatcher() {
     useEffect(() => {
         if (Object.keys(matches).length === shuffledValues.length && !isCompleted) {
             setIsCompleted(true);
-            addXP(100, `type-matcher-${shuffledValues.length}`);
+            addXP(100, `activity-type-matcher-${lessonSlug}`);
         }
-    }, [matches, isCompleted, addXP, shuffledValues.length]);
+    }, [matches, isCompleted, addXP, shuffledValues.length, lessonSlug]);
 
     const handleTypeClick = (type: string) => {
         setSelectedType(type === selectedType ? null : type);

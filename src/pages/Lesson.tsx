@@ -43,18 +43,18 @@ import BSTBalanceSim from '../components/content/BSTBalanceSim';
 import ZXPalette from '../components/content/ZXPalette';
 
 // Mappa componenti MDX
+// Mappa base componenti MDX (statici)
 const mdxComponents = {
-    h1: (props: any) => <h1 className="text-3xl font-bold mt-8 mb-4 text-[var(--color-brand-primary)]" {...props} />,
-    h2: (props: any) => <h2 className="text-2xl font-bold mt-8 mb-4 border-b border-black/10 dark:border-white/10 pb-2" {...props} />,
-    h3: (props: any) => <h3 className="text-xl font-bold mt-6 mb-3" {...props} />,
-    p: (props: any) => <p className="mb-4 leading-relaxed" {...props} />,
-    ul: (props: any) => <ul className="list-disc list-inside mb-4 space-y-1" {...props} />,
-    ol: (props: any) => <ol className="list-decimal list-inside mb-4 space-y-1" {...props} />,
-    li: (props: any) => <li className="text-opacity-90" {...props} />,
-    a: (props: any) => <a className="text-[var(--color-brand-secondary)] hover:underline" {...props} />,
-    blockquote: (props: any) => <blockquote className="border-l-4 border-[var(--color-brand-accent)] pl-4 italic opacity-80 my-4 bg-black/5 dark:bg-white/5 py-2 pr-2" {...props} />,
-    code: (props: any) => {
-        // Gestione differenziata tra inline code e code blocks
+    h1: (props: React.HTMLAttributes<HTMLHeadingElement>) => <h1 className="text-3xl font-bold mt-8 mb-4 text-[var(--color-brand-primary)]" {...props} />,
+    h2: (props: React.HTMLAttributes<HTMLHeadingElement>) => <h2 className="text-2xl font-bold mt-8 mb-4 border-b border-black/10 dark:border-white/10 pb-2" {...props} />,
+    h3: (props: React.HTMLAttributes<HTMLHeadingElement>) => <h3 className="text-xl font-bold mt-6 mb-3" {...props} />,
+    p: (props: React.HTMLAttributes<HTMLParagraphElement>) => <p className="mb-4 leading-relaxed" {...props} />,
+    ul: (props: React.HTMLAttributes<HTMLUListElement>) => <ul className="list-disc list-inside mb-4 space-y-1" {...props} />,
+    ol: (props: React.HTMLAttributes<HTMLOListElement>) => <ol className="list-decimal list-inside mb-4 space-y-1" {...props} />,
+    li: (props: React.HTMLAttributes<HTMLLIElement>) => <li className="text-opacity-90" {...props} />,
+    a: (props: React.AnchorHTMLAttributes<HTMLAnchorElement>) => <a className="text-[var(--color-brand-secondary)] hover:underline" {...props} />,
+    blockquote: (props: React.BlockquoteHTMLAttributes<HTMLQuoteElement>) => <blockquote className="border-l-4 border-[var(--color-brand-accent)] pl-4 italic opacity-80 my-4 bg-black/5 dark:bg-white/5 py-2 pr-2" {...props} />,
+    code: (props: React.HTMLAttributes<HTMLElement>) => {
         const isInline = !props.className?.includes('language-');
         if (isInline) {
             return <code className="bg-black/10 dark:bg-white/10 rounded px-1.5 py-0.5 font-mono text-sm text-[var(--color-brand-primary)]" {...props} />;
@@ -63,15 +63,11 @@ const mdxComponents = {
         const lang = match ? match[1] : 'c';
         return <CodeBlock code={String(props.children).replace(/\n$/, '')} language={lang} />;
     },
-    pre: (props: any) => <>{props.children}</>, // Il pre è gestito dal nostro CodeBlock
+    pre: (props: React.HTMLAttributes<HTMLPreElement>) => <>{props.children}</>,
 
-    // Custom Components disponibili nel MDX
+    // Custom Components statici
     VideoEmbed,
     KeyConcepts,
-    CodeEditor,
-    TypeMatcher,
-    TerminalSimulation,
-    Quiz,
     Diagram,
     ComparisonTable,
     Callout,
@@ -88,7 +84,6 @@ const mdxComponents = {
     BranchingSimulator,
     RecursionVisualizer,
     SwitchBoard,
-    HackerTerminal,
     GameOfLife,
     PointerBasics,
     PointerArithmetic,
@@ -110,9 +105,19 @@ export default function Lesson() {
     const { slug } = useParams<{ slug: string }>();
     const { i18n } = useTranslation();
     const navigate = useNavigate();
-    const [LessonContent, setLessonContent] = useState<FunctionComponent<any> | null>(null);
+    const [LessonContent, setLessonContent] = useState<FunctionComponent<{ components: any }> | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
+
+    // Mappa componenti MDX con iniezione dinamica dello slug per persistenza
+    const components = {
+        ...mdxComponents,
+        CodeEditor: (props: any) => <CodeEditor {...props} lessonSlug={slug} />,
+        Quiz: (props: any) => <Quiz {...props} lessonSlug={slug} />,
+        HackerTerminal: (props: any) => <HackerTerminal {...props} lessonSlug={slug} />,
+        TypeMatcher: (props: any) => <TypeMatcher {...props} lessonSlug={slug} />,
+        TerminalSimulation: (props: any) => <TerminalSimulation {...props} lessonSlug={slug} />,
+    };
 
     useEffect(() => {
         if (!slug) return;
@@ -163,7 +168,7 @@ export default function Lesson() {
     return (
         <div className="p-8 max-w-4xl mx-auto pb-24">
             <div className="prose prose-invert max-w-none">
-                <LessonContent components={mdxComponents} />
+                <LessonContent components={components} />
             </div>
         </div>
     );

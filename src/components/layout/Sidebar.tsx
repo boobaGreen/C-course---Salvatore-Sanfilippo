@@ -7,7 +7,7 @@ export default function Sidebar() {
     const { t, i18n } = useTranslation();
 
     return (
-        <aside className="w-72 hidden md:block border-r border-black/10 dark:border-white/10 bg-white/50 dark:bg-[#18181b]/50 backdrop-blur-sm h-[calc(100vh-4rem)] overflow-y-auto sticky top-16 shadow-[4px_0_24px_-12px_rgba(0,0,0,0.5)] z-40">
+        <aside className="w-72 hidden md:block border-r border-black/5 dark:border-white/5 bg-white/40 dark:bg-[#0c0c0e]/60 backdrop-blur-xl h-[calc(100vh-4rem)] overflow-y-auto sticky top-16 z-30">
             <div className="p-6">
                 <h3 className="font-semibold text-xs uppercase tracking-[0.2em] text-slate-500 dark:text-zinc-400 mb-6 flex items-center gap-2">
                     <BookOpen size={14} />

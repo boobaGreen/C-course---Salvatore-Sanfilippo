@@ -8,36 +8,35 @@ import { useProgression } from '../../hooks/useProgression';
 
 export default function Header() {
     const { t, i18n } = useTranslation();
-    const { xp, level, progressToNextLevel } = useProgression();
-    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-    const toggleLanguage = () => {
-        const newLang = i18n.language === 'it' ? 'en' : 'it';
-        i18n.changeLanguage(newLang);
-        localStorage.setItem('app_language', newLang);
-    };
+    const { xp, level, progressToNextLevel, xpToNextLevel } = useProgression();
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const toggleTheme = () => {
         const isDark = document.documentElement.classList.toggle('dark');
         localStorage.setItem('theme', isDark ? 'dark' : 'light');
     };
 
+    const changeLanguage = (lng: string) => {
+        i18n.changeLanguage(lng);
+        localStorage.setItem('language', lng);
+    };
+
     // Close mobile menu on navigation
     const handleLessonClick = () => {
-        setMobileMenuOpen(false);
+        setIsMenuOpen(false);
     };
 
     return (
         <>
-            <header className="sticky top-0 z-50 w-full glass-panel !border-b-0">
-                <div className="flex h-16 items-center px-4 sm:px-6 gap-3 sm:gap-4">
+            <header className="h-16 sticky top-0 z-50 w-full border-b border-black/5 dark:border-white/5 bg-white/60 dark:bg-[#0c0c0e]/80 backdrop-blur-xl">
+                <div className="max-w-[1400px] mx-auto h-full px-4 sm:px-6 flex items-center gap-4">
                     {/* Hamburger — mobile only */}
                     <button
-                        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                        onClick={() => setIsMenuOpen(!isMenuOpen)}
                         className="md:hidden p-2 -ml-1 rounded-lg border border-black/10 dark:border-white/10 hover:bg-slate-100 dark:hover:bg-zinc-800/50 transition-colors text-slate-700 dark:text-zinc-300"
                         aria-label="Menu lezioni"
                     >
-                        {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+                        {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
                     </button>
 
                     <Link to="/" className="flex items-center gap-2 font-bold text-xl text-slate-900 dark:text-zinc-100 hover:opacity-80 transition-opacity">
@@ -47,48 +46,38 @@ export default function Header() {
                         <span className="ml-1 tracking-tight hidden sm:inline">Learn <span className="text-[var(--color-brand-secondary)] font-mono">C</span></span>
                     </Link>
 
-                    {/* Progress Indicator - Desktop/Tablet */}
-                    <div className="hidden sm:flex items-center gap-4 px-4 h-9 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl ml-2 group relative cursor-help transition-all hover:bg-black/10 dark:hover:bg-white/10">
-                        <div className="flex items-center gap-2">
-                             <div className="p-1 rounded-md bg-[var(--color-brand-primary)]/20 text-[var(--color-brand-primary)]">
-                                <Zap size={12} fill="currentColor" />
-                            </div>
-                            <span className="text-[10px] font-black uppercase tracking-wider text-slate-500 dark:text-zinc-400">LVL</span>
+                    {/* Desktop/Tablet - Progress Indicator */}
+                    <div className="hidden sm:flex items-center gap-3 px-3 py-1.5 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-full hover:bg-black/10 dark:hover:bg-white/10 transition-all cursor-default group relative ml-1">
+                        <div className="flex flex-col items-end">
+                            <span className="text-[10px] font-black uppercase tracking-tighter text-slate-500 dark:text-zinc-500 leading-none mb-0.5">Level</span>
                             <span className="text-sm font-black text-slate-900 dark:text-white leading-none">{level}</span>
                         </div>
-                        
-                        <div className="w-20 lg:w-32 h-1.5 bg-black/10 dark:bg-white/10 rounded-full overflow-hidden relative">
-                            <motion.div
-                                initial={{ width: 0 }}
-                                animate={{ width: `${progressToNextLevel}%` }}
-                                className="h-full bg-gradient-to-r from-[var(--color-brand-primary)] to-[var(--color-brand-secondary)]"
-                            />
+                        <div className="flex flex-col gap-1 w-24">
+                            <div className="h-1.5 w-full bg-black/10 dark:bg-white/10 rounded-full overflow-hidden">
+                                <motion.div
+                                    initial={{ width: 0 }}
+                                    animate={{ width: `${progressToNextLevel}%` }}
+                                    transition={{ duration: 1, ease: "easeOut" }}
+                                    className="h-full bg-gradient-to-r from-[var(--color-brand-primary)] to-[var(--color-brand-secondary)] shadow-[0_0_8px_var(--color-brand-primary)]"
+                                />
+                            </div>
+                            <span className="text-[9px] font-mono text-slate-400 dark:text-zinc-500 text-right leading-none uppercase">{xpToNextLevel} to next</span>
                         </div>
                         
-                        <div className="text-[10px] font-mono text-slate-400 dark:text-zinc-500 hidden lg:block">
-                            {xp} XP
+                        {/* Tooltip on hover */}
+                        <div className="absolute top-full right-0 mt-2 p-2 bg-zinc-900 border border-white/10 rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-[100] shadow-2xl pointer-events-none min-w-[120px]">
+                            <p className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-1">Total Experience</p>
+                            <p className="text-sm font-mono text-white flex items-center gap-2">
+                                <Zap size={12} className="text-[var(--color-brand-primary)]" fill="currentColor" />
+                                {xp} XP
+                            </p>
                         </div>
-
-                        {/* Hover Tooltip */}
-                        <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 px-3 py-1.5 rounded-lg bg-zinc-900 text-white text-[10px] font-bold whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none border border-white/10 shadow-xl z-50">
-                            {xp} Total Experience Pool
-                        </div>
-                    </div>
-
-                    {/* Progress Indicator - Mobile condensed */}
-                    <div className="sm:hidden flex items-center gap-2 px-2.5 py-1 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-full ml-1">
-                        <div className="flex items-center gap-1">
-                            <Zap size={10} className="text-[var(--color-brand-primary)]" fill="currentColor" />
-                            <span className="text-[10px] font-black text-slate-900 dark:text-white">{level}</span>
-                        </div>
-                        <div className="w-px h-2 bg-black/10 dark:bg-white/10" />
-                        <span className="text-[9px] font-mono text-slate-500 dark:text-zinc-400 whitespace-nowrap">{xp} XP</span>
                     </div>
 
                     <div className="flex-1" />
 
                     <button
-                        onClick={toggleLanguage}
+                        onClick={() => i18n.language === 'it' ? changeLanguage('en') : changeLanguage('it')}
                         className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-black/10 dark:border-white/10 hover:border-[var(--color-brand-secondary)]/50 hover:bg-slate-100 dark:hover:bg-zinc-800/50 transition-all text-sm font-medium"
                         title="Cambia lingua / Change language"
                     >
@@ -109,14 +98,14 @@ export default function Header() {
 
             {/* Mobile Lesson Drawer */}
             <AnimatePresence>
-                {mobileMenuOpen && (
+                {isMenuOpen && (
                     <>
                         {/* Backdrop */}
                         <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
-                            onClick={() => setMobileMenuOpen(false)}
+                            onClick={() => setIsMenuOpen(false)}
                             className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm md:hidden"
                         />
                         {/* Drawer */}

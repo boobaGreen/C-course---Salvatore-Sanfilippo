@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Check, X, HelpCircle, ChevronRight, RotateCcw } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useProgression } from '../../hooks/useProgression';
@@ -15,16 +15,55 @@ interface Question {
 interface QuizProps {
     questions: Question[];
     title?: string;
+    lessonSlug?: string;
 }
 
-export default function Quiz({ questions, title }: QuizProps) {
-    const [currentStep, setCurrentStep] = useState(0);
-    const [selectedOption, setSelectedOption] = useState<number | null>(null);
-    const [isAnswered, setIsAnswered] = useState(false);
-    const [score, setScore] = useState(0);
-    const [showResults, setShowResults] = useState(false);
+export default function Quiz({ questions, title, lessonSlug = "unknown" }: QuizProps) {
+    const storageKey = `quiz-state-${lessonSlug}-${title || 'default'}`;
+
+    const [currentStep, setCurrentStep] = useState(() => {
+        const saved = localStorage.getItem(storageKey);
+        if (saved) return JSON.parse(saved).currentStep || 0;
+        return 0;
+    });
+
+    const [selectedOption, setSelectedOption] = useState<number | null>(() => {
+        const saved = localStorage.getItem(storageKey);
+        if (saved) return JSON.parse(saved).selectedOption ?? null;
+        return null;
+    });
+
+    const [isAnswered, setIsAnswered] = useState(() => {
+        const saved = localStorage.getItem(storageKey);
+        if (saved) return JSON.parse(saved).isAnswered || false;
+        return false;
+    });
+
+    const [score, setScore] = useState(() => {
+        const saved = localStorage.getItem(storageKey);
+        if (saved) return JSON.parse(saved).score || 0;
+        return 0;
+    });
+
+    const [showResults, setShowResults] = useState(() => {
+        const saved = localStorage.getItem(storageKey);
+        if (saved) return JSON.parse(saved).showResults || false;
+        return false;
+    });
+
     const { addXP } = useProgression();
     const { t } = useTranslation();
+
+    // Persist state to localStorage
+    useEffect(() => {
+        localStorage.setItem(storageKey, JSON.stringify({
+            currentStep,
+            selectedOption,
+            isAnswered,
+            score,
+            showResults
+        }));
+    }, [currentStep, selectedOption, isAnswered, score, showResults, storageKey]);
 
     const quizTitle = title || t('lesson.exercises');
 
@@ -38,9 +77,8 @@ export default function Quiz({ questions, title }: QuizProps) {
 
         setIsAnswered(true);
         if (selectedOption === questions[currentStep].correctAnswer) {
-            setScore(score + 1);
-            setScore(score + 1);
-            addXP(50, `quiz-${quizTitle}-q${questions[currentStep].id}`);
+            setScore((prev: number) => prev + 1);
+            addXP(50, `activity-quiz-${lessonSlug}-${quizTitle}-q${questions[currentStep].id}`);
         }
     };
 
@@ -51,7 +89,7 @@ export default function Quiz({ questions, title }: QuizProps) {
             setIsAnswered(false);
         } else {
             setShowResults(true);
-            addXP(200, `quiz-${quizTitle}`);
+            addXP(200, `activity-quiz-${lessonSlug}-${quizTitle}-final`);
         }
     };
 

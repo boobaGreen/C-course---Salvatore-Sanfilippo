@@ -10,9 +10,10 @@ interface TerminalSimulationProps {
     output?: string;
     children?: ReactNode;
     language?: string;
+    lessonSlug?: string;
 }
 
-export default function TerminalSimulation({ command, output = '', children, language = 'bash' }: TerminalSimulationProps) {
+export default function TerminalSimulation({ command, output = '', children, language = 'bash', lessonSlug = 'unknown' }: TerminalSimulationProps) {
     const [hasRun, setHasRun] = useState(false);
     const [isRunning, setIsRunning] = useState(false);
     const { addXP } = useProgression();
@@ -36,7 +37,7 @@ export default function TerminalSimulation({ command, output = '', children, lan
         setTimeout(() => {
             setIsRunning(false);
             setHasRun(true);
-            addXP(20, `terminal-${command}`);
+            addXP(20, `activity-terminal-${lessonSlug}-${command}`);
         }, 800);
     };
 

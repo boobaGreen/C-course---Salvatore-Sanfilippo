@@ -12,12 +12,12 @@ function App() {
   return (
     <ProgressionProvider>
       <XpToast />
-      <div className="min-h-screen transition-colors duration-200 flex flex-col font-sans">
+      <div className="h-screen w-full transition-colors duration-200 flex flex-col font-sans overflow-hidden">
         <Header />
         <div className="flex flex-1 overflow-hidden">
           <Sidebar />
-          <div className="flex-1 overflow-y-auto w-full flex flex-col">
-            <main className="flex-1 w-full">
+          <div className="flex-1 overflow-y-auto w-full flex flex-col bg-slate-50 dark:bg-[#0c0c0e]">
+            <main className="flex-1 w-full max-w-5xl mx-auto px-4 sm:px-8 py-8">
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/lesson/:slug" element={<Lesson />} />

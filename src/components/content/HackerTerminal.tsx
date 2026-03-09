@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   ShieldAlert,
   Cpu,
@@ -29,25 +29,43 @@ interface Challenge {
 
 interface HackerTerminalProps {
   challenges: Challenge[];
+  lessonSlug?: string;
 }
 
-export default function HackerTerminal({ challenges }: HackerTerminalProps) {
-  const [currentStep, setCurrentStep] = useState(0);
+export default function HackerTerminal({ challenges, lessonSlug = "unknown" }: HackerTerminalProps) {
+  const storageKey = `ht-state-${lessonSlug}`;
+  
+  const [currentStep, setCurrentStep] = useState(() => {
+    const saved = localStorage.getItem(storageKey);
+    if (saved) return JSON.parse(saved).currentStep || 0;
+    return 0;
+  });
+  
   const [inputValue, setInputValue] = useState("");
-  const [completedTasks, setCompletedTasks] = useState<Record<string, boolean>>(
-    {},
-  );
-  const [isCorrect, setIsCorrect] = useState<Record<string, boolean | null>>(
-    {},
-  );
+  
+  const [completedTasks, setCompletedTasks] = useState<Record<string, boolean>>(() => {
+    const saved = localStorage.getItem(storageKey);
+    if (saved) return JSON.parse(saved).completedTasks || {};
+    return {};
+  });
+  
+  const [isCorrect, setIsCorrect] = useState<Record<string, boolean | null>>({});
   const [showHint, setShowHint] = useState<Record<string, boolean>>({});
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const { addXP, revealSolution, revealedSolutions } = useProgression();
   const { t } = useTranslation();
 
+  // Save state to localStorage
+  useEffect(() => {
+    localStorage.setItem(storageKey, JSON.stringify({
+      currentStep,
+      completedTasks
+    }));
+  }, [currentStep, completedTasks, storageKey]);
+
   const currentChallenge = challenges[currentStep];
   const isCommandMode = !!currentChallenge.expectedCommand;
-  const activityId = `hacker-terminal-${currentChallenge.id}`;
+  const activityId = `activity-ht-${lessonSlug}-${currentStep}-${currentChallenge.id}`;
   const isRevealed = revealedSolutions?.includes(activityId) || false;
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -170,7 +188,7 @@ export default function HackerTerminal({ challenges }: HackerTerminalProps) {
             <button
               disabled={currentStep === 0}
               onClick={() => {
-                setCurrentStep((s) => s - 1);
+                setCurrentStep((s: number) => s - 1);
                 setInputValue("");
               }}
               className="p-1 text-zinc-500 hover:text-white disabled:opacity-20 transition-colors"
@@ -180,7 +198,7 @@ export default function HackerTerminal({ challenges }: HackerTerminalProps) {
             <button
               disabled={currentStep === challenges.length - 1}
               onClick={() => {
-                setCurrentStep((s) => s + 1);
+                setCurrentStep((s: number) => s + 1);
                 setInputValue("");
               }}
               className="p-1 text-zinc-500 hover:text-white disabled:opacity-20 transition-colors"
