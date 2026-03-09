@@ -1,11 +1,11 @@
-import VideoEmbed from '../../components/content/VideoEmbed';
-import Callout from '../../components/content/Callout';
-import KeyConcepts from '../../components/content/KeyConcepts';
-import CodeEditor from '../../components/exercises/CodeEditor';
-import Quiz from '../../components/exercises/Quiz';
-import HackerTerminal from '../../components/content/HackerTerminal';
-import GameOfLife from '../../components/content/GameOfLife';
-import Infographic from '../../components/content/Infographic';
+import VideoEmbed from "../../components/content/VideoEmbed";
+import Callout from "../../components/content/Callout";
+import KeyConcepts from "../../components/content/KeyConcepts";
+import CodeEditor from "../../components/exercises/CodeEditor";
+import Quiz from "../../components/exercises/Quiz";
+import HackerTerminal from "../../components/content/HackerTerminal";
+import GameOfLife from "../../components/content/GameOfLife";
+import Infographic from "../../components/content/Infographic";
 
 # Lesson 8: Game of Life - Problem Solving in C
 
@@ -13,29 +13,35 @@ Today, we won't learn many new theoretical concepts. Instead, we'll put everythi
 
 <VideoEmbed videoId="c5atNuYdKK8" title="Lesson 8: Implementing Game of Life" />
 
-<KeyConcepts 
+<KeyConcepts
   concepts={[
     {
       title: "Live Problem Solving",
-      description: "Salvatore writes code without preparing it beforehand: a unique chance to see how a professional thinks through errors."
+      description:
+        "Salvatore writes code without preparing it beforehand: a unique chance to see how a professional thinks through errors.",
     },
     {
       title: "Specializing the Language",
-      description: "In C, the first step is creating abstractions (functions) that 'lift' the language level to suit the problem."
+      description:
+        "In C, the first step is creating abstractions (functions) that 'lift' the language level to suit the problem.",
     },
     {
       title: "Macro Usage (#define)",
-      description: "Textual substitutions by the preprocessor to centrally configure the grid."
+      description:
+        "Textual substitutions by the preprocessor to centrally configure the grid.",
     },
     {
       title: "The Toroidal Universe",
-      description: "Implementing spatial wrapping using the modulo operator (%)."
-    }
-  ]} 
+      description:
+        "Implementing spatial wrapping using the modulo operator (%).",
+    },
+  ]}
 />
 
 <Callout type="warning" title="The Importance of Making Mistakes">
-You'll notice Salvatore making mistakes and correcting them in real-time. This is crucial: programming isn't about writing perfect code on the first try, but about knowing how to interpret and fix bugs.
+  You'll notice Salvatore making mistakes and correcting them in real-time. This
+  is crucial: programming isn't about writing perfect code on the first try, but
+  about knowing how to interpret and fix bugs.
 </Callout>
 
 ## The Rules of the Game
@@ -45,9 +51,10 @@ The Game of Life is a cellular automaton. Each cell can be **ALIVE** (1) or **DE
 <GameOfLife />
 
 <Callout type="info" title="The Toroidal Universe">
-Salvatore uses a brilliant trick: the **modulo** operator (`%`). 
-Instead of checking if we've gone off the edges of the array, we use `x % WIDTH`. 
-If we reach column 25 in a 25-wide grid, the result is 0. We've "jumped" to the other side!
+  Salvatore uses a brilliant trick: the **modulo** operator (`%`). Instead of
+  checking if we've gone off the edges of the array, we use `x % WIDTH`. If we
+  reach column 25 in a 25-wide grid, the result is 0. We've "jumped" to the
+  other side!
 </Callout>
 
 ## Problem Decomposition
@@ -60,84 +67,64 @@ Salvatore shows us how to "specialize the language" by creating a "ladder" of ab
 4.  **`compute_new_state`**: Applies Conway's rules to decide if a cell will live or die in the next generation.
 
 <Callout type="info" title="Elevating the Language">
-Salvatore explains that in C, the first part of a program often serves to "specialize the language": you write low-level functions to create a more comfortable environment to solve the actual problem. It's like building your own tools before starting to work with wood.
+  Salvatore explains that in C, the first part of a program often serves to
+  "specialize the language": you write low-level functions to create a more
+  comfortable environment to solve the actual problem. It's like building your
+  own tools before starting to work with wood.
 </Callout>
 
 ### 1D Mapping: Memory is a Line
+
 Even though we think of the grid as a rectangle, computer RAM is a long linear tape. Salvatore teaches us the magic formula for moving along this tape:
 `index = (y * width) + x`
 
 <Callout type="hacker" title="The Pointer 'Cheat'">
-Even though we haven't formally studied them yet, Salvatore must use **pointers** (`char *grid`) to pass the grid to functions. Without them, the functions would work on a copy of the grid and couldn't modify the original!
+  Even though we haven't formally studied them yet, Salvatore must use
+  **pointers** (`char *grid`) to pass the grid to functions. Without them, the
+  functions would work on a copy of the grid and couldn't modify the original!
 </Callout>
-
-## Simulation Code
-
-Try modifying the speed or the characters used to represent life.
-
-<CodeEditor 
-  initialCode={`#include <stdio.h>
-#include <unistd.h>
-
-#define COLS 20
-#define ROWS 20
-#define ALIVE '#'
-#define DEAD ' '
-
-void print_grid(char *grid) {
-    printf("\\033[H"); // Moves cursor to top-left
-    for (int y = 0; y < ROWS; y++) {
-        for (int x = 0; x < COLS; x++) {
-            printf("%c ", grid[y * COLS + x]);
-        }
-        printf("\\n");
-    }
-}
-
-int main() {
-    char grid[COLS * ROWS];
-    // Initialize and start the loop...
-    return 0;
-}`}
-  language="c"
-/>
 
 ---
 
 <KeyConcepts title="Hacker Key Concepts">
-  - **Wrapping with %**: Simulating infinite spaces with finite memory.
-  - **Functions as Layers**: Building a "ladder" of abstractions to avoid drowning in details.
-  - **Escape Sequences**: Using codes like `\033[H` to control the terminal (cleaning the screen without `system("clear")`).
+  - **Wrapping with %**: Simulating infinite spaces with finite memory. -
+  **Functions as Layers**: Building a "ladder" of abstractions to avoid drowning
+  in details. - **Escape Sequences**: Using codes like `\033[H` to control the
+  terminal (cleaning the screen without `system("clear")`).
 </KeyConcepts>
 
 ---
 
 ## Verification Quiz
 
-<Quiz 
-  title="Quiz Standard" 
+<Quiz
+  title="Quiz Standard"
   questions={[
     {
-      question: "Why does Salvatore use the modulo operator (%) in the coordinate translation function?",
+      question:
+        "Why does Salvatore use the modulo operator (%) in the coordinate translation function?",
       options: [
         "To make the calculation slower",
         "To automatically handle 'wrapping' at the edges of the grid",
         "Because division cannot be used",
-        "For aesthetic reasons"
+        "For aesthetic reasons",
       ],
       correctAnswer: 1,
-      explanation: "Modulo allows mapping out-of-range coordinates (e.g., 25 on a 25-wide grid) back to the start (0), creating an effect of spatial continuity."
+      explanation:
+        "Modulo allows mapping out-of-range coordinates (e.g., 25 on a 25-wide grid) back to the start (0), creating an effect of spatial continuity.",
     },
     {
-      question: "In C, if you pass an array `char grid[]` to a function, what are you actually passing?",
+      question:
+        "In C, if you pass an array `char grid[]` to a function, what are you actually passing?",
       options: [
         "A full copy of all data",
         "Only the first element",
         "The memory address of the first element (pointer)",
-        "Nothing, it disappears"
+        "Nothing, it disappears",
       ],
       correctAnswer: 2,
-      explanation: "In C, arrays decay into pointers when passed to functions. This is efficient because it doesn't require copying large amounts of data."
+      explanation:
+        "In C, arrays decay into pointers when passed to functions. This is efficient because it doesn't require copying large amounts of data.",
     },
     {
       question: "What does the escape sequence '\\033[H' seen in the video do?",
@@ -145,33 +132,38 @@ int main() {
         "Turns off the computer",
         "Prints a giant 'H'",
         "Repositions the terminal cursor to the start (Home)",
-        "Changes the color to green"
+        "Changes the color to green",
       ],
       correctAnswer: 2,
-      explanation: "It's an ANSI code. It allows overwriting the old grid with the new one without having to clear the entire screen repeatedly, reducing flickering."
+      explanation:
+        "It's an ANSI code. It allows overwriting the old grid with the new one without having to clear the entire screen repeatedly, reducing flickering.",
     },
     {
-      question: "What is the advantage of defining ROWS and COLS with #define instead of normal variables?",
+      question:
+        "What is the advantage of defining ROWS and COLS with #define instead of normal variables?",
       options: [
         "None, it's just older",
         "The compiler replaces them everywhere before compiling, optimizing space and preventing accidental changes",
         "Macros are easier to debug",
-        "Because they occupy less RAM this way"
+        "Because they occupy less RAM this way",
       ],
       correctAnswer: 1,
-      explanation: "#define are preprocessor constants. They are immutable and allow changing the size of the entire program by modifying a single value."
+      explanation:
+        "#define are preprocessor constants. They are immutable and allow changing the size of the entire program by modifying a single value.",
     },
     {
-      question: "During the development of the Game of Life, Salvatore recommends:",
+      question:
+        "During the development of the Game of Life, Salvatore recommends:",
       options: [
         "Writing everything in main()",
         "Breaking the problem into small specialized functions",
         "Not using functions because they slow down execution",
-        "Copying the code from Wikipedia"
+        "Copying the code from Wikipedia",
       ],
       correctAnswer: 1,
-      explanation: "Decomposition is the programmer's secret weapon. Functions like 'get_cell' allow you to ignore wrapping complexity while writing the neighbor logic."
-    }
+      explanation:
+        "Decomposition is the programmer's secret weapon. Functions like 'get_cell' allow you to ignore wrapping complexity while writing the neighbor logic.",
+    },
   ]}
 />
 
@@ -179,20 +171,17 @@ int main() {
 
 ### Hacker Challenge 🏆
 
-<Quiz 
+<Quiz
   title="Hacker Challenge: Game Logic & Systems"
   questions={[
     {
       id: 1,
-      question: "What is the computational complexity (O notation) for calculating a single generation in an N x M grid?",
-      options: [
-        "O(1)",
-        "O(N + M)",
-        "O(N * M)",
-        "O((N * M)^2)"
-      ],
+      question:
+        "What is the computational complexity (O notation) for calculating a single generation in an N x M grid?",
+      options: ["O(1)", "O(N + M)", "O(N * M)", "O((N * M)^2)"],
       correctAnswer: 2,
-      explanation: "We must process every single cell of the grid once. If the grid is N x M, the cost is proportional to the total number of cells."
+      explanation:
+        "We must process every single cell of the grid once. If the grid is N x M, the cost is proportional to the total number of cells.",
     },
     {
       id: 2,
@@ -201,60 +190,69 @@ int main() {
         "Because he has a lot of RAM available",
         "To avoid overwriting the current state while calculating neighbors for subsequent cells",
         "Because arrays in C are small",
-        "It's a bug in the code"
+        "It's a bug in the code",
       ],
       correctAnswer: 1,
-      explanation: "Crucial! If we modified the grid while reading it, cells calculated later would see neighbors already 'updated' to the future, breaking the synchronicity of Conway's rules."
+      explanation:
+        "Crucial! If we modified the grid while reading it, cells calculated later would see neighbors already 'updated' to the future, breaking the synchronicity of Conway's rules.",
     },
     {
       id: 3,
-      question: "What data type is most efficient for storing cells (0 or 1) if we want to save every single bit?",
+      question:
+        "What data type is most efficient for storing cells (0 or 1) if we want to save every single bit?",
       options: [
         "int (4 bytes)",
         "char (1 byte)",
         "short (2 bytes)",
-        "float (4 bytes)"
+        "float (4 bytes)",
       ],
       correctAnswer: 1,
-      explanation: "Salvatore uses 'char' because it occupies only 8 bits. Although 1 bit would suffice, 'char' is the smallest unit of memory that can be easily addressed in C."
-    }
+      explanation:
+        "Salvatore uses 'char' because it occupies only 8 bits. Although 1 bit would suffice, 'char' is the smallest unit of memory that can be easily addressed in C.",
+    },
   ]}
 />
 
 ### Terminal Challenge: Time & Space ⚡
 
-<HackerTerminal 
+<HackerTerminal
   challenges={[
     {
       id: "wc-lines-en",
       title: "Code Metrics",
-      description: "Salvatore wrote the code live. Which Linux command would you use to count how many lines of code the `life.c` file has?",
+      description:
+        "Salvatore wrote the code live. Which Linux command would you use to count how many lines of code the `life.c` file has?",
       commands: ["wc -l life.c"],
       expectedOutput: "life.c",
       hints: ["The command stands for 'Word Count'"],
-      explanation: "Great! `wc -l` is essential for monitoring the growth of your project.",
-      xpReward: 150
+      explanation:
+        "Great! `wc -l` is essential for monitoring the growth of your project.",
+      xpReward: 150,
     },
     {
       id: "grep-define-en",
       title: "Hunt for Constants",
-      description: "You want to quickly find all the `#define` macros used to configure the grid. Which command would you use?",
-      commands: ["grep \"#define\" life.c"],
+      description:
+        "You want to quickly find all the `#define` macros used to configure the grid. Which command would you use?",
+      commands: ['grep "#define" life.c'],
       expectedOutput: "#define",
       hints: ["Use grep to search for the string"],
-      explanation: "Perfect! `grep` allows you to isolate the program's configuration in an instant.",
-      xpReward: 200
+      explanation:
+        "Perfect! `grep` allows you to isolate the program's configuration in an instant.",
+      xpReward: 200,
     },
     {
       id: "nano-editor-en",
       title: "Terminal Editor",
-      description: "You want to modify the parameters without leaving the terminal. Which editor would you use (the one that starts with 'n')?",
+      description:
+        "You want to modify the parameters without leaving the terminal. Which editor would you use (the one that starts with 'n')?",
       commands: ["nano life.c"],
       expectedOutput: "",
       hints: ["It is very user-friendly and typical for Linux systems"],
-      explanation: "Exactly! `nano` is the beginner's friend for quick edits over SSH.",
-      xpReward: 250
-    }
+      explanation:
+        "Exactly! `nano` is the beginner's friend for quick edits over SSH.",
+      xpReward: 250,
+    },
   ]}
 />
 

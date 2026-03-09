@@ -22,14 +22,58 @@ export default function CodeEditor({ initialCode, lessonSlug = "unknown" }: Code
         // Simula tempo di compilazione ed esecuzione Wasm
         await new Promise((r) => setTimeout(r, 800));
 
-        // Estrazione brutale del contenuto di printf per la simulazione MVP
-        const printfMatch = code.match(/printf\s*\(\s*"(.*?)"\s*(?:,|\))/);
+        // Estrazione di tutti i printf per una simulazione MVP più realistica
+        const printfMatches = Array.from(code.matchAll(/printf\s*\(\s*"(.*?)"\s*(?:,|\))/g));
 
-        if (printfMatch) {
-            let extracted = printfMatch[1];
-            // Gestione minima escape sequence \n
-            extracted = extracted.replace(/\\n/g, '\n');
-            setOutput(extracted);
+        if (printfMatches.length > 0) {
+            let fullOutput = "";
+            
+            // Rilevamento speciale per il Game of Life o griglie (Lezione 8)
+            const isGameOfLife = (code.includes('COLS') || code.includes('WIDTH')) && 
+                                 (code.includes('ROWS') || code.includes('HEIGHT')) && 
+                                 code.toLowerCase().includes('life');
+
+            printfMatches.forEach((match) => {
+                let text = match[1];
+                // Gestione minima escape sequence \n
+                text = text.replace(/\\n/g, '\n');
+                
+                // Filtriamo sequenze ANSI comuni che il simulatore non può gestire graficamente
+                if (text.includes('\\033[')) return;
+
+                // Se è il printf del loop della griglia (es: "%c ") lo saltiamo
+                // perché genereremo la griglia visuale sotto per isGameOfLife
+                if (isGameOfLife && (text.trim() === "%c" || text.trim() === "%c ")) return;
+
+                // Sostituzione base per segnaposto comuni per rendere l'output leggibile
+                text = text.replace(/%d/g, '42');
+                text = text.replace(/%c/g, '#');
+                text = text.replace(/%s/g, 'string');
+                text = text.replace(/%f/g, '3.14');
+                
+                fullOutput += text;
+            });
+
+            // Se abbiamo rilevato il Game of Life, generiamo una griglia finta "WOW"
+            if (isGameOfLife) {
+                fullOutput += "\n";
+                for (let y = 0; y < 12; y++) {
+                    let row = "  ";
+                    for (let x = 0; x < 25; x++) {
+                        // Pattern pseudo-casuale ma stabile per la simulazione
+                        const isAlive = (Math.sin(y * x + y) > 0.4);
+                        row += isAlive ? "# " : ". ";
+                    }
+                    fullOutput += row + "\n";
+                }
+                fullOutput += "\n[Simulazione locale: Generazione 1 completata]\n";
+            }
+
+            if (fullOutput.trim() === "" && code.includes('\\033[')) {
+                fullOutput = "(Il programma ha inviato codici ANSI di controllo terminale)\n";
+            }
+
+            setOutput(fullOutput || "Program finished with no visible output.");
             setStatus('success');
             addXP(20, `activity-code-${lessonSlug}`);
         } else if (code.includes('printf(')) {
