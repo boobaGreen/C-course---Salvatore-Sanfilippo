@@ -1,9 +1,9 @@
-import VideoEmbed from '../../components/content/VideoEmbed';
+﻿import VideoEmbed from '../../components/content/VideoEmbed';
 import Callout from '../../components/content/Callout';
 import KeyConcepts from '../../components/content/KeyConcepts';
 import CodeEditor from '../../components/exercises/CodeEditor';
 import Quiz from '../../components/exercises/Quiz';
-import HackerTerminal from '../../components/content/HackerTerminal';
+import ProTerminal from '../../components/content/ProTerminal';
 import Infographic from '../../components/content/Infographic';
 import ComparisonTable from '../../components/content/ComparisonTable';
 
@@ -62,7 +62,7 @@ Notice that in the `typedef` above, we didn't give the struct a name after the `
 
 In C, a file is seen as a **stream** of bytes. The standard library provides us with a pointer to a special structure called `FILE`.
 
-<Callout type="hacker" title="Opaque Types">
+<Callout type="pro" title="Opaque Types">
 The `FILE` type is the first example of an **Opaque Type** we encounter. We don't know (and shouldn't know) what's inside the `FILE` structure. We only use the pointer and the functions (`fopen`, `fread`, etc.) to manipulate it. This is design excellence: hiding internal complexity.
 </Callout>
 
@@ -81,7 +81,7 @@ The `FILE` type is the first example of an **Opaque Type** we encounter. We don'
   title="Text vs Binary Mode"
   headers={["Feature", "Text ('r', 'w')", "Binary ('rb', 'wb')"]}
   rows={[
-    ["Translation", "✅ Yes (e.g., \\n becomes \\r\\n on Win)", "❌ No (byte by byte)"],
+    ["Translation", " Yes (e.g., \\n becomes \\r\\n on Win)", "âŒ No (byte by byte)"],
     ["Speed", "Slow (conversion)", "Max (direct copy)"],
     ["Content", "Human-readable", "Raw data (structs, images)"]
   ]}
@@ -188,7 +188,7 @@ int main() {
 />
 
 <Quiz 
-  title="Hacker Challenge"
+  title="Pro Challenge
   questions={[
     {
       id: 1,
@@ -229,7 +229,7 @@ int main() {
   ]} 
 />
 
-<HackerTerminal 
+<ProTerminal 
   challenges={[
     {
       id: "file-inspect-en",
@@ -248,7 +248,7 @@ int main() {
       hints: ["The option for bytes is -c (chars) or --bytes."]
     },
     {
-      id: "lsof-hacker-en",
+      id: "lsof-esperto-en",
       title: "Open Files",
       description: "While your C program is paused after an `fopen`, which Linux command shows you the list of all files opened by the process?",
       commands: ["lsof -p <PID>", "ls /proc/self/fd"],
@@ -260,3 +260,5 @@ int main() {
 
 ### Final Summary
 We gave a name to our structures and persistence to our data. `typedef` and the `FILE` API are the foundations upon which you will build software that doesn't die when the terminal is closed, but can exchange data with the entire digital ecosystem.
+
+

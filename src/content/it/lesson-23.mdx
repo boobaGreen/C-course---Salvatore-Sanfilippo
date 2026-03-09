@@ -1,9 +1,9 @@
-import VideoEmbed from '../../components/content/VideoEmbed';
+﻿import VideoEmbed from '../../components/content/VideoEmbed';
 import Callout from '../../components/content/Callout';
 import KeyConcepts from '../../components/content/KeyConcepts';
 import CodeEditor from '../../components/exercises/CodeEditor';
 import Quiz from '../../components/exercises/Quiz';
-import HackerTerminal from '../../components/content/HackerTerminal';
+import ProTerminal from '../../components/content/ProTerminal';
 import Infographic from '../../components/content/Infographic';
 import ComparisonTable from '../../components/content/ComparisonTable';
 
@@ -40,7 +40,7 @@ In ToyFort, se vuoi sommare 5 e 5, scrivi `5 5 +`.
 />
 
 <Callout type="info" title="L'Eleganza dello Stack">
-  Perché lo stack è così amato dagli hacker? Perché permette di calcolare espressioni complesse senza avere variabili temporanee. In un linguaggio come il C, devi dare un nome a tutto; in ToyFort, la "memoria" è anonima e fluida. È un modo di pensare completamente diverso!
+  Perché lo stack è così amato dagli esperto? Perché permette di calcolare espressioni complesse senza avere variabili temporanee. In un linguaggio come il C, devi dare un nome a tutto; in ToyFort, la "memoria" è anonima e fluida. È un modo di pensare completamente diverso!
 </Callout>
 
 ---
@@ -75,7 +75,7 @@ typedef struct TFParser {
   language="c" 
 />
 
-<Callout type="hacker" title="Perché i due asterischi?">
+<Callout type="pro" title="Perché i due asterischi?">
 `TFObject **ele` è un puntatore a un array di puntatori. In C, per avere una lista che contiene oggetti di diverso tipo (eterogenea), non salviamo gli oggetti direttamente, ma i loro indirizzi. Rimuovendo un asterisco (`ele[0]`), otteniamo il puntatore al singolo oggetto.
 </Callout>
 
@@ -203,7 +203,7 @@ Nota come `TFObject` possa contenere una lista di altri `TFObject`. Questa strut
 />
 
 <Quiz 
-  title="Hacker Challenge"
+  title="Pro Challenge
   questions={[
     {
       question: "In ToyFort, come scriveresti l'espressione `(3 + 4) * 2`?",
@@ -241,7 +241,7 @@ Nota come `TFObject` possa contenere una lista di altri `TFObject`. Questa strut
   ]} 
 />
 
-<HackerTerminal 
+<ProTerminal 
   challenges={[
     {
         id: "stack-visual",
@@ -278,3 +278,5 @@ Nota come `TFObject` possa contenere una lista di altri `TFObject`. Questa strut
 
 ### Prossimi Passi
 Nella prossima lezione passeremo all'azione implementando il parser e il ciclo di esecuzione (eval). Per ora, assicuratevi di aver compreso bene come modellare la memoria per ospitare un intero linguaggio!
+
+

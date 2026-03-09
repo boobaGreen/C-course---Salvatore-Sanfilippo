@@ -1,9 +1,9 @@
-import VideoEmbed from '../../components/content/VideoEmbed';
+﻿import VideoEmbed from '../../components/content/VideoEmbed';
 import Callout from '../../components/content/Callout';
 import KeyConcepts from '../../components/content/KeyConcepts';
 import CodeEditor from '../../components/exercises/CodeEditor';
 import Quiz from '../../components/exercises/Quiz';
-import HackerTerminal from '../../components/content/HackerTerminal';
+import ProTerminal from '../../components/content/ProTerminal';
 import Infographic from '../../components/content/Infographic';
 import ComparisonTable from '../../components/content/ComparisonTable';
 import FormatStringExploit from '../../components/games/FormatStringExploit';
@@ -134,11 +134,11 @@ int main() {
   language="c"
 />
 
-<Callout type="hacker" title="Zero Type Safety">
+<Callout type="pro" title="Zero Type Safety">
 Attenzione: `va_arg` non controlla se il tipo è giusto! Se passi un `double` ma chiedi un `int`, otterrai valori spazzatura o un crash. È responsabilità del programmatore garantire la coerenza.
 
 <Callout type="danger" title="L'Attacco Format String">
-  Mai passare una stringa ricevuta dall'utente direttamente come primo argomento di una funzione variadica (es. `printf(user_input)`). Un hacker potrebbe inserire simboli come `%n` per scrivere nella memoria del tuo programma e prenderne il controllo. Usa sempre `printf("%s", user_input)`.
+  Mai passare una stringa ricevuta dall'utente direttamente come primo argomento di una funzione variadica (es. `printf(user_input)`). Un esperto potrebbe inserire simboli come `%n` per scrivere nella memoria del tuo programma e prenderne il controllo. Usa sempre `printf("%s", user_input)`.
 </Callout>
 </Callout>
 
@@ -227,7 +227,7 @@ Uno degli usi più comuni è `vprintf`, che accetta una `va_list` invece di argo
 />
 
 <Quiz 
-  title="Hacker Challenge"
+  title="Pro Challenge
   questions={[
     {
       question: "Perché `va_start` richiede il nome dell'ultimo argomento fisso?",
@@ -265,7 +265,7 @@ Uno degli usi più comuni è `vprintf`, che accetta una `va_list` invece di argo
   ]} 
 />
 
-<HackerTerminal 
+<ProTerminal 
   challenges={[
     {
         id: "stdarg-init",
@@ -302,3 +302,5 @@ Uno degli usi più comuni è `vprintf`, che accetta una `va_list` invece di argo
 
 ### Conclusione
 Le funzioni variadiche sono la "magia" dietro la flessibilità del C. Ora siamo pronti a implementare un sistema di gestione errori professionale nel nostro interprete ToyFort!
+
+

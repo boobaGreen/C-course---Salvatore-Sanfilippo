@@ -1,9 +1,9 @@
-import VideoEmbed from "../../components/content/VideoEmbed";
+﻿import VideoEmbed from "../../components/content/VideoEmbed";
 import KeyConcepts from "../../components/content/KeyConcepts";
 import Callout from "../../components/content/Callout";
 import CodeEditor from "../../components/exercises/CodeEditor";
 import Quiz from "../../components/exercises/Quiz";
-import HackerTerminal from "../../components/content/HackerTerminal";
+import ProTerminal from "../../components/content/ProTerminal";
 import HeapAllocator from "../../components/content/HeapAllocator";
 import StackVisualizer from "../../components/content/StackVisualizer";
 import OverflowSimulator from "../../components/content/OverflowSimulator";
@@ -128,7 +128,7 @@ Our custom format will be:
   ]}
 />
 
-<Callout type="hacker" title="Binary Safety">
+<Callout type="pro" title="Binary Safety">
   Unlike standard strings, our PLS (Prefixed Length Strings) can contain null
   bytes (`0x00`) in the middle of the text without "breaking," because we rely
   on the number written in the header instead of searching for a terminator.
@@ -168,7 +168,7 @@ return _((int \*)(string_v2 - sizeof(int)));
 }
 
 int main() {
-char \*s = create_string("Hello Hacker!");
+char \*s = create_string("Hello esperto!");
 
     printf("Text: %s\\n", s);
     printf("Instant length: %d\\n", length_v2(s));
@@ -183,7 +183,7 @@ language="c"
 />
 
 <KeyConcepts
-  title="Hacker Key Concepts"
+  title="Concetti Avanzati"
   concepts={[
     {
       title: "Hiding Metadata",
@@ -235,7 +235,7 @@ language="c"
       question: "What is a Memory Leak in C?",
       options: [
         "A hardware error of the RAM",
-        "A hacker stealing your data in memory",
+        "A esperto stealing your data in memory",
         "When you allocate memory with malloc but overwrite or lose the pointer before calling free()",
         "When you try to read beyond the limits of an array",
       ],
@@ -286,7 +286,7 @@ language="c"
 />
 
 <Quiz
-  title="Hacker Challenge"
+  title="Pro Challenge
   questions={[
     {
       question:
@@ -330,7 +330,7 @@ language="c"
   ]}
 />
 
-<HackerTerminal
+<ProTerminal
   challenges={[
     {
       id: "valgrind-basic-en",
@@ -361,3 +361,5 @@ language="c"
     },
   ]}
 />
+
+

@@ -1,9 +1,9 @@
-import VideoEmbed from '../../components/content/VideoEmbed';
+﻿import VideoEmbed from '../../components/content/VideoEmbed';
 import Callout from '../../components/content/Callout';
 import KeyConcepts from '../../components/content/KeyConcepts';
 import CodeEditor from '../../components/exercises/CodeEditor';
 import Quiz from '../../components/exercises/Quiz';
-import HackerTerminal from '../../components/content/HackerTerminal';
+import ProTerminal from '../../components/content/ProTerminal';
 import Infographic from '../../components/content/Infographic';
 import BinaryVisualizer from '../../components/content/BinaryVisualizer';
 import ComparisonTable from '../../components/content/ComparisonTable';
@@ -162,7 +162,7 @@ I Bitfield sono nati per gestire protocolli come l'IP (Internet Protocol), dove 
 />
 
 <Quiz 
-  title="Hacker Challenge"
+  title="Pro Challenge
   questions={[
     {
       question: "Dato un `unsigned int x : 4;`, cosa succede se assegni `x = 17;`?",
@@ -200,7 +200,7 @@ I Bitfield sono nati per gestire protocolli come l'IP (Internet Protocol), dove 
   ]} 
 />
 
-<HackerTerminal 
+<ProTerminal 
   challenges={[
     {
         id: "check-endian",
@@ -239,3 +239,5 @@ I Bitfield sono nati per gestire protocolli come l'IP (Internet Protocol), dove 
 
 ### Riassunto Finale
 Abbiamo imparato a spremere ogni singolo bit dalla nostra RAM. Le `union` ci permettono di vedere la memoria da angolazioni diverse, mentre i `bitfield` ci danno un controllo chirurgico sullo spazio. Insieme, queste tecniche rendono il C il linguaggio d'elezione per sistemi ad alte prestazioni come Redis.
+
+

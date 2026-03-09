@@ -1,9 +1,9 @@
-import VideoEmbed from "../../components/content/VideoEmbed";
+﻿import VideoEmbed from "../../components/content/VideoEmbed";
 import Callout from "../../components/content/Callout";
 import KeyConcepts from "../../components/content/KeyConcepts";
 import CodeEditor from "../../components/exercises/CodeEditor";
 import Quiz from "../../components/exercises/Quiz";
-import HackerTerminal from "../../components/content/HackerTerminal";
+import ProTerminal from "../../components/content/ProTerminal";
 import GameOfLife from "../../components/content/GameOfLife";
 import Infographic from "../../components/content/Infographic";
 
@@ -83,7 +83,7 @@ Salvatore ci mostra come "specializzare il linguaggio" creando una "scala" di as
 Anche se pensiamo alla griglia come a un rettangolo, la RAM del computer è un lungo nastro lineare. Salvatore ci insegna la formula magica per muoverci in questo nastro:
 `indice = (y * larghezza) + x`
 
-<Callout type="hacker" title="Il 'Cheat' dei Puntatori">
+<Callout type="pro" title="Il 'Cheat' dei Puntatori">
   Anche se non li abbiamo ancora studiati formalmente, Salvatore deve usare i
   **puntatori** (`char *grid`) per passare la griglia alle funzioni. Senza di
   essi, le funzioni lavorerebbero su una copia della griglia e non potrebbero
@@ -91,7 +91,7 @@ Anche se pensiamo alla griglia come a un rettangolo, la RAM del computer è un l
 </Callout>
 
 <KeyConcepts
-  title="Hacker Key Concepts"
+  title="Concetti Avanzati"
   concepts={[
     {
       title: "Wrapping con %",
@@ -185,10 +185,9 @@ Anche se pensiamo alla griglia come a un rettangolo, la RAM del computer è un l
 
 ---
 
-### Hacker Challenge 🏆
-
+### Pro Challenge
 <Quiz
-  title="Hacker Challenge: Game Logic & Systems"
+  title="Pro Challenge: Game Logic & Systems"
   questions={[
     {
       id: 1,
@@ -229,9 +228,9 @@ Anche se pensiamo alla griglia come a un rettangolo, la RAM del computer è un l
   ]}
 />
 
-### Terminal Challenge: Time & Space ⚡
+### Terminal Challenge: Time & Space 
 
-<HackerTerminal
+<ProTerminal
   challenges={[
     {
       id: "wc-lines",
@@ -278,3 +277,5 @@ Anche se pensiamo alla griglia come a un rettangolo, la RAM del computer è un l
 />
 
 Ci vediamo alla prossima lezione per addentrarci nei puntatori!
+
+

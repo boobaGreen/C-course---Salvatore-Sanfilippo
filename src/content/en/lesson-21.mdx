@@ -1,9 +1,9 @@
-import VideoEmbed from '../../components/content/VideoEmbed';
+﻿import VideoEmbed from '../../components/content/VideoEmbed';
 import Callout from '../../components/content/Callout';
 import KeyConcepts from '../../components/content/KeyConcepts';
 import CodeEditor from '../../components/exercises/CodeEditor';
 import Quiz from '../../components/exercises/Quiz';
-import HackerTerminal from '../../components/content/HackerTerminal';
+import ProTerminal from '../../components/content/ProTerminal';
 import Infographic from '../../components/content/Infographic';
 import BinaryVisualizer from '../../components/content/BinaryVisualizer';
 import ComparisonTable from '../../components/content/ComparisonTable';
@@ -158,7 +158,7 @@ Bitfields were born to handle protocols like IP (Internet Protocol), where every
 />
 
 <Quiz 
-  title="Hacker Challenge"
+  title="Pro Challenge
   questions={[
     {
       question: "Given `unsigned int x : 4;`, what happens if you assign `x = 17;`?",
@@ -196,7 +196,7 @@ Bitfields were born to handle protocols like IP (Internet Protocol), where every
   ]} 
 />
 
-<HackerTerminal 
+<ProTerminal 
   challenges={[
     {
       id: "check-endian-en",
@@ -227,3 +227,5 @@ Bitfields were born to handle protocols like IP (Internet Protocol), where every
 
 ### Final Summary
 We have learned to squeeze every single bit from our RAM. `unions` allow us to see memory from different angles, while `bitfields` give us surgical control over space. Together, these techniques make C the language of choice for high-performance systems like Redis.
+
+

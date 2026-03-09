@@ -1,9 +1,9 @@
-import VideoEmbed from '../../components/content/VideoEmbed';
+﻿import VideoEmbed from '../../components/content/VideoEmbed';
 import Callout from '../../components/content/Callout';
 import KeyConcepts from '../../components/content/KeyConcepts';
 import CodeEditor from '../../components/exercises/CodeEditor';
 import Quiz from '../../components/exercises/Quiz';
-import HackerTerminal from '../../components/content/HackerTerminal';
+import ProTerminal from '../../components/content/ProTerminal';
 import Infographic from '../../components/content/Infographic';
 import ComparisonTable from '../../components/content/ComparisonTable';
 import StackVisualizer from '../../components/content/StackVisualizer';
@@ -54,7 +54,7 @@ The ToyFort interpreter loops over a list. If it finds a value, it "pushes" it o
   language="c"
 />
 
-<Callout type="hacker" title="Why xrealloc?">
+<Callout type="pro" title="Why xrealloc?">
 Salvatore uses `xrealloc` instead of `realloc` because as the interpreter grows, reallocations become frequent. If `realloc` fails in the middle of a complex structure, the only safe move is a "Panic" (immediate shutdown) rather than trying to handle an impossible error.
 </Callout>
 
@@ -159,7 +159,7 @@ When you extract an object from the stack with a `pop`, you become the sole owne
 />
 
 <Quiz 
-  title="Hacker Challenge"
+  title="Pro Challenge
   questions={[
     {
       question: "If you implemented a `SWAP` function that swaps two stack elements, how would the ref_count change?",
@@ -197,7 +197,7 @@ When you extract an object from the stack with a `pop`, you become the sole owne
   ]} 
 />
 
-<HackerTerminal 
+<ProTerminal 
   challenges={[
     {
       id: "retain-count-en",
@@ -228,3 +228,5 @@ When you extract an object from the stack with a `pop`, you become the sole owne
 
 ### Conclusion
 We have a running engine and solid memory management! In the next lesson, we'll see how to "map" symbols (like '+') to real C functions using the **Function Table**.
+
+

@@ -1,9 +1,9 @@
-import VideoEmbed from '../../components/content/VideoEmbed';
+﻿import VideoEmbed from '../../components/content/VideoEmbed';
 import Callout from '../../components/content/Callout';
 import KeyConcepts from '../../components/content/KeyConcepts';
 import CodeEditor from '../../components/exercises/CodeEditor';
 import Quiz from '../../components/exercises/Quiz';
-import HackerTerminal from '../../components/content/HackerTerminal';
+import ProTerminal from '../../components/content/ProTerminal';
 import ComparisonTable from '../../components/content/ComparisonTable';
 import Infographic from '../../components/content/Infographic';
 
@@ -50,8 +50,8 @@ The Kernel is lazy (or rather, efficient). It doesn't want to handle long string
   title="Standard I/O vs System I/O"
   headers={["Function", "Type", "Buffering", "Speed"]}
   rows={[
-    ["fopen / fread", "C Library", "✅ Yes", "High for small accesses"],
-    ["open / read", "System Call", "❌ No", "High for large blocks"]
+    ["fopen / fread", "C Library", " Yes", "High for small accesses"],
+    ["open / read", "System Call", "âŒ No", "High for large blocks"]
   ]}
 />
 
@@ -88,7 +88,7 @@ int main() {
   language="c" 
 />
 
-<Callout type="hacker" title="Ancient but Current">
+<Callout type="pro" title="Ancient but Current">
 The system calls you see here (like `open`) were defined in the 1970s for Unix. Fifty years later, they still power Linux, macOS, and almost the entire global cloud. Learning them means connecting with the "pioneers" of computing.
 </Callout>
 
@@ -161,7 +161,7 @@ When a syscall fails (returns -1), the Kernel sets a global number called `errno
 />
 
 <Quiz 
-  title="Hacker Challenge"
+  title="Pro Challenge
   questions={[
     {
       id: 1,
@@ -202,7 +202,7 @@ When a syscall fails (returns -1), the Kernel sets a global number called `errno
   ]} 
 />
 
-<HackerTerminal 
+<ProTerminal 
   challenges={[
     {
       id: "man-syscall-en",
@@ -233,3 +233,5 @@ When a syscall fails (returns -1), the Kernel sets a global number called `errno
 
 ### Final Summary
 We have broken through the wall of the standard library. You now know that every time you write something to the screen or disk, you are asking for the Kernel's permission. Mastering syscalls means having total control over the machine.
+
+

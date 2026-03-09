@@ -1,4 +1,4 @@
-# Speciale: Il Reference Counting nel Dettaglio
+﻿# Speciale: Il Reference Counting nel Dettaglio
 
 In questa lezione speciale, Salvatore ci porta "in viaggio" (letteralmente, in macchina!) per riflettere su una delle tecniche più potenti e dibattute della gestione della memoria: il **Reference Counting**.
 
@@ -60,7 +60,7 @@ Il vantaggio principale è che **nessuna parte del programma deve sapere chi alt
 
 Quando l'ultimo "proprietario" finisce, la memoria viene liberata **istantaneamente**. Non serve uno scan dell'intera memoria come farebbe un Garbage Collector (operazione costosa O(N)).
 
-<Callout type="hacker" title="Reference Counting e Redis">
+<Callout type="pro" title="Reference Counting e Redis">
 Salvatore usa questa tecnica in **Redis** con la libreria `sds` (Simple Dynamic Strings). È uno dei segreti della velocità di Redis: la gestione della memoria è "semi-automatica" ma deterministica e immediata.
 </Callout>
 
@@ -130,7 +130,7 @@ Salvatore usa questa tecnica in **Redis** con la libreria `sds` (Simple Dynamic 
 />
 
 <Quiz 
-  title="Hacker Challenge"
+  title="Pro Challenge
   questions={[
     {
       question: "In un linguaggio con Garbage Collector, la memoria viene liberata subito?",
@@ -168,7 +168,7 @@ Salvatore usa questa tecnica in **Redis** con la libreria `sds` (Simple Dynamic 
   ]} 
 />
 
-<HackerTerminal 
+<ProTerminal 
   challenges={[
     {
         id: "ref-logic",
@@ -205,3 +205,4 @@ Salvatore usa questa tecnica in **Redis** con la libreria `sds` (Simple Dynamic 
 
 ### Conclusione
 Il Reference Counting non è solo un trucco, è un paradigma di gestione della memoria che sta a metà tra la libertà del C e la sicurezza dei linguaggi di alto livello. Nella prossima lezione speciale, esploreremo un pilastro degli algoritmi: i **Binary Search Trees**.
+

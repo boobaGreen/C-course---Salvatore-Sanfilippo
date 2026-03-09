@@ -1,14 +1,14 @@
-import VideoEmbed from '../../components/content/VideoEmbed';
-import Callout from '../../components/content/Callout';
-import KeyConcepts from '../../components/content/KeyConcepts';
-import CodeEditor from '../../components/exercises/CodeEditor';
-import Quiz from '../../components/exercises/Quiz';
-import HackerTerminal from '../../components/content/HackerTerminal';
-import Infographic from '../../components/content/Infographic';
-import ComparisonTable from '../../components/content/ComparisonTable';
-import ScopeExplorer from '../../components/content/ScopeExplorer';
-import TypeMatcher from '../../components/games/TypeMatcher';
-import OverflowSimulator from '../../components/content/OverflowSimulator';
+import VideoEmbed from "../../components/content/VideoEmbed";
+import Callout from "../../components/content/Callout";
+import KeyConcepts from "../../components/content/KeyConcepts";
+import CodeEditor from "../../components/exercises/CodeEditor";
+import Quiz from "../../components/exercises/Quiz";
+import ProTerminal from "../../components/content/ProTerminal";
+import Infographic from "../../components/content/Infographic";
+import ComparisonTable from "../../components/content/ComparisonTable";
+import ScopeExplorer from "../../components/content/ScopeExplorer";
+import TypeMatcher from "../../components/games/TypeMatcher";
+import OverflowSimulator from "../../components/content/OverflowSimulator";
 
 # Lezione 3: Scope, Tipi e Promozioni
 
@@ -16,28 +16,30 @@ import OverflowSimulator from '../../components/content/OverflowSimulator';
 
 Benvenuti alla terza lezione! In questa puntata continueremo a esplorare il nostro "Hello World", ma scavando ancora più in profondità per capire lo scope delle variabili, come vengono passati i dati alle funzioni e come il C gestisce i diversi tipi numerici.
 
-<KeyConcepts title="Cosa impareremo oggi"
+<KeyConcepts
+  title="Cosa impareremo oggi"
   concepts={[
     {
       title: "",
-      description: "La differenza tra variabili **locali**, **globali** e **statiche**"
+      description:
+        "La differenza tra variabili **locali**, **globali** e **statiche**",
     },
     {
       title: "",
-      description: "Perché il C passa tutto **per valore** (copia)"
+      description: "Perché il C passa tutto **per valore** (copia)",
     },
     {
       title: "Nuovi tipi",
-      description: "`float`, `double`, `short` e `unsigned`"
+      description: "`float`, `double`, `short` e `unsigned`",
     },
     {
       title: "",
-      description: "Le regole di **promozione automatica** dei tipi"
+      description: "Le regole di **promozione automatica** dei tipi",
     },
     {
       title: "",
-      description: "Il rischio dell'**overflow** e l'Undefined Behavior"
-    }
+      description: "Il rischio dell'**overflow** e l'Undefined Behavior",
+    },
   ]}
 />
 
@@ -45,24 +47,30 @@ Benvenuti alla terza lezione! In questa puntata continueremo a esplorare il nost
 
 Sono definite all'esterno di tutte le funzioni. Esistono per tutta la durata del programma e sono accessibili da qualsiasi punto del codice. Iniziano la loro vita all'avvio del processo e la terminano alla fine.
 
-<ComparisonTable 
+<ComparisonTable
   title="Tipi di Visibilità (Scope)"
   headers={["Tipo", "Keyword", "Durata (Lifetime)", "Visibilità"]}
   rows={[
-    ["Locale", "nessuna", "Solo durante la chiamata", "Solo dentro la funzione"],
+    [
+      "Locale",
+      "nessuna",
+      "Solo durante la chiamata",
+      "Solo dentro la funzione",
+    ],
     ["Global", "nessuna", "Sempre", "Tutto il programma"],
-    ["Static", "<code>static</code>", "Sempre", "Solo dentro la funzione"]
+    ["Static", "<code>static</code>", "Sempre", "Solo dentro la funzione"],
   ]}
 />
 
 ### 3. Variabili Statiche
+
 Usando la keyword `static` dentro una funzione, creiamo una variabile che è "globale" nella durata (non perde il valore tra una chiamata e l'altra) ma "locale" nella visibilità (solo quella funzione può vederla).
 
 <ScopeExplorer />
 
-<Infographic 
-  src="/images/scope_visualizer.png" 
-  alt="Visualizzatore dello Scope" 
+<Infographic
+  src="/images/scope_visualizer.png"
+  alt="Visualizzatore dello Scope"
   caption="Confronto tra Local, Global e Static scope in C."
 />
 
@@ -89,14 +97,15 @@ int main() {
 }
 ```
 
-<Infographic 
-  src="/images/pass_by_value.png" 
-  alt="Passaggio per Valore" 
+<Infographic
+  src="/images/pass_by_value.png"
+  alt="Passaggio per Valore"
   caption="Il C copia il valore nello stack della funzione chiamata. L'originale rimane invariato."
 />
 
 <Callout type="warning" title="Puntatori all'orizzonte">
-  Per modificare l'originale, dovremo usare i **puntatori**. Li vedremo prestissimo perché sono l'anima del linguaggio C.
+  Per modificare l'originale, dovremo usare i **puntatori**. Li vedremo
+  prestissimo perché sono l'anima del linguaggio C.
 </Callout>
 
 ---
@@ -106,6 +115,7 @@ int main() {
 Il C offre una grande varietà di tipi per risparmiare memoria (fondamentale negli anni '60!).
 
 ### La "Gerarchia" dei Tipi
+
 - `char`: 1 byte (8 bit)
 - `short`: Tipicamente 2 byte
 - `int`: Tipicamente 4 byte (ma dipende dal sistema)
@@ -114,27 +124,34 @@ Il C offre una grande varietà di tipi per risparmiare memoria (fondamentale neg
 
 <TypeMatcher />
 
-<Infographic 
-  src="/images/integer_ranges.png" 
-  alt="Range dei tipi interi" 
+<Infographic
+  src="/images/integer_ranges.png"
+  alt="Range dei tipi interi"
   caption="Cheat sheet dei tipi comuni e dei loro limiti di memoria."
 />
 
 ### Promozioni Automatiche
+
 Quando fai operazioni tra tipi diversi, il C applica delle regole di "promozione". Questo accade perché il C cerca di rendere il calcolo più fluido (e perché negli anni '60 serviva a semplificare il lavoro del processore).
 
 Ad esempio, in funzioni come `printf` (funzioni variadiche):
+
 - Gli `short` e i `char` vengono promossi a `int`.
 - I `float` vengono promossi a `double`.
 
 Questo significa che, tecnicamente, la `printf` non "sa" stampare un float: riceve sempre un double e lo tratta come tale.
 
 <Callout type="info" title="Side Effects (Effetti Collaterali)">
-  Una funzione `void` che non prende nulla e non restituisce nulla (come `void hello(void)`) ha valore solo per i suoi **side effects**: stampare a video, scrivere su disco o accendere un LED. In programmazione funzionale pura sono "peccati", in C sono il pane quotidiano.
+  Una funzione `void` che non prende nulla e non restituisce nulla (come `void
+  hello(void)`) ha valore solo per i suoi **side effects**: stampare a video,
+  scrivere su disco o accendere un LED. In programmazione funzionale pura sono
+  "peccati", in C sono il pane quotidiano.
 </Callout>
 
 ## Esadecimale e Formattazione Avanzata
+
 Sapevi che puoi stampare un numero in base 16 (esadecimale) semplicemente cambiando una lettera?
+
 - `%d`: Decimale (base 10)
 - `%x`: Esadecimale (base 16)
 
@@ -145,7 +162,10 @@ printf("Esadecimale: %x\n", a); // Stampa a
 ```
 
 <Callout type="danger" title="Mischiare i Tipi è Disastroso">
-Il C è un linguaggio "pericoloso": se dici alla `printf` di stampare un float (`%f`) ma gli passi un `int`, il programma leggerà la memoria in modo errato, stampando valori senza senso o crashando. Il compilatore ti darà un **warning**, ma ti lascerà compilare!
+  Il C è un linguaggio "pericoloso": se dici alla `printf` di stampare un float
+  (`%f`) ma gli passi un `int`, il programma leggerà la memoria in modo errato,
+  stampando valori senza senso o crashando. Il compilatore ti darà un
+  **warning**, ma ti lascerà compilare!
 </Callout>
 
 <Callout type="warning" title="La Trappola della Promozione">
@@ -158,55 +178,66 @@ Il C è un linguaggio "pericoloso": se dici alla `printf` di stampare un float (
 ## Attenzione all'Overflow!
 
 Cosa succede se aggiungi 1 al massimo valore possibile per un tipo?
+
 - **Unsigned (senza segno)**: Il comportamento è garantito. Il valore "riparte" da zero (wrapping).
 - **Signed (con segno)**: È un **Undefined Behavior**. Il compilatore potrebbe fare letteralmente qualsiasi cosa. Non fare mai affidamento sull'overflow dei numeri con segno!
 
 <OverflowSimulator />
 
-<CodeEditor initialCode={`#include <stdio.h>\n\nint main() {\n    unsigned char c = 255;\n    c++;\n    printf("Overflow garantito (unsigned): %d\\n", c);\n    \n    signed char d = 127;\n    d++;\n    printf("Overflow pericoloso (signed): %d\\n", d);\n    return 0;\n}`} />
+<CodeEditor
+  initialCode={`#include <stdio.h>\n\nint main() {\n    unsigned char c = 255;\n    c++;\n    printf("Overflow garantito (unsigned): %d\\n", c);\n    \n    signed char d = 127;\n    d++;\n    printf("Overflow pericoloso (signed): %d\\n", d);\n    return 0;\n}`}
+/>
 
 ---
 
-<Quiz 
-  title="Quiz Standard" 
+<Quiz
+  title="Quiz Standard"
   questions={[
     {
       id: 1,
-      question: "Cosa succede a una variabile locale quando la funzione termina?",
+      question:
+        "Cosa succede a una variabile locale quando la funzione termina?",
       options: [
         "Viene salvata sul disco",
         "Resta in memoria per la prossima chiamata",
         "Viene distrutta e la sua memoria liberata",
-        "Diventa una variabile globale"
+        "Diventa una variabile globale",
       ],
       correctAnswer: 2,
-      explanation: "Le variabili locali vivono nello stack e hanno un lifetime limitato alla durata della funzione."
+      explanation:
+        "Le variabili locali vivono nello stack e hanno un lifetime limitato alla durata della funzione.",
     },
     {
       id: 2,
-      question: "Quale keyword rende una variabile persistente tra le chiamate ma visibile solo localmente?",
+      question:
+        "Quale keyword rende una variabile persistente tra le chiamate ma visibile solo localmente?",
       options: ["extern", "static", "volatile", "persist"],
       correctAnswer: 1,
-      explanation: "'static' alloca la variabile in una zona di memoria permanente ma ne limita lo scope al blocco corrente."
+      explanation:
+        "'static' alloca la variabile in una zona di memoria permanente ma ne limita lo scope al blocco corrente.",
     },
     {
       id: 3,
-      question: "In C, se passo una variabile a una funzione, la funzione può modificarne l'originale direttamente?",
+      question:
+        "In C, se passo una variabile a una funzione, la funzione può modificarne l'originale direttamente?",
       options: [
         "Sì, sempre",
         "No, riceve solo una copia (Pass by Value)",
         "Solo se la variabile è globale",
-        "Solo se usiamo 'static'"
+        "Solo se usiamo 'static'",
       ],
       correctAnswer: 1,
-      explanation: "Il C è pass-by-value. Per modificare l'originale servono i puntatori."
+      explanation:
+        "Il C è pass-by-value. Per modificare l'originale servono i puntatori.",
     },
     {
       id: 4,
-      question: "In una funzione variadica come printf, a cosa viene promosso un float?",
+      question:
+        "In una funzione variadica come printf, a cosa viene promosso un float?",
       options: ["int", "double", "long", "Resta float"],
       correctAnswer: 1,
-      explanation: "Le regole di promozione del default argument promuovono float a double."
+      explanation:
+        "Le regole di promozione del default argument promuovono float a double.",
     },
     {
       id: 5,
@@ -215,127 +246,134 @@ Cosa succede se aggiungi 1 al massimo valore possibile per un tipo?
         "Riparte da zero",
         "Diventa negativo",
         "È un Undefined Behavior (comportamento non garantito)",
-        "Il programma si ferma immediatamente"
+        "Il programma si ferma immediatamente",
       ],
       correctAnswer: 2,
-      explanation: "A differenza degli unsigned, l'overflow degli interi con segno non è definito dallo standard C."
-    }
+      explanation:
+        "A differenza degli unsigned, l'overflow degli interi con segno non è definito dallo standard C.",
+    },
   ]}
 />
 
-<KeyConcepts title="Hacker Key Concepts"
+<KeyConcepts
+  title="Concetti Avanzati"
   concepts={[
     {
       title: "",
-      description: "Lo **Scope** determina dove e per quanto tempo una variabile esiste."
+      description:
+        "Lo **Scope** determina dove e per quanto tempo una variabile esiste.",
     },
     {
       title: "",
-      description: "Il C usa il **Passaggio per Valore** come standard."
+      description: "Il C usa il **Passaggio per Valore** come standard.",
     },
     {
       title: "",
-      description: "I tipi numerici hanno limiti precisi e regole di **Promozione**."
+      description:
+        "I tipi numerici hanno limiti precisi e regole di **Promozione**.",
     },
     {
       title: "",
-      description: "Evita sempre l'overflow dei tipi con segno!"
-    }
+      description: "Evita sempre l'overflow dei tipi con segno!",
+    },
   ]}
 />
 
-### Hacker Challenge 🏆
-
-<Quiz 
-  title="Hacker Challenge: Final Quiz"
+### Pro Challenge
+<Quiz
+  title="Pro Challenge: Final Quiz"
   questions={[
     {
       id: 1,
-      question: "Cosa succede se esegui questo confronto: `if (-1 > 1u)` (dove `1u` è un intero senza segno)?",
+      question:
+        "Cosa succede se esegui questo confronto: `if (-1 > 1u)` (dove `1u` è un intero senza segno)?",
       options: [
         "Il risultato è Falso (0), come ci si aspetterebbe in matematica",
         "Il risultato è Vero (1), perché -1 viene promosso a un numero unsigned enorme",
         "Il compilatore dà errore e non compila",
-        "Il programma crasha immediatamente"
+        "Il programma crasha immediatamente",
       ],
       correctAnswer: 1,
-      explanation: "Questa è una delle trappole più famose del C. Quando si confrontano un signed e un unsigned, il signed viene 'promosso' a unsigned. Il bit di segno di -1 (tutti 1 in binario) viene interpretato come il valore massimo possibile per un unsigned (es. 4 miliardi), risultando quindi maggiore di 1."
+      explanation:
+        "Questa è una delle trappole più famose del C. Quando si confrontano un signed e un unsigned, il signed viene 'promosso' a unsigned. Il bit di segno di -1 (tutti 1 in binario) viene interpretato come il valore massimo possibile per un unsigned (es. 4 miliardi), risultando quindi maggiore di 1.",
     },
     {
       id: 2,
-      question: "Cosa succede se sottrai un numero da un puntatore (es. `p - 1`) in C?",
+      question:
+        "Cosa succede se sottrai un numero da un puntatore (es. `p - 1`) in C?",
       options: [
         "Sottrae esattamente 1 dall'indirizzo di memoria",
         "Sottrae la dimensione del tipo a cui punta il puntatore (es. 4 byte per un int*)",
         "Genera sempre un errore di segmentazione",
-        "Il puntatore diventa nullo"
+        "Il puntatore diventa nullo",
       ],
       correctAnswer: 1,
-      explanation: "L'aritmetica dei puntatori è 'consapevole' del tipo. Sottraendo 1 da un puntatore a intero, il C sottrae 4 byte (su sistemi a 32/64 bit), spostandoti all'elemento precedente in un array."
+      explanation:
+        "L'aritmetica dei puntatori è 'consapevole' del tipo. Sottraendo 1 da un puntatore a intero, il C sottrae 4 byte (su sistemi a 32/64 bit), spostandoti all'elemento precedente in un array.",
     },
     {
       id: 3,
-      question: "Qual è la differenza fondamentale tra lo stack e l'area delle variabili statiche/globali?",
+      question:
+        "Qual è la differenza fondamentale tra lo stack e l'area delle variabili statiche/globali?",
       options: [
         "Nessuna, sono la stessa cosa",
         "Lo stack è temporaneo e gestito automaticamente (LIFO), le variabili statiche vivono per tutta la durata del programma",
         "Le variabili statiche sono più veloci",
-        "Lo stack non può contenere numeri interi"
+        "Lo stack non può contenere numeri interi",
       ],
       correctAnswer: 1,
-      explanation: "Lo Stack è dinamico: cresce e cala man mano che chiami funzioni. Le variabili statiche e globali invece occupano un posto fisso in memoria che non cambia mai dall'inizio alla fine dell'esecuzione."
-    }
+      explanation:
+        "Lo Stack è dinamico: cresce e cala man mano che chiami funzioni. Le variabili statiche e globali invece occupano un posto fisso in memoria che non cambia mai dall'inizio alla fine dell'esecuzione.",
+    },
   ]}
 />
 
-### Terminal Challenge: Promotion Hunting 🏹
+### Terminal Challenge: Promotion Hunting 
 
-<HackerTerminal 
+<ProTerminal
   challenges={[
     {
-        id: "unsigned-suffix",
-        simulatedSuccessOutput: ``,
-        title: "Il Suffisso Magico",
-        description: "Se vuoi forzare il compilatore a trattare una costante come 'unsigned', quale lettera devi aggiungere dopo il numero?",
-        commands: [
-            "echo 'unsigned int x = 100u;' > test.c"
-        ],
-        expectedOutput: "u",
-        hints: [
-            "È la prima lettera di 'unsigned'"
-        ],
-        explanation: "Esatto! Il suffisso 'u' istruisce il compilatore a trattare il letterale come senza segno.",
-        xpReward: 150
+      id: "unsigned-suffix",
+      simulatedSuccessOutput: ``,
+      title: "Il Suffisso Magico",
+      description:
+        "Se vuoi forzare il compilatore a trattare una costante come 'unsigned', quale lettera devi aggiungere dopo il numero?",
+      commands: ["echo 'unsigned int x = 100u;' > test.c"],
+      expectedOutput: "u",
+      hints: ["È la prima lettera di 'unsigned'"],
+      explanation:
+        "Esatto! Il suffisso 'u' istruisce il compilatore a trattare il letterale come senza segno.",
+      xpReward: 150,
     },
     {
-        id: "m32-flag",
-        simulatedSuccessOutput: ``,
-        title: "Ritorno al Passato",
-        description: "Quale flag di GCC useresti per forzare la compilazione a 32 bit su una macchina a 64 bit?",
-        commands: [],
-        expectedOutput: "",
-        hints: [
-            "Si riferisce al modello a 32 bit"
-        ],
-        explanation: "Ottimo! `-m32` emula un'architettura a 32 bit, riducendo la dimensione dei puntatori.",
-        xpReward: 200,
-        expectedCommand: "gcc -m32 main.c"
+      id: "m32-flag",
+      simulatedSuccessOutput: ``,
+      title: "Ritorno al Passato",
+      description:
+        "Quale flag di GCC useresti per forzare la compilazione a 32 bit su una macchina a 64 bit?",
+      commands: [],
+      expectedOutput: "",
+      hints: ["Si riferisce al modello a 32 bit"],
+      explanation:
+        "Ottimo! `-m32` emula un'architettura a 32 bit, riducendo la dimensione dei puntatori.",
+      xpReward: 200,
+      expectedCommand: "gcc -m32 main.c",
     },
     {
-        id: "size-command",
-        simulatedSuccessOutput: `   text\t   data\t    bss\t    dec\t    hex\tfilename\n   1405\t    600\t      8\t   2013\t    7dd\ta.out`,
-        title: "Sezionare il Binario",
-        description: "Quale comando mostra le dimensioni delle sezioni .text, .data e .bss del tuo file `a.out`?",
-        commands: [],
-        expectedOutput: "",
-        hints: [
-            "Significa 'taglia' o 'dimensione' in inglese"
-        ],
-        explanation: "Perfetto! `size` è fondamentale per capire quanta RAM occupa il tuo programma.",
-        xpReward: 250,
-        expectedCommand: "size a.out"
-    }
-]}
+      id: "size-command",
+      simulatedSuccessOutput: `   text\t   data\t    bss\t    dec\t    hex\tfilename\n   1405\t    600\t      8\t   2013\t    7dd\ta.out`,
+      title: "Sezionare il Binario",
+      description:
+        "Quale comando mostra le dimensioni delle sezioni .text, .data e .bss del tuo file `a.out`?",
+      commands: [],
+      expectedOutput: "",
+      hints: ["Significa 'taglia' o 'dimensione' in inglese"],
+      explanation:
+        "Perfetto! `size` è fondamentale per capire quanta RAM occupa il tuo programma.",
+      xpReward: 250,
+      expectedCommand: "size a.out",
+    },
+  ]}
 />
 
 Ci vediamo alla prossima lezione!

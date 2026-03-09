@@ -1,9 +1,9 @@
-import VideoEmbed from "../../components/content/VideoEmbed";
+﻿import VideoEmbed from "../../components/content/VideoEmbed";
 import Callout from "../../components/content/Callout";
 import KeyConcepts from "../../components/content/KeyConcepts";
 import CodeEditor from "../../components/exercises/CodeEditor";
 import Quiz from "../../components/exercises/Quiz";
-import HackerTerminal from "../../components/content/HackerTerminal";
+import ProTerminal from "../../components/content/ProTerminal";
 import GameOfLife from "../../components/content/GameOfLife";
 import Infographic from "../../components/content/Infographic";
 
@@ -78,7 +78,7 @@ Salvatore shows us how to "specialize the language" by creating a "ladder" of ab
 Even though we think of the grid as a rectangle, computer RAM is a long linear tape. Salvatore teaches us the magic formula for moving along this tape:
 `index = (y * width) + x`
 
-<Callout type="hacker" title="The Pointer 'Cheat'">
+<Callout type="pro" title="The Pointer 'Cheat'">
   Even though we haven't formally studied them yet, Salvatore must use
   **pointers** (`char *grid`) to pass the grid to functions. Without them, the
   functions would work on a copy of the grid and couldn't modify the original!
@@ -86,7 +86,7 @@ Even though we think of the grid as a rectangle, computer RAM is a long linear t
 
 ---
 
-<KeyConcepts title="Hacker Key Concepts">
+<KeyConcepts title="Concetti Avanzati">
   - **Wrapping with %**: Simulating infinite spaces with finite memory. -
   **Functions as Layers**: Building a "ladder" of abstractions to avoid drowning
   in details. - **Escape Sequences**: Using codes like `\033[H` to control the
@@ -169,10 +169,9 @@ Even though we think of the grid as a rectangle, computer RAM is a long linear t
 
 ---
 
-### Hacker Challenge 🏆
-
+### Pro Challenge
 <Quiz
-  title="Hacker Challenge: Game Logic & Systems"
+  title="Pro Challenge: Game Logic & Systems"
   questions={[
     {
       id: 1,
@@ -213,9 +212,9 @@ Even though we think of the grid as a rectangle, computer RAM is a long linear t
   ]}
 />
 
-### Terminal Challenge: Time & Space ⚡
+### Terminal Challenge: Time & Space 
 
-<HackerTerminal
+<ProTerminal
   challenges={[
     {
       id: "wc-lines-en",
@@ -257,3 +256,5 @@ Even though we think of the grid as a rectangle, computer RAM is a long linear t
 />
 
 See you in the next lesson to dive into pointers!
+
+

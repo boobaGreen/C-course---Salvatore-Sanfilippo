@@ -1,9 +1,9 @@
-import VideoEmbed from '../../components/content/VideoEmbed';
+﻿import VideoEmbed from '../../components/content/VideoEmbed';
 import Callout from '../../components/content/Callout';
 import KeyConcepts from '../../components/content/KeyConcepts';
 import CodeEditor from '../../components/exercises/CodeEditor';
 import Quiz from '../../components/exercises/Quiz';
-import HackerTerminal from '../../components/content/HackerTerminal';
+import ProTerminal from '../../components/content/ProTerminal';
 import Infographic from '../../components/content/Infographic';
 import ComparisonTable from '../../components/content/ComparisonTable';
 import MemoryCaster from '../../components/content/MemoryCaster';
@@ -115,7 +115,7 @@ Il compilatore accetta la forward declaration perché un **puntatore** ha sempre
 
 Per cercare una funzione nella tabella, dobbiamo confrontare il nome del simbolo con i nomi registrati. Invece di `strcmp`, Salvatore usa una logica basata su `memcmp`.
 
-<Callout type="hacker" title="Perché memcmp?">
+<Callout type="pro" title="Perché memcmp?">
 `memcmp` è una funzione "brutale": confronta i byte di due aree di memoria senza cercare il carattere null (`\\0`). È molto più veloce di `strcmp` perché i moderni compilatori la ottimizzano usando istruzioni SIMD (Single Instruction, Multiple Data) per confrontare più byte contemporaneamente.
 </Callout>
 
@@ -131,7 +131,7 @@ Per cercare una funzione nella tabella, dobbiamo confrontare il nome del simbolo
 Usiamo `memcmp` per comparare i byte. È una funzione di libreria estremamente ottimizzata (spesso scritta in Assembly) che processa blocchi di memoria molto più velocemente di un ciclo `while` manuale.
 </Callout>
 
-<Callout type="hacker" title="Potenza delle SIMD">
+<Callout type="pro" title="Potenza delle SIMD">
   `memcmp` non confronta un byte alla volta. Le CPU moderne hanno istruzioni **SIMD** (come AVX o NEON) che possono confrontare 16, 32 o persino 64 byte in un solo colpo d'occhio. Usare le funzioni standard significa sfruttare gratuitamente tutta la potenza dell'hardware moderno.
 </Callout>
 
@@ -217,7 +217,7 @@ int compare_string_objects(TFObject *a, TFObject *b) {
 />
 
 <Quiz 
-  title="Hacker Challenge"
+  title="Pro Challenge
   questions={[
     {
       question: "Se volessimo implementare l'overloading di funzioni (stesso nome, tipi diversi), dove dovremmo cambiare il codice?",
@@ -255,7 +255,7 @@ int compare_string_objects(TFObject *a, TFObject *b) {
   ]} 
 />
 
-<HackerTerminal 
+<ProTerminal 
   challenges={[
     {
         id: "memcmp-test",
@@ -292,3 +292,5 @@ int compare_string_objects(TFObject *a, TFObject *b) {
 
 ### Conclusione
 Ora il nostro interprete sa "collegare" le parole ad azioni C! Nella prossima lezione vedremo come potenziare la nostra capacità di segnalare errori usando le **Funzioni Variadiche**.
+
+

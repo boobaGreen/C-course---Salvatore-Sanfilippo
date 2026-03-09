@@ -1,4 +1,4 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MousePointer2, Database, ArrowRight, Binary, Info } from 'lucide-react';
 
@@ -165,9 +165,10 @@ export default function PointerBasics() {
             <div className="mt-8 p-4 rounded-xl bg-blue-500/5 border border-blue-500/10 flex gap-3">
                 <Info className="text-blue-500 shrink-0" size={20} />
                 <p className="text-sm text-zinc-500 leading-relaxed">
-                    <strong>Hacker Insight:</strong> Nota come il valore di un <code>int*</code> è lo stesso dell'indirizzo di memoria della variabile a cui punta. Deferenziare un puntatore significa dire al computer: "Vai a quell'indirizzo e dimmi cosa c'è dentro".
+                    <strong>esperto Insight:</strong> Nota come il valore di un <code>int*</code> è lo stesso dell'indirizzo di memoria della variabile a cui punta. Deferenziare un puntatore significa dire al computer: "Vai a quell'indirizzo e dimmi cosa c'è dentro".
                 </p>
             </div>
         </div>
     );
 }
+

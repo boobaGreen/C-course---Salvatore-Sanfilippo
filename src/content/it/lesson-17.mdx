@@ -1,11 +1,11 @@
-import VideoEmbed from '../../components/content/VideoEmbed';
+﻿import VideoEmbed from '../../components/content/VideoEmbed';
 import Callout from '../../components/content/Callout';
 import KeyConcepts from '../../components/content/KeyConcepts';
 import CodeEditor from '../../components/exercises/CodeEditor';
 import Quiz from '../../components/exercises/Quiz';
 import BinaryVisualizer from '../../components/content/BinaryVisualizer';
 import ComparisonTable from '../../components/content/ComparisonTable';
-import HackerTerminal from '../../components/content/HackerTerminal';
+import ProTerminal from '../../components/content/ProTerminal';
 import Infographic from '../../components/content/Infographic';
 
 # Lezione 17: Layout di Memoria e xdump
@@ -85,7 +85,7 @@ int main() {
 
 ## L'Operatore Ternario: `? :`
 
-È la versione "hacker" dell'if-else. Salvatore lo usa spesso per decisioni rapide:
+È la versione "esperto" dell'if-else. Salvatore lo usa spesso per decisioni rapide:
 `condizione ? valore_se_vero : valore_se_falso`
 
 Esempio:
@@ -186,7 +186,7 @@ In C, la memoria appena allocata o dichiarata sullo stack contiene "spazzatura".
 />
 
 <Quiz 
-  title="Hacker Challenge"
+  title="Pro Challenge
   questions={[
     {
       question: "Dato `int x = 1;`, se facciamo `memset(&x, 0, 1);`, cosa succede al valore di x su un sistema Little Endian?",
@@ -224,7 +224,7 @@ In C, la memoria appena allocata o dichiarata sullo stack contiene "spazzatura".
   ]} 
 />
 
-<HackerTerminal 
+<ProTerminal 
   challenges={[
     {
         id: "xdump-test",
@@ -268,3 +268,5 @@ In C, la memoria appena allocata o dichiarata sullo stack contiene "spazzatura".
 
 ### Riassunto Finale
 Abbiamo imparato a non fidarci delle astrazioni: la memoria è un nastro di byte e noi abbiamo ora gli strumenti per ispezionarla e manipolarla con precisione chirurgica. `memset` e `xdump` saranno i tuoi migliori amici nel debugging di basso livello.
+
+

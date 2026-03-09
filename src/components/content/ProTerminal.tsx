@@ -27,12 +27,12 @@ export interface Challenge {
   xpReward?: number;
 }
 
-export interface HackerTerminalProps {
+export interface ProTerminalProps {
   challenges: Challenge[];
   lessonSlug?: string;
 }
 
-export default function HackerTerminal({ challenges, lessonSlug = "unknown" }: HackerTerminalProps) {
+export default function ProTerminal({ challenges, lessonSlug = "unknown" }: ProTerminalProps) {
   const storageKey = `ht-state-${lessonSlug}`;
   
   const [currentStep, setCurrentStep] = useState(() => {
@@ -166,7 +166,7 @@ export default function HackerTerminal({ challenges, lessonSlug = "unknown" }: H
         <div className="flex items-center gap-3 text-red-400">
           <ShieldAlert size={20} className="animate-pulse" />
           <span className="font-black text-xs uppercase tracking-[0.2em]">
-            Hacker Terminal Challenge
+            Advanced Terminal Challenge
           </span>
         </div>
         <div className="flex items-center gap-4">
@@ -433,7 +433,7 @@ export default function HackerTerminal({ challenges, lessonSlug = "unknown" }: H
       {/* Terminal Footer Info */}
       <div className="bg-black/20 px-6 py-3 flex items-center justify-between border-t border-white/5">
         <div className="text-[10px] font-mono text-zinc-600 uppercase">
-          Kernel: 5.15.0-hacker-edition
+          Kernel: 5.15.0-expert-edition
         </div>
         <div className="text-[10px] font-mono text-zinc-600 uppercase">
           XP Reward: {currentChallenge.xpReward || 150} pts

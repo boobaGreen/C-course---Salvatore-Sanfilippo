@@ -1,4 +1,4 @@
-
+﻿
 import VideoEmbed from '../../components/content/VideoEmbed';
 import KeyConcepts from '../../components/content/KeyConcepts';
 import Callout from '../../components/content/Callout';
@@ -6,7 +6,7 @@ import CodeEditor from '../../components/exercises/CodeEditor';
 import Quiz from '../../components/exercises/Quiz';
 import Infographic from '../../components/content/Infographic';
 import ComparisonTable from '../../components/content/ComparisonTable';
-import HackerTerminal from '../../components/content/HackerTerminal';
+import ProTerminal from '../../components/content/ProTerminal';
 import LinkedListSurgeon from '../../components/games/LinkedListSurgeon';
 import Diagram from '../../components/content/Diagram';
 
@@ -74,7 +74,7 @@ struct Line {
 };
 ```
 
-<Callout type="hacker" title="Salto Mentale">
+<Callout type="pro" title="Salto Mentale">
 Nota che `struct Line` contiene un puntatore a `struct Line`. Questo è possibile perché un puntatore è solo un indirizzo di memoria; il compilatore non ha bisogno di sapere quanto è grande tutta la struct per definire il puntatore.
 </Callout>
 
@@ -107,7 +107,7 @@ Perché la lista inverte il file? Perché facciamo `new_node->next = head; head 
 
 ---
 
-## Esercitazione: Linked List Surgeon 🩺
+## Esercitazione: Linked List Surgeon 
 
 Prima di vedere come TAC inverte un file, mettiti alla prova. Riesci a manipolare i puntatori in memoria per inserire e rimuovere nodi senza rompere la catena?
 
@@ -233,7 +233,7 @@ int main(int argc, char **argv) {
 />
 
 <Quiz 
-  title="Hacker Challenge"
+  title="Pro Challenge
   questions={[
     {
       question: "Quale operazione è più costosa (complessa) in una lista linkata rispetto ad un array?",
@@ -271,7 +271,7 @@ int main(int argc, char **argv) {
   ]} 
 />
 
-<HackerTerminal 
+<ProTerminal 
   challenges={[
     {
         id: "tac-usage",
@@ -316,3 +316,5 @@ int main(int argc, char **argv) {
 
 ### Riassunto Finale
 In questa lezione abbiamo creato un vero strumento di sistema. Abbiamo imparato che le strutture non sono solo contenitori statici, ma mattoni che possono collegarsi tra loro per creare strutture dati dinamiche. Benvenuti nel mondo delle Linked Lists!
+
+

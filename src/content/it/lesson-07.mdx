@@ -1,11 +1,11 @@
-import VideoEmbed from '../../components/content/VideoEmbed';
+﻿import VideoEmbed from '../../components/content/VideoEmbed';
 import Callout from '../../components/content/Callout';
 import KeyConcepts from '../../components/content/KeyConcepts';
 import RecursionVisualizer from '../../components/content/RecursionVisualizer';
 import SwitchBoard from '../../components/content/SwitchBoard';
 import CodeEditor from '../../components/exercises/CodeEditor';
 import Quiz from '../../components/exercises/Quiz';
-import HackerTerminal from '../../components/content/HackerTerminal';
+import ProTerminal from '../../components/content/ProTerminal';
 import Infographic from '../../components/content/Infographic';
 
 # Lezione 7: Cicli, Ricorsione e Switch
@@ -60,7 +60,7 @@ Per capire davvero il `for`, impara a smontarlo:
 
 Usiamo il `for` quando sappiamo già quante volte iterare, e il `while` quando la condizione dipende da qualcosa che accadrà nel codice.
 
-<Callout type="hacker" title="For: Flessibilità Totale">
+<Callout type="pro" title="For: Flessibilità Totale">
 In C, le tre parti del `for` (inizializzazione, condizione, incremento) sono opzionali!
 - `for(;;)` è un modo idiomatico per scrivere un **loop infinito**.
 - Puoi omettere l'incremento se lo fai dentro il corpo del ciclo.
@@ -100,7 +100,7 @@ Quando una funzione chiama se stessa, il computer non ricomincia da zero. "Conge
 
 <RecursionVisualizer />
 
-<Callout type="hacker" title="Tail Call Optimization (TCO)">
+<Callout type="pro" title="Tail Call Optimization (TCO)">
 Se l'ultima cosa che una funzione fa è chiamare se stessa, un buon compilatore può ottimizzarla trasformandola in un salto (`goto`), risparmiando memoria. Salvatore ci ha mostrato come farlo a mano per evitare di consumare lo stack:
 ```c
 loop:
@@ -118,7 +118,7 @@ Se la ricorsione non ha una 'condizione di uscita' (base case), continuerà a cr
 
 <SwitchBoard />
 
-<Callout type="hacker" title="Jump Tables">
+<Callout type="pro" title="Jump Tables">
 Sotto il cofano, se i casi sono vicini (es. 1, 2, 3), il compilatore non fa tanti `if`. Crea una **Jump Table**: una tabella di indirizzi dove il processore "salta" istantaneamente al caso giusto. È incredibilmente veloce!
 </Callout>
 
@@ -220,7 +220,7 @@ Prova a trasformare questo ciclo `while` in un ciclo `for`.
 
 ---
 
-<KeyConcepts title="Hacker Key Concepts"
+<KeyConcepts title="Concetti Avanzati"
   concepts={[
     {
       title: "for = while",
@@ -249,10 +249,9 @@ Prova a trasformare questo ciclo `while` in un ciclo `for`.
 />
 
 
-### Hacker Challenge 🏆
-
+### Pro Challenge
 <Quiz 
-  title="Hacker Challenge: Final Quiz"
+  title="Pro Challenge: Final Quiz"
   questions={[
     {
       id: 1,
@@ -293,9 +292,9 @@ Prova a trasformare questo ciclo `while` in un ciclo `for`.
   ]}
 />
 
-### Terminal Challenge: Pattern Searching 🔎
+### Terminal Challenge: Pattern Searching 
 
-<HackerTerminal 
+<ProTerminal 
   challenges={[
     {
         id: "grep-while",
@@ -343,3 +342,5 @@ Prova a trasformare questo ciclo `while` in un ciclo `for`.
 />
 
 Ci vediamo alla prossima lezione!
+
+

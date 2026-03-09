@@ -54,7 +54,7 @@ export default function SwitchBoard() {
                                         layoutId="pointer"
                                         className="absolute left-0 top-1 -translate-x-full pr-2 text-emerald-500"
                                     >
-                                        ➜
+                                        
                                     </motion.div>
                                 )}
                             </div>

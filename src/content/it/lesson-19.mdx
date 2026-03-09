@@ -1,9 +1,9 @@
-import VideoEmbed from '../../components/content/VideoEmbed';
+﻿import VideoEmbed from '../../components/content/VideoEmbed';
 import Callout from '../../components/content/Callout';
 import KeyConcepts from '../../components/content/KeyConcepts';
 import CodeEditor from '../../components/exercises/CodeEditor';
 import Quiz from '../../components/exercises/Quiz';
-import HackerTerminal from '../../components/content/HackerTerminal';
+import ProTerminal from '../../components/content/ProTerminal';
 import ComparisonTable from '../../components/content/ComparisonTable';
 import Infographic from '../../components/content/Infographic';
 
@@ -29,7 +29,7 @@ Ogni processo Linux nasce con tre canali di comunicazione già aperti:
 <Callout type="info" title="Perché i numeri?">
 Il Kernel è pigro (o meglio, efficiente). Non vuole gestire stringhe lunghe per ogni file. Usa un semplice array per ogni processo, e l'indice di quell'array è il nostro **File Descriptor**.
 
-<Callout type="hacker" title="Tutto è un File">
+<Callout type="pro" title="Tutto è un File">
   Questa è la filosofia zen di Unix: file su disco, tastiera, monitor e persino la scheda di rete vengono trattati tutti come **File Descriptors**. Puoi usare `write()` per salvare un documento o per inviare un messaggio su internet: per il programmatore C, la logica è la stessa.
 </Callout>
 </Callout>
@@ -54,8 +54,8 @@ Il Kernel è pigro (o meglio, efficiente). Non vuole gestire stringhe lunghe per
   title="Standard I/O vs System I/O"
   headers={["Funzione", "Tipo", "Buffering", "Velocità"]}
   rows={[
-    ["fopen / fread", "Libreria C", "✅ Sì", "Alta per piccoli accessi"],
-    ["open / read", "System Call", "❌ No", "Alta per grandi blocchi"]
+    ["fopen / fread", "Libreria C", " Sì", "Alta per piccoli accessi"],
+    ["open / read", "System Call", "âŒ No", "Alta per grandi blocchi"]
   ]}
 />
 
@@ -92,7 +92,7 @@ int main() {
   language="c" 
 />
 
-<Callout type="hacker" title="Ancestrale ma Attuale">
+<Callout type="pro" title="Ancestrale ma Attuale">
 Le system calls che vedi qui (come `open`) sono state definite negli anni '70 per Unix. Cinquant'anni dopo, alimentano ancora Linux, macOS e quasi tutto il cloud mondiale. Impararle significa connettersi ai "pionieri" dell'informatica.
 </Callout>
 
@@ -169,7 +169,7 @@ Quando una syscall fallisce (ritorna -1), il Kernel imposta un numero globale ch
 />
 
 <Quiz 
-  title="Hacker Challenge"
+  title="Pro Challenge
   questions={[
     {
       id: 1,
@@ -210,7 +210,7 @@ Quando una syscall fallisce (ritorna -1), il Kernel imposta un numero globale ch
   ]} 
 />
 
-<HackerTerminal 
+<ProTerminal 
   challenges={[
     {
         id: "man-syscall",
@@ -253,3 +253,5 @@ Quando una syscall fallisce (ritorna -1), il Kernel imposta un numero globale ch
 
 ### Riassunto Finale
 Abbiamo rotto il muro della libreria standard. Ora sai che ogni volta che scrivi qualcosa a video o su disco, stai chiedendo il permesso al Kernel. Padroneggiare le syscall significa avere il controllo totale sulla macchina.
+
+

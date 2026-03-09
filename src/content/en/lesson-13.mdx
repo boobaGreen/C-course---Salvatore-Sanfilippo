@@ -1,10 +1,10 @@
-
+﻿
 import VideoEmbed from '../../components/content/VideoEmbed';
 import KeyConcepts from '../../components/content/KeyConcepts';
 import Callout from '../../components/content/Callout';
 import CodeEditor from '../../components/exercises/CodeEditor';
 import Quiz from '../../components/exercises/Quiz';
-import HackerTerminal from '../../components/content/HackerTerminal';
+import ProTerminal from '../../components/content/ProTerminal';
 import Infographic from '../../components/content/Infographic';
 import PointerArithmetic from '../../components/content/PointerArithmetic';
 import ComparisonTable from '../../components/content/ComparisonTable';
@@ -28,7 +28,7 @@ In the last lesson, we saw prefixed length strings. They worked, but they had a 
 
 Salvatore teaches us the **veteran's trick**: move the prefix **before** the memory address we give to the user.
 
-### Anatomy of a "Hacker String"
+### Anatomy of a "Pro String"
 
 Here's how the memory of our evolved string looks:
 
@@ -38,7 +38,7 @@ Here's how the memory of our evolved string looks:
   items={[
     { label: "Header (4+ bytes)", value: "Contains the Length (uint32_t) and potentially the Ref Count.", color: "purple" },
     { label: "User Pointer", value: "Points here! Standard C text starts from this address.", color: "blue" },
-    { label: "String Body", value: "The actual text (e.g., 'Hacker').", color: "emerald" },
+    { label: "String Body", value: "The actual text (e.g., 'esperto').", color: "emerald" },
     { label: "Null Terminator", value: "The trailing '\\0' byte for compatibility.", color: "amber" }
   ]}
 />
@@ -68,9 +68,9 @@ An `int` on a 16-bit system occupies 2 bytes, on a 32-bit one it's 4. If we want
   title="Standard Int vs stdint.h"
   headers={["Type", "Size", "Portability", "Recommended Use"]}
   rows={[
-    ["int", "Variable (2-4-8 bytes)", "❌ Low", "Generic counters"],
-    ["uint32_t", "Always 4 bytes (32-bit)", "✅ Total", "Headers, Protocols, Binary files"],
-    ["size_t", "RAM address size", "✅ Good", "Array indices and malloc"]
+    ["int", "Variable (2-4-8 bytes)", "âŒ Low", "Generic counters"],
+    ["uint32_t", "Always 4 bytes (32-bit)", " Total", "Headers, Protocols, Binary files"],
+    ["size_t", "RAM address size", " Good", "Array indices and malloc"]
   ]}
 />
 
@@ -134,7 +134,7 @@ int main() {
   language="c" 
 />
 
-<Callout type="hacker" title="Reference Counting">
+<Callout type="pro" title="Reference Counting">
 Salvatore introduces a fundamental technique for managing shared memory: **Reference Counting**. Instead of duplicating a string every time a new pointer references it, we increment a counter in the header.
 - When adding a reference: `count++`
 - When removing a reference: `count--`
@@ -227,7 +227,7 @@ Imagine a string 10 million characters long.
 />
 
 <Quiz 
-  title="Hacker Challenge"
+  title="Pro Challenge
   questions={[
     {
       question: "If we implement Reference Counting, when should we actually call `free`?",
@@ -265,7 +265,7 @@ Imagine a string 10 million characters long.
   ]} 
 />
 
-<HackerTerminal 
+<ProTerminal 
   challenges={[
     {
       id: "hexdump-string",
@@ -296,3 +296,5 @@ Imagine a string 10 million characters long.
 
 ### Final Summary
 Today we dug beneath the surface. We learned that a pointer is a compass: if we know where we're pointing, we can move forward to see data or backward to see metadata. This technique is at the heart of databases like Redis and many high-level languages (like Python) that need to manage strings efficiently.
+
+

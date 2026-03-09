@@ -1,6 +1,6 @@
 # Progetto: Piattaforma Didattica C — Corso di Salvatore Sanfilippo
 
-## Fase 1: Planning e Documentazione ✅
+## Fase 1: Planning e Documentazione 
 - [x] Estrazione playlist YouTube (35 video, ~17.5h)
 - [x] Analisi struttura del corso (31 lezioni + 1 appendice + 3 speciali)
 - [x] Piano di implementazione dettagliato (12 sezioni, ~600 righe)
@@ -12,9 +12,9 @@
   - [x] **Approccio MVP:** Lezione 1 prima, poi le altre dopo approvazione
 - [x] Walkthrough fase planning
 - [x] Revisione e correzione documentazione (8 problemi trovati e corretti)
-- [x] Revisione utente ✅ (07/03/2026)
+- [x] Revisione utente  (07/03/2026)
 
-## Fase 2: MVP — Lezione 1 🎯
+## Fase 2: MVP — Lezione 1 
 - [x] Setup progetto (Vite + React + TypeScript)
 - [x] Installazione dipendenze (React Router, i18next, Shiki, Framer Motion, MDX, Mermaid, Lucide)
 - [x] Design system CSS (tokens, tipografia, dark/light mode)

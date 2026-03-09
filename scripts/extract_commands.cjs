@@ -10,8 +10,8 @@ files.forEach(file => {
   const filePath = path.join(contentDir, file);
   const content = fs.readFileSync(filePath, 'utf8');
 
-  // Parse HackerTerminal challenges
-  const hTermRegex = /<HackerTerminal\s+challenges={\[\s*([\s\S]*?)\s*\]}/g;
+  // Parse ProTerminal challenges
+  const hTermRegex = /<ProTerminal\s+challenges={\[\s*([\s\S]*?)\s*\]}/g;
   let hTermMatch;
   while ((hTermMatch = hTermRegex.exec(content)) !== null) {
       const challengesBlock = hTermMatch[1];

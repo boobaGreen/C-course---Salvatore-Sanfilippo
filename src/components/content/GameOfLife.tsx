@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+﻿import { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Play, Pause, RotateCcw, FastForward, Info, Binary, Maximize2 } from 'lucide-react';
 
@@ -216,19 +216,19 @@ export default function GameOfLife() {
                         </h4>
                         <ul className="text-[11px] space-y-2 text-zinc-500">
                             <li className="flex gap-2">
-                                <span className="text-red-500 font-bold">•</span>
+                                <span className="text-red-500 font-bold">â€¢</span>
                                 <span><strong>Solitudine:</strong> Una cella viva muore se ha meno di 2 vicini.</span>
                             </li>
                             <li className="flex gap-2">
-                                <span className="text-green-500 font-bold">•</span>
+                                <span className="text-green-500 font-bold">â€¢</span>
                                 <span><strong>Sopravvivenza:</strong> Una cella vive se ha 2 o 3 vicini.</span>
                             </li>
                             <li className="flex gap-2">
-                                <span className="text-red-500 font-bold">•</span>
+                                <span className="text-red-500 font-bold">â€¢</span>
                                 <span><strong>Sovrappopolazione:</strong> Muore se ha più di 3 vicini.</span>
                             </li>
                             <li className="flex gap-2">
-                                <span className="text-blue-500 font-bold">•</span>
+                                <span className="text-blue-500 font-bold">â€¢</span>
                                 <span><strong>Riproduzione:</strong> Una cella morta diventa viva se ha esattamente 3 vicini.</span>
                             </li>
                         </ul>
@@ -240,10 +240,11 @@ export default function GameOfLife() {
                 <div className="flex items-start gap-3">
                     <Maximize2 className="text-blue-500 mt-1 shrink-0" size={18} />
                     <p className="text-sm text-zinc-500 leading-relaxed">
-                        <strong>Hacker Detail:</strong> Salvatore implementa il "Wrapping" usando l'operatore modulo <code>%</code>. Quando una cella esce dal bordo destro, riappare a sinistra. Questo simula un universo "toroidale" infinito.
+                        <strong>esperto Detail:</strong> Salvatore implementa il "Wrapping" usando l'operatore modulo <code>%</code>. Quando una cella esce dal bordo destro, riappare a sinistra. Questo simula un universo "toroidale" infinito.
                     </p>
                 </div>
             </div>
         </div>
     );
 }
+

@@ -1,9 +1,9 @@
-import VideoEmbed from '../../components/content/VideoEmbed';
+﻿import VideoEmbed from '../../components/content/VideoEmbed';
 import Callout from '../../components/content/Callout';
 import KeyConcepts from '../../components/content/KeyConcepts';
 import CodeEditor from '../../components/exercises/CodeEditor';
 import Quiz from '../../components/exercises/Quiz';
-import HackerTerminal from '../../components/content/HackerTerminal';
+import ProTerminal from '../../components/content/ProTerminal';
 import Infographic from '../../components/content/Infographic';
 import ComparisonTable from '../../components/content/ComparisonTable';
 
@@ -68,7 +68,7 @@ void tf_plus(TFContext *ctx) {
 />
 
 <Callout type="info" title="Amortized Complexity">
-When we use `realloc` to grow the list (as seen in `list_push`), Salvatore explains that we over-allocate or use powers of two. This makes the append operation **amortized O(1)**—as efficient as a linked list but with the cache-speed advantages of an array.
+When we use `realloc` to grow the list (as seen in `list_push`), Salvatore explains that we over-allocate or use powers of two. This makes the append operation **amortized O(1)**â€”as efficient as a linked list but with the cache-speed advantages of an array.
 </Callout>
 
 <Callout type="warning" title="Memory Safety">
@@ -160,7 +160,7 @@ Salvatore implements a "character-by-character" parser. Functions like `skipSpac
 />
 
 <Quiz 
-  title="Hacker Challenge"
+  title="Pro Challenge
   questions={[
     {
       question: "If you were to implement the `DUP` function in C, what should you do to the object's reference counter?",
@@ -198,7 +198,7 @@ Salvatore implements a "character-by-character" parser. Functions like `skipSpac
   ]} 
 />
 
-<HackerTerminal 
+<ProTerminal 
   challenges={[
     {
       id: "eval-trace-en",
@@ -229,3 +229,5 @@ Salvatore implements a "character-by-character" parser. Functions like `skipSpac
 
 ### Conclusion
 We have built the engine of ToyFort! Now the language can 'reason' and execute complex operations. In future lessons, we will see how to further extend the dictionary and handle programs loaded from external files.
+
+

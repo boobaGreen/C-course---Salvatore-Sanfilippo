@@ -1,11 +1,11 @@
-# 🔍 REPORT COMPLETO — Audit del Progetto "Learn C with antirez"
+#  REPORT COMPLETO — Audit del Progetto "Learn C with antirez"
 
 **Data**: 8 Marzo 2026  
 **Autore**: Audit automatizzato + revisione manuale
 
 ---
 
-## 📊 1. Panoramica Generale
+##  1. Panoramica Generale
 
 | Dato | Valore |
 |------|--------|
@@ -18,50 +18,50 @@
 
 ---
 
-## ✅ 2. Conformità Master Formula (5 + 3 + 3)
+##  2. Conformità Master Formula (5 + 3 + 3)
 
-> **Master Formula**: Ogni lezione DEVE avere **5 quiz base** + **3 hacker quiz** + **3 hacker terminal challenges**
+> **Master Formula**: Ogni lezione DEVE avere **5 quiz base** + **3 pro quiz** + **3 pro terminal challenges**
 
 ### 🇮🇹 Italiano — Risultati
 
-| Lezione | Quiz Base (5) | Hacker Quiz (3) | HT Challenges (3) | Stato |
+| Lezione | Quiz Base (5) | Pro Quiz (3) | HT Challenges (3) | Stato |
 |---------|:---:|:---:|:---:|:---:|
-| lesson-01 | ✅ 5 | ✅ 3 | ✅ 3 | ✅ |
-| lesson-02 | ✅ 5 | ✅ 3 | ✅ 3 | ✅ |
-| lesson-03 | ✅ 5 | ✅ 3 | ✅ 3 | ✅ |
-| lesson-04 | ✅ 5 | ✅ 3 | ✅ 3 | ✅ |
-| lesson-05 | ✅ 5 | ✅ 3 | ✅ 3 | ✅ |
-| lesson-06 | ✅ 5 | ✅ 3 | ✅ 3 | ✅ |
-| lesson-07 | ✅ 5 | ✅ 3 | ✅ 3 | ✅ |
-| lesson-08 | ✅ 5 | ✅ 3 | ✅ 3 | ✅ |
-| lesson-09 | ✅ 5 | ✅ 3 | ✅ 3 | ✅ |
-| lesson-10 | ✅ 5 | ✅ 3 | ✅ 3 | ✅ |
-| lesson-11 | ✅ 5 | ✅ 3 | ✅ 3 | ✅ |
-| lesson-12 | ✅ 5 | ✅ 3 | ✅ 3 | ✅ |
-| lesson-13 | ✅ 5 | ✅ 3 | ✅ 3 | ✅ |
-| lesson-14 | ✅ 5 | ✅ 3 | ✅ 3 | ✅ |
-| lesson-15 | ✅ 5 | ✅ 3 | ✅ 3 | ✅ |
-| lesson-16 | ✅ 5 | ✅ 3 | ✅ 3 | ✅ |
-| lesson-17 | ✅ 5 | ✅ 3 | ✅ 3 | ✅ |
-| lesson-18 | ✅ 5 | ✅ 3 | ✅ 3 | ✅ |
-| lesson-19 | ✅ 5 | ✅ 3 | ✅ 3 | ✅ |
-| lesson-20 | ✅ 5 | ✅ 3 | ✅ 3 | ✅ |
-| lesson-21 | ✅ 5 | ✅ 3 | ✅ 3 | ✅ |
-| lesson-22 | ✅ 5 | ✅ 3 | ✅ 3 | ✅ |
-| lesson-23 | ✅ 5 | ✅ 3 | ✅ 3 | ✅ |
-| lesson-24 | ✅ 5 | ✅ 3 | ✅ 3 | ✅ |
-| lesson-25 | ✅ 5 | ✅ 3 | ✅ 3 | ✅ |
-| lesson-26 | ✅ 5 | ✅ 3 | ✅ 3 | ✅ |
-| lesson-27 | ✅ 5 | ✅ 3 | ✅ 3 | ✅ |
-| lesson-28 | ✅ 5 | ✅ 3 | ✅ 3 | ✅ |
-| lesson-29 | ✅ 5 | ✅ 3 | ✅ 3 | ✅ |
-| lesson-30 | ✅ 5 | ✅ 3 | ✅ 3 | ✅ |
-| lesson-31 | ✅ 5 | ✅ 3 | ✅ 3 | ✅ |
-| special-bst | ✅ 5 | ✅ 3 | ✅ 3 | ✅ |
-| special-random-vars | ✅ 5 | ✅ 3 | ✅ 3 | ✅ |
-| special-ref-counting | ✅ 5 | ✅ 3 | ✅ 3 | ✅ |
+| lesson-01 |  5 |  3 |  3 |  |
+| lesson-02 |  5 |  3 |  3 |  |
+| lesson-03 |  5 |  3 |  3 |  |
+| lesson-04 |  5 |  3 |  3 |  |
+| lesson-05 |  5 |  3 |  3 |  |
+| lesson-06 |  5 |  3 |  3 |  |
+| lesson-07 |  5 |  3 |  3 |  |
+| lesson-08 |  5 |  3 |  3 |  |
+| lesson-09 |  5 |  3 |  3 |  |
+| lesson-10 |  5 |  3 |  3 |  |
+| lesson-11 |  5 |  3 |  3 |  |
+| lesson-12 |  5 |  3 |  3 |  |
+| lesson-13 |  5 |  3 |  3 |  |
+| lesson-14 |  5 |  3 |  3 |  |
+| lesson-15 |  5 |  3 |  3 |  |
+| lesson-16 |  5 |  3 |  3 |  |
+| lesson-17 |  5 |  3 |  3 |  |
+| lesson-18 |  5 |  3 |  3 |  |
+| lesson-19 |  5 |  3 |  3 |  |
+| lesson-20 |  5 |  3 |  3 |  |
+| lesson-21 |  5 |  3 |  3 |  |
+| lesson-22 |  5 |  3 |  3 |  |
+| lesson-23 |  5 |  3 |  3 |  |
+| lesson-24 |  5 |  3 |  3 |  |
+| lesson-25 |  5 |  3 |  3 |  |
+| lesson-26 |  5 |  3 |  3 |  |
+| lesson-27 |  5 |  3 |  3 |  |
+| lesson-28 |  5 |  3 |  3 |  |
+| lesson-29 |  5 |  3 |  3 |  |
+| lesson-30 |  5 |  3 |  3 |  |
+| lesson-31 |  5 |  3 |  3 |  |
+| special-bst |  5 |  3 |  3 |  |
+| special-random-vars |  5 |  3 |  3 |  |
+| special-ref-counting |  5 |  3 |  3 |  |
 
-**→ IT: 34/34 conformi ✅**
+**→ IT: 34/34 conformi **
 
 ### 🇬🇧 Inglese — Risultati
 
@@ -71,11 +71,11 @@ Tutte le lezioni EN passano la Master Formula **tranne**:
 |-------|-----------|
 Questa problematica è stata **risolta**: il file `en/lesson-05.mdx` è stato corretto per usare l'array `challenges={[...]}` come tutte le altre lezioni.
 
-**→ EN: 34/34 conformi ✅**
+**→ EN: 34/34 conformi **
 
 ---
 
-## 🎮 3. Componenti Interattivi per Lezione
+##  3. Componenti Interattivi per Lezione
 
 ### Lezioni con componenti ricchi (3+ interattivi)
 
@@ -120,7 +120,7 @@ Queste lezioni hanno solo il CodeEditor come componente interattivo — **potreb
 
 ---
 
-## 🧠 4. Contenuti e Argomenti — Verifica di Coerenza
+##  4. Contenuti e Argomenti — Verifica di Coerenza
 
 ### Struttura tipica di ogni lezione (coerente)
 
@@ -133,12 +133,12 @@ Queste lezioni hanno solo il CodeEditor come componente interattivo — **potreb
 7. Sezioni tematiche con codice C inline (`code blocks`)
 8. Componenti interattivi inline (TypeMatcher, BinaryVisualizer, etc.)
 9. `<Quiz>` — 5 domande base (senza titolo o con titolo "Quiz Standard")
-10. `### Hacker Challenge` — sezione hacker
-11. `<Quiz title="Hacker Challenge">` — 3 domande avanzate
-12. `<HackerTerminal>` — 3 sfide da terminale
+10. `### Pro Challenge` — sezione pro
+11. `<Quiz title="Pro Challenge">` — 3 domande avanzate
+12. `<ProTerminal>` — 3 sfide da terminale
 13. Chiusura con frase di transizione
 
-**→ Struttura consistente in tutte le 34 lezioni ✅**
+**→ Struttura consistente in tutte le 34 lezioni **
 
 ### Argomenti principali per lezione
 
@@ -179,25 +179,25 @@ Queste lezioni hanno solo il CodeEditor come componente interattivo — **potreb
 | S2 | BST a Memoria | Albero binario di ricerca, insert, search, in-order |
 | S3 | Variabili Casuali | rand(), seed, distribuzione, PRNG, ZX Spectrum graphics |
 
-**→ Tutti gli argomenti coprono il contenuto delle trascrizioni ✅**
+**→ Tutti gli argomenti coprono il contenuto delle trascrizioni **
 
 ---
 
-## 🐛 5. Bug e Problemi Trovati
+##  5. Bug e Problemi Trovati
 
 | # | Severità | File | Descrizione |
 |---|----------|------|-------------|
-| 1 | 🟢 **Risolto** | `en/lesson-05.mdx` | HackerTerminal usava 3 blocchi separati. Corretto per usare l'array `challenges`. |
-| 2 | 🟡 **Medio** | Diverse lezioni EN | Piccole differenze nei componenti visivi rispetto a IT (es. lesson-17 EN manca Callout, lesson-22 EN manca Callout). Non critiche ma riducono la parità. |
-| 3 | 🟢 **Basso** | Tutte le lezioni 1-10, 17-31 | Il primo Quiz non ha attributo `title`. Funziona (mostra "Esercizi" di default) ma sarebbe più chiaro con `title="Quiz Standard"`. |
+| 1 |  **Risolto** | `en/lesson-05.mdx` | ProTerminal usava 3 blocchi separati. Corretto per usare l'array `challenges`. |
+| 2 |  **Medio** | Diverse lezioni EN | Piccole differenze nei componenti visivi rispetto a IT (es. lesson-17 EN manca Callout, lesson-22 EN manca Callout). Non critiche ma riducono la parità. |
+| 3 |  **Basso** | Tutte le lezioni 1-10, 17-31 | Il primo Quiz non ha attributo `title`. Funziona (mostra "Esercizi" di default) ma sarebbe più chiaro con `title="Quiz Standard"`. |
 
 ---
 
-## 💡 6. Ricerca Giochi Didattici Moderni — Proposte
+##  6. Ricerca Giochi Didattici Moderni — Proposte
 
 Ispirandosi alle piattaforme educative più innovative (CodeCombat, Screeps, CheckiO, CodinGame), ecco proposte specifiche per gli argomenti del corso C:
 
-### 🎯 Nuovi giochi didattici proposti
+###  Nuovi giochi didattici proposti
 
 | # | Nome Gioco | Lezione Target | Meccanica | Ispirazione |
 |---|-----------|----------------|-----------|-------------|
@@ -212,7 +212,7 @@ Ispirandosi alle piattaforme educative più innovative (CodeCombat, Screeps, Che
 | 9 | **MakeDependencyGraph** | L.29 (Makefile) | Grafo interattivo: l'utente trascina dipendenze e il "make" decide l'ordine di compilazione. Mostra parallelismo e rebuilding intelligente. | WorkflowDiagram con drag-and-drop |
 | 10 | **EvolutionPlayground** | L.30 (Algo Evolutivi) | L'utente controlla i parametri dell'algoritmo evolutivo (mutation rate, population, fitness function) e osserva in tempo reale come l'immagine converge. Slider interattivi. | Evoluzione dell'EvoSimulator esistente |
 
-### 🏆 Top 3 consigliati per impatto immediato
+###  Top 3 consigliati per impatto immediato
 
 1. **PointerMaze** (L.9-10) — i puntatori sono il concetto più ostico del C, un gioco labirintico renderebbe intuitivo il concetto di dereferenziazione
 2. **LinkedListSurgeon** (L.15) — operazioni su linked list sono molto visuali e si prestano perfettamente a drag-and-drop animato
@@ -220,42 +220,42 @@ Ispirandosi alle piattaforme educative più innovative (CodeCombat, Screeps, Che
 
 ---
 
-## 🎨 7. Design e Coerenza delle Sezioni
+##  7. Design e Coerenza delle Sezioni
 
 ### Elementi di design comuni a tutte le lezioni
 
 | Elemento | Presente | Note |
 |----------|:--------:|------|
-| Header responsivo con hamburger mobile | ✅ | Aggiunto nella sessione corrente |
-| Dark mode con glassmorphism | ✅ | Coerente |
-| Gerarchia H1 → H2 → H3 | ✅ | Ogni lezione segue la stessa struttura |
-| Separatori `---` tra sezioni | ✅ | Consistente |
-| Callout con icone e colori tipizzati | ✅ | tip/warning/info/hacker/danger |
-| Code blocks con syntax highlighting | ✅ | Linguaggio C con Prism/Shiki |
-| Progress bar nei quiz | ✅ | Gradient animato |
-| XP system (gamification) | ✅ | 100xp per quiz, 150-250xp per HT challenge |
-| Neon dot indicators nel sidebar | ✅ | Active lesson highlight |
+| Header responsivo con hamburger mobile |  | Aggiunto nella sessione corrente |
+| Dark mode con glassmorphism |  | Coerente |
+| Gerarchia H1 → H2 → H3 |  | Ogni lezione segue la stessa struttura |
+| Separatori `---` tra sezioni |  | Consistente |
+| Callout con icone e colori tipizzati |  | tip/warning/info/pro/danger |
+| Code blocks con syntax highlighting |  | Linguaggio C con Prism/Shiki |
+| Progress bar nei quiz |  | Gradient animato |
+| XP system (gamification) |  | 100xp per quiz, 150-250xp per HT challenge |
+| Neon dot indicators nel sidebar |  | Active lesson highlight |
 
 ### Coerenza stilistica
 
-- ✅ Tutte le lezioni usano lo stesso set di colori (`brand-primary`, `brand-secondary`, `brand-accent`)
-- ✅ Font consistenti (Inter per testo, JetBrains Mono per codice)
-- ✅ Spacing coerente (`my-8` per quiz, `my-10` per HT, `p-6 sm:p-8` per contenuti)
-- ✅ Animazioni framer-motion per quiz feedback e HT results
-- ✅ Mobile responsive su tutti i componenti principali
+-  Tutte le lezioni usano lo stesso set di colori (`brand-primary`, `brand-secondary`, `brand-accent`)
+-  Font consistenti (Inter per testo, JetBrains Mono per codice)
+-  Spacing coerente (`my-8` per quiz, `my-10` per HT, `p-6 sm:p-8` per contenuti)
+-  Animazioni framer-motion per quiz feedback e HT results
+-  Mobile responsive su tutti i componenti principali
 
 ---
 
-## 📋 8. Riepilogo Azioni Consigliate
+##  8. Riepilogo Azioni Consigliate
 
-### Priorità Alta 🔴
-1. **~~Fixare EN lesson-05.mdx~~** *(Completato)* — riportato il HackerTerminal nel formato `challenges={[...]}` come tutte le altre lezioni
+### Priorità Alta 
+1. **~~Fixare EN lesson-05.mdx~~** *(Completato)* — riportato il ProTerminal nel formato `challenges={[...]}` come tutte le altre lezioni
 
-### Priorità Media 🟡
+### Priorità Media 
 2. **~~Aggiungere `title="Quiz Standard"`~~** *(Completato)* — aggiunto al primo Quiz in tutte le lezioni rilevanti tramite script per uniformità visiva.
 3. **~~Allineare componenti visivi EN/IT~~** *(Completato)* — aggiunti i componenti Callout mancanti nelle lezioni EN 17 e 22 per pareggiare le versioni IT.
 
-### Priorità Bassa / Evolutiva 🟢
+### Priorità Bassa / Evolutiva 
 4. **~~Implementare 2-3 nuovi giochi~~** *(Completato)* — Creati e integrati PointerMaze, LinkedListSurgeon, e FormatStringExploit.
 5. **~~Aggiungere Infographic~~** *(Completato)* — Inserite nelle 7 lezioni IT ed EN che ne erano prive.
 6. **~~Usare il componente Diagram~~** *(Completato)* — Integrato nelle lezioni 6 (Array in memoria) e 15 (Architettura TAC).

@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+﻿import { Link } from 'react-router-dom';
 import { Terminal, Code2, Info, BookOpen } from 'lucide-react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -88,7 +88,7 @@ export default function Home() {
                     </div>
                 </div>
 
-                {/* Info block: Quiz vs Hacker Terminal Challenges */}
+                {/* Info block: Quiz vs Advanced Terminal Challenges */}
                 <div className="glass-panel p-6 rounded-2xl border-[var(--color-brand-accent)]/20 mt-12 flex flex-col sm:flex-row gap-6 items-start shadow-[0_4px_24px_-12px_rgba(244,63,94,0.15)]">
                     <div className="w-12 h-12 shrink-0 rounded-lg bg-[var(--color-brand-accent)]/10 text-[var(--color-brand-accent)] flex items-center justify-center mb-0 sm:mb-4">
                         <Info size={24} />
@@ -106,3 +106,4 @@ export default function Home() {
         </div>
     );
 }
+

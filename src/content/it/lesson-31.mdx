@@ -1,4 +1,4 @@
-# Lezione 31: Il Programmatore C Moderno e l'IA
+﻿# Lezione 31: Il Programmatore C Moderno e l'IA
 
 In questa lezione, Salvatore abbandona l'approccio classico per mostrarci come lavora _oggi_ un programmatore esperto: non più scrivendo ogni singola linea a mano, ma guidando un agente AI (come Claude Code o Cursor) come un direttore d'orchestra.
 
@@ -48,7 +48,7 @@ L'arrivo dei _Large Language Models (LLMs)_ e dei coding agent ha cambiato radic
   parola dell'IA finendo in un vicolo cieco di bug incomprensibili.
 </Callout>
 
-<Callout type="hacker" title="Revisione Obbligatoria (Audit)">
+<Callout type="pro" title="Revisione Obbligatoria (Audit)">
   Un programmatore C esperto usa l'AI per generare bozze, ma poi esegue un
   "Audit riga per riga". Cerca leak, controlla che non ci siano buffer overflow
   e verifica che l'uso della memoria sia quello atteso. L'AI è il tuo
@@ -97,7 +97,7 @@ Inizia quindi una vera **conversazione tecnica** con l'AI:
 3. Propone una soluzione: aggiornare i colori scegliendo coordinate **non allineate** ai blocchi 8x8 fisici, in modo da avere sovrapposizioni.
 4. Richiama l'AI sul fatto che il 'kernel size' 2x2 per il _dithering_ era stato perso.
 
-<Callout type="hacker" title="Dithering con Kernel 2x2">
+<Callout type="pro" title="Dithering con Kernel 2x2">
   Il *dithering* è l'arte di affiancare pixel di due colori per imitarne un
   terzo. Calcolando la differenza (errore) considerando gruppi di 2x2 pixel alla
   volta (un kernel), il Simulated Annealing capisce quando due pixel vicini
@@ -178,7 +178,7 @@ Inizia quindi una vera **conversazione tecnica** con l'AI:
 />
 
 <Quiz
-  title="Hacker Challenge"
+  title="Pro Challenge
   questions={[
     {
       question:
@@ -222,7 +222,7 @@ Inizia quindi una vera **conversazione tecnica** con l'AI:
   ]}
 />
 
-<HackerTerminal
+<ProTerminal
   challenges={[
     {
       id: "bigO-diff",
@@ -261,3 +261,4 @@ Inizia quindi una vera **conversazione tecnica** con l'AI:
 ### Conclusione
 
 Questo video rappresenta un punto di svolta. Abbiamo esplorato come il C, linguaggio di 50 anni fa, interagisce con le sfide del futuro e l'automazione. Non smettete di scrivere codice a mano per imparare, ma siate pronti a dirigere le macchine per produrre. Alla prossima!
+

@@ -1,9 +1,9 @@
-import VideoEmbed from '../../components/content/VideoEmbed';
+﻿import VideoEmbed from '../../components/content/VideoEmbed';
 import Callout from '../../components/content/Callout';
 import KeyConcepts from '../../components/content/KeyConcepts';
 import CodeEditor from '../../components/exercises/CodeEditor';
 import Quiz from '../../components/exercises/Quiz';
-import HackerTerminal from '../../components/content/HackerTerminal';
+import ProTerminal from '../../components/content/ProTerminal';
 import Infographic from '../../components/content/Infographic';
 import ComparisonTable from '../../components/content/ComparisonTable';
 
@@ -71,7 +71,7 @@ typedef struct TFParser {
   language="c" 
 />
 
-<Callout type="hacker" title="Why two asterisks?">
+<Callout type="pro" title="Why two asterisks?">
 `TFObject **ele` is a pointer to an array of pointers. In C, to have a list that contains objects of different types (heterogeneous), we don't save the objects directly but their addresses. By removing one asterisk (`ele[0]`), we get the pointer to the individual object.
 </Callout>
 
@@ -199,7 +199,7 @@ Notice how `TFObject` can contain a list of other `TFObject`s. This recursive st
 />
 
 <Quiz 
-  title="Hacker Challenge"
+  title="Pro Challenge
   questions={[
     {
       question: "In ToyFort, how would you write the expression `(3 + 4) * 2`?",
@@ -237,7 +237,7 @@ Notice how `TFObject` can contain a list of other `TFObject`s. This recursive st
   ]} 
 />
 
-<HackerTerminal 
+<ProTerminal 
   challenges={[
     {
       id: "stack-visual-en",
@@ -268,3 +268,5 @@ Notice how `TFObject` can contain a list of other `TFObject`s. This recursive st
 
 ### Final Summary
 We have broken the last barrier between code and data. Function pointers allow us to create flexible systems, universal algorithms, and even emulate object-oriented behavior in pure C. It is the secret that lets libraries like the standard library be so powerful and reusable.
+
+

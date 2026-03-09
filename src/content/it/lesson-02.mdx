@@ -1,9 +1,9 @@
-import VideoEmbed from '../../components/content/VideoEmbed';
+Ôªøimport VideoEmbed from '../../components/content/VideoEmbed';
 import Callout from '../../components/content/Callout';
 import KeyConcepts from '../../components/content/KeyConcepts';
 import CodeEditor from '../../components/exercises/CodeEditor';
 import Quiz from '../../components/exercises/Quiz';
-import HackerTerminal from '../../components/content/HackerTerminal';
+import ProTerminal from '../../components/content/ProTerminal';
 import Infographic from '../../components/content/Infographic';
 import ComparisonTable from '../../components/content/ComparisonTable';
 import StackVisualizer from '../../components/content/StackVisualizer';
@@ -94,7 +94,7 @@ int c = a + b; // Inizializzazione tramite espressione
   ]}
 />
 
-<Callout type="hacker" title="Hacker Mindset">
+<Callout type="pro" title="Expert Mindset">
 Specificare il tipo (es. `int`) permette al compilatore di sapere esattamente quanti byte riservare in memoria e come interpretarli. Questo √® il segreto delle performance del C!
 </Callout>
 
@@ -127,7 +127,7 @@ In questa appendice, Salvatore ci porta indietro nel tempo con il microprocessor
 
 <VideoEmbed videoId="r6mU_IHXEps" title="Appendice Lezione 2: La vita delle variabili locali" />
 
-<Callout type="hacker" title="Memory Mapped I/O">
+<Callout type="pro" title="Memory Mapped I/O">
   Nello schermo qui sopra, stiamo scrivendo direttamente in memoria RAM all'indirizzo `$0200`. Il microprocessore non "sa" di stare disegnando: sta solo muovendo byte. √à l'hardware video che interpreta quei byte come colori di pixel. Questa √® la base dei sistemi embedded e delle vecchie console.
 </Callout>
 
@@ -224,10 +224,10 @@ I **Registri** sono piccole "variabili" dentro la CPU, velocissime. La **RAM** √
 
 ---
 
-## Hacker Key Concepts
+## Concetti Avanzati
 
 <KeyConcepts 
-  title="Hacker Key Concepts"
+  title="Concetti Avanzati"
   concepts={[
     {
         title: "Tipizzazione Esplicita",
@@ -248,10 +248,9 @@ I **Registri** sono piccole "variabili" dentro la CPU, velocissime. La **RAM** √
   ]}
 />
 
-### Hacker Challenge üèÜ
-
+### Pro Challenge
 <Quiz 
-  title="Hacker Challenge: Final Quiz"
+  title="Pro Challenge: Final Quiz"
   questions={[
     {
       id: 1,
@@ -292,9 +291,9 @@ I **Registri** sono piccole "variabili" dentro la CPU, velocissime. La **RAM** √
   ]}
 />
 
-### Terminal Challenge: Investigating Memory üîç
+### Terminal Challenge: Investigating Memory 
 
-<HackerTerminal 
+<ProTerminal 
   challenges={[
     {
         id: "xxd-dump",
@@ -342,3 +341,5 @@ I **Registri** sono piccole "variabili" dentro la CPU, velocissime. La **RAM** √
 />
 
 Ci vediamo alla prossima lezione!
+
+

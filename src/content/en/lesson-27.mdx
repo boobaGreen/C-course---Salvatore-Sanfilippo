@@ -1,9 +1,9 @@
-import VideoEmbed from '../../components/content/VideoEmbed';
+﻿import VideoEmbed from '../../components/content/VideoEmbed';
 import Callout from '../../components/content/Callout';
 import KeyConcepts from '../../components/content/KeyConcepts';
 import CodeEditor from '../../components/exercises/CodeEditor';
 import Quiz from '../../components/exercises/Quiz';
-import HackerTerminal from '../../components/content/HackerTerminal';
+import ProTerminal from '../../components/content/ProTerminal';
 import Infographic from '../../components/content/Infographic';
 import ComparisonTable from '../../components/content/ComparisonTable';
 import MemoryCaster from '../../components/content/MemoryCaster';
@@ -119,7 +119,7 @@ The compiler accepts the forward declaration because a **pointer** always has th
 
 To look up a function in the table, we must compare the symbol name with the registered names. Instead of `strcmp`, Salvatore uses logic based on `memcmp`.
 
-<Callout type="hacker" title="Why memcmp?">
+<Callout type="pro" title="Why memcmp?">
 `memcmp` is a "brutal" function: it compares the bytes of two memory areas without looking for the null character (`\\0`). It's much faster than `strcmp` because modern compilers optimize it using SIMD (Single Instruction, Multiple Data) instructions to compare multiple bytes at once.
 </Callout>
 
@@ -197,7 +197,7 @@ To look up a function in the table, we must compare the symbol name with the reg
 />
 
 <Quiz 
-  title="Hacker Challenge"
+  title="Pro Challenge
   questions={[
     {
       question: "If we wanted to implement function overloading (same name, different types), where should we change the code?",
@@ -235,7 +235,7 @@ To look up a function in the table, we must compare the symbol name with the reg
   ]} 
 />
 
-<HackerTerminal 
+<ProTerminal 
   challenges={[
     {
       id: "memcmp-test-en",
@@ -266,3 +266,5 @@ To look up a function in the table, we must compare the symbol name with the reg
 
 ### Conclusion
 Now our interpreter knows how to "link" words to C actions! In the next lesson, we will see how to enhance our error reporting capability using **Variadic Functions**.
+
+

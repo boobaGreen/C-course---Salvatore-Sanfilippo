@@ -1,9 +1,9 @@
-import VideoEmbed from '../../components/content/VideoEmbed';
+﻿import VideoEmbed from '../../components/content/VideoEmbed';
 import Callout from '../../components/content/Callout';
 import KeyConcepts from '../../components/content/KeyConcepts';
 import CodeEditor from '../../components/exercises/CodeEditor';
 import Quiz from '../../components/exercises/Quiz';
-import HackerTerminal from '../../components/content/HackerTerminal';
+import ProTerminal from '../../components/content/ProTerminal';
 import Infographic from '../../components/content/Infographic';
 
 # Lezione 22: Puntatori a Funzioni
@@ -146,7 +146,7 @@ int main() {
 />
 
 <Quiz 
-  title="Hacker Challenge"
+  title="Pro Challenge
   questions={[
     {
       question: "Cosa rappresenta `void (*f[10])(int);`?",
@@ -184,11 +184,11 @@ int main() {
   ]} 
 />
 
-<Callout type="hacker" title="Jump Tables: La velocità del C++ in C">
+<Callout type="pro" title="Jump Tables: La velocità del C++ in C">
   Usando un array di puntatori a funzione, puoi implementare un `switch` super-veloce. Se hai 100 comandi diversi, invece di fare 100 `if`, puoi usare il codice del comando come indice dell'array e saltare istantaneamente alla funzione corretta. È così che gli interpreti professionali raggiungono velocità incredibili.
 </Callout>
 
-<HackerTerminal 
+<ProTerminal 
   challenges={[
     {
         id: "nm-symbols",
@@ -231,3 +231,5 @@ int main() {
 
 ### Riassunto Finale
 Abbiamo rotto l'ultima barriera tra codice e dati. I puntatori a funzione ci permettono di creare sistemi flessibili, algoritmi universali e persino di emulare comportamenti ad oggetti in puro C. È il segreto che permette a librerie come la standard library di essere così potenti e riutilizzabili.
+
+

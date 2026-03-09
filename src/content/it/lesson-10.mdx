@@ -1,10 +1,10 @@
-import VideoEmbed from '../../components/content/VideoEmbed';
+﻿import VideoEmbed from '../../components/content/VideoEmbed';
 import Callout from '../../components/content/Callout';
 import KeyConcepts from '../../components/content/KeyConcepts';
 import CodeEditor from '../../components/exercises/CodeEditor';
 import Quiz from '../../components/exercises/Quiz';
 import ComparisonTable from '../../components/content/ComparisonTable';
-import HackerTerminal from '../../components/content/HackerTerminal';
+import ProTerminal from '../../components/content/ProTerminal';
 import PointerArithmetic from '../../components/content/PointerArithmetic';
 import PointerMaze from '../../components/games/PointerMaze';
 import Infographic from '../../components/content/Infographic';
@@ -73,7 +73,7 @@ Se provi ad accedere a un indirizzo di memoria che non appartiene al tuo program
 
 In C, le stringhe sono array di `char` terminati dal carattere speciale `\0` (null terminator). Possiamo scorrere una stringa incrementando un puntatore finché non incontriamo lo zero.
 
-<Callout type="hacker" title="Aritmetica dei Puntatori">
+<Callout type="pro" title="Aritmetica dei Puntatori">
 Quando scrivi `p++` su un `int *p`, l'indirizzo non aumenta di 1, ma di `sizeof(int)` (di solito 4 byte). Il C calcola automaticamente lo "skip" necessario per arrivare all'elemento successivo. 
 - `char *p; p++` -> +1 byte
 - `short *p; p++` -> +2 byte
@@ -92,7 +92,7 @@ void stampa_stringa(char *p) {
 }
 
 int main() {
-    char *saluto = "Hacker World";
+    char *saluto = "esperto World";
     stampa_stringa(saluto);
     return 0;
 }`}
@@ -101,7 +101,7 @@ int main() {
 
 ---
 
-<KeyConcepts title="Hacker Key Concepts"
+<KeyConcepts title="Concetti Avanzati"
   concepts={[
     {
       title: "Buffer Overflow",
@@ -131,7 +131,7 @@ int main() {
 
 ---
 
-## Maze: Il Labirinto dei Puntatori 2 🕹️
+## Maze: Il Labirinto dei Puntatori 2 •¹
 
 Sfida te stesso: riesci a raggiungere l'indirizzo 0x10F seguendo solo le catene corrette?
 
@@ -204,10 +204,9 @@ Sfida te stesso: riesci a raggiungere l'indirizzo 0x10F seguendo solo le catene 
 
 ---
 
-### Hacker Challenge 🏆
-
+### Pro Challenge
 <Quiz 
-  title="Hacker Challenge: Casting & Memory"
+  title="Pro Challenge: Casting & Memory"
   questions={[
     {
       id: 1,
@@ -248,9 +247,9 @@ Sfida te stesso: riesci a raggiungere l'indirizzo 0x10F seguendo solo le catene 
   ]}
 />
 
-### Terminal Challenge: Exploration ⚡
+### Terminal Challenge: Exploration 
 
-<HackerTerminal 
+<ProTerminal 
   challenges={[
     {
         id: "hexdump-bin-it",
@@ -296,3 +295,5 @@ Sfida te stesso: riesci a raggiungere l'indirizzo 0x10F seguendo solo le catene 
     }
 ]}
 />
+
+

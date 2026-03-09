@@ -1,10 +1,10 @@
-
+﻿
 import VideoEmbed from '../../components/content/VideoEmbed';
 import KeyConcepts from '../../components/content/KeyConcepts';
 import Callout from '../../components/content/Callout';
 import CodeEditor from '../../components/exercises/CodeEditor';
 import Quiz from '../../components/exercises/Quiz';
-import HackerTerminal from '../../components/content/HackerTerminal';
+import ProTerminal from '../../components/content/ProTerminal';
 import Infographic from '../../components/content/Infographic';
 import ComparisonTable from '../../components/content/ComparisonTable';
 
@@ -126,7 +126,7 @@ void ps_release(struct pls *p) {
 }
 
 int main() {
-    struct pls *s1 = ps_create("Hacker");
+    struct pls *s1 = ps_create("esperto");
     
     // Simulo una condivisione
     struct pls *s2 = s1; 
@@ -154,7 +154,7 @@ Salvatore implementa un Reference Counting manuale. Ogni volta che un pezzo di c
   Il valore `0xDEADBEEF` non è solo per bellezza. Se durante un `ps_release` il Magic Number è diverso, significa che qualcuno ha scritto fuori dai bordi (Buffer Overflow) corrompendo l'header. Fermare il programma immediatamente (`abort()`) è meglio che lasciarlo girare con dati corrotti.
 </Callout>
 
-<Callout type="hacker" title="Magic Numbers">
+<Callout type="pro" title="Magic Numbers">
 Perché Salvatore usa `0xDEADBEEF`? È un valore facile da riconoscere in un esadecimale (hexdump). Se vedi `00000000` dove dovrebbe esserci il magic, sai che stai usando un oggetto già liberato!
 </Callout>
 
@@ -231,7 +231,7 @@ Salvatore suggerisce di usare le macro del preprocessore (`#ifdef DEBUG`) per in
 />
 
 <Quiz 
-  title="Hacker Challenge"
+  title="Pro Challenge
   questions={[
     {
       question: "Perché `sizeof(struct pls)` non include lo spazio del flexible array `str[]`?",
@@ -269,7 +269,7 @@ Salvatore suggerisce di usare le macro del preprocessore (`#ifdef DEBUG`) per in
   ]} 
 />
 
-<HackerTerminal 
+<ProTerminal 
   challenges={[
     {
         id: "magic-search",
@@ -316,3 +316,5 @@ Salvatore suggerisce di usare le macro del preprocessore (`#ifdef DEBUG`) per in
 
 ### Riassunto Finale
 Oggi abbiamo aggiunto l'intelligenza alle nostre strutture. Non sono più solo carne da macello per la memoria, ma oggetti capaci di autogestirsi e proteggersi. Il Reference Counting è un pilastro dei sistemi moderni; padroneggiarlo significa scrivere codice robusto come quello di un kernel.
+
+

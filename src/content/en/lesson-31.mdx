@@ -1,4 +1,4 @@
-# Lesson 31: The Modern C Programmer and AI
+﻿# Lesson 31: The Modern C Programmer and AI
 
 In this lesson, Salvatore abandons the classic approach to show us how an expert programmer works *today*: no longer writing every single line by hand, but guiding an AI agent (like Claude Code or Cursor) like an orchestra conductor.
 
@@ -67,7 +67,7 @@ A true **technical conversation** begins with the AI:
 3. Proposes a solution: update colors by choosing coordinates **unaligned** with the physical 8x8 blocks, allowing overlaps.
 4. Corrects the AI regarding the fact that the 2x2 'kernel size' for *dithering* had been lost.
 
-<Callout type="hacker" title="Dithering with a 2x2 Kernel">
+<Callout type="pro" title="Dithering with a 2x2 Kernel">
 *Dithering* is the art of placing pixels of two colors next to each other to imitate a third. By calculating the difference (error) considering groups of 2x2 pixels at a time (a kernel), Simulated Annealing understands when two adjacent pixels create a good gradient.
 </Callout>
 
@@ -137,7 +137,7 @@ A true **technical conversation** begins with the AI:
 />
 
 <Quiz 
-  title="Hacker Challenge"
+  title="Pro Challenge
   questions={[
     {
       question: "What data structure could be used to achieve an even more efficient O(1), without recalculating entire blocks?",
@@ -175,7 +175,7 @@ A true **technical conversation** begins with the AI:
   ]} 
 />
 
-<HackerTerminal 
+<ProTerminal 
   challenges={[
     {
       id: "bigO-diff-en",
@@ -206,3 +206,4 @@ A true **technical conversation** begins with the AI:
 
 ### Conclusion
 This video represents a turning point. We explored how C, a 50-year-old language, interacts with future challenges and automation. Never stop writing code by hand to learn, but be ready to direct machines to produce. See you next time!
+

@@ -1,9 +1,9 @@
-import VideoEmbed from '../../components/content/VideoEmbed';
+﻿import VideoEmbed from '../../components/content/VideoEmbed';
 import Callout from '../../components/content/Callout';
 import KeyConcepts from '../../components/content/KeyConcepts';
 import CodeEditor from '../../components/exercises/CodeEditor';
 import Quiz from '../../components/exercises/Quiz';
-import HackerTerminal from '../../components/content/HackerTerminal';
+import ProTerminal from '../../components/content/ProTerminal';
 import Infographic from '../../components/content/Infographic';
 import ComparisonTable from '../../components/content/ComparisonTable';
 
@@ -169,7 +169,7 @@ int is_symbol_char(int c) {
 />
 
 <Quiz 
-  title="Hacker Challenge"
+  title="Pro Challenge
   questions={[
     {
       question: "Se implementassimo un commento che inizia con ';', cosa dovrebbe fare il parser?",
@@ -207,7 +207,7 @@ int is_symbol_char(int c) {
   ]} 
 />
 
-<HackerTerminal 
+<ProTerminal 
   challenges={[
     {
         id: "parser-trace",
@@ -244,3 +244,5 @@ int is_symbol_char(int c) {
 
 ### Conclusione
 Abbiamo un parser che sa distinguere numeri e nomi! Nella prossima lezione vedremo come questi token si trasformano in azioni reali tramite la funzione `eval` e come gestire la memoria mentre l'interprete "macina" il codice.
+
+

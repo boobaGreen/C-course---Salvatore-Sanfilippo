@@ -1,9 +1,9 @@
-import VideoEmbed from "../../components/content/VideoEmbed";
+﻿import VideoEmbed from "../../components/content/VideoEmbed";
 import Callout from "../../components/content/Callout";
 import KeyConcepts from "../../components/content/KeyConcepts";
 import CodeEditor from "../../components/exercises/CodeEditor";
 import Quiz from "../../components/exercises/Quiz";
-import HackerTerminal from "../../components/content/HackerTerminal";
+import ProTerminal from "../../components/content/ProTerminal";
 import Infographic from "../../components/content/Infographic";
 import ComparisonTable from "../../components/content/ComparisonTable";
 import AssemblyExplorer from "../../components/content/AssemblyExplorer";
@@ -110,7 +110,7 @@ Assembly is the "near-machine" language: it's readable by humans but corresponds
 
 <AssemblyExplorer />
 
-<Callout type="hacker" title="Hacker Mindset">
+<Callout type="pro" title="Expert Mindset">
   Looking at Assembly isn't an academic exercise. It's the only way to *truly*
   understand how efficient your code is and what the compiler is doing behind
   your back.
@@ -262,17 +262,16 @@ Thanks to the prototype, the compiler knows exactly how to prepare data in memor
 
 See you in the next lesson!
 
-<KeyConcepts title="Hacker Key Concepts">
+<KeyConcepts title="Concetti Avanzati">
   - C is not executed, but **compiled**. - The compiler can optimize code
   intelligently (e.g., turning `printf` into `puts`). - The **preprocessor**
   prepares the file before compilation. - **Header files (`.h`)** contain
   function **prototypes**.
 </KeyConcepts>
 
-### Hacker Challenge 🏆
-
+### Pro Challenge
 <Quiz
-  title="Hacker Challenge: Final Quiz"
+  title="Pro Challenge: Final Quiz"
   questions={[
     {
       id: 1,
@@ -318,9 +317,9 @@ See you in the next lesson!
   ]}
 />
 
-### Terminal Challenge: The Optimization Trap 🕵️
+### Terminal Challenge: The Optimization Trap 
 
-<HackerTerminal
+<ProTerminal
   challenges={[
     {
       id: "opt-trap-en",
@@ -370,3 +369,5 @@ See you in the next lesson!
 />
 
 See you in the next lesson!
+
+

@@ -13,10 +13,10 @@
     },
     "author": {
         "title": "Who is Salvatore Sanfilippo (antirez)?",
-        "bio_1": "Salvatore Sanfilippo, known in the hacker community as <strong class=\"text-white\">antirez</strong>, is one of the most globally influential Italian and worldwide programmers.",
+        "bio_1": "Salvatore Sanfilippo, known in the tech community as <strong class=\"text-white\">antirez</strong>, is one of the most globally influential Italian and worldwide programmers.",
         "bio_2": "He is internationally renowned for creating <strong class=\"text-[var(--color-brand-primary)]\">Redis</strong>, one of the most widely used open-source in-memory databases in the world (powering Twitter, GitHub, StackOverflow, and countless other companies).",
         "bio_3": "An absolute master of the <strong class=\"text-[var(--color-brand-secondary)]\">C language</strong>, his code is universally studied for its incredible elegance, extreme performance, and pragmatism. Reading the Redis source code is considered a rite of passage and a formative experience for any aspiring C developer.",
-        "bio_4": "This course was conceived and published by Salvatore <strong class=\"text-white\">completely for free</strong> for the community on YouTube. In these lessons, he conveys not just the C syntax, but the true <em>hacker mindset</em>: deeply understanding what happens \"under the hood\", from source code, to CPU architecture, to Assembly, all the way to Linux kernel interactions.",
+        "bio_4": "This course was conceived and published by Salvatore <strong class=\"text-white\">completely for free</strong> for the community on YouTube. In these lessons, he conveys not just the C syntax, but the true <em>expert mindset</em>: deeply understanding what happens \"under the hood\", from source code, to CPU architecture, to Assembly, all the way to Linux kernel interactions.",
         "close": "Close",
         "badge": "Learn more about the author"
     },
@@ -81,7 +81,7 @@
         },
         "questions_info": {
             "title": "Types of questions",
-            "description": "Basic questions (Quizzes) cover topics from the video, the transcript, or the lesson text. The \"Hacker Terminal Challenge\" questions, on the other hand, are designed to push you further: they may cover material not explicitly taught and will require active research on external sources."
+            "description": "Basic questions (Quizzes) cover topics from the video, the transcript, or the lesson text. The \"Pro Terminal Challenge\" questions, on the other hand, are designed to push you further: they may cover material not explicitly taught and will require active research on external sources."
         }
     },
     "footer": {

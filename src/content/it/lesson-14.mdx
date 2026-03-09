@@ -1,10 +1,10 @@
-
+﻿
 import VideoEmbed from '../../components/content/VideoEmbed';
 import KeyConcepts from '../../components/content/KeyConcepts';
 import Callout from '../../components/content/Callout';
 import CodeEditor from '../../components/exercises/CodeEditor';
 import Quiz from '../../components/exercises/Quiz';
-import HackerTerminal from '../../components/content/HackerTerminal';
+import ProTerminal from '../../components/content/ProTerminal';
 import Infographic from '../../components/content/Infographic';
 import ComparisonTable from '../../components/content/ComparisonTable';
 
@@ -46,7 +46,7 @@ Una struct è un blocco di memoria contiguo. Se un `int` occupa 4 byte, la nostr
 
 ---
 
-## Il Mistero del Padding (Hacker Knowledge)
+## Il Mistero del Padding (Advanced Knowledge)
 
 Cosa succede se aggiungiamo un `char` (1 byte) alla nostra struct? Ci aspetteremmo una dimensione di 9 byte (4 + 4 + 1). Ma il C ci sorprende: la dimensione sarà **12 byte**.
 
@@ -63,7 +63,7 @@ Cosa succede se aggiungiamo un `char` (1 byte) alla nostra struct? Ci aspetterem
 <Callout type="warning" title="Ottimizzazione">
 Per risparmiare memoria, Salvatore consiglia di raggruppare i campi per dimensione: prima i più grandi (puntatori, long, int) e poi i più piccoli (char). Questo riduce il padding inserito dal compilatore!
 
-<Callout type="hacker" title="Attribute Packed">
+<Callout type="pro" title="Attribute Packed">
   In casi estremi (es. pacchetti di rete che devono essere identici al millimetro), puoi dire al GCC: `__attribute__((packed))`. Questo forza il compilatore a rimuovere **tutto** il padding. Attenzione: il programma diventerà leggermente più lento perché la CPU dovrà fare più fatica a leggere i dati disallineati.
 </Callout>
 </Callout>
@@ -199,7 +199,7 @@ int main() {
 />
 
 <Quiz 
-  title="Hacker Challenge"
+  title="Pro Challenge
   questions={[
     {
       question: "Se definiamo `struct { char a; int b; } __attribute__((packed)) s;`, quanto varrà `sizeof(s)` su un sistema a 32 bit?",
@@ -237,7 +237,7 @@ int main() {
   ]} 
 />
 
-<HackerTerminal 
+<ProTerminal 
   challenges={[
     {
         id: "struct-offset",
@@ -281,3 +281,5 @@ int main() {
 
 ### Riassunto Finale
 Le strutture sono il cuore pulsante del C professionale. Ci permettono di modellare la realtà (frazioni, utenti, pacchetti di rete) rispettando la ferrea logica della memoria fisica. Ricorda: l'ordine dei campi conta per il padding, e la freccia è la chiave per manipolare oggetti dinamici!
+
+

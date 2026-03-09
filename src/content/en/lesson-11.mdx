@@ -1,11 +1,11 @@
-
+﻿
 
 import VideoEmbed from '../../components/content/VideoEmbed';
 import KeyConcepts from '../../components/content/KeyConcepts';
 import Callout from '../../components/content/Callout';
 import CodeEditor from '../../components/exercises/CodeEditor';
 import Quiz from '../../components/exercises/Quiz';
-import HackerTerminal from '../../components/content/HackerTerminal';
+import ProTerminal from '../../components/content/ProTerminal';
 import MemoryCaster from '../../components/content/MemoryCaster';
 import BinaryVisualizer from '../../components/content/BinaryVisualizer';
 import ComparisonTable from '../../components/content/ComparisonTable';
@@ -42,7 +42,7 @@ char *p = (char *)&s;   // Force a char* pointer to look at the start of the sho
 If `s` has the value `514` (which is `0x0202` in Hex), its physical memory contains two separate bytes: `0x02` and `0x02`.
 When we read `*p`, we are reading only **the first byte** (`0x02`, which is `2` in decimal), because `p` is a pointer to a `char` (1 byte).
 
-<Callout type="hacker">
+<Callout type="pro">
 **Type Punning**
 This technique of reading a type's memory through a pointer of another type is called "Type Punning". It is powerful for systems programming, but it can cause undefined behavior if strict aliasing and alignment rules are not respected.
 </Callout>
@@ -103,7 +103,7 @@ This makes getting the length an instantaneous operation (`O(1)`), simply by rea
   rows={[
     ["String end", "Byte 0x00 (Null)", "Prefix (first byte)"],
     ["Length Calculation", "O(N) - Slow (strlen)", "O(1) - Instant"],
-    ["Binary Data", "❌ No (zero term)", "✅ Yes (can contain zero)"],
+    ["Binary Data", "âŒ No (zero term)", " Yes (can contain zero)"],
     ["Max Length", "Available RAM", "255 (with 1 byte prefix)"]
   ]}
 />
@@ -142,7 +142,7 @@ int main() {
   language="c" 
 />
 
-<KeyConcepts title="Hacker Key Concepts" concepts={[
+<KeyConcepts title="Concetti Avanzati" concepts={[
   { title: "The Rules of Casting", description: "Pointer casting (type *) forces the compiler to change dereferencing logic and pointer arithmetic." },
   { title: "The Reality of RAM", description: "Memory is just a vast sequence of raw bytes; meaning (ASCII, Int) exists only because of Types." },
   { title: "Format Security", description: "Length-prefixed (Pascal) Strings eliminate the need for a NULL byte, making them binary-safe." }
@@ -226,7 +226,7 @@ int main() {
 />
 
 <Quiz 
-  title="Hacker Challenge"
+  title="Pro Challenge
   questions={[
     {
       question: "Given the code: `int x = 1; char *c = (char*)&x; if (*c) { ... }`. What does this `if` test for?",
@@ -264,7 +264,7 @@ int main() {
   ]} 
 />
 
-<HackerTerminal 
+<ProTerminal 
   challenges={[
     {
       id: "endian-check-en",
@@ -292,3 +292,5 @@ int main() {
     }
   ]}
 />
+
+

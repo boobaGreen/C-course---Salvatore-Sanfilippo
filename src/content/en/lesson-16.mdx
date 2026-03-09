@@ -1,10 +1,10 @@
-
+﻿
 import VideoEmbed from '../../components/content/VideoEmbed';
 import KeyConcepts from '../../components/content/KeyConcepts';
 import Callout from '../../components/content/Callout';
 import CodeEditor from '../../components/exercises/CodeEditor';
 import Quiz from '../../components/exercises/Quiz';
-import HackerTerminal from '../../components/content/HackerTerminal';
+import ProTerminal from '../../components/content/ProTerminal';
 import Infographic from '../../components/content/Infographic';
 import ComparisonTable from '../../components/content/ComparisonTable';
 
@@ -126,7 +126,7 @@ void ps_release(struct pls *p) {
 }
 
 int main() {
-    struct pls *s1 = ps_create("Hacker");
+    struct pls *s1 = ps_create("esperto");
     
     // Simulate sharing
     struct pls *s2 = s1; 
@@ -223,7 +223,7 @@ It is vital that every `ps_retain` is paired with a `ps_release`. If you forget 
 />
 
 <Quiz 
-  title="Hacker Challenge"
+  title="Pro Challenge
   questions={[
     {
       question: "Why doesn't `sizeof(struct pls)` include the space for the flexible array `str[]`?",
@@ -261,7 +261,7 @@ It is vital that every `ps_retain` is paired with a `ps_release`. If you forget 
   ]} 
 />
 
-<HackerTerminal 
+<ProTerminal 
   challenges={[
     {
       id: "magic-search-en",
@@ -292,3 +292,5 @@ It is vital that every `ps_retain` is paired with a `ps_release`. If you forget 
 
 ### Final Summary
 Today we added intelligence to our structures. They are no longer just fodder for memory but objects capable of self-management and protection. Reference Counting is a pillar of modern systems; mastering it means writing code as robust as a kernel.
+
+

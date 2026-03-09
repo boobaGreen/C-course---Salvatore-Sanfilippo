@@ -3,7 +3,7 @@ import { Lightbulb, AlertTriangle, Info, Terminal } from 'lucide-react';
 
 interface CalloutProps {
     children: ReactNode;
-    type?: 'tip' | 'warning' | 'info' | 'hacker' | 'danger';
+    type?: 'tip' | 'warning' | 'info' | 'pro' | 'danger';
     title?: string;
 }
 
@@ -37,12 +37,12 @@ export default function Callout({ children, type = 'tip', title }: CalloutProps)
             titleColor: 'text-blue-400',
             defaultTitle: 'Nota'
         },
-        hacker: {
+        pro: {
             icon: <Terminal className="text-[var(--color-brand-primary)]" size={20} />,
             bg: 'bg-[var(--color-brand-primary)]/5',
             border: 'border-[var(--color-brand-primary)]/20',
             titleColor: 'text-[var(--color-brand-primary)]',
-            defaultTitle: 'Hacker Mindset'
+            defaultTitle: 'Expert Mindset'
         }
     };
 

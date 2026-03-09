@@ -1,9 +1,9 @@
-import VideoEmbed from '../../components/content/VideoEmbed';
+﻿import VideoEmbed from '../../components/content/VideoEmbed';
 import Callout from '../../components/content/Callout';
 import KeyConcepts from '../../components/content/KeyConcepts';
 import CodeEditor from '../../components/exercises/CodeEditor';
 import Quiz from '../../components/exercises/Quiz';
-import HackerTerminal from '../../components/content/HackerTerminal';
+import ProTerminal from '../../components/content/ProTerminal';
 import PointerBasics from '../../components/content/PointerBasics';
 import PointerMaze from '../../components/games/PointerMaze';
 import Infographic from '../../components/content/Infographic';
@@ -62,12 +62,12 @@ A memory address is always the same size (64 bits on modern architectures), but 
 
 In C, address **0** is special and is indicated with the `NULL` keyword. It means the pointer doesn't point to anything valid.
 
-<Callout type="hacker" title="Puntatori vs Array: L'equivalenza">
+<Callout type="pro" title="Puntatori vs Array: L'equivalenza">
 Did you know that `*p` is exactly the same as writing `p[0]`? There's a "bizarre analogy" (as Salvatore calls it) in C between pointers and arrays: a pointer can be treated as the base address of a single-element array.
 This means that `*(p + 1)` is the same as `p[1]`.
 </Callout>
 
-<Callout type="hacker" title="The NULL Pointer">
+<Callout type="pro" title="The NULL Pointer">
 Salvatore always recommends initializing pointers to `NULL` (address 0). Accessing a pointer that points to nothing causes a **Segmentation Fault**, but an immediate error is better than a silent bug that writes into random memory areas!
 </Callout>
 
@@ -96,7 +96,7 @@ int main() {
 
 ---
 
-<KeyConcepts title="Hacker Key Concepts">
+<KeyConcepts title="Concetti Avanzati">
   - **Indirection**: Accessing data by 'wandering' through addresses.
   - **Pass-by-reference**: Simulating C++ or Java reference passing using pointers in C.
   - **Memory Safety**: Understanding that a pointer is a double-edged sword: powerful but risky.
@@ -116,7 +116,7 @@ int main() {
 
 ---
 
-## Maze: The Pointers Labyrinth 🕹️
+## Maze: The Pointers Labyrinth •¹
 
 Click the `*(deref)` button to navigate through memory. Can you find the `**EXIT**` instruction without crashing into `NULL` or a `Segmentation Fault`?
 
@@ -189,10 +189,9 @@ Click the `*(deref)` button to navigate through memory. Can you find the `**EXIT
 
 ---
 
-### Hacker Challenge 🏆
-
+### Pro Challenge
 <Quiz 
-  title="Hacker Challenge: Pointer Architecture"
+  title="Pro Challenge: Pointer Architecture"
   questions={[
     {
       id: 1,
@@ -233,9 +232,9 @@ Click the `*(deref)` button to navigate through memory. Can you find the `**EXIT
   ]}
 />
 
-### Terminal Challenge: Exploration ⚡
+### Terminal Challenge: Exploration 
 
-<HackerTerminal 
+<ProTerminal 
   challenges={[
     {
       id: "gdb-debugger-en",
@@ -269,3 +268,5 @@ Click the `*(deref)` button to navigate through memory. Can you find the `**EXIT
     }
   ]}
 />
+
+

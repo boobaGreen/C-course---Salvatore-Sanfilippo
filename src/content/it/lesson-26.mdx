@@ -1,9 +1,9 @@
-import VideoEmbed from '../../components/content/VideoEmbed';
+﻿import VideoEmbed from '../../components/content/VideoEmbed';
 import Callout from '../../components/content/Callout';
 import KeyConcepts from '../../components/content/KeyConcepts';
 import CodeEditor from '../../components/exercises/CodeEditor';
 import Quiz from '../../components/exercises/Quiz';
-import HackerTerminal from '../../components/content/HackerTerminal';
+import ProTerminal from '../../components/content/ProTerminal';
 import Infographic from '../../components/content/Infographic';
 import ComparisonTable from '../../components/content/ComparisonTable';
 import StackVisualizer from '../../components/content/StackVisualizer';
@@ -55,7 +55,7 @@ L'interprete ToyFort cicla su una lista. Se trova un valore, lo "puscia" sullo s
   language="c"
 />
 
-<Callout type="hacker" title="Perché xrealloc?">
+<Callout type="pro" title="Perché xrealloc?">
 Salvatore usa `xrealloc` invece di `realloc` perché, man mano che l'interprete cresce, le riallocazioni diventano frequenti. Se `realloc` fallisce a metà di una struttura complessa l'unica cosa sicura da fare è un "Panic" (chiusura immediata) invece di tentare di gestire un errore impossibile.
 </Callout>
 
@@ -168,7 +168,7 @@ Quando estrai un oggetto dallo stack con una `pop`, ne diventi il proprietario u
 />
 
 <Quiz 
-  title="Hacker Challenge"
+  title="Pro Challenge
   questions={[
     {
       question: "Se implementassi una funzione `SWAP` che scambia due elementi dello stack, come cambierebbe il ref_count?",
@@ -206,7 +206,7 @@ Quando estrai un oggetto dallo stack con una `pop`, ne diventi il proprietario u
   ]} 
 />
 
-<HackerTerminal 
+<ProTerminal 
   challenges={[
     {
         id: "retain-count",
@@ -243,3 +243,5 @@ Quando estrai un oggetto dallo stack con una `pop`, ne diventi il proprietario u
 
 ### Conclusione
 Abbiamo un motore che gira e una gestione della memoria solida! Nella prossima lezione vedremo come "mappare" i simboli (come '+') a funzioni C reali tramite la **Function Table**.
+
+

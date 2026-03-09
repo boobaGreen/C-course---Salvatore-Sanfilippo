@@ -211,7 +211,7 @@ const LinkedListSurgeon = () => {
                 animate={{ opacity: 1, y: 0 }}
                 className="bg-emerald-900/30 border border-emerald-500 p-4 rounded-lg flex items-center"
               >
-                <div className="text-emerald-400 text-2xl mr-4">✓</div>
+                <div className="text-emerald-400 text-2xl mr-4"></div>
                 <div>
                   <h4 className="font-bold text-emerald-400">Missione Completata!</h4>
                   <p className="text-emerald-200 text-sm mt-1">{currentTask.successMessage}</p>

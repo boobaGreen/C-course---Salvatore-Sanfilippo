@@ -1,10 +1,10 @@
-import VideoEmbed from '../../components/content/VideoEmbed';
+﻿import VideoEmbed from '../../components/content/VideoEmbed';
 import Callout from '../../components/content/Callout';
 import KeyConcepts from '../../components/content/KeyConcepts';
 import CodeEditor from '../../components/exercises/CodeEditor';
 import Quiz from '../../components/exercises/Quiz';
 import ComparisonTable from '../../components/content/ComparisonTable';
-import HackerTerminal from '../../components/content/HackerTerminal';
+import ProTerminal from '../../components/content/ProTerminal';
 import PointerArithmetic from '../../components/content/PointerArithmetic';
 import PointerMaze from '../../components/games/PointerMaze';
 import Infographic from '../../components/content/Infographic';
@@ -73,7 +73,7 @@ If you try to access a memory address that doesn't belong to your program (e.g.,
 
 In C, strings are arrays of `char` terminated by the special character `\0` (null terminator). We can iterate through a string by incrementing a pointer until we hit zero.
 
-<Callout type="hacker" title="Pointer Arithmetic">
+<Callout type="pro" title="Pointer Arithmetic">
 When you write `p++` on an `int *p`, the address doesn't increase by 1, but by `sizeof(int)` (usually 4 bytes). C automatically calculates the necessary "skip" to reach the next element.
 - `char *p; p++` -> +1 byte
 - `short *p; p++` -> +2 bytes
@@ -92,7 +92,7 @@ void print_string(char *p) {
 }
 
 int main() {
-    char *greeting = "Hacker World";
+    char *greeting = "esperto World";
     print_string(greeting);
     return 0;
 }`}
@@ -101,7 +101,7 @@ int main() {
 
 ---
 
-<KeyConcepts title="Hacker Key Concepts">
+<KeyConcepts title="Concetti Avanzati">
   - **Buffer Overflow**: What happens when you write beyond a pointer/array limits.
   - **Memory Layout**: Understanding how data is packed (one of C's main strengths).
   - **Little Endian**: How multi-byte numbers are stored (least significant byte at the lowest address).
@@ -121,7 +121,7 @@ int main() {
 
 ---
 
-## Maze: The Pointers Labyrinth 2 🕹️
+## Maze: The Pointers Labyrinth 2 •¹
 
 Challenge yourself: can you reach address 0x10F by following only the correct pointer chains?
 
@@ -194,10 +194,9 @@ Challenge yourself: can you reach address 0x10F by following only the correct po
 
 ---
 
-### Hacker Challenge 🏆
-
+### Pro Challenge
 <Quiz 
-  title="Hacker Challenge: Casting & Memory"
+  title="Pro Challenge: Casting & Memory"
   questions={[
     {
       id: 1,
@@ -238,9 +237,9 @@ Challenge yourself: can you reach address 0x10F by following only the correct po
   ]}
 />
 
-### Terminal Challenge: Exploration ⚡
+### Terminal Challenge: Exploration 
 
-<HackerTerminal 
+<ProTerminal 
   challenges={[
     {
       id: "hexdump-bin-en",
@@ -274,3 +273,5 @@ Challenge yourself: can you reach address 0x10F by following only the correct po
     }
   ]}
 />
+
+

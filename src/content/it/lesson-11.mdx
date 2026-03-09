@@ -1,11 +1,11 @@
-
+﻿
 
 import VideoEmbed from '../../components/content/VideoEmbed';
 import KeyConcepts from '../../components/content/KeyConcepts';
 import Callout from '../../components/content/Callout';
 import CodeEditor from '../../components/exercises/CodeEditor';
 import Quiz from '../../components/exercises/Quiz';
-import HackerTerminal from '../../components/content/HackerTerminal';
+import ProTerminal from '../../components/content/ProTerminal';
 import MemoryCaster from '../../components/content/MemoryCaster';
 import BinaryVisualizer from '../../components/content/BinaryVisualizer';
 import ComparisonTable from '../../components/content/ComparisonTable';
@@ -42,7 +42,7 @@ char *p = (char *)&s;   // Forzo un puntatore char* a guardare dove inizia lo sh
 Se `s` vale `514` (che in esadecimale è `0x0202`), la sua memoria fisica conterrà due byte separati: `0x02` e `0x02`.
 Quando leggiamo `*p`, stiamo leggendo solo **il primo byte** (`0x02`, che in decimale fa `2`), perché `p` è un puntatore a `char` (1 byte).
 
-<Callout type="hacker">
+<Callout type="pro">
 **Type Punning**
 Questa tecnica di leggere la memoria di un tipo attraverso un puntatore di un altro tipo si chiama "Type Punning". È potente per la programmazione di sistema, ma può causare comportamenti indefiniti se non si rispettano le regole di allineamento (che vedremo in futuro).
 
@@ -107,7 +107,7 @@ In questo modo ottenere la lunghezza era un'operazione istantanea (`O(1)`), legg
   rows={[
     ["Fine stringa", "Byte 0x00 (Null)", "Prefisso (primo byte)"],
     ["Calcolo Lunghezza", "O(N) - Lento (strlen)", "O(1) - Istantaneo"],
-    ["Dati Binari", "❌ No (lo zero interrompe)", "✅ Sì (può contenere lo zero)"],
+    ["Dati Binari", "âŒ No (lo zero interrompe)", " Sì (può contenere lo zero)"],
     ["Lunghezza Max", "RAM disponibile", "255 (con 1 byte di prefisso)"]
   ]}
 />
@@ -146,7 +146,7 @@ int main() {
   language="c" 
 />
 
-<KeyConcepts title="Hacker Key Concepts" concepts={[
+<KeyConcepts title="Concetti Avanzati" concepts={[
   { title: "Le Regole del Casting", description: "Il casting (tipo *) forza il compilatore a cambiare le regole aritmetiche e la logica di deferenziazione." },
   { title: "La Realtà della RAM", description: "La memoria è solo una cruda sequenza di byte; il significato (Testo, Numero) esiste solo tramite i tipi." },
   { title: "Sicurezza del Formato", description: "Il prefisso di lunghezza elimina la necessità del byte NULL, rendendo la stringa sicura per contenere zeri binari." }
@@ -230,7 +230,7 @@ int main() {
 />
 
 <Quiz 
-  title="Hacker Challenge"
+  title="Pro Challenge
   questions={[
     {
       question: "Dato il codice: `int x = 1; char *c = (char*)&x; if (*c) { ... }`. Cosa testa questo `if`?",
@@ -268,7 +268,7 @@ int main() {
   ]} 
 />
 
-<HackerTerminal 
+<ProTerminal 
   challenges={[
     {
         id: "endian-check",
@@ -311,3 +311,5 @@ int main() {
     }
 ]}
 />
+
+

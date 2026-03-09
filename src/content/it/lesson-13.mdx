@@ -1,10 +1,10 @@
-
+﻿
 import VideoEmbed from '../../components/content/VideoEmbed';
 import KeyConcepts from '../../components/content/KeyConcepts';
 import Callout from '../../components/content/Callout';
 import CodeEditor from '../../components/exercises/CodeEditor';
 import Quiz from '../../components/exercises/Quiz';
-import HackerTerminal from '../../components/content/HackerTerminal';
+import ProTerminal from '../../components/content/ProTerminal';
 import Infographic from '../../components/content/Infographic';
 import PointerArithmetic from '../../components/content/PointerArithmetic';
 import ComparisonTable from '../../components/content/ComparisonTable';
@@ -34,7 +34,7 @@ Nella scorsa lezione abbiamo visto le stringhe a lunghezza prefissa. Funzionavan
 
 Salvatore ci insegna il **trucco del veterano**: spostare il prefisso **prima** dell'indirizzo di memoria che diamo all'utente.
 
-### Anatomia di una "Hacker String"
+### Anatomia di una "Pro String"
 
 Ecco come appare la memoria di una nostra stringa evoluta:
 
@@ -44,13 +44,13 @@ Ecco come appare la memoria di una nostra stringa evoluta:
   items={[
     { label: "Header (4+ byte)", value: "Contiene la Lunghezza (uint32_t) e potenzialmente il Ref Count.", color: "purple" },
     { label: "Puntatore Utente", value: "Punta qui! Da qui in poi inizia il testo leggibile dal C standard.", color: "blue" },
-    { label: "Corpo della Stringa", value: "Il testo vero e proprio (es. 'Hacker').", color: "emerald" },
+    { label: "Corpo della Stringa", value: "Il testo vero e proprio (es. 'esperto').", color: "emerald" },
     { label: "Null Terminator", value: "Il byte '\\0' finale per la compatibilità.", color: "amber" }
   ]}
 />
 
 <BinaryVisualizer 
-  title="Memoria Reale di una Hacker String"
+  title="Memoria Reale di una Pro String"
   description="Ecco come i byte appaiono fisicamente in RAM (Little Endian)."
   data={[
     { label: "Header + Testo", bytes: ["06", "00", "00", "00", "48", "61", "63", "6b", "65", "72", "00"], address: "0x200" }
@@ -88,9 +88,9 @@ Un `int` su un sistema a 16 bit occupa 2 byte, su uno a 32 bit ne occupa 4. Se v
   title="Int Standard vs stdint.h"
   headers={["Tipo", "Dimensione", "Portabilità", "Utilizzo consigliato"]}
   rows={[
-    ["int", "Variabile (2-4-8 byte)", "❌ Bassa", "Contatori generici"],
-    ["uint32_t", "Sempre 4 byte (32 bit)", "✅ Totale", "Headers, Protocolli, File binari"],
-    ["size_t", "Grandezza della RAM", "✅ Buona", "Indici di array e malloc"]
+    ["int", "Variabile (2-4-8 byte)", "âŒ Bassa", "Contatori generici"],
+    ["uint32_t", "Sempre 4 byte (32 bit)", " Totale", "Headers, Protocolli, File binari"],
+    ["size_t", "Grandezza della RAM", " Buona", "Indici di array e malloc"]
   ]}
 />
 
@@ -154,7 +154,7 @@ int main() {
   language="c" 
 />
 
-<Callout type="hacker" title="Reference Counting">
+<Callout type="pro" title="Reference Counting">
 Salvatore introduce una tecnica fondamentale per gestire la memoria condivisa: il **Reference Counting**. Invece di duplicare una stringa ogni volta che un nuovo puntatore la referenzia, incrementiamo un contatore nell'header.
 - Quando aggiungi un riferimento: `count++`
 - Quando rimuovi un riferimento: `count--`
@@ -247,7 +247,7 @@ Immagina una stringa lunga 10 milioni di caratteri.
 />
 
 <Quiz 
-  title="Hacker Challenge"
+  title="Pro Challenge
   questions={[
     {
       question: "Se implementiamo il Reference Counting, quando dobbiamo chiamare effettivamente la `free`?",
@@ -285,7 +285,7 @@ Immagina una stringa lunga 10 milioni di caratteri.
   ]} 
 />
 
-<HackerTerminal 
+<ProTerminal 
   challenges={[
     {
         id: "hexdump-string",
@@ -331,3 +331,5 @@ Immagina una stringa lunga 10 milioni di caratteri.
 
 ### Riassunto Finale
 Oggi abbiamo scavato sotto la superficie. Abbiamo imparato che un puntatore è una bussola: se sappiamo dove stiamo puntando, possiamo muoverci avanti per vedere i dati o indietro per vedere i metadati. Questa tecnica è alla base di database come Redis e di molti linguaggi di alto livello (come Python) che devono gestire stringhe in modo efficiente.
+
+

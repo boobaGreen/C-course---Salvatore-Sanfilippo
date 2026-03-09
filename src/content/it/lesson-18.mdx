@@ -1,9 +1,9 @@
-import VideoEmbed from '../../components/content/VideoEmbed';
+﻿import VideoEmbed from '../../components/content/VideoEmbed';
 import Callout from '../../components/content/Callout';
 import KeyConcepts from '../../components/content/KeyConcepts';
 import CodeEditor from '../../components/exercises/CodeEditor';
 import Quiz from '../../components/exercises/Quiz';
-import HackerTerminal from '../../components/content/HackerTerminal';
+import ProTerminal from '../../components/content/ProTerminal';
 import Infographic from '../../components/content/Infographic';
 import ComparisonTable from '../../components/content/ComparisonTable';
 
@@ -55,7 +55,7 @@ Notate che nella `typedef` sopra non abbiamo dato un nome alla struct dopo la pa
 
 In C, un file è visto come uno **stream** di byte. La libreria standard ci fornisce un puntatore a una struttura speciale chiamata `FILE`.
 
-<Callout type="hacker" title="Tipi Opachi">
+<Callout type="pro" title="Tipi Opachi">
 Il tipo `FILE` è il primo esempio di **Tipo Opaco** che incontriamo. Noi non sappiamo (e non dobbiamo sapere) cosa c'è dentro la struttura `FILE`. Usiamo solo il puntatore e le funzioni (`fopen`, `fread`, ecc.) per manipolarlo. Questo è l'eccellenza del design: nascondere la complessità interna.
 </Callout>
 
@@ -78,7 +78,7 @@ Il tipo `FILE` è il primo esempio di **Tipo Opaco** che incontriamo. Noi non sa
   title="Modalità Testo vs Binaria"
   headers={["Caratteristica", "Testo ('r', 'w')", "Binaria ('rb', 'wb')"]}
   rows={[
-    ["Traduzione", "✅ Sì (es. \\n diventa \\r\\n su Win)", "❌ No (byte per byte)"],
+    ["Traduzione", " Sì (es. \\n diventa \\r\\n su Win)", "âŒ No (byte per byte)"],
     ["Velocità", "Lenta (conversione)", "Massima (copia diretta)"],
     ["Contenuto", "Leggibile dall'uomo", "Dati grezzi (struct, immagini)"]
   ]}
@@ -185,7 +185,7 @@ int main() {
 />
 
 <Quiz 
-  title="Hacker Challenge"
+  title="Pro Challenge
   questions={[
     {
       id: 1,
@@ -226,7 +226,7 @@ int main() {
   ]} 
 />
 
-<HackerTerminal 
+<ProTerminal 
   challenges={[
     {
         id: "file-inspect",
@@ -253,7 +253,7 @@ int main() {
         expectedCommand: "wc -c save.dat"
     },
     {
-        id: "lsof-hacker",
+        id: "lsof-esperto",
         simulatedSuccessOutput: `COMMAND   PID USER   FD   TYPE DEVICE SIZE/OFF   NODE NAME\na.out   12345 user  cwd    DIR    8,1     4096 123456 /tmp\na.out   12345 user  rtd    DIR    8,1     4096      2 /\na.out   12345 user    3r   REG    8,1        8 345678 /tmp/save.dat`,
         title: "File Aperti",
         description: "Sei un detective dei sistemi UNIX. Un processo sospetto sta leggendo dei dati: devi scoprire l'elenco esatto dei File Descriptors che sta tenendo attivi. Quale comando (List Open Files) lanci passandogli il flag `-p` e il PID?",
@@ -269,3 +269,5 @@ int main() {
 
 ### Riassunto Finale
 Abbiamo dato un nome alle nostre strutture e una persistenza ai nostri dati. `typedef` e la `FILE` API sono le fondamenta su cui costruirete software che non muore quando si chiude il terminale, ma che può scambiare dati con l'intero ecosistema digitale.
+
+

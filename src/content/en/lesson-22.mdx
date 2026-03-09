@@ -1,9 +1,9 @@
-import VideoEmbed from '../../components/content/VideoEmbed';
+﻿import VideoEmbed from '../../components/content/VideoEmbed';
 import Callout from '../../components/content/Callout';
 import KeyConcepts from '../../components/content/KeyConcepts';
 import CodeEditor from '../../components/exercises/CodeEditor';
 import Quiz from '../../components/exercises/Quiz';
-import HackerTerminal from '../../components/content/HackerTerminal';
+import ProTerminal from '../../components/content/ProTerminal';
 import Infographic from '../../components/content/Infographic';
 
 # Lesson 22: Function Pointers
@@ -152,7 +152,7 @@ int main() {
 />
 
 <Quiz 
-  title="Hacker Challenge"
+  title="Pro Challenge
   questions={[
     {
       question: "What does `void (*f[10])(int);` represent?",
@@ -190,11 +190,11 @@ int main() {
   ]} 
 />
 
-<Callout type="hacker" title="Jump Tables: C++ speed in C">
+<Callout type="pro" title="Jump Tables: C++ speed in C">
   Using an array of function pointers, you can implement a super-fast `switch`. If you have 100 different commands, instead of doing 100 `if` statements, you can use the command code as the array index and jump instantly to the correct function. This is how professional interpreters achieve incredible speeds.
 </Callout>
 
-<HackerTerminal 
+<ProTerminal 
   challenges={[
     {
       id: "nm-symbols-en",
@@ -225,3 +225,5 @@ int main() {
 
 ### Final Summary
 We have broken the last barrier between code and data. Function pointers allow us to create flexible systems, universal algorithms, and even emulate object-oriented behavior in pure C. It is the secret that lets libraries like the standard library be so powerful and reusable.
+
+

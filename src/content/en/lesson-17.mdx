@@ -1,9 +1,9 @@
-import VideoEmbed from '../../components/content/VideoEmbed';
+﻿import VideoEmbed from '../../components/content/VideoEmbed';
 import Callout from '../../components/content/Callout';
 import KeyConcepts from '../../components/content/KeyConcepts';
 import CodeEditor from '../../components/exercises/CodeEditor';
 import Quiz from '../../components/exercises/Quiz';
-import HackerTerminal from '../../components/content/HackerTerminal';
+import ProTerminal from '../../components/content/ProTerminal';
 import Infographic from '../../components/content/Infographic';
 import BinaryVisualizer from '../../components/content/BinaryVisualizer';
 import ComparisonTable from '../../components/content/ComparisonTable';
@@ -85,7 +85,7 @@ int main() {
 
 ## The Ternary Operator: `? :`
 
-It is the "hacker" version of the if-else. Salvatore often uses it for quick decisions:
+It is the "esperto" version of the if-else. Salvatore often uses it for quick decisions:
 `condition ? value_if_true : value_if_false`
 
 Example:
@@ -186,7 +186,7 @@ In C, newly allocated memory or memory declared on the stack contains "garbage".
 />
 
 <Quiz 
-  title="Hacker Challenge"
+  title="Pro Challenge
   questions={[
     {
       question: "Given `int x = 1;`, if we do `memset(&x, 0, 1);`, what happens to the value of x on a Little Endian system?",
@@ -224,7 +224,7 @@ In C, newly allocated memory or memory declared on the stack contains "garbage".
   ]} 
 />
 
-<HackerTerminal 
+<ProTerminal 
   challenges={[
     {
       id: "xdump-test-en",
@@ -255,3 +255,5 @@ In C, newly allocated memory or memory declared on the stack contains "garbage".
 
 ### Final Summary
 We have learned not to trust abstractions: memory is a tape of bytes and we now have the tools to inspect and manipulate it with surgical precision. `memset` and `xdump` will be your best friends in low-level debugging.
+
+

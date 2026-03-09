@@ -1,9 +1,9 @@
-import VideoEmbed from '../../components/content/VideoEmbed';
+﻿import VideoEmbed from '../../components/content/VideoEmbed';
 import Callout from '../../components/content/Callout';
 import KeyConcepts from '../../components/content/KeyConcepts';
 import CodeEditor from '../../components/exercises/CodeEditor';
 import Quiz from '../../components/exercises/Quiz';
-import HackerTerminal from '../../components/content/HackerTerminal';
+import ProTerminal from '../../components/content/ProTerminal';
 import Infographic from '../../components/content/Infographic';
 import ComparisonTable from '../../components/content/ComparisonTable';
 import StackVisualizer from '../../components/content/StackVisualizer';
@@ -94,7 +94,7 @@ int c = a + b; // Initialization via expression
   ]}
 />
 
-<Callout type="hacker" title="Hacker Mindset">
+<Callout type="pro" title="Expert Mindset">
 Specifying the type (e.g., `int`) allows the compiler to know exactly how many bytes to reserve in memory and how to interpret them. This is the secret to C's performance!
 </Callout>
 
@@ -123,7 +123,7 @@ In this appendix, Salvatore takes us back in time with the **6502** microprocess
 
 <VideoEmbed videoId="r6mU_IHXEps" title="Appendix Lesson 2: The life of local variables" />
 
-<Callout type="hacker" title="Memory Mapped I/O">
+<Callout type="pro" title="Memory Mapped I/O">
   In the screen above, we are writing directly to RAM at address `$0200`. The microprocessor doesn't "know" it's drawing: it's just moving bytes. It's the video hardware that interprets those bytes as pixel colors. This is the foundation of embedded systems and old consoles.
 </Callout>
 
@@ -220,10 +220,10 @@ This "short-circuit" mechanism is fundamental for automating complex tasks where
 
 ---
 
-## Hacker Key Concepts
+## Concetti Avanzati
 
 <KeyConcepts 
-  title="Hacker Key Concepts"
+  title="Concetti Avanzati"
   concepts={[
     {
         title: "Explicit Typing",
@@ -244,10 +244,9 @@ This "short-circuit" mechanism is fundamental for automating complex tasks where
   ]}
 />
 
-### Hacker Challenge 🏆
-
+### Pro Challenge
 <Quiz 
-  title="Hacker Challenge: Final Quiz"
+  title="Pro Challenge: Final Quiz"
   questions={[
     {
       id: 1,
@@ -288,9 +287,9 @@ This "short-circuit" mechanism is fundamental for automating complex tasks where
   ]}
 />
 
-### Terminal Challenge: Investigating Memory 🔍
+### Terminal Challenge: Investigating Memory 
 
-<HackerTerminal 
+<ProTerminal 
   challenges={[
     {
       id: "xxd-dump-en",
@@ -326,3 +325,5 @@ This "short-circuit" mechanism is fundamental for automating complex tasks where
 />
 
 See you in the next lesson!
+
+

@@ -1,10 +1,10 @@
-
+﻿
 import VideoEmbed from '../../components/content/VideoEmbed';
 import KeyConcepts from '../../components/content/KeyConcepts';
 import Callout from '../../components/content/Callout';
 import CodeEditor from '../../components/exercises/CodeEditor';
 import Quiz from '../../components/exercises/Quiz';
-import HackerTerminal from '../../components/content/HackerTerminal';
+import ProTerminal from '../../components/content/ProTerminal';
 import Infographic from '../../components/content/Infographic';
 import ComparisonTable from '../../components/content/ComparisonTable';
 
@@ -46,7 +46,7 @@ A struct is a contiguous block of memory. If an `int` occupies 4 bytes, our `str
 
 ---
 
-## The Mystery of Padding (Hacker Knowledge)
+## The Mystery of Padding (Advanced Knowledge)
 
 What happens if we add a `char` (1 byte) to our struct? We would expect a size of 9 bytes (4 + 4 + 1). But C surprises us: the size will be **12 bytes**.
 
@@ -195,7 +195,7 @@ int main() {
 />
 
 <Quiz 
-  title="Hacker Challenge"
+  title="Pro Challenge
   questions={[
     {
       question: "If we define `struct { char a; int b; } __attribute__((packed)) s;`, what will `sizeof(s)` be on a 32-bit system?",
@@ -233,7 +233,7 @@ int main() {
   ]} 
 />
 
-<HackerTerminal 
+<ProTerminal 
   challenges={[
     {
       id: "struct-offset",
@@ -264,3 +264,5 @@ int main() {
 
 ### Final Summary
 Structures are the beating heart of professional C. They allow us to model reality (fractions, users, network packets) respecting the hard logic of physical memory. Remember: field order matters for padding, and the arrow is the key to manipulating dynamic objects!
+
+

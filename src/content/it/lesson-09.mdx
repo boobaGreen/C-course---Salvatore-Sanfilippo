@@ -1,9 +1,9 @@
-import VideoEmbed from '../../components/content/VideoEmbed';
+﻿import VideoEmbed from '../../components/content/VideoEmbed';
 import Callout from '../../components/content/Callout';
 import KeyConcepts from '../../components/content/KeyConcepts';
 import CodeEditor from '../../components/exercises/CodeEditor';
 import Quiz from '../../components/exercises/Quiz';
-import HackerTerminal from '../../components/content/HackerTerminal';
+import ProTerminal from '../../components/content/ProTerminal';
 import PointerBasics from '../../components/content/PointerBasics';
 import PointerMaze from '../../components/games/PointerMaze';
 import Infographic from '../../components/content/Infographic';
@@ -66,7 +66,7 @@ Un indirizzo di memoria è sempre lo stesso (64 bit su architetture moderne), ma
 
 In C, l'indirizzo **0** è speciale e si indica con la keyword `NULL`. Significa che il puntatore non punta a nulla di valido.
 
-<Callout type="hacker" title="Puntatori vs Array: L'equivalenza">
+<Callout type="pro" title="Puntatori vs Array: L'equivalenza">
 Sapevi che `*p` è esattamente identico a scrivere `p[0]`? In C c'è una "bizzarra analogia" (come la chiama Salvatore) tra puntatori e array: un puntatore può essere trattato come l'indirizzo base di un array di un solo elemento.
 Questo significa che `*(p + 1)` è la stessa cosa di `p[1]`.
 </Callout>
@@ -100,7 +100,7 @@ int main() {
 
 ---
 
-<KeyConcepts title="Hacker Key Concepts"
+<KeyConcepts title="Concetti Avanzati"
   concepts={[
     {
       title: "Indirection",
@@ -131,7 +131,7 @@ int main() {
 
 ---
 
-## Maze: Il Labirinto dei Puntatori 🕹️
+## Maze: Il Labirinto dei Puntatori •¹
 
 Premi il pulsante `*(deref)` per navigare nella memoria. Riuscirai a trovare l'istruzione di uscita `**EXIT**` senza finire in `NULL` o `Segmentation Fault`?
 
@@ -204,10 +204,9 @@ Premi il pulsante `*(deref)` per navigare nella memoria. Riuscirai a trovare l'i
 
 ---
 
-### Hacker Challenge 🏆
-
+### Pro Challenge
 <Quiz 
-  title="Hacker Challenge: Pointer Architecture"
+  title="Pro Challenge: Pointer Architecture"
   questions={[
     {
       id: 1,
@@ -248,9 +247,9 @@ Premi il pulsante `*(deref)` per navigare nella memoria. Riuscirai a trovare l'i
   ]}
 />
 
-### Terminal Challenge: Exploration ⚡
+### Terminal Challenge: Exploration 
 
-<HackerTerminal 
+<ProTerminal 
   challenges={[
     {
         id: "gdb-debugger-it",
@@ -298,3 +297,5 @@ Premi il pulsante `*(deref)` per navigare nella memoria. Riuscirai a trovare l'i
     }
 ]}
 />
+
+

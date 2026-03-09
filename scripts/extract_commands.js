@@ -10,9 +10,9 @@ files.forEach(file => {
   const filePath = path.join(contentDir, file);
   const content = fs.readFileSync(filePath, 'utf8');
 
-  // We need to parse HackerTerminal challenges.
+  // We need to parse ProTerminal challenges.
   // It looks like:
-  // <HackerTerminal
+  // <ProTerminal
   //   challenges={[
   //     {
   //       id: "opt-trap",

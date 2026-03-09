@@ -1,9 +1,9 @@
-import VideoEmbed from '../../components/content/VideoEmbed';
+﻿import VideoEmbed from '../../components/content/VideoEmbed';
 import Callout from '../../components/content/Callout';
 import KeyConcepts from '../../components/content/KeyConcepts';
 import CodeEditor from '../../components/exercises/CodeEditor';
 import Quiz from '../../components/exercises/Quiz';
-import HackerTerminal from '../../components/content/HackerTerminal';
+import ProTerminal from '../../components/content/ProTerminal';
 import Infographic from '../../components/content/Infographic';
 
 # Lezione 20: Buffering e Memory Mapping (mmap)
@@ -88,7 +88,7 @@ int main() {
   language="c" 
 />
 
-<Callout type="hacker" title="MAP_FAILED">
+<Callout type="pro" title="MAP_FAILED">
 Attenzione: `mmap` non ritorna `NULL` in caso di errore, ma una costante chiamata `MAP_FAILED` (che di solito corrisponde all'indirizzo `0xFFFFFFFFFFFFFFFF`). Controlla sempre questo valore per evitare crash misteriosi!
 </Callout>
 
@@ -161,7 +161,7 @@ Elimina il passaggio di copia dei dati tra lo spazio Kernel e lo spazio Utente. 
 />
 
 <Quiz 
-  title="Hacker Challenge"
+  title="Pro Challenge
   questions={[
     {
       id: 1,
@@ -202,7 +202,7 @@ Elimina il passaggio di copia dei dati tra lo spazio Kernel e lo spazio Utente. 
   ]} 
 />
 
-<HackerTerminal 
+<ProTerminal 
   challenges={[
     {
         id: "strace-mmap",
@@ -244,4 +244,6 @@ Elimina il passaggio di copia dei dati tra lo spazio Kernel e lo spazio Utente. 
 />
 
 ### Riassunto Finale
-Congratulazioni! Hai completato il percorso fondamentale del C. Dalle variabili al memory mapping, ora hai una comprensione profonda di come i computer pensano e gestiscono i dati. Il C non è solo un linguaggio: è il linguaggio della realtà informatica. Continua a esplorare, hacker!
+Congratulazioni! Hai completato il percorso fondamentale del C. Dalle variabili al memory mapping, ora hai una comprensione profonda di come i computer pensano e gestiscono i dati. Il C non è solo un linguaggio: è il linguaggio della realtà informatica. Continua a esplorare, esperto!
+
+

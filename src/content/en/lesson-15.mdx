@@ -1,10 +1,10 @@
-
+﻿
 import VideoEmbed from '../../components/content/VideoEmbed';
 import KeyConcepts from '../../components/content/KeyConcepts';
 import Callout from '../../components/content/Callout';
 import CodeEditor from '../../components/exercises/CodeEditor';
 import Quiz from '../../components/exercises/Quiz';
-import HackerTerminal from '../../components/content/HackerTerminal';
+import ProTerminal from '../../components/content/ProTerminal';
 import Infographic from '../../components/content/Infographic';
 import ComparisonTable from '../../components/content/ComparisonTable';
 import LinkedListSurgeon from '../../components/games/LinkedListSurgeon';
@@ -85,7 +85,7 @@ struct Line {
 />
 ```
 
-<Callout type="hacker" title="Mental Leap">
+<Callout type="pro" title="Mental Leap">
 Note that `struct Line` contains a pointer to `struct Line`. This is possible because a pointer is just a memory address; the compiler doesn't need to know the full size of the struct to define the pointer.
 </Callout>
 
@@ -118,7 +118,7 @@ Why does the list reverse the file? Because we do `new_node->next = head; head =
 
 ---
 
-## Exercise: Linked List Surgeon 🩺
+## Exercise: Linked List Surgeon 
 
 Before seeing how TAC reverses a file, test your skills. Can you manipulate pointers in memory to insert and remove nodes without breaking the chain?
 
@@ -240,7 +240,7 @@ int main(int argc, char **argv) {
 />
 
 <Quiz 
-  title="Hacker Challenge"
+  title="Pro Challenge
   questions={[
     {
       question: "Which operation is more expensive (complex) in a linked list compared to an array?",
@@ -278,7 +278,7 @@ int main(int argc, char **argv) {
   ]} 
 />
 
-<HackerTerminal 
+<ProTerminal 
   challenges={[
     {
       id: "tac-usage-en",
@@ -309,3 +309,5 @@ int main(int argc, char **argv) {
 
 ### Final Summary
 In this lesson, we created a real system tool. We learned that structures are not just static containers but bricks that can link together to create dynamic data structures. Welcome to the world of Linked Lists!
+
+

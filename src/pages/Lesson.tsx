@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+﻿import { useEffect, useState } from 'react';
 import type { FunctionComponent } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -25,7 +25,7 @@ import ASCIIConverter from '../components/content/ASCIIConverter';
 import BranchingSimulator from '../components/content/BranchingSimulator';
 import RecursionVisualizer from '../components/content/RecursionVisualizer';
 import SwitchBoard from '../components/content/SwitchBoard';
-import HackerTerminal from '../components/content/HackerTerminal';
+import ProTerminal from '../components/content/ProTerminal';
 import GameOfLife from '../components/content/GameOfLife';
 import PointerBasics from '../components/content/PointerBasics';
 import PointerArithmetic from '../components/content/PointerArithmetic';
@@ -103,7 +103,7 @@ const mdxComponents = {
 
 
 import type { QuizProps } from '../components/exercises/Quiz';
-import type { HackerTerminalProps } from '../components/content/HackerTerminal';
+import type { ProTerminalProps } from '../components/content/ProTerminal';
 import type { TerminalSimulationProps } from '../components/content/TerminalSimulation';
 
 export default function Lesson() {
@@ -119,7 +119,7 @@ export default function Lesson() {
         ...mdxComponents,
         CodeEditor: (props: { initialCode: string }) => <CodeEditor {...props} lessonSlug={slug} />,
         Quiz: (props: QuizProps) => <Quiz {...props} lessonSlug={slug} />,
-        HackerTerminal: (props: HackerTerminalProps) => <HackerTerminal {...props} lessonSlug={slug} />,
+        ProTerminal: (props: ProTerminalProps) => <ProTerminal {...props} lessonSlug={slug} />,
         TypeMatcher: (props: { lessonSlug?: string }) => <TypeMatcher {...props} lessonSlug={slug} />,
         TerminalSimulation: (props: TerminalSimulationProps) => <TerminalSimulation {...props} lessonSlug={slug} />,
     };
@@ -215,3 +215,4 @@ export default function Lesson() {
         </div>
     );
 }
+

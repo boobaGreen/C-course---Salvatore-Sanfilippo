@@ -1,10 +1,10 @@
-# 🏆 The Master Formula: C Course Lesson Guide
+#  The Master Formula: C Course Lesson Guide
 
 This document defines the "Gold Standard" for creating new lessons for the Salvatore Sanfilippo C Course. Follow these rules strictly to ensure consistency, high engagement, and educational excellence.
 
 ---
 
-## 📂 Source Materials & Locations
+##  Source Materials & Locations
 
 Before starting a lesson, always reference these files:
 - **Transcription**: `/home/clod/Desktop/c/transcriptions/raw/lesson-XX.txt` (The source of truth).
@@ -15,7 +15,7 @@ Before starting a lesson, always reference these files:
 
 ---
 
-## 🏗️ Lesson Structure (The Scaletta)
+## ️ Lesson Structure (The Scaletta)
 
 Every lesson must follow this exact order:
 
@@ -34,15 +34,15 @@ Every lesson must follow this exact order:
 7.  **Detailed Explanation**: Break down the transcript concepts using:
     - `### Subheaders` for clarity.
     - `**Bold**` for terminology.
-    - `<Callout type="info|warning|hacker">` for sidebars.
+    - `<Callout type="info|warning|pro">` for sidebars.
 8.  **Code Editor**: `<CodeEditor initialCode="..." language="c" />` with a meaningful, runnable example from the lesson.
 10. **Standard Quiz**: `<Quiz questions={[...]} />` (**exactly 5 questions**) to verify basics.
-11. **Hacker Challenge**: `<Quiz title="Hacker Challenge" questions={[...]} />` (**exactly 3 questions**).
-12. **Terminal Challenges**: `<HackerTerminal />` (**exactly 3 tasks**) focused on Linux tools (`gdb`, `hexdump`, `time`, `valgrind`).
+11. **Pro Challenge**: `<Quiz title="Pro Challenge" questions={[...]} />` (**exactly 3 questions**).
+12. **Terminal Challenges**: `<ProTerminal />` (**exactly 3 tasks**) focused on Linux tools (`gdb`, `hexdump`, `time`, `valgrind`).
 
 ---
 
-## 🎨 Visual Style & Aesthetics
+##  Visual Style & Aesthetics
 
 ### "WOW" Factor Rules:
 - **Glassmorphism**: Use the `.glass-panel` CSS class for components.
@@ -57,34 +57,34 @@ Every lesson must follow this exact order:
 
 ---
 
-## 📝 Content Philosophy
+##  Content Philosophy
 
 1.  **Zero Omission Policy**: Represent *every single* concepts from the transcript. If Salvatore says it, the user must read/see it.
 2.  **Interactive-First**: If a concept can be a game, a simulator, or an infographic, text is the *secondary* choice.
-3.  **Hacker Mindset**: Always explain *why* something happens in memory. Don't just say "it works this way," say "the pointer moves 4 bytes because the CPU expects an integer."
+3.  **Mentalità da Esperto**: Always explain *why* something happens in memory. Don't just say "it works this way," say "the pointer moves 4 bytes because the CPU expects an integer."
 4.  **Bilingual Synchronicity**: IT and EN versions must be identical in terms of components and structure.
 
 ---
 
-## 🛠️ Components Cheat Sheet
+## ️ Components Cheat Sheet
 
 | Component | Usage |
 | :--- | :--- |
 | `VideoEmbed` | Top of page. |
-| `Callout` | Use `type="hacker"` for deep technical dives. |
+| `Callout` | Use `type="pro"` for deep technical dives. |
 | `KeyConcepts` | Summary boxes for quick scanning. |
 | `CodeEditor` | Interactive C snippets. |
-| `Quiz` | Use for both standard and hacker-level questions. |
-| `HackerTerminal` | Linux shell simulations with XP rewards. |
+| `Quiz` | Use for both standard and pro-level questions. |
+| `ProTerminal` | Linux shell simulations with XP rewards. |
 | `Custom Simulator` | React components (e.g. `PointerBasics`) - **Always the centerpiece.** |
 
 ---
 
-## ✅ Final Checklist before "Complete"
+##  Final Checklist before "Complete"
 
 - [ ] Is the videoId correct in `lessons.ts`?
 - [ ] Does `npm run build` pass?
 - [ ] Are all transcript concepts covered?
 - [ ] Does the UI "WOW" the user?
-- [ ] Is there at least one complex "Hacker Terminal" challenge?
+- [ ] Is there at least one complex "Advanced Terminal" challenge?
 - [ ] Are the English and Italian paths correctly created?

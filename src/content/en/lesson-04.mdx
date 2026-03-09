@@ -1,4 +1,4 @@
-import VideoEmbed from '../../components/content/VideoEmbed';
+﻿import VideoEmbed from '../../components/content/VideoEmbed';
 import Callout from '../../components/content/Callout';
 import KeyConcepts from '../../components/content/KeyConcepts';
 import LimitsExplorer from '../../components/content/LimitsExplorer';
@@ -6,7 +6,7 @@ import BinaryVisualizer from '../../components/content/BinaryVisualizer';
 import Infographic from '../../components/content/Infographic';
 import CodeEditor from '../../components/exercises/CodeEditor';
 import Quiz from '../../components/exercises/Quiz';
-import HackerTerminal from '../../components/content/HackerTerminal';
+import ProTerminal from '../../components/content/ProTerminal';
 import ComparisonTable from '../../components/content/ComparisonTable';
 
 # Lesson 4: Integers, Memory & Limits
@@ -152,16 +152,15 @@ Try experimenting with `sizeof` and the `limits.h` constants like `INT_MIN` and 
 
 ---
 
-<KeyConcepts title="Hacker Key Concepts">
+<KeyConcepts title="Concetti Avanzati">
   - **sizeof**: The only safe way to know how much space a type actually occupies on your machine.
   - **limits.h**: Contains constants (like `INT_MAX`) that describe the numeric limits of your compiler.
   - **Padding**: The computer adds empty space ("dead" bytes) between data to make access faster for the CPU.
 </KeyConcepts>
 
-### Hacker Challenge 🏆
-
+### Pro Challenge
 <Quiz 
-  title="Hacker Challenge: Final Quiz"
+  title="Pro Challenge: Final Quiz"
   questions={[
     {
       id: 1,
@@ -202,9 +201,9 @@ Try experimenting with `sizeof` and the `limits.h` constants like `INT_MIN` and 
   ]}
 />
 
-### Terminal Challenge: Header Hunting 🕵️
+### Terminal Challenge: Header Hunting 
 
-<HackerTerminal 
+<ProTerminal 
   challenges={[
     {
       id: "limits-header-en",
@@ -240,3 +239,5 @@ Try experimenting with `sizeof` and the `limits.h` constants like `INT_MIN` and 
 />
 
 See you in the next lesson!
+
+

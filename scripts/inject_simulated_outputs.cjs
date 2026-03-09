@@ -57,7 +57,7 @@ const mockOutputs = {
     "memset-zero-file": "1+0 records in\\n1+0 records out\\n1024 bytes copied, 0.000123 s, 8.3 MB/s",
     "file-inspect": "00000000  01 00 00 00 00 00 bf 42                           |.......B|",
     "count-chars-wc": "8 save.dat",
-    "lsof-hacker": "COMMAND   PID USER   FD   TYPE DEVICE SIZE/OFF   NODE NAME\\na.out   12345 user  cwd    DIR    8,1     4096 123456 /tmp\\na.out   12345 user  rtd    DIR    8,1     4096      2 /\\na.out   12345 user    3r   REG    8,1        8 345678 /tmp/save.dat",
+    "lsof-pro": "COMMAND   PID USER   FD   TYPE DEVICE SIZE/OFF   NODE NAME\\na.out   12345 user  cwd    DIR    8,1     4096 123456 /tmp\\na.out   12345 user  rtd    DIR    8,1     4096      2 /\\na.out   12345 user    3r   REG    8,1        8 345678 /tmp/save.dat",
     "man-syscall": "READ(2)                    Linux Programmer's Manual                   READ(2)\\n\\nNAME\\n       read - read from a file descriptor",
     "errno-list": "/usr/include/asm-generic/errno-base.h:#define\\tENOENT\\t\\t 2\\t/* No such file or directory */",
     "pmap-inspect": "12345:   ./a.out\\n0000555555554000      4K r--p  /tmp/a.out\\n0000555555555000      4K r-xp  /tmp/a.out",
@@ -78,8 +78,8 @@ files.forEach(file => {
     // We only replace if simulatedSuccessOutput doesn't already exist for this id
     const regex = /id:\s*(['"])([^'"]+)\1,/g;
     
-    // Check if the file has any HackerTerminal component at all
-    if (!content.includes('<HackerTerminal')) return;
+    // Check if the file has any ProTerminal component at all
+    if (!content.includes('<ProTerminal')) return;
 
     let newContent = content.replace(regex, (match, quote, id) => {
         if (mockOutputs.hasOwnProperty(id)) {

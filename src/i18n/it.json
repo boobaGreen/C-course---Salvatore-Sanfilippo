@@ -13,10 +13,10 @@
     },
     "author": {
         "title": "Chi è Salvatore Sanfilippo (antirez)?",
-        "bio_1": "Salvatore Sanfilippo, noto nel mondo hacker come <strong class=\"text-white\">antirez</strong>, è uno dei programmatori italiani più influenti a livello globale.",
+        "bio_1": "Salvatore Sanfilippo, noto nella comunità tech come <strong class=\"text-white\">antirez</strong>, è uno dei programmatori italiani più influenti a livello globale.",
         "bio_2": "È internazionalmente celebre per aver creato <strong class=\"text-[var(--color-brand-primary)]\">Redis</strong>, uno dei database in-memory open source più utilizzati al mondo (impiegato da Twitter, GitHub, StackOverflow e innumerevoli altre aziende reali).",
         "bio_3": "Maestro assoluto del <strong class=\"text-[var(--color-brand-secondary)]\">linguaggio C</strong>, il suo codice è universalmente studiato per la sua incredibile eleganza, le performance estreme e il pragmatismo. Leggere il codice sorgente di Redis è considerato un rito di passaggio e un'esperienza formativa per qualsiasi sviluppatore C.",
-        "bio_4": "Questo corso è stato concepito e pubblicato da Salvatore in modo <strong class=\"text-white\">completamente gratuito</strong> per la comunità su YouTube. In queste lezioni trasmette non solo la sintassi del C, ma il vero <em>mindset hacker</em>: capire profondamente cosa succede \"sotto il cofano\", dal codice sorgente, all'architettura della CPU, all'Assembly, fino alle interazioni con il kernel Linux.",
+        "bio_4": "Questo corso è stato concepito e pubblicato da Salvatore in modo <strong class=\"text-white\">completamente gratuito</strong> per la comunità su YouTube. In queste lezioni trasmette non solo la sintassi del C, ma il vero <em>mindset professionale</em>: capire profondamente cosa succede \"sotto il cofano\", dal codice sorgente, all'architettura della CPU, all'Assembly, fino alle interazioni con il kernel Linux.",
         "close": "Chiudi",
         "badge": "Scopri di più sull'autore"
     },
@@ -81,7 +81,7 @@
         },
         "questions_info": {
             "title": "Tipologia di domande",
-            "description": "Le domande base (Quiz) vertono sugli argomenti del video, della trascrizione o del testo della lezione. Le domande \"Hacker Terminal Challenge\", invece, sono pensate per spingerti oltre: possono riguardare materiale non trattato esplicitamente e richiederanno una ricerca attiva su fonti esterne."
+            "description": "Le domande base (Quiz) vertono sugli argomenti del video, della trascrizione o del testo della lezione. Le domande \"Sfida Pro Terminale\", invece, sono pensate per spingerti oltre: possono riguardare materiale non trattato esplicitamente e richiederanno una ricerca attiva su fonti esterne."
         }
     },
     "footer": {

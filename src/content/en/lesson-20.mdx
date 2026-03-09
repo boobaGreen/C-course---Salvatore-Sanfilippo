@@ -1,9 +1,9 @@
-import VideoEmbed from '../../components/content/VideoEmbed';
+﻿import VideoEmbed from '../../components/content/VideoEmbed';
 import Callout from '../../components/content/Callout';
 import KeyConcepts from '../../components/content/KeyConcepts';
 import CodeEditor from '../../components/exercises/CodeEditor';
 import Quiz from '../../components/exercises/Quiz';
-import HackerTerminal from '../../components/content/HackerTerminal';
+import ProTerminal from '../../components/content/ProTerminal';
 import Infographic from '../../components/content/Infographic';
 
 # Lesson 20: Buffering & Memory Mapping (mmap)
@@ -88,7 +88,7 @@ int main() {
   language="c" 
 />
 
-<Callout type="hacker" title="MAP_FAILED">
+<Callout type="pro" title="MAP_FAILED">
 Warning: `mmap` does not return `NULL` on error, but a constant called `MAP_FAILED` (usually corresponding to address `0xFFFFFFFFFFFFFFFF`). Always check this value to avoid mysterious crashes!
 </Callout>
 
@@ -161,7 +161,7 @@ It eliminates the data copying step between Kernel space and User space. The fil
 />
 
 <Quiz 
-  title="Hacker Challenge"
+  title="Pro Challenge
   questions={[
     {
       id: 1,
@@ -202,7 +202,7 @@ It eliminates the data copying step between Kernel space and User space. The fil
   ]} 
 />
 
-<HackerTerminal 
+<ProTerminal 
   challenges={[
     {
       id: "strace-mmap-en",
@@ -232,4 +232,6 @@ It eliminates the data copying step between Kernel space and User space. The fil
 />
 
 ### Final Summary
-Congratulations! You have completed the fundamental core of the C language. From variables to memory mapping, you now have a deep understanding of how computers think and manage data. C is not just a language: it is the language of computer reality. Keep exploring, hacker!
+Congratulations! You have completed the fundamental core of the C language. From variables to memory mapping, you now have a deep understanding of how computers think and manage data. C is not just a language: it is the language of computer reality. Keep exploring, esperto!
+
+

@@ -11,7 +11,7 @@ I have completed the implementation of Lessons 9 and 10, which focus on the most
 ### 2. MDX Lessons (IT & EN)
 - **Lesson 09**: Covers address-of (`&`), dereferencing (`*`), pointer syntax (`int *p`), and the importance of `NULL`.
 - **Lesson 10**: Deep dive into pointer arithmetic, pointer-to-pointer (`int **pp`), and iterating through strings with pointers.
-- Added **Hacker Challenges** for both lessons, covering bit-level memory layout and Linux diagnostic commands (`gdb`, `hexdump`, `ulimit`).
+- Added **Pro Challenges** for both lessons, covering bit-level memory layout and Linux diagnostic commands (`gdb`, `hexdump`, `ulimit`).
 
 ### 3. Core Registry
 - Registered both components in `src/pages/Lesson.tsx`.

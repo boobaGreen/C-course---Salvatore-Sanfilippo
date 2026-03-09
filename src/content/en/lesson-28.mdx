@@ -1,9 +1,9 @@
-import VideoEmbed from '../../components/content/VideoEmbed';
+﻿import VideoEmbed from '../../components/content/VideoEmbed';
 import Callout from '../../components/content/Callout';
 import KeyConcepts from '../../components/content/KeyConcepts';
 import CodeEditor from '../../components/exercises/CodeEditor';
 import Quiz from '../../components/exercises/Quiz';
-import HackerTerminal from '../../components/content/HackerTerminal';
+import ProTerminal from '../../components/content/ProTerminal';
 import Infographic from '../../components/content/Infographic';
 import ComparisonTable from '../../components/content/ComparisonTable';
 import FormatStringExploit from '../../components/games/FormatStringExploit';
@@ -134,7 +134,7 @@ int main() {
   language="c"
 />
 
-<Callout type="hacker" title="Zero Type Safety">
+<Callout type="pro" title="Zero Type Safety">
 Warning: `va_arg` doesn't check if the type is correct! If you pass a `double` but ask for an `int`, you'll get garbage values or a crash. It is the programmer's responsibility to ensure consistency.
 </Callout>
 
@@ -223,7 +223,7 @@ One of the most common uses is `vprintf`, which takes a `va_list` instead of loo
 />
 
 <Quiz 
-  title="Hacker Challenge"
+  title="Pro Challenge
   questions={[
     {
       question: "Why does `va_start` require the name of the last fixed argument?",
@@ -261,7 +261,7 @@ One of the most common uses is `vprintf`, which takes a `va_list` instead of loo
   ]} 
 />
 
-<HackerTerminal 
+<ProTerminal 
   challenges={[
     {
       id: "stdarg-init-en",
@@ -292,3 +292,5 @@ One of the most common uses is `vprintf`, which takes a `va_list` instead of loo
 
 ### Conclusion
 Variadic functions are the "magic" behind C's flexibility. Now we are ready to implement a professional error management system in our ToyFort interpreter!
+
+

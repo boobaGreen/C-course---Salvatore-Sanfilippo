@@ -120,7 +120,7 @@ graph LR
 
 ---
 
-## 2. Decisioni Finali Confermate ✅
+## 2. Decisioni Finali Confermate 
 
 > [!IMPORTANT]
 > Queste decisioni sono state discusse e confermate dall'utente il 07/03/2026.
@@ -145,11 +145,11 @@ graph LR
 
 | Criterio | Next.js | Vite + React |
 |----------|---------|-------------|
-| Familiarità utente | ❌ No | ✅ Sì |
-| Velocità sviluppo | 🟡 Più lento (HMR, build) | ✅ Più veloce |
-| Complessità | 🔴 Server components, app router, RSC | ✅ Semplice, paradigma classico |
-| SSG | ✅ Nativo | 🟡 Non strettamente necessario per SPA |
-| Deploy | Vercel-centric | ✅ Ovunque (output = file statici) |
+| Familiarità utente |  No |  Sì |
+| Velocità sviluppo |  Più lento (HMR, build) |  Più veloce |
+| Complessità |  Server components, app router, RSC |  Semplice, paradigma classico |
+| SSG |  Nativo |  Non strettamente necessario per SPA |
+| Deploy | Vercel-centric |  Ovunque (output = file statici) |
 
 ### 2.2 Esecuzione Codice C nel Browser
 
@@ -157,7 +157,7 @@ graph LR
 |---------|--------|-------------------|-----------|
 | **Primario** | **Emscripten (C→WASM precompilato)** | Compilatore Clang/LLVM compilato a WASM, esegue C nel browser senza server | ~90% degli esercizi |
 | **Eccezioni** | **Output pre-calcolato** | Per `open()`, `read()`, `write()`, `mmap()`, `fork()`, `exec()` | Lezioni L19, L20, L26 |
-| **Nessun fallback API** | ❌ | Né Judge0 né Wandbox | — |
+| **Nessun fallback API** |  | Né Judge0 né Wandbox | — |
 
 > [!NOTE]
 > **Perché Emscripten e nessun fallback API esterno?**
@@ -488,17 +488,17 @@ Per ogni lezione, 1-3 infografiche generate con AI (`generate_image` tool) e/o S
 
 | Problema | Severità | Soluzione | Upgrade Path |
 |----------|----------|-----------|-------------|
-| Code-switching IT/EN (Salvatore mix le lingue) | 🟡 Media | Whisper `small` con `language="it"` + revisione manuale per termini tecnici | — |
-| Nomi funzioni/variabili confusi | 🔴 Alta | Post-processing: regex per `camelCase`, `snake_case`, keyword C (`int`, `void`, `printf`, etc.) | Script automatico |
-| Qualità `small` insufficiente | 🟡 Media | Testare su L1; se WER troppo alto → upgrade | `medium` su CPU (~5 GB RAM, più lento) oppure Whisper API cloud ($0.006/min) |
-| Audio con rumore di fondo | 🟢 Bassa | I video di Salvatore hanno audio pulito (microfono da studio) | — |
+| Code-switching IT/EN (Salvatore mix le lingue) |  Media | Whisper `small` con `language="it"` + revisione manuale per termini tecnici | — |
+| Nomi funzioni/variabili confusi |  Alta | Post-processing: regex per `camelCase`, `snake_case`, keyword C (`int`, `void`, `printf`, etc.) | Script automatico |
+| Qualità `small` insufficiente |  Media | Testare su L1; se WER troppo alto → upgrade | `medium` su CPU (~5 GB RAM, più lento) oppure Whisper API cloud ($0.006/min) |
+| Audio con rumore di fondo |  Bassa | I video di Salvatore hanno audio pulito (microfono da studio) | — |
 
 | Problema | Severità | Soluzione |
 |----------|----------|-----------|
-| System calls non supportate | 🟡 Media | Output pre-calcolato con nota "Questo codice richiede un sistema operativo reale" per L19, L20, L26 |
-| Download iniziale compilatore (~2-5 MB) | 🟡 Media | Lazy loading al primo uso dell'editor; cache in IndexedDB; skeleton loader durante download |
-| Tempo compilazione nel browser | 🟢 Bassa | Per snippet piccoli (<100 righe) è quasi istantaneo; mostrare spinner per compilazioni più lunghe |
-| Errori del compilatore poco chiari | 🟡 Media | Mappare errori comuni a messaggi user-friendly in IT/EN |
+| System calls non supportate |  Media | Output pre-calcolato con nota "Questo codice richiede un sistema operativo reale" per L19, L20, L26 |
+| Download iniziale compilatore (~2-5 MB) |  Media | Lazy loading al primo uso dell'editor; cache in IndexedDB; skeleton loader durante download |
+| Tempo compilazione nel browser |  Bassa | Per snippet piccoli (<100 righe) è quasi istantaneo; mostrare spinner per compilazioni più lunghe |
+| Errori del compilatore poco chiari |  Media | Mappare errori comuni a messaggi user-friendly in IT/EN |
 
 ## Proposed Changes
 
@@ -527,9 +527,9 @@ A styled table component for comparing concepts (e.g., `printf` vs `puts`, or `H
 
 | Problema | Severità | Soluzione |
 |----------|----------|-----------|
-| Sincronizzazione struttura IT/EN | 🟡 Media | Struttura MDX identica; script CI che verifica corrispondenza sezioni |
-| Terminologia tecnica | 🟢 Bassa | Universale in C (malloc, pointer, struct, array restano identici in entrambe le lingue) |
-| Espressioni idiomatiche di Salvatore | 🟡 Media | Adattamento culturale nella traduzione, non traduzione letterale |
+| Sincronizzazione struttura IT/EN |  Media | Struttura MDX identica; script CI che verifica corrispondenza sezioni |
+| Terminologia tecnica |  Bassa | Universale in C (malloc, pointer, struct, array restano identici in entrambe le lingue) |
+| Espressioni idiomatiche di Salvatore |  Media | Adattamento culturale nella traduzione, non traduzione letterale |
 
 ---
 
@@ -551,35 +551,35 @@ A styled table component for comparing concepts (e.g., `printf` vs `puts`, or `H
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│  🔧 Learn C — Corso Interattivo di antirez         [IT|EN] │
-│                                               [🌙 / ☀️]    │
+│   Learn C — Corso Interattivo di antirez         [IT|EN] │
+│                                               [ / ️]    │
 ├──────────┬──────────────────────────────────────────────────┤
 │          │                                                  │
-│ SIDEBAR  │  📌 Lezione 9: Introduzione ai Puntatori        │
+│ SIDEBAR  │   Lezione 9: Introduzione ai Puntatori        │
 │ (280px)  │                                                  │
 │          │  ─── Sommario ───                                │
 │ ▸ Fondamenti│  • Cos'è un puntatore                        │
-│   L1 ✅  │  • L'operatore & e *                            │
-│   L2 ✅  │  • Puntatori e array                            │
-│   A1 ✅  │                                                  │
-│   L3 ✅  │  ▶ Video YouTube (embed responsive)             │
+│   L1   │  • L'operatore & e *                            │
+│   L2   │  • Puntatori e array                            │
+│   A1   │                                                  │
+│   L3   │  ▶ Video YouTube (embed responsive)             │
 │   ...    │                                                  │
-│ ▸ Puntatori│ 📝 Testo della Lezione                        │
-│   L9 🔵  │  ─────────────────────                          │
+│ ▸ Puntatori│  Testo della Lezione                        │
+│   L9   │  ─────────────────────                          │
 │   L10    │  [Contenuto MDX con codice evidenziato,         │
 │   L11    │   diagrammi Mermaid renderizzati,               │
 │   ...    │   infografiche inline,                          │
 │          │   animazioni CSS/Framer Motion]                  │
 │ ▸ Avanzato│                                                │
-│ ▸ Forth  │  📊 Concetti Chiave                             │
+│ ▸ Forth  │   Concetti Chiave                             │
 │ ▸ Progetto│ ─────────────────                              │
 │          │  [Cards con icone e riassunto visuale]           │
 │ ▸ Extra  │                                                  │
-│   A1     │  🎯 Esercizi                                    │
+│   A1     │   Esercizi                                    │
 │   S1     │  ───────────                                    │
 │   S2     │  [Quiz, completa il codice, predici output]     │
 │   S3     │                                                  │
-│          │  🎮 Gioco: Pointer Maze                          │
+│          │   Gioco: Pointer Maze                          │
 │          │  ────────────────────                            │
 │          │  [Componente interattivo a schermo pieno]        │
 │          │                                                  │
@@ -591,7 +591,7 @@ A styled table component for comparing concepts (e.g., `printf` vs `puts`, or `H
 
 ## 9. Piano di Implementazione — Approccio MVP
 
-### Fase 1 — MVP Lezione 1 🎯 (obiettivo corrente)
+### Fase 1 — MVP Lezione 1  (obiettivo corrente)
 
 | Step | Azione | Dipendenze | Stima |
 |------|--------|-----------|-------|
@@ -631,24 +631,24 @@ A styled table component for comparing concepts (e.g., `printf` vs `puts`, or `H
 
 ---
 
-## 10. Miglioramenti Futuri 🔮
+## 10. Miglioramenti Futuri 
 
 > [!NOTE]
 > Funzionalità **non incluse nell'MVP** ma pianificate come possibili evoluzioni future. Saranno valutate dopo il completamento e l'approvazione dell'MVP.
 
 | Miglioramento | Descrizione | Priorità | Complessità |
 |--------------|-------------|----------|-------------|
-| **Fallback API per codice C** | Aggiungere Wandbox o Judge0 come backup se WASM non basta per certi esercizi | 🟡 Bassa | Media |
-| **Whisper upgrade** | Se qualità `small` non basta: `medium` su CPU o API cloud (~$6) | 🟡 Media | Bassa |
-| **Progresso persistente** | Salvare completamento lezioni, punteggi quiz in `localStorage` | 🟢 Alta | Bassa |
-| **Dark/Light/System theme** | Rispettare preferenze OS con `prefers-color-scheme` | 🟢 Alta | Bassa |
-| **Ricerca full-text** | Cerca nel testo di tutte le lezioni (es. FlexSearch, Fuse.js) | 🟢 Media | Media |
-| **Più giochi** | Giochi aggiuntivi per argomenti avanzati | 🟢 Media | Media |
-| **Modalità test/esame** | Test di fine modulo con punteggio e timer | 🟡 Bassa | Media |
-| **PWA offline** | Service worker per uso senza connessione | 🟡 Bassa | Media |
-| **Code playground avanzato** | Multi-file, debugger step-by-step | 🔴 Bassa | Alta |
-| **Certificato completamento** | PDF generato a fine corso (jsPDF) | 🟡 Bassa | Bassa |
-| **Community/Commenti** | Sistema commenti (richiede backend) | 🔴 Bassa | Alta |
+| **Fallback API per codice C** | Aggiungere Wandbox o Judge0 come backup se WASM non basta per certi esercizi |  Bassa | Media |
+| **Whisper upgrade** | Se qualità `small` non basta: `medium` su CPU o API cloud (~$6) |  Media | Bassa |
+| **Progresso persistente** | Salvare completamento lezioni, punteggi quiz in `localStorage` |  Alta | Bassa |
+| **Dark/Light/System theme** | Rispettare preferenze OS con `prefers-color-scheme` |  Alta | Bassa |
+| **Ricerca full-text** | Cerca nel testo di tutte le lezioni (es. FlexSearch, Fuse.js) |  Media | Media |
+| **Più giochi** | Giochi aggiuntivi per argomenti avanzati |  Media | Media |
+| **Modalità test/esame** | Test di fine modulo con punteggio e timer |  Bassa | Media |
+| **PWA offline** | Service worker per uso senza connessione |  Bassa | Media |
+| **Code playground avanzato** | Multi-file, debugger step-by-step |  Bassa | Alta |
+| **Certificato completamento** | PDF generato a fine corso (jsPDF) |  Bassa | Bassa |
+| **Community/Commenti** | Sistema commenti (richiede backend) |  Bassa | Alta |
 
 ---
 
