@@ -7,7 +7,7 @@
 
 ---
 
-##  The Vision: Transmuting Video into Interaction
+## The Vision: Transmuting Video into Interaction
 
 This platform is a technical tribute to the educational legacy of **Salvatore Sanfilippo** (@antirez), creator of Redis. Salvatore's C course on YouTube is a masterpiece of technical communication, focusing not just on syntax, but on the "low-level soul" of computing: memory layout, CPU registers, and the art of professional C development.
 
@@ -15,9 +15,9 @@ This platform is a technical tribute to the educational legacy of **Salvatore Sa
 
 ---
 
-##  Key Features
+## Key Features
 
-###  Educational Games & Visualizers
+### Educational Games & Visualizers
 
 We've integrated a suite of custom-built React tools to demystify complex C concepts:
 
@@ -27,7 +27,7 @@ We've integrated a suite of custom-built React tools to demystify complex C conc
 - **[EvoSimulator](file:///c:/Users/ClaudioDall'Ara/Desktop/c/temp_c_course/src/components/content/EvoSimulator.tsx)**: A visualizer for the evolution algorithms and ZX Spectrum graphics discussed in the final lessons.
 - **Stack & Heap Visualizers**: Real-time representation of memory allocation and stack frame growth.
 
-###  The Master Formula (5 + 3 + 3)
+### The Master Formula (5 + 3 + 3)
 
 Every lesson is systematically structured for perfect retention:
 
@@ -35,7 +35,7 @@ Every lesson is systematically structured for perfect retention:
 2. **3 Pro Quizzes**: Deep-dives into edge cases and advanced theory.
 3. **3 Pro Terminal Challenges**: Practical terminal tasks requiring research and shell mastery.
 
-###  Technical Excellence
+### Technical Excellence
 
 - **WASM-Powered Compiler**: Compile and run C code directly in the browser using WebAssembly.
 - **Bilingual Core**: Seamless integration of Italian (Original) and English (Translated) content.
@@ -66,8 +66,6 @@ src/
 - **Original Content & Teaching**: Salvatore Sanfilippo ([antirez](http://invece.org/))
 - **Platform Architecture & Development**: [Claudio Dall'Ara](https://claudiodallara.it) ([@boobaGreen](https://github.com/boobaGreen))
 
-_This project is built by experts, for experts._
-
-##  License
+## License
 
 This project is licensed under the **GNU General Public License (GPL)**. The knowledge remains open, free, and accessible for everyone to study and distribute.
