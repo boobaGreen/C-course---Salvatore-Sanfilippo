@@ -1,17 +1,21 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Shield, AlertTriangle, Plus, Info, Binary } from 'lucide-react';
+import { useProgression } from '../../hooks/useProgression';
 
 export default function OverflowSimulator() {
     const [unsignedVal, setUnsignedVal] = useState(254);
     const [signedVal, setSignedVal] = useState(126);
     const [isGlitching, setIsGlitching] = useState(false);
+    const { addXP } = useProgression();
 
     const handleUnsignedInc = () => {
+        addXP(20, 'overflow-simulator-interact');
         setUnsignedVal(prev => (prev + 1) % 256);
     };
 
     const handleSignedInc = () => {
+        addXP(20, 'overflow-simulator-interact');
         if (signedVal === 127) {
             setIsGlitching(true);
             setSignedVal(-128); // Standard wrap for most hardware, but UB in theory

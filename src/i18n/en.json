@@ -39,7 +39,7 @@
             "c_code": "C Code",
             "output_label": "Linux x86-64 Output",
             "desc_o0": "Without optimizations, the code is verbose. We see stack allocation and a call to 'puts' (replaced by the compiler for efficiency).",
-            "desc_o2": "With -O2, the compiler 'cleans' everything. it uses 'tail call optimization', turning the call into a simple jump (jmp)."
+            "desc_o2": "With -O2, the compiler optimizes registers (xor eax, eax for return 0) and aligns the stack. It cannot use 'tail call optimization' (jmp) because main must clear the register before exiting."
         },
         "terminal": {
             "run": "Run Command",

@@ -36,7 +36,7 @@ export default function TerminalSimulation({ command, output = '', children, lan
         setTimeout(() => {
             setIsRunning(false);
             setHasRun(true);
-            addXP(50, `terminal-${command}`);
+            addXP(20, `terminal-${command}`);
         }, 800);
     };
 

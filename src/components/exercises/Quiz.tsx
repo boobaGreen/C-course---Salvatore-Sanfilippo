@@ -39,7 +39,8 @@ export default function Quiz({ questions, title }: QuizProps) {
         setIsAnswered(true);
         if (selectedOption === questions[currentStep].correctAnswer) {
             setScore(score + 1);
-            addXP(100);
+            setScore(score + 1);
+            addXP(50, `quiz-${quizTitle}-q${questions[currentStep].id}`);
         }
     };
 

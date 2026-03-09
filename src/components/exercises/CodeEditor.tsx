@@ -30,7 +30,7 @@ export default function CodeEditor({ initialCode }: CodeEditorProps) {
             extracted = extracted.replace(/\\n/g, '\n');
             setOutput(extracted);
             setStatus('success');
-            addXP(100, 'code-editor-run');
+            addXP(20, 'code-editor-run');
         } else if (code.includes('printf(')) {
             // Fallback se il regex fallisce ma c'è un printf
             setOutput("Hello, World!\n");

@@ -29,7 +29,7 @@ export default function TypeMatcher() {
     useEffect(() => {
         if (Object.keys(matches).length === shuffledValues.length && !isCompleted) {
             setIsCompleted(true);
-            addXP(300, `type-matcher-${shuffledValues.length}`);
+            addXP(100, `type-matcher-${shuffledValues.length}`);
         }
     }, [matches, isCompleted, addXP, shuffledValues.length]);
 
@@ -71,7 +71,7 @@ export default function TypeMatcher() {
                             animate={{ scale: 1, opacity: 1 }}
                             className="flex items-center gap-2 text-[var(--color-brand-primary)] font-bold bg-[var(--color-brand-primary)]/10 px-4 py-1.5 rounded-full border border-[var(--color-brand-primary)]/20 shadow-[0_0_20px_rgba(16,185,129,0.2)]"
                         >
-                            <CheckCircle2 size={18} /> +300 XP
+                            <CheckCircle2 size={18} /> +100 XP
                         </motion.div>
                     )}
                 </AnimatePresence>

@@ -38,8 +38,8 @@
             "title": "Assembly Explorer",
             "c_code": "Codice C",
             "output_label": "Output Linux x86-64",
-            "desc_o0": "Senza ottimizzazioni, il codice è verboso. Vediamo l'allocazione dello stack e la chiamata a puts (sostituito dal compilatore per efficienza).",
-            "desc_o2": "Con -O2, il compilatore 'pulisce' tutto. Usa un 'tail call optimization' trasformando la chiamata in un semplice salto (jmp)."
+            "desc_o0": "Senza ottimizzazioni, il codice è verboso. Vediamo l'allocazione dello stack e la chiamata a puts (al posto di printf per efficienza).",
+            "desc_o2": "Con -O2, il compilatore ottimizza i registri (xor eax, eax per il return 0) e allinea lo stack. Non può usare una 'tail call' (jmp) perché main deve azzerare il registro prima di uscire."
         },
         "terminal": {
             "run": "Esegui comando",

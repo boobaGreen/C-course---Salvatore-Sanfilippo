@@ -8,6 +8,7 @@ import {
   ChevronRight,
   ChevronLeft,
   Terminal as TerminalIcon,
+  Eye,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useProgression } from "../../hooks/useProgression";
@@ -40,11 +41,13 @@ export default function HackerTerminal({ challenges }: HackerTerminalProps) {
     {},
   );
   const [showHint, setShowHint] = useState<Record<string, boolean>>({});
-  const { addXP } = useProgression();
+  const { addXP, revealSolution, revealedSolutions } = useProgression();
   const { t } = useTranslation();
 
   const currentChallenge = challenges[currentStep];
   const isCommandMode = !!currentChallenge.expectedCommand;
+  const activityId = `hacker-terminal-${currentChallenge.id}`;
+  const isRevealed = revealedSolutions?.includes(activityId) || false;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -74,7 +77,7 @@ export default function HackerTerminal({ challenges }: HackerTerminalProps) {
       setCompletedTasks((prev) => ({ ...prev, [currentChallenge.id]: true }));
       addXP(
         currentChallenge.xpReward || 150,
-        `hacker-terminal-${currentChallenge.id}`,
+        activityId,
       );
     }
   };
@@ -82,6 +85,15 @@ export default function HackerTerminal({ challenges }: HackerTerminalProps) {
   const handleRetry = () => {
     setIsCorrect((prev) => ({ ...prev, [currentChallenge.id]: null }));
     setInputValue("");
+  };
+
+  const handleReveal = () => {
+    if (confirm("Visualizzare la soluzione annullerà la ricompensa in XP per questa sfida. Vuoi procedere?")) {
+      revealSolution(activityId);
+      const answer = isCommandMode ? (currentChallenge.expectedCommand || "") : currentChallenge.expectedOutput;
+      setInputValue(answer.replace(/^sudo\s+/, ""));
+      setIsCorrect((prev) => ({ ...prev, [currentChallenge.id]: null }));
+    }
   };
 
   return (
@@ -177,7 +189,7 @@ export default function HackerTerminal({ challenges }: HackerTerminalProps) {
             {isCommandMode && (
               <div className="bg-black/40 rounded-xl p-4 border border-white/5 flex flex-col gap-2 group">
                 <div className="text-xs text-zinc-500 font-bold uppercase tracking-wider mb-2">
-                  Risultato Atteso / Contesto:
+                  Contesto / Indizio:
                 </div>
                 <code className="text-zinc-300 font-mono text-sm whitespace-pre-wrap">
                   {currentChallenge.expectedOutput}
@@ -284,34 +296,44 @@ export default function HackerTerminal({ challenges }: HackerTerminalProps) {
                             L'output o il comando inserito non corrisponde.
                             Controlla la sintassi e riprova.
                           </p>
-                          <button
-                            onClick={handleRetry}
-                            className="mt-4 px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-white text-xs font-bold uppercase tracking-wider hover:bg-white/10 transition-all"
-                          >
-                            Try Again
-                          </button>
+                          <div className="flex flex-wrap gap-2 mt-4">
+                            <button
+                              onClick={handleRetry}
+                              className="px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-white text-xs font-bold uppercase tracking-wider hover:bg-white/10 transition-all"
+                            >
+                              Try Again
+                            </button>
+
+                            {!showHint[currentChallenge.id] && currentChallenge.hints && (
+                              <button
+                                onClick={() =>
+                                  setShowHint((prev) => ({
+                                    ...prev,
+                                    [currentChallenge.id]: true,
+                                  }))
+                                }
+                                className="px-4 py-2 bg-[var(--color-brand-secondary)]/10 border border-[var(--color-brand-secondary)]/20 rounded-lg text-[var(--color-brand-secondary)] text-xs font-bold uppercase tracking-wider hover:bg-[var(--color-brand-secondary)]/20 transition-all"
+                              >
+                                Mostra Aiuto
+                              </button>
+                            )}
+
+                            {(showHint[currentChallenge.id] || !currentChallenge.hints) && !isRevealed && (
+                              <button
+                                onClick={handleReveal}
+                                className="px-4 py-2 bg-red-500/10 border border-red-500/20 rounded-lg text-red-500 text-xs font-bold uppercase tracking-wider hover:bg-red-500/20 transition-all flex items-center gap-2"
+                              >
+                                <Eye size={14} /> Mostra Soluzione (0 XP)
+                              </button>
+                            )}
+                          </div>
                         </div>
                       )}
 
                       {!isCorrect[currentChallenge.id] &&
-                        currentChallenge.hints &&
-                        !showHint[currentChallenge.id] && (
-                          <button
-                            onClick={() =>
-                              setShowHint((prev) => ({
-                                ...prev,
-                                [currentChallenge.id]: true,
-                              }))
-                            }
-                            className="text-[var(--color-brand-secondary)] text-xs font-bold uppercase tracking-wider hover:underline block"
-                          >
-                            Need a hint?
-                          </button>
-                        )}
-                      {!isCorrect[currentChallenge.id] &&
                         showHint[currentChallenge.id] &&
                         currentChallenge.hints && (
-                          <div className="space-y-2">
+                          <div className="space-y-2 mt-4">
                             {currentChallenge.hints.map((h, i) => (
                               <div
                                 key={i}

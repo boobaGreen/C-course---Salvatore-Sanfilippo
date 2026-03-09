@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Play, RotateCcw, Box, Globe, Shield, Info } from 'lucide-react';
+import { useProgression } from '../../hooks/useProgression';
 
 export default function ScopeExplorer() {
     // Initial state
@@ -8,8 +9,10 @@ export default function ScopeExplorer() {
     const [staticX, setStaticX] = useState(0);
     const [calls, setCalls] = useState(0);
     const [activeX, setActiveX] = useState<number | null>(null);
+    const { addXP } = useProgression();
 
     const handleCall = () => {
+        addXP(20, 'scope-explorer-simulate');
         setCalls(prev => prev + 1);
         
         // Logic for each type

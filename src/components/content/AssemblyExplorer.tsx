@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, Code, Cpu } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { useProgression } from '../../hooks/useProgression';
 
 const ASSEMBLY_O0 = `main:
     push    rbp
@@ -17,8 +18,12 @@ const ASSEMBLY_O0 = `main:
     .string "Hello, World!"`;
 
 const ASSEMBLY_O2 = `main:
+    sub     rsp, 8
     mov     edi, OFFSET FLAT:.LC0
-    jmp     puts
+    call    puts
+    xor     eax, eax
+    add     rsp, 8
+    ret
 
 .LC0:
     .string "Hello, World!"`;
@@ -26,6 +31,7 @@ const ASSEMBLY_O2 = `main:
 export default function AssemblyExplorer() {
     const [optLevel, setOptLevel] = useState<'O0' | 'O2'>('O0');
     const { t } = useTranslation();
+    const { addXP } = useProgression();
 
     const lines = (optLevel === 'O0' ? ASSEMBLY_O0 : ASSEMBLY_O2).split('\n');
 
@@ -40,7 +46,10 @@ export default function AssemblyExplorer() {
                     {['O0', 'O2'].map((level) => (
                         <button
                             key={level}
-                            onClick={() => setOptLevel(level as 'O0' | 'O2')}
+                            onClick={() => {
+                                setOptLevel(level as 'O0' | 'O2');
+                                addXP(20, `asm-explorer-${level}`);
+                            }}
                             className={`px-3 py-1 rounded-md text-xs font-bold transition-all ${optLevel === level
                                     ? 'bg-[var(--color-brand-primary)] text-black shadow-lg'
                                     : 'text-zinc-500 hover:text-white'

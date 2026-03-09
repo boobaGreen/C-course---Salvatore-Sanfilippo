@@ -94,14 +94,14 @@ Questo comando genera un nuovo file eseguibile (tipicamente chiamato `a.out` su 
 
 ## Dietro le quinte: l'Assembly e le Ottimizzazioni
 
-Possiamo chiedere al compilatore di fermarsi prima di generare il binario finale, facendoci mostrare il codice **Assembly** intermedio, usando il flag `-S`.
+Possiamo chiedere al compilatore di fermarsi prima di generare il binario finale, facendoci mostrare il codice **Assembly** intermedio, usando il flag `-S`. Inoltre, aggiungendo il flag `-O2`, gli chiediamo di applicare delle ottimizzazioni avanzate.
 
 Questo flag è fondamentale perché ci permette di ispezionare esattamente come il compilatore ha tradotto il nostro codice C, senza dover "de-compilare" un eseguibile binario (che è molto più complesso).
 
 Esempio di utilizzo:
 
 ```bash
-cc -S hello.c
+cc -O2 -S hello.c
 ```
 
 Questo comando non crea un `a.out`, ma genera un file testuale chiamato `hello.s` contenente le istruzioni Assembly.
@@ -116,7 +116,7 @@ L'Assembly è il linguaggio "quasi" macchina: è leggibile dagli esseri umani ma
   alle tue spalle.
 </Callout>
 
-The compilatore, accorgendosi che stiamo stampando una stringa semplice seguita da un ritorno a capo (`\n`), sostituisce automaticamente la `printf` con la funzione `puts`, che è più veloce ed efficiente per questo scopo specifico.
+Il compilatore, grazie al livello di ottimizzazione `-O2`, accorgendosi che stiamo stampando una stringa semplice seguita da un ritorno a capo (`\n`), sostituisce automaticamente la `printf` con la funzione `puts`, che è più veloce ed efficiente per questo scopo specifico.
 
 <Callout type="info" title="Intelligenza del Compilatore">
   Questo è il primo esempio di **ottimizzazione trasparente**. Il compilatore
