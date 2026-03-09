@@ -154,154 +154,6 @@ Il nostro formato personalizzato sarà:
 char *crea_stringa(char *testo) {
 int lunghezza = strlen(testo);
 
-    // Alloco: 4 byte per l'int + lunghezza del testo + 1 byte per '\0'
-    char *nuova = malloc(sizeof(int) + lunghezza + 1);
-
-    if (nuova == NULL) return NULL;
-
-    // 1. Scrivo la lunghezza nei primi 4 byte usando il casting
-    *((int *)nuova) = lunghezza;
-
-    // 2. Copio il testo nei byte successivi
-    char *inizio_testo = nuova + sizeof(int);
-    strcpy(inizio_testo, testo);
-
-    return inizio_testo; // Ritorno il puntatore al TESTO, non alla lunghezza!
-
-}
-
-// Funzione per leggere istantaneamente la lunghezza in O(1)
-int lunghezza_v2(char _stringa_v2) {
-// Faccio un passo indietro di 4 byte e leggo l'intero
-return _((int \*)(stringa_v2 - sizeof(int)));
-}
-
-int main() {
-char \*s = crea_stringa("Ciao Hacker!");
-
-    printf("Testo: %s\\n", s);
-    printf("Lunghezza istantanea: %d\\n", lunghezza_v2(s));
-
-    // Attenzione: free deve ricevere il puntatore originale!
-    free(s - sizeof(int));
-
-    return 0;
-
-}`}
-language="c"
-/>
-
-
-Fino ad ora, ogni variabile che abbiamo creato viveva nello **Stack**. Lo stack è veloce, sicuro, ma ha due grandi difetti:
-
-1. Devi sapere la dimensione delle variabili **al momento della compilazione**.
-2. Quando una funzione termina, **tutto il suo stack viene distrutto**.
-
-Se vogliamo creare dati che "sopravvivono" alle funzioni, o dati la cui grandezza la sappiamo solo mentre il programma gira (es. un file testuale caricato dall'utente), dobbiamo usare l'**Heap**.
-
-<HeapAllocator />
-
-<StackVisualizer
-  title="Visualizzazione Stack"
-  description="Qui le variabili vengono create e rimosse automaticamente."
-  frames={[
-    { func: "main", vars: [{ name: "x", value: "10", type: "int" }] },
-    { func: "mia_funzione", vars: [{ name: "y", value: "20", type: "int" }] },
-  ]}
-/>
-
-### Stack vs Heap: La Gran Battaglia
-
-<ComparisonTable
-  title="Stack vs Heap"
-  headers={["Caratteristica", "Stack", "Heap"]}
-  rows={[
-    ["Durata", "Automata (limitata al blocco {})", "Manuale (fino alla free)"],
-    [
-      "Velocità",
-      "Molto Veloce (gestito da CPU)",
-      "Lenta (gestito da libreria C)",
-    ],
-    ["Dimensione", "Limitata (pochi MB)", "Enorme (tutta la RAM)"],
-    ["Dati", "Noti a priori", "Dinamici / Ignoti"],
-  ]}
-/>
-
-Per accedere allo Heap si usano funzioni della libreria standard `<stdlib.h>`:
-
-<Callout type="info" title="Malloc: Un Contratto col SO">
-  Quando chiami `malloc`, stai chiedendo al Sistema Operativo un pezzo di RAM.
-  Se il SO accetta, ti dà l'indirizzo di memoria (`void *`). Da quel momento,
-  **tu sei il padrone** di quei byte finché non chiami `free`. Se ti dimentichi
-  di liberarli, la memoria resta "spenta" per il resto del computer finché il
-  tuo programma non si chiude.
-</Callout>
-
-```c
-#include <stdlib.h>
-
-// Voglio spazio per 100 interi (100 * 4 byte = 400 byte)
-int *numeri = malloc(100 * sizeof(int));
-
-if (numeri == NULL) {
-    // RAM Piena! Il SO ha detto no.
-    return 1;
-}
-
-// ... uso i numeri ...
-
-// QUANDO HO FINITO, DEVO RESTITUIRE LA MEMORIA!
-free(numeri);
-
-<Callout type="info" title="L'angelo custode: Valgrind">
-  Come fai a sapere se hai dimenticato una `free`? Su Linux esiste uno strumento chiamato **Valgrind**. Esegue il tuo programma "sotto la lente d'ingrandimento" e alla fine ti dice esattamente quanti byte hai perso e a quale riga di codice li hai allocati. È il migliore amico di ogni programmatore C.
-</Callout>
-```
-
-<Callout type="warning" title="Usa sempre sizeof()">
-  Non scrivere mai `malloc(400)`. Usa `malloc(100 * sizeof(int))`. Il
-  compilatore sa esattamente quanti byte occupa un `int` su quella macchina
-  specifica (potrebbe essere 2, 4 o 8 byte).
-</Callout>
-
-## Evoluzione delle Stringhe
-
-Nella lezione precedente abbiamo visto le _Pascal Strings_ (lunghezza in un byte, max 255 caratteri).
-Ora che abbiamo `malloc`, possiamo creare un **Oggetto Stringa** serio.
-
-Il nostro formato personalizzato sarà:
-
-1. I primi **4 byte** (`int`) conterranno la lunghezza della stringa.
-2. I restanti byte conterranno i caratteri, più uno `\0` finale (per renderla compatibile con i comandi come `printf`).
-
-<Infographic
-  title="Anatomia della Super Stringa v1"
-  description="L'header precede il puntatore restituito all'utente."
-  items={[
-    { label: "Header (4 byte)", value: "Lunghezza (int)", color: "purple" },
-    { label: "Dati", value: "Caratteri della stringa", color: "blue" },
-    { label: "Terminatore", value: "Byte 0x00 finale", color: "amber" },
-  ]}
-/>
-
-<Callout type="hacker" title="Binary Safety">
-  A differenza delle stringhe standard, le nostre PLS (Prefixed Length Strings)
-  possono contenere byte a zero (`0x00`) nel mezzo del testo senza "rompersi",
-  perché ci affidiamo al numero scritto nell'header invece di cercare il
-  terminatore.
-</Callout>
-
-### Creazione di una stringa ad alte prestazioni
-
-<CodeEditor 
-  initialCode={`#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-// Funzione per creare la nostra Super Stringa
-char *crea_stringa(char *testo) {
-int lunghezza = strlen(testo);
-
     // Alloco: 4 byte per l'int + lunghezza del testo + 1 byte per '\\0'
     char *nuova = malloc(sizeof(int) + lunghezza + 1);
 
@@ -319,9 +171,9 @@ int lunghezza = strlen(testo);
 }
 
 // Funzione per leggere istantaneamente la lunghezza in O(1)
-int lunghezza_v2(char _stringa_v2) {
+int lunghezza*v2(char \_stringa_v2) {
 // Faccio un passo indietro di 4 byte e leggo l'intero
-return _((int \*)(stringa_v2 - sizeof(int)));
+return *((int \*)(stringa_v2 - sizeof(int)));
 }
 
 int main() {
@@ -491,7 +343,7 @@ language="c"
   challenges={[
     {
       id: "valgrind-basic",
-        simulatedSuccessOutput: `==12345== Memcheck, a memory error detector\n==12345== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.\n==12345== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info\n==12345== Command: ./test\n==12345== \n==12345== HEAP SUMMARY:\n==12345==     in use at exit: 0 bytes in 0 blocks\n==12345==   total heap usage: 1 allocs, 1 frees, 1,024 bytes allocated\n==12345== \n==12345== All heap blocks were freed -- no leaks are possible`,
+      simulatedSuccessOutput: `==12345== Memcheck, a memory error detector\n==12345== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.\n==12345== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info\n==12345== Command: ./test\n==12345== \n==12345== HEAP SUMMARY:\n==12345==     in use at exit: 0 bytes in 0 blocks\n==12345==   total heap usage: 1 allocs, 1 frees, 1,024 bytes allocated\n==12345== \n==12345== All heap blocks were freed -- no leaks are possible`,
       title: "Il Cacciatore di Memory Leaks",
       description:
         "Compila un programma `test.c` che contiene un leak. Esegui il formidabile strumento di Linux per la gestione della memoria per scoprire se hai dimenticato una `free` (digita solo il nome dell'eseguibile dello strumento).",
@@ -502,7 +354,7 @@ language="c"
     },
     {
       id: "check-heap-limits",
-        simulatedSuccessOutput: ``,
+      simulatedSuccessOutput: ``,
       title: "Limitare la Memoria",
       description:
         "Vuoi mettere sotto stress il tuo software e testare come gestisce l'esaurimento della RAM. Usa il builder della shell (`ulimit`) con il parametro per la memoria virtuale (`-v`) per restringere il limite a `10000` kb.",
@@ -513,7 +365,7 @@ language="c"
     },
     {
       id: "mem-free-status",
-        simulatedSuccessOutput: `               total        used        free      shared  buff/cache   available\nMem:           16Gi       4.2Gi       8.1Gi       125Mi       3.9Gi        11Gi\nSwap:          16Gi          0B        16Gi`,
+      simulatedSuccessOutput: `               total        used        free      shared  buff/cache   available\nMem:           16Gi       4.2Gi       8.1Gi       125Mi       3.9Gi        11Gi\nSwap:          16Gi          0B        16Gi`,
       title: "Quanta RAM ci rimane?",
       description:
         "Prima di chiedere gigantesche malloc da GiB in C, quale comando shell digiti per vedere la RAM Libera (Free) e Usata in formato human-readable (MB/GB) sull'intero sistema Ubuntu/Linux?",

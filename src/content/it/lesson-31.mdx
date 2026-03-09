@@ -1,37 +1,58 @@
 # Lezione 31: Il Programmatore C Moderno e l'IA
 
-In questa lezione, Salvatore abbandona l'approccio classico per mostrarci come lavora *oggi* un programmatore esperto: non più scrivendo ogni singola linea a mano, ma guidando un agente AI (come Claude Code o Cursor) come un direttore d'orchestra.
+In questa lezione, Salvatore abbandona l'approccio classico per mostrarci come lavora _oggi_ un programmatore esperto: non più scrivendo ogni singola linea a mano, ma guidando un agente AI (come Claude Code o Cursor) come un direttore d'orchestra.
 
-
-<Infographic 
-  title="Reference Counting"
-  description="Gestione Automatica della Memoria in C"
+<Infographic
+  title="Flusso AI Moderno"
+  description="L'integrazione di LLM nel ciclo di sviluppo C"
   items={[
-    { label: "Allocazione", value: "Crea l'oggetto e metti ref_count = 1", color: "blue" },
-    { label: "Retain", value: "Qualcuno chiede il puntatore: ref_count++", color: "emerald" },
-    { label: "Release", value: "Qualcuno non usa più il puntatore: ref_count--. Se 0, fa la free!", color: "purple" }
+    {
+      label: "Design",
+      value: "L'umano definisce l'architettura e i vincoli tecnici",
+      color: "blue",
+    },
+    {
+      label: "Generazione",
+      value: "L'AI scrive il codice boilerplate e implementa i dettagli",
+      color: "emerald",
+    },
+    {
+      label: "Audit & Fix",
+      value: "L'umano verifica la correttezza, la sicurezza e le performance",
+      color: "purple",
+    },
   ]}
 />
 
-
-<VideoEmbed videoId="fZmdsh0gQig" title="Lezione 31: Programmazione Assistita e Ottimizzazione" />
+<VideoEmbed
+  videoId="fZmdsh0gQig"
+  title="Lezione 31: Programmazione Assistita e Ottimizzazione"
+/>
 
 ## Il Nuovo Ruolo del Programmatore
 
-L'arrivo dei *Large Language Models (LLMs)* e dei coding agent ha cambiato radicalmente il nostro mestiere. Non dobbiamo più lottare per cinque o dieci minuti scrivendo codice boilerplate; possiamo delegare la scrittura e concentrarci sull'**architettura** e la **correttezza**.
+L'arrivo dei _Large Language Models (LLMs)_ e dei coding agent ha cambiato radicalmente il nostro mestiere. Non dobbiamo più lottare per cinque o dieci minuti scrivendo codice boilerplate; possiamo delegare la scrittura e concentrarci sull'**architettura** e la **correttezza**.
 
 <WorkflowDiagram />
 
 <Callout type="info" title="L'Importanza delle Basi">
-Perché allora abbiamo imparato il C nudo e crudo finora? Perché per guidare e *auditare* (verificare) un agente AI, devi conoscere perfettamente la memoria, i puntatori e i limiti della macchina. L'IA scrive il codice, ma **tu** sei responsabile del risultato.
+  Perché allora abbiamo imparato il C nudo e crudo finora? Perché per guidare e
+  *auditare* (verificare) un agente AI, devi conoscere perfettamente la memoria,
+  i puntatori e i limiti della macchina. L'IA scrive il codice, ma **tu** sei
+  responsabile del risultato.
 </Callout>
 
 <Callout type="warning" title="L'Allucinazione Tecnica">
-  L'AI può inventare flag del compilatore che non esistono o suggerire funzioni di libreria che non sono standard. Senza le tue basi di C, berresti ogni parola dell'IA finendo in un vicolo cieco di bug incomprensibili.
+  L'AI può inventare flag del compilatore che non esistono o suggerire funzioni
+  di libreria che non sono standard. Senza le tue basi di C, berresti ogni
+  parola dell'IA finendo in un vicolo cieco di bug incomprensibili.
 </Callout>
 
 <Callout type="hacker" title="Revisione Obbligatoria (Audit)">
-  Un programmatore C esperto usa l'AI per generare bozze, ma poi esegue un "Audit riga per riga". Cerca leak, controlla che non ci siano buffer overflow e verifica che l'uso della memoria sia quello atteso. L'AI è il tuo assistente, non il tuo sostituto.
+  Un programmatore C esperto usa l'AI per generare bozze, ma poi esegue un
+  "Audit riga per riga". Cerca leak, controlla che non ci siano buffer overflow
+  e verifica che l'uso della memoria sia quello atteso. L'AI è il tuo
+  assistente, non il tuo sostituto.
 </Callout>
 
 ---
@@ -54,13 +75,13 @@ long long compute_diff_global() {
 
 // Dopo (con l'aiuto dell'AI): O(1) indipendente dalla grandezza dell'immagine!
 long long compute_block_diff(int start_x, int start_y) {
-    long long diff = 0;
-    for (int y = start_y; y < start_y + 8; y++) {
-        for (int x = start_x; x < start_x + 8; x++) { ... }
-    }
-    return diff;
+long long diff = 0;
+for (int y = start_y; y < start_y + 8; y++) {
+for (int x = start_x; x < start_x + 8; x++) { ... }
+}
+return diff;
 }`}
-  language="c"
+language="c"
 />
 
 ---
@@ -70,32 +91,38 @@ long long compute_block_diff(int start_x, int start_y) {
 Salvatore nota che limitando le modifiche a blocchi isolati, si creano "artefatti a blocchi" (simili alla compressione JPEG) perché non si tiene conto dei bordi.
 
 Inizia quindi una vera **conversazione tecnica** con l'AI:
+
 1. Chiede di lavorare solo su blocchi locali.
-2. Annota gli errori dell'AI (es. la perdita dell'effetto *dithering*).
+2. Annota gli errori dell'AI (es. la perdita dell'effetto _dithering_).
 3. Propone una soluzione: aggiornare i colori scegliendo coordinate **non allineate** ai blocchi 8x8 fisici, in modo da avere sovrapposizioni.
-4. Richiama l'AI sul fatto che il 'kernel size' 2x2 per il *dithering* era stato perso.
+4. Richiama l'AI sul fatto che il 'kernel size' 2x2 per il _dithering_ era stato perso.
 
 <Callout type="hacker" title="Dithering con Kernel 2x2">
-Il *dithering* è l'arte di affiancare pixel di due colori per imitarne un terzo. Calcolando la differenza (errore) considerando gruppi di 2x2 pixel alla volta (un kernel), il Simulated Annealing capisce quando due pixel vicini stanno creando una buona sfumatura.
+  Il *dithering* è l'arte di affiancare pixel di due colori per imitarne un
+  terzo. Calcolando la differenza (errore) considerando gruppi di 2x2 pixel alla
+  volta (un kernel), il Simulated Annealing capisce quando due pixel vicini
+  stanno creando una buona sfumatura.
 </Callout>
 
 ---
 
 ## Esercitazione
 
-<Quiz 
-  title="Quiz Standard" 
+<Quiz
+  title="Quiz Standard"
   questions={[
     {
-      question: "Perché l'Agente AI aveva fallito inizialmente nel generare l'effetto di sfumatura (dithering)?",
+      question:
+        "Perché l'Agente AI aveva fallito inizialmente nel generare l'effetto di sfumatura (dithering)?",
       options: [
         "Perché l'IA non sa di colori",
         "Aveva rimosso la logica del 'kernel 2x2' per il calcolo dell'errore",
         "Aveva usato il C++",
-        "Non usava la libreria SDL"
+        "Non usava la libreria SDL",
       ],
       correctAnswer: 1,
-      explanation: "L'AI aveva semplificato il codice togliendo il calcolo a gruppi di 4 pixel (2x2), che era il segreto per indurre l'effetto dithering."
+      explanation:
+        "L'AI aveva semplificato il codice togliendo il calcolo a gruppi di 4 pixel (2x2), che era il segreto per indurre l'effetto dithering.",
     },
     {
       question: "Cosa fa il comando 'sample' su macOS (usato nella lezione)?",
@@ -103,10 +130,11 @@ Il *dithering* è l'arte di affiancare pixel di due colori per imitarne un terzo
         "Crea musica",
         "Registra campioni audio",
         "Analizza dove un programma perde più tempo (profiling)",
-        "Compila il codice sorgente"
+        "Compila il codice sorgente",
       ],
       correctAnswer: 2,
-      explanation: "Il profiling ferma il programma a intervalli regolari e registra in quale funzione si trova, per trovare i colli di bottiglia."
+      explanation:
+        "Il profiling ferma il programma a intervalli regolari e registra in quale funzione si trova, per trovare i colli di bottiglia.",
     },
     {
       question: "Qual era il collo di bottiglia del programma ZX originale?",
@@ -114,109 +142,122 @@ Il *dithering* è l'arte di affiancare pixel di due colori per imitarne un terzo
         "L'uso della libreria SDL",
         "Il disco fisso lento",
         "La funzione compute_diff consumava il 94% del tempo",
-        "I colori RGB"
+        "I colori RGB",
       ],
       correctAnswer: 2,
-      explanation: "Ricalcolare l'errore per tutti i pixel dopo ogni minima mutazione era uno spreco enorme di cicli CPU."
+      explanation:
+        "Ricalcolare l'errore per tutti i pixel dopo ogni minima mutazione era uno spreco enorme di cicli CPU.",
     },
     {
-      question: "In che modo l'AI aiuta il programmatore in questo nuovo flusso di lavoro?",
+      question:
+        "In che modo l'AI aiuta il programmatore in questo nuovo flusso di lavoro?",
       options: [
         "Sostituisce il programmatore",
         "Implementa i dettagli noiosi e permette di iterare più velocemente sulle idee architettoniche",
         "Crea bug irrisolvibili",
-        "Fa il caffè"
+        "Fa il caffè",
       ],
       correctAnswer: 1,
-      explanation: "Il programmatore diventa l'architetto che guida la progettazione e corregge la direzione dell'AI."
+      explanation:
+        "Il programmatore diventa l'architetto che guida la progettazione e corregge la direzione dell'AI.",
     },
     {
-      question: "Come ha risolto Salvatore il problema degli artefatti 'a blocco' (simil-JPEG)?",
+      question:
+        "Come ha risolto Salvatore il problema degli artefatti 'a blocco' (simil-JPEG)?",
       options: [
         "Usando un filtro Blur",
         "Calcolando differenze su blocchi 8x8 NON allineati alla griglia hardware",
         "Cancellando le immagini",
-        "Non l'ha risolto"
+        "Non l'ha risolto",
       ],
       correctAnswer: 1,
-      explanation: "Ottimizzando blocchi presi a caso nell'immagine (anche scavalcando i bordi hardware), i risultati diventano più sfumati e continui."
-    }
-  ]} 
+      explanation:
+        "Ottimizzando blocchi presi a caso nell'immagine (anche scavalcando i bordi hardware), i risultati diventano più sfumati e continui.",
+    },
+  ]}
 />
 
-<Quiz 
+<Quiz
   title="Hacker Challenge"
   questions={[
     {
-      question: "Quale struttura dati si potrebbe usare per avere un O(1) ancora più efficiente, senza ricalcolare blocchi completi?",
+      question:
+        "Quale struttura dati si potrebbe usare per avere un O(1) ancora più efficiente, senza ricalcolare blocchi completi?",
       options: [
         "B-Tree",
         "Una mappa/Array in cui si tiene traccia dell'errore (distanza) calcolato in precedenza per ogni pixel",
         "Linked List",
-        "Heap"
+        "Heap",
       ],
       correctAnswer: 1,
-      explanation: "Salvatore lo spiega: memorizzando la cache delle differenze pixel per pixel, basterebbe togliere la vecchia dif. del singolo pixel e sommare la nuova!"
+      explanation:
+        "Salvatore lo spiega: memorizzando la cache delle differenze pixel per pixel, basterebbe togliere la vecchia dif. del singolo pixel e sommare la nuova!",
     },
     {
-      question: "Perché far scrivere un emulatore intero a un AI (come ha fatto Salvatore per lo Zot)?",
+      question:
+        "Perché far scrivere un emulatore intero a un AI (come ha fatto Salvatore per lo Zot)?",
       options: [
         "Perché non lo sapeva fare",
         "Per testare la 'spec inference' dell'IA (capacità di leggere manuali complessi e trarne un software funzionante e non copiato via copyright)",
         "Per fare soldi veloci",
-        "Solo per gioco"
+        "Solo per gioco",
       ],
       correctAnswer: 1,
-      explanation: "L'esperimento 'clean room' ha provato che l'AI può leggere i datasheet tecnici e scrivere implementazioni originali."
+      explanation:
+        "L'esperimento 'clean room' ha provato che l'AI può leggere i datasheet tecnici e scrivere implementazioni originali.",
     },
     {
-      question: "Qual è il rischio di usare blocchi di memoria disallineati modificando gli attributi colore dello Spectrum?",
+      question:
+        "Qual è il rischio di usare blocchi di memoria disallineati modificando gli attributi colore dello Spectrum?",
       options: [
         "Nessun rischio",
         "Attributi diversi possono incrociarsi, dato che l'hardware colora su una griglia fissa 8x8",
         "Kernel panic",
-        "Esplosione del monitor"
+        "Esplosione del monitor",
       ],
       correctAnswer: 1,
-      explanation: "Modificando a caso serve capire che ogni variazione di colore si propaga per l'intero blocco 8x8 hardware, potendo influenzare pixel adiacenti modificati prima."
-    }
-  ]} 
+      explanation:
+        "Modificando a caso serve capire che ogni variazione di colore si propaga per l'intero blocco 8x8 hardware, potendo influenzare pixel adiacenti modificati prima.",
+    },
+  ]}
 />
 
-<HackerTerminal 
+<HackerTerminal
   challenges={[
     {
-        id: "bigO-diff",
-        title: "Big O Analysis",
-        description: "Nel video è stata esposta la teoria dell'ottimizzazione del ricalcolo della mappa colore: l'algoritmo non deve più leggere l'intero schermo ad ogni ciclo, ma si confina in un raggio d'azione di entità fissa (la singola cella 8x8 alterata). In base all'analisi asintotica della complessità (Big-O), le prestazioni si dicono ora costanti, ovvero?",
-        commands: [],
-        expectedOutput: "O(1)",
-        hints: [
-            "La grandezza dell'operazione è costante (64 iterazioni) indipendentemente dalle dimensioni dell'immagine totale."
-        ]
+      id: "bigO-diff",
+      title: "Big O Analysis",
+      description:
+        "Nel video è stata esposta la teoria dell'ottimizzazione del ricalcolo della mappa colore: l'algoritmo non deve più leggere l'intero schermo ad ogni ciclo, ma si confina in un raggio d'azione di entità fissa (la singola cella 8x8 alterata). In base all'analisi asintotica della complessità (Big-O), le prestazioni si dicono ora costanti, ovvero?",
+      commands: [],
+      expectedOutput: "O(1)",
+      hints: [
+        "La grandezza dell'operazione è costante (64 iterazioni) indipendentemente dalle dimensioni dell'immagine totale.",
+      ],
     },
     {
-        id: "sample-cmd",
-        title: "macOS Profiler",
-        description: "Durante la lezione, Salvatore ha mostrato come trovare il collo di bottiglia del programma eseguendo un campionamento statistico dello stack trace in tempo reale di un processo Mac OS attivo. Qual è il binario a riga di comando utilizzato per questa ispezione al volo?",
-        commands: [],
-        expectedOutput: "sample",
-        hints: [
-            "È il nome del comando stesso, utile per catturare trace di CPU."
-        ]
+      id: "sample-cmd",
+      title: "macOS Profiler",
+      description:
+        "Durante la lezione, Salvatore ha mostrato come trovare il collo di bottiglia del programma eseguendo un campionamento statistico dello stack trace in tempo reale di un processo Mac OS attivo. Qual è il binario a riga di comando utilizzato per questa ispezione al volo?",
+      commands: [],
+      expectedOutput: "sample",
+      hints: [
+        "È il nome del comando stesso, utile per catturare trace di CPU.",
+      ],
     },
     {
-        id: "dithering-kernel",
-        title: "Kernel Size",
-        description: "Il calcolo di dithering usato nell'immagine esaminava gruppi di NxN pixel. Quanto vale N (secondo il feedback dato da Salvatore all'AI)?",
-        commands: [],
-        expectedOutput: "2",
-        hints: [
-            "Il kernel size era 2x2."
-        ]
-    }
-]}
+      id: "dithering-kernel",
+      title: "Kernel Size",
+      description:
+        "Il calcolo di dithering usato nell'immagine esaminava gruppi di NxN pixel. Quanto vale N (secondo il feedback dato da Salvatore all'AI)?",
+      commands: [],
+      expectedOutput: "2",
+      hints: ["Il kernel size era 2x2."],
+    },
+  ]}
 />
 
 ### Conclusione
+
 Questo video rappresenta un punto di svolta. Abbiamo esplorato come il C, linguaggio di 50 anni fa, interagisce con le sfide del futuro e l'automazione. Non smettete di scrivere codice a mano per imparare, ma siate pronti a dirigere le macchine per produrre. Alla prossima!
