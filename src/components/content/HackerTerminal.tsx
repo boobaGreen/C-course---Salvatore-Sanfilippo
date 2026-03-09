@@ -41,6 +41,7 @@ export default function HackerTerminal({ challenges }: HackerTerminalProps) {
     {},
   );
   const [showHint, setShowHint] = useState<Record<string, boolean>>({});
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
   const { addXP, revealSolution, revealedSolutions } = useProgression();
   const { t } = useTranslation();
 
@@ -88,16 +89,60 @@ export default function HackerTerminal({ challenges }: HackerTerminalProps) {
   };
 
   const handleReveal = () => {
-    if (confirm("Visualizzare la soluzione annullerà la ricompensa in XP per questa sfida. Vuoi procedere?")) {
-      revealSolution(activityId);
-      const answer = isCommandMode ? (currentChallenge.expectedCommand || "") : currentChallenge.expectedOutput;
-      setInputValue(answer.replace(/^sudo\s+/, ""));
-      setIsCorrect((prev) => ({ ...prev, [currentChallenge.id]: null }));
-    }
+    setShowConfirmModal(true);
+  };
+
+  const confirmReveal = () => {
+    setShowConfirmModal(false);
+    revealSolution(activityId);
+    const answer = isCommandMode ? (currentChallenge.expectedCommand || "") : currentChallenge.expectedOutput;
+    setInputValue(answer.replace(/^sudo\s+/, ""));
+    setIsCorrect((prev) => ({ ...prev, [currentChallenge.id]: null }));
   };
 
   return (
-    <div className="my-10 glass-panel rounded-2xl border-white/10 overflow-hidden shadow-2xl shadow-black/40">
+    <>
+      <AnimatePresence>
+        {showConfirmModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+          >
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.95, opacity: 0, y: 20 }}
+              className="bg-zinc-900 border border-white/10 rounded-2xl p-6 max-w-sm w-full shadow-2xl"
+            >
+              <div className="flex items-center gap-3 text-red-500 mb-4">
+                <ShieldAlert size={24} />
+                <h4 className="font-bold text-lg">Mostra Soluzione</h4>
+              </div>
+              <p className="text-zinc-300 text-sm mb-6 leading-relaxed">
+                Visualizzare la soluzione annullerà la ricompensa in XP per questa sfida. Vuoi procedere?
+              </p>
+              <div className="flex justify-end gap-3">
+                <button
+                  onClick={() => setShowConfirmModal(false)}
+                  className="px-4 py-2 rounded-lg text-sm font-bold text-zinc-400 hover:text-white hover:bg-white/5 transition-colors"
+                >
+                  Annulla
+                </button>
+                <button
+                  onClick={confirmReveal}
+                  className="px-4 py-2 rounded-lg text-sm font-bold bg-red-500 text-white shadow-[0_0_15px_rgba(239,68,68,0.3)] hover:bg-red-600 transition-colors flex items-center gap-2"
+                >
+                  <Eye size={16} /> Rivela (0 XP)
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <div className="my-10 glass-panel rounded-2xl border-white/10 overflow-hidden shadow-2xl shadow-black/40">
       {/* Header */}
       <div className="bg-zinc-900/80 px-3 sm:px-6 py-3 sm:py-4 flex flex-wrap items-center justify-between gap-2 border-b border-white/5">
         <div className="flex items-center gap-3 text-red-400">
@@ -365,5 +410,6 @@ export default function HackerTerminal({ challenges }: HackerTerminalProps) {
         </div>
       </div>
     </div>
+    </>
   );
 }
