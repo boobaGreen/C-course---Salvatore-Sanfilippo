@@ -101,16 +101,22 @@ int main() {
 
 ---
 
-<KeyConcepts title="Hacker Key Concepts">
-  - **Buffer Overflow**: Cosa succede quando scrivi oltre i limiti di un puntatore/array.
-  - **Memory Layout**: Capire come i dati sono impacchettati (punti di forza del C).
-  - **Little Endian**: Come i numeri multi-byte sono memorizzati (il byte meno significativo all'indirizzo più basso).
-
-<Callout type="warning" title="L'Ordine dei Byte (Endianness)">
-  Se leggi un `int` a 32 bit come se fosse una sequenza di 4 `char`, su sistemi moderni (Intel/Apple) vedrai i byte in ordine "inverso". Il numero `0x12345678` verrà salvato come `78 56 34 12`. Si chiama **Little Endian**.
-</Callout>
-</KeyConcepts>
-
+<KeyConcepts title="Hacker Key Concepts"
+  concepts={[
+    {
+      title: "Buffer Overflow",
+      description: "Cosa succede quando scrivi oltre i limiti di un puntatore/array."
+    },
+    {
+      title: "Memory Layout",
+      description: "Capire come i dati sono impacchettati (punti di forza del C)."
+    },
+    {
+      title: "Little Endian",
+      description: "Come i numeri multi-byte sono memorizzati. Se leggi un int a 32 bit come se fosse una sequenza di 4 char, su sistemi moderni vedrai i byte in ordine inverso. Il numero 0x12345678 verrà salvato come 78 56 34 12."
+    }
+  ]}
+/>
 
 <Infographic 
   title="Aritmetica dei Puntatori"

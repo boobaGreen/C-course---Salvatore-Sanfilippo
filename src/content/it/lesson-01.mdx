@@ -25,13 +25,22 @@ Benvenuti! In questa prima lezione inauguriamo il corso sul linguaggio C. Questo
 
 L'approccio sarà **estremamente operativo**: impareremo a programmare, programmando. Le spiegazioni teoriche arriveranno come "effetto collaterale" della scrittura del codice.
 
-<KeyConcepts title="Cosa impareremo oggi">
-  - Scrivere il primo programma "Hello World" - Capire il processo di
-  **compilazione** - Esplorare cosa fa il compilatore (anche a livello di
-  Assembly) - La democratizzazione del C: da Stallman a GCC - Comprendere le
-  direttive del **preprocessore** (`#include`) - Scoprire i **prototipi di
-  funzione**
-</KeyConcepts>
+<KeyConcepts title="Cosa impareremo oggi"
+  concepts={[
+    {
+      title: "Hello World",
+      description: "Scrivere il primo programma e capire il processo di compilazione."
+    },
+    {
+      title: "Dietro le Quinte",
+      description: "Esplorare cosa fa il compilatore (anche a livello di Assembly) e scoprire la storia del C."
+    },
+    {
+      title: "Costrutti Base",
+      description: "Comprendere le direttive del preprocessore (#include) e i prototipi di funzione."
+    }
+  ]}
+/>
 
 <Callout type="info" title="Filosofia del Corso">
   Questo corso segue uno stile **istintivo**. Non c'è una preparazione maniacale
@@ -258,12 +267,23 @@ Il prototipo serve a dire al compilatore: _"Esiste una funzione chiamata `printf
 
 ---
 
-<KeyConcepts title="Hacker Key Concepts">
-  - Il C non è eseguito, ma **compilato**. - Il compilatore sa ottimizzare il
-  codice in modo intelligente (es. trasformando `printf` in `puts`). - Il
-  **preprocessore** prepara il file prima della compilazione. - I file **Header
-  (`.h`)** contengono i **prototipi** delle funzioni.
-</KeyConcepts>
+<KeyConcepts title="Hacker Key Concepts"
+  concepts={[
+    {
+      title: "Compilato, non eseguito",
+      description: "Il C non è eseguito, ma compilato. Il compilatore sa ottimizzare il codice in modo intelligente (es. trasformando printf in puts)."
+    },
+    {
+      title: "Il Preprocessore",
+      description: "Prepara il file prima della compilazione vera e propria."
+    },
+    {
+      title: "File Header (.h)",
+      description: "Contengono i prototipi (firme) delle funzioni."
+    }
+  ]}
+/>
+
 
 ### Hacker Challenge 🏆
 

@@ -16,13 +16,30 @@ import OverflowSimulator from '../../components/content/OverflowSimulator';
 
 Benvenuti alla terza lezione! In questa puntata continueremo a esplorare il nostro "Hello World", ma scavando ancora più in profondità per capire lo scope delle variabili, come vengono passati i dati alle funzioni e come il C gestisce i diversi tipi numerici.
 
-<KeyConcepts title="Cosa impareremo oggi">
-  - La differenza tra variabili **locali**, **globali** e **statiche**
-  - Perché il C passa tutto **per valore** (copia)
-  - Nuovi tipi: `float`, `double`, `short` e `unsigned`
-  - Le regole di **promozione automatica** dei tipi
-  - Il rischio dell'**overflow** e l'Undefined Behavior
-</KeyConcepts>
+<KeyConcepts title="Cosa impareremo oggi"
+  concepts={[
+    {
+      title: "",
+      description: "La differenza tra variabili **locali**, **globali** e **statiche**"
+    },
+    {
+      title: "",
+      description: "Perché il C passa tutto **per valore** (copia)"
+    },
+    {
+      title: "Nuovi tipi",
+      description: "`float`, `double`, `short` e `unsigned`"
+    },
+    {
+      title: "",
+      description: "Le regole di **promozione automatica** dei tipi"
+    },
+    {
+      title: "",
+      description: "Il rischio dell'**overflow** e l'Undefined Behavior"
+    }
+  ]}
+/>
 
 ---
 
@@ -206,12 +223,26 @@ Cosa succede se aggiungi 1 al massimo valore possibile per un tipo?
   ]}
 />
 
-<KeyConcepts title="Hacker Key Concepts">
-  - Lo **Scope** determina dove e per quanto tempo una variabile esiste.
-  - Il C usa il **Passaggio per Valore** come standard.
-  - I tipi numerici hanno limiti precisi e regole di **Promozione**.
-  - Evita sempre l'overflow dei tipi con segno!
-</KeyConcepts>
+<KeyConcepts title="Hacker Key Concepts"
+  concepts={[
+    {
+      title: "",
+      description: "Lo **Scope** determina dove e per quanto tempo una variabile esiste."
+    },
+    {
+      title: "",
+      description: "Il C usa il **Passaggio per Valore** come standard."
+    },
+    {
+      title: "",
+      description: "I tipi numerici hanno limiti precisi e regole di **Promozione**."
+    },
+    {
+      title: "",
+      description: "Evita sempre l'overflow dei tipi con segno!"
+    }
+  ]}
+/>
 
 ### Hacker Challenge 🏆
 
