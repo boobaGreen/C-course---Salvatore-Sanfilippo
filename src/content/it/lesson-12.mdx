@@ -541,7 +541,7 @@ language="c"
       description:
         "Compila un programma `test.c` che contiene un leak. Esegui il formidabile strumento di Linux per la gestione della memoria per scoprire se hai dimenticato una `free` (digita solo il nome dell'eseguibile dello strumento).",
       commands: [],
-      expectedOutput: "valgrind ./test",
+      expectedOutput: "",
       hints: ["Cerca 'linux memory debugger' (valgrind)"],
       expectedCommand: "valgrind",
     },
@@ -552,7 +552,7 @@ language="c"
       description:
         "Vuoi mettere sotto stress il tuo software e testare come gestisce l'esaurimento della RAM. Usa il builder della shell (`ulimit`) con il parametro per la memoria virtuale (`-v`) per restringere il limite a `10000` kb.",
       commands: [],
-      expectedOutput: "ulimit -v 10000",
+      expectedOutput: "",
       hints: ["usa ulimit -v"],
       expectedCommand: "ulimit",
     },
@@ -563,7 +563,7 @@ language="c"
       description:
         "Prima di chiedere gigantesche malloc da GiB in C, quale comando shell digiti per vedere la RAM Libera (Free) e Usata in formato human-readable (MB/GB) sull'intero sistema Ubuntu/Linux?",
       commands: [],
-      expectedOutput: "free -h",
+      expectedOutput: "",
       hints: ["comando: free con opzione human"],
       expectedCommand: "free",
     },

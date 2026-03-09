@@ -324,7 +324,7 @@ Il prototipo serve a dire al compilatore: _"Esiste una funzione chiamata `printf
       description:
         "Hai compilato un programma che stampa 'Hello World' con `printf`. Se guardi l'assembly generato con `-O2`, noterai che il compilatore ha sostituito la chiamata originale con una funzione più veloce per gestire stringhe costanti. Usa `grep` per cercare la riga che chiama una funzione (contiene 'call') all'interno del file assembly `hello.s`.",
       commands: [],
-      expectedOutput: "puts",
+      expectedOutput: "",
       hints: [
         "Il compilatore 'declassa' la funzione se non ci sono formattazioni",
       ],
@@ -340,7 +340,7 @@ Il prototipo serve a dire al compilatore: _"Esiste una funzione chiamata `printf
       description:
         "Un eseguibile Linux non è solo codice. Quale comando identifica la struttura del file e l'architettura per cui è stato creato?",
       commands: [],
-      expectedOutput: "ELF 64-bit",
+      expectedOutput: "",
       hints: ["Cerca un comando che significa 'documento' o 'archivio'"],
       explanation:
         "Ottimo! Il comando `file` legge l'header ELF per determinare il tipo di binario.",

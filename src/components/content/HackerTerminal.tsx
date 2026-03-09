@@ -186,7 +186,7 @@ export default function HackerTerminal({ challenges }: HackerTerminalProps) {
               </div>
             ))}
 
-            {isCommandMode && (
+            {isCommandMode && currentChallenge.expectedOutput && (
               <div className="bg-black/40 rounded-xl p-4 border border-white/5 flex flex-col gap-2 group">
                 <div className="text-xs text-zinc-500 font-bold uppercase tracking-wider mb-2">
                   Contesto / Indizio:

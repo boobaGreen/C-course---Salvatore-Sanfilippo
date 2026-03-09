@@ -234,7 +234,7 @@ int main() {
         title: "Ispezione Binaria",
         description: "Esegui un programma che scrive la struct Player su disco (save.dat). Quale comando useresti per vedere i byte reali del file e riconoscere il valore float?",
         commands: [],
-        expectedOutput: "00000000  01 00 00 00 00 00 bf 42",
+        expectedOutput: "",
         hints: [
             "Cerca lo 01 iniziale dell'ID (Little Endian)."
         ],
@@ -246,7 +246,7 @@ int main() {
         title: "Contatore Veloce",
         description: "Sappiamo quanti dati dovrebbe pesare un salvataggio della struct `Player`. Per confermarlo dalla shell usando `wc`, quale parametro passi per fargli contare la dimensione esatta in Bytes?",
         commands: [],
-        expectedOutput: "8 save.dat",
+        expectedOutput: "",
         hints: [
             "L'opzione per i byte è -c (chars) o --bytes."
         ],
@@ -258,7 +258,7 @@ int main() {
         title: "File Aperti",
         description: "Sei un detective dei sistemi UNIX. Un processo sospetto sta leggendo dei dati: devi scoprire l'elenco esatto dei File Descriptors che sta tenendo attivi. Quale comando (List Open Files) lanci passandogli il flag `-p` e il PID?",
         commands: [],
-        expectedOutput: "save.dat",
+        expectedOutput: "",
         hints: [
             "lsof sta per 'List Open Files'."
         ],
