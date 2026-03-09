@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Moon, Sun, Languages, Menu, X, BookOpen } from 'lucide-react';
+import { Moon, Sun, Languages, Menu, X, BookOpen, Zap } from 'lucide-react';
 import { lessons } from '../../data/lessons';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useProgression } from '../../hooks/useProgression';
 
 export default function Header() {
     const { t, i18n } = useTranslation();
+    const { xp, level, progressToNextLevel } = useProgression();
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     const toggleLanguage = () => {
@@ -42,8 +44,42 @@ export default function Header() {
                         <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-[var(--color-brand-primary)] to-[var(--color-brand-secondary)] text-white shadow-lg shadow-[var(--color-brand-primary)]/20">
                             <span className="font-mono text-sm leading-none">C_</span>
                         </div>
-                        <span className="ml-1 tracking-tight">Learn <span className="text-[var(--color-brand-secondary)] font-mono">C</span></span>
+                        <span className="ml-1 tracking-tight hidden sm:inline">Learn <span className="text-[var(--color-brand-secondary)] font-mono">C</span></span>
                     </Link>
+
+                    {/* Progress Indicator - Desktop/Tablet */}
+                    <div className="hidden sm:flex items-center gap-4 px-4 h-9 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl ml-2 group relative cursor-help transition-all hover:bg-black/10 dark:hover:bg-white/10">
+                        <div className="flex items-center gap-2">
+                             <div className="p-1 rounded-md bg-[var(--color-brand-primary)]/20 text-[var(--color-brand-primary)]">
+                                <Zap size={12} fill="currentColor" />
+                            </div>
+                            <span className="text-[10px] font-black uppercase tracking-wider text-slate-500 dark:text-zinc-400">LVL</span>
+                            <span className="text-sm font-black text-slate-900 dark:text-white leading-none">{level}</span>
+                        </div>
+                        
+                        <div className="w-20 lg:w-32 h-1.5 bg-black/10 dark:bg-white/10 rounded-full overflow-hidden relative">
+                            <motion.div
+                                initial={{ width: 0 }}
+                                animate={{ width: `${progressToNextLevel}%` }}
+                                className="h-full bg-gradient-to-r from-[var(--color-brand-primary)] to-[var(--color-brand-secondary)]"
+                            />
+                        </div>
+                        
+                        <div className="text-[10px] font-mono text-slate-400 dark:text-zinc-500 hidden lg:block">
+                            {xp} XP
+                        </div>
+
+                        {/* Hover Tooltip */}
+                        <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 px-3 py-1.5 rounded-lg bg-zinc-900 text-white text-[10px] font-bold whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none border border-white/10 shadow-xl z-50">
+                            {xp} Total Experience Pool
+                        </div>
+                    </div>
+
+                    {/* Progress Indicator - Mobile condensed */}
+                    <div className="sm:hidden flex items-center gap-1.5 px-2.5 py-1 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-full ml-1">
+                        <Zap size={10} className="text-[var(--color-brand-primary)]" fill="currentColor" />
+                        <span className="text-[10px] font-black text-slate-900 dark:text-white">{level}</span>
+                    </div>
 
                     <div className="flex-1" />
 

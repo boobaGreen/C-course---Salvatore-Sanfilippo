@@ -2,7 +2,6 @@ import { NavLink } from 'react-router-dom';
 import { BookOpen } from 'lucide-react';
 import { lessons } from '../../data/lessons';
 import { useTranslation } from 'react-i18next';
-import ProgressionSidebar from './ProgressionSidebar';
 
 export default function Sidebar() {
     const { t, i18n } = useTranslation();
@@ -51,7 +50,6 @@ export default function Sidebar() {
                         </NavLink>
                     ))}
                 </nav>
-                <ProgressionSidebar />
             </div>
         </aside>
     );
