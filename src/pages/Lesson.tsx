@@ -2,6 +2,7 @@
 import type { FunctionComponent } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import storage, { STORAGE_KEYS } from '../utils/storage';
 import CodeBlock from '../components/content/CodeBlock';
 import VideoEmbed from '../components/content/VideoEmbed';
 import KeyConcepts from '../components/content/KeyConcepts';
@@ -151,7 +152,7 @@ export default function Lesson() {
     useEffect(() => {
         if (!loading && LessonContent && slug) {
             const mainElement = document.getElementById('main-content');
-            const savedScroll = localStorage.getItem(`lesson-scroll-${slug}`);
+            const savedScroll = storage.get<string>(STORAGE_KEYS.LESSON_SCROLL(slug));
             
             if (mainElement && savedScroll) {
                 // Wait a tiny bit for the browser to paint the MDX content
@@ -175,7 +176,7 @@ export default function Lesson() {
         const handleScroll = () => {
             clearTimeout(timeoutId);
             timeoutId = window.setTimeout(() => {
-                localStorage.setItem(`lesson-scroll-${slug}`, mainElement.scrollTop.toString());
+                storage.set(STORAGE_KEYS.LESSON_SCROLL(slug), mainElement.scrollTop.toString());
             }, 500);
         };
 
@@ -185,7 +186,7 @@ export default function Lesson() {
             // Save one last time on cleanup to catch navigations
             const currentScroll = mainElement.scrollTop;
             if (currentScroll > 0) {
-                localStorage.setItem(`lesson-scroll-${slug}`, currentScroll.toString());
+                storage.set(STORAGE_KEYS.LESSON_SCROLL(slug), currentScroll.toString());
             }
             mainElement.removeEventListener('scroll', handleScroll);
             clearTimeout(timeoutId);

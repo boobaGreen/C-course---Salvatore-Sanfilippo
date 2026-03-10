@@ -13,6 +13,7 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 import { useProgression } from "../../hooks/useProgression";
 import { useTranslation } from "react-i18next";
+import storage, { STORAGE_KEYS } from "../../utils/storage";
 
 export interface Challenge {
   id: string;
@@ -33,19 +34,19 @@ export interface ProTerminalProps {
 }
 
 export default function ProTerminal({ challenges, lessonSlug = "unknown" }: ProTerminalProps) {
-  const storageKey = `ht-state-${lessonSlug}`;
+  const storageKey = STORAGE_KEYS.PRO_TERMINAL_STATE(lessonSlug);
   
-  const [currentStep, setCurrentStep] = useState(() => {
-    const saved = localStorage.getItem(storageKey);
-    if (saved) return JSON.parse(saved).currentStep || 0;
+  const [currentStep, setCurrentStep] = useState<number>(() => {
+    const saved = storage.get<any>(storageKey);
+    if (saved) return saved.currentStep || 0;
     return 0;
   });
   
   const [inputValue, setInputValue] = useState("");
   
   const [completedTasks, setCompletedTasks] = useState<Record<string, boolean>>(() => {
-    const saved = localStorage.getItem(storageKey);
-    if (saved) return JSON.parse(saved).completedTasks || {};
+    const saved = storage.get<any>(storageKey);
+    if (saved) return saved.completedTasks || {};
     return {};
   });
   
@@ -55,12 +56,12 @@ export default function ProTerminal({ challenges, lessonSlug = "unknown" }: ProT
   const { addXP, revealSolution, revealedSolutions } = useProgression();
   const { t } = useTranslation();
 
-  // Save state to localStorage
+  // Save state to storage
   useEffect(() => {
-    localStorage.setItem(storageKey, JSON.stringify({
+    storage.set(storageKey, {
       currentStep,
       completedTasks
-    }));
+    });
   }, [currentStep, completedTasks, storageKey]);
 
   const currentChallenge = challenges[currentStep];

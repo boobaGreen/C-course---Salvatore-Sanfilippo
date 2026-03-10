@@ -3,6 +3,8 @@ import { initReactI18next } from 'react-i18next';
 import enTranslation from './en.json';
 import itTranslation from './it.json';
 
+import storage, { STORAGE_KEYS } from '../utils/storage';
+
 i18n
     .use(initReactI18next)
     .init({
@@ -10,7 +12,7 @@ i18n
             en: { translation: enTranslation },
             it: { translation: itTranslation },
         },
-        lng: localStorage.getItem('app_language') || 'it', // Lingua di default
+        lng: storage.get<string>(STORAGE_KEYS.LANGUAGE) || 'it', // Lingua di default
         fallbackLng: 'en',
         interpolation: {
             escapeValue: false,

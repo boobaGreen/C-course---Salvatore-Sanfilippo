@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import type { ReactNode } from 'react';
+import storage, { STORAGE_KEYS } from '../utils/storage';
 
 interface ProgressionState {
     xp: number;
@@ -38,14 +39,13 @@ const ProgressionContext = createContext<ProgressionContextType | undefined>(und
 
 export function ProgressionProvider({ children }: { children: ReactNode }) {
     const [state, setState] = useState<ProgressionState>(() => {
-        const saved = localStorage.getItem('cyber-c-progression');
+        const saved = storage.get<Partial<ProgressionState>>(STORAGE_KEYS.PROGRESSION);
         if (saved) {
-            const parsed = JSON.parse(saved);
             // Ensure backwards compatibility by defining revealedSolutions if undefined
             return {
                 ...INITIAL_STATE,
-                ...parsed,
-                revealedSolutions: parsed.revealedSolutions || []
+                ...saved,
+                revealedSolutions: saved.revealedSolutions || []
             };
         }
         return INITIAL_STATE;
@@ -54,7 +54,7 @@ export function ProgressionProvider({ children }: { children: ReactNode }) {
     const [xpEvents, setXpEvents] = useState<XpEvent[]>([]);
 
     useEffect(() => {
-        localStorage.setItem('cyber-c-progression', JSON.stringify(state));
+        storage.set(STORAGE_KEYS.PROGRESSION, state);
     }, [state]);
 
     const addXP = (amount: number, activityId?: string) => {

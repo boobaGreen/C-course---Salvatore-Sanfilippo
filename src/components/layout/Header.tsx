@@ -5,6 +5,7 @@ import { Moon, Sun, Languages, Menu, X, BookOpen, Zap } from 'lucide-react';
 import { lessons } from '../../data/lessons';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useProgression } from '../../hooks/useProgression';
+import storage, { STORAGE_KEYS } from '../../utils/storage';
 
 export default function Header() {
     const { t, i18n } = useTranslation();
@@ -13,12 +14,12 @@ export default function Header() {
 
     const toggleTheme = () => {
         const isDark = document.documentElement.classList.toggle('dark');
-        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        storage.set(STORAGE_KEYS.THEME, isDark ? 'dark' : 'light');
     };
 
     const changeLanguage = (lng: string) => {
         i18n.changeLanguage(lng);
-        localStorage.setItem('language', lng);
+        storage.set(STORAGE_KEYS.LANGUAGE, lng);
     };
 
     // Close mobile menu on navigation

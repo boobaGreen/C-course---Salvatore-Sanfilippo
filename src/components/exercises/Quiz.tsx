@@ -3,6 +3,7 @@ import { Check, X, HelpCircle, ChevronRight, RotateCcw } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useProgression } from '../../hooks/useProgression';
 import { useTranslation } from 'react-i18next';
+import storage, { STORAGE_KEYS } from '../../utils/storage';
 
 export interface Question {
     id: number;
@@ -19,50 +20,50 @@ export interface QuizProps {
 }
 
 export default function Quiz({ questions, title, lessonSlug = "unknown" }: QuizProps) {
-    const storageKey = `quiz-state-${lessonSlug}-${title || 'default'}`;
+    const storageKey = STORAGE_KEYS.QUIZ_STATE(lessonSlug, title || 'default');
 
-    const [currentStep, setCurrentStep] = useState(() => {
-        const saved = localStorage.getItem(storageKey);
-        if (saved) return JSON.parse(saved).currentStep || 0;
+    const [currentStep, setCurrentStep] = useState<number>(() => {
+        const saved = storage.get<any>(storageKey);
+        if (saved) return saved.currentStep || 0;
         return 0;
     });
 
     const [selectedOption, setSelectedOption] = useState<number | null>(() => {
-        const saved = localStorage.getItem(storageKey);
-        if (saved) return JSON.parse(saved).selectedOption ?? null;
+        const saved = storage.get<any>(storageKey);
+        if (saved) return saved.selectedOption ?? null;
         return null;
     });
 
-    const [isAnswered, setIsAnswered] = useState(() => {
-        const saved = localStorage.getItem(storageKey);
-        if (saved) return JSON.parse(saved).isAnswered || false;
+    const [isAnswered, setIsAnswered] = useState<boolean>(() => {
+        const saved = storage.get<any>(storageKey);
+        if (saved) return saved.isAnswered || false;
         return false;
     });
 
-    const [score, setScore] = useState(() => {
-        const saved = localStorage.getItem(storageKey);
-        if (saved) return JSON.parse(saved).score || 0;
+    const [score, setScore] = useState<number>(() => {
+        const saved = storage.get<any>(storageKey);
+        if (saved) return saved.score || 0;
         return 0;
     });
 
-    const [showResults, setShowResults] = useState(() => {
-        const saved = localStorage.getItem(storageKey);
-        if (saved) return JSON.parse(saved).showResults || false;
+    const [showResults, setShowResults] = useState<boolean>(() => {
+        const saved = storage.get<any>(storageKey);
+        if (saved) return saved.showResults || false;
         return false;
     });
 
     const { addXP } = useProgression();
     const { t } = useTranslation();
 
-    // Persist state to localStorage
+    // Persist state to storage
     useEffect(() => {
-        localStorage.setItem(storageKey, JSON.stringify({
+        storage.set(storageKey, {
             currentStep,
             selectedOption,
             isAnswered,
             score,
             showResults
-        }));
+        });
     }, [currentStep, selectedOption, isAnswered, score, showResults, storageKey]);
 
     const quizTitle = title || t('lesson.exercises');
