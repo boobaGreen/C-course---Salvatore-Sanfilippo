@@ -56,6 +56,42 @@ Ogni elemento dell'albero è una piccola 'isola' di memoria che contiene un valo
   Dimenticare di inizializzare i puntatori `left` e `right` a `NULL` è il bug più comune. Senza questo passaggio, il C userebbe indirizzi 'spazzatura', portando il programma a crashare non appena proviamo a capire se un nodo ha figli o meno.
 </Callout>
 
+### Inserimento (Iterativo)
+
+Per inserire un valore, "scendiamo" nell'albero confrontando il valore con ogni nodo finché non troviamo un posto vuoto (`NULL`).
+
+### Logica di Inserimento
+
+<Infographic 
+  title="Il Sentiero dell'Inserimento"
+  description="Come il BST decide dove piazzare un valore."
+  items={[
+    { label: "Confronto", value: "Il nuovo valore è minore o maggiore di quello attuale?", color: "blue" },
+    { label: "Percorso", value: "Spostati a sinistra se minore, a destra se maggiore", color: "purple" },
+    { label: "Piazzamento", value: "Una volta trovato un posto NULL, aggancia il nuovo nodo", color: "emerald" }
+  ]}
+/>
+
+---
+
+## L'Eleganza della Ricorsione: Stampa Ordinata
+
+Il momento più magico della lezione è quando Salvatore mostra come stampare i valori dell'albero dal più piccolo al più grande con pochissime righe di codice. Questa è chiamata **Visita In-order**.
+
+### Stampa Ordinata
+
+La vera magia avviene durante la stampa. Seguendo un ordine specifico, possiamo visualizzare i valori dell'albero perfettamente ordinati.
+
+<Infographic 
+  title="Visita In-order"
+  description="I tre passi della stampa ordinata."
+  items={[
+    { label: "1. Sinistra", value: "Visita ricorsivamente tutti i valori minori", color: "blue" },
+    { label: "2. Radice", value: "Stampa il valore attuale", color: "purple" },
+    { label: "3. Destra", value: "Visita ricorsivamente tutti i valori maggiori", color: "emerald" }
+  ]}
+/>
+
 <Callout type="info" title="L'algoritmo emerge dalla struttura">
 Salvatore sottolinea come non serva imparare il codice a memoria: se capisci che i valori piccoli sono a sinistra, la funzione ricorsiva "si scrive da sola". È l'eleganza dell'informatica.
 </Callout>
