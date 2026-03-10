@@ -245,5 +245,12 @@ export const lessons = [
         title: { it: 'Lezione 31: La Programmazione Automatica', en: 'Lesson 31: Automated Programming' },
         videoId: 'fZmdsh0gQig',
         duration: '30m',
+    },
+    {
+        id: 35,
+        slug: 'lesson-31-appendix',
+        title: { it: 'Appendice 31: L\'Evoluzione Finale', en: 'Appendix 31: The Final Evolution' },
+        videoId: 'xaEr-XSlWfo',
+        duration: '8:25',
     }
 ];

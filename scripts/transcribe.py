@@ -81,7 +81,8 @@ if __name__ == "__main__":
         {"url": "https://www.youtube.com/watch?v=cvWbCx0lLjs", "id": "lesson-28"},
         {"url": "https://www.youtube.com/watch?v=nHzlRqPnlrE", "id": "lesson-29"},
         {"url": "https://www.youtube.com/watch?v=D1U3uCe-kok", "id": "lesson-30"},
-        {"url": "https://www.youtube.com/watch?v=fZmdsh0gQig", "id": "lesson-31"}
+        {"url": "https://www.youtube.com/watch?v=fZmdsh0gQig", "id": "lesson-31"},
+        {"url": "https://www.youtube.com/watch?v=xaEr-XSlWfo", "id": "lesson-31-appendix"}
     ]
     
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
