@@ -163,15 +163,15 @@ export default function ProTerminal({ challenges, lessonSlug = "unknown" }: ProT
 
       <div className="my-10 glass-panel rounded-2xl border-white/10 overflow-hidden shadow-2xl shadow-black/40">
       {/* Header */}
-      <div className="bg-zinc-900/80 px-3 sm:px-6 py-3 sm:py-4 flex flex-wrap items-center justify-between gap-2 border-b border-white/5">
+      <div className="bg-zinc-900/80 px-4 sm:px-6 py-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-white/5">
         <div className="flex items-center gap-3 text-red-400">
           <ShieldAlert size={20} className="animate-pulse" />
           <span className="font-black text-xs uppercase tracking-[0.2em]">
             Advanced Terminal Challenge
           </span>
         </div>
-        <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2 mr-2">
+        <div className="flex items-center gap-4 w-full sm:w-auto justify-between sm:justify-end">
+          <div className="flex items-center gap-2">
             {challenges.map((_, idx) => (
               <div
                 key={idx}
@@ -185,16 +185,16 @@ export default function ProTerminal({ challenges, lessonSlug = "unknown" }: ProT
               />
             ))}
           </div>
-          <div className="flex gap-1.5 border-l border-white/10 pl-4">
+          <div className="flex items-center gap-1 border-l border-white/10 pl-4 h-6">
             <button
               disabled={currentStep === 0}
               onClick={() => {
                 setCurrentStep((s: number) => s - 1);
                 setInputValue("");
               }}
-              className="p-1 text-zinc-500 hover:text-white disabled:opacity-20 transition-colors"
+              className="p-1 text-zinc-500 hover:text-white disabled:opacity-20 transition-colors flex items-center justify-center"
             >
-              <ChevronLeft size={18} />
+              <ChevronLeft size={20} />
             </button>
             <button
               disabled={currentStep === challenges.length - 1}
@@ -202,9 +202,9 @@ export default function ProTerminal({ challenges, lessonSlug = "unknown" }: ProT
                 setCurrentStep((s: number) => s + 1);
                 setInputValue("");
               }}
-              className="p-1 text-zinc-500 hover:text-white disabled:opacity-20 transition-colors"
+              className="p-1 text-zinc-500 hover:text-white disabled:opacity-20 transition-colors flex items-center justify-center"
             >
-              <ChevronRight size={18} />
+              <ChevronRight size={20} />
             </button>
           </div>
         </div>
@@ -267,52 +267,58 @@ export default function ProTerminal({ challenges, lessonSlug = "unknown" }: ProT
           <label className="block text-xs font-bold text-zinc-500 uppercase tracking-widest mb-2 ml-1">
             {isCommandMode ? "Type the command:" : "Predict System Output:"}
           </label>
-          <div className="flex flex-col sm:flex-row gap-2">
+          <div className="flex flex-wrap gap-3">
             {isCommandMode && (
-              <div className="flex items-center justify-center px-4 bg-black border border-white/10 border-r-0 rounded-l-xl text-zinc-500 font-mono text-sm mt-[1px] mb-[1px] -mr-3 z-10">
+              <div className="hidden sm:flex items-center justify-center px-4 bg-black border border-white/10 rounded-xl text-zinc-500 font-mono text-sm self-stretch">
                 $
               </div>
             )}
-            <input
-              type="text"
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              disabled={completedTasks[currentChallenge.id] || isCorrect[currentChallenge.id] === false}
-              placeholder={
-                isCommandMode
-                  ? "eg. ls -la /var/log"
-                  : "Type the expected output..."
-              }
-              className={`flex-1 bg-black border ${
-                isCorrect[currentChallenge.id] === true
-                  ? "border-green-500/50"
-                  : isCorrect[currentChallenge.id] === false
-                    ? "border-red-500/50"
-                    : "border-white/10"
-              } rounded-xl px-4 py-3 font-mono text-sm text-zinc-200 focus:outline-none focus:border-[var(--color-brand-secondary)] transition-all placeholder:text-zinc-700`}
-            />
+            <div className="flex-1 relative min-w-[200px]">
+              {isCommandMode && (
+                <div className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-600 font-mono text-sm sm:hidden">$</div>
+              )}
+              <input
+                type="text"
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                disabled={completedTasks[currentChallenge.id] || isCorrect[currentChallenge.id] === false}
+                placeholder={
+                  isCommandMode
+                    ? "eg. ls -la /var/log"
+                    : "Type the expected output..."
+                }
+                className={`w-full bg-black border ${
+                  isCorrect[currentChallenge.id] === true
+                    ? "border-green-500/50"
+                    : isCorrect[currentChallenge.id] === false
+                      ? "border-red-500/50"
+                      : "border-white/10"
+                } rounded-xl px-4 py-3 ${isCommandMode ? 'pl-8 sm:pl-4' : ''} font-mono text-sm text-zinc-200 focus:outline-none focus:border-[var(--color-brand-secondary)] transition-all placeholder:text-zinc-700`}
+              />
+            </div>
             {!completedTasks[currentChallenge.id] ? (
-              <>
+              <div className="flex gap-2 w-full sm:w-auto">
                 <button
                   type="submit"
                   disabled={!inputValue.trim() || isCorrect[currentChallenge.id] === false}
-                  className="w-full sm:w-auto px-6 py-3 sm:py-0 bg-[var(--color-brand-primary)] text-black rounded-xl font-bold flex items-center justify-center gap-2 hover:scale-105 transition-all disabled:opacity-50 disabled:scale-100"
+                  className="flex-1 sm:flex-initial px-6 py-3 bg-[var(--color-brand-primary)] text-black rounded-xl font-bold flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-50 disabled:scale-100 min-w-max"
                 >
                   <Send size={18} />
-                  {t("common.submit", "Submit")}
+                  <span>{t("common.submit", "Submit")}</span>
                 </button>
                 {!isRevealed && (
                   <button
                     type="button"
                     onClick={handleReveal}
-                    className="w-full sm:w-auto px-4 py-3 sm:py-0 bg-red-500/10 border border-red-500/20 text-red-500 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-red-500/20 transition-all"
+                    className="px-4 py-3 bg-red-500/10 border border-red-500/20 text-red-500 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-red-500/20 transition-all min-w-[50px]"
+                    title="Rivela soluzione"
                   >
                     <Eye size={18} />
                   </button>
                 )}
-              </>
+              </div>
             ) : (
-              <div className="w-full sm:w-auto px-6 py-3 sm:py-0 bg-green-500/10 text-green-500 border border-green-500/20 rounded-xl font-bold flex items-center justify-center gap-2">
+              <div className="w-full sm:w-auto px-6 py-3 bg-green-500/10 text-green-500 border border-green-500/20 rounded-xl font-bold flex items-center justify-center gap-2 min-w-max animate-in fade-in zoom-in duration-300">
                 <CheckCircle2 size={18} /> SUCCESS
               </div>
             )}
@@ -364,6 +370,22 @@ export default function ProTerminal({ challenges, lessonSlug = "unknown" }: ProT
                                 </div>
                               </div>
                             )}
+
+                          {/* Pulsante Prossima Sfida */}
+                          {currentStep < challenges.length - 1 && (
+                            <div className="mt-6 pt-6 border-t border-white/5 flex justify-end">
+                              <button
+                                onClick={() => {
+                                  setCurrentStep(s => s + 1);
+                                  setInputValue("");
+                                }}
+                                className="px-5 py-2.5 bg-zinc-100 dark:bg-white text-zinc-950 rounded-xl font-black text-xs uppercase tracking-widest flex items-center gap-2 hover:scale-105 transition-all shadow-xl shadow-white/5"
+                              >
+                                {t("common.next", "Next Challenge")}
+                                <ChevronRight size={16} />
+                              </button>
+                            </div>
+                          )}
                         </div>
                       ) : (
                         <div>
