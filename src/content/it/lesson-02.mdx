@@ -7,6 +7,7 @@ import ProTerminal from '../../components/content/ProTerminal';
 import Infographic from '../../components/content/Infographic';
 import ComparisonTable from '../../components/content/ComparisonTable';
 import StackVisualizer from '../../components/content/StackVisualizer';
+import MicroRegisters from '../../components/content/MicroRegisters';
 
 # Lezione 2: Variabili, Funzioni e Memoria
 
@@ -126,6 +127,8 @@ Quando la funzione termina (`return`), il suo frame viene "distrutto" e la memor
 In questa appendice, Salvatore ci porta indietro nel tempo con il microprocessore **6502** per spiegarci la differenza tra registri e memoria RAM.
 
 <VideoEmbed videoId="r6mU_IHXEps" title="Appendice Lezione 2: La vita delle variabili locali" />
+
+<MicroRegisters />
 
 <Callout type="pro" title="Memory Mapped I/O">
   Nello schermo qui sopra, stiamo scrivendo direttamente in memoria RAM all'indirizzo `$0200`. Il microprocessore non "sa" di stare disegnando: sta solo muovendo byte. È l'hardware video che interpreta quei byte come colori di pixel. Questa è la base dei sistemi embedded e delle vecchie console.

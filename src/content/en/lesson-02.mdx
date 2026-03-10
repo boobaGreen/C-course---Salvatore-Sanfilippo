@@ -7,6 +7,7 @@ import ProTerminal from '../../components/content/ProTerminal';
 import Infographic from '../../components/content/Infographic';
 import ComparisonTable from '../../components/content/ComparisonTable';
 import StackVisualizer from '../../components/content/StackVisualizer';
+import MicroRegisters from '../../components/content/MicroRegisters';
 
 # Lesson 2: Variables, Functions, and Memory
 
@@ -122,6 +123,8 @@ When the function ends (`return`), its frame is "destroyed" and the memory is fr
 In this appendix, Salvatore takes us back in time with the **6502** microprocessor to explain the difference between registers and RAM.
 
 <VideoEmbed videoId="r6mU_IHXEps" title="Appendix Lesson 2: The life of local variables" />
+
+<MicroRegisters />
 
 <Callout type="pro" title="Memory Mapped I/O">
   In the screen above, we are writing directly to RAM at address `$0200`. The microprocessor doesn't "know" it's drawing: it's just moving bytes. It's the video hardware that interprets those bytes as pixel colors. This is the foundation of embedded systems and old consoles.
