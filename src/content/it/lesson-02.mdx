@@ -40,6 +40,28 @@ int main(void) {
 - `int`: Indica che la funzione restituisce un numero intero al sistema operativo (0 significa successo).
 - `void`: Indica esplicitamente che la funzione non accetta argomenti in ingresso.
 
+### Un Esempio Completo: La funzione `sum`
+
+Ecco il primo vero programma che Salvatore ci ha mostrato. Combina inclusione, definizione di una funzione e output:
+
+```c
+#include <stdio.h>
+
+// Definizione di una funzione che somma due interi
+int sum(int a, int b) {
+    return a + b;
+}
+
+int main(void) {
+    // Chiamiamo la funzione sum e stampiamo il risultato
+    printf("Hello World %d\n", sum(10, 20));
+    return 0;
+}
+```
+
+Eseguendo questo codice, otterrai:
+`Hello World 30`
+
 ---
 
 ## printf: La Magia della Formattazione
@@ -67,6 +89,17 @@ Se dici alla `printf` che stamperai due interi (`%d %d`) ma gliene passi solo un
 printf("Ciao %s, il risultato è %d\n", "User", 30);
 //      [FORMAT]           [ARG 1]     [ARG 2]
 ```
+
+### Il Concetto di Espressione
+
+Perché possiamo scrivere `sum(10, 20)` dentro la `printf`? La risposta sta nel **concetto di espressione**.
+
+In programmazione, un'espressione è un pezzo di codice che, una volta eseguito dal computer, "diventa un valore". Questo processo si chiama **valutazione**.
+
+- `10 + 20` è un'espressione che viene valutata come `30`.
+- `sum(10, 20)` è un'espressione che "chiama" la funzione, la esegue e alla fine viene sostituita dal suo risultato (il valore di `return`), diventando `30`.
+
+Quando la `printf` viene eseguita, non vede più la chiamata alla funzione, ma riceve direttamente il numero `30`.
 
 ---
 
@@ -143,7 +176,15 @@ In questa appendice, Salvatore ci porta indietro nel tempo con il microprocessor
 
 <Callout type="pro" title="Memory Mapped I/O">
   <MicroRegisters />
-  Nello schermo qui sopra, stiamo scrivendo direttamente in memoria RAM all'indirizzo `$0200`. Il microprocessore non "sa" di stare disegnando: sta solo muovendo byte. È l'hardware video che interpreta quei byte come colori di pixel. Questa è la base dei sistemi embedded e delle vecchie console.
+  Nello schermo qui sopra, stiamo scrivendo direttamente in memoria RAM all'indirizzo `$0200`. Il microprocessore non "sa" di stare disegnando: sta solo muovendo byte. 
+  
+  In assembly 6502, per accendere un pixel potremmo scrivere:
+  ```assembly
+  LDA #$01    ; Carica il colore 1 (es. Bianco) nel registro Accumulatore
+  STA $0200   ; Memorizza (scrivi) il valore all'indirizzo $0200
+  ```
+  
+  È l'hardware video che interpreta quei byte come colori di pixel. In C, noi scriviamo astrattamente `a = 10;`, ma "sotto il cofano" il compilatore genera istruzioni simili a queste per muovere i dati tra i **Registri** della CPU e la **RAM**. Questa è la base dei sistemi embedded e delle vecchie console.
 </Callout>
 
 ## Il valore di ritorno di `main`
