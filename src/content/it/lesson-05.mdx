@@ -1,11 +1,11 @@
-﻿import VideoEmbed from '../../components/content/VideoEmbed';
-import Callout from '../../components/content/Callout';
-import KeyConcepts from '../../components/content/KeyConcepts';
-import ASCIIConverter from '../../components/content/ASCIIConverter';
-import Infographic from '../../components/content/Infographic';
-import CodeEditor from '../../components/exercises/CodeEditor';
-import Quiz from '../../components/exercises/Quiz';
-import ProTerminal from '../../components/content/ProTerminal';
+﻿import VideoEmbed from "../../components/content/VideoEmbed";
+import Callout from "../../components/content/Callout";
+import KeyConcepts from "../../components/content/KeyConcepts";
+import ASCIIConverter from "../../components/content/ASCIIConverter";
+import Infographic from "../../components/content/Infographic";
+import CodeEditor from "../../components/exercises/CodeEditor";
+import Quiz from "../../components/exercises/Quiz";
+import ProTerminal from "../../components/content/ProTerminal";
 
 # Lezione 5: Stringhe e Caratteri (ASCII)
 
@@ -13,21 +13,24 @@ Nella scorsa lezione abbiamo visto i bit e i numeri. Ma come facciamo a rapprese
 
 <VideoEmbed videoId="SWWHqgSwQFw" title="Lezione 5: Stringhe e Caratteri" />
 
-<KeyConcepts 
+<KeyConcepts
   concepts={[
     {
       title: "Il tipo char",
-      description: "Un intero a 8 bit che può contenere un valore da 0 a 255. In C si scrive tra apici singoli, es: 'A'."
+      description:
+        "Un intero a 8 bit che può contenere un valore da 0 a 255. In C si scrive tra apici singoli, es: 'A'.",
     },
     {
       title: "Tabella ASCII",
-      description: "Uno standard che mappa ogni numero a un carattere specifico. Ad esempio, il 65 corrisponde alla 'A'."
+      description:
+        "Uno standard che mappa ogni numero a un carattere specifico. Ad esempio, il 65 corrisponde alla 'A'.",
     },
     {
       title: "Format String",
-      description: "I segnaposto come %d per i numeri e %c per i caratteri che usiamo nella printf."
-    }
-  ]} 
+      description:
+        "I segnaposto come %d per i numeri e %c per i caratteri che usiamo nella printf.",
+    },
+  ]}
 />
 
 ## La verità dietro i caratteri
@@ -42,34 +45,47 @@ Questa è una delle differenze più "bastarde" per chi viene da Python o JS:
 - `"A"` (virgolette) è una **stringa**. È un array che contiene 'A' e un carattere invisibile `\0` (zero) per segnare la fine. Occupa 2 byte.
 Scambiarli manderà in crisi il compilatore!
 
-<Callout type="info" title="Il Terminatore NULL (\0)">
-  In C, le stringhe non sanno quanto sono lunghe. L'unico modo per sapere dove finisce una stringa è cercare il byte con valore **0**. È una convenzione che ha reso il C velocissimo ma anche vulnerabile (se dimentichi lo zero, la `printf` continuerà a leggere la RAM finché non trova uno zero a caso o il programma crasha).
+<Callout type="pro" title="Il Segreto del Byte Zero (\0)">
+  In C, le stringhe non sanno quanto sono lunghe. Non c'è un campo "length"
+  nascosto come in Java o Python. L'unico modo per sapere dove finisce una
+  stringa è cercare il byte con valore **0** (binario `00000000`). **La Prova
+  del Nove**: La stringa `"Ciao"` sembra lunga 4 caratteri, ma in RAM occupa **5
+  byte**: `['C', 'i', 'a', 'o', '\0']` Dimenticare questo spazio extra per lo
+  zero è la causa del 90% dei crash nei programmi C dei principianti!
+</Callout>
+
+<Callout type="info" title="Performance vs Sicurezza">
+  Perché il C usa lo zero invece di salvare la lunghezza? Perché negli anni '70 risparmiare 1 o 2 byte per la lunghezza era vitale. Lo svantaggio? Per sapere quanto è lunga una stringa, le funzioni come `strlen()` devono scansionare ogni singolo carattere finché non trovano lo zero. Se lo zero manca, il programma continuerà a leggere la tua RAM all'infinito (o finché il sistema non lo blocca).
 </Callout>
 </Callout>
 
-<Infographic 
-  src="/images/ascii_visual.png" 
-  alt="Schema conversione ASCII" 
+<Infographic
+  src="/images/ascii_visual.png"
+  alt="Schema conversione ASCII"
   caption="Dalla lettera al numero, fino ai bit nel processore."
 />
 
 <Callout type="info" title="Stringtozzi">
 Salvatore chiama ironicamente "Stringtozzi" questo primo approccio alle stringhe. Presto vedremo che in C un testo non è altro che un puntatore all'indirizzo di memoria del primo carattere.
+
+<Callout type="pro" title="Archeologia: Dal Telegrafo all'ASCII">
+  L'ASCII (1963) è nato per standardizzare le macchine da scrivere telescopiche. Prima ogni produttore aveva il suo codice (come il codice Morse). L'ASCII ha fissato 128 simboli usando 7 bit. L'8° bit veniva spesso usato per il "controllo parità" (per vedere se c'erano stati errori di trasmissione sui vecchi cavi telefonici).
+</Callout>
 </Callout>
 
 ## Promozione dei Tipi
 
 Sapevi che se passi un `char` a una funzione con argomenti variabili (come `printf`), il C lo promuove automaticamente a `int`? Ecco perché `%d` funziona anche per stampare il codice numerico di un carattere!
 
-<CodeEditor 
+<CodeEditor
   initialCode={`#include <stdio.h>\n\nint main() {\n    char lettera = 'A'; // Un singolo intero\n    printf("Carattere: %c\\n", lettera);\n    printf("Codice ASCII: %d\\n", lettera);\n    \n    // Variadic promotion: char viene passato come int\n    printf("Casting manuale: %d\\n", (int)lettera);\n    return 0;\n}`}
   language="c"
 />
 
 ## Quiz di Verifica
 
-<Quiz 
-  title="Quiz Standard" 
+<Quiz
+  title="Quiz Standard"
   questions={[
     {
       question: "Qual è la differenza fondamentale tra 'X' e \"X\" in C?",
@@ -77,10 +93,11 @@ Sapevi che se passi un `char` a una funzione con argomenti variabili (come `prin
         "Nessuna, sono intercambiabili",
         "'X' è un singolo carattere (numero), \"X\" è una stringa (array)",
         "'X' è più veloce di \"X\"",
-        "\"X\" è usato solo per Python"
+        '"X" è usato solo per Python',
       ],
       correctAnswer: 1,
-      explanation: "Gli apici singoli indicano un singolo valore numerico ASCII, mentre le virgolette indicano un array di caratteri nella memoria."
+      explanation:
+        "Gli apici singoli indicano un singolo valore numerico ASCII, mentre le virgolette indicano un array di caratteri nella memoria.",
     },
     {
       question: "Cosa succede se stampi un char con %d?",
@@ -88,16 +105,18 @@ Sapevi che se passi un `char` a una funzione con argomenti variabili (come `prin
         "Il programma crasha",
         "Viene stampato il carattere",
         "Viene stampato il suo codice numerico ASCII",
-        "Viene stampato un errore di formato"
+        "Viene stampato un errore di formato",
       ],
       correctAnswer: 2,
-      explanation: "Essendo i caratteri rappresentati come numeri, %d stampa il valore intero corrispondente nella tabella ASCII."
+      explanation:
+        "Essendo i caratteri rappresentati come numeri, %d stampa il valore intero corrispondente nella tabella ASCII.",
     },
     {
       question: "A quale numero corrisponde solitamente la 'A' maiuscola?",
       options: ["1", "32", "65", "97"],
       correctAnswer: 2,
-      explanation: "65 è il codice standard per 'A' maiuscola. 'a' minuscola è invece 97."
+      explanation:
+        "65 è il codice standard per 'A' maiuscola. 'a' minuscola è invece 97.",
     },
     {
       question: "Qual è la differenza principale tra ASCII e UTF-8?",
@@ -105,66 +124,77 @@ Sapevi che se passi un `char` a una funzione con argomenti variabili (come `prin
         "Nessuna, sono la stessa cosa",
         "ASCII usa 7 bit (128 caratteri), UTF-8 è un sistema moderno che può usare più byte per rappresentare emoji e caratteri di ogni lingua",
         "ASCII è più lento",
-        "UTF-8 non supporta i numeri"
+        "UTF-8 non supporta i numeri",
       ],
       correctAnswer: 1,
-      explanation: "ASCII è il set base di 128 caratteri. UTF-8 è retrocompatibile con ASCII ma si espande per coprire tutto l'universo Unicode."
+      explanation:
+        "ASCII è il set base di 128 caratteri. UTF-8 è retrocompatibile con ASCII ma si espande per coprire tutto l'universo Unicode.",
     },
     {
-      question: "Quale libreria standard dovresti includere per usare funzioni come isdigit() o toupper()?",
+      question:
+        "Quale libreria standard dovresti includere per usare funzioni come isdigit() o toupper()?",
       options: ["stdio.h", "ctype.h", "string.h", "math.h"],
       correctAnswer: 1,
-      explanation: "ctype.h (Character Type) contiene macro e funzioni per testare e convertire singoli caratteri."
-    }
+      explanation:
+        "ctype.h (Character Type) contiene macro e funzioni per testare e convertire singoli caratteri.",
+    },
   ]}
 />
 
 ---
 
-<KeyConcepts title="In Breve"
+<KeyConcepts
+  title="In Breve"
   concepts={[
     {
       title: "I caratteri sono numeri",
-      description: "Ogni carattere (`char`) è in realtà un intero a 8 bit."
+      description: "Ogni carattere (`char`) è in realtà un intero a 8 bit.",
     },
     {
       title: "Tabella ASCII",
-      description: "La mappa universale che assegna un numero univoco ad ogni simbolo testuale."
+      description:
+        "La mappa universale che assegna un numero univoco ad ogni simbolo testuale.",
     },
     {
       title: "Apici vs Virgolette",
-      description: "`'A'` è un carattere (un numero), `\"A\"` è una stringa (un contenitore più complesso)."
-    }
+      description:
+        "`'A'` è un carattere (un numero), `\"A\"` è una stringa (un contenitore più complesso).",
+    },
   ]}
 />
 
 ### Pro Challenge
-<Quiz 
+
+<Quiz
   title="Pro Challenge: Final Quiz"
   questions={[
     {
       id: 1,
-      question: "Se hai `char c = 'A';` e scrivi `c = c + 32;`,\ncosa stamperà `printf(\"%c\", c)`?",
+      question:
+        "Se hai `char c = 'A';` e scrivi `c = c + 32;`,\ncosa stamperà `printf(\"%c\", c)`?",
       options: [
         "Un errore, non si possono sommare numeri ai caratteri",
         "`'a'` (la versione minuscola)",
         "Il carattere `'32'`",
-        "Un simbolo casuale"
+        "Un simbolo casuale",
       ],
       correctAnswer: 1,
-      explanation: "Nella tabella ASCII, la distanza tra una lettera maiuscola e la sua versione minuscola è esattamente 32. Sommare 32 a `'A'` (65) ci porta a `'a'` (97). Questo dimostra che in C i caratteri sono a tutti gli effetti dei numeri su cui possiamo fare aritmetica."
+      explanation:
+        "Nella tabella ASCII, la distanza tra una lettera maiuscola e la sua versione minuscola è esattamente 32. Sommare 32 a `'A'` (65) ci porta a `'a'` (97). Questo dimostra che in C i caratteri sono a tutti gli effetti dei numeri su cui possiamo fare aritmetica.",
     },
     {
       id: 2,
-      question: "Qual è la differenza tra il carattere `'0'` e il valore intero `0`?",
+      question:
+        "Qual è la differenza tra il carattere `'0'` e il valore intero `0`?",
       options: [
         "Nessuna, sono lo stesso valore in memoria",
         "Il valore intero `0` è il terminatore di stringa (`NULL`), mentre il carattere `'0'` ha valore ASCII 48",
         "`'0'` occupa più memoria di `0`",
-        "Il carattere `'0'` è usato solo in matematica"
+        "Il carattere `'0'` è usato solo in matematica",
       ],
       correctAnswer: 1,
-      explanation: "Questo è fondamentale: `0` (numero) è il byte nullo, usato per dire al C 'qui finisce la stringa'. `'0'` (carattere) è il tasto sulla tastiera che, nella tabella ASCII, corrisponde al numero 48."
+      explanation:
+        "Questo è fondamentale: `0` (numero) è il byte nullo, usato per dire al C 'qui finisce la stringa'. `'0'` (carattere) è il tasto sulla tastiera che, nella tabella ASCII, corrisponde al numero 48.",
     },
     {
       id: 3,
@@ -173,63 +203,62 @@ Sapevi che se passi un `char` a una funzione con argomenti variabili (come `prin
         "Inserisce una riga vuota",
         "Esegue un 'backspace', cancellando idealmente il carattere precedente spostando il cursore a sinistra",
         "Spegne il monitor",
-        "Crea un segnale acustico"
+        "Crea un segnale acustico",
       ],
       correctAnswer: 1,
-      explanation: "Backspace! È uno dei caratteri di controllo ASCII che permette di manipolare la posizione del cursore nel terminale."
-    }
+      explanation:
+        "Backspace! È uno dei caratteri di controllo ASCII che permette di manipolare la posizione del cursore nel terminale.",
+    },
   ]}
 />
 
-### Terminal Challenge: Manual Hunting 
+### Terminal Challenge: Manual Hunting
 
-<ProTerminal 
+<ProTerminal
   challenges={[
     {
-        id: "man-printf",
-        simulatedSuccessOutput: `PRINTF(1)                        User Commands                       PRINTF(1)\n\nNAME\n       printf - format and print data`,
-        title: "Il Manuale del Programmatore",
-        description: "Se ti trovi su un server Linux senza accesso a internet e hai scordato l'ordine dei parametri di `printf`, quale comando da terminale ti salverà mostrandoti le istruzioni ufficiali?",
-        commands: [],
-        expectedOutput: "",
-        hints: [
-            "È l'abbreviazione di 'manual'"
-        ],
-        explanation: "Esatto! `man` è lo strumento essenziale per ogni sviluppatore C su Linux.",
-        xpReward: 150,
-        expectedCommand: "man printf"
+      id: "man-printf",
+      simulatedSuccessOutput: `PRINTF(1)                        User Commands                       PRINTF(1)\n\nNAME\n       printf - format and print data`,
+      title: "Il Manuale del Programmatore",
+      description:
+        "Se ti trovi su un server Linux senza accesso a internet e hai scordato l'ordine dei parametri di `printf`, quale comando da terminale ti salverà mostrandoti le istruzioni ufficiali?",
+      commands: [],
+      expectedOutput: "",
+      hints: ["È l'abbreviazione di 'manual'"],
+      explanation:
+        "Esatto! `man` è lo strumento essenziale per ogni sviluppatore C su Linux.",
+      xpReward: 150,
+      expectedCommand: "man printf",
     },
     {
-        id: "tr-upper",
-        simulatedSuccessOutput: `CIAO`,
-        title: "Traduttore di Caratteri",
-        description: "Quale comando shell useresti per trasformare tutto il testo minuscolo in maiuscolo (es. 'ciao' -> 'CIAO')?",
-        commands: [],
-        expectedOutput: "",
-        hints: [
-            "Il comando sta per 'translate'"
-        ],
-        explanation: "Ottimo! `tr` permette di manipolare set di caratteri in modo rapidissimo.",
-        xpReward: 200,
-        expectedCommand: "echo \"ciao\" | tr 'a-z' 'A-Z'"
+      id: "tr-upper",
+      simulatedSuccessOutput: `CIAO`,
+      title: "Traduttore di Caratteri",
+      description:
+        "Quale comando shell useresti per trasformare tutto il testo minuscolo in maiuscolo (es. 'ciao' -> 'CIAO')?",
+      commands: [],
+      expectedOutput: "",
+      hints: ["Il comando sta per 'translate'"],
+      explanation:
+        "Ottimo! `tr` permette di manipolare set di caratteri in modo rapidissimo.",
+      xpReward: 200,
+      expectedCommand: "echo \"ciao\" | tr 'a-z' 'A-Z'",
     },
     {
-        id: "od-dump",
-        simulatedSuccessOutput: `0000000 63 69 61 6f 0a\n0000005`,
-        title: "L'Ispezione dei Byte",
-        description: "Quale comando permette di vedere il contenuto di un file in formato ottale o esadecimale byte per byte?",
-        commands: [],
-        expectedOutput: "",
-        hints: [
-            "Significa 'Octal Dump'"
-        ],
-        explanation: "Bravissimo! `od` ti permette di vedere la 'carne nuda' dei file.",
-        xpReward: 250,
-        expectedCommand: "od -t x1 testo.txt"
-    }
-]}
+      id: "od-dump",
+      simulatedSuccessOutput: `0000000 63 69 61 6f 0a\n0000005`,
+      title: "L'Ispezione dei Byte",
+      description:
+        "Quale comando permette di vedere il contenuto di un file in formato ottale o esadecimale byte per byte?",
+      commands: [],
+      expectedOutput: "",
+      hints: ["Significa 'Octal Dump'"],
+      explanation:
+        "Bravissimo! `od` ti permette di vedere la 'carne nuda' dei file.",
+      xpReward: 250,
+      expectedCommand: "od -t x1 testo.txt",
+    },
+  ]}
 />
 
 Ci vediamo alla prossima lezione!
-
-

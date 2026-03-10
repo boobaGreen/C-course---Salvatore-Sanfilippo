@@ -1,43 +1,46 @@
-﻿import VideoEmbed from '../../components/content/VideoEmbed';
-import Callout from '../../components/content/Callout';
-import KeyConcepts from '../../components/content/KeyConcepts';
-import CodeEditor from '../../components/exercises/CodeEditor';
-import Quiz from '../../components/exercises/Quiz';
-import ProTerminal from '../../components/content/ProTerminal';
-import PointerBasics from '../../components/content/PointerBasics';
-import PointerMaze from '../../components/games/PointerMaze';
-import Infographic from '../../components/content/Infographic';
+﻿import VideoEmbed from "../../components/content/VideoEmbed";
+import Callout from "../../components/content/Callout";
+import KeyConcepts from "../../components/content/KeyConcepts";
+import CodeEditor from "../../components/exercises/CodeEditor";
+import Quiz from "../../components/exercises/Quiz";
+import ProTerminal from "../../components/content/ProTerminal";
+import PointerBasics from "../../components/content/PointerBasics";
+import PointerMaze from "../../components/games/PointerMaze";
+import Infographic from "../../components/content/Infographic";
 
 # Lezione 9: Benvenuti nei Puntatori
 
 Siamo finalmente arrivati a uno dei concetti più temuti, ma fondamentali, del linguaggio C: i **Puntatori**.
 
-<VideoEmbed videoId="BBgZs-jd_QY" title="Lezione 9: Introduzione ai Puntatori" />
+<VideoEmbed
+  videoId="BBgZs-jd_QY"
+  title="Lezione 9: Introduzione ai Puntatori"
+/>
 
-<KeyConcepts 
+<KeyConcepts
   concepts={[
     {
       title: "Variabile vs Indirizzo",
-      description: "Una variabile è una scatola; un puntatore è un biglietto con scritto sopra dove si trova quella scatola in memoria."
+      description:
+        "Una variabile è una scatola; un puntatore è un biglietto con scritto sopra dove si trova quella scatola in memoria.",
     },
     {
       title: "L'operatore & (Indirizzo)",
-      description: "Estrae la posizione di memoria di una variabile (es. &x)."
+      description: "Estrae la posizione di memoria di una variabile (es. &x).",
     },
     {
       title: "L'operatore * (Deferenziazione)",
-      description: "Dice al computer: 'Vai all'indirizzo contenuto nel puntatore e interagisci con il valore che trovi lì'."
-    }
-  ]} 
+      description:
+        "Dice al computer: 'Vai all'indirizzo contenuto nel puntatore e interagisci con il valore che trovi lì'.",
+    },
+  ]}
 />
 
 <Callout type="info" title="Sintassi e Grammatica">
-Salvatore consiglia di scrivere `int *p` invece di `int* p`. Perché? 
-Nel C, l'asterisco è "attaccato" alla variabile, non al tipo. Se scrivi:
-`int *p, z;`
-- `p` è un puntatore a intero.
-- `z` è un intero normale.
-Se scrivessi `int* p, z;` potresti pensare che entrambi siano puntatori, ma saresti in errore!
+  Salvatore consiglia di scrivere `int *p` invece di `int* p`. Perché? Nel C,
+  l'asterisco è "attaccato" alla variabile, non al tipo. Se scrivi: `int *p, z;`
+  - `p` è un puntatore a intero. - `z` è un intero normale. Se scrivessi `int*
+  p, z;` potresti pensare che entrambi siano puntatori, ma saresti in errore!
 </Callout>
 
 <Callout type="warning" title="Dichiarazione vs Espressione">
@@ -57,9 +60,14 @@ Usa questo simulatore per capire la differenza tra il valore di una variabile e 
 
 <PointerBasics />
 
-## Perché i Puntatori hanno un Tipo?
+Un indirizzo di memoria è sempre lo stesso (64 bit / 8 byte su architetture moderne), ma il compilatore deve sapere **quanti byte leggere** partendo da quell'indirizzo.
 
-Un indirizzo di memoria è sempre lo stesso (64 bit su architetture moderne), ma il compilatore deve sapere **quanti byte leggere** partendo da quell'indirizzo.
+<Callout type="pro" title="Puntatori: 8 Byte per Tutti">
+  Sapevi che un `char *p` e un `double *p` occupano lo *stesso* spazio in
+  memoria? Esattamente **8 byte** (su x64). Il tipo (`char`, `int`, `struct`)
+  non serve a definire la grandezza del puntatore, ma a dire alla CPU: "Quando
+  vai a quell'indirizzo, prendi X byte e interpretali in questo modo".
+</Callout>
 
 - `int *p`: Leggi 4 byte e interpretali come intero.
 - `char *c`: Leggi 1 solo byte.
@@ -67,67 +75,94 @@ Un indirizzo di memoria è sempre lo stesso (64 bit su architetture moderne), ma
 In C, l'indirizzo **0** è speciale e si indica con la keyword `NULL`. Significa che il puntatore non punta a nulla di valido.
 
 <Callout type="pro" title="Puntatori vs Array: L'equivalenza">
-Sapevi che `*p` è esattamente identico a scrivere `p[0]`? In C c'è una "bizzarra analogia" (come la chiama Salvatore) tra puntatori e array: un puntatore può essere trattato come l'indirizzo base di un array di un solo elemento.
-Questo significa che `*(p + 1)` è la stessa cosa di `p[1]`.
+  Sapevi che `*p` è esattamente identico a scrivere `p[0]`? In C c'è una
+  "bizzarra analogia" (come la chiama Salvatore) tra puntatori e array: un
+  puntatore può essere trattato come l'indirizzo base di un array di un solo
+  elemento. Questo significa che `*(p + 1)` è la stessa cosa di `p[1]`.
 </Callout>
 
 <Callout type="warning" title="Il Puntatore NULL">
-Salvatore consiglia di inizializzare sempre i puntatori a `NULL` (indirizzo 0). Accedere a un puntatore che non punta a nulla causa un **Segmentation Fault**, ma è meglio un errore immediato che un bug silenzioso che scrive in zone di memoria a caso!
+  Salvatore consiglia di inizializzare sempre i puntatori a `NULL` (indirizzo
+  0). Accedere a un puntatore che non punta a nulla causa un **Segmentation
+  Fault**, ma è meglio un errore immediato che un bug silenzioso che scrive in
+  zone di memoria a caso!
 </Callout>
 
 ## Esempio di Codice: Passaggio per Riferimento
 
 Le funzioni in C normalmente ricevono **copie** dei valori. Per permettere a una funzione di modificare la variabile originale, dobbiamo passargli il suo "indirizzo di casa".
 
+<Callout type="danger" title="Prova Quantitativa: Risparmiare RAM">
+  Immagina di avere una struttura che pesa 1 Megabyte. - **Passaggio per
+  Valore**: Il C deve copiare 1.000.000 di byte nello stack per darli alla
+  funzione. **Lento e costoso**. - **Passaggio per Riferimento (Puntatore)**: Il
+  C copia solo **8 byte** (l'indirizzo). La funzione poi usa quell'indirizzo per
+  "teletrasportarsi" sui dati originali. **Velocissimo**.
+</Callout>
+
 <CodeEditor 
   initialCode={`#include <stdio.h>
 
 void incrementa(int *p) {
-    *p = *p + 1; // Deferenzia p e aggiungi 1 al valore originale
+*p = \*p + 1; // Deferenzia p e aggiungi 1 al valore originale
 }
 
 int main() {
-    int x = 5;
-    printf("Prima: %d\\n", x);
-    
+int x = 5;
+printf("Prima: %d\\n", x);
+
     incrementa(&x); // Passiamo l'indirizzo di x
-    
+
     printf("Dopo: %d\\n", x); // x ora vale 6!
     return 0;
+
 }`}
-  language="c"
+language="c"
 />
 
 ---
 
-<KeyConcepts title="In Breve"
+<KeyConcepts
+  title="In Breve"
   concepts={[
     {
       title: "Indirection",
-      description: "Accedere ai dati 'girovagando' per gli indirizzi."
+      description: "Accedere ai dati 'girovagando' per gli indirizzi.",
     },
     {
       title: "Pass-by-reference",
-      description: "Simulare il passaggio per riferimento del C++ o Java usando i puntatori."
+      description:
+        "Simulare il passaggio per riferimento del C++ o Java usando i puntatori.",
     },
     {
       title: "Memory Safety",
-      description: "Capire che un puntatore è un'arma a doppio taglio: potente ma rischioso."
-    }
+      description:
+        "Capire che un puntatore è un'arma a doppio taglio: potente ma rischioso.",
+    },
   ]}
 />
 
-
-<Infographic 
+<Infographic
   title="Anatomia di un Puntatore"
   description="Come la RAM viene divisa in scatole o frecce."
   items={[
-    { label: "La Variabile", value: "La scatola che contiene il dato reale (es. int x = 5)", color: "blue" },
-    { label: "L'Indirizzo (&x)", value: "Il numero civico della scatola RAM (es. 0x7ffd5)", color: "emerald" },
-    { label: "Il Puntatore (*p)", value: "Un'altra scatola che contiene il numero civico di x", color: "purple" }
+    {
+      label: "La Variabile",
+      value: "La scatola che contiene il dato reale (es. int x = 5)",
+      color: "blue",
+    },
+    {
+      label: "L'Indirizzo (&x)",
+      value: "Il numero civico della scatola RAM (es. 0x7ffd5)",
+      color: "emerald",
+    },
+    {
+      label: "Il Puntatore (*p)",
+      value: "Un'altra scatola che contiene il numero civico di x",
+      color: "purple",
+    },
   ]}
 />
-
 
 ---
 
@@ -141,161 +176,151 @@ Premi il pulsante `*(deref)` per navigare nella memoria. Riuscirai a trovare l'i
 
 ## Quiz di Verifica
 
-<Quiz 
-  title="Quiz Standard" 
+<Quiz
+  title="Quiz Standard"
   questions={[
     {
-      question: "Cosa contiene tecnicamente una variabile dichiarata come `int *p`?",
+      question:
+        "Cosa contiene tecnicamente una variabile dichiarata come `int *p`?",
       options: [
         "Un numero intero",
         "L'indirizzo di memoria di un intero",
         "Una copia di un intero",
-        "Il nome di una variabile"
+        "Il nome di una variabile",
       ],
       correctAnswer: 1,
-      explanation: "Un puntatore è una variabile che memorizza indirizzi di memoria."
+      explanation:
+        "Un puntatore è una variabile che memorizza indirizzi di memoria.",
     },
     {
-      question: "Quale operatore si usa per ottenere l'indirizzo di una variabile `x`?",
-      options: [
-        "*x",
-        "&x",
-        "%x",
-        "@x"
-      ],
+      question:
+        "Quale operatore si usa per ottenere l'indirizzo di una variabile `x`?",
+      options: ["*x", "&x", "%x", "@x"],
       correctAnswer: 1,
-      explanation: "L'operatore '&' (Address-of) estrae l'indirizzo."
+      explanation: "L'operatore '&' (Address-of) estrae l'indirizzo.",
     },
     {
-      question: "Se scrivo `*p = 10;`, dove `p` è un puntatore, cosa sto facendo?",
+      question:
+        "Se scrivo `*p = 10;`, dove `p` è un puntatore, cosa sto facendo?",
       options: [
         "Sto cambiando l'indirizzo a cui punta p",
         "Sto scrivendo il valore 10 all'indirizzo memorizzato in p",
         "Sto moltiplicando p per 10",
-        "Nulla, il codice è errato"
+        "Nulla, il codice è errato",
       ],
       correctAnswer: 1,
-      explanation: "Questo si chiama 'deferenziare'. Intervieni sul contenuto all'indirizzo puntato."
+      explanation:
+        "Questo si chiama 'deferenziare'. Intervieni sul contenuto all'indirizzo puntato.",
     },
     {
-      question: "Perché `&5` (l'indirizzo del numero 5) è un errore di compilazione?",
+      question:
+        "Perché `&5` (l'indirizzo del numero 5) è un errore di compilazione?",
       options: [
         "Perché 5 è troppo piccolo",
         "Perché i numeri letterali non hanno un indirizzo di memoria permanente estraibile",
         "Perché bisogna scrivere `&'5'`",
-        "Perché il 5 è già un indirizzo"
+        "Perché il 5 è già un indirizzo",
       ],
       correctAnswer: 1,
-      explanation: "L'operatore & richiede un 'lvalue', ovvero qualcosa che occupa un apposito spazio in memoria (come una variabile), non un valore costante temporaneo."
+      explanation:
+        "L'operatore & richiede un 'lvalue', ovvero qualcosa che occupa un apposito spazio in memoria (come una variabile), non un valore costante temporaneo.",
     },
     {
-      question: "Se stampi un puntatore con `printf` in C, quale specificatore di formato dovresti usare?",
-      options: [
-        "%d",
-        "%f",
-        "%p",
-        "%s"
-      ],
+      question:
+        "Se stampi un puntatore con `printf` in C, quale specificatore di formato dovresti usare?",
+      options: ["%d", "%f", "%p", "%s"],
       correctAnswer: 2,
-      explanation: "%p (pointer) stampa l'indirizzo di memoria in formato esadecimale (es. 0x7ffd5e...)."
-    }
+      explanation:
+        "%p (pointer) stampa l'indirizzo di memoria in formato esadecimale (es. 0x7ffd5e...).",
+    },
   ]}
 />
 
 ---
 
 ### Pro Challenge
-<Quiz 
+
+<Quiz
   title="Pro Challenge: Pointer Architecture"
   questions={[
     {
       id: 1,
-      question: "Qual è la dimensione di un puntatore (indipendentemente dal tipo puntato) su una macchina a 64 bit?",
-      options: [
-        "4 byte",
-        "8 byte",
-        "Dipende se punta a char o int",
-        "16 byte"
-      ],
+      question:
+        "Qual è la dimensione di un puntatore (indipendentemente dal tipo puntato) su una macchina a 64 bit?",
+      options: ["4 byte", "8 byte", "Dipende se punta a char o int", "16 byte"],
       correctAnswer: 1,
-      explanation: "Tutti i puntatori sono indirizzi di memoria. Su 64-bit, un indirizzo è largo 8 byte."
+      explanation:
+        "Tutti i puntatori sono indirizzi di memoria. Su 64-bit, un indirizzo è largo 8 byte.",
     },
     {
       id: 2,
-      question: "Cosa succede se dichiari `int x; int *p = &x;` e poi incrementi `p`?",
+      question:
+        "Cosa succede se dichiari `int x; int *p = &x;` e poi incrementi `p`?",
       options: [
         "Il valore di x aumenta",
         "L'indirizzo in p si sposta in avanti di 4 byte",
         "Il computer crasha immediatamente",
-        "p diventa NULL"
+        "p diventa NULL",
       ],
       correctAnswer: 1,
-      explanation: "Incrementare il puntatore sposta l'indirizzo della dimensione del tipo base (int = 4 byte)."
+      explanation:
+        "Incrementare il puntatore sposta l'indirizzo della dimensione del tipo base (int = 4 byte).",
     },
     {
       id: 3,
-      question: "Hai una funzione `void scambia(int *a, int *b)`. Qual è la prima operazione logica all'interno per scambiare i valori in modo sicuro?",
-      options: [
-        "a = b;",
-        "int temp = *a;",
-        "*a = *b;",
-        "int *temp = a;"
-      ],
+      question:
+        "Hai una funzione `void scambia(int *a, int *b)`. Qual è la prima operazione logica all'interno per scambiare i valori in modo sicuro?",
+      options: ["a = b;", "int temp = *a;", "*a = *b;", "int *temp = a;"],
       correctAnswer: 1,
-      explanation: "Devi prima parcheggiare il _valore_ di 'a' in una variabile temporanea (`int temp = *a`) prima di sovrascriverlo con `*b`, altrimenti il dato di 'a' va perso per sempre."
-    }
+      explanation:
+        "Devi prima parcheggiare il _valore_ di 'a' in una variabile temporanea (`int temp = *a`) prima di sovrascriverlo con `*b`, altrimenti il dato di 'a' va perso per sempre.",
+    },
   ]}
 />
 
-### Terminal Challenge: Exploration 
+### Terminal Challenge: Exploration
 
-<ProTerminal 
+<ProTerminal
   challenges={[
     {
-        id: "gdb-debugger-it",
-        simulatedSuccessOutput: `GNU gdb (Ubuntu 12.1-0ubuntu1~22.04) 12.1\nReading symbols from ./a.out...\n(gdb) `,
-        title: "Il Debugger Supremo",
-        description: "Quale comando Linux ti permette di vedere i registri della CPU e analizzare la memoria durante il debug step-by-step?",
-        commands: [],
-        expectedOutput: "",
-        hints: [
-            "È l'abbreviazione di 'GNU Debugger'"
-        ],
-        explanation: "Esatto! GDB è lo strumento definitivo per capire cosa succede ai tuoi puntatori in tempo reale.",
-        xpReward: 150,
-        expectedCommand: "gdb ./a.out"
+      id: "gdb-debugger-it",
+      simulatedSuccessOutput: `GNU gdb (Ubuntu 12.1-0ubuntu1~22.04) 12.1\nReading symbols from ./a.out...\n(gdb) `,
+      title: "Il Debugger Supremo",
+      description:
+        "Quale comando Linux ti permette di vedere i registri della CPU e analizzare la memoria durante il debug step-by-step?",
+      commands: [],
+      expectedOutput: "",
+      hints: ["È l'abbreviazione di 'GNU Debugger'"],
+      explanation:
+        "Esatto! GDB è lo strumento definitivo per capire cosa succede ai tuoi puntatori in tempo reale.",
+      xpReward: 150,
+      expectedCommand: "gdb ./a.out",
     },
     {
-        id: "proc-maps-it",
-        simulatedSuccessOutput: `00400000-00401000 r-xp 00000000 08:01 12345 /tmp/a.out\n00600000-00601000 r--p 00001000 08:01 12345 /tmp/a.out\n00601000-00602000 rw-p 00002000 08:01 12345 /tmp/a.out`,
-        title: "Mappare la RAM",
-        description: "Vuoi ispezionare gli indirizzi in cui sono stati caricati l'heap, lo stack e le librerie del tuo programma in esecuzione. Quale file all'interno di `/proc/self/` contiene questa tabella?",
-        commands: [
-            "cat /proc/self/maps"
-        ],
-        expectedOutput: "00400000",
-        hints: [
-            "Cerca 'maps' dentro /proc/self"
-        ],
-        explanation: "Ottimo! `/proc/self/maps` ti mostra l'indirizzo di caricamento del codice, dello stack e dell'heap.",
-        xpReward: 250
+      id: "proc-maps-it",
+      simulatedSuccessOutput: `00400000-00401000 r-xp 00000000 08:01 12345 /tmp/a.out\n00600000-00601000 r--p 00001000 08:01 12345 /tmp/a.out\n00601000-00602000 rw-p 00002000 08:01 12345 /tmp/a.out`,
+      title: "Mappare la RAM",
+      description:
+        "Vuoi ispezionare gli indirizzi in cui sono stati caricati l'heap, lo stack e le librerie del tuo programma in esecuzione. Quale file all'interno di `/proc/self/` contiene questa tabella?",
+      commands: ["cat /proc/self/maps"],
+      expectedOutput: "00400000",
+      hints: ["Cerca 'maps' dentro /proc/self"],
+      explanation:
+        "Ottimo! `/proc/self/maps` ti mostra l'indirizzo di caricamento del codice, dello stack e dell'heap.",
+      xpReward: 250,
     },
     {
-        id: "pointer-size-it",
-        simulatedSuccessOutput: `8`,
-        title: "Larghezza del Bus",
-        description: "Su un sistema a 64 bit, quanti byte occupa un puntatore? Rispondi con il numero.",
-        commands: [
-            "ls"
-        ],
-        expectedOutput: "8",
-        hints: [
-            "8 bit = 1 byte. 64 bit = ? byte"
-        ],
-        explanation: "Perfetto! Su un sistema a 64 bit, ogni indirizzo di memoria (puntatore) occupa 8 byte.",
-        xpReward: 150
-    }
-]}
+      id: "pointer-size-it",
+      simulatedSuccessOutput: `8`,
+      title: "Larghezza del Bus",
+      description:
+        "Su un sistema a 64 bit, quanti byte occupa un puntatore? Rispondi con il numero.",
+      commands: ["ls"],
+      expectedOutput: "8",
+      hints: ["8 bit = 1 byte. 64 bit = ? byte"],
+      explanation:
+        "Perfetto! Su un sistema a 64 bit, ogni indirizzo di memoria (puntatore) occupa 8 byte.",
+      xpReward: 150,
+    },
+  ]}
 />
-
-

@@ -1,21 +1,19 @@
-﻿
-import VideoEmbed from '../../components/content/VideoEmbed';
-import KeyConcepts from '../../components/content/KeyConcepts';
-import Callout from '../../components/content/Callout';
-import CodeEditor from '../../components/exercises/CodeEditor';
-import Quiz from '../../components/exercises/Quiz';
-import Infographic from '../../components/content/Infographic';
-import ComparisonTable from '../../components/content/ComparisonTable';
-import ProTerminal from '../../components/content/ProTerminal';
-import LinkedListSurgeon from '../../components/games/LinkedListSurgeon';
-import Diagram from '../../components/content/Diagram';
+﻿import VideoEmbed from "../../components/content/VideoEmbed";
+import KeyConcepts from "../../components/content/KeyConcepts";
+import Callout from "../../components/content/Callout";
+import CodeEditor from "../../components/exercises/CodeEditor";
+import Quiz from "../../components/exercises/Quiz";
+import Infographic from "../../components/content/Infographic";
+import ComparisonTable from "../../components/content/ComparisonTable";
+import ProTerminal from "../../components/content/ProTerminal";
+import LinkedListSurgeon from "../../components/games/LinkedListSurgeon";
+import Diagram from "../../components/content/Diagram";
 
 # Lezione 15: Liste Linkate e il Progetto TAC
 
 <VideoEmbed videoId="aTT2W5NACEY" title="Lezione 15: Liste Linkate e TAC" />
 
-
-<Diagram 
+<Diagram
   title="Architettura TAC (Head Insertion)"
   type="architecture"
   data={{
@@ -24,36 +22,53 @@ import Diagram from '../../components/content/Diagram';
       { id: "read", label: "fgets()", type: "process" },
       { id: "alloc", label: "malloc() + strdup()", type: "process" },
       { id: "list", label: "Linked List (LIFO)", type: "storage" },
-      { id: "print", label: "Stampa & Free", type: "output" }
+      { id: "print", label: "Stampa & Free", type: "output" },
     ],
     edges: [
       { from: "file", to: "read", label: "Legge riga" },
       { from: "read", to: "alloc", label: "Crea Nodo" },
       { from: "alloc", to: "list", label: "Inserisci in Testa" },
-      { from: "list", to: "print", label: "Scorri & Stampa in ordine inverso" }
-    ]
+      { from: "list", to: "print", label: "Scorri & Stampa in ordine inverso" },
+    ],
   }}
 />
 
-
-<KeyConcepts concepts={[
-  { title: "Argv: Puntatori a Puntatori", description: "Come il sistema passa gli argomenti della riga di comando tramite un array di stringhe." },
-  { title: "Strutture Auto-referenziate", description: "Struct che contengono un puntatore ad un'altra struct dello stesso tipo." },
-  { title: "Gestione File (stdio.h)", description: "Usare `fopen`, `fgets` e `fclose` per leggere dati riga per riga da un file." },
-  { title: "Linked Lists", description: "Una catena di oggetti in memoria dove ognuno indica il 'prossimo', permettendo l'inversione di un file." }
-]} />
+<KeyConcepts
+  concepts={[
+    {
+      title: "Argv: Puntatori a Puntatori",
+      description:
+        "Come il sistema passa gli argomenti della riga di comando tramite un array di stringhe.",
+    },
+    {
+      title: "Strutture Auto-referenziate",
+      description:
+        "Struct che contengono un puntatore ad un'altra struct dello stesso tipo.",
+    },
+    {
+      title: "Gestione File (stdio.h)",
+      description:
+        "Usare `fopen`, `fgets` e `fclose` per leggere dati riga per riga da un file.",
+    },
+    {
+      title: "Linked Lists",
+      description:
+        "Una catena di oggetti in memoria dove ognuno indica il 'prossimo', permettendo l'inversione di un file.",
+    },
+  ]}
+/>
 
 ## Capire `argc` e `argv`
 
 Salvatore spiega `argv` come un "puntatore a puntatori". Immaginatelo come un elenco di indirizzi, dove ogni indirizzo punta a una stringa (il nome del programma, il primo argomento, ecc.).
 
-<Infographic 
+<Infographic
   title="Layout di Memoria di argv"
   description="argv[0] è sempre il nome dell'eseguibile."
   items={[
     { label: "argv[0]", value: "Puntatore a './tac'", color: "blue" },
     { label: "argv[1]", value: "Puntatore a 'file.txt'", color: "emerald" },
-    { label: "NULL", value: "L'ultimo elemento è sempre Zero", color: "amber" }
+    { label: "NULL", value: "L'ultimo elemento è sempre Zero", color: "amber" },
   ]}
 />
 
@@ -75,18 +90,25 @@ struct Line {
 ```
 
 <Callout type="pro" title="Salto Mentale">
-Nota che `struct Line` contiene un puntatore a `struct Line`. Questo è possibile perché un puntatore è solo un indirizzo di memoria; il compilatore non ha bisogno di sapere quanto è grande tutta la struct per definire il puntatore.
+  Nota che `struct Line` contiene un puntatore a `struct Line`. Questo è
+  possibile perché un puntatore è solo un indirizzo di memoria; il compilatore
+  non ha bisogno di sapere quanto è grande tutta la struct per definire il
+  puntatore.
 </Callout>
 
 ### Visualizzare la Linked List
 
-<Infographic 
+<Infographic
   title="Catena di Nodi in Memoria"
   description="Ogni nodo 'Line' punta al precedente per invertire l'ordine."
   items={[
     { label: "Head", value: "Punta all'Ultima riga letta", color: "purple" },
     { label: "Nodo n (Next)", value: "Punta al Nodo n-1", color: "blue" },
-    { label: "Nodo 1 (Next)", value: "Valore NULL (Fine lista)", color: "amber" }
+    {
+      label: "Nodo 1 (Next)",
+      value: "Valore NULL (Fine lista)",
+      color: "amber",
+    },
   ]}
 />
 
@@ -94,20 +116,43 @@ Nota che `struct Line` contiene un puntatore a `struct Line`. Questo è possibil
 Perché la lista inverte il file? Perché facciamo `new_node->next = head; head = new_node;`. Immagina di impilare dei piatti: l'ultimo che posi è il primo che prendi. Questa struttura si chiama **Stack** (Pila).
 </Callout>
 
-<ComparisonTable 
+<ComparisonTable
   title="Array vs Linked List"
   headers={["Caratteristica", "Array", "Linked List"]}
   rows={[
     ["Allocazione", "Blocco contiguo fisso", "Nodi sparsi nell'heap"],
     ["Accesso Casuale", "O(1) - Istantaneo", "O(N) - Devi scorrere"],
-    ["Inserimento in Testa", "O(N) - Devi spostare tutto", "O(1) - Cambi solo 2 puntatori"],
-    ["Spreco Memoria", "Zero (solo i dati)", "Alto (ogni nodo ha un puntatore next)"]
+    [
+      "Inserimento in Testa",
+      "O(N) - Devi spostare tutto",
+      "O(1) - Cambi solo 2 puntatori",
+    ],
+    [
+      "Spreco Memoria",
+      "Zero (solo i dati)",
+      "Alto (ogni nodo ha un puntatore next)",
+    ],
+    [
+      "Cache Locality",
+      "⭐ Eccellente (Dati vicini)",
+      "❌ Pessima (Dati sparsi)",
+    ],
   ]}
 />
 
+<Callout type="pro" title="Il Killer Silenzioso: Cache Miss">
+  A livello hardware, la CPU non legge un singolo byte dalla RAM, ma un'intera
+  **Cache Line** (solitamente 64 byte). - **Array**: Quando leggi `arr[0]`, la
+  CPU scarica anche `arr[1]`, `arr[2]`, ecc. gratis nel processore. L'accesso è
+  fulmineo. - **Linked List**: Poiché i nodi sono sparsi nell'Heap ("Pointer
+  Chasing"), ogni salto al `next` potrebbe richiedere una nuova lettura lenta
+  dalla RAM fisica. Su hardware moderno, scorrere un array può essere **10-100
+  volte più veloce** di scorrere una lista linkata!
+</Callout>
+
 ---
 
-## Esercitazione: Linked List Surgeon 
+## Esercitazione: Linked List Surgeon
 
 Prima di vedere come TAC inverte un file, mettiti alla prova. Riesci a manipolare i puntatori in memoria per inserire e rimuovere nodi senza rompere la catena?
 
@@ -123,13 +168,13 @@ Prima di vedere come TAC inverte un file, mettiti alla prova. Riesci a manipolar
 #include <string.h>
 
 struct Line {
-    char *text;
-    struct Line *next;
+char *text;
+struct Line *next;
 };
 
-int main(int argc, char **argv) {
-    if (argc < 2) return 1;
-    
+int main(int argc, char \*\*argv) {
+if (argc < 2) return 1;
+
     FILE *fp = fopen(argv[1], "r");
     if (!fp) return 1;
 
@@ -155,23 +200,31 @@ int main(int argc, char **argv) {
 
     fclose(fp);
     return 0;
-}`} 
-  language="c" 
+
+}`}
+language="c"
 />
 
 <Callout type="info">
-`strdup` è una funzione comodissima che fa `malloc` + `strcpy` in un colpo solo. Ricordati però che dovrai fare `free` sia di `text` che del nodo stesso!
+  `strdup` è una funzione comodissima che fa `malloc` + `strcpy` in un colpo
+  solo. Ricordati però che dovrai fare `free` sia di `text` che del nodo stesso!
+</Callout>
 
 <Callout type="danger" title="Puntatori Ciondolanti (Dangling)">
-  Quando liberi un nodo con `free(curr)`, il puntatore `curr` contiene ancora l'indirizzo della memoria (ormai rubata dal SO). Usarlo dopo la `free` è catastrofico. Buona prassi: dopo ogni `free(p)`, assegna `p = NULL;`.
-</Callout>
+  Quando liberi un nodo con `free(curr)`, il puntatore `curr` contiene ancora
+  l'indirizzo della memoria. Usarli dopo la `free` è catastrofico
+  (**Use-After-Free**). Buona prassi: assegna `curr = NULL;` dopo aver terminato
+  il lavoro. **Frammentazione**: Creare migliaia di nodi piccoli con `malloc`
+  crea molti "buchi" nella RAM (frammentazione esterna). In sistemi embedded con
+  pochissima memoria, questo può bloccare il sistema anche se c'è tecnicamente
+  spazio totale sufficiente.
 </Callout>
 
 ---
 
 ## Esercitazione
 
-<Quiz 
+<Quiz
   title="Quiz Standard"
   questions={[
     {
@@ -180,21 +233,24 @@ int main(int argc, char **argv) {
         "Una struct che si cancella da sola",
         "Una struct che contiene un puntatore a se stessa (o allo stesso tipo)",
         "Una struct che non ha campi",
-        "Una struct che può essere usata solo una volta"
+        "Una struct che può essere usata solo una volta",
       ],
       correctAnswer: 1,
-      explanation: "Permette di creare catene o grafi in memoria, dove ogni nodo indica dove si trova il successivo."
+      explanation:
+        "Permette di creare catene o grafi in memoria, dove ogni nodo indica dove si trova il successivo.",
     },
     {
-      question: "In che ordine appaiono gli elementi in una lista linkata se usiamo l'inserimento in testa?",
+      question:
+        "In che ordine appaiono gli elementi in una lista linkata se usiamo l'inserimento in testa?",
       options: [
         "In ordine di arrivo (FIFO)",
         "In ordine inverso rispetto all'arrivo (LIFO)",
         "In ordine alfabetico",
-        "In ordine casuale"
+        "In ordine casuale",
       ],
       correctAnswer: 1,
-      explanation: "Appendendo sempre in testa, l'ultimo elemento aggiunto diventa il primo della lista, invertendo l'ordine originale."
+      explanation:
+        "Appendendo sempre in testa, l'ultimo elemento aggiunto diventa il primo della lista, invertendo l'ordine originale.",
     },
     {
       question: "Cosa restituisce `fgets` quando raggiunge la fine del file?",
@@ -202,119 +258,122 @@ int main(int argc, char **argv) {
         "NULL",
         "Una stringa vuota",
         "Il numero di caratteri letti",
-        "Provoca un errore di segmentazione"
+        "Provoca un errore di segmentazione",
       ],
       correctAnswer: 0,
-      explanation: "Ritorna `NULL` per indicare che non ci sono più righe da leggere, ideale per terminare un ciclo `while`."
+      explanation:
+        "Ritorna `NULL` per indicare che non ci sono più righe da leggere, ideale per terminare un ciclo `while`.",
     },
     {
-      question: "Qual è il difetto principale dell'implementazione di `tac` mostrata sopra?",
+      question:
+        "Qual è il difetto principale dell'implementazione di `tac` mostrata sopra?",
       options: [
         "È troppo lenta",
         "Carica tutto il file in memoria RAM (potrebbe fallire per file enormi)",
         "Non può leggere file binari",
-        "Funziona solo su Windows"
+        "Funziona solo su Windows",
       ],
       correctAnswer: 1,
-      explanation: "Visto che carichiamo ogni riga in una struct dell'heap, file di diversi gigabyte potrebbero esaurire la memoria disponibile."
+      explanation:
+        "Visto che carichiamo ogni riga in una struct dell'heap, file di diversi gigabyte potrebbero esaurire la memoria disponibile.",
     },
     {
-      question: "Perché usiamo `strdup` invece di assegnare direttamente il buffer?",
+      question:
+        "Perché usiamo `strdup` invece di assegnare direttamente il buffer?",
       options: [
         "Perché il buffer viene sovrascritto ad ogni ciclo di `fgets` ",
         "Perché `strdup` è più sicuro",
         "Perché le stringhe devono essere sempre allocate nell'heap",
-        "Perché il compilatore lo richiede"
+        "Perché il compilatore lo richiede",
       ],
       correctAnswer: 0,
-      explanation: "Se salvassimo solo il puntatore a `buf`, tutti i nodi della lista punterebbero alla stessa riga (l'ultima letta)."
-    }
-  ]} 
+      explanation:
+        "Se salvassimo solo il puntatore a `buf`, tutti i nodi della lista punterebbero alla stessa riga (l'ultima letta).",
+    },
+  ]}
 />
 
-<Quiz 
+<Quiz
   title="Pro Challenge"
   questions={[
     {
-      question: "Quale operazione è più costosa (complessa) in una lista linkata rispetto ad un array?",
+      question:
+        "Quale operazione è più costosa (complessa) in una lista linkata rispetto ad un array?",
       options: [
         "Accesso ad un elemento casuale tramite indice (es. l'elemento 500)",
         "Inserimento di un elemento in testa",
         "Cancellazione del primo elemento",
-        "Nessuna, le liste sono sempre migliori degli array"
+        "Nessuna, le liste sono sempre migliori degli array",
       ],
       correctAnswer: 0,
-      explanation: "In un array l'accesso è O(1) [matematico]. In una lista devi scorrere tutti i nodi fino al 500esimo, quindi è O(N)."
+      explanation:
+        "In un array l'accesso è O(1) [matematico]. In una lista devi scorrere tutti i nodi fino al 500esimo, quindi è O(N).",
     },
     {
-      question: "Se dimentichiamo di fare `fclose(fp)`, qual è il rischio principale?",
+      question:
+        "Se dimentichiamo di fare `fclose(fp)`, qual è il rischio principale?",
       options: [
         "Il file viene cancellato",
         "Il kernel potrebbe esaurire i 'file descriptors' disponibili se il programma gira a lungo",
         "Il computer si spegne",
-        "Il file non può più essere letto da altri"
+        "Il file non può più essere letto da altri",
       ],
       correctAnswer: 1,
-      explanation: "Il sistema operativo ha un numero massimo di file che ogni processo può tenere aperti contemporaneamente."
+      explanation:
+        "Il sistema operativo ha un numero massimo di file che ogni processo può tenere aperti contemporaneamente.",
     },
     {
-      question: "In una struct auto-referenziata, perché il campo deve essere un PUNTATORE e non la struct stessa?",
+      question:
+        "In una struct auto-referenziata, perché il campo deve essere un PUNTATORE e non la struct stessa?",
       options: [
         "Perché è più veloce",
         "Perché altrimenti la struct avrebbe una dimensione infinita (ricorsiva)",
         "Perché lo standard C lo vieta per ragioni di sicurezza",
-        "Perché i puntatori occupano meno spazio"
+        "Perché i puntatori occupano meno spazio",
       ],
       correctAnswer: 1,
-      explanation: "Se una struct contenesse se stessa 'dentro', la sua dimensione sarebbe infinita. Il puntatore ha invece una dimensione fissa (8 byte)."
-    }
-  ]} 
+      explanation:
+        "Se una struct contenesse se stessa 'dentro', la sua dimensione sarebbe infinita. Il puntatore ha invece una dimensione fissa (8 byte).",
+    },
+  ]}
 />
 
-<ProTerminal 
+<ProTerminal
   challenges={[
     {
-        id: "tac-usage",
-        simulatedSuccessOutput: `root:x:0:0:root:/root:/bin/bash\ndaemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin\nbin:x:2:2:bin:/bin:/usr/sbin/nologin`,
-        title: "Invertire il Sistema",
-        description: "Nel corso abbiamo replicato artigianalmente un famoso programmino UNIX che legge i file e li stampa partendo dall'ultima riga. Invoca la versione originale del sistema operativo sul file `/etc/passwd`.",
-        commands: [
-            "tac /etc/passwd"
-        ],
-        expectedOutput: "root:x:0:0:root:/root:/bin/bash",
-        hints: [
-            "Usa tac seguito dal path del file"
-        ]
+      id: "tac-usage",
+      simulatedSuccessOutput: `root:x:0:0:root:/root:/bin/bash\ndaemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin\nbin:x:2:2:bin:/bin:/usr/sbin/nologin`,
+      title: "Invertire il Sistema",
+      description:
+        "Nel corso abbiamo replicato artigianalmente un famoso programmino UNIX che legge i file e li stampa partendo dall'ultima riga. Invoca la versione originale del sistema operativo sul file `/etc/passwd`.",
+      commands: ["tac /etc/passwd"],
+      expectedOutput: "root:x:0:0:root:/root:/bin/bash",
+      hints: ["Usa tac seguito dal path del file"],
     },
     {
-        id: "check-leaks-tac",
-        simulatedSuccessOutput: `==12345== HEAP SUMMARY:\n==12345==     in use at exit: 0 bytes in 0 blocks\n==12345==   total heap usage: 4 allocs, 4 frees, 4,096 bytes allocated\n==12345== \n==12345== All heap blocks were freed -- no leaks are possible`,
-        title: "Caccia al Leak",
-        description: "Devi assicurarti che la tua implementazione di Liste Concatenate non abbia memory leaks. Quale profiler di memoria lanci davanti all'eseguibile `./tac file.txt` per analizzare il comportamento dell'heap?",
-        commands: [
-            "valgrind --leak-check=full ./tac file.txt"
-        ],
-        expectedOutput: "All heap blocks were freed -- no leaks are possible",
-        hints: [
-            "valgrind è lo strumento principe per l'heap"
-        ]
+      id: "check-leaks-tac",
+      simulatedSuccessOutput: `==12345== HEAP SUMMARY:\n==12345==     in use at exit: 0 bytes in 0 blocks\n==12345==   total heap usage: 4 allocs, 4 frees, 4,096 bytes allocated\n==12345== \n==12345== All heap blocks were freed -- no leaks are possible`,
+      title: "Caccia al Leak",
+      description:
+        "Devi assicurarti che la tua implementazione di Liste Concatenate non abbia memory leaks. Quale profiler di memoria lanci davanti all'eseguibile `./tac file.txt` per analizzare il comportamento dell'heap?",
+      commands: ["valgrind --leak-check=full ./tac file.txt"],
+      expectedOutput: "All heap blocks were freed -- no leaks are possible",
+      hints: ["valgrind è lo strumento principe per l'heap"],
     },
     {
-        id: "file-descriptors-limit",
-        simulatedSuccessOutput: `1024`,
-        title: "Il Limite Fisico",
-        description: "Usa il comando `ulimit` per vedere quanti file puoi tenere aperti contemporaneamente sul tuo utente Linux.",
-        commands: [],
-        expectedOutput: "",
-        hints: [
-            "l'opzione è -n (number of files)"
-        ],
-        expectedCommand: "ulimit -n"
-    }
-]}
+      id: "file-descriptors-limit",
+      simulatedSuccessOutput: `1024`,
+      title: "Il Limite Fisico",
+      description:
+        "Usa il comando `ulimit` per vedere quanti file puoi tenere aperti contemporaneamente sul tuo utente Linux.",
+      commands: [],
+      expectedOutput: "",
+      hints: ["l'opzione è -n (number of files)"],
+      expectedCommand: "ulimit -n",
+    },
+  ]}
 />
 
 ### Riassunto Finale
+
 In questa lezione abbiamo creato un vero strumento di sistema. Abbiamo imparato che le strutture non sono solo contenitori statici, ma mattoni che possono collegarsi tra loro per creare strutture dati dinamiche. Benvenuti nel mondo delle Linked Lists!
-
-

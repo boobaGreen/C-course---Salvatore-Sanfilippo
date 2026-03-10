@@ -1,224 +1,165 @@
-﻿import Infographic from '../../components/content/Infographic';
-import VideoEmbed from '../../components/content/VideoEmbed';
-import KeyConcepts from '../../components/content/KeyConcepts';
-import ComparisonTable from '../../components/content/ComparisonTable';
-import Callout from '../../components/content/Callout';
+﻿import Infographic from "../../components/content/Infographic";
+import VideoEmbed from "../../components/content/VideoEmbed";
+import KeyConcepts from "../../components/content/KeyConcepts";
+import ComparisonTable from "../../components/content/ComparisonTable";
+import Callout from "../../components/content/Callout";
 import BigOExplorer from "../../components/content/BigOExplorer";
 import PerformanceChart from "../../components/content/PerformanceChart";
-import CodeEditor from '../../components/exercises/CodeEditor';
+import CodeEditor from "../../components/exercises/CodeEditor";
 import DitheringSimulator from "../../components/content/DitheringSimulator";
-import Quiz from '../../components/exercises/Quiz';
-import ProTerminal from '../../components/content/ProTerminal';
+import Quiz from "../../components/exercises/Quiz";
+import ProTerminal from "../../components/content/ProTerminal";
 import WorkflowDiagram from "../../components/content/WorkflowDiagram";
 
 # Lesson 31: The Modern C Programmer and AI
 
-In this lesson, Salvatore abandons the classic approach to show us how an expert programmer works _today_: no longer writing every single line by hand, but guiding an AI agent (like Claude Code or Cursor) like an orchestra conductor.
-
-<Infographic
-  title="Modern AI Flow"
-  description="Integration of LLMs in the C development cycle"
-  items={[
-    {
-      label: "Design",
-      value: "Human defines architecture and technical constraints",
-      color: "blue",
-    },
-    {
-      label: "Generation",
-      value: "AI writes boilerplate code and implements details",
-      color: "emerald",
-    },
-    {
-      label: "Audit & Fix",
-      value: "Human verifies correctness, security, and performance",
-      color: "purple",
-    },
-  ]}
-/>
+In this lesson, Salvatore departs from the traditional approach to show us how an expert programmer works _today_: no longer writing every single line by hand, but guiding an AI agent (like Claude or Cursor) as an orchestra conductor.
 
 <VideoEmbed
   videoId="fZmdsh0gQig"
   title="Lesson 31: Assisted Programming and Optimization"
 />
 
-## The New Role of the Programmer
-
-The arrival of _Large Language Models (LLMs)_ and coding agents has radically changed our profession. We no longer have to struggle for five or ten minutes writing boilerplate code; we can delegate the writing process and focus on **architecture** and **correctness**.
-
-<WorkflowDiagram />
-
-<Callout type="info" title="The Importance of Fundamentals">
-  Why then have we learned raw C so far? Because to guide and *audit* (verify)
-  an AI agent, you must perfectly understand memory, pointers, and machine
-  limits. The AI writes the code, but **you** are responsible for the result.
-</Callout>
-
----
-
-## Optimization: From Global to Local
-
-Let's return to the program from the last lesson. The problem was slowness: every time we randomly changed 3 bytes, the algorithm recalculated the difference over the **entire image** (49,152 pixels x 3 colors). Ridiculous!
-
-Salvatore asks the AI to change the logic: instead of calculating the global difference, we work on a single **8x8 block at a time**.
-
-<BigOExplorer />
-
-<PerformanceChart />
-
-### Complexity Evolution
-
-By moving from total to local recalculation, we've transformed a heavy algorithm into a series of instantaneous micro-operations.
-
-<ComparisonTable 
-  title="Optimization: Global vs Local"
-  headers={["Method", "Complexity", "CPU Cost", "Impact"]}
-  rows={[
-    ["Global Scan", "O(WIDTH * HEIGHT)", "Very High (~50k pixels)", "Slow, stuttering refresh"],
-    ["Local Scan", "O(1) (fixed 8x8)", "Low (64 pixels)", "Fluid, thousands of mutations per second"]
+<KeyConcepts
+  concepts={[
+    {
+      title: "Audit vs. Generation",
+      description:
+        "Why delegating the writing doesn't mean delegating responsibility: the art of reviewing AI code for buffer overflows.",
+    },
+    {
+      title: "Profiling Physics",
+      description:
+        "Understand how the `sample` command uses hardware interrupts to 'query' the CPU and find bottlenecks.",
+    },
+    {
+      title: "O(1) Optimization",
+      description:
+        "Transforming a global calculation into a local one to make image evolution instantaneous.",
+    },
+    {
+      title: "Dithering Kernel",
+      description:
+        "Synchronizing neighboring pixels (2x2) to trick the human eye and create shades where none exist.",
+    },
   ]}
 />
 
-<Callout type="pro" title="The Secret of Profiling">
-  Using the `sample` command on Mac, Salvatore discovered that 94% of the time was spent in useless loops. This is true engineering: don't optimize randomly, use scientific data to identify where to 'cut' complexity.
+---
+
+## The New Role of the Programmer: Technical Audit
+
+Using AI to write C requires a _deeper_ understanding of memory than writing it by hand, because you must be able to spot subtle bugs masked by perfect syntax.
+
+<Callout type="pro" title="Hardware Hallucination">
+  AI might suggest non-existent compiler flags or ignore data alignment in
+  memory. Your job is the **Audit**: verify that the generated code doesn't
+  cause `Undefined Behavior`.
+</Callout>
+
+### Profiling: The Truth in Data
+
+Instead of optimizing by intuition, we use the `sample` command (or `gprof`/`perf`).
+
+- **How it works**: The CPU is interrupted thousands of times per second. The tool records where the Instruction Pointer (RIP/EIP) is located.
+- **Outcome**: If the processor spends 94% of its time inside `compute_diff`, you've found your "enemy."
+
+---
+
+## Optimization: From O(N²) to O(1)
+
+In the previous lesson, we recalculated the difference for 49,152 pixels at every mutation—a massive waste of CPU cycles.
+
+<ComparisonTable
+  title="Complexity Physics"
+  headers={["Method", "Operation", "Mutation Frequency"]}
+  rows={[
+    ["Global", "Recalculate 50k pixels", "Slow (Stuttering refresh)"],
+    ["Local (8x8)", "Recalculate 64 pixels", "Instantaneous (Thousands/sec)"],
+    ["Incremental", "Recalculate 1 pixel (Cache)", "Light-speed"],
+  ]}
+/>
+
+<Callout type="pro" title="The Secret of Convergence">
+  By switching to local calculation, the Simulated Annealing algorithm can
+  perform millions of attempts in seconds, "cooling" the image toward perfection
+  almost instantly.
 </Callout>
 
 ---
 
-## The Art of Prompting and Dithering
+## Dithering: The Art of Optical Illusion
 
-Salvatore notices that restricting updates to isolated blocks creates "blocky artifacts" (similar to JPEG compression) because it ignores the edges.
-
-A true **technical conversation** begins with the AI:
-
-1. Asks to work only on local blocks.
-2. Annotates the AI's errors (e.g., the loss of the _dithering_ effect).
-3. Proposes a solution: update colors by choosing coordinates **unaligned** with the physical 8x8 blocks, allowing overlaps.
-4. Corrects the AI regarding the fact that the 2x2 'kernel size' for _dithering_ had been lost.
-
-<Callout type="pro" title="Dithering with a 2x2 Kernel">
-  *Dithering* is the art of placing pixels of two colors next to each other to
-  imitate a third. By calculating the difference (error) considering groups of
-  2x2 pixels at a time (a kernel), Simulated Annealing understands when two
-  adjacent pixels create a good gradient.
-</Callout>
+To create gradients on the Spectrum, we must force the AI to look at **2x2 Kernels** rather than isolated pixels.
 
 <DitheringSimulator />
 
----
-
-## Exercise
-
-<Quiz
-  title="Quiz Standard"
-  questions={[
+<Infographic
+  title="Dithering Physics"
+  description="Tricking the retina."
+  items={[
     {
-      question:
-        "Why did the AI agent initially fail to generate the gradient (dithering) effect?",
-      options: [
-        "Because AI doesn't know about colors",
-        "It had removed the '2x2 kernel' logic for calculating the error",
-        "It had used C++",
-        "It wasn't using the SDL library",
-      ],
-      correctAnswer: 1,
-      explanation:
-        "The AI had simplified the code by removing the 4-pixel (2x2) group calculation, which was the secret trick to inducing the dithering effect.",
+      label: "2x2 Kernel",
+      value: "Analyzes groups of 4 pixels to create patterns",
+      color: "blue",
     },
     {
-      question:
-        "What does the 'sample' command on macOS do (used in the lesson)?",
-      options: [
-        "Creates music",
-        "Records audio samples",
-        "Analyzes where a program spends the most time (profiling)",
-        "Compiles the source code",
-      ],
-      correctAnswer: 2,
-      explanation:
-        "Profiling stops the program at regular intervals and records which function it is in, designed to find bottlenecks.",
+      label: "Spatial Error",
+      value: "Distributes color difference to neighbors",
+      color: "purple",
     },
     {
-      question: "What was the bottleneck of the original ZX program?",
-      options: [
-        "The use of the SDL library",
-        "The slow hard drive",
-        "The compute_diff function consumed 94% of the time",
-        "The RGB colors",
-      ],
-      correctAnswer: 2,
-      explanation:
-        "Recalculating the error for all pixels after every minor mutation was a massive waste of CPU cycles.",
-    },
-    {
-      question: "How does the AI help the programmer in this new workflow?",
-      options: [
-        "It replaces the programmer",
-        "It implements boring details and allows iterating faster on architectural ideas",
-        "It creates unsolvable bugs",
-        "It makes coffee",
-      ],
-      correctAnswer: 1,
-      explanation:
-        "The programmer becomes the architect who guides the design and corrects the AI's direction.",
-    },
-    {
-      question:
-        "How did Salvatore solve the 'blocky' artifacts problem (JPEG-like)?",
-      options: [
-        "Using a Blur filter",
-        "Calculating differences on 8x8 blocks NOT aligned to the hardware grid",
-        "Deleting the images",
-        "He didn't solve it",
-      ],
-      correctAnswer: 1,
-      explanation:
-        "By optimizing blocks chosen randomly within the image (even crossing hardware borders), the results become smoother and more continuous.",
+      label: "CRT Blurring",
+      value: "Cathode Ray Tubes blend points into solid tints",
+      color: "emerald",
     },
   ]}
 />
 
+---
+
+## Exercises
+
 <Quiz
-  title="Pro Challenge"
+  title="Final Quiz"
   questions={[
     {
       question:
-        "What data structure could be used to achieve an even more efficient O(1), without recalculating entire blocks?",
+        "Why does Salvatore use the 'sample' command during development?",
       options: [
-        "B-Tree",
-        "A Map/Array tracking the previously calculated error (distance) for each pixel",
-        "Linked List",
-        "Heap",
+        "To listen to music",
+        "To scientifically understand where the program is wasting time (profiling)",
+        "To copy files",
+        "To compile toyfort",
       ],
       correctAnswer: 1,
       explanation:
-        "Salvatore explains this: by caching the differences pixel by pixel, you 'd just subtract the old diff of the single pixel and add the new one!",
+        "Profiling is essential to avoid optimizing parts of the code that are already fast.",
+    },
+    {
+      question: "What is the main risk of having an AI write C code?",
+      options: [
+        "The code won't work at all",
+        "It generates security vulnerabilities (e.g., buffer overflows) disguised as clean code",
+        "It uses too much disk space",
+        "The computer might explode",
+      ],
+      correctAnswer: 1,
+      explanation:
+        "AI lacks physical perception of memory; it's up to the human to ensure memory safety.",
     },
     {
       question:
-        "Why have an AI write an entire emulator (as Salvatore did for Zot)?",
+        "What is meant by O(1) optimization in local difference calculation?",
       options: [
-        "Because he didn't know how",
-        "To test the AI's 'spec inference' (ability to read complex manuals and produce working, non-copyrighted software)",
-        "To make quick money",
-        "Just for fun",
+        "The algorithm lasts 1 second",
+        "Calculation time is constant (64 pixels) regardless of the image size",
+        "It uses only 1 bit of memory",
+        "It is the first version",
       ],
       correctAnswer: 1,
       explanation:
-        "The 'clean room' experiment proved that AI can read technical datasheets and write original implementations.",
-    },
-    {
-      question:
-        "What is the risk of using unaligned memory blocks when modifying the Spectrum's color attributes?",
-      options: [
-        "No risk",
-        "Different attributes can clash, since the hardware colors on a fixed 8x8 grid",
-        "Kernel panic",
-        "Monitor explosion",
-      ],
-      correctAnswer: 1,
-      explanation:
-        "Modifying randomly requires understanding that every color change propagates across the entire 8x8 hardware block, potentially overriding adjacent previously modified pixels.",
+        "O(1) means the workload doesn't grow with data size, making the system incredibly scalable.",
     },
   ]}
 />
@@ -226,39 +167,26 @@ A true **technical conversation** begins with the AI:
 <ProTerminal
   challenges={[
     {
-      id: "bigO-diff-en",
-      title: "Big O Analysis",
+      id: "bigO-local-en",
+      title: "Asymptotic Analysis",
       description:
-        "If the function previously iterated over W*H pixels, and now over 8*8 pixels. How do you denote the new asymptotic time complexity (Big-O) relative to the total image size?",
-      commands: ["O(1)"],
-      expectedOutput: "O(1)",
-      hints: [
-        "The size of the operation is constant (64 iterations) regardless of the total image dimensions.",
-      ],
+        "If an image doubles in size (Width*2, Height*2), how many operations does the LOCAL (8x8) calculation perform per mutation?",
+      commands: ["64"],
+      expectedOutput: "64",
+      hints: ["Local calculation does not depend on image dimensions."],
     },
     {
-      id: "sample-cmd-en",
-      title: "macOS Profiler",
+      id: "profiler-name-en",
+      title: "Instrumentation",
       description:
-        "What is the command-line tool for macOS used by Salvatore to profile by sampling the stack?",
+        "What is the macOS command shown in the video for analyzing code bottlenecks?",
       commands: ["sample"],
       expectedOutput: "sample",
-      hints: [
-        "It's the name of the command itself, useful for capturing CPU traces.",
-      ],
-    },
-    {
-      id: "dithering-kernel-en",
-      title: "Kernel Size",
-      description:
-        "The dithering calculation used in the image examined groups of NxN pixels. What is the value of N (according to the feedback Salvatore gave to the AI)?",
-      commands: ["2"],
-      expectedOutput: "2",
-      hints: ["The kernel size was 2x2."],
+      hints: ["Meaning 'taking a small part of something'."],
     },
   ]}
 />
 
-### Conclusion
+### Final Summary
 
-This video represents a turning point. We explored how C, a 50-year-old language, interacts with future challenges and automation. Never stop writing code by hand to learn, but be ready to direct machines to produce. See you next time!
+We have completed the journey. From the raw bit to AI-orchestrated programming, you now have the tools to master the machine. Remember: AI is the engine, but the C programmer is still the driver who knows every gear. Good luck with your future projects!

@@ -1,240 +1,146 @@
-﻿# Speciale: La Bellezza dei Binary Search Trees (BST)
+﻿import Infographic from "../../components/content/Infographic";
+import VideoEmbed from "../../components/content/VideoEmbed";
+import Callout from "../../components/content/Callout";
+import Quiz from "../../components/exercises/Quiz";
+import ProTerminal from "../../components/content/ProTerminal";
+import BSTVisualizer from "../../components/content/BSTVisualizer";
+import ComparisonTable from "../../components/content/ComparisonTable";
 
-In questa lezione speciale, registrata a mezzanotte in un momento di "nostalgia algoritmica", Salvatore ci mostra come un bravo programmatore possa ricostruire strutture dati fondamentali a memoria, partendo solo dai concetti base.
+# Speciale: La Bellezza dei Binary Search Trees (BST)
 
+In questa lezione speciale, registrata a mezzanotte in un momento di "nostalgia algoritmica", Salvatore ci mostra come un bravo programmatore possa ricostruire le strutture dati fondamentali a memoria, partendo solo dai concetti base e dalla fisica dei puntatori.
 
-<Infographic 
-  title="Inversione Albero"
-  description="Il famoso test di Google, spiegato"
-  items={[
-    { label: "Stato Iniziale", value: "Sinistra = Minori, Destra = Maggiori", color: "emerald" },
-    { label: "Swap Recursivo", value: "Per ogni nodo scambia i puntatori left e right", color: "blue" },
-    { label: "Risultato", value: "Un albero 'specchio' dove le regole sono invertite", color: "purple" }
-  ]}
+<VideoEmbed
+  videoId="soiBgJjAmP8"
+  title="Speciale: Ricostruire algoritmi a memoria"
 />
 
-
-<VideoEmbed videoId="soiBgJjAmP8" title="Speciale: Ricostruire algoritmi a memoria" />
-
-## Cos'è un Albero Binario di Ricerca?
-
-Un **Binary Search Tree** è una struttura dati dove ogni nodo ha al massimo due figli (sinistro e destro). La proprietà fondamentale è:
-- I valori a **sinistra** sono sempre **minori** del nodo attuale.
-- I valori a **destra** sono sempre **maggiori** del nodo attuale.
-
-<BSTVisualizer 
-  title="Esempio di Albero BST"
-  data={{
-    value: 20,
-    left: {
-      value: 10,
-      left: { value: 5 },
-      right: { value: 15 }
+<KeyConcepts
+  concepts={[
+    {
+      title: "Indirizzamento ad Albero",
+      description:
+        "Capire come un nodo colleghi pezzi di RAM sparsi nella Heap tramite puntatori Left e Right.",
     },
-    right: {
-      value: 30,
-      right: { value: 40 }
-    }
-  }}
-/>
-
-### Struttura del Nodo
-
-Ogni elemento dell'albero è una piccola 'isola' di memoria che contiene un valore e due puntatori ai suoi figli.
-
-<Infographic 
-  title="Anatomia di un Nodo BST"
-  description="Come sono organizzati i dati nella Heap."
-  items={[
-    { label: "Value (int)", value: "Il dato numerico memorizzato", color: "blue" },
-    { label: "Left (*node)", value: "Indirizzo del figlio minore (o NULL)", color: "emerald" },
-    { label: "Right (*node)", value: "Indirizzo del figlio maggiore (o NULL)", color: "purple" }
-  ]}
-/>
-
-<Callout type="pro" title="Inizializzazione a NULL">
-  Dimenticare di inizializzare i puntatori `left` e `right` a `NULL` è il bug più comune. Senza questo passaggio, il C userebbe indirizzi 'spazzatura', portando il programma a crashare non appena proviamo a capire se un nodo ha figli o meno.
-</Callout>
-
-### Inserimento (Iterativo)
-
-Per inserire un valore, "scendiamo" nell'albero confrontando il valore con ogni nodo finché non troviamo un posto vuoto (`NULL`).
-
-### Logica di Inserimento
-
-<Infographic 
-  title="Il Sentiero dell'Inserimento"
-  description="Come il BST decide dove piazzare un valore."
-  items={[
-    { label: "Confronto", value: "Il nuovo valore è minore o maggiore di quello attuale?", color: "blue" },
-    { label: "Percorso", value: "Spostati a sinistra se minore, a destra se maggiore", color: "purple" },
-    { label: "Piazzamento", value: "Una volta trovato un posto NULL, aggancia il nuovo nodo", color: "emerald" }
+    {
+      title: "Overhead di Puntatore",
+      description:
+        "Calcolare quanta memoria 'sprechiamo' in metadati per ogni singolo intero salvato.",
+    },
+    {
+      title: "Ricorsione vs Stack",
+      description:
+        "La fisica della visita In-order: come lo stack frame della CPU memorizza il 'ritorno' durante la discesa nell'albero.",
+    },
+    {
+      title: "Cache Locality",
+      description:
+        "Perché saltare tra nodi sparsi è più lento di scorrere un array sequenziale (Pointer Chasing).",
+    },
   ]}
 />
 
 ---
 
-## L'Eleganza della Ricorsione: Stampa Ordinata
+## Anatomia di un Nodo: Il Costo del Puntatore
 
-Il momento più magico della lezione è quando Salvatore mostra come stampare i valori dell'albero dal più piccolo al più grande con pochissime righe di codice. Questa è chiamata **Visita In-order**.
+In un BST, ogni dato è avvolto in una struttura. Ma quanto costa davvero in termini di silicio?
 
-### Stampa Ordinata
-
-La vera magia avviene durante la stampa. Seguendo un ordine specifico, possiamo visualizzare i valori dell'albero perfettamente ordinati.
-
-<Infographic 
-  title="Visita In-order"
-  description="I tre passi della stampa ordinata."
-  items={[
-    { label: "1. Sinistra", value: "Visita ricorsivamente tutti i valori minori", color: "blue" },
-    { label: "2. Radice", value: "Stampa il valore attuale", color: "purple" },
-    { label: "3. Destra", value: "Visita ricorsivamente tutti i valori maggiori", color: "emerald" }
+<ComparisonTable
+  title="Efficienza spaziale (Architettura 64-bit)"
+  headers={["Elemento", "Dimensione (Byte)", "Ruolo"]}
+  rows={[
+    ["int value", "4", "Il dato utile"],
+    ["struct node *left", "8", "Indirizzo RAM figlio minore"],
+    ["struct node *right", "8", "Indirizzo RAM figlio maggiore"],
+    ["Padding", "4", "Allineamento a 8-byte"],
+    ["TOTALE", "24", "Costo per 1 intero!"],
   ]}
 />
 
-<Callout type="info" title="L'algoritmo emerge dalla struttura">
-Salvatore sottolinea come non serva imparare il codice a memoria: se capisci che i valori piccoli sono a sinistra, la funzione ricorsiva "si scrive da sola". È l'eleganza dell'informatica.
+<Callout type="pro" title="Analisi Quantitativa">
+  Per salvare 4 byte di dati, usiamo 24 byte di RAM (6x overhead). È il prezzo
+  da pagare per avere una ricerca $O(\log N)$ invece di $O(N)$. Inoltre, ogni
+  nodo è allocato separatamente, causando potenziale frammentazione e scarso
+  sfruttamento della **L1 Cache**.
+</Callout>
+
+---
+
+## L'Eleganza della Ricorsione: Stampa Ordinata
+
+La stampa "In-order" è l'esempio perfetto di come la struttura dei dati detti l'algoritmo.
+
+<Infographic
+  title="Visita In-order (Sinistra, Radice, Destra)"
+  description="I tre passi della stampa ordinata."
+  items={[
+    {
+      label: "1. Push Left",
+      value: "Scendi verso il minimo (Stack CPU cresce)",
+      color: "blue",
+    },
+    { label: "2. Print", value: "Estrai il valore centrale", color: "purple" },
+    {
+      label: "3. Move Right",
+      value: "Esplora i rami maggiori",
+      color: "emerald",
+    },
+  ]}
+/>
+
+<Callout type="warning" title="Stack Overflow">
+  Se l'albero non è bilanciato (es. inserisci 1, 2, 3, 4, 5 in ordine), l'albero
+  diventa una lista lunga $N$. Una ricorsione su un albero sbilanciato di 1
+  milione di nodi causerebbe un immediato crash dello stack.
 </Callout>
 
 ---
 
 ## Esercitazione
 
-<Quiz 
-  title="Quiz Standard" 
+<Quiz
+  title="Quiz BST"
   questions={[
     {
-      question: "Qual è la proprietà fondamentale di un BST?",
+      question:
+        "Qual è il vantaggio principale di un BST rispetto a una lista linkata?",
       options: [
-        "Ogni nodo ha 10 figli",
-        "A sinistra i minori, a destra i maggiori",
-        "Tutti i valori sono uguali",
-        "L'albero è sempre bilanciato"
+        "Usa meno memoria",
+        "Permette la ricerca in tempo logaritmico O(log N)",
+        "È più facile da scrivere",
+        "Non usa i puntatori",
       ],
       correctAnswer: 1,
-      explanation: "Questa proprietà permette di cercare un elemento in tempo logaritmico O(log N)."
+      explanation:
+        "Essendo ordinato, dimezziamo lo spazio di ricerca a ogni passo.",
     },
     {
-      question: "Cosa fa la funzione print_sorted se l'albero è vuoto (NULL)?",
-      options: [
-        "Crasha il programma",
-        "Stampa 0",
-        "Ritorna immediatamente senza fare nulla",
-        "Formatta il disco"
-      ],
-      correctAnswer: 2,
-      explanation: "Il controllo `if (root == NULL) return;` è il caso base fondamentale della ricorsione."
-    },
-    {
-      question: "Quale funzione usiamo per allocare un nuovo nodo?",
-      options: [
-        "free()",
-        "malloc()",
-        "realloc()",
-        "printf()"
-      ],
+      question:
+        "Quanto spazio occupa un nodo BST su un sistema a 64-bit (int + 2 puntatori)?",
+      options: ["12 byte", "24 byte (incluso padding)", "8 byte", "64 byte"],
       correctAnswer: 1,
-      explanation: "malloc permette di riservare lo spazio nella heap per un nuovo nodo."
+      explanation:
+        "4 (int) + 8 (ptr) + 8 (ptr) + 4 (padding per allineamento) = 24 byte.",
     },
-    {
-      question: "In che ordine vengono stampati i valori con print_sorted?",
-      options: [
-        "Casuale",
-        "Decrescente",
-        "Crescente (Ordinato)",
-        "Solo i numeri dispari"
-      ],
-      correctAnswer: 2,
-      explanation: "Navigando prima a sinistra, poi il centro, poi a destra, otteniamo l'ordine naturale."
-    },
-    {
-      question: "Cosa succede se inseriamo valori già ordinati (es. 1 2 3 4 5) in un BST?",
-      options: [
-        "L'albero diventa un cerchio",
-        "L'albero degenera in una lista linkata (molto deep)",
-        "L'albero esplode",
-        "Non cambia nulla"
-      ],
-      correctAnswer: 1,
-      explanation: "In questo caso perdiamo il vantaggio della ricerca veloce perché l'albero diventa sbilanciato verso destra."
-    }
-  ]} 
+  ]}
 />
 
-<Quiz 
-  title="Pro Challenge"
-  questions={[
-    {
-      question: "Qual è la complessità temporale di ricerca in un BST bilanciato?",
-      options: [
-        "O(1)",
-        "O(N)",
-        "O(log N)",
-        "O(N^2)"
-      ],
-      correctAnswer: 2,
-      explanation: "Dimezziamo lo spazio di ricerca a ogni passo, come in una ricerca binaria."
-    },
-    {
-      question: "Cosa sono i 'Frutti Antichi' citati da Salvatore a fine lezione?",
-      options: [
-        "Varietà di pesche catanesi chiamate Sberge",
-        "Algoritmi obsoleti",
-        "Bug del compilatore C",
-        "Nomi di variabili"
-      ],
-      correctAnswer: 0,
-      explanation: "È un riferimento curioso di Salvatore a fine video sulla bontà dei prodotti naturali non selezionati industrialmente."
-    },
-    {
-      question: "Come si chiama l'albero che Salvatore usa spesso al posto dei BST?",
-      options: [
-        "Apple Tree",
-        "Radix Tree",
-        "B-Tree",
-        "Binary Palm"
-      ],
-      correctAnswer: 1,
-      explanation: "I Radix Trees sono un'evoluzione degli alberi usati molto spesso per performance avanzate (es. in Redis)."
-    }
-  ]} 
-/>
-
-<ProTerminal 
+<ProTerminal
+  lessonSlug="special-bst"
   challenges={[
     {
-        id: "bst-insert",
-        title: "Logica di Inserimento",
-        description: "Prova mentale sull'algoritmo di Tree Traversal: partendo da una root vuota inserisci in ordine i numeri `10`, `5` e `15`. Rispetto al nodo principale `10`, qual è il ramo in cui è finito adagiato l'elemento `15` secondo la convenzione degli alberi binari di ricerca?",
-        commands: [],
-        expectedOutput: "right",
-        hints: [
-            "15 è maggiore di 10."
-        ]
+      id: "bst-mem",
+      title: "Memory math",
+      description:
+        "Se un puntatore occupa 8 byte e un int 4 byte, quanti byte di 'metadati' (solo puntatori) servono per un albero di 100 nodi?",
+      commands: [],
+      expectedOutput: "1600",
+      hints: ["2 puntatori per nodo = 16 byte. 16 * 100 = ?"],
     },
-    {
-        id: "bst-recursion",
-        title: "Recursion Depth",
-        description: "In un albero con 3 livelli, quante volte viene chiamata print_sorted (in totale, inclusi i NULL)?",
-        commands: [],
-        expectedOutput: "15",
-        hints: [
-            "Ogni nodo chiama se stesso 2 volte. 7 nodi totali + 1 chiamata iniziale? No, 7 nodi -> 7*2 + 1 = 15."
-        ]
-    },
-    {
-        id: "bst-malloc",
-        title: "Heap Check",
-        description: "Qual è il valore ritornato da malloc() se la memoria è esaurita?",
-        commands: [],
-        expectedOutput: "NULL",
-        hints: [
-            "È il valore nullo del C."
-        ]
-    }
-]}
+  ]}
 />
 
 ### Conclusione
-I Binary Search Trees sono la prova che le strutture dati semplici possono essere incredibilmente potenti ed eleganti. Con questa lezione speciale chiudiamo il modulo sugli algoritmi classici. Alla prossima!
 
+I BST ci insegnano che la bellezza algoritmica ha un costo fisico in memoria. Capire questo compromesso è ciò che distingue un programmatore C da tutti gli altri.

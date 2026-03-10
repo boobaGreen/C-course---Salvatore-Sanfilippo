@@ -1,63 +1,97 @@
-﻿import VideoEmbed from '../../components/content/VideoEmbed';
-import Callout from '../../components/content/Callout';
-import KeyConcepts from '../../components/content/KeyConcepts';
-import CodeEditor from '../../components/exercises/CodeEditor';
-import Quiz from '../../components/exercises/Quiz';
-import ComparisonTable from '../../components/content/ComparisonTable';
-import ProTerminal from '../../components/content/ProTerminal';
-import PointerArithmetic from '../../components/content/PointerArithmetic';
-import PointerMaze from '../../components/games/PointerMaze';
-import Infographic from '../../components/content/Infographic';
+﻿import VideoEmbed from "../../components/content/VideoEmbed";
+import Callout from "../../components/content/Callout";
+import KeyConcepts from "../../components/content/KeyConcepts";
+import CodeEditor from "../../components/exercises/CodeEditor";
+import Quiz from "../../components/exercises/Quiz";
+import ComparisonTable from "../../components/content/ComparisonTable";
+import ProTerminal from "../../components/content/ProTerminal";
+import PointerArithmetic from "../../components/content/PointerArithmetic";
+import PointerMaze from "../../components/games/PointerMaze";
+import Infographic from "../../components/content/Infographic";
 
 # Lezione 10: Aritmetica dei Puntatori e Stringhe
 
 Nella lezione precedente abbiamo visto cos'è un puntatore. Oggi scopriremo che i puntatori non sono statici: possiamo "camminare" nella memoria usandoli come indici.
 
-<VideoEmbed videoId="lc7hL9Wt-ho" title="Lezione 10: Aritmetica dei Puntatori" />
+<VideoEmbed
+  videoId="lc7hL9Wt-ho"
+  title="Lezione 10: Aritmetica dei Puntatori"
+/>
 
-<KeyConcepts 
+<KeyConcepts
   concepts={[
     {
       title: "Matematica dei Puntatori",
-      description: "p++ non aggiunge 1 byte, ma sposta il puntatore all'elemento successivo in base al tipo (int = +4 byte)."
+      description:
+        "p++ non aggiunge 1 byte, ma sposta il puntatore all'elemento successivo in base al tipo (int = +4 byte).",
     },
     {
       title: "Puntatori e Array",
-      description: "In C, il nome di un array è tecnicamente un puntatore al suo primo elemento."
+      description:
+        "In C, il nome di un array è tecnicamente un puntatore al suo primo elemento.",
     },
     {
       title: "Casting dei Puntatori",
-      description: "Possiamo forzare il compilatore a trattare un indirizzo come un tipo diverso (es. leggere un int come se fosse una sequenza di char)."
-    }
-  ]} 
+      description:
+        "Possiamo forzare il compilatore a trattare un indirizzo come un tipo diverso (es. leggere un int come se fosse una sequenza di char).",
+    },
+  ]}
 />
 
 ## Puntatori a Puntatori
 
 Anche un puntatore è una variabile, e come tale ha un suo indirizzo di memoria. Possiamo dichiarare un "puntatore a un puntatore":
+
 - `int x = 5;`
 - `int *y = &x;` (y punta a x)
 - `int **z = &y;` (z punta a y)
 
 <Callout type="info" title="Dimensione Universale">
-Tutti i puntatori (a `char`, `int`, o altri puntatori) hanno la **stessa dimensione** (8 byte su sistemi a 64 bit), perché contengono sempre un numero che rappresenta un indirizzo di memoria. La differenza nel tipo (`int*` vs `char*`) serve solo al compilatore per sapere "quanto spazio leggere" quando lo deferenziamo.
+  Tutti i puntatori (a `char`, `int`, o altri puntatori) hanno la **stessa
+  dimensione** (8 byte su sistemi a 64 bit), perché contengono sempre un numero
+  che rappresenta un indirizzo di memoria. La differenza nel tipo (`int*` vs
+  `char*`) serve solo al compilatore per sapere "quanto spazio leggere" quando
+  lo deferenziamo.
 </Callout>
 
 ### Il Casting: Cambiare Occhiali alla Memoria
+
 Salvatore ci mostra che in C possiamo "mentire" al compilatore tramite il **Casting**. Se abbiamo un array di `char`, possiamo convincere il C che sia un array di `short` (interi a 16 bit).
 `short *p = (short *)my_string;`
 In questo modo, `p[0]` leggerà **due byte** insieme invece di uno solo. È un'operazione potente ma pericolosa, tipica della programmazione di sistema.
 
-<ComparisonTable 
+<ComparisonTable
   title="Puntatori vs Array"
-  headers={["Caratteristica", "Array", "Puntatore"]}
+  headers={["Caratteristica", "Array (`char a[]`)", "Puntatore (`char *p`)"]}
   rows={[
-    ["Allocazione", "Blocco fisso di memoria", "Variabile che tiene un indirizzo"],
-    ["Dimensione", "sizeof(array) = spazio totale", "sizeof(ptr) = 8 byte (su 64-bit)"],
-    ["Mutabilità", "L'indirizzo base è costante", "Può essere riassegnato (p++)"],
-    ["Accesso", "Notazione [index]", "Notazione [index] o dereferenziazione (*)"]
+    [
+      "Allocazione",
+      "Blocco fisso di memoria nello Stack",
+      "Variabile nello Stack che tiene un indirizzo",
+    ],
+    [
+      "Dimensione",
+      "sizeof(array) = spazio totale occupato",
+      "sizeof(ptr) = costantemente 8 byte",
+    ],
+    [
+      "Mutabilità",
+      "L'indirizzo base è un'etichetta costante",
+      "È una variabile: può essere riassegnato (p++)",
+    ],
+    [
+      "Memoria",
+      "Contiene i dati direttamente",
+      "Contiene l'indirizzo dei dati",
+    ],
   ]}
 />
+
+<Callout type="pro" title="Il Decadimento (Decay)">
+  In C, quando passi un array a una funzione, esso "decade" in un puntatore.
+  Perdi l'informazione sulla dimensione totale (`sizeof` restituirà 8), ma
+  guadagni in efficienza perché non stai copiando i dati.
+</Callout>
 
 ## Explorer: Pointer Arithmetic
 
@@ -66,67 +100,89 @@ Sperimenta come cambia lo spostamento del puntatore in base al tipo di dato sele
 <PointerArithmetic />
 
 <Callout type="warning" title="Segmentation Fault">
-Se provi ad accedere a un indirizzo di memoria che non appartiene al tuo programma (es. `p[-100]` o `p[10000]`), il sistema operativo ucciderà il processo. Questo è il famoso **Segmentation Fault**.
+  Se provi ad accedere a un indirizzo di memoria che non appartiene al tuo
+  programma (es. `p[-100]` o `p[10000]`), il sistema operativo ucciderà il
+  processo. Questo è il famoso **Segmentation Fault**.
 </Callout>
 
 ## Stringhe e Puntatori
 
 In C, le stringhe sono array di `char` terminati dal carattere speciale `\0` (null terminator). Possiamo scorrere una stringa incrementando un puntatore finché non incontriamo lo zero.
 
-<Callout type="pro" title="Aritmetica dei Puntatori">
-Quando scrivi `p++` su un `int *p`, l'indirizzo non aumenta di 1, ma di `sizeof(int)` (di solito 4 byte). Il C calcola automaticamente lo "skip" necessario per arrivare all'elemento successivo. 
-- `char *p; p++` -> +1 byte
-- `short *p; p++` -> +2 byte
-- `int *p; p++` -> +4 byte
+<Callout type="pro" title="La Matematica Segreta">
+Quando scrivi `p + n`, la CPU non fa una semplice addizione. Il compilatore trasforma l'operazione in:
+`NuovoIndirizzo = VecchioIndirizzo + (n * sizeof(TipoPuntato))`
+
+- `int *p; p + 1` -> Salta di **4 byte**.
+- `double *p; p + 1` -> Salta di **8 byte**.
+- `p2 - p1` -> Non restituisce i byte, ma il **numero di elementi** tra i due!
+
 </Callout>
 
 ### Pro String: Metadati "dietro" il puntatore
 
 Invece di contare i caratteri (O(N)), possiamo salvare la lunghezza **prima** del testo. Questo è il segreto di librerie come SDS (usata in Redis).
 
-<Infographic 
+<Infographic
   title="Layout SDS: 'Hulk'"
   description="Come i dati sono salvati fisicamente in memoria."
   items={[
     { label: "Offset -4", value: "Lunghezza: 4 (uint32_t)", color: "purple" },
     { label: "Offset 0", value: "Testo: 'H' 'u' 'l' 'k'", color: "blue" },
-    { label: "Offset +4", value: "Terminatore: '\\0'", color: "amber" }
+    { label: "Offset +4", value: "Terminatore: '\\0'", color: "amber" },
   ]}
 />
 
 <Callout type="pro" title="Accesso O(1)">
-  Poiché sappiamo che la lunghezza è esattamente 4 byte prima dell'indirizzo della stringa, possiamo recuperarla istantaneamente con un semplice cast: `*(uint32_t*)(s - 4)`. Non dobbiamo più scansionare l'intera stringa!
+  Poiché sappiamo che la lunghezza è esattamente 4 byte prima dell'indirizzo
+  della stringa, possiamo recuperarla istantaneamente con un semplice cast:
+  `*(uint32_t*)(s - 4)`. Non dobbiamo più scansionare l'intera stringa!
 </Callout>
 
 ---
 
-<KeyConcepts title="In Breve"
+<KeyConcepts
+  title="In Breve"
   concepts={[
     {
       title: "Buffer Overflow",
-      description: "Cosa succede quando scrivi oltre i limiti di un puntatore/array."
+      description:
+        "Cosa succede quando scrivi oltre i limiti di un puntatore/array.",
     },
     {
       title: "Memory Layout",
-      description: "Capire come i dati sono impacchettati (punti di forza del C)."
+      description:
+        "Capire come i dati sono impacchettati (punti di forza del C).",
     },
     {
       title: "Little Endian",
-      description: "Come i numeri multi-byte sono memorizzati. Se leggi un int a 32 bit come se fosse una sequenza di 4 char, su sistemi moderni vedrai i byte in ordine inverso. Il numero 0x12345678 verrà salvato come 78 56 34 12."
-    }
+      description:
+        "Come i numeri multi-byte sono memorizzati. Se leggi un int a 32 bit come se fosse una sequenza di 4 char, su sistemi moderni vedrai i byte in ordine inverso. Il numero 0x12345678 verrà salvato come 78 56 34 12.",
+    },
   ]}
 />
 
-<Infographic 
+<Infographic
   title="Aritmetica dei Puntatori"
   description="Spostarsi in memoria in base al tipo"
   items={[
-    { label: "char *p; p++", value: "Salta in avanti di 1 byte", color: "blue" },
-    { label: "short *p; p++", value: "Salta in avanti di 2 byte", color: "emerald" },
-    { label: "int *p; p++", value: "Salta in avanti di 4 byte", color: "purple" }
+    {
+      label: "char *p; p++",
+      value: "Salta in avanti di 1 byte",
+      color: "blue",
+    },
+    {
+      label: "short *p; p++",
+      value: "Salta in avanti di 2 byte",
+      color: "emerald",
+    },
+    {
+      label: "int *p; p++",
+      value: "Salta in avanti di 4 byte",
+      color: "purple",
+    },
   ]}
 />
-
 
 ---
 
@@ -140,30 +196,22 @@ Sfida te stesso: riesci a raggiungere l'indirizzo 0x10F seguendo solo le catene 
 
 ## Quiz di Verifica
 
-<Quiz 
-  title="Quiz Standard" 
+<Quiz
+  title="Quiz Standard"
   questions={[
     {
       question: "Se `int *p` punta all'indirizzo 1000, dove punterà `p + 1`?",
-      options: [
-        "1001",
-        "1002",
-        "1004",
-        "1008"
-      ],
+      options: ["1001", "1002", "1004", "1008"],
       correctAnswer: 2,
-      explanation: "L'aritmetica dei puntatori scala l'incremento per la dimensione del tipo (sizeof(int) = 4)."
+      explanation:
+        "L'aritmetica dei puntatori scala l'incremento per la dimensione del tipo (sizeof(int) = 4).",
     },
     {
       question: "Quale delle seguenti è equivalente a `p[3]`?",
-      options: [
-        "*p + 3",
-        "*(p + 3)",
-        "&p + 3",
-        "p + 3"
-      ],
+      options: ["*p + 3", "*(p + 3)", "&p + 3", "p + 3"],
       correctAnswer: 1,
-      explanation: "L'operatore [] è zucchero sintattico per la somma e la deferenziazione: *(p + n)."
+      explanation:
+        "L'operatore [] è zucchero sintattico per la somma e la deferenziazione: *(p + n).",
     },
     {
       question: "In C, come si riconosce la fine di una stringa?",
@@ -171,53 +219,56 @@ Sfida te stesso: riesci a raggiungere l'indirizzo 0x10F seguendo solo le catene 
         "Con il carattere '\\n'",
         "Con il carattere '\\0' (terminatore nullo)",
         "In base alla lunghezza salvata in una variabile nascosta",
-        "Con il carattere '.' "
+        "Con il carattere '.' ",
       ],
       correctAnswer: 1,
-      explanation: "Il C non salva la lunghezza delle stringhe; usa uno zero binario per segnare la fine."
+      explanation:
+        "Il C non salva la lunghezza delle stringhe; usa uno zero binario per segnare la fine.",
     },
     {
-      question: "Perché l'accesso fuori limite di un array tramite puntatori non viene sempre bloccato dal compilatore in C?",
+      question:
+        "Perché l'accesso fuori limite di un array tramite puntatori non viene sempre bloccato dal compilatore in C?",
       options: [
         "Perché il C non conosce la lunghezza degli array a runtime",
         "Perché i compilatori moderni sono difettosi",
         "Perché l'OS lo permette sempre",
-        "Perché lo standard vieta i controlli"
+        "Perché lo standard vieta i controlli",
       ],
       correctAnswer: 0,
-      explanation: "A runtime, un array decade a un semplice indirizzo. Il C non inserisce 'metadata' (come la lunghezza) di default per massimizzare la velocità, affidando la responsabilità della sicurezza unicamente al programmatore."
+      explanation:
+        "A runtime, un array decade a un semplice indirizzo. Il C non inserisce 'metadata' (come la lunghezza) di default per massimizzare la velocità, affidando la responsabilità della sicurezza unicamente al programmatore.",
     },
     {
-      question: "Cosa succede se sottraggo due puntatori dello stesso tipo? E.g. `p2 - p1`?",
+      question:
+        "Cosa succede se sottraggo due puntatori dello stesso tipo? E.g. `p2 - p1`?",
       options: [
         "Ottengo un errore di sintassi",
         "Ottengo la distanza in byte esatti tra i due puntatori",
         "Ottengo un puntatore intermedio",
-        "Ottengo il numero di 'elementi' (della dimensione del tipo) che separano i due indirizzi"
+        "Ottengo il numero di 'elementi' (della dimensione del tipo) che separano i due indirizzi",
       ],
       correctAnswer: 3,
-      explanation: "L'aritmetica dei puntatori scala anche per la sottrazione. `(p2 - p1)` ti dice quanti elementi di quel tipo ci sono in mezzo, non i byte fisici totali."
-    }
+      explanation:
+        "L'aritmetica dei puntatori scala anche per la sottrazione. `(p2 - p1)` ti dice quanti elementi di quel tipo ci sono in mezzo, non i byte fisici totali.",
+    },
   ]}
 />
 
 ---
 
 ### Pro Challenge
-<Quiz 
+
+<Quiz
   title="Pro Challenge: Casting & Memory"
   questions={[
     {
       id: 1,
-      question: "Se casto un `int *p` in `char *c`, quanti byte 'salterà' `c++`?",
-      options: [
-        "4 byte",
-        "1 byte",
-        "8 byte",
-        "Dipende dal valore di p"
-      ],
+      question:
+        "Se casto un `int *p` in `char *c`, quanti byte 'salterà' `c++`?",
+      options: ["4 byte", "1 byte", "8 byte", "Dipende dal valore di p"],
       correctAnswer: 1,
-      explanation: "Una volta castato a char*, il compilatore tratta quel puntatore come puntatore a byte singolo."
+      explanation:
+        "Una volta castato a char*, il compilatore tratta quel puntatore come puntatore a byte singolo.",
     },
     {
       id: 2,
@@ -226,73 +277,74 @@ Sfida te stesso: riesci a raggiungere l'indirizzo 0x10F seguendo solo le catene 
         "Un errore di divisione per zero",
         "Un tentativo di accedere a memoria non autorizzata",
         "Un errore di sintassi del compilatore",
-        "Quando l'hard disk è pieno"
+        "Quando l'hard disk è pieno",
       ],
       correctAnswer: 1,
-      explanation: "Accade quando il processore segnala al SO che il programma sta toccando memoria fuori dai suoi 'segmenti' validi."
+      explanation:
+        "Accade quando il processore segnala al SO che il programma sta toccando memoria fuori dai suoi 'segmenti' validi.",
     },
     {
       id: 3,
-      question: "Quale stringa in C è tecnicamente mutabile a runtime senza causare undefined behavior?",
+      question:
+        "Quale stringa in C è tecnicamente mutabile a runtime senza causare undefined behavior?",
       options: [
-        "char *s = \"Hello\";",
-        "#define S \"Hello\"",
-        "char s[] = \"Hello\";",
-        "Nessuna, sono tutte in sola lettura"
+        'char *s = "Hello";',
+        '#define S "Hello"',
+        'char s[] = "Hello";',
+        "Nessuna, sono tutte in sola lettura",
       ],
       correctAnswer: 2,
-      explanation: "`char s[] = \"Hello\";` alloca memoria locale (sullo stack) e _copia_ i caratteri, diventando modificabile. `char *s = \"Hello\";` punta a un segmento di dati read-only del binario."
-    }
+      explanation:
+        '`char s[] = "Hello";` alloca memoria locale (sullo stack) e _copia_ i caratteri, diventando modificabile. `char *s = "Hello";` punta a un segmento di dati read-only del binario.',
+    },
   ]}
 />
 
-### Terminal Challenge: Exploration 
+### Terminal Challenge: Exploration
 
-<ProTerminal 
+<ProTerminal
   challenges={[
     {
-        id: "hexdump-bin-it",
-        simulatedSuccessOutput: `00000000  7f 45 4c 46 02 01 01 00  00 00 00 00 00 00 00 00  |.ELF............|`,
-        title: "Lo Sguardo Binario",
-        description: "Quale comando Linux permette di vedere il contenuto di un file (anche eseguibile) in formato esadecimale con l'opzione -C?",
-        commands: [],
-        expectedOutput: "",
-        hints: [
-            "Cerca un comando che significa 'hex dump'"
-        ],
-        explanation: "Esatto! `hexdump` è fondamentale per vedere come i dati sono realmente scritti.",
-        xpReward: 150,
-        expectedCommand: "hexdump -C a.out"
+      id: "hexdump-bin-it",
+      simulatedSuccessOutput: `00000000  7f 45 4c 46 02 01 01 00  00 00 00 00 00 00 00 00  |.ELF............|`,
+      title: "Lo Sguardo Binario",
+      description:
+        "Quale comando Linux permette di vedere il contenuto di un file (anche eseguibile) in formato esadecimale con l'opzione -C?",
+      commands: [],
+      expectedOutput: "",
+      hints: ["Cerca un comando che significa 'hex dump'"],
+      explanation:
+        "Esatto! `hexdump` è fondamentale per vedere come i dati sono realmente scritti.",
+      xpReward: 150,
+      expectedCommand: "hexdump -C a.out",
     },
     {
-        id: "ulimit-core-it",
-        simulatedSuccessOutput: ``,
-        title: "Caccia al crash",
-        description: "Il tuo programma va in Segmentation Fault ma scompare nel nulla. Per poter analizzare il crash post-mortem con GDB, devi rimuovere il limite alla dimensione dei file di dump. Usa il comando `ulimit` con l'opzione `-c` e impostalo su illimitato.",
-        commands: [],
-        expectedOutput: "",
-        hints: [
-            "Usa 'ulimit' con l'opzione -c e il valore 'unlimited'"
-        ],
-        explanation: "Ottimo! Abilitando i core dump puoi analizzare il Segfault con GDB.",
-        xpReward: 250,
-        expectedCommand: "ulimit -c unlimited"
+      id: "ulimit-core-it",
+      simulatedSuccessOutput: ``,
+      title: "Caccia al crash",
+      description:
+        "Il tuo programma va in Segmentation Fault ma scompare nel nulla. Per poter analizzare il crash post-mortem con GDB, devi rimuovere il limite alla dimensione dei file di dump. Usa il comando `ulimit` con l'opzione `-c` e impostalo su illimitato.",
+      commands: [],
+      expectedOutput: "",
+      hints: ["Usa 'ulimit' con l'opzione -c e il valore 'unlimited'"],
+      explanation:
+        "Ottimo! Abilitando i core dump puoi analizzare il Segfault con GDB.",
+      xpReward: 250,
+      expectedCommand: "ulimit -c unlimited",
     },
     {
-        id: "strace-sys-it",
-        simulatedSuccessOutput: `execve("./a.out", ["./a.out"], 0x7ffd5a98e3b0 /* 53 vars */) = 0\nbrk(NULL)                               = 0x55f1a5a8a000\nwrite(1, "Hello\n", 6)                  = 6`,
-        title: "Tracciamento di Sistema",
-        description: "Quale comando traccia tutte le chiamate di sistema (syscall) effettuate da un programma?",
-        commands: [],
-        expectedOutput: "",
-        hints: [
-            "Significa 'System Trace'"
-        ],
-        explanation: "Perfetto! `strace` ti mostra l'ultima syscall invocata prima di un crash.",
-        xpReward: 200,
-        expectedCommand: "strace ./a.out"
-    }
-]}
+      id: "strace-sys-it",
+      simulatedSuccessOutput: `execve("./a.out", ["./a.out"], 0x7ffd5a98e3b0 /* 53 vars */) = 0\nbrk(NULL)                               = 0x55f1a5a8a000\nwrite(1, "Hello\n", 6)                  = 6`,
+      title: "Tracciamento di Sistema",
+      description:
+        "Quale comando traccia tutte le chiamate di sistema (syscall) effettuate da un programma?",
+      commands: [],
+      expectedOutput: "",
+      hints: ["Significa 'System Trace'"],
+      explanation:
+        "Perfetto! `strace` ti mostra l'ultima syscall invocata prima di un crash.",
+      xpReward: 200,
+      expectedCommand: "strace ./a.out",
+    },
+  ]}
 />
-
-

@@ -1,12 +1,12 @@
-﻿import VideoEmbed from '../../components/content/VideoEmbed';
-import Callout from '../../components/content/Callout';
-import KeyConcepts from '../../components/content/KeyConcepts';
-import RecursionVisualizer from '../../components/content/RecursionVisualizer';
-import SwitchBoard from '../../components/content/SwitchBoard';
-import CodeEditor from '../../components/exercises/CodeEditor';
-import Quiz from '../../components/exercises/Quiz';
-import ProTerminal from '../../components/content/ProTerminal';
-import Infographic from '../../components/content/Infographic';
+﻿import VideoEmbed from "../../components/content/VideoEmbed";
+import Callout from "../../components/content/Callout";
+import KeyConcepts from "../../components/content/KeyConcepts";
+import RecursionVisualizer from "../../components/content/RecursionVisualizer";
+import SwitchBoard from "../../components/content/SwitchBoard";
+import CodeEditor from "../../components/exercises/CodeEditor";
+import Quiz from "../../components/exercises/Quiz";
+import ProTerminal from "../../components/content/ProTerminal";
+import Infographic from "../../components/content/Infographic";
 
 # Lesson 7: Loops, Recursion & Switch
 
@@ -14,24 +14,28 @@ Sometimes we need to repeat an operation thousands of times, or choose between m
 
 <VideoEmbed videoId="HCRthhjbfAg" title="Lesson 7: Loops and Recursion" />
 
-<KeyConcepts 
+<KeyConcepts
   concepts={[
     {
       title: "Loops (for, while, do-while)",
-      description: "Three different ways to repeat code. 'for' is ideal when you know how many turns to take, 'while' when you are waiting for a condition."
+      description:
+        "Three different ways to repeat code. 'for' is ideal when you know how many turns to take, 'while' when you are waiting for a condition.",
     },
     {
       title: "Recursion",
-      description: "A function that calls itself. It's like a Russian doll (matryoshka) of executions accumulating on the stack."
+      description:
+        "A function that calls itself. It's like a Russian doll (matryoshka) of executions accumulating on the stack.",
     },
     {
       title: "Switch",
-      description: "A clean alternative to many chained 'if-else' statements. It works like a fast jump table."
-    }
-  ]} 
+      description:
+        "A clean alternative to many chained 'if-else' statements. It works like a fast jump table.",
+    },
+  ]}
 />
 
 ## Loops: for vs while
+
 As Salvatore explains, a `for` loop is often just a more compact way of writing a `while`.
 
 ```c
@@ -49,24 +53,31 @@ for (int i = 0; i < 5; i++) {
 ```
 
 <Callout type="info" title="Syntactic Sugar">
-The `for` loop is what programmers call "Syntactic Sugar": it doesn't add new functionality to the language, it just makes a structure you could already write with `while` "sweeter" (more readable and compact).
+  The `for` loop is what programmers call "Syntactic Sugar": it doesn't add new
+  functionality to the language, it just makes a structure you could already
+  write with `while` "sweeter" (more readable and compact).
 </Callout>
 
 ### Transformation: From For to While
+
 To truly understand the `for`, learn to dismantle it:
+
 1. The first part (initialization) goes **before** the loop.
 2. The second part (condition) is the **engine** of the `while`.
 3. The third part (increment) goes at the **end** of the code block.
 
 We use `for` when we already know how many times to iterate, and `while` when the condition depends on something that will happen in the code.
 
-<Callout type="pro" title="For: Total Flexibility">
-In C, the three parts of the `for` loop (initialization, condition, increment) are optional!
 - `for(;;)` is an idiomatic way to write an **infinite loop**.
 - You can omit the increment if you handle it inside the loop body.
+
+<Callout type="warning" title="Loop Unrolling">
+  The compiler can decide to "unroll" a short `for` loop (e.g., 4 iterations) by writing the 4 instructions directly one after the other. This eliminates the cost of checking the condition `i < 4` at each turn and helps the CPU's **Pipeline** flow without branch-induced interruptions.
+</Callout>
 </Callout>
 
 ### Practical Example: Array Search
+
 Salvatore shows how to use `break` to stop a loop as soon as we find what we're looking for.
 
 ```c
@@ -81,11 +92,16 @@ else printf("Found at position %d\n", i);
 ```
 
 <Callout type="warning" title="Variable Scope of i">
-If you declare `for (int i = 0; ...)` inside the loop, the variable `i` disappears as soon as the loop ends. If you need to know where the loop stopped (like in the search example above), you must declare `i` **outside** the `for`.
+  If you declare `for (int i = 0; ...)` inside the loop, the variable `i`
+  disappears as soon as the loop ends. If you need to know where the loop
+  stopped (like in the search example above), you must declare `i` **outside**
+  the `for`.
 </Callout>
 
 <Callout type="danger" title="The 'Dangling Else' Problem">
-When you nest `if` statements without using braces, the `else` always binds to the nearest `if`. This is one of C's trickiest bug sources. **Salvatore's Advice:** always use braces `{}`, even for a single line!
+  When you nest `if` statements without using braces, the `else` always binds to
+  the nearest `if`. This is one of C's trickiest bug sources. **Salvatore's
+  Advice:** always use braces `{}`, even for a single line!
 </Callout>
 
 ---
@@ -95,7 +111,15 @@ When you nest `if` statements without using braces, the `else` always binds to t
 When a function calls itself, the computer doesn't start from scratch. It "freezes" the current function and opens a new one on top of it (a new "frame").
 
 <Callout type="pro" title="Tail Call Optimization (TCO)">
-If the last thing a function does is call itself, a good compiler can optimize it by turning it into a jump (`goto`), saving memory. Salvatore showed us how to do it manually to avoid consuming the stack:
+If the last thing a function does is call itself, a good compiler can optimize it by turning it into a jump (`goto`), saving memory.
+
+**Important**: TCO only works if there is no "residual work".
+
+- `return f(x);` -> Optimizable.
+- `return 1 + f(x);` -> **NOT** optimizable (the CPU must remember to add 1 after the function returns).
+
+Salvatore showed us how to do it manually to avoid consuming the stack:
+
 ```c
 loop:
     if (start > end) return;
@@ -103,13 +127,17 @@ loop:
     start = start + 1;
     goto loop; // Manual recursion (iteration)!
 ```
+
 In this way, the memory address of `start` will always remain the same, because we don't create new frames.
+
 </Callout>
 
 <RecursionVisualizer />
 
 <Callout type="warning" title="Stack Overflow">
-If recursion has no "exit condition" (base case), it will keep creating new frames until it runs out of memory dedicated to the stack. This causes the famous 'Stack Overflow' crash.
+  If recursion has no "exit condition" (base case), it will keep creating new
+  frames until it runs out of memory dedicated to the stack. This causes the
+  famous 'Stack Overflow' crash.
 </Callout>
 
 ## Choosing Elegantly: The Switch
@@ -119,16 +147,21 @@ If you have a variable that can be 1, 2, 3... instead of writing ten `if`s, we u
 <SwitchBoard />
 
 <Callout type="pro" title="Jump Tables">
-Under the hood, if the cases are close together (e.g., 1, 2, 3), the compiler doesn't do many `if` checks. It creates a **Jump Table**: a table of addresses where the processor "jumps" instantly to the correct case. It's incredibly fast!
+Under the hood, if the cases are close together (e.g., 1, 2, 3), the compiler doesn't do many `if` checks. It creates a **Jump Table**: an array of memory addresses. The processor takes the value, uses it as an index in the table, and jumps directly to the correct code. It's incredibly fast!
+
+**The Limit**: If cases are very far apart (e.g., `case 1` and `case 1000000`), the compiler cannot create such a large table. In that case, it "falls back" to using a series of `if`s or a binary search.
+
 </Callout>
 
 <Callout type="info" title="The Importance of Break">
-In a `switch`, if you forget the `break;`, the code will continue to execute subsequent cases as well! This behavior is called 'fall-through'.
+  In a `switch`, if you forget the `break;`, the code will continue to execute
+  subsequent cases as well! This behavior is called 'fall-through'.
 </Callout>
 
 ---
 
 ## Real Code: Redis Glob Matching
+
 Salvatore shows how he uses these concepts in real production code. His string matching function (e.g., handles `*`, `?`, `[a-z]`) uses both `switch` and recursion to handle various pattern characters.
 
 ```c
@@ -151,21 +184,23 @@ int glob_match(const char *pattern, const char *string) {
 
 Try transforming this `while` loop into a `for` loop.
 
-<CodeEditor 
+<CodeEditor
   initialCode={`#include <stdio.h>\n\nint main() {\n    int i = 0;\n    while (i < 5) {\n        printf("Turn number %d\\n", i);\n        i++;\n    }\n    return 0;\n}`}
   language="c"
 />
 
 ## Review Quiz
 
-<Quiz 
-  title="Quiz Standard" 
+<Quiz
+  title="Quiz Standard"
   questions={[
     {
-      question: "Which of these loops guarantees AT LEAST one execution of the code inside?",
+      question:
+        "Which of these loops guarantees AT LEAST one execution of the code inside?",
       options: ["for", "while", "do-while", "none"],
       correctAnswer: 2,
-      explanation: "The do-while loop checks the condition at the END, so it runs the body at least once."
+      explanation:
+        "The do-while loop checks the condition at the END, so it runs the body at least once.",
     },
     {
       question: "What happens if you forget 'break' in a switch case?",
@@ -173,10 +208,11 @@ Try transforming this `while` loop into a `for` loop.
         "A compilation error is generated",
         "Execution stops",
         "Execution continues into the next case (fall-through)",
-        "The computer restarts"
+        "The computer restarts",
       ],
       correctAnswer: 2,
-      explanation: "Without break, C continues to execute instructions in the next case until it hits one or the switch ends."
+      explanation:
+        "Without break, C continues to execute instructions in the next case until it hits one or the switch ends.",
     },
     {
       question: "Why is recursion useful?",
@@ -184,10 +220,11 @@ Try transforming this `while` loop into a `for` loop.
         "It's always faster than loops",
         "It allows solving complex problems by dividing them into simpler sub-problems",
         "It uses no memory",
-        "It's mandatory in C"
+        "It's mandatory in C",
       ],
       correctAnswer: 1,
-      explanation: "Recursion is ideal for recursive data structures (like trees) and for the 'divide and conquer' approach."
+      explanation:
+        "Recursion is ideal for recursive data structures (like trees) and for the 'divide and conquer' approach.",
     },
     {
       question: "What does the 'continue' statement do inside a loop?",
@@ -195,72 +232,92 @@ Try transforming this `while` loop into a `for` loop.
         "Stops the program",
         "Skips the rest of the code in the loop body for this turn and proceeds to the next iteration",
         "Exits the loop permanently",
-        "Restarts the program from the beginning"
+        "Restarts the program from the beginning",
       ],
       correctAnswer: 1,
-      explanation: "Unlike break, continue does not stop the loop, but only moves to the next 'turn'."
+      explanation:
+        "Unlike break, continue does not stop the loop, but only moves to the next 'turn'.",
     },
     {
-      question: "Why does Salvatore say that `do { ... } while(0)` is useful in macros?",
+      question:
+        "Why does Salvatore say that `do { ... } while(0)` is useful in macros?",
       options: [
         "To make them slower",
         "To allow the use of local variables and ensure the macro behaves as a single statement ending with a semicolon",
         "Because it's a syntax error",
-        "To confuse the compiler"
+        "To confuse the compiler",
       ],
       correctAnswer: 1,
-      explanation: "It is a standard C trick (used a lot in Redis or the Linux kernel) to create safe macros that can be used anywhere a single statement is expected (e.g., after an if without braces)."
-    }
+      explanation:
+        "It is a standard C trick (used a lot in Redis or the Linux kernel) to create safe macros that can be used anywhere a single statement is expected (e.g., after an if without braces).",
+    },
   ]}
 />
 
 ---
 
 <KeyConcepts title="In Short">
-  - **for = while**: The `for` loop is just a more compact way to write a `while` with initialization and increment.
-  - **Stack vs Recursion**: Every recursive call occupies space on the Stack (frame). Be careful not to exhaust it!
-  - **Jump Tables**: The `switch` is ultra-fast because it uses jump tables instead of a long series of individual comparisons.
+  - **for = while**: The `for` loop is just a more compact way to write a
+  `while` with initialization and increment. - **Stack vs Recursion**: Every
+  recursive call occupies space on the Stack (frame). Be careful not to exhaust
+  it! - **Jump Tables**: The `switch` is ultra-fast because it uses jump tables
+  instead of a long series of individual comparisons.
 </KeyConcepts>
 
-
-<Infographic 
+<Infographic
   title="Declaration vs Definition"
   description="The crucial difference for the C compiler"
   items={[
-    { label: "Declaration (Header)", value: "Promises it exists: void myFunction();", color: "blue" },
-    { label: "Definition (Source)", value: "Explains what it does: void myFunction() { ... }", color: "emerald" },
-    { label: "Inclusion (#include)", value: "Copy-pastes declarations into the file", color: "purple" }
+    {
+      label: "Declaration (Header)",
+      value: "Promises it exists: void myFunction();",
+      color: "blue",
+    },
+    {
+      label: "Definition (Source)",
+      value: "Explains what it does: void myFunction() { ... }",
+      color: "emerald",
+    },
+    {
+      label: "Inclusion (#include)",
+      value: "Copy-pastes declarations into the file",
+      color: "purple",
+    },
   ]}
 />
 
-
 ### Pro Challenge
-<Quiz 
+
+<Quiz
   title="Pro Challenge: Final Quiz"
   questions={[
     {
       id: 1,
-      question: "What is the fundamental difference between an infinite loop (`while(1);`) and infinite recursion (a function that calls itself without ever stopping)?",
+      question:
+        "What is the fundamental difference between an infinite loop (`while(1);`) and infinite recursion (a function that calls itself without ever stopping)?",
       options: [
         "None, both lock up the computer in the same way",
         "The infinite loop only consumes CPU, while recursion consumes memory (Stack) until it causes a crash (Stack Overflow)",
         "Recursion is faster",
-        "The infinite loop is more dangerous for the hardware"
+        "The infinite loop is more dangerous for the hardware",
       ],
       correctAnswer: 1,
-      explanation: "Every time a function calls itself, a new 'Stack Frame' is created, occupying RAM. If the recursion is infinite, the space dedicated to the Stack is quickly exhausted, leading to a program crash. A `while` loop, however, does not create new frames and can run forever without consuming additional memory."
+      explanation:
+        "Every time a function calls itself, a new 'Stack Frame' is created, occupying RAM. If the recursion is infinite, the space dedicated to the Stack is quickly exhausted, leading to a program crash. A `while` loop, however, does not create new frames and can run forever without consuming additional memory.",
     },
     {
       id: 2,
-      question: "Why is `switch` often preferred over a long chain of `if-else` statements?",
+      question:
+        "Why is `switch` often preferred over a long chain of `if-else` statements?",
       options: [
         "Because it is shorter to write",
         "Because the compiler can generate a 'Jump Table', making the jump to the correct case instantaneous (O(1)) regardless of the number of cases",
         "Because `switch` cannot go wrong",
-        "Because `if-else` does not work with numbers"
+        "Because `if-else` does not work with numbers",
       ],
       correctAnswer: 1,
-      explanation: "Stellar efficiency! With `if-else`, the CPU must check every condition one by one. With `switch`, the compiler creates an address table: the CPU looks at the value, calculates the index in the table, and jumps directly to the right code in one go."
+      explanation:
+        "Stellar efficiency! With `if-else`, the CPU must check every condition one by one. With `switch`, the compiler creates an address table: the CPU looks at the value, calculates the index in the table, and jumps directly to the right code in one go.",
     },
     {
       id: 3,
@@ -269,51 +326,55 @@ Try transforming this `while` loop into a `for` loop.
         "A type of processor",
         "A technique that combines switch and for/while loops to do 'loop unrolling' and speed up serial operations",
         "A command to format the disk",
-        "A virus from the 80s"
+        "A virus from the 80s",
       ],
       correctAnswer: 1,
-      explanation: "It is one of C's most famous curiosities. It exploits the fall-through of the switch to 'unroll' a loop, reducing the number of condition checks and increasing performance in critical cases."
-    }
+      explanation:
+        "It is one of C's most famous curiosities. It exploits the fall-through of the switch to 'unroll' a loop, reducing the number of condition checks and increasing performance in critical cases.",
+    },
   ]}
 />
 
-### Terminal Challenge: Pattern Searching 
+### Terminal Challenge: Pattern Searching
 
-<ProTerminal 
+<ProTerminal
   challenges={[
     {
       id: "grep-while-en",
       title: "Pattern Hunt",
-      description: "Salvatore often analyzes code to find patterns. Which command would you use to search for the word 'while' in all .c files in the folder?",
-      commands: ["grep \"while\" *.c"],
+      description:
+        "Salvatore often analyzes code to find patterns. Which command would you use to search for the word 'while' in all .c files in the folder?",
+      commands: ['grep "while" *.c'],
       expectedOutput: "while",
       hints: ["It's the standard command for searching text"],
       explanation: "Exactly! `grep` is fundamental for code analysis.",
-      xpReward: 150
+      xpReward: 150,
     },
     {
       id: "time-perf-en",
       title: "High Precision Stopwatch",
-      description: "Which terminal command would you use to measure exactly how much time your `./a.out` program takes to run?",
+      description:
+        "Which terminal command would you use to measure exactly how much time your `./a.out` program takes to run?",
       commands: ["time ./a.out"],
       expectedOutput: "real",
       hints: ["It is used to measure 'time'"],
-      explanation: "Great! `time` shows you real, user, and system execution times.",
-      xpReward: 200
+      explanation:
+        "Great! `time` shows you real, user, and system execution times.",
+      xpReward: 200,
     },
     {
       id: "ls-recursive-en",
       title: "Recursive Exploration",
-      description: "Which flag of the `ls` command would you use to list all files recursively in subfolders?",
+      description:
+        "Which flag of the `ls` command would you use to list all files recursively in subfolders?",
       commands: ["ls -R"],
       expectedOutput: "./",
       hints: ["The letter stands for 'Recursive'"],
-      explanation: "Excellent! `ls -R` explores the entire directory structure.",
-      xpReward: 250
-    }
+      explanation:
+        "Excellent! `ls -R` explores the entire directory structure.",
+      xpReward: 250,
+    },
   ]}
 />
 
 See you in the next lesson!
-
-

@@ -1,14 +1,14 @@
-﻿import VideoEmbed from '../../components/content/VideoEmbed';
-import Callout from '../../components/content/Callout';
-import KeyConcepts from '../../components/content/KeyConcepts';
-import CodeEditor from '../../components/exercises/CodeEditor';
-import Quiz from '../../components/exercises/Quiz';
-import ProTerminal from '../../components/content/ProTerminal';
-import Infographic from '../../components/content/Infographic';
-import ComparisonTable from '../../components/content/ComparisonTable';
-import ScopeExplorer from '../../components/content/ScopeExplorer';
-import TypeMatcher from '../../components/games/TypeMatcher';
-import OverflowSimulator from '../../components/content/OverflowSimulator';
+﻿import VideoEmbed from "../../components/content/VideoEmbed";
+import Callout from "../../components/content/Callout";
+import KeyConcepts from "../../components/content/KeyConcepts";
+import CodeEditor from "../../components/exercises/CodeEditor";
+import Quiz from "../../components/exercises/Quiz";
+import ProTerminal from "../../components/content/ProTerminal";
+import Infographic from "../../components/content/Infographic";
+import ComparisonTable from "../../components/content/ComparisonTable";
+import ScopeExplorer from "../../components/content/ScopeExplorer";
+import TypeMatcher from "../../components/games/TypeMatcher";
+import OverflowSimulator from "../../components/content/OverflowSimulator";
 
 # Lesson 3: Scope, Types, and Promotions
 
@@ -17,35 +17,43 @@ import OverflowSimulator from '../../components/content/OverflowSimulator';
 Welcome to the third lesson! Today we continue to dig deeper into our "Hello World", exploring variable scope, how data is passed to functions, and how C handles different numeric types.
 
 <KeyConcepts title="What we'll learn today">
-  - The difference between **local**, **global**, and **static** variables
-  - Why C passes everything **by value** (copying)
-  - New types: `float`, `double`, `short`, and `unsigned`
-  - Automatic **type promotion** rules
-  - The risk of **overflow** and Undefined Behavior
+  - The difference between **local**, **global**, and **static** variables - Why
+  C passes everything **by value** (copying) - New types: `float`, `double`,
+  `short`, and `unsigned` - Automatic **type promotion** rules - The risk of
+  **overflow** and Undefined Behavior
 </KeyConcepts>
 
 ---
 
 Defined outside all functions. They exist for the entire duration of the program and can be accessed from anywhere in the code. They start their life when the process starts and end when it exits.
 
-<ComparisonTable 
+<ComparisonTable
   title="Types of Scope"
   headers={["Type", "Keyword", "Lifetime", "Visibility"]}
   rows={[
     ["Local", "none", "During function call", "Only inside function"],
     ["Global", "none", "Entire program", "Entire program"],
-    ["Static", "<code>static</code>", "Entire program", "Only inside function"]
+    ["Static", "<code>static</code>", "Entire program", "Only inside function"],
   ]}
 />
 
 ### 3. Static Variables
+
 By using the `static` keyword inside a function, we create a variable that is "global" in duration (it doesn't lose its value between calls) but "local" in visibility (only that function can see it).
 
 <ScopeExplorer />
 
-<Infographic 
-  src="/images/scope_visualizer.png" 
-  alt="Scope Visualizer" 
+<Callout type="pro" title="Anatomy of a C Program">
+  Salvatore reminds us that a C program is not just code: it's a memory
+  organization. - **Local** variables end up in the **Stack** (temporary "LIFO"
+  memory). - **Global** and **Static** variables end up in the **Data** segment
+  (permanent memory). Understanding where a variable lives allows you to predict
+  when it will die.
+</Callout>
+
+<Infographic
+  src="/images/scope_visualizer.png"
+  alt="Scope Visualizer"
   caption="Comparison between Local, Global, and Static scope in C."
 />
 
@@ -72,14 +80,15 @@ int main() {
 }
 ```
 
-<Infographic 
-  src="/images/pass_by_value.png" 
-  alt="Pass by Value" 
+<Infographic
+  src="/images/pass_by_value.png"
+  alt="Pass by Value"
   caption="C copies the value onto the stack of the called function. The original remains unchanged."
 />
 
 <Callout type="warning" title="Pointers on the horizon">
-  To modify the original value, we'll need to use **pointers**. We'll introduce them very soon because they are the soul of the C language.
+  To modify the original value, we'll need to use **pointers**. We'll introduce
+  them very soon because they are the soul of the C language.
 </Callout>
 
 ---
@@ -89,35 +98,60 @@ int main() {
 C offers a variety of types to save memory (crucial back in the '60s!).
 
 ### Type Hierarchy
-- `char`: 1 byte (8 bits)
-- `short`: Typically 2 bytes
-- `int`: Typically 4 bytes (implementation-dependent)
-- `float`: Single-precision decimal numbers
-- `double`: Double-precision decimal numbers (64 bits)
+
+- `char`: 1 byte (8 bits). Often used for characters, but technically it's a "small integer".
+- `short`: Typically 2 bytes.
+- `int`: Typically 4 bytes (implementation-dependent).
+- `long`: 4 or 8 bytes.
+- `float`: Single-precision decimal numbers.
+- `double`: Double-precision decimal numbers (64 bits).
+
+<Callout type="pro" title="Quantitative Proof: sizeof">
+  Never trust assumptions! Use the `sizeof` operator to see how much a type
+  occupies on YOUR machine: ```c printf("int: %zu bytes\n", sizeof(int));
+  printf("long: %zu bytes\n", sizeof(long)); ``` On modern MacBook M3s or 64-bit
+  PCs, a `long` occupies 8 bytes, while on older or embedded systems it might
+  occupy only 4.
+</Callout>
 
 <TypeMatcher />
 
-<Infographic 
-  src="/images/integer_ranges.png" 
-  alt="Integer type ranges" 
+<Infographic
+  src="/images/integer_ranges.png"
+  alt="Integer type ranges"
   caption="Cheat sheet of common types and their memory limits."
 />
 
 ### Automatic Promotions
+
 When performing operations between different types, C applies "promotion" rules. This happens because C tries to make calculations smoother (and because in the '60s, it simplified the processor's job).
 
 For example, in functions like `printf` (variadic functions):
+
 - `short` and `char` are promoted to `int`.
 - `float` is promoted to `double`.
 
 This means that technically, `printf` doesn't "know" how to print a float: it always receives a double and treats it as such.
 
+<Callout type="danger" title="The 'Leaky Bucket' Analogy">
+  What happens if you try to fit a `long` (8 bytes) into an `int` (4 bytes)?
+  It's like pouring water from a large bucket into a small one: the excess is
+  lost. In computing, this is called **Pointer Truncation** or **Data Loss**. If
+  that number represented a memory address, your program will crash miserably
+  because you'll be pointing to a "chopped" address.
+</Callout>
+
 <Callout type="info" title="Side Effects">
-  A `void` function that takes nothing and returns nothing (like `void hello(void)`) is only useful for its **side effects**: printing to the screen, writing to disk, or turning on an LED. In pure functional programming, these are "sins"; in C, they are daily business.
+  A `void` function that takes nothing and returns nothing (like `void
+  hello(void)`) is only useful for its **side effects**: printing to the screen,
+  writing to disk, or turning on an LED. In pure functional programming, these
+  are "sins"; in C, they are daily business.
 </Callout>
 
 ## Hexadecimal and Advanced Formatting
+
 Did you know you can print a number in base 16 (hexadecimal) just by changing a letter?
+
 - `%d`: Decimal (base 10)
 - `%x`: Hexadecimal (base 16)
 
@@ -128,7 +162,10 @@ printf("Hexadecimal: %x\n", a); // Prints a
 ```
 
 <Callout type="danger" title="Mixing Types is Disastrous">
-C is a "dangerous" language: if you tell `printf` to print a float (`%f`) but pass an `int`, the program will read memory incorrectly, printing nonsense values or crashing. The compiler will give you a **warning**, but it will let you compile!
+  C is a "dangerous" language: if you tell `printf` to print a float (`%f`) but
+  pass an `int`, the program will read memory incorrectly, printing nonsense
+  values or crashing. The compiler will give you a **warning**, but it will let
+  you compile!
 </Callout>
 
 ---
@@ -136,17 +173,27 @@ C is a "dangerous" language: if you tell `printf` to print a float (`%f`) but pa
 ## Beware of Overflow!
 
 What happens if you add 1 to the maximum possible value for a type?
+
 - **Unsigned**: The behavior is guaranteed. The value "wraps around" back to zero.
 - **Signed**: This is **Undefined Behavior**. The compiler can literally do anything. Never rely on signed integer overflow!
 
+<Callout type="pro" title="What happens to the Bits?">
+  At the transistor level, overflow is a "carry" problem. In an `unsigned char`
+  (8 bits), the number 255 is `11111111`. Adding 1, it would become `100000000`
+  (9 bits). Since we only have 8 bits, the leftmost bit is "thrown away",
+  leaving us with `00000000`. That's zero!
+</Callout>
+
 <OverflowSimulator />
 
-<CodeEditor initialCode={`#include <stdio.h>\n\nint main() {\n    unsigned char c = 255;\n    c++;\n    printf("Guaranteed overflow (unsigned): %d\\n", c);\n    \n    signed char d = 127;\n    d++;\n    printf("Dangerous overflow (signed): %d\\n", d);\n    return 0;\n}`} />
+<CodeEditor
+  initialCode={`#include <stdio.h>\n\nint main() {\n    unsigned char c = 255;\n    c++;\n    printf("Guaranteed overflow (unsigned): %d\\n", c);\n    \n    signed char d = 127;\n    d++;\n    printf("Dangerous overflow (signed): %d\\n", d);\n    return 0;\n}`}
+/>
 
 ---
 
-<Quiz 
-  title="Quiz Standard" 
+<Quiz
+  title="Quiz Standard"
   questions={[
     {
       id: 1,
@@ -155,36 +202,42 @@ What happens if you add 1 to the maximum possible value for a type?
         "It is saved to disk",
         "It stays in memory for the next call",
         "It is destroyed and its memory is freed",
-        "It becomes a global variable"
+        "It becomes a global variable",
       ],
       correctAnswer: 2,
-      explanation: "Local variables live on the stack and have a lifetime limited to the function's execution."
+      explanation:
+        "Local variables live on the stack and have a lifetime limited to the function's execution.",
     },
     {
       id: 2,
-      question: "Which keyword makes a variable persistent between calls but only locally visible?",
+      question:
+        "Which keyword makes a variable persistent between calls but only locally visible?",
       options: ["extern", "static", "volatile", "persist"],
       correctAnswer: 1,
-      explanation: "'static' allocates the variable in permanent memory but limits its scope to the current block."
+      explanation:
+        "'static' allocates the variable in permanent memory but limits its scope to the current block.",
     },
     {
       id: 3,
-      question: "In C, if you pass a variable to a function, can the function modify the original directly?",
+      question:
+        "In C, if you pass a variable to a function, can the function modify the original directly?",
       options: [
         "Yes, always",
         "No, it only receives a copy (Pass by Value)",
         "Only if the variable is global",
-        "Only if we use 'static'"
+        "Only if we use 'static'",
       ],
       correctAnswer: 1,
-      explanation: "C is pass-by-value. To modify the original, pointers are required."
+      explanation:
+        "C is pass-by-value. To modify the original, pointers are required.",
     },
     {
       id: 4,
-      question: "In a variadic function like printf, what is a float promoted to?",
+      question:
+        "In a variadic function like printf, what is a float promoted to?",
       options: ["int", "double", "long", "It stays a float"],
       correctAnswer: 1,
-      explanation: "Default argument promotion rules promote float to double."
+      explanation: "Default argument promotion rules promote float to double.",
     },
     {
       id: 5,
@@ -193,101 +246,112 @@ What happens if you add 1 to the maximum possible value for a type?
         "It wraps around to zero",
         "It becomes negative",
         "It is Undefined Behavior",
-        "The program stops immediately"
+        "The program stops immediately",
       ],
       correctAnswer: 2,
-      explanation: "Unlike unsigned types, signed integer overflow is not defined by the C standard."
-    }
+      explanation:
+        "Unlike unsigned types, signed integer overflow is not defined by the C standard.",
+    },
   ]}
 />
 
 <KeyConcepts title="In Short">
-  - **Scope** determines where and for how long a variable exists.
-  - C uses **Pass by Value** as its standard.
-  - Numeric types have specific limits and **Promotion** rules.
-  - Always avoid signed integer overflow!
+  - **Scope** determines where and for how long a variable exists. - C uses
+  **Pass by Value** as its standard. - Numeric types have specific limits and
+  **Promotion** rules. - Always avoid signed integer overflow!
 </KeyConcepts>
 
 ### Pro Challenge
-<Quiz 
+
+<Quiz
   title="Pro Challenge: Final Quiz"
   questions={[
     {
       id: 1,
-      question: "What happens if you run this comparison: `if (-1 > 1u)` (where `1u` is an unsigned integer)?",
+      question:
+        "What happens if you run this comparison: `if (-1 > 1u)` (where `1u` is an unsigned integer)?",
       options: [
         "The result is False (0), as expected in mathematics",
         "The result is True (1), because -1 is promoted to a huge unsigned number",
         "The compiler throws an error and fails to compile",
-        "The program crashes immediately"
+        "The program crashes immediately",
       ],
       correctAnswer: 1,
-      explanation: "This is one of C's most famous traps. When comparing a signed and an unsigned value, the signed value is 'promoted' to unsigned. The sign bit of -1 (all 1s in binary) is interpreted as the maximum possible value for an unsigned (e.g., 4 billion), thus making it greater than 1."
+      explanation:
+        "This is one of C's most famous traps. When comparing a signed and an unsigned value, the signed value is 'promoted' to unsigned. The sign bit of -1 (all 1s in binary) is interpreted as the maximum possible value for an unsigned (e.g., 4 billion), thus making it greater than 1.",
     },
     {
       id: 2,
-      question: "What physically happens if you subtract a number from a pointer (e.g., `p - 1`) in C?",
+      question:
+        "What physically happens if you subtract a number from a pointer (e.g., `p - 1`) in C?",
       options: [
         "It subtracts exactly 1 from the memory address",
         "It subtracts the size of the type the pointer points to (e.g., 4 bytes for an int*)",
         "It always generates a segmentation fault",
-        "The pointer becomes null"
+        "The pointer becomes null",
       ],
       correctAnswer: 1,
-      explanation: "Pointer arithmetic is 'type-aware'. By subtracting 1 from an integer pointer, C subtracts 4 bytes (on 32/64 bit systems), moving you to the previous element in an array."
+      explanation:
+        "Pointer arithmetic is 'type-aware'. By subtracting 1 from an integer pointer, C subtracts 4 bytes (on 32/64 bit systems), moving you to the previous element in an array.",
     },
     {
       id: 3,
-      question: "What is the fundamental difference between the stack and the area for static/global variables?",
+      question:
+        "What is the fundamental difference between the stack and the area for static/global variables?",
       options: [
         "None, they are the same thing",
         "The stack is temporary and automatically managed (LIFO), while static variables live for the entire duration of the program",
         "Static variables are faster",
-        "The stack cannot contain integers"
+        "The stack cannot contain integers",
       ],
       correctAnswer: 1,
-      explanation: "The Stack is dynamic: it grows and shrinks as you call functions. Static and global variables instead occupy a fixed place in memory that never changes from the beginning to the end of execution."
-    }
+      explanation:
+        "The Stack is dynamic: it grows and shrinks as you call functions. Static and global variables instead occupy a fixed place in memory that never changes from the beginning to the end of execution.",
+    },
   ]}
 />
 
-### Terminal Challenge: Promotion Hunting 
+### Terminal Challenge: Promotion Hunting
 
-<ProTerminal 
+<ProTerminal
   challenges={[
     {
       id: "unsigned-suffix-en",
       title: "The Magic Suffix",
-      description: "If you want to force the compiler to treat a constant as 'unsigned', which letter must you add after the number?",
+      description:
+        "If you want to force the compiler to treat a constant as 'unsigned', which letter must you add after the number?",
       commands: ["echo 'unsigned int x = 100u;' > test.c"],
       expectedOutput: "u",
       hints: ["It's the first letter of 'unsigned'"],
-      explanation: "Exactly! The 'u' suffix instructs the compiler to treat the literal as unsigned.",
-      xpReward: 150
+      explanation:
+        "Exactly! The 'u' suffix instructs the compiler to treat the literal as unsigned.",
+      xpReward: 150,
     },
     {
       id: "m32-flag-en",
       title: "Back to the Past",
-      description: "Which GCC flag would you use to force 32-bit compilation on a 64-bit machine?",
+      description:
+        "Which GCC flag would you use to force 32-bit compilation on a 64-bit machine?",
       commands: ["gcc -m32 main.c"],
       expectedOutput: "-m32",
       hints: ["It refers to the 32-bit model"],
-      explanation: "Great! `-m32` emulates a 32-bit architecture, reducing pointer size.",
-      xpReward: 200
+      explanation:
+        "Great! `-m32` emulates a 32-bit architecture, reducing pointer size.",
+      xpReward: 200,
     },
     {
       id: "size-command-en",
       title: "Dissecting the Binary",
-      description: "Which command shows the sizes of the .text, .data, and .bss sections of your `a.out` file?",
+      description:
+        "Which command shows the sizes of the .text, .data, and .bss sections of your `a.out` file?",
       commands: ["size a.out"],
       expectedOutput: "text\t   data\t    bss",
       hints: ["It means 'size' in English"],
-      explanation: "Perfect! `size` is fundamental for understanding how much RAM your program occupies.",
-      xpReward: 250
-    }
+      explanation:
+        "Perfect! `size` is fundamental for understanding how much RAM your program occupies.",
+      xpReward: 250,
+    },
   ]}
 />
 
 See you in the next lesson!
-
-

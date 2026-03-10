@@ -68,6 +68,14 @@ Usando la keyword `static` dentro una funzione, creiamo una variabile che è "gl
 
 <ScopeExplorer />
 
+<Callout type="pro" title="Anatomia di un Programma C">
+  Salvatore ci ricorda che un programma C non è solo codice: è un'organizzazione
+  di memoria. - Le **locali** finiscono nello **Stack** (memoria temporanea
+  "LIFO"). - Le **globali** e le **statiche** finiscono nel segmento dei
+  **Dati** (memoria permanente). Capire dove vive una variabile ti permette di
+  prevedere quando morirà.
+</Callout>
+
 <Infographic
   src="/images/scope_visualizer.png"
   alt="Visualizzatore dello Scope"
@@ -116,11 +124,20 @@ Il C offre una grande varietà di tipi per risparmiare memoria (fondamentale neg
 
 ### La "Gerarchia" dei Tipi
 
-- `char`: 1 byte (8 bit)
-- `short`: Tipicamente 2 byte
-- `int`: Tipicamente 4 byte (ma dipende dal sistema)
-- `float`: Numeri decimali a singola precisione
-- `double`: Numeri decimali a doppia precisione (64 bit)
+- `char`: 1 byte (8 bit). Spesso usato per i caratteri, ma tecnicamente è un "piccolo intero".
+- `short`: Tipicamente 2 byte.
+- `int`: Tipicamente 4 byte (ma dipende dal sistema).
+- `long`: 4 o 8 byte.
+- `float`: Numeri decimali a singola precisione.
+- `double`: Numeri decimali a doppia precisione (64 bit).
+
+<Callout type="pro" title="Prova Quantitativa: sizeof">
+  Non fidarti mai delle supposizioni! Usa l'operatore `sizeof` per vedere quanto
+  occupa un tipo sulla TUA macchina: ```c printf("int: %zu byte\n",
+  sizeof(int)); printf("long: %zu byte\n", sizeof(long)); ``` Sui moderni
+  MacBook M3 o PC 64-bit, un `long` occupa 8 byte, mentre su sistemi più vecchi
+  o embedded potrebbe occuparne solo 4.
+</Callout>
 
 <TypeMatcher />
 
@@ -140,6 +157,14 @@ Ad esempio, in funzioni come `printf` (funzioni variadiche):
 - I `float` vengono promossi a `double`.
 
 Questo significa che, tecnicamente, la `printf` non "sa" stampare un float: riceve sempre un double e lo tratta come tale.
+
+<Callout type="danger" title="L'analogia del 'Secchio Bucato'">
+  Cosa succede se cerchi di infilare un `long` (8 byte) in un `int` (4 byte)? È
+  come versare l'acqua di un secchio grande in uno piccolo: l'eccedenza va
+  persa. In informatica, questo si chiama **Pointer Truncation** o **Data
+  Loss**. Se quel numero rappresentava un indirizzo di memoria, il tuo programma
+  crasherà miseramente perché starai puntando a un indirizzo "mozzato".
+</Callout>
 
 <Callout type="info" title="Side Effects (Effetti Collaterali)">
   Una funzione `void` che non prende nulla e non restituisce nulla (come `void
@@ -181,6 +206,13 @@ Cosa succede se aggiungi 1 al massimo valore possibile per un tipo?
 
 - **Unsigned (senza segno)**: Il comportamento è garantito. Il valore "riparte" da zero (wrapping).
 - **Signed (con segno)**: È un **Undefined Behavior**. Il compilatore potrebbe fare letteralmente qualsiasi cosa. Non fare mai affidamento sull'overflow dei numeri con segno!
+
+<Callout type="pro" title="Cosa succede ai Bit?">
+  Al livello dei transistori, l'overflow è un problema di "riporto". In un
+  `unsigned char` (8 bit), il numero 255 è `11111111`. Aggiungendo 1,
+  diventerebbe `100000000` (9 bit). Poiché abbiamo solo 8 bit, il bit più a
+  sinistra viene "buttato via", lasciandoci con `00000000`. Ecco lo zero!
+</Callout>
 
 <OverflowSimulator />
 
@@ -232,7 +264,8 @@ Cosa succede se aggiungi 1 al massimo valore possibile per un tipo?
     },
     {
       id: 4,
-      question: "In una funzione variadica come `printf`, a cosa viene promosso un `float`?",
+      question:
+        "In una funzione variadica come `printf`, a cosa viene promosso un `float`?",
       options: ["`int`", "`double`", "`long`", "Resta float"],
       correctAnswer: 1,
       explanation:
@@ -279,6 +312,7 @@ Cosa succede se aggiungi 1 al massimo valore possibile per un tipo?
 />
 
 ### Pro Challenge
+
 <Quiz
   title="Pro Challenge: Final Quiz"
   questions={[
@@ -327,7 +361,7 @@ Cosa succede se aggiungi 1 al massimo valore possibile per un tipo?
   ]}
 />
 
-### Terminal Challenge: Promotion Hunting 
+### Terminal Challenge: Promotion Hunting
 
 <ProTerminal
   challenges={[
@@ -348,7 +382,8 @@ Cosa succede se aggiungi 1 al massimo valore possibile per un tipo?
       id: "m32-flag",
       simulatedSuccessOutput: ``,
       title: "Ritorno al Passato",
-      description: "Quale flag di GCC useresti per forzare la compilazione a 32 bit su una macchina a 64 bit?",
+      description:
+        "Quale flag di GCC useresti per forzare la compilazione a 32 bit su una macchina a 64 bit?",
       commands: [],
       expectedOutput: "",
       hints: ["Si riferisce al modello a 32 bit"],

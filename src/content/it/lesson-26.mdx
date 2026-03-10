@@ -1,235 +1,217 @@
-﻿import VideoEmbed from '../../components/content/VideoEmbed';
-import Callout from '../../components/content/Callout';
-import KeyConcepts from '../../components/content/KeyConcepts';
-import CodeEditor from '../../components/exercises/CodeEditor';
-import Quiz from '../../components/exercises/Quiz';
-import ProTerminal from '../../components/content/ProTerminal';
-import Infographic from '../../components/content/Infographic';
-import ComparisonTable from '../../components/content/ComparisonTable';
-import StackVisualizer from '../../components/content/StackVisualizer';
+﻿import VideoEmbed from "../../components/content/VideoEmbed";
+import Callout from "../../components/content/Callout";
+import KeyConcepts from "../../components/content/KeyConcepts";
+import CodeEditor from "../../components/exercises/CodeEditor";
+import Quiz from "../../components/exercises/Quiz";
+import ProTerminal from "../../components/content/ProTerminal";
+import Infographic from "../../components/content/Infographic";
+import ComparisonTable from "../../components/content/ComparisonTable";
+import StackVisualizer from "../../components/content/StackVisualizer";
 
+# Lezione 26: ToyFort - Motore di Esecuzione e Memoria
 
-# Lezione 26: ToyFort - Eval e Gestione Memoria
-
-In questa lezione entriamo nel vivo dell'esecuzione. Vedremo come l'interprete trasforma una lista di oggetti in azioni concrete e come gestire la memoria usando il **Reference Counting** per evitare leak in un sistema dinamico.
-
-
+In questa lezione entriamo nel cuore pulsante di un linguaggio di programmazione. Vedremo come l'interprete trasforma una lista di oggetti in azioni hardware concrete e come gestire la memoria in un sistema dinamico usando il **Reference Counting** per prevenire i leak.
 
 <VideoEmbed videoId="nHzlRqPnlrE" title="Lezione 26: ToyFort Eval" />
 
-<KeyConcepts concepts={[
-  { title: "Ciclo di Eval", description: "Il meccanismo che percorre il programma e decide se mettere un valore nello stack o eseguire una funzione." },
-  { title: "Reference Counting", description: "Gestione della memoria basata sul conteggio dei proprietari (retain/release) di un oggetto." },
-  { title: "Asserzioni (assert.h)", description: "Usare invarianti caricate in memoria per fermare il programma non appena si verifica un bug logico." }
-]} />
-
----
-
-## Il Ciclo di Esecuzione: `execute_program`
-
-L'interprete ToyFort cicla su una lista. Se trova un valore, lo "puscia" sullo stack; se trova un simbolo, lo esegue.
-
-### Anatomia del Ciclo Eval
-
-Il 'cuore' di ToyFort è una singola funzione che processa ogni 'parola' del programma decidendo se metterla nello stack o eseguirla.
-
-<Infographic 
-  title="Il Motore di Esecuzione"
-  description="Come ToyFort processa il codice."
-  items={[
-    { label: "Asserzione", value: "Verifica che l'input sia una lista valida", color: "blue" },
-    { label: "Symbol", value: "Se è una parola, chiama la funzione corrispondente", color: "purple" },
-    { label: "Data", value: "Se è un numero/stringa, lo sposta nello stack (Retain)", color: "emerald" }
+<KeyConcepts
+  concepts={[
+    {
+      title: "Execution Loop",
+      description:
+        "Il ciclo 'eval' che attraversa il programma. Decide in tempo reale se trattare un oggetto come dato o come comando.",
+    },
+    {
+      title: "Reference Counting Fisica",
+      description:
+        "Gestire la sopravvivenza degli oggetti in RAM contando quanti puntatori li referenziano (Retain/Release).",
+    },
+    {
+      title: "Località dei Dati",
+      description:
+        "Perché usare array di puntatori (liste) è più veloce per la cache della CPU rispetto a strutture sparse.",
+    },
+    {
+      title: "Asserzioni e Sicurezza",
+      description:
+        "Usare `assert.h` per creare 'trappole' che fermano il programma in caso di bug logici durante lo sviluppo.",
+    },
   ]}
 />
 
-<Callout type="pro" title="Perché xrealloc?">
-Salvatore usa `xrealloc` invece di `realloc` perché, man mano che l'interprete cresce, le riallocazioni diventano frequenti. Se `realloc` fallisce a metà di una struttura complessa l'unica cosa sicura da fare è un "Panic" (chiusura immediata) invece di tentare di gestire un errore impossibile.
+---
+
+## Il Ciclo di Esecuzione: execute_program
+
+L'interprete ToyFort cicla su una lista. Per ogni elemento, deve decidere il "destino" dell'oggetto.
+
+<StackVisualizer
+  title="Esecuzione: 5 10 +"
+  initialStack={[]}
+  steps={[
+    {
+      action: "PUSH 5",
+      result: "[ 5 ]",
+      description: "Valore letterale: messo nello stack.",
+    },
+    {
+      action: "PUSH 10",
+      result: "[ 5 10 ]",
+      description: "Valore letterale: messo nello stack.",
+    },
+    {
+      action: "CALL '+'",
+      result: "[ 15 ]",
+      highlight: true,
+      description: "Simbolo: eseguita funzione C associata.",
+    },
+  ]}
+/>
+
+<Callout type="pro" title="Fisica del Cache Miss">
+  A differenza delle linked list (Lezione 15), le nostre liste ToyFort sono
+  array di puntatori. Questo significa che gli indirizzi degli oggetti sono
+  vicini in memoria. La CPU può precaricare questi indirizzi nella **L1 Cache**,
+  rendendo il loop di esecuzione incredibilmente fluido.
 </Callout>
 
 ---
 
-## Gestione Memoria: Retain e Release
+## Gestione Memoria Dinamica: Retain & Release
 
-In C, gestire la memoria di un interprete è complesso perché gli oggetti possono essere condivisi. Salvatore implementa un sistema di **Reference Counting**.
+In un interprete, un oggetto può appartenere contemporaneamente a una lista, allo stack e a una variabile. Chi deve liberarlo? La risposta è: l'ultimo che lo lascia andare.
 
-<ComparisonTable 
-  title="Gestione Manuale vs Ref Counting"
-  headers={["Metodo", "Vantaggio", "Svantaggio"]}
+<ComparisonTable
+  title="Strategie di Memory Management"
+  headers={["Tecnica", "Costo CPU", "Affidabilità"]}
   rows={[
-    ["Malloc/Free classica", "Massima velocità", "Rischio enorme di double-free o leak"],
-    ["Reference Counting", "Gestione semi-automatica", "Overhead di memoria e rischio di cicli"],
-    ["Garbage Collector", "Completamente automatico", "Pause 'Stop the world' e complessità"]
+    ["Manual (Free)", "Zero (Veloce)", "Bassa (Rischio Leak/Crash)"],
+    [
+      "Reference Counting",
+      "Basso (Incrementi)",
+      "Alta (Gestisce condivisione)",
+    ],
+    [
+      "Garbage Collection",
+      "Alto (Scansione RAM)",
+      "Massima (Completamente automatica)",
+    ],
   ]}
 />
 
-### Come funziona nel codice:
+### Il Contratto del Programmatore
 
-```c
-void retain_object(TFObject *o) {
-    o->ref_count++;
-}
+Quando ricevi un oggetto tramite `pop()`, ne ottieni la **Proprietà**.
 
-void release_object(TFObject *o) {
-    o->ref_count--;
-    if (o->ref_count == 0) {
-        free_object(o); // Libera davvero la memoria
-    }
-}
-```
+- Se lo sposti altrove: devi chiamare `retain()`.
+- Quando hai finito: DEVI chiamare `release()`.
 
-<Callout type="warning" title="La trappola del Pop">
-Quando estrai un oggetto dallo stack con una `pop`, ne diventi il proprietario unico. Se ti dimentichi di chiamare `release` alla fine della funzione, quell'oggetto non verrà mai liberato!
-</Callout>
-
-<Callout type="danger" title="Pericolo: Double Free">
-  Se chiami `release_object` su un puntatore che è già stato liberato (ref_count era già 0), il programma crasherà o, peggio, corromperà la memoria. Il Reference Counting non ti protegge dagli errori di logica; ti aiuta solo a gestire la condivisione.
-</Callout>
-
-<Callout type="warning" title="Assert in Produzione">
-  Le macro `assert` scompaiono completamente se compili con il flag `-DNDEBUG`. Questo significa che il programma sarà più veloce, ma non avrà più i controlli di sicurezza. Usa le asserzioni per trovare i bug durante lo sviluppo, ma non affidarti a loro per gestire gli errori dell'utente!
+<Callout type="warning" title="Uso di assert.h">
+  Le asserzioni come `assert(count > 0)` sono fondamentali. Se la condizione è falsa, il programma abortisce indicando file e riga. È la differenza tra debuggare per ore e sapere istantaneamente dov'è l'errore.
 </Callout>
 
 ---
 
 ## Esercitazione
 
-<Quiz 
-  title="Quiz Standard" 
+<Quiz
+  title="Quiz Standard"
   questions={[
     {
       question: "Qual è la funzione del ciclo eval in ToyFort?",
       options: [
-        "Convertire il testo in numeri",
-        "Atraversare la lista del programma ed eseguire ogni parola",
-        "Cancellare la memoria inutilizzata",
-        "Stampare i risultati a video"
+        "Tradurre il codice in bit",
+        "Navigare la lista del programma ed eseguire le azioni corrispondenti",
+        "Pulire il terminale",
+        "Riavviare il sistema",
       ],
       correctAnswer: 1,
-      explanation: "L'eval è il motore: legge un oggetto alla volta e decide se è un dato o un comando."
+      explanation:
+        "L'eval 'valuta' ogni pezzo di codice decidendo se è un dato da salvare o una funzione da chiamare.",
     },
     {
-      question: "Perché usiamo `retain_object` quando mettiamo un oggetto nello stack?",
+      question: "Cosa succede se dimentichi un `release()` dopo un `pop()`?",
       options: [
-        "Per renderlo più veloce",
-        "Perché lo stack diventa un nuovo 'proprietario' dell'oggetto",
-        "Per convertirlo in stringa",
-        "Perché lo richiede il compilatore"
+        "Il programma crasha subito",
+        "Si crea un Memory Leak: l'oggetto resta in RAM per sempre",
+        "La CPU rallenta",
+        "Non succede nulla di grave",
       ],
       correctAnswer: 1,
-      explanation: "Se un oggetto è sia nel programma che nello stack, ha due proprietari. Il ref_count deve riflettere questo fatto."
+      explanation:
+        "Senza il release, il ref_count non arriverà mai a 0 e la memoria non verrà mai liberata.",
     },
     {
-      question: "Cosa succede se un oggetto ha ref_count pari a 0?",
+      question: "Perché le asserzioni (`assert`) sono utili?",
       options: [
-        "Viene salvato su disco",
-        "Viene ignorato dall'interprete",
-        "Viene invocata la free_object per deallocare la memoria",
-        "Il programma crasha"
-      ],
-      correctAnswer: 2,
-      explanation: "Zero proprietari significa che nessuno usa più l'oggetto: è il momento di liberarlo."
-    },
-    {
-      question: "A cosa serve `assert(prg->type == TF_LIST)`?",
-      options: [
-        "A formattare la lista",
-        "A garantire che stiamo cercando di eseguire una lista (programma) e non un intero",
-        "A velocizzare il loop",
-        "A importare librerie esterne"
+        "Rendono il codice più bello",
+        "Bloccano il programma non appena si verifica un'incoerenza logica",
+        "Sostituiscono i commenti",
+        "Accelerano l'esecuzione",
       ],
       correctAnswer: 1,
-      explanation: "Le asserzioni sono guardie: se l'invariante fallisce, il programma si ferma subito, aiutandoti a trovare bug logici."
+      explanation:
+        "Le asserzioni catturano i bug alla radice prima che causino danni maggiori.",
     },
-    {
-      question: "Qual è il vantaggio di raggruppare lo stack in un `TFContext`?",
-      options: [
-        "Nessuno, complica solo il codice",
-        "Permette di avere più istanze isolate dell'interprete nello stesso processo",
-        "Riduce l'uso della RAM",
-        "Rende il C simile a Python"
-      ],
-      correctAnswer: 1,
-      explanation: "Evitando variabili globali, possiamo far girare più programmi ToyFort indipendenti contemporaneamente."
-    }
-  ]} 
+  ]}
 />
 
-<Quiz 
+<Quiz
   title="Pro Challenge"
   questions={[
     {
-      question: "Se implementassi una funzione `SWAP` che scambia due elementi dello stack, come cambierebbe il ref_count?",
+      question:
+        "In un sistema a Reference Counting, cos'è un 'Ciclo di Riferimenti'?",
       options: [
-        "Dovrebbe aumentare per entrambi",
-        "Dovrebbe diminuire per entrambi",
-        "Non dovrebbe cambiare affatto",
-        "Dovrebbe azzerarsi"
-      ],
-      correctAnswer: 2,
-      explanation: "Lo spostamento di un oggetto (da una posizione all'altra dello stack) non cambia il numero di proprietari."
-    },
-    {
-      question: "Cosa succede in un sistema a Reference Counting se due oggetti si puntano a vicenda (ciclo)?",
-      options: [
-        "Il ref_count scende a zero correttamente",
-        "Non verranno mai liberati (Memory Leak)",
-        "Il compilatore lo impedisce",
-        "Il computer si riavvia"
+        "Un loop infinito (while(1))",
+        "Due oggetti che si puntano a vicenda, impedendo ad entrambi di essere liberati",
+        "Un aggiornamento costante dell'hardware",
+        "Un modo per pulire la cache",
       ],
       correctAnswer: 1,
-      explanation: "I cicli sono il tallone d'Achille del Ref Counting: entrambi avranno sempre almeno un proprietario (l'altro), impedendo la deallocazione."
+      explanation:
+        "È l'unico limite del Ref Counting: se A punta B e B punta A, il loro ref_count non scenderà mai a 0.",
     },
     {
-      question: "Perché `xrealloc` è preferibile alla `realloc` standard in questo progetto?",
+      question:
+        "Perché usiamo `xrealloc` che termina il programma in caso di errore?",
       options: [
-        "Perché è implementata in Assembly",
-        "Perché gestisce centralmente il fallimento dell'allocazione (Panic)",
-        "Perché non ha bisogno del puntatore vecchio",
-        "Perché libera la memoria automaticamente"
+        "Perché è pigrizia del programmatore",
+        "Perché in un interprete che esaurisce la memoria non c'è modo sicuro di continuare",
+        "Perché è più veloce",
+        "Perché lo richiede lo standard POSIX",
       ],
       correctAnswer: 1,
-      explanation: "Come xmalloc, xrealloc interrompe il programma se la memoria finisce, evitando noiosi controlli locali."
-    }
-  ]} 
+      explanation:
+        "La strategia 'Fail-Fast' è spesso la più sicura nei sistemi complessi.",
+    },
+  ]}
 />
 
-<ProTerminal 
+<ProTerminal
   challenges={[
     {
-        id: "retain-count",
-        title: "Logica dei Proprietari",
-        description: "Un oggetto viene creato (1), messo in una lista (2) e poi in un'altra (3). Qual è il valore di ref_count?",
-        commands: [],
-        expectedOutput: "3",
-        hints: [
-            "Ogni inserimento deve chiamare retain."
-        ]
+      id: "refcount-sim",
+      title: "Test del Conteggio",
+      description:
+        "Un oggetto viene creato (ref=1). Viene aggiunto a 2 liste diverse. Se una lista viene deallocata, quanto varrà il ref_count dell'oggetto?",
+      commands: [],
+      expectedOutput: "2",
+      hints: [
+        "Partenza: 1. Aggiunta Lista 1: +1 (2). Aggiunta Lista 2: +1 (3). Deallocazione Lista 1: -1 (2).",
+      ],
     },
     {
-        id: "assert-header",
-        title: "Invarianti",
-        description: "Quale header devi includere per usare la macro 'assert'?",
-        commands: [],
-        expectedOutput: "assert.h",
-        hints: [
-            "È lo stesso nome della funzione."
-        ]
+      id: "assert-find",
+      title: "Ricerca Header",
+      description: "In quale file header è definita la macro 'assert'?",
+      commands: [],
+      expectedOutput: "assert.h",
+      hints: ["Inizia per 'a' e finisce per '.h'."],
     },
-    {
-        id: "eval-logic",
-        title: "Eval Flow",
-        description: "Se il parser legge '[ 1 2 + ]', l'eval esegue subito il '+'?",
-        commands: [],
-        expectedOutput: "no",
-        hints: [
-            "Le liste sono dati: vengono 'pusciate' come blocchi unici."
-        ]
-    }
-]}
+  ]}
 />
 
-### Conclusione
-Abbiamo un motore che gira e una gestione della memoria solida! Nella prossima lezione vedremo come "mappare" i simboli (come '+') a funzioni C reali tramite la **Function Table**.
+### Riassunto Finale
 
-
+Abbiamo costruito il motore di ToyFort. Comprendere la gestione della proprietà degli oggetti e il flusso di esecuzione è ciò che separa un principiante da un ingegnere dei sistemi. Nella prossima lezione, collegheremo i simboli alle funzioni C finali.

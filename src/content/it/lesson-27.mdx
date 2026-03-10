@@ -1,24 +1,42 @@
-﻿import VideoEmbed from '../../components/content/VideoEmbed';
-import Callout from '../../components/content/Callout';
-import KeyConcepts from '../../components/content/KeyConcepts';
-import CodeEditor from '../../components/exercises/CodeEditor';
-import Quiz from '../../components/exercises/Quiz';
-import ProTerminal from '../../components/content/ProTerminal';
-import Infographic from '../../components/content/Infographic';
-import ComparisonTable from '../../components/content/ComparisonTable';
-import MemoryCaster from '../../components/content/MemoryCaster';
+﻿import VideoEmbed from "../../components/content/VideoEmbed";
+import Callout from "../../components/content/Callout";
+import KeyConcepts from "../../components/content/KeyConcepts";
+import CodeEditor from "../../components/exercises/CodeEditor";
+import Quiz from "../../components/exercises/Quiz";
+import ProTerminal from "../../components/content/ProTerminal";
+import Infographic from "../../components/content/Infographic";
+import ComparisonTable from "../../components/content/ComparisonTable";
 
-# Lezione 27: Function Tables e Comparazione Stringhe
+# Lezione 27: Function Tables e String Interning
 
-In questa lezione collegheremo i simboli di ToyFort (come `+` o `print`) a funzioni C reali. Per farlo, implementeremo una **Function Table** e impareremo a comparare i nostri oggetti stringa in modo efficiente.
+In questa lezione collegheremo i simboli di ToyFort (come `+` o `print`) a funzioni C reali. Per farlo, implementeremo una **Function Table** e impareremo a gestire le stringhe con la potenza del **SIMD** e la magia del **String Interning**.
 
 <VideoEmbed videoId="vYODKK8TQGE" title="Lezione 27: Function Tables" />
 
-<KeyConcepts concepts={[
-  { title: "Callback in C", description: "Usare puntatori a funzione per mappare nomi testuali ad azioni eseguibili." },
-  { title: "Comparazione di Oggetti", description: "Perché `strcmp` non basta per i nostri `TFObject` e come implementare `compare_string_objects`." },
-  { title: "Registrazione Dinamica", description: "Aggiungere nuove 'parole' all'interprete senza modificare il ciclo di eval principale." }
-]} />
+<KeyConcepts
+  concepts={[
+    {
+      title: "Dispatcher Hardware",
+      description:
+        "Usare un array di strutture (Nome -> Puntatore) per mappare simboli testuali ad azioni binarie della CPU.",
+    },
+    {
+      title: "SIMD Physics",
+      description:
+        "Perché `memcmp` è migliaia di volte più veloce di un loop manuale grazie alle istruzioni vettoriali AVX/NEON.",
+    },
+    {
+      title: "String Interning",
+      description:
+        "La tecnica che trasforma la comparazione di stringhe da O(N) a O(1) salvando solo indirizzi univoci.",
+    },
+    {
+      title: "Safety in Lookup",
+      description:
+        "Proteggere l'interprete dalle 'parole fantasma' che non hanno una corrispondente funzione C.",
+    },
+  ]}
+/>
 
 ---
 
@@ -26,32 +44,71 @@ In questa lezione collegheremo i simboli di ToyFort (come `+` o `print`) a funzi
 
 Ogni comando in ToyFort è una "entry" in una tabella. Quando l'interprete incontra un simbolo, lo cerca in questa lista e, se lo trova, chiama la funzione associata.
 
-<Infographic 
+<Infographic
   title="Lookup Flow"
   description="Come un simbolo diventa un'azione."
   items={[
-    { label: "1. Match", value: "Cerca 'SUM' nella tabella", color: "blue" },
-    { label: "2. Puntatore", value: "Recupera l'indirizzo della funzione C", color: "purple" },
-    { label: "3. Azione", value: "Esegue la funzione con gli argomenti dello stack", color: "emerald" }
+    {
+      label: "1. Match",
+      value: "Cerca 'SUM' nella tabella usando memcmp o hash",
+      color: "blue",
+    },
+    {
+      label: "2. Function Pointer",
+      value: "Recupera l'indirizzo della funzione C (Lezione 22)",
+      color: "purple",
+    },
+    {
+      label: "3. Execution",
+      value: "Salta al codice della funzione nel segmento .text",
+      color: "emerald",
+    },
   ]}
 />
+
 <Callout type="pro" title="Potenza delle SIMD">
-  `memcmp` non confronta un byte alla volta. Le CPU moderne hanno istruzioni **SIMD** (come AVX o NEON) che possono confrontare 16, 32 o persino 64 byte in un solo colpo d'occhio. Usare le funzioni standard significa sfruttare gratuitamente tutta la potenza dell'hardware moderno.
+  `memcmp` non confronta un byte alla volta. Le CPU moderne hanno istruzioni
+  **SIMD** (come AVX o NEON) che possono caricare registri da 256/512 bit e
+  confrontare 32 o 64 caratteri in un solo colpo di clock. Usare le funzioni
+  standard significa sfruttare gratuitamente tutta la potenza dell'hardware
+  moderno.
 </Callout>
 
-<Callout type="info" title="String Interning">
-  In molti interpreti, invece di comparare le stringhe ogni volta, si usa il "String Interning": si salva ogni stringa unica in una tabella globale e si usa solo il suo indirizzo. Se due indirizzi sono uguali, le stringhe sono uguali. Questo trasforma un confronto $O(N)$ in un istantaneo $O(1)$.
-</Callout>
+---
+
+## String Interning: Il Trucco della Memoria
+
+In molti interpreti (Python, JavaScript, Lua), invece di comparare il contenuto delle stringhe ogni volta, si usa il "String Interning":
+
+1. Si crea una tabella globale di tutte le stringhe uniche.
+2. Se due stringhe hanno lo stesso indirizzo di memoria, sono garantite essere uguali.
+
+<ComparisonTable
+  title="Efficienza di Comparazione"
+  headers={["Metodo", "Costo Temporale", "Costo Energetico"]}
+  rows={[
+    [
+      "strcmp / memcmp",
+      "O(N) (Dipende dalla lunghezza)",
+      "Medio-Alto (Molti accessi RAM)",
+    ],
+    [
+      "String Interning",
+      "O(1) (Confronto indirizzi)",
+      "Minimo (Un solo test CPU)",
+    ],
+  ]}
+/>
+
+### Implementazione: Comparazione Robusta
+
+Poiché i nostri oggetti `TF_STR` salvano la propria lunghezza, la comparazione deve gestire anche byte nulli intermedi.
 
 ```c
 int compare_string_objects(TFObject *a, TFObject *b) {
-    size_t min_len = (a->s.len < b->s.len) ? a->s.len : b->s.len;
-    int res = memcmp(a->s.ptr, b->s.ptr, min_len);
-    if (res == 0) {
-        if (a->s.len == b->s.len) return 0;
-        return (a->s.len > b->s.len) ? 1 : -1;
-    }
-    return (res > 0) ? 1 : -1;
+    if (a->s.len != b->s.len) return (a->s.len > b->s.len) ? 1 : -1;
+    // Grazie alla lunghezza certa, usiamo memcmp (SIMD optimized)
+    return memcmp(a->s.ptr, b->s.ptr, a->s.len);
 }
 ```
 
@@ -59,8 +116,8 @@ int compare_string_objects(TFObject *a, TFObject *b) {
 
 ## Esercitazione
 
-<Quiz 
-  title="Quiz Standard" 
+<Quiz
+  title="Quiz Standard"
   questions={[
     {
       question: "Cos'è una Function Table nell'interprete ToyFort?",
@@ -68,133 +125,94 @@ int compare_string_objects(TFObject *a, TFObject *b) {
         "Un file speciale sul disco",
         "Una struttura dati che mappa nomi di simboli a puntatori a funzione C",
         "Una tabella che conta quanti numeri ci sono nello stack",
-        "Un set di istruzioni per il compilatore"
+        "Un set di istruzioni per il compilatore",
       ],
       correctAnswer: 1,
-      explanation: "La tabella funge da dizionario: 'se leggi questo nome, esegui questo pezzo di codice C'."
+      explanation:
+        "Funziona come un dizionario: associa una 'parola' ToyFort a un'azione C reale.",
     },
     {
-      question: "Perché usiamo `memcmp` invece di `strcmp`?",
+      question: "Qual è il vantaggio energetico del 'String Interning'?",
       options: [
-        "Perché `strcmp` è deprecata",
-        "Perché i nostri oggetti stringa hanno una lunghezza esplicita (possono contenere byte nulli)",
-        "Perché `memcmp` è più facile da scrivere",
-        "Perché lo standard C99 lo impone"
+        "Nessuno",
+        "Riduce gli accessi alla RAM trasformando il confronto di stringhe in un semplice confronto di due numeri (indirizzi)",
+        "Rende il computer più silenzioso",
+        "Aumenta la precisione dei calcoli",
       ],
       correctAnswer: 1,
-      explanation: "memcmp lavora sulla memoria pura, ignorando il terminatore nullo. È ideale per oggetti che salvano la propria dimensione (length-prefixed)."
+      explanation:
+        "Meno istruzioni CPU = meno energia consumata. Comparare due puntatori è l'operazione più veloce possibile.",
     },
     {
-      question: "Cosa succede se cerchiamo una funzione che non esiste?",
+      question:
+        "Perché usiamo `memcmp` invece di `strcmp` per i nostri oggetti?",
       options: [
-        "Il programma viene cancellato",
-        "L'interprete ignora il comando e continua",
-        "La funzione get_function ritorna NULL",
-        "Viene generato un errore di compilazione"
-      ],
-      correctAnswer: 2,
-      explanation: "La ricerca ritorna NULL; spetterà poi alla funzione chiamante (call_symbol) decidere se lanciare un errore di runtime."
-    },
-    {
-      question: "Cosa permette l'operatore ternario `(cond) ? a : b`?",
-      options: [
-        "Di fare loop veloci",
-        "Di scrivere un blocco if-else in una singola riga",
-        "Di moltiplicare tre numeri",
-        "Di definire macro globali"
+        "Perché `strcmp` è antica",
+        "Perché le nostre stringhe possono contenere byte '\\0' (binarie) e hanno una lunghezza esplicita",
+        "Perché `memcmp` è più facile da leggere",
+        "Perché lo standard C99 lo impone",
       ],
       correctAnswer: 1,
-      explanation: "È uno zucchero sintattico molto usato in C per assegnare valori in base a una condizione semplice (es. calcolare il minimo)."
+      explanation:
+        "Le stringhe SDS o gli oggetti ToyFort non si fidano del terminatore nullo, ma usano un campo 'len'.",
     },
-    {
-      question: "A cosa serve `TFFunc` definito come `void (*)(...)`?",
-      options: [
-        "A creare nuove liste",
-        "A definire un 'Alias' (typedef) per un puntatore a funzione",
-        "A contare le referenze degli oggetti",
-        "È un errore di sintassi"
-      ],
-      correctAnswer: 1,
-      explanation: "Typedef rende il codice leggibile: invece di scrivere ogni volta la firma della funzione, usiamo il nome TFFunc."
-    }
-  ]} 
+  ]}
 />
 
-<Quiz 
+<Quiz
   title="Pro Challenge"
   questions={[
     {
-      question: "Se volessimo implementare l'overloading di funzioni (stesso nome, tipi diversi), dove dovremmo cambiare il codice?",
+      question:
+        "In una Function Table, come gestiresti un simbolo sconosciuto?",
       options: [
-        "Nel parser",
-        "Nella free_object",
-        "Nella logica di lookup della Function Table",
-        "Nel compilatore C"
-      ],
-      correctAnswer: 2,
-      explanation: "Dovremmo modificare get_function affinché controlli non solo il nome, ma anche i tipi degli argomenti presenti nello stack."
-    },
-    {
-      question: "Qual è il rischio dell'uso massivo di puntatori a funzione (callbacks)?",
-      options: [
-        "Nessuno",
-        "Rendono difficile per il compilatore applicare certe ottimizzazioni (inlining)",
-        "Aumentano drasticamente la dimensione del binario",
-        "Richiedono il doppio della RAM"
+        "Cancellando lo stack",
+        "Ritornando NULL dalla ricerca e lanciando un errore di runtime nell'eval loop",
+        "Ignorandolo",
+        "Spegni l'interprete",
       ],
       correctAnswer: 1,
-      explanation: "Poiché la chiamata è dinamica (risolta a runtime), il compilatore non può sapere quale codice verrà eseguito e non può ottimizzarlo facilmente."
+      explanation:
+        "La separazione tra lookup e azione permette di gestire gli errori in modo pulito senza crashare il sistema.",
     },
     {
-      question: "In `compare_string_objects`, cosa succede se una stringa è il prefisso dell'altra?",
+      question: "Cosa sono le istruzioni SIMD citate nella lezione?",
       options: [
-        "Vengono considerate uguali",
-        "Ritorna un errore",
-        "Quella più corta viene considerata minore",
-        "Quella più lunga viene considerata minore"
+        "Single Instruction Multiple Data: una singola istruzione che opera su molti dati in parallelo",
+        "Simple Interpreter Memory Dispatch",
+        "Sistemi di Integrazione di Memoria Dinamica",
+        "Semplici istruzioni matematiche",
       ],
-      correctAnswer: 2,
-      explanation: "Dopo aver comparato la parte comune con successo, verifichiamo le lunghezze: la stringa con meno caratteri vince."
-    }
-  ]} 
+      correctAnswer: 0,
+      explanation:
+        "Le SIMD permettono alla CPU di confrontare blocchi di memoria a velocità sbalorditive.",
+    },
+  ]}
 />
 
-<ProTerminal 
+<ProTerminal
   challenges={[
     {
-        id: "memcmp-test",
-        title: "Binary Match",
-        description: "Dati 'ABC' e 'ABD', cosa ritorna memcmp sulla parte comune di lunghezza 3?",
-        commands: [],
-        expectedOutput: "-1",
-        hints: [
-            "'C' (67) viene prima di 'D' (68)."
-        ]
+      id: "memcmp-speed",
+      title: "Match Binario",
+      description:
+        "Se confronti 'HELLO' e 'HELLA' con memcmp(len=5), quale sarà il risultato (positivo o negativo)?",
+      commands: [],
+      expectedOutput: "positivo",
+      hints: ["'O' ha un valore ASCII maggiore di 'A'."],
     },
     {
-        id: "callback-syntax",
-        title: "Function Pointers",
-        description: "La sintassi in C per dichiarare una funzione che riceve a sua volta una funzione come parametro è leggendaria per la sua illeggibilità. Quale singolo carattere speciale devi inserire tra le parentesi tonde prima del nome dell'argomento `f` per indicare che non è un banale intero ma un *indirizzo* di funzione?",
-        commands: [],
-        expectedOutput: "*",
-        hints: [
-            "L'asterisco identifica il puntatore."
-        ]
+      id: "interning-check",
+      title: "Logica Interning",
+      description:
+        "In un sistema con Interning, se `str1 == str2` (confronto di puntatori), cosa puoi concludere sul contenuto?",
+      commands: [],
+      expectedOutput: "identico",
+      hints: ["Le stringhe uniche condividono lo stesso indirizzo."],
     },
-    {
-        id: "lookup-fail",
-        title: "Logic Case",
-        description: "Se get_function ritorna NULL, quale valore booleano rappresenta in C?",
-        commands: [],
-        expectedOutput: "false",
-        hints: [
-            "NULL è valutato come 0."
-        ]
-    }
-]}
+  ]}
 />
 
-### Conclusione
-Ora il nostro interprete sa "collegare" le parole ad azioni C! Nella prossima lezione vedremo come potenziare la nostra capacità di segnalare errori usando le **Funzioni Variadiche**.
+### Riassunto Finale
 
-
+Abbiamo collegato il vocabolario di ToyFort ai muscoli del C. Hai imparato che l'efficienza non nasce solo da algoritmi intelligenti, ma anche dallo sfruttamento delle caratteristiche hardware della CPU (SIMD) e della memoria (Interning). Ora ToyFort è pronto per eseguire vera logica.

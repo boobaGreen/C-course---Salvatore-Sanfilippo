@@ -1,13 +1,13 @@
-﻿import VideoEmbed from '../../components/content/VideoEmbed';
-import Callout from '../../components/content/Callout';
-import KeyConcepts from '../../components/content/KeyConcepts';
-import LimitsExplorer from '../../components/content/LimitsExplorer';
-import BinaryVisualizer from '../../components/content/BinaryVisualizer';
-import Infographic from '../../components/content/Infographic';
-import CodeEditor from '../../components/exercises/CodeEditor';
-import Quiz from '../../components/exercises/Quiz';
-import ProTerminal from '../../components/content/ProTerminal';
-import ComparisonTable from '../../components/content/ComparisonTable';
+﻿import VideoEmbed from "../../components/content/VideoEmbed";
+import Callout from "../../components/content/Callout";
+import KeyConcepts from "../../components/content/KeyConcepts";
+import LimitsExplorer from "../../components/content/LimitsExplorer";
+import BinaryVisualizer from "../../components/content/BinaryVisualizer";
+import Infographic from "../../components/content/Infographic";
+import CodeEditor from "../../components/exercises/CodeEditor";
+import Quiz from "../../components/exercises/Quiz";
+import ProTerminal from "../../components/content/ProTerminal";
+import ComparisonTable from "../../components/content/ComparisonTable";
 
 # Lezione 4: Interi, Memoria e Limiti
 
@@ -15,42 +15,46 @@ Benvenuti alla quarta lezione! Oggi scaveremo sotto la superficie del C per capi
 
 <VideoEmbed videoId="YNsXyasn4R4" title="Lezione 4: Tipi Interi e Memoria" />
 
-<KeyConcepts 
+<KeyConcepts
   concepts={[
     {
       title: "sizeof",
-      description: "L'operatore fondamentale per scoprire quanti byte occupa un tipo sulla tua macchina specifica."
+      description:
+        "L'operatore fondamentale per scoprire quanti byte occupa un tipo sulla tua macchina specifica.",
     },
     {
       title: "limits.h",
-      description: "La libreria standard che contiene le costanti per i valori minimi e massimi di ogni tipo."
+      description:
+        "La libreria standard che contiene le costanti per i valori minimi e massimi di ogni tipo.",
     },
     {
       title: "Architettura",
-      description: "Le dimensioni dei tipi (come long) cambiano a seconda che tu sia su un sistema a 32 o 64 bit."
-    }
-  ]} 
+      description:
+        "Le dimensioni dei tipi (come long) cambiano a seconda che tu sia su un sistema a 32 o 64 bit.",
+    },
+  ]}
 />
 
 A differenza di linguaggi come Python, in C la dimensione di un `int` non è fissa per sempre. Dipende dalla tua **piattaforma** e dall'ambizione storica del C: girare su qualsiasi cosa, dallo **Z80 a 8-bit** ai supercomputer a 64-bit.
 
-<ComparisonTable 
+<ComparisonTable
   title="Dimensioni Tipiche per Architettura"
   headers={["Tipo", "8-bit (Z80/6502)", "32-bit (x86)", "64-bit (x64)"]}
   rows={[
     ["char", "1 byte", "1 byte", "1 byte"],
     ["short", "2 byte", "2 byte", "2 byte"],
     ["int", "2 byte", "4 byte", "4 byte"],
-    ["long", "4 byte", "4 byte", "8 byte"]
+    ["long", "4 byte", "4 byte", "8 byte"],
   ]}
 />
 
 <LimitsExplorer />
 
 <Callout type="warning" title="Attenzione al Warning!">
-Quando usi `sizeof` nella `printf`, il compilatore si aspetta spesso un `%lu` (long unsigned). Se vuoi usare `%d`, devi fare un **Casting**:
-`printf("%d", (int)sizeof(a));`
-Il casting dice al compilatore: "Fidati, converti temporaneamente questo valore in un intero".
+  Quando usi `sizeof` nella `printf`, il compilatore si aspetta spesso un `%lu`
+  (long unsigned). Se vuoi usare `%d`, devi fare un **Casting**: `printf("%d",
+  (int)sizeof(a));` Il casting dice al compilatore: "Fidati, converti
+  temporaneamente questo valore in un intero".
 </Callout>
 
 ## La Danza dei Bit
@@ -59,9 +63,9 @@ Ogni numero che scrivi viene convertito in una sequenza di **0** e **1**. Un `in
 
 <BinaryVisualizer />
 
-<Infographic 
-  src="/images/limits_table.png" 
-  alt="Tabella dei limiti dei tipi in C" 
+<Infographic
+  src="/images/limits_table.png"
+  alt="Tabella dei limiti dei tipi in C"
   caption="Confronto rapido tra i vari tipi interi e i loro range tipici."
 />
 
@@ -69,42 +73,58 @@ Ogni numero che scrivi viene convertito in una sequenza di **0** e **1**. Un `in
 
 Il computer non lancia i byte a caso nella RAM. Li organizza in celle, e spesso aggiunge del "padding" (spazio vuoto) per rendere l'accesso più veloce per il processore.
 
-<Infographic 
-  src="/images/memory_padding.png" 
-  alt="Visualizzazione della memoria e padding" 
-  caption="Come un mix di tipi diversi viene impilato nella RAM."
-/>
+<Callout type="pro" title="Perché l'Allineamento? (Il Bus Dati)">
+  La CPU non legge la memoria byte per byte come se fosse una cannuccia, ma a
+  "morsicate" (word) di 4 o 8 byte (su x64). Se un intero a 4 byte iniziasse a
+  un indirizzo "dispari" (non multiplo di 4), la CPU dovrebbe fare due letture
+  del bus dati e "incollare" i pezzi via software. Questo dimezza la velocità!
+  Il compilatore preferisce "sprecare" un po' di RAM aggiungendo byte vuoti
+  (**padding**) pur di allineare i dati all'inizio di una word.
+</Callout>
 
-<Callout type="info" title="Perché l'Allineamento?">
-  La CPU non legge la memoria byte per byte, ma a "parole" (word) di 4 o 8 byte. Se un `int` a 4 byte iniziasse a un indirizzo "dispari", la CPU dovrebbe fare due letture e "incollare" i pezzi, dimezzando la velocità. Il compilatore inserisce byte vuoti (padding) per evitare questo collo di bottiglia.
+<Callout type="danger" title="Prova Quantitativa: L'ordine conta!">
+Sapevi che l'ordine delle variabili può cambiare la RAM occupata?
+```c
+struct A { char a; int b; char c; }; // Occupa 12 byte (8 di padding!)
+struct B { int b; char a; char c; }; // Occupa 8 byte (solo 2 di padding!)
+```
+In C, il programmatore attento mette i tipi più grandi all'inizio per minimizzare i "buchi" di memoria.
 </Callout>
 
 ## Il Ritorno al Passato: VT100 ed Escape Codes
+
 Salvatore ci ha mostrato come "pulire lo schermo" non con un comando magico, ma inviando byte speciali al terminale. Questi sono gli **Escape Codes**.
 
-<Callout type="info" title="VT100 e Terminali Vintage">
-  Negli anni '70, i terminali erano macchine fisiche (come il **DEC VT100**). Per fargli muovere il cursore o pulire lo schermo, si inviava il byte `0x1B` (Escape) seguito da una sequenza di controllo. Ancora oggi, i nostri terminali moderni emulano quegli stessi standard!
+<Callout type="info" title="Archeologia Informatica: TTY e VT100">
+  Negli anni '70 non c'erano monitor moderni. Si usavano le **TeleType (TTY)**,
+  macchine da scrivere collegate a un computer. Per fargli muovere il cursore o
+  pulire lo schermo, si inviava il byte `0x1B` (Escape) seguito da una sequenza
+  di controllo. I terminali fisici come il **DEC VT100** hanno standardizzato
+  queste sequenze. Ancora oggi, quando apri una shell su macOS o Linux, stai
+  usando un "emulatore di terminale" che finge di essere un pezzo di ferro del
+  1978!
 </Callout>
 
 ```c
 // Esempio di sequenza per pulire lo schermo
-printf("\033[H\033[2J"); 
+printf("\033[H\033[2J");
 ```
+
 `\033` è il carattere Escape in ottale. `[H` porta il cursore a casa (in alto a sinistra), `[2J` pulisce tutto il terminale.
 
 ## Laboratorio di Codice
 
 Prova a sperimentare con `sizeof` e le costanti di `limits.h` come `INT_MIN` e `INT_MAX`.
 
-<CodeEditor 
+<CodeEditor
   initialCode={`#include <stdio.h>\n#include <limits.h>\n\nint main() {\n    printf("Dimensione int: %lu byte\\n", sizeof(int));\n    printf("Range int: %d a %d\\n", INT_MIN, INT_MAX);\n    return 0;\n}`}
   language="c"
 />
 
 ## Quiz di Verifica
 
-<Quiz 
-  title="Quiz Standard" 
+<Quiz
+  title="Quiz Standard"
   questions={[
     {
       question: "Cosa ritorna l'operatore `sizeof`?",
@@ -112,45 +132,53 @@ Prova a sperimentare con `sizeof` e le costanti di `limits.h` come `INT_MIN` e `
         "Il valore massimo di una variabile",
         "La dimensione in bit di un tipo",
         "La dimensione in byte di un tipo o variabile",
-        "L'indirizzo di memoria della variabile"
+        "L'indirizzo di memoria della variabile",
       ],
       correctAnswer: 2,
-      explanation: "`sizeof` ritorna sempre il numero di byte (gruppi di 8 bit) occupati in memoria."
+      explanation:
+        "`sizeof` ritorna sempre il numero di byte (gruppi di 8 bit) occupati in memoria.",
     },
     {
       question: "Quale file header contiene le costanti `INT_MIN` e `INT_MAX`?",
       options: ["`stdio.h`", "`limits.h`", "`stdint.h`", "`stdlib.h`"],
       correctAnswer: 1,
-      explanation: "`limits.h` definisce i limiti specifici dell'architettura per i tipi interi standard."
+      explanation:
+        "`limits.h` definisce i limiti specifici dell'architettura per i tipi interi standard.",
     },
     {
-      question: "In un sistema a 64 bit, quanto è grande solitamente un `long`?",
+      question:
+        "In un sistema a 64 bit, quanto è grande solitamente un `long`?",
       options: ["2 byte", "4 byte", "8 byte", "16 byte"],
       correctAnswer: 2,
-      explanation: "Sui sistemi moderni a 64 bit, il tipo `long` solitamente segue la dimensione della parola del processore, ovvero 8 byte."
+      explanation:
+        "Sui sistemi moderni a 64 bit, il tipo `long` solitamente segue la dimensione della parola del processore, ovvero 8 byte.",
     },
     {
-      question: "Cosa succede se sottrai 1 da una variabile `unsigned int` che vale 0?",
+      question:
+        "Cosa succede se sottrai 1 da una variabile `unsigned int` che vale 0?",
       options: [
         "Il programma va in crash",
         "La variabile diventa -1",
         "La variabile 'ruota' (underflow) al valore massimo possibile per quel tipo (es. 4.294.967.295)",
-        "Resta 0"
+        "Resta 0",
       ],
       correctAnswer: 2,
-      explanation: "I tipi `unsigned` non possono essere negativi. Sottraendo 1 dallo zero, i bit 'ruotano' verso l'alto, portando la variabile al suo valore massimo."
+      explanation:
+        "I tipi `unsigned` non possono essere negativi. Sottraendo 1 dallo zero, i bit 'ruotano' verso l'alto, portando la variabile al suo valore massimo.",
     },
     {
-      question: "In C, il tipo `char` può essere usato per memorizzare piccoli numeri interi?",
+      question:
+        "In C, il tipo `char` può essere usato per memorizzare piccoli numeri interi?",
       options: [
         "No, serve solo per le lettere",
         "Sì, è a tutti gli effetti un intero a 8 bit",
         "Solo se è tra virgolette",
-        "Solo se convertito in float"
+        "Solo se convertito in float",
       ],
       correctAnswer: 1,
-      explanation: "Un `char` è un intero a 8 bit. Può contenere valori da -128 a 127 (`signed`) o 0-255 (`unsigned`)."
-    }
+      explanation:
+        "Un `char` è un intero a 8 bit. Può contenere valori da -128 a 127 (`signed`) o 0-255 (`unsigned`).",
+    },
   ]}
 />
 
@@ -159,116 +187,116 @@ Prova a sperimentare con `sizeof` e le costanti di `limits.h` come `INT_MIN` e `
 <KeyConcepts 
   title="In Breve"
 
-  concepts={[
-    {
-      title: "sizeof",
-      description: "L'unico modo sicuro per sapere quanto spazio occupa realmente un tipo sulla tua macchina."
-    },
-    {
-      title: "limits.h",
-      description: "Contiene le costanti (come `INT_MAX`) che descrivono i limiti numerici del tuo compilatore."
-    },
-    {
-      title: "Padding",
-      description: "Il computer aggiunge spazio vuoto (byte \"morti\") tra i dati per rendere l'accesso più veloce per la CPU."
-    }
-  ]}
+concepts={[
+{
+title: "sizeof",
+description: "L'unico modo sicuro per sapere quanto spazio occupa realmente un tipo sulla tua macchina."
+},
+{
+title: "limits.h",
+description: "Contiene le costanti (come `INT_MAX`) che descrivono i limiti numerici del tuo compilatore."
+},
+{
+title: "Padding",
+description: "Il computer aggiunge spazio vuoto (byte \"morti\") tra i dati per rendere l'accesso più veloce per la CPU."
+}
+]}
 />
 
 ### Pro Challenge
-<Quiz 
+
+<Quiz
   title="Pro Challenge: Final Quiz"
   questions={[
     {
       id: 1,
-      question: "In C, quanto vale `sizeof('A')` su una macchina dove `int` è 4 byte e `char` è 1 byte?",
+      question:
+        "In C, quanto vale `sizeof('A')` su una macchina dove `int` è 4 byte e `char` è 1 byte?",
       options: [
         "1, perché 'A' è un carattere",
         "4, perché in C i letterali carattere (come 'A') sono trattati come `int`",
         "8, perché è una costante",
-        "Dipende dal font utilizzato"
+        "Dipende dal font utilizzato",
       ],
       correctAnswer: 1,
-      explanation: "Questa è una differenza sottile tra C e C++. In C, una costante carattere come 'A' ha tipo `int`, quindi la sua dimensione è quella di un intero (solitamente 4 byte). Se invece avessi dichiarato `char c = 'A';` e fatto `sizeof(c)`, il risultato sarebbe stato 1."
+      explanation:
+        "Questa è una differenza sottile tra C e C++. In C, una costante carattere come 'A' ha tipo `int`, quindi la sua dimensione è quella di un intero (solitamente 4 byte). Se invece avessi dichiarato `char c = 'A';` e fatto `sizeof(c)`, il risultato sarebbe stato 1.",
     },
     {
       id: 2,
-      question: "Perché il compilatore aggiunge del 'padding' (spazio vuoto) tra i campi di una struttura o tra variabili in memoria?",
+      question:
+        "Perché il compilatore aggiunge del 'padding' (spazio vuoto) tra i campi di una struttura o tra variabili in memoria?",
       options: [
         "Per sprecare memoria e far vendere più RAM",
         "Perché la CPU legge la memoria a blocchi (parole) e i dati allineati sono molto più veloci da leggere",
         "Per separare meglio i dati per motivi estetici",
-        "È un bug dei vecchi compilatori"
+        "È un bug dei vecchi compilatori",
       ],
       correctAnswer: 1,
-      explanation: "L'allineamento (alignment) è fondamentale: una CPU a 64 bit preferisce leggere dati che iniziano a indirizzi multipli di 8 byte. Se un dato fosse 'a cavallo' tra due blocchi, la CPU dovrebbe fare due letture invece di una, dimezzando le performance."
+      explanation:
+        "L'allineamento (alignment) è fondamentale: una CPU a 64 bit preferisce leggere dati che iniziano a indirizzi multipli di 8 byte. Se un dato fosse 'a cavallo' tra due blocchi, la CPU dovrebbe fare due letture invece di una, dimezzando le performance.",
     },
     {
       id: 3,
-      question: "In un intero signed a 32 bit, qual è il ruolo del bit più significativo (il più a sinistra)?",
+      question:
+        "In un intero signed a 32 bit, qual è il ruolo del bit più significativo (il più a sinistra)?",
       options: [
         "Indica se il numero è pari o dispari",
         "È il bit del segno (0 per positivo, 1 per negativo nel complemento a due)",
         "È sempre 0",
-        "Viene usato per la virgola mobile"
+        "Viene usato per la virgola mobile",
       ],
       correctAnswer: 1,
-      explanation: "Nella rappresentazione in Complemento a Due, il bit più alto determina il segno. Se è 1, il numero è negativo."
-    }
+      explanation:
+        "Nella rappresentazione in Complemento a Due, il bit più alto determina il segno. Se è 1, il numero è negativo.",
+    },
   ]}
 />
 
-### Terminal Challenge: Header Hunting 
+### Terminal Challenge: Header Hunting
 
-<ProTerminal 
+<ProTerminal
   challenges={[
     {
-        id: "limits-header",
-        simulatedSuccessOutput: `/usr/include/limits.h`,
-        title: "Il Guardiano dei Limiti",
-        description: "Se hai bisogno di conoscere il valore massimo che un `int` può contenere sulla tua architettura (es. `INT_MAX`), quale file header standard devi includere?",
-        commands: [
-            "ls /usr/include/limits.h"
-        ],
-        expectedOutput: "limits.h",
-        hints: [
-            "Si occupa dei 'limiti' numerici"
-        ],
-        explanation: "Esatto! `limits.h` contiene macro come `INT_MAX` e `CHAR_BIT`.",
-        xpReward: 150
+      id: "limits-header",
+      simulatedSuccessOutput: `/usr/include/limits.h`,
+      title: "Il Guardiano dei Limiti",
+      description:
+        "Se hai bisogno di conoscere il valore massimo che un `int` può contenere sulla tua architettura (es. `INT_MAX`), quale file header standard devi includere?",
+      commands: ["ls /usr/include/limits.h"],
+      expectedOutput: "limits.h",
+      hints: ["Si occupa dei 'limiti' numerici"],
+      explanation:
+        "Esatto! `limits.h` contiene macro come `INT_MAX` e `CHAR_BIT`.",
+      xpReward: 150,
     },
     {
-        id: "stdint-header",
-        simulatedSuccessOutput: `/usr/include/stdint.h`,
-        title: "Precisione Chirurgica",
-        description: "Se vuoi essere assolutamente certo che una tua variabile occupi esattamente 32 bit su qualsiasi piattaforma, usi tipi come `int32_t`. Quale libreria standard fornisce queste definizioni?",
-        commands: [
-            "ls /usr/include/stdint.h"
-        ],
-        expectedOutput: "stdint.h",
-        hints: [
-            "Inizia con 'std' e contiene 'int'"
-        ],
-        explanation: "Ottimo! `stdint.h` è vitale per la portabilità del codice.",
-        xpReward: 200
+      id: "stdint-header",
+      simulatedSuccessOutput: `/usr/include/stdint.h`,
+      title: "Precisione Chirurgica",
+      description:
+        "Se vuoi essere assolutamente certo che una tua variabile occupi esattamente 32 bit su qualsiasi piattaforma, usi tipi come `int32_t`. Quale libreria standard fornisce queste definizioni?",
+      commands: ["ls /usr/include/stdint.h"],
+      expectedOutput: "stdint.h",
+      hints: ["Inizia con 'std' e contiene 'int'"],
+      explanation: "Ottimo! `stdint.h` è vitale per la portabilità del codice.",
+      xpReward: 200,
     },
     {
-        id: "lscpu-endian",
-        simulatedSuccessOutput: `Byte Order:            Little Endian`,
-        title: "L'Ordine dei Byte",
-        description: "Quale comando Linux mostra l'architettura della CPU e se il sistema è Little o Big Endian?",
-        commands: [],
-        expectedOutput: "",
-        hints: [
-            "Significa 'List CPU'"
-        ],
-        explanation: "Perfetto! `lscpu` rivela come la tua CPU organizza i byte in memoria.",
-        xpReward: 250,
-        expectedCommand: "lscpu | grep \"Byte Order\""
-    }
-]}
+      id: "lscpu-endian",
+      simulatedSuccessOutput: `Byte Order:            Little Endian`,
+      title: "L'Ordine dei Byte",
+      description:
+        "Quale comando Linux mostra l'architettura della CPU e se il sistema è Little o Big Endian?",
+      commands: [],
+      expectedOutput: "",
+      hints: ["Significa 'List CPU'"],
+      explanation:
+        "Perfetto! `lscpu` rivela come la tua CPU organizza i byte in memoria.",
+      xpReward: 250,
+      expectedCommand: 'lscpu | grep "Byte Order"',
+    },
+  ]}
 />
 
 Ci vediamo alla prossima lezione!
-
-

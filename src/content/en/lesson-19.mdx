@@ -1,11 +1,11 @@
-﻿import VideoEmbed from '../../components/content/VideoEmbed';
-import Callout from '../../components/content/Callout';
-import KeyConcepts from '../../components/content/KeyConcepts';
-import CodeEditor from '../../components/exercises/CodeEditor';
-import Quiz from '../../components/exercises/Quiz';
-import ProTerminal from '../../components/content/ProTerminal';
-import ComparisonTable from '../../components/content/ComparisonTable';
-import Infographic from '../../components/content/Infographic';
+﻿import VideoEmbed from "../../components/content/VideoEmbed";
+import Callout from "../../components/content/Callout";
+import KeyConcepts from "../../components/content/KeyConcepts";
+import CodeEditor from "../../components/exercises/CodeEditor";
+import Quiz from "../../components/exercises/Quiz";
+import ProTerminal from "../../components/content/ProTerminal";
+import ComparisonTable from "../../components/content/ComparisonTable";
+import Infographic from "../../components/content/Infographic";
 
 # Lesson 19: POSIX System Calls
 
@@ -13,206 +13,231 @@ In this lesson, we leave the "comfortable" standard library (`fopen`, `fread`) b
 
 <VideoEmbed videoId="QWLJ7CBAu_I" title="Lesson 19: System Calls & POSIX" />
 
-<KeyConcepts concepts={[
-  { title: "File Descriptors (int fd)", description: "Forget FILE pointers. At a low level, every open resource is just an integer in the Kernel's index." },
-  { title: "Standard Library vs Syscalls", description: "Understand that fopen is just a slower, buffered 'wrapper' that eventually calls open (syscall)." },
-  { title: "Real-time Error Handling", description: "Use errno and perror to interpret error messages coming directly from the heart of the system." }
-]} />
+<KeyConcepts
+  concepts={[
+    {
+      title: "File Descriptors (int fd)",
+      description:
+        "Forget FILE pointers. At a low level, every open resource is just an integer in the Kernel's index.",
+    },
+    {
+      title: "User Mode vs Kernel Mode",
+      description:
+        "Understand the physics of protection layers: Ring 3 (your code) vs Ring 0 (system heart).",
+    },
+    {
+      title: "The write() Syscall",
+      description:
+        "Sending bytes directly to hardware without the C library's buffering filter.",
+    },
+    {
+      title: "POSIX Standard",
+      description:
+        "The universal interface that makes code portable across Linux, macOS, and Unix.",
+    },
+  ]}
+/>
 
 ## File Descriptors: 0, 1, 2
 
-Every Linux process is born with three already open communication channels:
-- **0**: Standard Input (keyboard)
-- **1**: Standard Output (terminal)
-- **2**: Standard Error (errors on the terminal)
+Every Linux process is born with three communication channels already open (inherited from the parent process):
 
-<Callout type="info" title="Why numbers?">
-The Kernel is lazy (or rather, efficient). It doesn't want to handle long strings for every file. It uses a simple array for each process, and the index of that array is our **File Descriptor**.
+- **0**: Standard Input (`stdin`) - Keyboard
+- **1**: Standard Output (`stdout`) - Terminal
+- **2**: Standard Error (`stderr`) - Terminal (for critical messages)
+
+<Callout type="pro" title="Everything is a File">
+  This is the Zen philosophy of Unix: files on disk, keyboards, monitors, and
+  even network cards are all treated as **File Descriptors**. You can use
+  `write()` to save a document or to send a message over the internet: for the C
+  programmer, the logic is the same.
 </Callout>
 
-<LimitsExplorer 
-  title="Explore System Limits"
-  description="POSIX systems have physical limits on resources."
-/>
+### The Architecture: Ring 3 vs Ring 0
 
-<Infographic 
-  title="Syscall Architecture"
-  description="The path of a piece of data from your code to the Hardware."
+The CPU does not trust your code. Your program runs in **User Mode (Ring 3)**, where it cannot directly touch the disk or other processes' memory. To do so, it must invoke a **System Call**.
+
+<Infographic
+  title="The Jump into the Kernel"
+  description="What happens when you call write()."
   items={[
-    { label: "User Space", value: "Your C code (printf, write)", color: "blue" },
-    { label: "System Call Interface", value: "The portal to the Kernel", color: "purple" },
-    { label: "Kernel Space", value: "Driver and file system management", color: "emerald" },
-    { label: "Hardware", value: "The physical disk or monitor", color: "amber" }
+    {
+      label: "User Space",
+      value: "Your code calls write(). CPU is in Ring 3.",
+      color: "blue",
+    },
+    {
+      label: "Instruction: syscall",
+      value: "The CPU switches mode and jumps into the Kernel (Ring 0).",
+      color: "purple",
+    },
+    {
+      label: "Kernel Handler",
+      description: "The Kernel verifies if you have permission to write.",
+      color: "emerald",
+    },
+    {
+      label: "Hardware Control",
+      value: "The Kernel commands the disk controller to write the bytes.",
+      color: "amber",
+    },
   ]}
 />
 
-<ComparisonTable 
-  title="Standard I/O vs System I/O"
-  headers={["Function", "Type", "Buffering", "Speed"]}
+---
+
+## Standard Library (printf) vs Syscall (write)
+
+Why not use `write` for everything?
+
+<ComparisonTable
+  title="I/O Comparison"
+  headers={["Feature", "C Library (printf)", "System Call (write)"]}
   rows={[
-    ["fopen / fread", "C Library", " Yes", "High for small accesses"],
-    ["open / read", "System Call", "âŒ No", "High for large blocks"]
+    ["Level", "High (User Space)", "Low (Kernel Boundary)"],
+    [
+      "Buffering",
+      "✅ Yes (faster for many small writes)",
+      "❌ No (writes immediately)",
+    ],
+    ["Formatting", "✅ Yes (%d, %s, etc)", "❌ No (raw bytes only)"],
+    ["Overhead", "Minimum (work in RAM)", "High (every call stops the CPU)"],
   ]}
 />
 
-### The Journey of a System Call
-
-When your code calls `write()`, a journey begins through the layers of the operating system.
-
-<WorkflowDiagram 
-  title="Path of the write() System Call"
-  description="How data passes from User Space to Hardware."
-  steps={[
-    { title: "C Call", description: "Your code invokes write(fd, buf, len).", color: "blue" },
-    { title: "Trap/Interrupt", description: "The CPU switches to Kernel mode (Privileged Mode).", color: "purple" },
-    { title: "Kernel Handler", description: "The Kernel verifies permissions and identifies the file.", color: "emerald" },
-    { title: "Hardware Write", description: "Data is physically written to disk or terminal.", color: "amber" }
-  ]}
-/>
-
-<Callout type="pro" title="Ancient but Current">
-The system calls you see here (like `open`) were defined in the 1970s for Unix. Fifty years later, they still power Linux, macOS, and almost the entire global cloud. Learning them means connecting with the "pioneers" of computing.
+<Callout type="pro" title="strace: See the Invisible">
+  The `strace` command is the ultimate tool for C programmers. It allows you to
+  "spy" on every single system call your program makes to the Kernel. You'll see
+  that even a simple `printf("hello")` turns into a `write(1, "hello", 5)`.
 </Callout>
 
-### errno and perror
+---
+
+## Low-Level Programming Exercise
+
+<CodeEditor 
+  initialCode={`#include <unistd.h> // Header for POSIX Syscalls
+#include <string.h>
+#include <errno.h>
+#include <stdio.h>
+
+int main() {
+const char \*msg = "Direct writing to Terminal (fd 1)\\n";
+
+    // write(file_descriptor, buffer, length)
+    // No buffering: data is sent immediately!
+    ssize_t written = write(1, msg, strlen(msg));
+
+    if (written == -1) {
+        // If write fails, errno is set by the Kernel
+        perror("Error in write");
+        return 1;
+    }
+
+    const char *err_msg = "This is an error (fd 2)\\n";
+    write(2, err_msg, strlen(err_msg));
+
+    return 0;
+
+}`}
+language="c"
+/>
 
 ---
 
 ## Exercises
 
-<Quiz 
-  title="Quiz Standard" 
+<Quiz
+  title="Standard Quiz"
   questions={[
     {
-      question: "What type of data does the `open()` function return?",
+      question:
+        "What type of data does the POSIX-specific `open()` function return?",
       options: [
         "A FILE* pointer",
         "An integer (File Descriptor)",
         "A string with the file name",
-        "A boolean"
+        "A success boolean",
       ],
       correctAnswer: 1,
-      explanation: "At a low level, files are identified by an integer called a descriptor."
+      explanation:
+        "At a low level, files are identified by an integer index in the Kernel's open file table.",
     },
     {
-      question: "What is the standard File Descriptor for 'Standard Error'?",
-      options: [
-        "0",
-        "1",
-        "2",
-        "3"
-      ],
-      correctAnswer: 2,
-      explanation: "0=stdin, 1=stdout, 2=stderr."
+      question: "What is the standard File Descriptor for 'Standard Output'?",
+      options: ["0", "1", "2", "3"],
+      correctAnswer: 1,
+      explanation: "0=stdin, 1=stdout, 2=stderr.",
     },
     {
-      question: "What does the global variable `errno` contain?",
+      question: "What technically happens during a System Call?",
       options: [
-        "The number of lines written",
-        "The numerical code of the last error that occurred in a system call",
-        "The memory address of the program",
-        "Nothing, it's a myth"
+        "The program doubles its RAM",
+        "The CPU switches from User Mode (Ring 3) to Kernel Mode (Ring 0)",
+        "A log is printed in the terminal",
+        "Nothing, it's just a normal function",
       ],
       correctAnswer: 1,
-      explanation: "When a syscall fails, it sets errno with a specific code (e.g., ENOENT for file not found)."
+      explanation:
+        "It is a privileged state change necessary to allow the Kernel to manage hardware safely.",
     },
-    {
-      question: "What is the main advantage of using `write()` compared to `fprintf()`?",
-      options: [
-        "It's easier to use",
-        "It's faster and has no buffering or formatting overhead (ideal for critical systems)",
-        "It can only write to text files",
-        "None"
-      ],
-      correctAnswer: 1,
-      explanation: "write() sends data directly to the kernel without waiting for an internal buffer to fill up."
-    },
-    {
-      question: "What happens if you forget to include `<unistd.h>` while using `read` or `write`?",
-      options: [
-        "The compiler gives an 'implicit declaration' error (or linking fails)",
-        "The program works but is slow",
-        "The operating system blocks execution",
-        "It is included automatically"
-      ],
-      correctAnswer: 0,
-      explanation: "unistd.h defines the prototypes for standard POSIX functions for interacting with the OS."
-    }
-  ]} 
+  ]}
 />
 
-<Quiz 
+<Quiz
   title="Pro Challenge"
   questions={[
     {
-      id: 1,
-      question: "Why do we use the `0` prefix in `open` permissions (e.g., `0644`)?",
+      question:
+        "Why is `printf` usually faster than calling `write` for every single character?",
       options: [
-        "It's a typo",
-        "To indicate to the compiler that the number is in OCTAL (base 8) format",
-        "Because files always start at 0",
-        "For security reasons"
+        "Because `write` is buggy",
+        "Because `printf` accumulates characters in a buffer and makes a single final syscall, reducing expensive Kernel transitions",
+        "Because `printf` doesn't use the Kernel",
+        "Because it's written in C++",
       ],
       correctAnswer: 1,
-      explanation: "Unix permissions (rwx) are grouped into triplets of bits, so base 8 is perfect for representing them."
+      explanation:
+        "Every transition between User and Kernel Mode costs time (CPU cycles); minimizing syscalls is vital for performance.",
     },
     {
-      id: 2,
-      question: "What does POSIX stand for?",
+      question: "What is the `strace` utility used for on Linux?",
       options: [
-        "Program Open System Interface",
-        "Portable Operating System Interface (a standard for interoperability among Unix systems)",
-        "Position of Internal X-system",
-        "Point of Sale Interface"
+        "To format code",
+        "To trace and list all System Calls made by a running binary",
+        "To increase disk speed",
+        "To encrypt files",
       ],
       correctAnswer: 1,
-      explanation: "It is the set of rules that ensures code written on Linux also works on macOS or BSD."
+      explanation:
+        "It is the fundamental tool for understanding what a program is 'asking' the operating system.",
     },
-    {
-      id: 3,
-      question: "In which section of the Linux manual (`man`) are System Calls found?",
-      options: [
-        "Section 1",
-        "Section 2",
-        "Section 3",
-        "Section 8"
-      ],
-      correctAnswer: 1,
-      explanation: "man 1=commands, man 2=syscalls, man 3=C libraries."
-    }
-  ]} 
+  ]}
 />
 
-<ProTerminal 
+<ProTerminal
   challenges={[
     {
       id: "man-syscall-en",
       title: "The Kernel Manual",
-      description: "Use the `man` command to read the documentation for the `read` syscall. Specify the correct section.",
+      description:
+        "How do you open the manual page for the `read` system call (Section 2) avoiding accidentally opening the bash command one?",
       commands: ["man 2 read"],
       expectedOutput: "READ(2)",
-      hints: ["Section 2 is dedicated to system calls."]
+      hints: ["Section 2 is dedicated to system calls."],
     },
     {
-      id: "strace-write-en",
-      title: "Spying on the Program",
-      description: "Write a program that uses `write()` and use `strace` to confirm that the call actually occurs.",
-      commands: ["strace ./program | grep write"],
-      expectedOutput: "write(3, \"Greetings",
-      hints: ["strace intercepts syscalls in real time."]
+      id: "strace-grep-en",
+      title: "Spy in the Kernel",
+      description:
+        "Use `strace` to see only the write function call of a program called `./test`.",
+      commands: ["strace -e write ./test"],
+      expectedOutput: 'write(1, "ciao\\n", 5)',
+      hints: ["You can use -e to filter calls: strace -e write ./test"],
     },
-    {
-      id: "errno-list-en",
-      title: "Error Catalog",
-      description: "Use the `errno -l` command (if installed) or search system header files to find where error names are defined.",
-      commands: ["grep -R \"EACCES\" /usr/include"],
-      expectedOutput: "#define EACCES",
-      hints: ["EACCES is the 'Permission Denied' error."]
-    }
   ]}
 />
 
 ### Final Summary
-We have broken through the wall of the standard library. You now know that every time you write something to the screen or disk, you are asking for the Kernel's permission. Mastering syscalls means having total control over the machine.
 
-
+We have broken through the wall of the standard library. You now know that every time you write something to the screen or disk, you are asking for the Kernel's permission. Mastering syscalls means having total control over the machine and understanding how the Linux/Unix world really works.

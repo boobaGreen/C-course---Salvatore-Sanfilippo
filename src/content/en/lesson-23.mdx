@@ -1,250 +1,218 @@
-﻿import VideoEmbed from '../../components/content/VideoEmbed';
-import Callout from '../../components/content/Callout';
-import KeyConcepts from '../../components/content/KeyConcepts';
-import CodeEditor from '../../components/exercises/CodeEditor';
-import Quiz from '../../components/exercises/Quiz';
-import ProTerminal from '../../components/content/ProTerminal';
-import Infographic from '../../components/content/Infographic';
-import ComparisonTable from '../../components/content/ComparisonTable';
+﻿import VideoEmbed from "../../components/content/VideoEmbed";
+import Callout from "../../components/content/Callout";
+import KeyConcepts from "../../components/content/KeyConcepts";
+import CodeEditor from "../../components/exercises/CodeEditor";
+import Quiz from "../../components/exercises/Quiz";
+import ProTerminal from "../../components/content/ProTerminal";
+import Infographic from "../../components/content/Infographic";
+import ComparisonTable from "../../components/content/ComparisonTable";
 
-# Lesson 23: Stack-based Interpreter (ToyFort)
+# Lesson 23: Designing an Interpreter (ToyFort)
 
-Welcome to the "evolved" phase of the course. After building a solid foundation in C, it's time to create something real: a **programming language interpreter**. In this lesson, we'll start writing **ToyFort**, a language inspired by FORTH that uses a stack for every operation.
+Welcome to the "architectural" phase of the course. After mastering pointers and memory, it's time to build something real: a **programming language interpreter**. In this lesson, we'll lay the foundations of **ToyFort**, a language inspired by FORTH where the duality between data and code becomes reality.
 
-<VideoEmbed videoId="vYODKK8TQGE" title="Lesson 23: Stack-based Interpreter (ToyFort)" />
+<VideoEmbed videoId="vYODKK8TQGE" title="Lesson 23: ToyFort Design" />
 
-<KeyConcepts concepts={[
-  { title: "Stack-based Languages", description: "Languages where values are saved in a stack. Functions (words) take parameters from the stack and push the result back." },
-  { title: "Recursive Data Structures", description: "Defining objects that can contain other objects of the same type (e.g., a list of lists)." },
-  { title: "Lifecycle: Compile & Exec", description: "Methodically transforming a text string into a list of objects ready to be executed by the interpreter." },
-  { title: "Bootstrapping (Argv)", description: "Using argc and argv to load the program and understanding how the interpreter can change behavior based on the binary name." }
-]} />
+<KeyConcepts
+  concepts={[
+    {
+      title: "Stack-based Philosophy",
+      description:
+        "Languages that use a pile (LIFO) as main memory. Functions (words) consume data and produce results directly on the stack.",
+    },
+    {
+      title: "Recursive Data Structures",
+      description:
+        "The TFObject: a union that can contain integers, strings, or lists of other TFObjects, allowing infinite complexity.",
+    },
+    {
+      title: "Memory Management (Refcount)",
+      description:
+        "Applying reference counting to an entire object ecosystem to avoid leaks and double-free errors.",
+    },
+    {
+      title: "Bootstrapping & Argv",
+      description:
+        "How to load source code from the external environment (OS) and prepare the execution context.",
+    },
+  ]}
+/>
 
-## The Stack and ToyFort Logic
+## Object Architecture: TFObject
 
-In ToyFort, if you want to add 5 and 5, you write `5 5 +`. 
-1. `5` is pushed onto the stack.
-2. Another `5` is pushed onto the stack.
-3. `+` pops the two 5s, adds them, and pushes `10` onto the stack.
+To represent a language, we need a universal data type. In ToyFort, we use a `struct` that encloses a `union`.
 
-### Visualizing the Stack Flow
+<Callout type="pro" title="Hardware Efficiency">
+  By using a `union` inside `TFObject`, we ensure that each object only takes up
+  the memory of the largest type (usually the list or string), regardless of
+  whether it contains just a small integer. This optimization allows languages
+  like Python or Ruby to manage millions of objects.
+</Callout>
 
-<Infographic 
-  title="Example: 5 DUP +"
-  description="How the stack changes during execution."
+### Anatomy of a Heterogeneous List
+
+The `TFObject **ele` field is fundamental: it's an array of pointers. Why not an array of objects?
+
+1. **Heterogeneity**: Each cell can point to a different object type.
+2. **Sharing**: Multiple lists can point to the same object (thanks to `ref_count`).
+3. **Recursion**: A list can contain another list, creating execution trees.
+
+---
+
+## Stack-based Logic: RPN (Reverse Polish Notation)
+
+Forget parentheses. In ToyFort, you write `5 5 +`.
+
+1. The CPU (via our interpreter) pushes 5 onto the stack.
+2. It pushes another 5.
+3. When it encounters `+`, it pops the last two, adds them, and pushes the result back.
+
+<Infographic
+  title="Hydraulic Stack Flow"
+  description="How data moves in ToyFort."
   items={[
-    { label: "Step 1: 5", value: "Stack: [5]", color: "blue" },
-    { label: "Step 2: DUP", value: "Stack: [5, 5]", color: "purple" },
-    { label: "Step 3: +", value: "Stack: [10]", color: "emerald" }
+    { label: "Push 10", value: "Stack: [10]", color: "blue" },
+    { label: "Push 20", value: "Stack: [10, 20]", color: "purple" },
+    { label: "Execute '+'", value: "Stack: [30]", color: "emerald" },
   ]}
 />
 
 ---
 
-## Designing Objects (TFObject)
+## Implementation: xmalloc and Safety
 
-To represent ToyFort's data (integers, strings, symbols, lists), we use **Unions** and **Reference Counting** learned in previous lessons.
+<CodeEditor 
+  initialCode={`#include <stdio.h>
+#include <stdlib.h>
 
-### ToyFort Object Design
+// Safety wrapper: if memory runs out, the program stops instead of crashing badly
+void *xmalloc(size_t size) {
+void *p = malloc(size);
+if (!p) {
+fprintf(stderr, "FATAL: Out of memory\\n");
+exit(1);
+}
+return p;
+}
 
-To manage different types (numbers, strings, lists), we use a `struct` with an internal `union` and an `enum` to distinguish the type.
+typedef enum { TF_INT, TF_STR, TF_LIST } TFType;
 
-<Infographic 
-  title="TFObject Anatomy"
-  description="How ToyFort packs heterogeneous data into a single object."
-  items={[
-    { label: "Type (TFType)", value: "Enum indicating if it's INT, STR, SYM, or LIST", color: "blue" },
-    { label: "Ref Count", value: "Automatic memory management (Lesson 13)", color: "purple" },
-    { label: "Data (Union)", value: "Takes the space of the largest element", color: "emerald" }
-  ]}
+struct TFObject {
+TFType type;
+int ref_count;
+union {
+long long i;
+char \*s;
+struct {
+struct TFObject \*\*ele;
+int len;
+} list;
+};
+};
+
+int main() {
+printf("TFObject ready for allocation!\\n");
+return 0;
+}`}
+language="c"
 />
-
-<Callout type="pro" title="Why two asterisks?">
-`TFObject **ele` is a pointer to an array of pointers. In C, to have a list that contains objects of different types (heterogeneous), we don't save the objects directly but their addresses. By removing one asterisk (`ele[0]`), we get the pointer to the individual object.
-</Callout>
-
-### Initialization and Loading
-
-The interpreter reads the program from a string and allocates the necessary objects.
-
-<Infographic 
-  title="Interpreter Bootstrapping"
-  description="The ToyFort startup process."
-  items={[
-    { label: "Argv[1]", value: "Source code passed from the terminal", color: "blue" },
-    { label: "Context", value: "Allocation of the global TFContext structure", color: "emerald" },
-    { label: "Eval Loop", description: "Start of the 'Read-Eval-Print' cycle", color: "amber" }
-  ]}
-/>
-
-<Callout type="pro" title="Continuous Evolution">
-  By this point, our interpreter is 'alive.' It may not look different from scripts in early lessons, but the difference is radical: we now have a system that **interprets** and **executes** arbitrary user-defined instructions.
-</Callout>
-
-<Callout type="tip" title="xmalloc & Panic">
-Salvatore introduces `xmalloc`: a wrapper around `malloc` that halts the program if memory runs out. It's a common practice in systems where handling out-of-memory errors gracefully is not feasible.
-</Callout>
-
----
-
-## Flow Control: Stack-based IF-ELSE
-
-Salvatore explains how to implement a conditional using lists as "sub-programs". In ToyFort, the `IF` instruction (or rather `IF-ELSE`) pops three elements from the stack:
-1. A list representing the **false** branch.
-2. A list representing the **true** branch.
-3. A boolean (**condition**).
-
-<ComparisonTable 
-  title="Executing IF-ELSE"
-  headers={["Step", "Stack Action", "Result"]}
-  rows={[
-    ["Input", "Push [FALSE_BRANCH] [TRUE_BRANCH] COND", "Stack ready"],
-    ["Execute IF", "Pop 3 elements", "Only the correct branch is 'evaluated'"],
-    ["Example", "10 20 < [ \"True\" ] [ \"False\" ] IF", "Stack contains \"True\""]
-  ]}
-/>
-
-<Callout type="info" title="Deep Dive: argv[0] and Symbolic Links">
-During the lesson, Salvatore goes on a detour about how programs (like `ls` or `vim`) can change their behavior based on the name they are called by (using `argv[0]`). This is possible thanks to symbolic links in Unix and is a powerful technique for system bootstrapping.
-
-### Memory and Recursion
-Notice how `TFObject` can contain a list of other `TFObject`s. This recursive structure is fundamental for representing the programs themselves: a ToyFort program is a list of "words," which can themselves be lists (like the branches of an IF).
-</Callout>
 
 ---
 
 ## Exercises
 
-<Quiz 
-  title="Quiz Standard" 
+<Quiz
+  title="Standard Quiz"
   questions={[
     {
-      question: "What does it mean for a language to be 'Stack-based'?",
+      question: "Why do we use `TFObject **` (double pointer) for lists?",
       options: [
-        "It uses a lot of CPU stack memory",
-        "Operations read and write data in a LIFO logic stack",
-        "It cannot use global variables",
-        "It is written in C"
+        "Because of a mistake by Salvatore",
+        "To manage a dynamic array of pointers to heterogeneous objects",
+        "Because C lists always require two asterisks",
+        "To double the speed",
       ],
       correctAnswer: 1,
-      explanation: "LIFO (Last In, First Out) is the fundamental logic of ToyFort: the last value entered is the first to be used by functions."
+      explanation:
+        "It allows the list to contain addresses of different objects (ints, strings, etc.) saved in various places in RAM.",
     },
     {
-      question: "What is the effect of the command `5 DUP *` in ToyFort?",
+      question: "What happens when an object's `ref_count` reaches 0?",
       options: [
-        "Pushes 5 and then deletes it",
-        "Squares 5 (pushes 25 onto the stack)",
-        "Adds 5 + 5",
-        "Prints 5 twice"
+        "The object is duplicated",
+        "The object is reloaded",
+        "The object must be deallocated (freed) because no one is using it anymore",
+        "The program stops",
       ],
-      correctAnswer: 1,
-      explanation: "DUP duplicates the 5, * multiplies the two 5s at the top of the stack."
+      correctAnswer: 2,
+      explanation:
+        "This is the principle of Reference Counting for automatic memory management.",
     },
     {
-      question: "Why do we use `struct TFObject **ele` for lists?",
-      options: [
-        "It is a typo",
-        "Because a list is an array of pointers to objects, allowing heterogeneity",
-        "Because lists are faster with two asterisks",
-        "For Windows compatibility"
-      ],
+      question: "What is the result of `10 2 5 * +` in ToyFort?",
+      options: ["60", "20 (2*5=10, 10+10=20)", "17", "Syntax error"],
       correctAnswer: 1,
-      explanation: "An array of pointers allows the list to simultaneously contain an integer, a string, or another list."
+      explanation:
+        "10 stays at the bottom, 2 and 5 are multiplied (10), then 10 and 10 are added.",
     },
-    {
-      question: "What is the `ref_count` field in TFObject used for?",
-      options: [
-        "To count how many times the function is called",
-        "To manage memory semi-automatically, deleting the object when no one uses it anymore",
-        "To count how many bits the object occupies",
-        "It is the serial number of the object"
-      ],
-      correctAnswer: 1,
-      explanation: "Reference Counting allows sharing the same object across multiple lists or stacks without duplicating it in RAM."
-    },
-    {
-      question: "What does the `xmalloc` function do?",
-      options: [
-        "Allocates extra memory",
-        "It's a malloc that terminates the program on error (Out of Memory)",
-        "Freely frees memory automatically",
-        "Encrypts allocated data"
-      ],
-      correctAnswer: 1,
-      explanation: "It simplifies the code by avoiding thousands of `if (ptr == NULL)` checks scattered throughout the program."
-    }
-  ]} 
+  ]}
 />
 
-<Quiz 
+<Quiz
   title="Pro Challenge"
   questions={[
     {
-      question: "In ToyFort, how would you write the expression `(3 + 4) * 2`?",
+      question:
+        "In ToyFort's design, how is a code block (e.g., an IF branch) represented?",
       options: [
-        "3 + 4 * 2",
-        "3 4 + 2 *",
-        "* + 3 4 2",
-        "2 3 4 + *"
+        "As a text string",
+        "As a list of TFObjects (Data = Code)",
+        "As an external file",
+        "As a C function pointer",
       ],
       correctAnswer: 1,
-      explanation: "In postfix notation (RPN): push 3 and 4, execute +, push 2, execute *. Result 14."
+      explanation:
+        "This is the power of homoiconic languages: code is saved in the same data structures as data.",
     },
     {
-      question: "If we implement IF as `condition [true_branch] [false_branch] IF`, what must the IF function do internally?",
+      question:
+        "Why do we use `long long` for integers in `TFObject` instead of a simple `int`?",
       options: [
-        "Execute both branches",
-        "Pop 3 elements, check the boolean, and execute the corresponding list",
-        "Print an error",
-        "Restart the interpreter"
+        "To take up more space",
+        "To guarantee 64-bit precision and be able to host tagged pointers",
+        "Because Salvatore prefers long names",
+        "Because 'int' doesn't work in unions",
       ],
       correctAnswer: 1,
-      explanation: "The IF in ToyFort consumes the condition and the two code blocks (lists) from the stack, deciding which one to 'evaluate' (exec)."
+      explanation:
+        "On modern 64-bit systems, using long long allows for better data alignment and handling very large numbers.",
     },
-    {
-      question: "Why is an anonymous union useful in `TFObject`?",
-      options: [
-        "Because it is more secure",
-        "To access fields directly (e.g., `obj->i`) without having to write the intermediate union name",
-        "Because it takes up less space than a normal union",
-        "It is not possible to use anonymous unions in C"
-      ],
-      correctAnswer: 1,
-      explanation: "It greatly simplifies the code syntax in the interpreter, making it more readable and similar to a high-level language."
-    }
-  ]} 
+  ]}
 />
 
-<ProTerminal 
+<ProTerminal
   challenges={[
     {
-      id: "stack-visual-en",
-      title: "Stack Trace",
-      description: "Given the program `10 20 SWAP -`, what value remains in the stack at the end? (SWAP swaps the two elements at the top)",
-      commands: ["10"],
-      expectedOutput: "10",
-      hints: ["10, 20 -> SWAP -> 20, 10 -> Subtract 20 - 10."]
+      id: "refcount-check-en",
+      title: "Memory Logic",
+      description:
+        "If you add the same object `A` to two different lists, what should be its final `ref_count`?",
+      commands: ["2"],
+      expectedOutput: "2",
+      hints: ["Every reference (pointer) increases the count."],
     },
     {
-      id: "type-detect-en",
-      title: "Type Detection",
-      description: "In Salvatore's parser, if a word starts with '\"', what type of object is created?",
-      commands: ["TF_STR"],
-      expectedOutput: "TF_STR",
-      hints: ["Quotes delimit strings."]
+      id: "argv-zero-en",
+      title: "Program Name",
+      description:
+        "What is the value of `argv[0]` if you launch the interpreter with the command `./toyfort`?",
+      commands: ["toyfort"],
+      expectedOutput: "toyfort",
+      hints: ["argv[0] always contains the path/name of the executed binary."],
     },
-    {
-      id: "recursive-list-en",
-      title: "List Depth",
-      description: "How many asterisks would be needed to declare a pointer to an array of pointers to objects if we didn't use typedefs?",
-      commands: ["**"],
-      expectedOutput: "**",
-      hints: ["It's a pointer to the base of an array of pointers."]
-    }
   ]}
 />
 
 ### Final Summary
-We have broken the last barrier between code and data. Function pointers allow us to create flexible systems, universal algorithms, and even emulate object-oriented behavior in pure C. It is the secret that lets libraries like the standard library be so powerful and reusable.
 
-
+We have designed the 'DNA' of our programming language. Understanding how to model types and memory recursively is what distinguishes a C programmer from a systems architect. In the next lesson, we will bring these objects to life by making them 'run'.

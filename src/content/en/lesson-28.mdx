@@ -1,300 +1,210 @@
-﻿import VideoEmbed from '../../components/content/VideoEmbed';
-import Callout from '../../components/content/Callout';
-import KeyConcepts from '../../components/content/KeyConcepts';
-import CodeEditor from '../../components/exercises/CodeEditor';
-import Quiz from '../../components/exercises/Quiz';
-import ProTerminal from '../../components/content/ProTerminal';
-import Infographic from '../../components/content/Infographic';
-import ComparisonTable from '../../components/content/ComparisonTable';
-import FormatStringExploit from '../../components/games/FormatStringExploit';
+﻿import VideoEmbed from "../../components/content/VideoEmbed";
+import Callout from "../../components/content/Callout";
+import KeyConcepts from "../../components/content/KeyConcepts";
+import CodeEditor from "../../components/exercises/CodeEditor";
+import Quiz from "../../components/exercises/Quiz";
+import ProTerminal from "../../components/content/ProTerminal";
+import Infographic from "../../components/content/Infographic";
+import ComparisonTable from "../../components/content/ComparisonTable";
+import FormatStringExploit from "../../components/games/FormatStringExploit";
 
-# Lesson 28: Variadic Functions and stdarg.h
+# Lesson 28: Variadic Functions and Stack Physics
 
-How does `printf` accept an infinite number of arguments? In this lesson, we'll discover the secret of **Variadic Functions** in C and how to use them to build powerful tools, like a custom logging system for our interpreter.
+How does `printf` accept an infinite number of arguments? In this lesson, we'll discover the secret of **Variadic Functions** in C by analyzing how the CPU organizes memory during a call and how to protect yourself from the language's most insidious vulnerabilities.
 
 <VideoEmbed videoId="nHzlRqPnlrE" title="Lesson 28: Variadic Functions" />
 
-<KeyConcepts concepts={[
-  { title: "The '...' Syntax", description: "The ellipsis that tells the compiler that the function accepts extra arguments." },
-  { title: "va_list and va_start", description: "The mandatory macros to initialize access to variable arguments." },
-  { title: "printf Wrappers", description: "How to 'package' standard printing functions to add features (e.g., timestamps or prefixes)." }
-]} />
-
----
-
-## Anatomy of a Variadic Function
-
-To declare a variadic function, you need at least one "fixed" argument followed by the ellipsis `...`.
-
-```c
-#include <stdarg.h>
-
-void log_error(const char *fmt, ...) {
-    va_list ap;
-    va_start(ap, fmt); // Starts after 'fmt'
-    
-    // ... extracting arguments ...
-    
-    va_end(ap); // Mandatory cleanup
-}
-```
-
-<Callout type="warning" title="The Importance of va_end">
-Never forget `va_end(ap)`. While it does nothing on many architectures, on some platforms it's critical to avoid stack corruption or memory leaks.
-</Callout>
-
----
-
-## The Delegation Pattern: `vprintf`
-
-There is a limit to variadic functions: you cannot pass the three dots (`...`) from one function to another like a normal variable. If you want to write a wrapper for `printf`, you must use its "sister" version that accepts a `va_list`: the `vprintf` function.
-
-<Infographic 
-  title="Variadic Delegation"
-  type="process"
-  data={[
-    { label: "Your Function (log_error)", detail: "Receives ... and initializes va_list" },
-    { label: "Delegation", detail: "Passes va_list to vprintf" },
-    { label: "Standard Library", detail: "vprintf consumes the list and prints" }
+<KeyConcepts
+  concepts={[
+    {
+      title: "Calling Conventions",
+      description:
+        "Understand how arguments are 'pushed' onto the stack or registers (AMD64) before entering a function.",
+    },
+    {
+      title: "stdarg.h & Macros",
+      description:
+        "Using `va_list`, `va_start`, and `va_arg` to navigate the stack in search of variable parameters.",
+    },
+    {
+      title: "Delegation (vprintf)",
+      description:
+        "Why you cannot pass '...' to another function and how to use pointers to the argument list instead.",
+    },
+    {
+      title: "Format String Security",
+      description:
+        "The physics behind one of C's most famous exploits: how a user can read or write RAM via a mismanaged printf.",
+    },
   ]}
 />
 
-<CodeEditor 
-  initialCode={`#include <stdarg.h>
-#include <stdio.h>
-
-// A wrapper that adds a prefix to every message
-void log_error(const char *fmt, ...) {
-    va_list ap;
-    va_start(ap, fmt);
-    
-    printf("[TOYFORT ERROR]: ");
-    vprintf(fmt, ap); // DELEGATION
-    printf("\\n");
-    
-    va_end(ap);
-}`}
-  language="c"
-/>
-
 ---
 
-## Practical Example: Centered Text
+## The Physics of the Call: Calling Conventions
 
-Salvatore shows how to use these functions to manipulate output creatively, for example, by centering text in the terminal.
+When you call a variadic function, the CPU follows a **Calling Convention** (like System V on Linux or cdecl on Windows).
 
-<CodeEditor 
-  initialCode={`#include <stdio.h>
-#include <stdarg.h>
-#include <string.h>
-
-void print_centered(int width, const char *fmt, ...) {
-    char buffer[1024];
-    va_list ap;
-    
-    va_start(ap, fmt);
-    vsnprintf(buffer, sizeof(buffer), fmt, ap);
-    va_end(ap);
-    
-    int len = strlen(buffer);
-    int padding = (width - len) / 2;
-    
-    for (int i = 0; i < padding; i++) putchar(' ');
-    printf("%s\\n", buffer);
-}`}
-  language="c"
-/>
-
-<Callout type="warning" title="Type Safety">
-Warning: `va_arg` has no idea what is actually on the stack. If you tell it to extract an `int` but the user passed a string, the program won't give a compilation error, but it will **Segmentation Fault** or corrupt memory at runtime!
+<Callout type="pro" title="Why does va_start require the last fixed parameter?">
+  The CPU needs a reference point (an anchor). `va_start` takes the address of
+  the last fixed parameter on the stack and adds an **offset** to find the first
+  variable parameter. Without that anchor, the function would be 'groping in the
+  dark' within RAM.
 </Callout>
 
+### Registers vs. Stack
+
+On modern 64-bit systems (x86_64), the first 6 arguments are typically passed in **registers** (RDI, RSI, RDX...). If the function is variadic, the compiler must often 'dump' these registers into a special stack area called the **Register Save Area** to allow `va_list` to navigate them.
+
 ---
 
-## Extracting Arguments with `va_arg`
+## Delegation: The `vprintf` Pattern
 
-In C, the function doesn't automatically know "how many" arguments were passed. We must tell it through a format (like in printf) or a terminator.
+You cannot pass the three dots `...` from one function to another. In C, variadics "die" in the function that receives them, unless you use delegation via `va_list`.
 
-<CodeEditor 
-  initialCode={`#include <stdio.h>
-#include <stdarg.h>
-
-void print_numbers(int count, ...) {
-    va_list ap;
-    va_start(ap, count);
-    
-    for (int i = 0; i < count; i++) {
-        int num = va_arg(ap, int); // Specify the TYPE!
-        printf("Arg %d: %d\\n", i, num);
-    }
-    
-    va_end(ap);
-}
-
-int main() {
-    print_numbers(3, 10, 20, 30);
-    return 0;
-}`}
-  language="c"
+<Infographic
+  title="Delegation Flow"
+  description="How to transport variable arguments."
+  items={[
+    {
+      label: "1. Pack",
+      value: "va_start packs everything into ap (va_list)",
+      color: "blue",
+    },
+    {
+      label: "2. Transport",
+      value: "Pass 'ap' to vprintf() or vsnprintf()",
+      color: "purple",
+    },
+    {
+      label: "3. Unpack",
+      value: "The final function unwinds the list and prints",
+      color: "emerald",
+    },
+  ]}
 />
 
-<Callout type="pro" title="Zero Type Safety">
-Warning: `va_arg` doesn't check if the type is correct! If you pass a `double` but ask for an `int`, you'll get garbage values or a crash. It is the programmer's responsibility to ensure consistency.
+### Example: Professional Logger
+
+```c
+void my_log(const char *level, const char *fmt, ...) {
+    va_list ap;
+    va_start(ap, fmt);
+    printf("[%s] ", level);
+    vprintf(fmt, ap); // The only way to pass variadics!
+    va_end(ap);
+}
+```
+
+---
+
+## Security: The Format String Attack
+
+<Callout type="danger" title="Golden Rule of Security">
+  NEVER do `printf(user_input)`. If a user enters `%x %x %x`, they will see the
+  secret content of your stack (passwords, keys). If they enter `%n`, they could
+  even overwrite the return address and take control of the PC. Always use
+  `printf("%s", user_input)`.
 </Callout>
 
 <FormatStringExploit />
 
 ---
 
-## Creating Printf Wrappers
+## Exercises
 
-One of the most common uses is `vprintf`, which takes a `va_list` instead of loose variable arguments. This allows you to create your own version of printf.
-
-<Infographic 
-  title="The Journey of a Log"
-  description="How to pass variable arguments between functions."
-  items={[
-    { label: "1. Call", value: "User calls my_printf('Error %d', 404)", color: "blue" },
-    { label: "2. Pack", value: "va_start packs 404 into a va_list", color: "purple" },
-    { label: "3. Delegation", value: "We pass the va_list to vprintf()", color: "amber" },
-    { label: "4. Output", value: "vprintf prints the final format", color: "emerald" }
+<Quiz
+  title="Standard Quiz"
+  questions={[
+    {
+      question: "Which macro initializes access to variable arguments?",
+      options: ["va_begin", "va_start", "va_init", "va_open"],
+      correctAnswer: 1,
+      explanation:
+        "va_start(ap, last_fixed) prepares the va_list structure for reading.",
+    },
+    {
+      question:
+        "What happens if you call `va_arg` with the wrong type (e.g., asking for an int when it's a double)?",
+      options: [
+        "The compiler throws an error",
+        "It returns 0",
+        "Undefined Behavior: you'll read random values, corrupting the stack state",
+        "It automatically converts the value",
+      ],
+      correctAnswer: 2,
+      explanation:
+        "Variadic functions are 'blind' to types. Consistency is entirely the programmer's responsibility.",
+    },
+    {
+      question: "What is the purpose of `va_end`?",
+      options: [
+        "To free heap memory",
+        "To close the output stream",
+        "To clean up the 'ap' macro state to ensure portability across different architectures",
+        "None, it is optional",
+      ],
+      correctAnswer: 2,
+      explanation:
+        "On some CPUs, va_end resets the stack pointer or clears special registers. Omitting it is a serious error.",
+    },
   ]}
 />
 
----
-
-## Exercises
-
-<Quiz 
-  title="Quiz Standard" 
-  questions={[
-    {
-      question: "Which header is needed for variadic functions?",
-      options: [
-        "stdio.h",
-        "stdarg.h",
-        "vararg.h",
-        "stdlib.h"
-      ],
-      correctAnswer: 1,
-      explanation: "stdarg.h (Standard Arguments) contains the macros va_list, va_start, va_arg, and va_end."
-    },
-    {
-      question: "What does the ellipsis '...' indicate in a function signature?",
-      options: [
-        "That the function is incomplete",
-        "That it accepts a variable number of arguments",
-        "That the function is a pointer",
-        "That it must be called recursively"
-      ],
-      correctAnswer: 1,
-      explanation: "The eliditica syntax signals the compiler not to check the number and type of arguments after the fixed ones."
-    },
-    {
-      question: "What is `va_list`?",
-      options: [
-        "A string array",
-        "A special type that holds information about variable arguments",
-        "A function that prints lists",
-        "A macro that terminates the program"
-      ],
-      correctAnswer: 1,
-      explanation: "It is an opaque data type that manages progress while reading arguments from the stack."
-    },
-    {
-      question: "What does `va_arg(ap, double)` do?",
-      options: [
-        "Converts an int to double",
-        "Extracts the next argument treating it as a double",
-        "Moves the cursor to the beginning of the list",
-        "Deletes the last argument"
-      ],
-      correctAnswer: 1,
-      explanation: "It extracts the value and simultaneously moves the internal pointer by `sizeof(double)` bytes."
-    },
-    {
-      question: "What is the primary limitation of variadic functions in C?",
-      options: [
-        "They can only have 10 arguments",
-        "They offer no type-safety (do not know the actual type of passed arguments)",
-        "They are slower than loops",
-        "They cannot be used with pointers"
-      ],
-      correctAnswer: 1,
-      explanation: "C does not save type metadata at runtime; if you read a type wrongly with va_arg, you corrupt access to all subsequent arguments."
-    }
-  ]} 
-/>
-
-<Quiz 
+<Quiz
   title="Pro Challenge"
   questions={[
     {
-      question: "Why does `va_start` require the name of the last fixed argument?",
+      question: "Why is `vprintf` fundamental for writing logging wrappers?",
       options: [
-        "Only for documentation",
-        "To know where to start extraction in the stack (offset)",
-        "Because the POSIX standard requires it",
-        "To initialize the random number generator"
+        "It's faster than printf",
+        "It allowed passing a va_list collected in one function to another for printing",
+        "It supports colors",
+        "It doesn't use the stack",
       ],
       correctAnswer: 1,
-      explanation: "The compiler needs to know where the known part of the stack ends to calculate the address of the first variable argument."
+      explanation:
+        "Without the v-series (vprintf, vsnprintf), you could never pass the '...' arguments received by your logger to the system function.",
     },
     {
-      question: "What is the difference between `printf` and `vprintf`?",
+      question:
+        "In a format string attack, what is the purpose of the `%n` specifier?",
       options: [
-        "vprintf is faster",
-        "vprintf takes a va_list instead of variable arguments (...) directly",
-        "printf does not support numbers",
-        "They are identical, only the name changes"
+        "To print a number",
+        "To write the number of characters printed so far into a memory address pointed to by an argument",
+        "To generate a new error",
+        "To create a newline",
       ],
       correctAnswer: 1,
-      explanation: "vprintf is the 'delegated' version: it is essential for writing wrappers because you cannot easily pass '...' from one function to another."
+      explanation:
+        "%n is the only printf specifier that WRITES to memory instead of reading. It is the atomic weapon for exploits.",
     },
-    {
-      question: "What happens if you call `va_arg` more times than arguments were actually passed?",
-      options: [
-        "You get 0",
-        "The program crashes or reads random stack values (Undefined Behavior)",
-        "It returns a NULL error",
-        "An exception is thrown"
-      ],
-      correctAnswer: 1,
-      explanation: "C doesn't know when arguments end; it will keep reading bytes from the stack, causing unpredictable behavior."
-    }
-  ]} 
-/>
-
-<ProTerminal 
-  challenges={[
-    {
-      id: "stdarg-init-en",
-      title: "Initialization",
-      description: "Declare a variable to manage variable arguments: '_______ ap;'",
-      commands: ["va_list"],
-      expectedOutput: "va_list",
-      hints: ["It's the type defined in stdarg.h."]
-    },
-    {
-      id: "va-syntax-en",
-      title: "Variadic Signature",
-      description: "Complete the signature: 'void my_func(int n, ___)'",
-      commands: ["..."],
-      expectedOutput: "...",
-      hints: ["Three dots (ellipsis)."]
-    },
-    {
-      id: "vformat-check-en",
-      title: "Wrapper Power",
-      description: "Which function do you use to print a va_list to a string? 'vsn______'",
-      commands: ["printf"],
-      expectedOutput: "printf",
-      hints: ["vsnprintf (Variadic-Size-Next-Printf)."]
-    }
   ]}
 />
 
-### Conclusion
-Variadic functions are the "magic" behind C's flexibility. Now we are ready to implement a professional error management system in our ToyFort interpreter!
+<ProTerminal
+  challenges={[
+    {
+      id: "va-list-type-en",
+      title: "Opaque Type",
+      description:
+        "What data type must be declared to manage variable parameters in stdarg.h?",
+      commands: ["va_list"],
+      expectedOutput: "va_list",
+      hints: ["Starts with 'v'."],
+    },
+    {
+      id: "printf-unsafe-en",
+      title: "Hardware Security",
+      description:
+        "If a user enters '%p %p %p' in an unprotected printf, what will they see on the terminal?",
+      commands: ["addresses"],
+      expectedOutput: "addresses",
+      hints: ["%p prints pointers (which are memory addresses)."],
+    },
+  ]}
+/>
 
+### Final Summary
 
+We've explored the bridge between C's extreme flexibility and the physical rigidity of the CPU stack. Variadic functions are a powerful but "blind" tool: it's up to you, as a conscious programmer, to guide them carefully to avoid memory leaks and catastrophic security holes.

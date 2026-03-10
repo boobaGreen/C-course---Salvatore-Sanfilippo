@@ -1,242 +1,149 @@
-﻿# Special: The Beauty of Binary Search Trees (BST)
+﻿import Infographic from "../../components/content/Infographic";
+import VideoEmbed from "../../components/content/VideoEmbed";
+import Callout from "../../components/content/Callout";
+import Quiz from "../../components/exercises/Quiz";
+import ProTerminal from "../../components/content/ProTerminal";
+import BSTVisualizer from "../../components/content/BSTVisualizer";
+import ComparisonTable from "../../components/content/ComparisonTable";
 
-In this special lesson, recorded at midnight in a moment of "algorithmic nostalgia," Salvatore shows us how a good programmer can reconstruct fundamental data structures from memory, starting only from basic concepts.
+# Special: The Beauty of Binary Search Trees (BST)
 
+In this special lesson, recorded at midnight in a moment of "algorithmic nostalgia," Salvatore shows us how a good programmer can reconstruct fundamental data structures from memory, starting only from basic concepts and pointer physics.
 
-<Infographic 
-  title="Tree Inversion"
-  description="The famous Google interview test, explained"
-  items={[
-    { label: "Initial State", value: "Left = Smaller, Right = Larger", color: "emerald" },
-    { label: "Recursive Swap", value: "For each node, swap the left and right pointers", color: "blue" },
-    { label: "Result", value: "A 'mirror' tree where rules are reversed", color: "purple" }
-  ]}
+<VideoEmbed
+  videoId="soiBgJjAmP8"
+  title="Special: Reconstructing algorithms from memory"
 />
 
-
-<VideoEmbed videoId="soiBgJjAmP8" title="Special: Reconstructing Algorithms from Memory" />
-
-## What is a Binary Search Tree?
-
-A **Binary Search Tree** is a data structure where each node has at most two children (left and right). The fundamental property is:
-- Values on the **left** are always **smaller** than the current node.
-- Values on the **right** are always **larger** than the current node.
-
-<BSTVisualizer 
-  title="BST Tree Example"
-  data={{
-    value: 20,
-    left: {
-      value: 10,
-      left: { value: 5 },
-      right: { value: 15 }
+<KeyConcepts
+  concepts={[
+    {
+      title: "Tree Addressing",
+      description:
+        "Understand how a node connects scattered pieces of RAM in the Heap using Left and Right pointers.",
     },
-    right: {
-      value: 30,
-      right: { value: 40 }
-    }
-  }}
+    {
+      title: "Pointer Overhead",
+      description:
+        "Calculate how much memory we 'waste' on metadata for every single integer saved.",
+    },
+    {
+      title: "Recursion vs. Stack",
+      description:
+        "The physics of In-order traversal: how the CPU stack frame stores the 'return' during tree descent.",
+    },
+    {
+      title: "Cache Locality",
+      description:
+        "Why jumping between scattered nodes is slower than scanning a sequential array (Pointer Chasing).",
+    },
+  ]}
 />
 
 ---
 
-## The C Implementation
+## Anatomy of a Node: The Cost of the Pointer
 
-Salvatore defines the base structure very cleanly:
+In a BST, every piece of data is wrapped in a structure. But what does it actually cost in terms of silicon?
 
-### Node Structure
-
-Each element in the tree is a small 'island' of memory containing a value and two pointers to its children.
-
-<Infographic 
-  title="Anatomy of a BST Node"
-  description="How data is organized in the Heap."
-  items={[
-    { label: "Value (int)", value: "The numeric data stored", color: "blue" },
-    { label: "Left (*node)", value: "Address of the smaller child (or NULL)", color: "emerald" },
-    { label: "Right (*node)", value: "Address of the larger child (or NULL)", color: "purple" }
+<ComparisonTable
+  title="Spatial Efficiency (64-bit Architecture)"
+  headers={["Element", "Size (Bytes)", "Role"]}
+  rows={[
+    ["int value", "4", "Actual data"],
+    ["struct node *left", "8", "RAM address of lesser child"],
+    ["struct node *right", "8", "RAM address of greater child"],
+    ["Padding", "4", "8-byte alignment"],
+    ["TOTAL", "24", "Cost for 1 integer!"],
   ]}
 />
 
-<Callout type="pro" title="Initialization to NULL">
-  Forgetting to initialize `left` and `right` pointers to `NULL` is the most common bug. Without this step, C would use 'garbage' addresses, causing the program to crash as soon as we try to determine if a node has children.
+<Callout type="pro" title="Quantitative Analysis">
+  To save 4 bytes of data, we use 24 bytes of RAM (6x overhead). This is the
+  price for $O(\log N)$ search instead of $O(N)$. Furthermore, each node is
+  allocated separately, causing potential fragmentation and poor utilization of
+  the **L1 Cache**.
 </Callout>
-
-### Insertion (Iterative)
-
-To insert a value, we "descend" into the tree by comparing the value with each node until we find an empty spot (`NULL`).
-
-### Insertion Logic
-
-To insert a value, we 'descend' into the tree by comparing the value with each node until we find an empty spot.
-
-<Infographic 
-  title="The Path of Insertion"
-  description="How the BST decides where to put a value."
-  items={[
-    { label: "Comparison", value: "Is the new value smaller or larger than the current one?", color: "blue" },
-    { label: "Traversal", value: "Move left if smaller, right if larger", color: "purple" },
-    { label: "Placement", value: "Once a NULL spot is found, attach the new node there", color: "emerald" }
-  ]}
-/>
 
 ---
 
 ## The Elegance of Recursion: Sorted Printing
 
-The most magical moment of the lesson is when Salvatore shows how to print the tree's values from smallest to largest with just a few lines of code. This is called **In-order Traversal**.
+In-order printing is the perfect example of how the data structure dictates the algorithm.
 
-### Sorted Printing
-
-The real magic happens during printing. By following a specific order, we can display the tree's values perfectly sorted.
-
-<Infographic 
-  title="In-order Traversal"
+<Infographic
+  title="In-order Traversal (Left, Root, Right)"
   description="The three steps of sorted printing."
   items={[
-    { label: "1. Left", value: "Recursively visit all smaller values", color: "blue" },
-    { label: "2. Root", value: "Print the current value", color: "purple" },
-    { label: "3. Right", value: "Recursively visit all larger values", color: "emerald" }
+    {
+      label: "1. Push Left",
+      value: "Descend toward the minimum (CPU Stack grows)",
+      color: "blue",
+    },
+    { label: "2. Print", value: "Extract the central value", color: "purple" },
+    {
+      label: "3. Move Right",
+      value: "Explore greater branches",
+      color: "emerald",
+    },
   ]}
 />
 
-<Callout type="info" title="The algorithm emerges from the structure">
-Salvatore emphasizes that you don't need to learn code by heart: if you understand that small values are on the left, the recursive function "writes itself." This is the beauty of computer science.
+<Callout type="warning" title="Stack Overflow">
+  If the tree is unbalanced (e.g., you insert 1, 2, 3, 4, 5 in order), the tree
+  becomes a list $N$ nodes long. Recursion on an unbalanced tree of 1 million
+  nodes would cause an immediate stack crash.
 </Callout>
 
 ---
 
 ## Exercises
 
-<Quiz 
-  title="Quiz Standard" 
+<Quiz
+  title="BST Quiz"
   questions={[
     {
-      question: "What is the fundamental property of a BST?",
+      question: "What is the primary advantage of a BST over a linked list?",
       options: [
-        "Each node has 10 children",
-        "Smaller on the left, larger on the right",
-        "All values are equal",
-        "The tree is always balanced"
+        "It uses less memory",
+        "It allows searching in logarithmic time O(log N)",
+        "It is easier to write",
+        "It doesn't use pointers",
       ],
       correctAnswer: 1,
-      explanation: "This property allows searching for an element in logarithmic time O(log N)."
+      explanation: "Being ordered, we halve the search space at each step.",
     },
     {
-      question: "What does the print_sorted function do if the tree is empty (NULL)?",
+      question:
+        "How much space does a BST node occupy on a 64-bit system (int + 2 pointers)?",
       options: [
-        "Crashes the program",
-        "Prints 0",
-        "Returns immediately doing nothing",
-        "Formats the disk"
-      ],
-      correctAnswer: 2,
-      explanation: "The `if (root == NULL) return;` check is the fundamental base case for recursion."
-    },
-    {
-      question: "Which function do we use to allocate a new node?",
-      options: [
-        "free()",
-        "malloc()",
-        "realloc()",
-        "printf()"
+        "12 bytes",
+        "24 bytes (including padding)",
+        "8 bytes",
+        "64 bytes",
       ],
       correctAnswer: 1,
-      explanation: "malloc allows reserving space on the heap for a new node."
+      explanation:
+        "4 (int) + 8 (ptr) + 8 (ptr) + 4 (padding for alignment) = 24 bytes.",
     },
-    {
-      question: "In what order are values printed with print_sorted?",
-      options: [
-        "Random",
-        "Descending",
-        "Ascending (Sorted)",
-        "Only odd numbers"
-      ],
-      correctAnswer: 2,
-      explanation: "By navigating left first, then center, then right, we get the natural order."
-    },
-    {
-      question: "What happens if we insert already sorted values (e.g., 1 2 3 4 5) into a BST?",
-      options: [
-        "The tree becomes a circle",
-        "The tree degenerates into a linked list (very deep)",
-        "The tree explodes",
-        "Nothing changes"
-      ],
-      correctAnswer: 1,
-      explanation: "In this case, we lose the advantage of fast searching because the tree becomes unbalanced to the right."
-    }
-  ]} 
-/>
-
-<Quiz 
-  title="Pro Challenge"
-  questions={[
-    {
-      question: "What is the time complexity of searching in a balanced BST?",
-      options: [
-        "O(1)",
-        "O(N)",
-        "O(log N)",
-        "O(N^2)"
-      ],
-      correctAnswer: 2,
-      explanation: "We halve the search space at each step, just like in a binary search."
-    },
-    {
-      question: "What are the 'Ancient Fruits' mentioned by Salvatore at the end of the lesson?",
-      options: [
-        "Varieties of peaches from Catania called Sberge",
-        "Obsolete algorithms",
-        "C compiler bugs",
-        "Variable names"
-      ],
-      correctAnswer: 0,
-      explanation: "It is a curious reference by Salvatore at the end of the video about the quality of natural products not industrially selected."
-    },
-    {
-      question: "What is the tree that Salvatore often uses instead of BSTs?",
-      options: [
-        "Apple Tree",
-        "Radix Tree",
-        "B-Tree",
-        "Binary Palm"
-      ],
-      correctAnswer: 1,
-      explanation: "Radix Trees are an evolution of trees very often used for advanced performance (e.g., in Redis)."
-    }
-  ]} 
-/>
-
-<ProTerminal 
-  challenges={[
-    {
-      id: "bst-insert-en",
-      title: "Insertion Logic",
-      description: "Tree with root=10. Insert 5 and 15. Where does the 15 end up?",
-      commands: ["right"],
-      expectedOutput: "right",
-      hints: ["15 is larger than 10."]
-    },
-    {
-      id: "bst-recursion-en",
-      title: "Recursion Depth",
-      description: "In a tree with 3 levels, how many times is print_sorted called (total, including NULLs)?",
-      commands: ["15"],
-      expectedOutput: "15",
-      hints: ["Each node calls itself twice. 7 total nodes -> 7*2 + 1 initial = 15."]
-    },
-    {
-      id: "bst-malloc-en",
-      title: "Heap Check",
-      description: "What is the value returned by malloc() if memory is exhausted?",
-      commands: ["NULL"],
-      expectedOutput: "NULL",
-      hints: ["It is the null value in C."]
-    }
   ]}
 />
 
-### Conclusion
-Binary Search Trees are proof that simple data structures can be incredibly powerful and elegant. With this special lesson, we close the module on classical algorithms. See you next time!
+<ProTerminal
+  lessonSlug="special-bst"
+  challenges={[
+    {
+      id: "bst-mem-en",
+      title: "Memory Math",
+      description:
+        "If a pointer takes 8 bytes and an int takes 4 bytes, how many bytes of 'metadata' (pointers only) are needed for a 100-node tree?",
+      commands: ["1600"],
+      expectedOutput: "1600",
+      hints: ["2 pointers per node = 16 bytes. 16 * 100 = ?"],
+    },
+  ]}
+/>
 
+### Final Summary
+
+BSTs teach us that algorithmic beauty has a physical cost in memory. Understanding this trade-off is what distinguishes a C programmer from everyone else.

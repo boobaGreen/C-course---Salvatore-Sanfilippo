@@ -62,6 +62,14 @@ If we want to create data that "survives" across functions, or data whose size i
   ]}
 />
 
+<Callout type="pro" title="Memory Geography">
+  In many systems, the **Stack** grows downwards (decreasing addresses), while
+  the **Heap** grows upwards. They are like two excavators starting from
+  opposite sides of a mountain. If they meet, you've run out of address space
+  (though today the Operating System uses virtual memory to prevent them from
+  actually colliding).
+</Callout>
+
 ### Stack vs Heap: The Great Battle
 
 <ComparisonTable
@@ -69,7 +77,11 @@ If we want to create data that "survives" across functions, or data whose size i
   headers={["Feature", "Stack", "Heap"]}
   rows={[
     ["Duration", "Automatic (limited to the {} block)", "Manual (until free)"],
-    ["Speed", "Very Fast (CPU-managed)", "Slower (C library managed)"],
+    [
+      "Speed",
+      "Instantaneous (decrementing a CPU register)",
+      "Slower (Searching free blocks/Syscall)",
+    ],
     ["Size", "Limited (few MB)", "Enormous (entire RAM)"],
     ["Data", "Known a priori", "Dynamic / Unknown"],
   ]}
@@ -80,9 +92,11 @@ To access the Heap, we use functions from the standard `<stdlib.h>` library:
 <Callout type="info" title="Malloc: A Contract with the OS">
   When you call `malloc`, you are asking the Operating System for a piece of
   RAM. If the OS accepts, it gives you a memory address (`void *`). From that
-  moment on, **you are the master** of those bytes until you call `free`. If you
-  forget to free them, that memory remains "dead" to the rest of the computer
-  until your program closes.
+  moment on, **you are the master** of those bytes until you call `free`. **The
+  Danger of Leaks**: If you don't free them, that memory stays occupied. If a
+  program runs for months (like a server), it will eventually consume all
+  physical RAM, forcing the OS to use the hard drive (**Swapping**), slowing
+  down the entire computer a thousandfold!
 </Callout>
 
 ```c
@@ -162,9 +176,9 @@ int length = strlen(text);
 }
 
 // Function to instantly read the length in O(1)
-int length_v2(char _string_v2) {
+int length*v2(char \_string_v2) {
 // Step back 4 bytes and read the integer
-return _((int \*)(string_v2 - sizeof(int)));
+return *((int \*)(string_v2 - sizeof(int)));
 }
 
 int main() {
@@ -361,5 +375,3 @@ language="c"
     },
   ]}
 />
-
-

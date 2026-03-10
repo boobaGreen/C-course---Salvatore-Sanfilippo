@@ -1,13 +1,13 @@
-﻿import VideoEmbed from '../../components/content/VideoEmbed';
-import Callout from '../../components/content/Callout';
-import KeyConcepts from '../../components/content/KeyConcepts';
-import BranchingSimulator from '../../components/content/BranchingSimulator';
-import ScopeExplorer from '../../components/content/ScopeExplorer';
-import Infographic from '../../components/content/Infographic';
-import CodeEditor from '../../components/exercises/CodeEditor';
-import Quiz from '../../components/exercises/Quiz';
-import ProTerminal from '../../components/content/ProTerminal';
-import Diagram from '../../components/content/Diagram';
+﻿import VideoEmbed from "../../components/content/VideoEmbed";
+import Callout from "../../components/content/Callout";
+import KeyConcepts from "../../components/content/KeyConcepts";
+import BranchingSimulator from "../../components/content/BranchingSimulator";
+import ScopeExplorer from "../../components/content/ScopeExplorer";
+import Infographic from "../../components/content/Infographic";
+import CodeEditor from "../../components/exercises/CodeEditor";
+import Quiz from "../../components/exercises/Quiz";
+import ProTerminal from "../../components/content/ProTerminal";
+import Diagram from "../../components/content/Diagram";
 
 # Lesson 6: Control Flow & Blocks
 
@@ -15,32 +15,49 @@ Until now, our programs have been linear: one line after another. Today we learn
 
 <VideoEmbed videoId="lc7aYXNl1T8" title="Lesson 6: Control Structures and If" />
 
-<KeyConcepts 
+<KeyConcepts
   concepts={[
     {
       title: "if Statement",
-      description: "Allows executing a block of code only if a condition is true (non-zero)."
+      description:
+        "Allows executing a block of code only if a condition is true (non-zero).",
     },
     {
       title: "Code Blocks {}",
-      description: "Curly braces define a local 'scope'. Variables created inside a block disappear when it closes."
+      description:
+        "Curly braces define a local 'scope'. Variables created inside a block disappear when it closes.",
     },
     {
       title: "Shadowing",
-      description: "You can have two variables with the same name in different blocks! The inner one 'hides' the outer one."
-    }
-  ]} 
+      description:
+        "You can have two variables with the same name in different blocks! The inner one 'hides' the outer one.",
+    },
+  ]}
 />
 
 ## Making Decisions: if and else
 
 The heart of programming logic is the crossroads. If X happens, do Y; otherwise, do Z.
 
-<Callout type="info" title="What is True in C?">
-In C, there is no native `bool` type (at least in classic versions). For C:
 - **0** is False.
 - **Anything else** (1, -5, 42) is True.
-This is why you can write `if (count)` to check if a counter is non-zero!
+  This is why you can write `if (count)` to check if a counter is non-zero!
+
+<Callout type="pro" title="Under the Hood: Sugar for Goto">
+  At the processor level (as we saw in the 6502 Emulator), there is no such
+  thing as an `if`. There are only **comparison** instructions (`CMP`) and
+  **conditional jump** instructions (`BNE`, `BEQ`, `JMP`). In C, the `if` is a
+  wonderful "syntax sugar": the compiler transforms your `if` into a binary test
+  and a jump to a memory address further down. Paradoxically, C was born to
+  allow us to avoid writing manual `goto` instructions, while doing exactly the
+  same thing behind the scenes!
+</Callout>
+
+<Callout type="info" title="Flow Optimization">
+  Did you know that modern CPUs try to "guess" which path your `if` will take
+  even before evaluating it? It's called **Branch Prediction**. Writing code
+  with "predictable" branches (e.g., checking if an error is rare) helps the CPU
+  run faster.
 </Callout>
 
 <BranchingSimulator />
@@ -54,43 +71,60 @@ In C, you can open a block of code anywhere, not just after an `if`. Every block
 <ScopeExplorer />
 
 <Callout type="warning" title="Ghost Variables">
-If you declare `int x = 5;` inside a block, once you exit that block `x` no longer exists for the compiler. Trying to use it will cause an error!
+  If you declare `int x = 5;` inside a block, once you exit that block `x` no
+  longer exists for the compiler. Trying to use it will cause an error!
 </Callout>
 
-<CodeEditor 
+<CodeEditor
   initialCode={`#include <stdio.h>\n\nint main() {\n    int i = 0;\n    loop:\n    printf("%d ", i);\n    i++;\n    if (i < 5) goto loop;\n    return 0;\n}`}
   language="c"
 />
 
 <Callout type="tip" title="Salvatore's Style: Vertically Short Code">
-Salvatore often prefers writing short `if` statements on a single line: `if (x) printf("!");`. Why?
-1. **Readability**: It's almost natural language ("If x, print").
-2. **Density**: More code fits on one terminal screen, reducing scrolling and helping you keep the program's structure in mind.
-Indentation in C is not semantic (unlike Python), but it is an art for the human reader.
+  Salvatore often prefers writing short `if` statements on a single line: `if
+  (x) printf("!");`. Why? 1. **Readability**: It's almost natural language ("If
+  x, print"). 2. **Density**: More code fits on one terminal screen, reducing
+  scrolling and helping you keep the program's structure in mind. Indentation in
+  C is not semantic (unlike Python), but it is an art for the human reader.
 </Callout>
 
-## Recursion: Elegance at a Cost
 A function can call itself. It's an elegant way to count or solve complex problems, but it has a price: every call takes up space on the **Stack**.
 
+<Callout type="pro" title="Anatomy of a Stack Frame">
+  Every time you call a function (recursive or not), the CPU "pushes" (PUSH)
+  onto the Stack: 1. **Return Address** (where to return after the function). 2.
+  **Base Pointer** (to remember where the previous function's variables
+  started). 3. **Arguments** and **Local Variables**. On a 64-bit system, even a
+  function that does nothing occupies at least **16-32 bytes**. If you call
+  yourself 100,000 times, you'll consume megabytes of RAM just in system
+  "bureaucracy"!
+</Callout>
+
 <Callout type="warning" title="Stack Overflow">
-  While a `while` loop reuses the same memory, recursion creates a new "Stack Frame" for every call. Salvatore showed us how counting to 10 with recursion can occupy nearly **500 bytes** of RAM instead of just a few bytes! If you overdo it, the program explodes (Stack Overflow).
+  While a `while` loop reuses the same memory, recursion creates a new "Stack
+  Frame" for every call. Salvatore showed us how counting to 10 with recursion
+  can occupy nearly **500 bytes** of RAM instead of just a few bytes! If you
+  overdo it, the program explodes (**Stack Overflow**) because it has run out of
+  space reserved for the stack by the operating system.
 </Callout>
 
 ## Review Quiz
 
-<Quiz 
-  title="Quiz Standard" 
+<Quiz
+  title="Quiz Standard"
   questions={[
     {
-      question: "What happens if you declare a variable with the same name as an outer one inside a {} block?",
+      question:
+        "What happens if you declare a variable with the same name as an outer one inside a {} block?",
       options: [
         "The compiler throws an error",
         "The outer variable is deleted",
         "The inner variable 'hides' the outer one until the block is closed",
-        "The two variables are added together"
+        "The two variables are added together",
       ],
       correctAnswer: 2,
-      explanation: "This phenomenon is called 'shadowing'. The innermost variable takes precedence in local scope."
+      explanation:
+        "This phenomenon is called 'shadowing'. The innermost variable takes precedence in local scope.",
     },
     {
       question: "In C, what is considered 'False' in an if condition?",
@@ -98,10 +132,11 @@ A function can call itself. It's an elegant way to count or solve complex proble
         "Only the false keyword",
         "Any negative number",
         "Exactly the value 0",
-        "Only the '\\0' character"
+        "Only the '\\0' character",
       ],
       correctAnswer: 2,
-      explanation: "In C, there is no classic native boolean type; 0 is false, everything else is true."
+      explanation:
+        "In C, there is no classic native boolean type; 0 is false, everything else is true.",
     },
     {
       question: "Why is the use of goto usually discouraged?",
@@ -109,137 +144,172 @@ A function can call itself. It's an elegant way to count or solve complex proble
         "Because it's slow",
         "Because it consumes too much RAM",
         "Because it makes the program flow difficult to predict and debug",
-        "Because it doesn't work on modern systems"
+        "Because it doesn't work on modern systems",
       ],
       correctAnswer: 2,
-      explanation: "The goto can create a 'tangled' flow (spaghetti code) that breaks the logical structure of the program."
+      explanation:
+        "The goto can create a 'tangled' flow (spaghetti code) that breaks the logical structure of the program.",
     },
     {
-      question: "What is meant by 'Short-circuit' evaluation in logical operators && and ||?",
+      question:
+        "What is meant by 'Short-circuit' evaluation in logical operators && and ||?",
       options: [
         "The processor overheats",
         "If the result is already determined by the first term (e.g., False for &&), the second term is not even evaluated",
         "The code is skipped randomly",
-        "It's a memory error"
+        "It's a memory error",
       ],
       correctAnswer: 1,
-      explanation: "If you have `(0 && function())`, the function will never be called because the result of the AND will be 0 anyway. It is essential for performance and to avoid crashes (e.g., checking if a pointer is null before using it)."
+      explanation:
+        "If you have `(0 && function())`, the function will never be called because the result of the AND will be 0 anyway. It is essential for performance and to avoid crashes (e.g., checking if a pointer is null before using it).",
     },
     {
-      question: "What is the correct syntax for the ternary operator (the short-form if)?",
+      question:
+        "What is the correct syntax for the ternary operator (the short-form if)?",
       options: [
         "condition ? true : false",
         "if condition then true else false",
         "condition : true ? false",
-        "true ? false : condition"
+        "true ? false : condition",
       ],
       correctAnswer: 0,
-      explanation: "The ternary operator `? :` allows writing small if-else blocks in a single line, assigning a value based on a condition."
-    }
+      explanation:
+        "The ternary operator `? :` allows writing small if-else blocks in a single line, assigning a value based on a condition.",
+    },
   ]}
 />
 
 ---
 
 <KeyConcepts title="In Short">
-  - **0 is False**: In C, you don't need a boolean type; zero is false, and everything else is true.
-  - **Code Blocks**: Curly braces `{}` don't just group instructions; they create new "worlds" for variables.
-  - **Shadowing**: An inner variable can "eclipse" an outer one if they share the same name.
+  - **0 is False**: In C, you don't need a boolean type; zero is false, and
+  everything else is true. - **Code Blocks**: Curly braces `{}` don't just group
+  instructions; they create new "worlds" for variables. - **Shadowing**: An
+  inner variable can "eclipse" an outer one if they share the same name.
 </KeyConcepts>
 
-
-<Diagram 
+<Diagram
   title="Array Memory Layout"
   type="memory"
   data={[
-    { address: "0x1000", value: "int nums[0]", label: "Base Address", color: "blue" },
-    { address: "0x1004", value: "int nums[1]", label: "+4 bytes", color: "emerald" },
-    { address: "0x1008", value: "int nums[2]", label: "+8 bytes", color: "purple" },
-    { address: "0x100C", value: "int nums[3]", label: "+12 bytes", color: "amber" }
+    {
+      address: "0x1000",
+      value: "int nums[0]",
+      label: "Base Address",
+      color: "blue",
+    },
+    {
+      address: "0x1004",
+      value: "int nums[1]",
+      label: "+4 bytes",
+      color: "emerald",
+    },
+    {
+      address: "0x1008",
+      value: "int nums[2]",
+      label: "+8 bytes",
+      color: "purple",
+    },
+    {
+      address: "0x100C",
+      value: "int nums[3]",
+      label: "+12 bytes",
+      color: "amber",
+    },
   ]}
 />
 
-
 ### Pro Challenge
-<Quiz 
+
+<Quiz
   title="Pro Challenge: Final Quiz"
   questions={[
     {
       id: 1,
-      question: "What is the result of this code snippet? `int x = 10; if (x = 0) printf(\"True\"); else printf(\"False\");`",
+      question:
+        'What is the result of this code snippet? `int x = 10; if (x = 0) printf("True"); else printf("False");`',
       options: [
         "True, because x was 10",
         "False, because the assignment `x = 0` returns 0, which C interprets as False",
         "Compilation error, you cannot use `=` inside an `if`",
-        "Prints '10'"
+        "Prints '10'",
       ],
       correctAnswer: 1,
-      explanation: "This is one of the most common and hardest errors to find. The `=` operator assigns a value and returns the assigned value. Since we assigned 0, the entire expression becomes 0 (False). The compiler often warns you, but the code is perfectly legal in C!"
+      explanation:
+        "This is one of the most common and hardest errors to find. The `=` operator assigns a value and returns the assigned value. Since we assigned 0, the entire expression becomes 0 (False). The compiler often warns you, but the code is perfectly legal in C!",
     },
     {
       id: 2,
-      question: "What happens if you declare `int x = 5;` outside a `{}` block and then `int x = 10;` inside the block?",
+      question:
+        "What happens if you declare `int x = 5;` outside a `{}` block and then `int x = 10;` inside the block?",
       options: [
         "The program crashes",
         "The second declaration 'hides' the first (Shadowing). Inside the block x will be 10, outside it will still be 5.",
         "The value of x becomes 15",
-        "The two variables merge into one"
+        "The two variables merge into one",
       ],
       correctAnswer: 1,
-      explanation: "Shadowing allows reusing variable names in inner blocks without overwriting the outer block's data. This ensures isolation of logic within the braces."
+      explanation:
+        "Shadowing allows reusing variable names in inner blocks without overwriting the outer block's data. This ensures isolation of logic within the braces.",
     },
     {
       id: 3,
-      question: "In the presence of nested `if` statements without braces, which `if` does an `else` belong to?",
+      question:
+        "In the presence of nested `if` statements without braces, which `if` does an `else` belong to?",
       options: [
         "To the first if (the outermost one)",
         "To the nearest preceding if that does not already have an else",
         "To none, it gives an error",
-        "To both simultaneously"
+        "To both simultaneously",
       ],
       correctAnswer: 1,
-      explanation: "This is the 'Dangling Else' problem. Without braces, the else always binds to the nearest if. It is a common source of logical bugs, which is why Salvatore recommends always using braces!"
-    }
+      explanation:
+        "This is the 'Dangling Else' problem. Without braces, the else always binds to the nearest if. It is a common source of logical bugs, which is why Salvatore recommends always using braces!",
+    },
   ]}
 />
 
-### Terminal Challenge: Logical Compilation 
+### Terminal Challenge: Logical Compilation
 
-<ProTerminal 
+<ProTerminal
   challenges={[
     {
       id: "gcc-wall-en",
       title: "Strict Compilation",
-      description: "Which GCC flag enables ALL common warning messages to find logical bugs (like using = instead of ==)?",
+      description:
+        "Which GCC flag enables ALL common warning messages to find logical bugs (like using = instead of ==)?",
       commands: ["gcc -Wall main.c"],
       expectedOutput: "-Wall",
       hints: ["The option stands for 'Warnings All'"],
-      explanation: "Excellent! `-Wall` is mandatory. It warns you if you are doing dangerous things.",
-      xpReward: 150
+      explanation:
+        "Excellent! `-Wall` is mandatory. It warns you if you are doing dangerous things.",
+      xpReward: 150,
     },
     {
       id: "gcc-define-en",
       title: "Macro on the Fly",
-      description: "How can you 'turn on' a macro (e.g., DEBUG) directly from the compilation command without modifying the code?",
+      description:
+        "How can you 'turn on' a macro (e.g., DEBUG) directly from the compilation command without modifying the code?",
       commands: ["gcc -DDEBUG main.c"],
       expectedOutput: "DEBUG",
       hints: ["The option uses the letter 'D' for 'Define'"],
-      explanation: "Great! `-D` allows defining macros on the fly during compilation.",
-      xpReward: 200
+      explanation:
+        "Great! `-D` allows defining macros on the fly during compilation.",
+      xpReward: 200,
     },
     {
       id: "diff-command-en",
       title: "Hunt for Differences",
-      description: "Which Linux command would you use to compare two source files and see exactly what changed in the logic?",
+      description:
+        "Which Linux command would you use to compare two source files and see exactly what changed in the logic?",
       commands: ["diff file1.c file2.c"],
       expectedOutput: "---",
       hints: ["It means 'difference'"],
-      explanation: "Perfect! `diff` is the basic tool for understanding changes between files.",
-      xpReward: 250
-    }
+      explanation:
+        "Perfect! `diff` is the basic tool for understanding changes between files.",
+      xpReward: 250,
+    },
   ]}
 />
 
 See you in the next lesson!
-
-

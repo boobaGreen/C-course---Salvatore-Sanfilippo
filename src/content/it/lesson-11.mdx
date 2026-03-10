@@ -1,30 +1,49 @@
-﻿
-
-import VideoEmbed from '../../components/content/VideoEmbed';
-import KeyConcepts from '../../components/content/KeyConcepts';
-import Callout from '../../components/content/Callout';
-import CodeEditor from '../../components/exercises/CodeEditor';
-import Quiz from '../../components/exercises/Quiz';
-import ProTerminal from '../../components/content/ProTerminal';
-import MemoryCaster from '../../components/content/MemoryCaster';
-import BinaryVisualizer from '../../components/content/BinaryVisualizer';
-import ComparisonTable from '../../components/content/ComparisonTable';
-import Infographic from '../../components/content/Infographic';
+﻿import VideoEmbed from "../../components/content/VideoEmbed";
+import KeyConcepts from "../../components/content/KeyConcepts";
+import Callout from "../../components/content/Callout";
+import CodeEditor from "../../components/exercises/CodeEditor";
+import Quiz from "../../components/exercises/Quiz";
+import ProTerminal from "../../components/content/ProTerminal";
+import MemoryCaster from "../../components/content/MemoryCaster";
+import BinaryVisualizer from "../../components/content/BinaryVisualizer";
+import ComparisonTable from "../../components/content/ComparisonTable";
+import Infographic from "../../components/content/Infographic";
 
 # Lezione 11: Casting dei Puntatori ed Endianness
 
-<VideoEmbed videoId="msGzuneFpDU" title="Lezione 11: Casting, Tipi di Dato ed Endianness" />
+<VideoEmbed
+  videoId="msGzuneFpDU"
+  title="Lezione 11: Casting, Tipi di Dato ed Endianness"
+/>
 
-<KeyConcepts concepts={[
-  { title: "Casting dei Puntatori", description: "Cambiare il tipo per dire al compilatore di leggere più o meno byte in memoria." },
-  { title: "Rappresentazione in memoria", description: "Come interi complessi (es. 32-bit) vengono salvati in sequenze di singoli byte." },
-  { title: "Endianness (Ordine dei byte)", description: "Little Endian (es. architetture x86) vs Big Endian (es. Protocolli di Rete TCP/IP)." },
-  { title: "Stringhe Pascal", description: "Un'alternativa storica alle stringhe C null-terminated, basata su un prefisso di lunghezza." }
-]} />
+<KeyConcepts
+  concepts={[
+    {
+      title: "Casting dei Puntatori",
+      description:
+        "Cambiare il tipo per dire al compilatore di leggere più o meno byte in memoria.",
+    },
+    {
+      title: "Rappresentazione in memoria",
+      description:
+        "Come interi complessi (es. 32-bit) vengono salvati in sequenze di singoli byte.",
+    },
+    {
+      title: "Endianness (Ordine dei byte)",
+      description:
+        "Little Endian (es. architetture x86) vs Big Endian (es. Protocolli di Rete TCP/IP).",
+    },
+    {
+      title: "Stringhe Pascal",
+      description:
+        "Un'alternativa storica alle stringhe C null-terminated, basata su un prefisso di lunghezza.",
+    },
+  ]}
+/>
 
 ## Oltre i limiti del tipo
 
-Nelle lezioni precedenti abbiamo visto che i puntatori non solo sanno *dove* si trova un dato, ma anche *di che tipo* è. Questo è cruciale perché dice al compilatore **quanti byte leggere**.
+Nelle lezioni precedenti abbiamo visto che i puntatori non solo sanno _dove_ si trova un dato, ma anche _di che tipo_ è. Questo è cruciale perché dice al compilatore **quanti byte leggere**.
 
 Ma cosa succede se "inganniamo" il compilatore forzando un puntatore a leggere la memoria in un altro modo? In C, possiamo farlo usando il **Casting**.
 
@@ -32,7 +51,7 @@ Ma cosa succede se "inganniamo" il compilatore forzando un puntatore a leggere l
 
 ### Cos'è il Casting?
 
-Il casting è un'operazione che dice esplicitamente al compilatore di trattare una variabile come se fosse di un tipo diverso. 
+Il casting è un'operazione che dice esplicitamente al compilatore di trattare una variabile come se fosse di un tipo diverso.
 
 ```c
 short s = 514;          // Occupa 2 byte
@@ -44,50 +63,78 @@ Quando leggiamo `*p`, stiamo leggendo solo **il primo byte** (`0x02`, che in dec
 
 <Callout type="pro">
 **Type Punning**
-Questa tecnica di leggere la memoria di un tipo attraverso un puntatore di un altro tipo si chiama "Type Punning". È potente per la programmazione di sistema, ma può causare comportamenti indefiniti se non si rispettano le regole di allineamento (che vedremo in futuro).
+Questa tecnica di leggere la memoria di un tipo attraverso un puntatore di un altro tipo si chiama "Type Punning". È potente per la programmazione di sistema, ma può causare comportamenti indefiniti se non si rispettano le regole di allineamento.
 
 <Callout type="danger" title="Strict Aliasing Rule">
-  Il compilatore assume che due puntatori di tipo diverso (es. `int*` e `float*`) non puntino mai alla stessa zona di memoria. Se rompi questa regola con il casting selvaggio, l'ottimizzatore potrebbe cancellare pezzi del tuo codice pensando che le variabili siano indipendenti. Accedere alla stessa memoria con tipi diversi è un terreno minato!
+  Il compilatore assume che due puntatori di tipo diverso (es. `int*` e `float*`) non puntino mai alla stessa zona di memoria. Se rompi questa regola con il casting, l'ottimizzatore potrebbe cancellare pezzi del tuo codice! 
+  
+  **Esempio**: Se cambi un `int` tramite un `char*`, il compilatore potrebbe pensare che l'`int` non sia mai cambiato e usare il vecchio valore salvato in un **Registro della CPU** invece di rileggere dalla RAM.
 </Callout>
 </Callout>
 
 ### Endianness: La guerra dei Byte
+
 L'**Endianness** definisce l'ordine in cui i byte che compongono un numero multi-byte (come uno `short` a 2 byte o un `int` a 4 byte) vengono immagazzinati nella memoria fisica.
 
-* **Little Endian** (architetture Intel/AMD x86): Il byte *meno significativo* (Least Significant Byte - LSB) viene salvato all'indirizzo di memoria più basso.
-* **Big Endian** (Protocolli di rete TCP/IP, vecchi processori Motorola): Il byte *più significativo* (Most Significant Byte - MSB) viene salvato all'indirizzo più basso.
+- **Little Endian** (architetture Intel/AMD x86): Il byte _meno significativo_ (Least Significant Byte - LSB) viene salvato all'indirizzo di memoria più basso.
+- **Big Endian** (Protocolli di rete TCP/IP, vecchi processori Motorola): Il byte _più significativo_ (Most Significant Byte - MSB) viene salvato all'indirizzo più basso.
 
 Esempio col numero `0x11223344`:
-* In memoria **Little Endian**: `44 33 22 11` (all'indirizzo base troviamo `44`).
-* In memoria **Big Endian**: `11 22 33 44` (all'indirizzo base troviamo `11`).
 
-<BinaryVisualizer 
+- In memoria **Little Endian**: `44 33 22 11` (all'indirizzo base troviamo `44`).
+- In memoria **Big Endian**: `11 22 33 44` (all'indirizzo base troviamo `11`).
+
+<BinaryVisualizer
   title="Visualizzazione Endianness"
   description="Come il numero 0x11223344 viene stoccato nelle due architetture."
   data={[
-    { label: "Little Endian (x86)", bytes: ["44", "33", "22", "11"], address: "0x100" },
-    { label: "Big Endian (Network)", bytes: ["11", "22", "33", "44"], address: "0x100" }
+    {
+      label: "Little Endian (x86)",
+      bytes: ["44", "33", "22", "11"],
+      address: "0x100",
+    },
+    {
+      label: "Big Endian (Network)",
+      bytes: ["11", "22", "33", "44"],
+      address: "0x100",
+    },
   ]}
 />
 
 <Callout type="info" title="Perché Little Endian?">
-Anche se il Big Endian sembra più intuitivo per noi umani (si legge da sinistra a destra come un numero decimale), il **Little Endian** è spesso preferito dai processori perché permette di trattare un numero a 32-bit come uno a 8-bit semplicemente leggendo il primo byte, senza dover calcolare l'offset della fine del numero.
+  Anche se il Big Endian sembra più intuitivo per noi umani (si legge da
+  sinistra a destra come un numero decimale), il **Little Endian** è spesso
+  preferito dai processori perché permette di trattare un numero a 32-bit come
+  uno a 8-bit semplicemente leggendo il primo byte, senza dover calcolare
+  l'offset della fine del numero. È un "troncamento gratuito" a livello
+  hardware!
+</Callout>
+
+<Callout type="pro" title="Network Byte Order">
+  Internet parla **Big Endian**. Poiché ogni computer ha la suaEndianness,
+  quando invii un numero sulla rete devi usare funzioni come `htons()` (Host TO
+  Network Short) per assicurarti che il destinatario non riceva i byte al
+  contrario.
 </Callout>
 
 ### Lo Swap dei Puntatori: Efficienza Pura
+
 Salvatore ci mostra un trucco fondamentale per le simulazioni (come il Game of Life): invece di copiare migliaia di byte dalla "nuova griglia" alla "vecchia griglia" a ogni turno, scambiamo semplicemente i due **indirizzi di memoria**.
+
 ```c
 char *temp = old_ptr;
 old_ptr = new_ptr;
 new_ptr = temp;
 ```
+
 È un'operazione istantanea che non dipende dalla dimensione dei dati!
 
 ## Stringhe C vs Stringhe Prefisse
 
-Fino ad ora abbiamo usato le classiche stringhe C (note come *Null-terminated strings*). Finiscono col byte `0x00`.
+Fino ad ora abbiamo usato le classiche stringhe C (note come _Null-terminated strings_). Finiscono col byte `0x00`.
 
-Tuttavia, queste stringhe hanno un problema: 
+Tuttavia, queste stringhe hanno un problema:
+
 1. Per sapere la lunghezza devi scorrere tutta la stringa (complessità `O(N)`).
 2. Non possono contenere `0x00` al loro interno, perché verrebbe interpretato come la fine!
 
@@ -101,67 +148,100 @@ char *pascal_str = "\x0BHello World"; // \x0B è 11 in esadecimale.
 
 In questo modo ottenere la lunghezza era un'operazione istantanea (`O(1)`), leggendo semplicemente `pascal_str[0]`. Lo svantaggio con un solo byte? Lunghezza massima di 255 caratteri!
 
-<ComparisonTable 
+<ComparisonTable
   title="Stringhe C (Null-Terminated) vs Pascal (Prefisse)"
   headers={["Caratteristica", "Stringhe C", "Stringhe Pascal"]}
   rows={[
     ["Fine stringa", "Byte 0x00 (Null)", "Prefisso (primo byte)"],
     ["Calcolo Lunghezza", "O(N) - Lento (strlen)", "O(1) - Istantaneo"],
-    ["Dati Binari", "âŒ No (lo zero interrompe)", " Sì (può contenere lo zero)"],
-    ["Lunghezza Max", "RAM disponibile", "255 (con 1 byte di prefisso)"]
+    [
+      "Dati Binari",
+      "âŒ No (lo zero interrompe)",
+      " Sì (può contenere lo zero)",
+    ],
+    ["Lunghezza Max", "RAM disponibile", "255 (con 1 byte di prefisso)"],
   ]}
 />
 
 ---
 
 ## Editor Code
+
 Questo esempio mostra cosa succede manipolando caratteri e puntatori.
 
 <CodeEditor 
   initialCode={`#include <stdio.h>
 
 int main() {
-    // Stringa stile Pascal: primo carattere = 5 (lunghezza), poi "Hello"
-    char str[] = {5, 'H', 'e', 'l', 'l', 'o'};
-    
+// Stringa stile Pascal: primo carattere = 5 (lunghezza), poi "Hello"
+char str[] = {5, 'H', 'e', 'l', 'l', 'o'};
+
     // Leggiamo la lunghezza:
     int len = str[0];
-    
+
     printf("La stringa è lunga %d caratteri.\\n", len);
-    
+
     // Stampiamo i restanti caratteri
     for(int i = 1; i <= len; i++) {
         putchar(str[i]);
     }
     printf("\\n");
-    
+
     // ESPERIMENTO: Casting a short
     short *s = (short *)str;
     printf("Valore del primo short in memoria esadecimale: 0x%04X\\n", s[0]);
     // Hint: In un sistema Little Endian (x86), compilerà 'H' (0x48) come byte più significativo
     // e 5 (0x05) come byte meno significativo -> 0x4805.
-    
+
     return 0;
-}`} 
-  language="c" 
+
+}`}
+language="c"
 />
 
-<KeyConcepts title="In Breve" concepts={[
-  { title: "Le Regole del Casting", description: "Il casting (tipo *) forza il compilatore a cambiare le regole aritmetiche e la logica di deferenziazione." },
-  { title: "La Realtà della RAM", description: "La memoria è solo una cruda sequenza di byte; il significato (Testo, Numero) esiste solo tramite i tipi." },
-  { title: "Sicurezza del Formato", description: "Il prefisso di lunghezza elimina la necessità del byte NULL, rendendo la stringa sicura per contenere zeri binari." }
-]} />
+<KeyConcepts
+  title="In Breve"
+  concepts={[
+    {
+      title: "Le Regole del Casting",
+      description:
+        "Il casting (tipo *) forza il compilatore a cambiare le regole aritmetiche e la logica di deferenziazione.",
+    },
+    {
+      title: "La Realtà della RAM",
+      description:
+        "La memoria è solo una cruda sequenza di byte; il significato (Testo, Numero) esiste solo tramite i tipi.",
+    },
+    {
+      title: "Sicurezza del Formato",
+      description:
+        "Il prefisso di lunghezza elimina la necessità del byte NULL, rendendo la stringa sicura per contenere zeri binari.",
+    },
+  ]}
+/>
 
 ### Tabella Comparativa Endianness
 
-<ComparisonTable 
+<ComparisonTable
   title="Little Endian vs Big Endian"
   headers={["Caratteristica", "Little Endian", "Big Endian"]}
   rows={[
-    ["Byte all'indirizzo basso", "Il meno significativo (LSB)", "Il più significativo (MSB)"],
-    ["Architetture tipiche", "x86 (Intel/AMD), ARM (spesso)", "Network (TCP/IP), Mainframe, MIPS"],
-    ["Vantaggio", "Ottimizzato per operazioni matematiche su CPU", "Più intuitivo per la lettura umana dei dump"],
-    ["Esempio 0x1234", "34 12", "12 34"]
+    [
+      "Byte all'indirizzo basso",
+      "Il meno significativo (LSB)",
+      "Il più significativo (MSB)",
+    ],
+    [
+      "Architetture tipiche",
+      "x86 (Intel/AMD), ARM (spesso)",
+      "Network (TCP/IP), Mainframe, MIPS",
+    ],
+    [
+      "Vantaggio",
+      "Ottimizzato per operazioni matematiche su CPU",
+      "Più intuitivo per la lettura umana dei dump",
+    ],
+    ["Esempio 0x1234", "34 12", "12 34"],
   ]}
 />
 
@@ -169,40 +249,42 @@ int main() {
 
 ## Esercitazione
 
-<Quiz 
+<Quiz
   title="Quiz Standard"
   questions={[
     {
-      question: "Cosa fa esattamente un cast `(int *)` applicato a un puntatore `char *`?",
+      question:
+        "Cosa fa esattamente un cast `(int *)` applicato a un puntatore `char *`?",
       options: [
         "Converte i caratteri ASCII in numeri base 10",
         "Modifica fisicamente i dati in memoria per farli diventare interi",
         "Garantisce che il puntatore non possa più essere letto per errore",
-        "Informa il compilatore di interpretare la locazione di memoria come l'inizio di un intero a N byte (es. 4 byte)"
+        "Informa il compilatore di interpretare la locazione di memoria come l'inizio di un intero a N byte (es. 4 byte)",
       ],
       correctAnswer: 3,
-      explanation: "Il casting di puntatori cambia solo gli 'occhiali' con cui il compilatore guarda la memoria: non altera i dati sottostanti."
+      explanation:
+        "Il casting di puntatori cambia solo gli 'occhiali' con cui il compilatore guarda la memoria: non altera i dati sottostanti.",
     },
     {
-      question: "In un'architettura Little Endian, come verrebbe salvato in RAM l'Hex `0xABCD` (short, 2 byte) in indirizzi consecutivi?",
-      options: [
-        "CD poi AB",
-        "AB poi CD",
-        "A poi B poi C poi D"
-      ],
+      question:
+        "In un'architettura Little Endian, come verrebbe salvato in RAM l'Hex `0xABCD` (short, 2 byte) in indirizzi consecutivi?",
+      options: ["CD poi AB", "AB poi CD", "A poi B poi C poi D"],
       correctAnswer: 0,
-      explanation: "Little Endian salva il 'Least Significant Byte' (CD) all'indirizzo più basso, seguito dal 'Most Significant Byte' (AB)."
+      explanation:
+        "Little Endian salva il 'Least Significant Byte' (CD) all'indirizzo più basso, seguito dal 'Most Significant Byte' (AB).",
     },
     {
-      question: "Qual è il limite principale della classica implementazione delle stringhe in Pascal (con 1 byte di prefisso)?",
+      question:
+        "Qual è il limite principale della classica implementazione delle stringhe in Pascal (con 1 byte di prefisso)?",
       options: [
         "Non supportano lo spazio",
         "Non possono essere passate a funzioni",
         "Sono lente da leggere in sequenza",
-        "Hanno una lunghezza massima di 255 caratteri"
+        "Hanno una lunghezza massima di 255 caratteri",
       ],
       correctAnswer: 3,
-      explanation: "Con 1 solo byte non segmentato (unsigned char), il valore numerico massimo rappresentabile per la lunghezza è 255."
+      explanation:
+        "Con 1 solo byte non segmentato (unsigned char), il valore numerico massimo rappresentabile per la lunghezza è 255.",
     },
     {
       question: "In C, il tipo `void *` rappresenta:",
@@ -210,49 +292,56 @@ int main() {
         "Un puntatore a una funzione che non restituisce nulla",
         "Un puntatore vuoto, equivalente a NULL",
         "Un puntatore che non occupa memoria",
-        "Un puntatore generico senza un tipo di dato associato"
+        "Un puntatore generico senza un tipo di dato associato",
       ],
       correctAnswer: 3,
-      explanation: "Il `void *` punta a un indirizzo qualsiasi ma non ha regole di aritmetica. Prima di usarlo va 'castato' a un tipo concreto."
+      explanation:
+        "Il `void *` punta a un indirizzo qualsiasi ma non ha regole di aritmetica. Prima di usarlo va 'castato' a un tipo concreto.",
     },
     {
-      question: "Cosa comporta il chiamare funzioni della libreria C standard (come `strlen`) su una stringa in stile Pascal?",
+      question:
+        "Cosa comporta il chiamare funzioni della libreria C standard (come `strlen`) su una stringa in stile Pascal?",
       options: [
         "Il compilatore corregge automaticamente l'input e la libreria funziona",
         "La stringa prenderà il byte della lunghezza scambiandolo per un carattere",
         "Funzionerà normalmente, ignorando il primo carattere",
-        "Comporterà risultati casuali o crash, poiché `strlen` cerca un carattere '\\0' e includerà per sbaglio il byte della lunghezza come se fosse testo"
+        "Comporterà risultati casuali o crash, poiché `strlen` cerca un carattere '\\0' e includerà per sbaglio il byte della lunghezza come se fosse testo",
       ],
       correctAnswer: 3,
-      explanation: "Le funzioni classiche si aspettano stringhe null-terminated e le stringhe Pascal non sono compatibili per via del byte di lunghezza iniziale."
-    }
-  ]} 
+      explanation:
+        "Le funzioni classiche si aspettano stringhe null-terminated e le stringhe Pascal non sono compatibili per via del byte di lunghezza iniziale.",
+    },
+  ]}
 />
 
-<Quiz 
+<Quiz
   title="Pro Challenge"
   questions={[
     {
-      question: "Dato il codice: `int x = 1; char *c = (char*)&x; if (*c) { ... }`. Cosa testa questo `if`?",
+      question:
+        "Dato il codice: `int x = 1; char *c = (char*)&x; if (*c) { ... }`. Cosa testa questo `if`?",
       options: [
         "Controlla se la RAM ha errori",
         "Controlla se il compilatore ha inizializzato le stringhe",
         "Controlla se il sistema è Big Endian",
-        "Controlla se l'architettura è Little Endian"
+        "Controlla se l'architettura è Little Endian",
       ],
       correctAnswer: 3,
-      explanation: "Il numero intero 1, in Little Endian è 01 00 00 00 in esadecimale. Poiché *c legge il primo byte (all'indirizzo più basso), varrà 1 se il sistema è Little Endian, e 0 se fosse Big Endian (00 00 00 01)."
+      explanation:
+        "Il numero intero 1, in Little Endian è 01 00 00 00 in esadecimale. Poiché *c legge il primo byte (all'indirizzo più basso), varrà 1 se il sistema è Little Endian, e 0 se fosse Big Endian (00 00 00 01).",
     },
     {
-      question: "Qual è il rischio principale quando si esegue il Type Punning senza usare union o memcpy?",
+      question:
+        "Qual è il rischio principale quando si esegue il Type Punning senza usare union o memcpy?",
       options: [
         "Il compilatore crasherà sempre in fase di build",
         "Si viola la regola della Strict Aliasing, che potrebbe portare il compilatore a ottimizzare eccessivamente ignorando le tue modifiche",
         "La variabile originaria verrà automaticamente cancellata dalla memoria",
-        "La memoria diventa di sola lettura per il sistema operativo"
+        "La memoria diventa di sola lettura per il sistema operativo",
       ],
       correctAnswer: 1,
-      explanation: "Il C ha una regola chiamata 'Strict Aliasing' che vieta di usare puntatori di tipi diversi per accedere alla stessa locazione di memoria. Se violata, il compilatore potrebbe assumere erroneamente che le variabili non si sovrappongano."
+      explanation:
+        "Il C ha una regola chiamata 'Strict Aliasing' che vieta di usare puntatori di tipi diversi per accedere alla stessa locazione di memoria. Se violata, il compilatore potrebbe assumere erroneamente che le variabili non si sovrappongano.",
     },
     {
       question: "Perché il 'Network Byte Order' è quasi sempre Big Endian?",
@@ -260,56 +349,47 @@ int main() {
         "Perché le CPU Intel sono nate dopo internet",
         "Perché è lo standard storico scelto per l'interoperabilità tra sistemi diversi",
         "Perché è più veloce da trasmettere sui cavi",
-        "Perché i bit pesano meno se messi all'inizio"
+        "Perché i bit pesano meno se messi all'inizio",
       ],
       correctAnswer: 1,
-      explanation: "Lo standard IP definisce il Big Endian come Network Byte Order per garantire che macchine con diverse architetture parlino la stessa lingua."
-    }
-  ]} 
+      explanation:
+        "Lo standard IP definisce il Big Endian come Network Byte Order per garantire che macchine con diverse architetture parlino la stessa lingua.",
+    },
+  ]}
 />
 
-<ProTerminal 
+<ProTerminal
   challenges={[
     {
-        id: "endian-check",
-        simulatedSuccessOutput: `Byte Order:            Little Endian`,
-        title: "Il Rilevatore di Endianness",
-        description: "Esegui il comando utile per stampare le caratteristiche del processore e accoda un pipe per isolare solo la riga che parla di 'Byte Order'.",
-        commands: [],
-        expectedOutput: "",
-        hints: [
-            "Usa grep per cercare Byte Order"
-        ],
-        expectedCommand: "lscpu | grep \"Byte Order\""
+      id: "endian-check",
+      simulatedSuccessOutput: `Byte Order:            Little Endian`,
+      title: "Il Rilevatore di Endianness",
+      description:
+        "Esegui il comando utile per stampare le caratteristiche del processore e accoda un pipe per isolare solo la riga che parla di 'Byte Order'.",
+      commands: [],
+      expectedOutput: "",
+      hints: ["Usa grep per cercare Byte Order"],
+      expectedCommand: 'lscpu | grep "Byte Order"',
     },
     {
-        id: "python-hex-check",
-        simulatedSuccessOutput: `97`,
-        title: "Python come Calcolatrice Hex",
-        description: "Usa python3 per stampare il valore decimale del numero esadecimale 0x61.",
-        commands: [
-            "python3 -c \"print(0x61)\""
-        ],
-        expectedOutput: "97",
-        hints: [
-            "-c permette di eseguire codice dalla riga di comando"
-        ]
+      id: "python-hex-check",
+      simulatedSuccessOutput: `97`,
+      title: "Python come Calcolatrice Hex",
+      description:
+        "Usa python3 per stampare il valore decimale del numero esadecimale 0x61.",
+      commands: ['python3 -c "print(0x61)"'],
+      expectedOutput: "97",
+      hints: ["-c permette di eseguire codice dalla riga di comando"],
     },
     {
-        id: "hexdump-custom",
-        simulatedSuccessOutput: `00000000  41 42 43 44                                       |ABCD|`,
-        title: "Dump Manuale",
-        description: "Crea un file di 4 byte con 'ABCD' e visualizzalo con `hexdump` in formato esadecimale.",
-        commands: [
-            "echo -n \"ABCD\" > test.bin",
-            "hexdump -C test.bin"
-        ],
-        expectedOutput: "41 42 43 44",
-        hints: [
-            "echo -n evita il newline finale"
-        ]
-    }
-]}
+      id: "hexdump-custom",
+      simulatedSuccessOutput: `00000000  41 42 43 44                                       |ABCD|`,
+      title: "Dump Manuale",
+      description:
+        "Crea un file di 4 byte con 'ABCD' e visualizzalo con `hexdump` in formato esadecimale.",
+      commands: ['echo -n "ABCD" > test.bin', "hexdump -C test.bin"],
+      expectedOutput: "41 42 43 44",
+      hints: ["echo -n evita il newline finale"],
+    },
+  ]}
 />
-
-

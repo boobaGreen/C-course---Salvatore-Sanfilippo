@@ -1,11 +1,11 @@
-﻿import VideoEmbed from '../../components/content/VideoEmbed';
-import Callout from '../../components/content/Callout';
-import KeyConcepts from '../../components/content/KeyConcepts';
-import ASCIIConverter from '../../components/content/ASCIIConverter';
-import Infographic from '../../components/content/Infographic';
-import CodeEditor from '../../components/exercises/CodeEditor';
-import Quiz from '../../components/exercises/Quiz';
-import ProTerminal from '../../components/content/ProTerminal';
+﻿import VideoEmbed from "../../components/content/VideoEmbed";
+import Callout from "../../components/content/Callout";
+import KeyConcepts from "../../components/content/KeyConcepts";
+import ASCIIConverter from "../../components/content/ASCIIConverter";
+import Infographic from "../../components/content/Infographic";
+import CodeEditor from "../../components/exercises/CodeEditor";
+import Quiz from "../../components/exercises/Quiz";
+import ProTerminal from "../../components/content/ProTerminal";
 
 # Lesson 5: Strings & Characters (ASCII)
 
@@ -13,21 +13,24 @@ In the last lesson, we looked at bits and numbers. But how do we represent text?
 
 <VideoEmbed videoId="SWWHqgSwQFw" title="Lesson 5: Strings and Characters" />
 
-<KeyConcepts 
+<KeyConcepts
   concepts={[
     {
       title: "The char type",
-      description: "An 8-bit integer that can hold a value from 0 to 255. In C, it's written inside single quotes, e.g., 'A'."
+      description:
+        "An 8-bit integer that can hold a value from 0 to 255. In C, it's written inside single quotes, e.g., 'A'.",
     },
     {
       title: "ASCII Table",
-      description: "A standard that maps every number to a specific character. For example, 65 corresponds to 'A'."
+      description:
+        "A standard that maps every number to a specific character. For example, 65 corresponds to 'A'.",
     },
     {
       title: "Format Strings",
-      description: "Placeholders like %d for numbers and %c for characters that we use in printf."
-    }
-  ]} 
+      description:
+        "Placeholders like %d for numbers and %c for characters that we use in printf.",
+    },
+  ]}
 />
 
 ## The Truth Behind Characters
@@ -41,42 +44,61 @@ This is one of the trickiest differences for those coming from Python or JS:
 - `'A'` (single quotes) is an **integer number** (65). It takes up 1 byte.
 - `"A"` (double quotes) is a **string**. It is an array containing 'A' and an invisible `\0` (zero) character to mark the end. It takes up 2 bytes.
 Swapping them will drive the compiler crazy!
+
+<Callout type="pro" title="The Secret of the Zero Byte (\0)">
+  In C, strings don't know how long they are. There is no hidden "length" field
+  like in Java or Python. The only way to know where a string ends is to look
+  for the byte with value **0** (binary `00000000`). **The Proof**: The string
+  `"Ciao"` looks like it's 4 characters long, but in RAM, it occupies **5
+  bytes**: `['C', 'i', 'a', 'o', '\0']` Forgetting this extra space for the zero
+  is the cause of 90% of beginner C crashes!
 </Callout>
 
-<Infographic 
-  src="/images/ascii_visual.png" 
-  alt="ASCII conversion diagram" 
+<Callout type="info" title="Performance vs Safety">
+  Why does C use zero instead of saving the length? Because in the '70s, saving 1 or 2 bytes for the length was vital. The downside? To know how long a string is, functions like `strlen()` must scan every single character until they find the zero. If the zero is missing, the program will keep reading your RAM forever (or until the system stops it).
+</Callout>
+</Callout>
+
+<Infographic
+  src="/images/ascii_visual.png"
+  alt="ASCII conversion diagram"
   caption="From the letter to the number, down to the bits in the processor."
 />
 
 <Callout type="info" title="Stringtozzi">
 Salvatore ironically calls this first approach to strings "Stringtozzi". Soon we will see that in C, a piece of text is nothing more than a pointer to the memory address of the first character.
+
+<Callout type="pro" title="Archeology: From Telegraph to ASCII">
+  ASCII (1963) was born to standardize telescopic typewriter machines. Before that, every manufacturer had its own code (like Morse code). ASCII fixed 128 symbols using 7 bits. The 8th bit was often used for "parity check" (to see if there were transmission errors on old phone lines).
+</Callout>
 </Callout>
 
 ## Type Promotion
 
 Did you know that if you pass a `char` to a function with variable arguments (like `printf`), C automatically promotes it to an `int`? This is why `%d` works for printing the numeric code of a character too!
 
-<CodeEditor 
+<CodeEditor
   initialCode={`#include <stdio.h>\n\nint main() {\n    char letter = 'A'; // A single integer\n    printf("Character: %c\\n", letter);\n    printf("ASCII Code: %d\\n", letter);\n    \n    // Variadic promotion: char is passed as int\n    printf("Manual casting: %d\\n", (int)letter);\n    return 0;\n}`}
   language="c"
 />
 
 ## Review Quiz
 
-<Quiz 
-  title="Quiz Standard" 
+<Quiz
+  title="Quiz Standard"
   questions={[
     {
-      question: "What is the fundamental difference between 'X' and \"X\" in C?",
+      question:
+        "What is the fundamental difference between 'X' and \"X\" in C?",
       options: [
         "None, they are interchangeable",
         "'X' is a single character (number), \"X\" is a string (array)",
         "'X' is faster than \"X\"",
-        "\"X\" is only used for Python"
+        '"X" is only used for Python',
       ],
       correctAnswer: 1,
-      explanation: "Single quotes indicate a single numeric ASCII value, while double quotes indicate an array of characters in memory."
+      explanation:
+        "Single quotes indicate a single numeric ASCII value, while double quotes indicate an array of characters in memory.",
     },
     {
       question: "What happens if you print a char with %d?",
@@ -84,16 +106,18 @@ Did you know that if you pass a `char` to a function with variable arguments (li
         "The program crashes",
         "The character is printed",
         "Its numeric ASCII code is printed",
-        "A format error is printed"
+        "A format error is printed",
       ],
       correctAnswer: 2,
-      explanation: "Since characters are represented as numbers, %d prints the corresponding integer value in the ASCII table."
+      explanation:
+        "Since characters are represented as numbers, %d prints the corresponding integer value in the ASCII table.",
     },
     {
       question: "Which number does the uppercase 'A' usually correspond to?",
       options: ["1", "32", "65", "97"],
       correctAnswer: 2,
-      explanation: "65 is the standard code for uppercase 'A'. Lowercase 'a' is 97."
+      explanation:
+        "65 is the standard code for uppercase 'A'. Lowercase 'a' is 97.",
     },
     {
       question: "What is the primary difference between ASCII and UTF-8?",
@@ -101,55 +125,64 @@ Did you know that if you pass a `char` to a function with variable arguments (li
         "None, they are the same thing",
         "ASCII uses 7 bits (128 characters), UTF-8 is a modern system that can use multiple bytes to represent emojis and characters from every language",
         "ASCII is slower",
-        "UTF-8 does not support numbers"
+        "UTF-8 does not support numbers",
       ],
       correctAnswer: 1,
-      explanation: "ASCII is the base set of 128 characters. UTF-8 is backward compatible with ASCII but expands to cover the entire Unicode universe."
+      explanation:
+        "ASCII is the base set of 128 characters. UTF-8 is backward compatible with ASCII but expands to cover the entire Unicode universe.",
     },
     {
-      question: "Which standard library should you include to use functions like isdigit() or toupper()?",
+      question:
+        "Which standard library should you include to use functions like isdigit() or toupper()?",
       options: ["stdio.h", "ctype.h", "string.h", "math.h"],
       correctAnswer: 1,
-      explanation: "ctype.h (Character Type) contains macros and functions for testing and converting individual characters."
-    }
+      explanation:
+        "ctype.h (Character Type) contains macros and functions for testing and converting individual characters.",
+    },
   ]}
 />
 
 ---
 
 <KeyConcepts title="In Short">
-  - **Characters are numbers**: Every character (`char`) is actually an 8-bit integer.
-  - **ASCII Table**: The universal map that assigns a unique number to every text symbol.
-  - **Apostrophes vs Quotes**: `'A'` is a character (a number), `"A"` is a string (a more complex container).
+  - **Characters are numbers**: Every character (`char`) is actually an 8-bit
+  integer. - **ASCII Table**: The universal map that assigns a unique number to
+  every text symbol. - **Apostrophes vs Quotes**: `'A'` is a character (a
+  number), `"A"` is a string (a more complex container).
 </KeyConcepts>
 
 ### Pro Challenge
-<Quiz 
+
+<Quiz
   title="Pro Challenge: Final Quiz"
   questions={[
     {
       id: 1,
-      question: "If you have `char c = 'A';` and you write `c = c + 32;`, what will `printf(\"%c\", c)` print?",
+      question:
+        "If you have `char c = 'A';` and you write `c = c + 32;`, what will `printf(\"%c\", c)` print?",
       options: [
         "An error, you cannot add numbers to characters",
         "'a' (the lowercase version)",
         "The character '32'",
-        "A random symbol"
+        "A random symbol",
       ],
       correctAnswer: 1,
-      explanation: "In the ASCII table, the distance between an uppercase letter and its lowercase version is exactly 32. Adding 32 to 'A' (65) takes us to 'a' (97). This demonstrates that in C, characters are essentially numbers that we can perform arithmetic on."
+      explanation:
+        "In the ASCII table, the distance between an uppercase letter and its lowercase version is exactly 32. Adding 32 to 'A' (65) takes us to 'a' (97). This demonstrates that in C, characters are essentially numbers that we can perform arithmetic on.",
     },
     {
       id: 2,
-      question: "What is the difference between the character '0' and the integer value 0?",
+      question:
+        "What is the difference between the character '0' and the integer value 0?",
       options: [
         "None, they are the same value in memory",
         "The integer value 0 is the string terminator (NULL), while the character '0' has ASCII value 48",
         "'0' takes up more memory than 0",
-        "The character '0' is only used in mathematics"
+        "The character '0' is only used in mathematics",
       ],
       correctAnswer: 1,
-      explanation: "This is fundamental: `0` (number) is the null byte, used to tell C 'here the string ends'. `'0'` (character) is the key on the keyboard which, in the ASCII table, corresponds to the number 48."
+      explanation:
+        "This is fundamental: `0` (number) is the null byte, used to tell C 'here the string ends'. `'0'` (character) is the key on the keyboard which, in the ASCII table, corresponds to the number 48.",
     },
     {
       id: 3,
@@ -158,51 +191,58 @@ Did you know that if you pass a `char` to a function with variable arguments (li
         "Inserts a blank line",
         "Performs a 'backspace', ideally deleting the previous character by moving the cursor left",
         "Turns off the monitor",
-        "Creates an acoustic signal"
+        "Creates an acoustic signal",
       ],
       correctAnswer: 1,
-      explanation: "Backspace! It is one of the ASCII control characters that allows you to manipulate the cursor position in the terminal."
-    }
+      explanation:
+        "Backspace! It is one of the ASCII control characters that allows you to manipulate the cursor position in the terminal.",
+    },
   ]}
 />
 
-### Terminal Challenge: Manual Hunting 
+### Terminal Challenge: Manual Hunting
 
-<ProTerminal 
+<ProTerminal
   challenges={[
     {
       id: "man-printf",
       title: "The Programmer's Manual",
-      description: "What is the fundamental terminal command to read the official documentation for a function like `printf`?",
+      description:
+        "What is the fundamental terminal command to read the official documentation for a function like `printf`?",
       commands: ["man printf"],
       expectedOutput: "PRINTF(1)",
       hints: ["It's short for 'manual'"],
-      explanation: "Exactly! `man` is a C programmer's best friend. It gives you the official, detailed, and precise documentation for every library function and system command.",
-      xpReward: 150
+      explanation:
+        "Exactly! `man` is a C programmer's best friend. It gives you the official, detailed, and precise documentation for every library function and system command.",
+      xpReward: 150,
     },
     {
       id: "tr-upper",
       title: "Character Translator",
-      description: "In C you can convert a character from lowercase to uppercase by subtracting 32. Which shell command would you use to transform all lowercase text to uppercase (e.g., 'hi' -> 'HI')?",
+      description:
+        "In C you can convert a character from lowercase to uppercase by subtracting 32. Which shell command would you use to transform all lowercase text to uppercase (e.g., 'hi' -> 'HI')?",
       commands: ["echo \"hi\" | tr 'a-z' 'A-Z'"],
       expectedOutput: "HI",
       hints: ["The command stands for 'translate' or 'transliterate'"],
-      explanation: "Great! `tr` is very powerful for manipulating character streams, replicating the conversion logic we would do in C but directly on the command line.",
-      xpReward: 200
+      explanation:
+        "Great! `tr` is very powerful for manipulating character streams, replicating the conversion logic we would do in C but directly on the command line.",
+      xpReward: 200,
     },
     {
       id: "od-dump",
       title: "Byte Inspector",
-      description: "You want to see the hexadecimal value of every single character in a 'text.txt' file. Which command would you use for a byte-by-byte hexadecimal dump?",
+      description:
+        "You want to see the hexadecimal value of every single character in a 'text.txt' file. Which command would you use for a byte-by-byte hexadecimal dump?",
       commands: ["od -t x1 text.txt"],
       expectedOutput: "0000000",
-      hints: ["The command stands for 'Octal Dump', but with the -t x1 option it shows hexadecimals"],
-      explanation: "Excellent! `od` allows you to see the 'naked flesh' of the file, showing ASCII codes in hexadecimal, decimal, or octal format. Indispensable for debugging corrupt files.",
-      xpReward: 250
-    }
+      hints: [
+        "The command stands for 'Octal Dump', but with the -t x1 option it shows hexadecimals",
+      ],
+      explanation:
+        "Excellent! `od` allows you to see the 'naked flesh' of the file, showing ASCII codes in hexadecimal, decimal, or octal format. Indispensable for debugging corrupt files.",
+      xpReward: 250,
+    },
   ]}
 />
 
 See you in the next lesson!
-
-

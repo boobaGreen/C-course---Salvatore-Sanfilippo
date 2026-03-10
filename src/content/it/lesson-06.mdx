@@ -1,46 +1,61 @@
-﻿import VideoEmbed from '../../components/content/VideoEmbed';
-import Callout from '../../components/content/Callout';
-import KeyConcepts from '../../components/content/KeyConcepts';
-import BranchingSimulator from '../../components/content/BranchingSimulator';
-import ScopeExplorer from '../../components/content/ScopeExplorer';
-import Infographic from '../../components/content/Infographic';
-import CodeEditor from '../../components/exercises/CodeEditor';
-import Quiz from '../../components/exercises/Quiz';
-import ProTerminal from '../../components/content/ProTerminal';
-import Diagram from '../../components/content/Diagram';
+﻿import VideoEmbed from "../../components/content/VideoEmbed";
+import Callout from "../../components/content/Callout";
+import KeyConcepts from "../../components/content/KeyConcepts";
+import BranchingSimulator from "../../components/content/BranchingSimulator";
+import ScopeExplorer from "../../components/content/ScopeExplorer";
+import Infographic from "../../components/content/Infographic";
+import CodeEditor from "../../components/exercises/CodeEditor";
+import Quiz from "../../components/exercises/Quiz";
+import ProTerminal from "../../components/content/ProTerminal";
+import Diagram from "../../components/content/Diagram";
 
 # Lezione 6: Controllo del Flusso e Blocchi
 
 Fino ad ora i nostri programmi sono stati lineari: una riga dopo l'altra. Oggi impariamo a far prendere al codice delle decisioni!
 
-<VideoEmbed videoId="lc7aYXNl1T8" title="Lezione 6: Strutture di Controllo e If" />
+<VideoEmbed
+  videoId="lc7aYXNl1T8"
+  title="Lezione 6: Strutture di Controllo e If"
+/>
 
-<KeyConcepts 
+<KeyConcepts
   concepts={[
     {
       title: "Istruzione if",
-      description: "Permette di eseguire un blocco di codice solo se una condizione è vera (diversa da zero)."
+      description:
+        "Permette di eseguire un blocco di codice solo se una condizione è vera (diversa da zero).",
     },
     {
       title: "Blocchi di Codice {}",
-      description: "Le parentesi graffe definiscono uno 'scope' locale. Le variabili create dentro un blocco spariscono alla sua chiusura."
+      description:
+        "Le parentesi graffe definiscono uno 'scope' locale. Le variabili create dentro un blocco spariscono alla sua chiusura.",
     },
     {
       title: "Shadowing",
-      description: "Puoi avere due variabili con lo stesso nome in blocchi diversi! Quella più interna 'nasconde' quella esterna."
-    }
-  ]} 
+      description:
+        "Puoi avere due variabili con lo stesso nome in blocchi diversi! Quella più interna 'nasconde' quella esterna.",
+    },
+  ]}
 />
 
 ## Prendere Decisioni: if ed else
 
-Il cuore della logica di programmazione è il bivio. Se succede X, fai Y, altrimenti fai Z. 
+Il cuore della logica di programmazione è il bivio. Se succede X, fai Y, altrimenti fai Z.
 
 <Callout type="info" title="Cosa è Vero in C?">
 In C non esiste un tipo `bool` nativo (almeno nelle versioni classiche). Per il C:
 - **0** è Falso.
 - **Qualsiasi altra cosa** (1, -5, 42) è Vero.
 Questo è il motivo per cui puoi scrivere `if (count)` per controllare se un contatore non è zero!
+
+<Callout type="pro" title="Sotto il Cofano: Zucchero per il Goto">
+  A livello di processore (come abbiamo visto nel 6502), non esiste l'`if`.
+  Esistono solo istruzioni di **confronto** (`CMP`) e **salto condizionato**
+  (`BNE`, `BEQ`, `JMP`). In C, l'`if` è un meraviglioso "zucchero sintattico":
+  il compilatore trasforma il tuo `if` in un test binario e un salto a un
+  indirizzo di memoria più avanti. Paradossalmente, il C è nato per permetterci
+  di non scrivere `goto` manuali, pur facendo esattamente la stessa cosa!
+</Callout>
 
 <Callout type="info" title="Ottimizzazione del Flusso">
   Sapevi che le CPU moderne cercano di "indovinare" quale strada prenderà il tuo `if` prima ancora di valutarlo? Si chiama **Branch Prediction**. Scrivere codice con rami "prevedibili" (es. controllare se un errore è raro) aiuta la CPU a correre più veloce.
@@ -58,43 +73,62 @@ In C, puoi aprire un blocco di codice ovunque, non solo dopo un `if`. Ogni blocc
 <ScopeExplorer />
 
 <Callout type="warning" title="Variabili Fantasma">
-Se dichiari `int x = 5;` dentro un blocco, una volta uscito da quel blocco `x` non esiste più per il compilatore. Tentare di usarlo causerà un errore!
+  Se dichiari `int x = 5;` dentro un blocco, una volta uscito da quel blocco `x`
+  non esiste più per il compilatore. Tentare di usarlo causerà un errore!
 </Callout>
 
-<CodeEditor 
+<CodeEditor
   initialCode={`#include <stdio.h>\n\nint main() {\n    int i = 0;\n    loop:\n    printf("%d ", i);\n    i++;\n    if (i < 5) goto loop;\n    return 0;\n}`}
   language="c"
 />
 
 <Callout type="tip" title="Stile Salvatore: Codice Verticalmente Corto">
-Salvatore preferisce spesso scrivere `if` brevi su una sola riga: `if (x) printf("!");`. Perché?
-1. **Leggibilità**: È quasi linguaggio naturale ("Se x, stampa").
-2. **Densità**: In una schermata del terminale entra più codice, riducendo la necessità di fare scrolling e aiutando a tenere a mente la struttura del programma.
-L'indentazione in C non è semantica (come in Python), ma è un'arte per l'essere umano.
+  Salvatore preferisce spesso scrivere `if` brevi su una sola riga: `if (x)
+  printf("!");`. Perché? 1. **Leggibilità**: È quasi linguaggio naturale ("Se x,
+  stampa"). 2. **Densità**: In una schermata del terminale entra più codice,
+  riducendo la necessità di fare scrolling e aiutando a tenere a mente la
+  struttura del programma. L'indentazione in C non è semantica (come in Python),
+  ma è un'arte per l'essere umano.
 </Callout>
 
 ## Ricorsione: L'Eleganza che Costa
+
 Una funzione può chiamare se stessa. È un modo elegante per contare o risolvere problemi complessi, ma ha un prezzo: ogni chiamata occupa spazio nello **Stack**.
 
+<Callout type="pro" title="Anatomia di uno Stack Frame">
+  Ogni volta che chiami una funzione (ricorsiva o no), la CPU "spinge" (PUSH)
+  nello Stack: 1. **Indirizzo di Ritorno** (dove tornare dopo la funzione). 2.
+  **Base Pointer** (per ricordarsi dove iniziavano le variabili della funzione
+  precedente). 3. **Argomenti** e **Variabili Locali**. In un sistema a 64-bit,
+  anche una funzione che non fa nulla occupa almeno **16-32 byte**. Se chiami te
+  stesso 100.000 volte, consumerai mega di RAM solo in "burocrazia" di sistema!
+</Callout>
+
 <Callout type="warning" title="Stack Overflow">
-  Mentre un ciclo `while` riutilizza la stessa memoria, la ricorsione crea un nuovo "Stack Frame" per ogni chiamata. Salvatore ci ha mostrato come contare fino a 10 con la ricorsione possa occupare quasi **500 byte** di RAM invece di pochi byte! Se esageri, il programma esplode (Stack Overflow).
+  Mentre un ciclo `while` riutilizza la stessa memoria, la ricorsione crea un
+  nuovo "Stack Frame" per ogni chiamata. Salvatore ci ha mostrato come contare
+  fino a 10 con la ricorsione possa occupare quasi **500 byte** di RAM invece di
+  pochi byte! Se esageri, il programma esplode (**Stack Overflow**) perché ha
+  finito lo spazio riservato allo stack dal sistema operativo.
 </Callout>
 
 ## Quiz di Verifica
 
-<Quiz 
-  title="Quiz Standard" 
+<Quiz
+  title="Quiz Standard"
   questions={[
     {
-      question: "Cosa succede se dichiari una variabile con lo stesso nome di una esterna dentro un blocco {}?",
+      question:
+        "Cosa succede se dichiari una variabile con lo stesso nome di una esterna dentro un blocco {}?",
       options: [
         "Il compilatore dà errore",
         "La variabile esterna viene cancellata",
         "La variabile interna 'nasconde' quella esterna finché il blocco è aperto",
-        "Le due variabili si sommano"
+        "Le due variabili si sommano",
       ],
       correctAnswer: 2,
-      explanation: "Questo fenomeno si chiama 'shadowing'. La variabile più interna ha la precedenza nello scope locale."
+      explanation:
+        "Questo fenomeno si chiama 'shadowing'. La variabile più interna ha la precedenza nello scope locale.",
     },
     {
       question: "In C, cosa è considerato 'Falso' in una condizione if?",
@@ -102,10 +136,11 @@ Una funzione può chiamare se stessa. È un modo elegante per contare o risolver
         "Solo la parola chiave false",
         "Qualsiasi numero negativo",
         "Esattamente il valore 0",
-        "Solo il carattere '\\0'"
+        "Solo il carattere '\\0'",
       ],
       correctAnswer: 2,
-      explanation: "In C non esiste un tipo booleano nativo classico; lo 0 è falso, tutto il resto è vero."
+      explanation:
+        "In C non esiste un tipo booleano nativo classico; lo 0 è falso, tutto il resto è vero.",
     },
     {
       question: "Perché l'uso del `goto` è solitamente sconsigliato?",
@@ -113,161 +148,191 @@ Una funzione può chiamare se stessa. È un modo elegante per contare o risolver
         "Perché è lento",
         "Perché consuma troppa RAM",
         "Perché rende il flusso del programma difficile da prevedere e debuggare",
-        "Perché non funziona sui sistemi moderni"
+        "Perché non funziona sui sistemi moderni",
       ],
       correctAnswer: 2,
-      explanation: "Il `goto` può creare un flusso 'intrecciato' (spaghetti code) che rompe la struttura logica del programma."
+      explanation:
+        "Il `goto` può creare un flusso 'intrecciato' (spaghetti code) che rompe la struttura logica del programma.",
     },
     {
-      question: "Cosa si intende per 'Cortocircuito' (short-circuit) negli operatori logici `&&` e `||`?",
+      question:
+        "Cosa si intende per 'Cortocircuito' (short-circuit) negli operatori logici `&&` e `||`?",
       options: [
         "Che il processore si surriscalda",
         "Che se il risultato è già determinato dal primo termine (es. Falso per `&&`), il secondo termine non viene nemmeno valutato",
         "Che il codice viene saltato casualmente",
-        "È un errore di memoria"
+        "È un errore di memoria",
       ],
       correctAnswer: 1,
-      explanation: "Se hai `(0 && funzione())`, la funzione non verrà mai chiamata perché il risultato dell'AND sarà comunque 0. È fondamentale per la performance e per evitare crash (es. controllare se un puntatore è nullo prima di usarlo)."
+      explanation:
+        "Se hai `(0 && funzione())`, la funzione non verrà mai chiamata perché il risultato dell'AND sarà comunque 0. È fondamentale per la performance e per evitare crash (es. controllare se un puntatore è nullo prima di usarlo).",
     },
     {
-      question: "Qual è la sintassi corretta dell'operatore ternario (l'`if` abbreviato)?",
+      question:
+        "Qual è la sintassi corretta dell'operatore ternario (l'`if` abbreviato)?",
       options: [
         "`condizione ? vero : falso`",
         "`if condizione then vero else falso`",
         "`condizione : vero ? falso`",
-        "`vero ? falso : condizione`"
+        "`vero ? falso : condizione`",
       ],
       correctAnswer: 0,
-      explanation: "L'operatore ternario `? :` permette di scrivere piccoli blocchi `if-else` in una sola riga, assegnando un valore in base a una condizione."
-    }
+      explanation:
+        "L'operatore ternario `? :` permette di scrivere piccoli blocchi `if-else` in una sola riga, assegnando un valore in base a una condizione.",
+    },
   ]}
 />
 
 ---
 
-<KeyConcepts title="In Breve"
+<KeyConcepts
+  title="In Breve"
   concepts={[
     {
       title: "0 è Falso",
-      description: "In C non serve un tipo booleano; lo zero è falso e tutto il resto è vero."
+      description:
+        "In C non serve un tipo booleano; lo zero è falso e tutto il resto è vero.",
     },
     {
       title: "Code Blocks",
-      description: "Le graffe `{}` non solo raggruppano istruzioni, ma creano nuovi \"mondi\" per le variabili."
+      description:
+        'Le graffe `{}` non solo raggruppano istruzioni, ma creano nuovi "mondi" per le variabili.',
     },
     {
       title: "Shadowing",
-      description: "Una variabile interna può \"eclissare\" una esterna se hanno lo stesso nome."
-    }
+      description:
+        'Una variabile interna può "eclissare" una esterna se hanno lo stesso nome.',
+    },
   ]}
 />
 
-
-<Diagram 
+<Diagram
   title="Layout di un Array in Memoria"
   type="memory"
   data={[
-    { address: "0x1000", value: "int nums[0]", label: "Base Address", color: "blue" },
-    { address: "0x1004", value: "int nums[1]", label: "+4 byte", color: "emerald" },
-    { address: "0x1008", value: "int nums[2]", label: "+8 byte", color: "purple" },
-    { address: "0x100C", value: "int nums[3]", label: "+12 byte", color: "amber" }
+    {
+      address: "0x1000",
+      value: "int nums[0]",
+      label: "Base Address",
+      color: "blue",
+    },
+    {
+      address: "0x1004",
+      value: "int nums[1]",
+      label: "+4 byte",
+      color: "emerald",
+    },
+    {
+      address: "0x1008",
+      value: "int nums[2]",
+      label: "+8 byte",
+      color: "purple",
+    },
+    {
+      address: "0x100C",
+      value: "int nums[3]",
+      label: "+12 byte",
+      color: "amber",
+    },
   ]}
 />
 
-
 ### Pro Challenge
-<Quiz 
+
+<Quiz
   title="Pro Challenge: Final Quiz"
   questions={[
     {
       id: 1,
-      question: "Qual è il risultato di questo frammento di codice? `int x = 10; if (x = 0) printf(\"Vero\"); else printf(\"Falso\");`",
+      question:
+        'Qual è il risultato di questo frammento di codice? `int x = 10; if (x = 0) printf("Vero"); else printf("Falso");`',
       options: [
         "Vero, perché x era 10",
         "Falso, perché l'assegnamento `x = 0` restituisce 0, che il C interpreta come Falso",
         "Errore di compilazione, non si può usare `=` dentro un `if`",
-        "Stampa '10'"
+        "Stampa '10'",
       ],
       correctAnswer: 1,
-      explanation: "Questo è uno degli errori più comuni e difficili da trovare. L'operatore `=` assegna un valore e restituisce il valore assegnato. Poiché abbiamo assegnato 0, l'intera espressione diventa 0 (Falso). Il compilatore spesso avvisa con un warning, ma il codice è legalissimo in C!"
+      explanation:
+        "Questo è uno degli errori più comuni e difficili da trovare. L'operatore `=` assegna un valore e restituisce il valore assegnato. Poiché abbiamo assegnato 0, l'intera espressione diventa 0 (Falso). Il compilatore spesso avvisa con un warning, ma il codice è legalissimo in C!",
     },
     {
       id: 2,
-      question: "Cosa succede se dichiari `int x = 5;` fuori da un blocco `{}` e poi `int x = 10;` dentro il blocco?",
+      question:
+        "Cosa succede se dichiari `int x = 5;` fuori da un blocco `{}` e poi `int x = 10;` dentro il blocco?",
       options: [
         "Il programma crasha",
         "La seconda dichiarazione 'nasconde' la prima (Shadowing). All'interno del blocco x varrà 10, fuori varrà ancora 5.",
         "Il valore di x diventa 15",
-        "Le due variabili si fondono in una"
+        "Le due variabili si fondono in una",
       ],
       correctAnswer: 1,
-      explanation: "Lo Shadowing permette di riutilizzare i nomi delle variabili in blocchi più interni senza sovrascrivere i dati del blocco esterno. Questo garantisce l'isolamento della logica all'interno delle graffe."
+      explanation:
+        "Lo Shadowing permette di riutilizzare i nomi delle variabili in blocchi più interni senza sovrascrivere i dati del blocco esterno. Questo garantisce l'isolamento della logica all'interno delle graffe.",
     },
     {
       id: 3,
-      question: "In presenza di `if` annidati senza parentesi graffe, a quale `if` si riferisce un `else`?",
+      question:
+        "In presenza di `if` annidati senza parentesi graffe, a quale `if` si riferisce un `else`?",
       options: [
         "Al primo `if` (quello più esterno)",
         "Al più vicino `if` precedente che non ha ancora un `else`",
         "A nessuno, dà errore",
-        "A entrambi contemporaneamente"
+        "A entrambi contemporaneamente",
       ],
       correctAnswer: 1,
-      explanation: "Questo è il problema del 'Dangling Else'. Senza graffe, l'`else` si lega sempre all'`if` più vicino. È una fonte comune di bug logici, per questo Salvatore consiglia di usare sempre le graffe!"
-    }
+      explanation:
+        "Questo è il problema del 'Dangling Else'. Senza graffe, l'`else` si lega sempre all'`if` più vicino. È una fonte comune di bug logici, per questo Salvatore consiglia di usare sempre le graffe!",
+    },
   ]}
 />
 
-### Terminal Challenge: Logical Compilation 
+### Terminal Challenge: Logical Compilation
 
-<ProTerminal 
+<ProTerminal
   challenges={[
     {
-        id: "gcc-wall",
-        simulatedSuccessOutput: ``,
-        title: "Compilazione Rigorosa",
-        description: "Quale flag di GCC abilita TUTTI i messaggi di avvertimento comuni per trovare bug logici (come l'uso di = invece di ==)?",
-        commands: [],
-        expectedOutput: "",
-        hints: [
-            "L'opzione sta per 'Warnings All'"
-        ],
-        explanation: "Bravissimo! `-Wall` è obbligatorio. Ti avvisa se stai facendo cose pericolose.",
-        xpReward: 150,
-        expectedCommand: "gcc -Wall main.c"
+      id: "gcc-wall",
+      simulatedSuccessOutput: ``,
+      title: "Compilazione Rigorosa",
+      description:
+        "Quale flag di GCC abilita TUTTI i messaggi di avvertimento comuni per trovare bug logici (come l'uso di = invece di ==)?",
+      commands: [],
+      expectedOutput: "",
+      hints: ["L'opzione sta per 'Warnings All'"],
+      explanation:
+        "Bravissimo! `-Wall` è obbligatorio. Ti avvisa se stai facendo cose pericolose.",
+      xpReward: 150,
+      expectedCommand: "gcc -Wall main.c",
     },
     {
-        id: "gcc-define",
-        simulatedSuccessOutput: ``,
-        title: "Macro al Volo",
-        description: "Il tuo codice contiene blocchi `#ifdef DEBUG`. Quale argomento devi passare a `gcc` per compilare includendo quelle sezioni, definendo la macro direttamente da riga di comando?",
-        commands: [
-            "gcc -DDEBUG main.c"
-        ],
-        expectedOutput: "DEBUG",
-        hints: [
-            "L'opzione usa la lettera 'D' per 'Define'"
-        ],
-        explanation: "Ottimo! `-D` permette di definire macro al volo durante la compilazione.",
-        xpReward: 200
+      id: "gcc-define",
+      simulatedSuccessOutput: ``,
+      title: "Macro al Volo",
+      description:
+        "Il tuo codice contiene blocchi `#ifdef DEBUG`. Quale argomento devi passare a `gcc` per compilare includendo quelle sezioni, definendo la macro direttamente da riga di comando?",
+      commands: ["gcc -DDEBUG main.c"],
+      expectedOutput: "DEBUG",
+      hints: ["L'opzione usa la lettera 'D' per 'Define'"],
+      explanation:
+        "Ottimo! `-D` permette di definire macro al volo durante la compilazione.",
+      xpReward: 200,
     },
     {
-        id: "diff-command",
-        simulatedSuccessOutput: `1c1\n< int main() { return 0; }\n---\n> int main(void) { return 0; }`,
-        title: "Caccia alle Differenze",
-        description: "Hai due versioni dello stesso sorgente C e vuoi stampare a video solo le righe che sono state modificate tra l'uno e l'altro. Lancia il classico programma UNIX passandogli `file1.c` e `file2.c`.",
-        commands: [],
-        expectedOutput: "---",
-        hints: [
-            "Significa 'differenza'"
-        ],
-        explanation: "Perfetto! `diff` è lo strumento base per capire le modifiche tra file.",
-        xpReward: 250,
-        expectedCommand: "diff file1.c file2.c"
-    }
-]}
+      id: "diff-command",
+      simulatedSuccessOutput: `1c1\n< int main() { return 0; }\n---\n> int main(void) { return 0; }`,
+      title: "Caccia alle Differenze",
+      description:
+        "Hai due versioni dello stesso sorgente C e vuoi stampare a video solo le righe che sono state modificate tra l'uno e l'altro. Lancia il classico programma UNIX passandogli `file1.c` e `file2.c`.",
+      commands: [],
+      expectedOutput: "---",
+      hints: ["Significa 'differenza'"],
+      explanation:
+        "Perfetto! `diff` è lo strumento base per capire le modifiche tra file.",
+      xpReward: 250,
+      expectedCommand: "diff file1.c file2.c",
+    },
+  ]}
 />
 
 Ci vediamo alla prossima lezione!
-
-

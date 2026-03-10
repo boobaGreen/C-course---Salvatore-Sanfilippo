@@ -1,245 +1,211 @@
-﻿import VideoEmbed from '../../components/content/VideoEmbed';
-import Callout from '../../components/content/Callout';
-import KeyConcepts from '../../components/content/KeyConcepts';
-import CodeEditor from '../../components/exercises/CodeEditor';
-import Quiz from '../../components/exercises/Quiz';
-import ProTerminal from '../../components/content/ProTerminal';
-import Infographic from '../../components/content/Infographic';
-import ComparisonTable from '../../components/content/ComparisonTable';
-import RecursionVisualizer from '../../components/content/RecursionVisualizer';
+﻿import VideoEmbed from "../../components/content/VideoEmbed";
+import Callout from "../../components/content/Callout";
+import KeyConcepts from "../../components/content/KeyConcepts";
+import CodeEditor from "../../components/exercises/CodeEditor";
+import Quiz from "../../components/exercises/Quiz";
+import ProTerminal from "../../components/content/ProTerminal";
+import Infographic from "../../components/content/Infographic";
+import ComparisonTable from "../../components/content/ComparisonTable";
+import RecursionVisualizer from "../../components/content/RecursionVisualizer";
 
-# Lezione 25: L'Interprete ToyFort (Parte 1) - Il Parser
+# Lezione 25: L'Interprete ToyFort (Parte 3) - Parsing e Ricorsione
 
-Benvenuti! Dopo aver gettato le fondamenta delle strutture dati, è il momento di insegnare al nostro interprete a "leggere". In questa lezione implementeremo la prima parte del parser di **ToyFort**, specializzandoci nel riconoscimento di numeri e **simboli**.
+Dopo aver implementato il motore di esecuzione, dobbiamo affinare gli strumenti di "visione" dell'interprete. In questa lezione impareremo a visualizzare strutture dati infinite tramite la ricorsione e a estrarre simboli dal testo in modo efficiente.
 
-<VideoEmbed videoId="vYODKK8TQGE" title="Lezione 25: ToyFort Parser" />
+<VideoEmbed
+  videoId="vYODKK8TQGE"
+  title="Lezione 25: ToyFort Parser & Recursion"
+/>
 
-<KeyConcepts concepts={[
-  { title: "Stampa Ricorsiva", description: "Come visualizzare strutture dati annidate (liste di liste) usando funzioni che richiamano se stesse." },
-  { title: "Riconoscimento Simboli", description: "Definire quali caratteri (come '+', '-', '*', '/') compongono una 'parola' valida nel linguaggio." },
-  { title: "Pointer Math nel Parser", description: "Usare la differenza tra puntatori per calcolare la lunghezza di un token senza cicli extra." }
-]} />
+<KeyConcepts
+  concepts={[
+    {
+      title: "Ricorsione Hardware",
+      description:
+        "Capire come ogni chiamata a funzione occupi uno 'Stack Frame' nella CPU e quali sono i pericoli di una ricorsione troppo profonda.",
+    },
+    {
+      title: "Visualizzazione ad Albero",
+      description:
+        "Usare `print_object` per navigare e mostrare liste annidate in modo leggibile.",
+    },
+    {
+      title: "Tokenizzazione",
+      description:
+        "Il processo di isolare parole e numeri dal flusso di testo ignorando lo 'spazio bianco'.",
+    },
+    {
+      title: "Safety nel Parser",
+      description:
+        "Proteggere l'interprete da crash dovuti a dati malformati o eccessivamente annidati.",
+    },
+  ]}
+/>
 
 ---
 
-## Visualizzare gli Oggetti: La Potenza della Ricorsione
+## La Fisica della Ricorsione: Stack Frames
 
-Prima di leggere, dobbiamo saper scrivere. Una lista ToyFort può contenere altre liste. Per stamparle correttamente, la nostra funzione `print_object` deve essere ricorsiva.
+Quando `print_object` chiama se stessa per stampare una lista interna, la CPU crea un nuovo **Stack Frame**. Questo contiene l'indirizzo di ritorno, i parametri e le variabili locali.
 
-<RecursionVisualizer 
+<Callout type="pro" title="Il Pericolo dello Stack Overflow">
+  Lo stack della CPU ha una dimensione limitata (solitamente 8MB su
+  Linux/Windows). Se una lista ToyFort è annidata 100.000 volte, la ricorsione
+  esaurirà lo stack e il sistema operativo ucciderà il processo con un
+  **Segmentation Fault (Stack Overflow)**.
+</Callout>
+
+<RecursionVisualizer
   title="Visualizzazione Lista Annidata"
   data={{
     label: "LIST [ 1 [ 2 3 ] 4 ]",
     children: [
       { label: "INT: 1" },
-      { 
-        label: "LIST: [ 2 3 ]", 
-        children: [{ label: "INT: 2" }, { label: "INT: 3" }] 
+      {
+        label: "LIST: [ 2 3 ]",
+        children: [{ label: "INT: 2" }, { label: "INT: 3" }],
       },
-      { label: "INT: 4" }
-    ]
+      { label: "INT: 4" },
+    ],
   }}
 />
 
-### La Logica di Stampa
-
-La funzione `print_object` naviga nell'albero degli oggetti. Per ogni tipo di dato, decide come formattare l'output.
-
-<Infographic 
-  title="Logica di print_object"
-  description="Come i diversi tipi vengono visualizzati."
-  items={[
-    { label: "TF_INT", value: "Stampa come intero long long (%lld)", color: "blue" },
-    { label: "TF_STR", value: "Aggiunge doppi apici (\"string\")", color: "purple" },
-    { label: "TF_LIST", value: "Apre '[', richiama se stessa per ogni elemento, chiude ']'", color: "emerald" }
-  ]}
-/>
-
-<Callout type="pro" title="Eleganza della Ricorsione">
-  In una sola funzione di poche righe, abbiamo implementato un visualizzatore capace di stampare un intero database di liste annidate. È il potere del C quando si sposa con algoritmi ricorsivi.
-</Callout>
-
-<Callout type="warning" title="Il segreto del Newline">
-Salvatore nota che senza un `\\n` finale, la shell (come la Z-shell o `zsh`) potrebbe mostrare un carattere `%` o invertito alla fine dell'output. Per questo aggiungiamo un `printf("\\n")` solo nel chiamante principale, non dentro la funzione ricorsiva!
-</Callout>
-
-<Callout type="info" title="Perché la Ricorsione?">
-Non è un esercizio accademico! La ricorsione è il modo più naturale per navigare strutture "ad albero" come i programmi. Senza di essa, dovremmo gestire manualmente uno stack complicatissimo.
-</Callout>
-
-<Callout type="warning" title="Limite della Ricorsione">
-  Attenzione: se un utente malintenzionato crea una lista annidata 1 milione di volte (es. `[[[[...]]]]`), la funzione `print_object` esaurirà lo spazio della RAM dello stack della CPU (Stack Overflow). Salvatore consiglia di mettere sempre un contatore di profondità massima nelle funzioni ricorsive.
-</Callout>
-
 ---
 
-## Implementare il Parser di Simboli
+## Tokenizzazione: Isolare i Simboli
 
-Un simbolo in ToyFort è qualsiasi sequenza di caratteri che non sia un numero o una stringa. Dobbiamo definire un set di caratteri accettabili (alfanumerici + simboli matematici).
+Il parser deve decidere dove finisce una "parola" e dove ne inizia un'altra. Usiamo il concetto di "Whitelist" di caratteri ammessi per i simboli.
 
-<Infographic 
-  title="Flusso del Parser"
-  description="Come ToyFort decide cosa ha appena letto."
+<Infographic
+  title="Ciclo di Vita di un Token"
+  description="Dalla stringa all'oggetto."
   items={[
-    { label: "1. Skip", value: "Salta spazi e commenti", color: "blue" },
-    { label: "2. Check", value: "Inizia con un numero o '-'?", color: "purple" },
-    { label: "3. Symbol", value: "Se non è un numero, è un simbolo!", color: "amber" },
-    { label: "4. Create", value: "Alloca TFObject tipo TF_SYM", color: "emerald" }
+    {
+      label: "Skip Spaces",
+      value: "Avanza il puntatore finché incontri space, tab, newline",
+      color: "blue",
+    },
+    {
+      label: "Identify",
+      value: "Controlla il primo carattere. Numero? Lettera? Simbolo?",
+      color: "purple",
+    },
+    {
+      label: "Scan",
+      value: "Leggi finché i caratteri sono validi per quel tipo",
+      color: "amber",
+    },
+    {
+      label: "Allocate",
+      value: "Crea il TFObject finale in memoria",
+      color: "emerald",
+    },
   ]}
 />
 
-### La funzione `is_symbol_char`
+### Pointer Math: Velocità Atomica
 
-Salvatore usa un trucco elegante con `strchr` per verificare se un carattere appartiene a un set di simboli ammessi:
-
-```c
-int is_symbol_char(int c) {
-    if (isalpha(c)) return 1;
-    if (strchr("+-*/%=<>!?", c)) return 1;
-    return 0;
-}
-```
+Invece di copiare ogni carattere in un buffer temporaneo, il parser di Salvatore calcola la lunghezza semplicemente sottraendo due puntatori: `len = p - start`. Questo evita allocazioni inutili finché non è strettamente necessario creare l'oggetto finale.
 
 ---
 
 ## Esercitazione
 
-<Quiz 
-  title="Quiz Standard" 
+<Quiz
+  title="Quiz Standard"
   questions={[
     {
-      question: "Cosa succede se passiamo una lista a print_object?",
+      question: "Perché `print_object` viene chiamata ricorsivamente?",
       options: [
-        "Stampa solo l'indirizzo di memoria",
-        "Genera un errore perché non può stampare più elementi",
-        "Richiama se stessa per ogni elemento della lista",
-        "Stampa solo il primo elemento"
-      ],
-      correctAnswer: 2,
-      explanation: "Grazie alla ricorsione, print_object può gestire liste annidate a qualsiasi profondità."
-    },
-    {
-      question: "Qual è il vantaggio di usare xmalloc nel parser?",
-      options: [
-        "Rende il parsing più veloce",
-        "Gestisce automaticamente la fine della memoria interrompendo il programma",
-        "Permette di non usare i puntatori",
-        "Comprime il codice sorgente"
+        "Perché è l'unico modo per stampare stringhe",
+        "Per poter gestire liste che contengono altre liste a qualsiasi profondità",
+        "Per risparmiare memoria RAM",
+        "Perché le unioni lo richiedono",
       ],
       correctAnswer: 1,
-      explanation: "xmalloc evita di dover controllare NULL dopo ogni allocazione, semplificando la logica del parser."
+      explanation:
+        "La ricorsione rispecchia la struttura 'ad albero' dei dati del nostro linguaggio.",
     },
     {
-      question: "Perché resettiamo il Newline nella stampa degli oggetti?",
+      question: "Cos'è uno 'Stack Frame'?",
       options: [
-        "Perché occupa troppo spazio",
-        "Per permettere a liste annidate di apparire sulla stessa riga",
-        "Perché il C non supporta \n nelle liste",
-        "È un errore del compilatore"
+        "Un pezzo di hardware dedicato alla grafica",
+        "Una porzione di memoria stack che contiene i dati di una specifica chiamata a funzione",
+        "Un errore del parser",
+        "Il nome tecnico di una lista ToyFort",
       ],
       correctAnswer: 1,
-      explanation: "In un interprete, vogliamo vedere la struttura della lista [ 1 [ 2 3 ] 4 ] pulita, senza interruzioni di riga tra gli elementi."
+      explanation:
+        "Ogni volta che chiami una funzione, la CPU alloca uno Stack Frame. Troppe chiamate annidate portano allo Stack Overflow.",
     },
     {
-      question: "Cosa identifica un simbolo nel parser?",
-      options: [
-        "Sempre le virgolette doppie",
-        "Qualsiasi sequenza di caratteri validi che non inizi come numero",
-        "Solo le lettere dell'alfabeto",
-        "Il carattere #"
-      ],
-      correctAnswer: 1,
-      explanation: "Il parser tenta prima di leggere un numero; se fallisce, verifica se i caratteri sono validi per un simbolo."
+      question:
+        "In C, il carattere '\\n' viene contato come spazio bianco da funzioni come `isspace()`?",
+      options: ["Sì", "No", "Solo su Linux", "Solo se è l'ultimo carattere"],
+      correctAnswer: 0,
+      explanation:
+        "Lo standard C include spazi, tab, newline e carriage return nella categoria dei 'whitespaces'.",
     },
-    {
-      question: "Cosa fa strchr(\"+-*/\", c)?",
-      options: [
-        "Somma i caratteri",
-        "Cerca se il carattere 'c' è presente nella stringa dei simboli",
-        "Cancella i simboli dalla memoria",
-        "Converte 'c' in una stringa"
-      ],
-      correctAnswer: 1,
-      explanation: "strchr ritorna un puntatore se trova il carattere, NULL altrimenti. È perfetto per definire 'whitelist' di caratteri."
-    }
-  ]} 
+  ]}
 />
 
-<Quiz 
+<Quiz
   title="Pro Challenge"
   questions={[
     {
-      question: "Se implementassimo un commento che inizia con ';', cosa dovrebbe fare il parser?",
+      question:
+        "Come proteggeresti `print_object` da un crash per ricorsione infinita?",
       options: [
-        "Creare un TFObject di tipo COMMENT",
-        "Fermare l'esecuzione",
-        "Avanzare il puntatore fino alla fine della riga",
-        "Ignorare l'intero programma"
-      ],
-      correctAnswer: 2,
-      explanation: "I commenti sono 'spazio bianco' per il parser: vanno saltati senza generare oggetti."
-    },
-    {
-      question: "Qual è la complessità di print_object per una lista di N elementi totali?",
-      options: [
-        "O(1)",
-        "O(N)",
-        "O(N^2)",
-        "O(log N)"
+        "Usando una malloc più grande",
+        "Aggiungendo un parametro 'depth' e fermandosi se supera un limite (es. 1000)",
+        "Riavviando il computer",
+        "Usando un processore a 64 bit",
       ],
       correctAnswer: 1,
-      explanation: "La funzione visita ogni oggetto esattamente una volta, quindi la complessità è lineare rispetto al numero totale di oggetti."
+      explanation:
+        "Il 'Depth Limiting' è una tecnica di sicurezza fondamentale negli interpreti professionali.",
     },
     {
-      question: "Perché Salvatore preferisce `int *p` a `int* p`?",
+      question:
+        "Perché il parser di Salvatore testa i numeri PRIMA dei simboli?",
       options: [
-        "Perché è più veloce",
-        "Perché l'asterisco è legato alla variabile, non al tipo (evita errori con più dichiarazioni)",
-        "Perché lo standard C89 lo impone",
-        "È solo una questione estetica"
+        "Perché i numeri sono più importanti",
+        "Perché un simbolo potrebbe iniziare con un carattere che è anche un numero (es. '-5')",
+        "È un requisito del compilatore C",
+        "Per pura convenienza estetica",
       ],
       correctAnswer: 1,
-      explanation: "In `int *p, a;`, solo p è un puntatore. Scrivere `int* p, a;` è fuorviante."
-    }
-  ]} 
+      explanation:
+        "L'ordine di riconoscimento (Token Priority) è critico per non confondere un intero negativo con l'operatore di sottrazione.",
+    },
+  ]}
 />
 
-<ProTerminal 
+<ProTerminal
   challenges={[
     {
-        id: "parser-trace",
-        title: "Traccia del Parser",
-        description: "Il parser riceve '123 hello'. Qual è il tipo del secondo token?",
-        commands: [],
-        expectedOutput: "TF_SYM",
-        hints: [
-            "'123' è un intero, 'hello' non inizia con numeri."
-        ]
+      id: "stack-limit",
+      title: "Ispettore di Risorse",
+      description:
+        "Usa il comando `ulimit -s` sul tuo terminale (Linux/macOS). Qual è il limite di stack predefinito in KB?",
+      commands: [],
+      expectedOutput: "8192",
+      hints: ["Solitamente è 8192 (ovvero 8MB)."],
     },
     {
-        id: "pointer-diff",
-        title: "Pointer Math",
-        description: "Se 'start' punta a 'h' e 'p' punta allo spazio dopo 'hello', quanto vale 'p - start'?",
-        commands: [],
-        expectedOutput: "5",
-        hints: [
-            "H-E-L-L-O = 5 caratteri."
-        ]
+      id: "pointer-sub",
+      title: "Sfida Pointer Math",
+      description:
+        'Se char *s = "ToyFort"; e char *p = s + 3; quanto vale l\'espressione (int)(p - s)?',
+      commands: [],
+      expectedOutput: "3",
+      hints: [
+        "La differenza tra puntatori restituisce il numero di elementi (char) tra di essi.",
+      ],
     },
-    {
-        id: "header-check",
-        title: "Header Hunting",
-        description: "Quale header standard serve per usare 'isalpha' e 'isdigit'?",
-        commands: [],
-        expectedOutput: "ctype.h",
-        hints: [
-            "C-Type (Character Type)."
-        ]
-    }
-]}
+  ]}
 />
 
-### Conclusione
-Abbiamo un parser che sa distinguere numeri e nomi! Nella prossima lezione vedremo come questi token si trasformano in azioni reali tramite la funzione `eval` e come gestire la memoria mentre l'interprete "macina" il codice.
+### Riassunto Finale
 
-
+Abbiamo esplorato la dualità tra la logica ricorsiva del codice e la realtà fisica dello stack della CPU. Hai imparato che un parser non è solo un lettore di testo, ma un guardiano che trasforma l'input grezzo in strutture sicure e visualizzabili. Ora ToyFort ha una 'voce' e una 'vista'.

@@ -1,32 +1,61 @@
-﻿import VideoEmbed from '../../components/content/VideoEmbed';
-import Callout from '../../components/content/Callout';
-import KeyConcepts from '../../components/content/KeyConcepts';
-import CodeEditor from '../../components/exercises/CodeEditor';
-import Quiz from '../../components/exercises/Quiz';
-import ProTerminal from '../../components/content/ProTerminal';
-import Infographic from '../../components/content/Infographic';
-import ComparisonTable from '../../components/content/ComparisonTable';
-import RecursionVisualizer from '../../components/content/RecursionVisualizer';
+﻿import VideoEmbed from "../../components/content/VideoEmbed";
+import Callout from "../../components/content/Callout";
+import KeyConcepts from "../../components/content/KeyConcepts";
+import CodeEditor from "../../components/exercises/CodeEditor";
+import Quiz from "../../components/exercises/Quiz";
+import ProTerminal from "../../components/content/ProTerminal";
+import Infographic from "../../components/content/Infographic";
+import ComparisonTable from "../../components/content/ComparisonTable";
+import RecursionVisualizer from "../../components/content/RecursionVisualizer";
 
-# Lesson 25: The ToyFort Interpreter (Part 1) - The Parser
+# Lesson 25: The ToyFort Interpreter (Part 3) - Parsing and Recursion
 
-Welcome! After laying the foundation for our data structures, it's time to teach our interpreter how to "read." In this lesson, we will implement the first part of the **ToyFort** parser, specializing in recognizing numbers and **symbols**.
+After implementing the execution engine, we must refine the interpreter's "vision." In this lesson, we will learn how to visualize infinite data structures via recursion and how to extract symbols from text efficiently.
 
-<VideoEmbed videoId="vYODKK8TQGE" title="Lesson 25: ToyFort Parser" />
+<VideoEmbed
+  videoId="vYODKK8TQGE"
+  title="Lesson 25: ToyFort Parser & Recursion"
+/>
 
-<KeyConcepts concepts={[
-  { title: "Recursive Printing", description: "How to display nested data structures (lists within lists) using functions that call themselves." },
-  { title: "Symbol Recognition", description: "Defining which characters (like '+', '-', '*', '/') form a valid 'word' in the language." },
-  { title: "Pointer Math in the Parser", description: "Using pointer subtraction to calculate token length without extra loops." }
-]} />
+<KeyConcepts
+  concepts={[
+    {
+      title: "Hardware Recursion",
+      description:
+        "Learn how every function call occupies a 'Stack Frame' in the CPU and the physical dangers of infinite recursion.",
+    },
+    {
+      title: "Tree Visualization",
+      description:
+        "Using `print_object` to navigate and display nested lists in a readable way.",
+    },
+    {
+      title: "Tokenization",
+      description:
+        "The process of isolating words and numbers from the text stream by ignoring white space.",
+    },
+    {
+      title: "Parser Safety",
+      description:
+        "Protecting the interpreter from crashes caused by malformed or excessively nested data.",
+    },
+  ]}
+/>
 
 ---
 
-## Visualizing Objects: The Power of Recursion
+## The Physics of Recursion: Stack Frames
 
-Before we can read, we must know how to write. A ToyFort list can contain other lists. To print them correctly, our `print_object` function must be recursive.
+When `print_object` calls itself to print an internal list, the CPU creates a new **Stack Frame**. This frame contains the return address, parameters, and local variables.
 
-<RecursionVisualizer 
+<Callout type="pro" title="The Stack Overflow Danger">
+  The CPU's stack has a limited size (usually 8MB on Linux/Windows). If a
+  ToyFort list is nested 100,000 times, the recursion will exhaust the stack,
+  and the OS will kill the process with a **Segmentation Fault (Stack
+  Overflow)**.
+</Callout>
+
+<RecursionVisualizer
   title="Nested List Visualization"
   data={{
     label: "LIST [ 1 [ 2 3 ] 4 ]",
@@ -34,202 +63,153 @@ Before we can read, we must know how to write. A ToyFort list can contain other 
       { label: "INT: 1" },
       {
         label: "LIST: [ 2 3 ]",
-        children: [{ label: "INT: 2" }, { label: "INT: 3" }]
+        children: [{ label: "INT: 2" }, { label: "INT: 3" }],
       },
-      { label: "INT: 4" }
-    ]
+      { label: "INT: 4" },
+    ],
   }}
 />
 
-### Printing Logic
-
-The `print_object` function navigates the object tree. For each data type, it decides how to format the output.
-
-<Infographic 
-  title="print_object Logic"
-  description="How different types are displayed."
-  items={[
-    { label: "TF_INT", value: "Printed as long long integer (%lld)", color: "blue" },
-    { label: "TF_STR", value: "Adds double quotes (\"string\")", color: "purple" },
-    { label: "TF_LIST", value: "Opens '[', calls itself for each element, closes ']'", color: "emerald" }
-  ]}
-/>
-
-<Callout type="pro" title="Elegance of Recursion">
-  In a single function of just a few lines, we've implemented a visualizer capable of printing an entire database of nested lists. This is the power of C when paired with recursive algorithms.
-</Callout>
-
-<Callout type="warning" title="The Newline Secret">
-Salvatore notes that without a final `\\n`, the shell (like Z-shell or `zsh`) might show a `%` character or an inverted symbol at the end of the output. This is why we add a `printf("\\n")` only in the main caller, not inside the recursive function!
-</Callout>
-
-<Callout type="info" title="Why Recursion?">
-It's not just an academic exercise! Recursion is the most natural way to navigate tree-like structures like programs. Without it, we would have to manually manage a complex stack.
-</Callout>
-
 ---
 
-## Implementing the Symbol Parser
+## Tokenization: Isolating Symbols
 
-A symbol in ToyFort is any sequence of characters that isn't a number or a string. We need to define a set of acceptable characters (alphanumeric + mathematical symbols).
+The parser must decide where one "word" ends and another begins. We use a "Whitelist" of allowed characters for symbols.
 
-<Infographic 
-  title="Parser Flow"
-  description="How ToyFort decides what it just read."
+<Infographic
+  title="Token Lifecycle"
+  description="From string to object."
   items={[
-    { label: "1. Skip", value: "Skip spaces and comments", color: "blue" },
-    { label: "2. Check", value: "Starts with a number or '-'?", color: "purple" },
-    { label: "3. Symbol", value: "If not a number, it's a symbol!", color: "amber" },
-    { label: "4. Create", value: "Allocate TFObject type TF_SYM", color: "emerald" }
+    {
+      label: "Skip Spaces",
+      value: "Advance pointer past spaces, tabs, and newlines",
+      color: "blue",
+    },
+    {
+      label: "Identify",
+      value: "Check first character: Number? Letter? Symbol?",
+      color: "purple",
+    },
+    {
+      label: "Scan",
+      value: "Read until characters are no longer valid for that type",
+      color: "amber",
+    },
+    {
+      label: "Allocate",
+      value: "Create the final TFObject in memory",
+      color: "emerald",
+    },
   ]}
 />
 
-### The `is_symbol_char` function
+### Pointer Math: Atomic Speed
 
-Salvatore uses an elegant trick with `strchr` to check if a character belongs to a set of allowed symbols:
-
-```c
-int is_symbol_char(int c) {
-    if (isalpha(c)) return 1;
-    if (strchr("+-*/%=<>!?", c)) return 1;
-    return 0;
-}
-```
+Instead of copying every character into a temporary buffer, Salvatore's parser calculates the length by subtracting two pointers: `len = p - start`. This avoids unnecessary allocations until the final object creation.
 
 ---
 
 ## Exercises
 
-<Quiz 
-  title="Quiz Standard" 
+<Quiz
+  title="Standard Quiz"
   questions={[
     {
-      question: "What happens if we pass a list to print_object?",
+      question: "Why is `print_object` called recursively?",
       options: [
-        "It prints only the memory address",
-        "It generates an error because it can't print multiple elements",
-        "It calls itself for each element in the list",
-        "It prints only the first element"
-      ],
-      correctAnswer: 2,
-      explanation: "Thanks to recursion, print_object can handle nested lists to any depth."
-    },
-    {
-      question: "What is the advantage of using xmalloc in the parser?",
-      options: [
-        "It makes parsing faster",
-        "It automatically handles 'out of memory' by stopping the program",
-        "It allows not using pointers",
-        "It compresses the source code"
+        "It's the only way to print strings",
+        "To handle lists containing other lists at any depth",
+        "To save RAM",
+        "Because of union requirements",
       ],
       correctAnswer: 1,
-      explanation: "xmalloc avoids having to check for NULL after every allocation, simplifying the parser logic."
+      explanation:
+        "Recursion mirrors the tree-like structure of our language's data.",
     },
     {
-      question: "Why do we avoid Newlines in object printing?",
+      question: "What is a 'Stack Frame'?",
       options: [
-        "Because they take up too much space",
-        "To allow nested lists to appear on the same line",
-        "Because C doesn't support \n in lists",
-        "It's a compiler error"
+        "A graphics hardware component",
+        "A portion of stack memory containing data for a specific function call",
+        "A parser error",
+        "The technical name for a ToyFort list",
       ],
       correctAnswer: 1,
-      explanation: "In an interpreter, we want to see the list structure [ 1 [ 2 3 ] 4 ] cleanly, without line breaks between elements."
+      explanation:
+        "Every time you call a function, the CPU allocates a Stack Frame. Too many nested calls lead to a Stack Overflow.",
     },
     {
-      question: "What identifies a symbol in the parser?",
+      question:
+        "In C, is '\\n' considered white space by functions like `isspace()`?",
       options: [
-        "Always double quotes",
-        "Any sequence of valid characters that doesn't start as a number",
-        "Only alphabet letters",
-        "The # character"
+        "Yes",
+        "No",
+        "Only on Linux",
+        "Only if it's the last character",
       ],
-      correctAnswer: 1,
-      explanation: "The parser first tries to read a number; if it fails, it checks if the characters are valid for a symbol."
+      correctAnswer: 0,
+      explanation:
+        "The C standard includes space, tab, newline, and carriage return in the 'whitespace' category.",
     },
-    {
-      question: "What does strchr(\"+-*/\", c) do?",
-      options: [
-        "Adds characters",
-        "Checks if character 'c' is present in the symbol string",
-        "Deletes symbols from memory",
-        "Converts 'c' into a string"
-      ],
-      correctAnswer: 1,
-      explanation: "strchr returns a pointer if it finds the character, NULL otherwise. It's perfect for defining character 'whitelists'."
-    }
-  ]} 
-/>
-
-<Quiz 
-  title="Pro Challenge"
-  questions={[
-    {
-      question: "If we implemented a comment starting with ';', what should the parser do?",
-      options: [
-        "Create a TFObject of type COMMENT",
-        "Stop execution",
-        "Advance the pointer to the end of the line",
-        "Ignore the entire program"
-      ],
-      correctAnswer: 2,
-      explanation: "Comments are 'white space' for the parser: they should be skipped without generating objects."
-    },
-    {
-      question: "What is the complexity of print_object for a list of N total elements?",
-      options: [
-        "O(1)",
-        "O(N)",
-        "O(N^2)",
-        "O(log N)"
-      ],
-      correctAnswer: 1,
-      explanation: "The function visits every object exactly once, so complexity is linear relative to the total number of objects."
-    },
-    {
-      question: "Why does Salvatore prefer `int *p` over `int* p`?",
-      options: [
-        "Because it's faster",
-        "Because the asterisk is tied to the variable, not the type (avoids multi-declaration bugs)",
-        "Because the C89 standard requires it",
-        "It's just an aesthetic choice"
-      ],
-      correctAnswer: 1,
-      explanation: "In `int *p, a;`, only p is a pointer. Writing `int* p, a;` is misleading."
-    }
-  ]} 
-/>
-
-<ProTerminal 
-  challenges={[
-    {
-      id: "parser-trace-en",
-      title: "Parser Trace",
-      description: "The parser receives '123 hello'. What is the type of the second token?",
-      commands: ["TF_SYM"],
-      expectedOutput: "TF_SYM",
-      hints: ["'123' is an integer, 'hello' does not start with numbers."]
-    },
-    {
-      id: "pointer-diff-en",
-      title: "Pointer Math",
-      description: "If 'start' points to 'h' and 'p' points to the space after 'hello', what is 'p - start'?",
-      commands: ["5"],
-      expectedOutput: "5",
-      hints: ["H-E-L-L-O = 5 characters."]
-    },
-    {
-      id: "header-check-en",
-      title: "Header Hunting",
-      description: "Which standard header is needed for 'isalpha' and 'isdigit'?",
-      commands: ["ctype.h"],
-      expectedOutput: "ctype.h",
-      hints: ["C-Type (Character Type)."]
-    }
   ]}
 />
 
-### Conclusion
-We have a parser that can distinguish numbers and names! In the next lesson, we'll see how these tokens transform into real actions via the `eval` function and how to manage memory while the interpreter "grinds" through the code.
+<Quiz
+  title="Pro Challenge"
+  questions={[
+    {
+      question:
+        "How would you protect `print_object` from crashing due to infinite recursion?",
+      options: [
+        "Using a larger malloc",
+        "Adding a 'depth' parameter and stopping if it exceeds a limit (e.g., 1000)",
+        "Restarting the computer",
+        "Using 64-bit processes",
+      ],
+      correctAnswer: 1,
+      explanation:
+        "Depth Limiting is a fundamental safety technique in professional interpreters.",
+    },
+    {
+      question: "Why does the parser test for numbers BEFORE symbols?",
+      options: [
+        "Numbers are more important",
+        "Because a symbol could start with a character that is also a number (e.g., '-5')",
+        "It's a C compiler requirement",
+        "For aesthetic reasons",
+      ],
+      correctAnswer: 1,
+      explanation:
+        "Token priority is critical to avoid confusing a negative integer with a subtraction operator.",
+    },
+  ]}
+/>
 
+<ProTerminal
+  challenges={[
+    {
+      id: "stack-limit-en",
+      title: "Resource Inspector",
+      description:
+        "Use the `ulimit -s` command on your terminal (Linux/macOS). What is the default stack limit in KB?",
+      commands: ["8192"],
+      expectedOutput: "8192",
+      hints: ["It's usually 8192 (which means 8MB)."],
+    },
+    {
+      id: "pointer-sub-en",
+      title: "Pointer Math Challenge",
+      description:
+        'If char *s = "ToyFort"; and char *p = s + 3; what is the value of (int)(p - s)?',
+      commands: ["3"],
+      expectedOutput: "3",
+      hints: [
+        "The difference between pointers returns the number of elements between them.",
+      ],
+    },
+  ]}
+/>
 
+### Final Summary
+
+We've explored the duality between recursive code logic and the physical reality of the CPU stack. You've learned that a parser isn't just a text reader but a guardian that transforms raw input into safe, visualizable structures. Now ToyFort has both a 'voice' and 'vision'.

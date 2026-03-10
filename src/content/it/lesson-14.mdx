@@ -1,12 +1,11 @@
-﻿
-import VideoEmbed from '../../components/content/VideoEmbed';
-import KeyConcepts from '../../components/content/KeyConcepts';
-import Callout from '../../components/content/Callout';
-import CodeEditor from '../../components/exercises/CodeEditor';
-import Quiz from '../../components/exercises/Quiz';
-import ProTerminal from '../../components/content/ProTerminal';
-import Infographic from '../../components/content/Infographic';
-import ComparisonTable from '../../components/content/ComparisonTable';
+﻿import VideoEmbed from "../../components/content/VideoEmbed";
+import KeyConcepts from "../../components/content/KeyConcepts";
+import Callout from "../../components/content/Callout";
+import CodeEditor from "../../components/exercises/CodeEditor";
+import Quiz from "../../components/exercises/Quiz";
+import ProTerminal from "../../components/content/ProTerminal";
+import Infographic from "../../components/content/Infographic";
+import ComparisonTable from "../../components/content/ComparisonTable";
 
 # Lezione 14: Introduzione alle Strutture (struct)
 
@@ -14,11 +13,25 @@ import ComparisonTable from '../../components/content/ComparisonTable';
 
 <VideoEmbed videoId="p4IMHau2lq8" title="Lezione 14: Le Strutture in C" />
 
-<KeyConcepts concepts={[
-  { title: "Astrazione dei Dati", description: "Raggruppare variabili di tipo diverso (es. int, char, puntatori) sotto un unico nome logico." },
-  { title: "Layout Contiguo", description: "Tutti i campi di una struct vivono vicini in memoria, permettendo prestazioni elevatissime." },
-  { title: "Padding e Allineamento", description: "Capire perché la CPU aggiunge byte 'invisibili' per leggere i dati più velocemente." }
-]} />
+<KeyConcepts
+  concepts={[
+    {
+      title: "Astrazione dei Dati",
+      description:
+        "Raggruppare variabili di tipo diverso (es. int, char, puntatori) sotto un unico nome logico.",
+    },
+    {
+      title: "Layout Contiguo",
+      description:
+        "Tutti i campi di una struct vivono vicini in memoria, permettendo prestazioni elevatissime.",
+    },
+    {
+      title: "Padding e Allineamento",
+      description:
+        "Capire perché la CPU aggiunge byte 'invisibili' per leggere i dati più velocemente.",
+    },
+  ]}
+/>
 
 ## Perché le Struct? L'Esempio delle Frazioni
 
@@ -35,12 +48,12 @@ struct Frazione {
 
 Una struct è un blocco di memoria contiguo. Se un `int` occupa 4 byte, la nostra `struct Frazione` occuperà esattamente **8 byte**.
 
-<Infographic 
+<Infographic
   title="Layout Interno struct Frazione"
   description="Due interi affiancati nell'indirizzamento fisico."
   items={[
     { label: "Offset 0", value: "Variabile 'num' (4 byte)", color: "emerald" },
-    { label: "Offset 4", value: "Variabile 'den' (4 byte)", color: "blue" }
+    { label: "Offset 4", value: "Variabile 'den' (4 byte)", color: "blue" },
   ]}
 />
 
@@ -50,15 +63,33 @@ Una struct è un blocco di memoria contiguo. Se un `int` occupa 4 byte, la nostr
 
 Cosa succede se aggiungiamo un `char` (1 byte) alla nostra struct? Ci aspetteremmo una dimensione di 9 byte (4 + 4 + 1). Ma il C ci sorprende: la dimensione sarà **12 byte**.
 
-<ComparisonTable 
+<ComparisonTable
   title="Padding e Spreco di Memoria"
-  headers={["Campo", "Dimensione Reale", "Spazio Occupato (con Padding)", "Perché?"]}
+  headers={[
+    "Campo",
+    "Dimensione Reale",
+    "Spazio Occupato (con Padding)",
+    "Perché?",
+  ]}
   rows={[
     ["int num", "4 byte", "4 byte", "Già allineato"],
     ["int den", "4 byte", "4 byte", "Già allineato"],
-    ["char color", "1 byte", "4 byte", "Il compilatore aggiunge 3 byte per allineare alla parola di 32-bit"]
+    [
+      "char color",
+      "1 byte",
+      "4 byte",
+      "Il compilatore aggiunge 3 byte 'morti' per allineare alla parola di 32-bit",
+    ],
   ]}
 />
+
+<Callout type="pro" title="Perché la CPU odia il disallineamento?">
+  Un processore a 64-bit legge la RAM in blocchi completi di 8 byte. Se un `int`
+  è salvato a metà tra un blocco e l'altro (disallineato), la CPU deve fare
+  **due letture** invece di una, fare degli shift di bit e unire i risultati. Il
+  padding sacrifica un po' di RAM per evitare questo enorme rallentamento
+  hardware.
+</Callout>
 
 <Callout type="warning" title="Ottimizzazione">
 Per risparmiare memoria, Salvatore consiglia di raggruppare i campi per dimensione: prima i più grandi (puntatori, long, int) e poi i più piccoli (char). Questo riduce il padding inserito dal compilatore!
@@ -69,7 +100,11 @@ Per risparmiare memoria, Salvatore consiglia di raggruppare i campi per dimensio
 </Callout>
 
 <Callout type="info" title="L'origine della Freccia ->">
-Perché non usare sempre il punto? Nei primi anni del C, il compilatore aveva bisogno di un indizio sintattico forte per capire se stavi accedendo a una locazione fissa (punto) o se doveva prima calcolare un indirizzo base da un registro (freccia). Oggi è una scelta di stile che rende il codice estremamente leggibile: vedi una freccia, sai che c'è un puntatore di mezzo.
+  Perché non usare sempre il punto? Nei primi anni del C, il compilatore aveva
+  bisogno di un indizio sintattico forte per capire se stavi accedendo a una
+  locazione fissa (punto) o se doveva prima calcolare un indirizzo base da un
+  registro (freccia). Oggi è una scelta di stile che rende il codice
+  estremamente leggibile: vedi una freccia, sai che c'è un puntatore di mezzo.
 </Callout>
 
 ---
@@ -81,12 +116,20 @@ Perché non usare sempre il punto? Nei primi anni del C, il compilatore aveva bi
 - **Operatore Punto (`.`)**: Si usa quando hai la **variabile fisica** (nello stack o come copia).
 - **Operatore Freccia (`->`)**: Si usa quando hai un **puntatore** (indirizzo memoria). È lo shorthand di `(*ptr).campo`.
 
-<Infographic 
+<Infographic
   title="Punto vs Freccia"
   description="Come scegliere l'operatore giusto in base al tipo di variabile."
   items={[
-    { label: "Variabile Fisica", value: "Usa '.' (Accesso Diretto)", color: "blue" },
-    { label: "Indirizzo (Puntatore)", value: "Usa '->' (Dereferenziazione + Accesso)", color: "emerald" }
+    {
+      label: "Variabile Fisica",
+      value: "Usa '.' (Accesso Diretto)",
+      color: "blue",
+    },
+    {
+      label: "Indirizzo (Puntatore)",
+      value: "Usa '->' (Dereferenziazione + Accesso)",
+      color: "emerald",
+    },
   ]}
 />
 
@@ -95,49 +138,63 @@ Perché non usare sempre il punto? Nei primi anni del C, il compilatore aveva bi
 #include <stdlib.h>
 
 struct Frac {
-    int num;
-    int den;
+int num;
+int den;
 };
 
 // Funzione che accetta un PUNTATORE (Passaggio per Referenza)
-void simplify(struct Frac *f) {
-    if (f->num == f->den) {
-        f->num = 1;
-        f->den = 1;
-    }
+void simplify(struct Frac \*f) {
+// Passare un puntatore (8 byte) è molto più veloce che copiare
+// l'intera struct (che potrebbe essere di centinaia di byte).
+if (f->num == f->den) {
+f->num = 1;
+f->den = 1;
+}
 }
 
 int main() {
-    // 1. Variabile fisica
-    struct Frac a;
-    a.num = 10;
-    a.den = 10;
-    
+// 1. Variabile fisica
+struct Frac a;
+a.num = 10;
+a.den = 10;
+
     // 2. Usiamo il puntatore
     simplify(&a);
-    
+
     printf("Frazione semplificata: %d/%d\\n", a.num, a.den);
 
     // SFIDA: Aggiungi qui una funzione 'multiply' che prende due struct Frac e ne ritorna una nuova!
-    
+
     // 3. Allocazione dinamica nell'HEAP
     struct Frac *b = malloc(sizeof(struct Frac));
     b->num = 3;
     b->den = 4;
-    
+
     printf("Frazione nell'heap: %d/%d\\n", b->num, b->den);
-    
+
     free(b);
     return 0;
-}`} 
-  language="c" 
+
+}`}
+language="c"
 />
+
+<Callout type="pro" title="Mapping dell'Hardware: Bitfields">
+  Il C permette di mappare i singoli bit di una struct per parlare direttamente con l'hardware (es. schede video o sensori):
+  ```c
+  struct Status {
+      unsigned int power_on : 1; // Occupa solo 1 BIT
+      unsigned int error    : 1; // Occupa solo 1 BIT
+      unsigned int code     : 6; // Occupa 6 BIT
+  }; // Totale: 1 solo byte invece di 4-12!
+  ```
+</Callout>
 
 ---
 
 ## Esercitazione
 
-<Quiz 
+<Quiz
   title="Quiz Standard"
   questions={[
     {
@@ -146,43 +203,44 @@ int main() {
         "Proteggere i dati dai virus",
         "Allineare i campi in modo che la CPU possa leggerli con un singolo ciclo di bus",
         "Rendere il file binario più grande per sicurezza",
-        "Nascondere segreti nei byte vuoti"
+        "Nascondere segreti nei byte vuoti",
       ],
       correctAnswer: 1,
-      explanation: "L'allineamento di memoria permette prestazioni superiori; leggere un dato 'disallineato' richiederebbe alla CPU più operazioni costose."
+      explanation:
+        "L'allineamento di memoria permette prestazioni superiori; leggere un dato 'disallineato' richiederebbe alla CPU più operazioni costose.",
     },
     {
-      question: "Cosa succede se passiamo una struct enorme ad una funzione per VALORE (senza puntatore)?",
+      question:
+        "Cosa succede se passiamo una struct enorme ad una funzione per VALORE (senza puntatore)?",
       options: [
         "Il programma è velocissimo",
         "Il compilatore la trasforma automaticamente in puntatore",
         "Viene eseguita una copia byte per byte di tutta la struct (inefficiente)",
-        "La funzione non può accedere ai campi"
+        "La funzione non può accedere ai campi",
       ],
       correctAnswer: 2,
-      explanation: "Il C copia fedelmente tutta la struttura sullo stack della funzione, consumando tempo e memoria."
+      explanation:
+        "Il C copia fedelmente tutta la struttura sullo stack della funzione, consumando tempo e memoria.",
     },
     {
-      question: "È possibile assegnare una struct ad un'altra dello stesso tipo? (es. a = b;)",
+      question:
+        "È possibile assegnare una struct ad un'altra dello stesso tipo? (es. a = b;)",
       options: [
         "No, bisogna copiare ogni campo a mano",
         "Sì, il C esegue una copia bit a bit della memoria",
         "Solo se contengono solo interi",
-        "Solo usando memcpy"
+        "Solo usando memcpy",
       ],
       correctAnswer: 1,
-      explanation: "Il C supporta l'assegnamento tra struct identiche, effettuando una copia completa della memoria della struttura."
+      explanation:
+        "Il C supporta l'assegnamento tra struct identiche, effettuando una copia completa della memoria della struttura.",
     },
     {
       question: "Quale operatore è equivalente a `(*ptr).campo`?",
-      options: [
-        "ptr.campo",
-        "ptr->campo",
-        "ptr&campo",
-        "*ptr->campo"
-      ],
+      options: ["ptr.campo", "ptr->campo", "ptr&campo", "*ptr->campo"],
       correctAnswer: 1,
-      explanation: "La freccia `->` è l'abbreviazione sintattica esatta per dereferenziare e accedere."
+      explanation:
+        "La freccia `->` è l'abbreviazione sintattica esatta per dereferenziare e accedere.",
     },
     {
       question: "Dove vengono allocati i campi di una struct?",
@@ -190,27 +248,25 @@ int main() {
         "In posti diversi della RAM per sicurezza",
         "In blocchi di memoria contigui (uno dopo l'altro)",
         "Solo nell'heap",
-        "Solo nello stack"
+        "Solo nello stack",
       ],
       correctAnswer: 1,
-      explanation: "La contiguità è la forza delle struct: permette di prevedere esattamente dove si trova ogni dato rispetto all'inizio."
-    }
-  ]} 
+      explanation:
+        "La contiguità è la forza delle struct: permette di prevedere esattamente dove si trova ogni dato rispetto all'inizio.",
+    },
+  ]}
 />
 
-<Quiz 
+<Quiz
   title="Pro Challenge"
   questions={[
     {
-      question: "Se definiamo `struct { char a; int b; } __attribute__((packed)) s;`, quanto varrà `sizeof(s)` su un sistema a 32 bit?",
-      options: [
-        "8 byte",
-        "5 byte",
-        "4 byte",
-        "12 byte"
-      ],
+      question:
+        "Se definiamo `struct { char a; int b; } __attribute__((packed)) s;`, quanto varrà `sizeof(s)` su un sistema a 32 bit?",
+      options: ["8 byte", "5 byte", "4 byte", "12 byte"],
       correctAnswer: 1,
-      explanation: "L'attributo `packed` dice al GCC di eliminare ogni padding, quindi avremo 1 (char) + 4 (int) = 5 byte."
+      explanation:
+        "L'attributo `packed` dice al GCC di eliminare ogni padding, quindi avremo 1 (char) + 4 (int) = 5 byte.",
     },
     {
       question: "Un 'Bitfield' all'interno di una struct permette di:",
@@ -218,68 +274,67 @@ int main() {
         "Aumentare la velocità di calcolo",
         "Specificare quanti singoli BIT deve occupare una variabile intera",
         "Criptare i dati",
-        "Creare array di bit infiniti"
+        "Creare array di bit infiniti",
       ],
       correctAnswer: 1,
-      explanation: "I bitfield sono vitali per la programmazione di microcontrollori o protocolli dove ogni bit ha un significato specifico."
+      explanation:
+        "I bitfield sono vitali per la programmazione di microcontrollori o protocolli dove ogni bit ha un significato specifico.",
     },
     {
-      question: "Cosa succede se provi a confrontare due struct con `if (a == b)`?",
+      question:
+        "Cosa succede se provi a confrontare due struct con `if (a == b)`?",
       options: [
         "Il C confronta ogni campo",
         "Errore di compilazione: il C non sa come confrontare due blocchi di memoria automaticamente",
         "Il C confronta solo il primo campo",
-        "Ritorna sempre vero se sono dello stesso tipo"
+        "Ritorna sempre vero se sono dello stesso tipo",
       ],
       correctAnswer: 1,
-      explanation: "A differenza dell'assegnamento, il confronto `==` non è definito per le struct (per via del padding che potrebbe contenere spazzatura). Devi confrontare i campi o usare `memcmp`."
-    }
-  ]} 
+      explanation:
+        "A differenza dell'assegnamento, il confronto `==` non è definito per le struct (per via del padding che potrebbe contenere spazzatura). Devi confrontare i campi o usare `memcmp`.",
+    },
+  ]}
 />
 
-<ProTerminal 
+<ProTerminal
   challenges={[
     {
-        id: "struct-offset",
-        simulatedSuccessOutput: `/* offset      |  size */  type = struct Frazione {\n/*      0      |     4 */    int num;\n/*      4      |     4 */    int den;\n\n                           /* total size (bytes):    8 */\n                         }`,
-        title: "Il Cacciatore di Offset",
-        description: "Usa GDB per trovare l'offset esatto del campo `den` nella `struct Frazione`. Quale comando useresti?",
-        commands: [],
-        expectedOutput: "/* offset    |  size */",
-        hints: [
-            "ptype /o mostra gli offset e il padding"
-        ],
-        expectedCommand: "ptype /o struct Frazione"
+      id: "struct-offset",
+      simulatedSuccessOutput: `/* offset      |  size */  type = struct Frazione {\n/*      0      |     4 */    int num;\n/*      4      |     4 */    int den;\n\n                           /* total size (bytes):    8 */\n                         }`,
+      title: "Il Cacciatore di Offset",
+      description:
+        "Usa GDB per trovare l'offset esatto del campo `den` nella `struct Frazione`. Quale comando useresti?",
+      commands: [],
+      expectedOutput: "/* offset    |  size */",
+      hints: ["ptype /o mostra gli offset e il padding"],
+      expectedCommand: "ptype /o struct Frazione",
     },
     {
-        id: "nm-symbols",
-        simulatedSuccessOutput: `0000000000001130 T main\n                 U puts@GLIBC_2.2.5\n0000000000001000 t _init`,
-        title: "Simboli Globali",
-        description: "Se dichiari una struct globale, puoi vederne il simbolo nell'eseguibile. Usa il comando `nm` per cercare i simboli nel tuo programma.",
-        commands: [],
-        expectedOutput: "",
-        hints: [
-            "Le variabili globali non inizializzate sono nel segmento BSS (B)"
-        ],
-        expectedCommand: "nm ./programma | grep \"a\""
+      id: "nm-symbols",
+      simulatedSuccessOutput: `0000000000001130 T main\n                 U puts@GLIBC_2.2.5\n0000000000001000 t _init`,
+      title: "Simboli Globali",
+      description:
+        "Se dichiari una struct globale, puoi vederne il simbolo nell'eseguibile. Usa il comando `nm` per cercare i simboli nel tuo programma.",
+      commands: [],
+      expectedOutput: "",
+      hints: [
+        "Le variabili globali non inizializzate sono nel segmento BSS (B)",
+      ],
+      expectedCommand: 'nm ./programma | grep "a"',
     },
     {
-        id: "packed-verify",
-        simulatedSuccessOutput: `12\n9`,
-        title: "La Prova del Nove",
-        description: "Scrivi un piccolo codice che stampa `sizeof` di una struct con e senza `__attribute__((packed))` e compilalo con `gcc`.",
-        commands: [
-            "gcc test.c -o test && ./test"
-        ],
-        expectedOutput: "12\n9",
-        hints: [
-            "Usa printf(\"%zu\\n\", sizeof(struct ...))"
-        ]
-    }
-]}
+      id: "packed-verify",
+      simulatedSuccessOutput: `12\n9`,
+      title: "La Prova del Nove",
+      description:
+        "Scrivi un piccolo codice che stampa `sizeof` di una struct con e senza `__attribute__((packed))` e compilalo con `gcc`.",
+      commands: ["gcc test.c -o test && ./test"],
+      expectedOutput: "12\n9",
+      hints: ['Usa printf("%zu\\n", sizeof(struct ...))'],
+    },
+  ]}
 />
 
 ### Riassunto Finale
+
 Le strutture sono il cuore pulsante del C professionale. Ci permettono di modellare la realtà (frazioni, utenti, pacchetti di rete) rispettando la ferrea logica della memoria fisica. Ricorda: l'ordine dei campi conta per il padding, e la freccia è la chiave per manipolare oggetti dinamici!
-
-

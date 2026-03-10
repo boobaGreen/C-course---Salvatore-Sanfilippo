@@ -1,12 +1,12 @@
-﻿import VideoEmbed from '../../components/content/VideoEmbed';
-import Callout from '../../components/content/Callout';
-import KeyConcepts from '../../components/content/KeyConcepts';
-import CodeEditor from '../../components/exercises/CodeEditor';
-import Quiz from '../../components/exercises/Quiz';
-import ProTerminal from '../../components/content/ProTerminal';
-import PointerBasics from '../../components/content/PointerBasics';
-import PointerMaze from '../../components/games/PointerMaze';
-import Infographic from '../../components/content/Infographic';
+﻿import VideoEmbed from "../../components/content/VideoEmbed";
+import Callout from "../../components/content/Callout";
+import KeyConcepts from "../../components/content/KeyConcepts";
+import CodeEditor from "../../components/exercises/CodeEditor";
+import Quiz from "../../components/exercises/Quiz";
+import ProTerminal from "../../components/content/ProTerminal";
+import PointerBasics from "../../components/content/PointerBasics";
+import PointerMaze from "../../components/games/PointerMaze";
+import Infographic from "../../components/content/Infographic";
 
 # Lesson 9: Welcome to Pointers
 
@@ -14,30 +14,30 @@ We've finally arrived at one of the most feared, yet fundamental, concepts of th
 
 <VideoEmbed videoId="BBgZs-jd_QY" title="Lesson 9: Introduction to Pointers" />
 
-<KeyConcepts 
+<KeyConcepts
   concepts={[
     {
       title: "Variable vs Address",
-      description: "A variable is a box; a pointer is a note that says where that box is in memory."
+      description:
+        "A variable is a box; a pointer is a note that says where that box is in memory.",
     },
     {
       title: "The & Operator (Address)",
-      description: "Extracts the memory location of a variable (e.g., &x)."
+      description: "Extracts the memory location of a variable (e.g., &x).",
     },
     {
       title: "The * Operator (Dereferencing)",
-      description: "Tells the computer: 'Go to the address stored in the pointer and interact with the value you find there'."
-    }
-  ]} 
+      description:
+        "Tells the computer: 'Go to the address stored in the pointer and interact with the value you find there'.",
+    },
+  ]}
 />
 
 <Callout type="info" title="Syntax and Grammar">
-Salvatore recommends writing `int *p` instead of `int* p`. Why?
-In C, the asterisk is "attached" to the variable, not the type. If you write:
-`int *p, z;`
-- `p` is a pointer to an integer.
-- `z` is a normal integer.
-If you were to write `int* p, z;` you might think both are pointers, but you'd be wrong!
+  Salvatore recommends writing `int *p` instead of `int* p`. Why? In C, the
+  asterisk is "attached" to the variable, not the type. If you write: `int *p,
+  z;` - `p` is a pointer to an integer. - `z` is a normal integer. If you were
+  to write `int* p, z;` you might think both are pointers, but you'd be wrong!
 </Callout>
 
 <Callout type="warning" title="Declaration vs Expression">
@@ -53,9 +53,14 @@ Use this simulator to understand the difference between a variable's value and t
 
 <PointerBasics />
 
-## Why do Pointers have a Type?
+A memory address is always the same size (64 bits / 8 bytes on modern architectures), but the compiler needs to know **how many bytes to read** starting from that address.
 
-A memory address is always the same size (64 bits on modern architectures), but the compiler needs to know **how many bytes to read** starting from that address.
+<Callout type="pro" title="Pointers: 8 Bytes for Everyone">
+  Did you know that a `char *p` and a `double *p` occupy the *same* space in
+  memory? Exactly **8 bytes** (on x64). The type (`char`, `int`, `struct`)
+  doesn't define the size of the pointer, but tells the CPU: "When you go to
+  that address, take X bytes and interpret them in this way."
+</Callout>
 
 - `int *p`: Read 4 bytes and interpret them as an integer.
 - `char *c`: Read just 1 byte.
@@ -63,56 +68,79 @@ A memory address is always the same size (64 bits on modern architectures), but 
 In C, address **0** is special and is indicated with the `NULL` keyword. It means the pointer doesn't point to anything valid.
 
 <Callout type="pro" title="Puntatori vs Array: L'equivalenza">
-Did you know that `*p` is exactly the same as writing `p[0]`? There's a "bizarre analogy" (as Salvatore calls it) in C between pointers and arrays: a pointer can be treated as the base address of a single-element array.
-This means that `*(p + 1)` is the same as `p[1]`.
+  Did you know that `*p` is exactly the same as writing `p[0]`? There's a
+  "bizarre analogy" (as Salvatore calls it) in C between pointers and arrays: a
+  pointer can be treated as the base address of a single-element array. This
+  means that `*(p + 1)` is the same as `p[1]`.
 </Callout>
 
 <Callout type="pro" title="The NULL Pointer">
-Salvatore always recommends initializing pointers to `NULL` (address 0). Accessing a pointer that points to nothing causes a **Segmentation Fault**, but an immediate error is better than a silent bug that writes into random memory areas!
+  Salvatore always recommends initializing pointers to `NULL` (address 0).
+  Accessing a pointer that points to nothing causes a **Segmentation Fault**,
+  but an immediate error is better than a silent bug that writes into random
+  memory areas!
 </Callout>
 
-## Code Example: Pass by Reference
-
 Functions in C normally receive **copies** of values. To allow a function to modify the original variable, we must pass its "home address".
+
+<Callout type="danger" title="Quantitative Proof: Saving RAM">
+  Imagine you have a structure that weighs 1 Megabyte. - **Pass by Value**: C
+  must copy 1,000,000 bytes into the stack to give them to the function. **Slow
+  and expensive**. - **Pass by Reference (Pointer)**: C only copies **8 bytes**
+  (the address). The function then uses that address to "teleport" to the
+  original data. **Ultra fast**.
+</Callout>
 
 <CodeEditor 
   initialCode={`#include <stdio.h>
 
 void increment(int *p) {
-    *p = *p + 1; // Dereference p and add 1 to the original value
+*p = \*p + 1; // Dereference p and add 1 to the original value
 }
 
 int main() {
-    int x = 5;
-    printf("Before: %d\\n", x);
-    
+int x = 5;
+printf("Before: %d\\n", x);
+
     increment(&x); // We pass the address of x
-    
+
     printf("After: %d\\n", x); // x is now 6!
     return 0;
+
 }`}
-  language="c"
+language="c"
 />
 
 ---
 
 <KeyConcepts title="In Short">
-  - **Indirection**: Accessing data by 'wandering' through addresses.
-  - **Pass-by-reference**: Simulating C++ or Java reference passing using pointers in C.
-  - **Memory Safety**: Understanding that a pointer is a double-edged sword: powerful but risky.
+  - **Indirection**: Accessing data by 'wandering' through addresses. -
+  **Pass-by-reference**: Simulating C++ or Java reference passing using pointers
+  in C. - **Memory Safety**: Understanding that a pointer is a double-edged
+  sword: powerful but risky.
 </KeyConcepts>
 
-
-<Infographic 
+<Infographic
   title="Pointer Anatomy"
   description="How RAM is divided into boxes and arrows."
   items={[
-    { label: "The Variable", value: "The box containing the actual data (e.g. int x = 5)", color: "blue" },
-    { label: "The Address (&x)", value: "The street address of the RAM box (e.g. 0x7ffd5)", color: "emerald" },
-    { label: "The Pointer (*p)", value: "Another box that holds the address of x", color: "purple" }
+    {
+      label: "The Variable",
+      value: "The box containing the actual data (e.g. int x = 5)",
+      color: "blue",
+    },
+    {
+      label: "The Address (&x)",
+      value: "The street address of the RAM box (e.g. 0x7ffd5)",
+      color: "emerald",
+    },
+    {
+      label: "The Pointer (*p)",
+      value: "Another box that holds the address of x",
+      color: "purple",
+    },
   ]}
 />
-
 
 ---
 
@@ -126,8 +154,8 @@ Click the `*(deref)` button to navigate through memory. Can you find the `**EXIT
 
 ## Verification Quiz
 
-<Quiz 
-  title="Quiz Standard" 
+<Quiz
+  title="Quiz Standard"
   questions={[
     {
       question: "What does an `int *p` variable technically contain?",
@@ -135,138 +163,140 @@ Click the `*(deref)` button to navigate through memory. Can you find the `**EXIT
         "An integer number",
         "The memory address of an integer",
         "A copy of an integer",
-        "The name of a variable"
+        "The name of a variable",
       ],
       correctAnswer: 1,
-      explanation: "A pointer is a variable that stores memory addresses."
+      explanation: "A pointer is a variable that stores memory addresses.",
     },
     {
       question: "Which operator is used to get the address of a variable `x`?",
-      options: [
-        "*x",
-        "&x",
-        "%x",
-        "@x"
-      ],
+      options: ["*x", "&x", "%x", "@x"],
       correctAnswer: 1,
-      explanation: "The '&' operator (Address-of) extracts the address."
+      explanation: "The '&' operator (Address-of) extracts the address.",
     },
     {
-      question: "If I write `*p = 10;`, where `p` is a pointer, what am I doing?",
+      question:
+        "If I write `*p = 10;`, where `p` is a pointer, what am I doing?",
       options: [
         "Changing the address p points to",
         "Writing the value 10 to the address stored in p",
         "Multiplying p by 10",
-        "Nothing, the code is wrong"
+        "Nothing, the code is wrong",
       ],
       correctAnswer: 1,
-      explanation: "This is called 'dereferencing'. You are working on the content at the pointed address."
+      explanation:
+        "This is called 'dereferencing'. You are working on the content at the pointed address.",
     },
     {
-      question: "Why does `&5` (the address of the number 5) cause a compilation error?",
+      question:
+        "Why does `&5` (the address of the number 5) cause a compilation error?",
       options: [
         "Because 5 is too small",
         "Because numeric literals do not have a permanently extractable memory address",
         "Because you must write `&'5'`",
-        "Because 5 is already an address"
+        "Because 5 is already an address",
       ],
       correctAnswer: 1,
-      explanation: "The & operator requires an 'lvalue', meaning something that occupies a dedicated space in memory (like a variable), not a temporary constant value."
+      explanation:
+        "The & operator requires an 'lvalue', meaning something that occupies a dedicated space in memory (like a variable), not a temporary constant value.",
     },
     {
-      question: "If you print a pointer with `printf` in C, which format specifier should you use?",
-      options: [
-        "%d",
-        "%f",
-        "%p",
-        "%s"
-      ],
+      question:
+        "If you print a pointer with `printf` in C, which format specifier should you use?",
+      options: ["%d", "%f", "%p", "%s"],
       correctAnswer: 2,
-      explanation: "%p (pointer) prints the memory address in hexadecimal format (e.g., 0x7ffd5e...)."
-    }
+      explanation:
+        "%p (pointer) prints the memory address in hexadecimal format (e.g., 0x7ffd5e...).",
+    },
   ]}
 />
 
 ---
 
 ### Pro Challenge
-<Quiz 
+
+<Quiz
   title="Pro Challenge: Pointer Architecture"
   questions={[
     {
       id: 1,
-      question: "What is the size of a pointer (regardless of target type) on a 64-bit machine?",
+      question:
+        "What is the size of a pointer (regardless of target type) on a 64-bit machine?",
       options: [
         "4 bytes",
         "8 bytes",
         "It depends if it points to char or int",
-        "16 bytes"
+        "16 bytes",
       ],
       correctAnswer: 1,
-      explanation: "All pointers are memory addresses. On 64-bit, an address is 8 bytes wide."
+      explanation:
+        "All pointers are memory addresses. On 64-bit, an address is 8 bytes wide.",
     },
     {
       id: 2,
-      question: "If you declare `int x; int *p = &x;` and then increment `p` (`p++`), what happens?",
+      question:
+        "If you declare `int x; int *p = &x;` and then increment `p` (`p++`), what happens?",
       options: [
         "The value of x increases",
         "The address in p moves forward by 4 bytes",
         "The computer crashes immediately",
-        "p becomes NULL"
+        "p becomes NULL",
       ],
       correctAnswer: 1,
-      explanation: "Incrementing the pointer moves the address by the size of the base type (int = 4 bytes)."
+      explanation:
+        "Incrementing the pointer moves the address by the size of the base type (int = 4 bytes).",
     },
     {
       id: 3,
-      question: "You have a function `void swap(int *a, int *b)`. What is the first logical operation inside to safely swap the values?",
-      options: [
-        "a = b;",
-        "int temp = *a;",
-        "*a = *b;",
-        "int *temp = a;"
-      ],
+      question:
+        "You have a function `void swap(int *a, int *b)`. What is the first logical operation inside to safely swap the values?",
+      options: ["a = b;", "int temp = *a;", "*a = *b;", "int *temp = a;"],
       correctAnswer: 1,
-      explanation: "You must first park the _value_ of 'a' in a temporary variable (`int temp = *a`) before overwriting it with `*b`, otherwise the data of 'a' is lost forever."
-    }
+      explanation:
+        "You must first park the _value_ of 'a' in a temporary variable (`int temp = *a`) before overwriting it with `*b`, otherwise the data of 'a' is lost forever.",
+    },
   ]}
 />
 
-### Terminal Challenge: Exploration 
+### Terminal Challenge: Exploration
 
-<ProTerminal 
+<ProTerminal
   challenges={[
     {
       id: "gdb-debugger-en",
       title: "The Supreme Debugger",
-      description: "Which Linux command allows you to see CPU registers and analyze memory during step-by-step debugging?",
+      description:
+        "Which Linux command allows you to see CPU registers and analyze memory during step-by-step debugging?",
       commands: ["gdb ./a.out"],
       expectedOutput: "GNU gdb",
       hints: ["It's short for 'GNU Debugger'"],
-      explanation: "Exactly! GDB is the ultimate tool for understanding what happens to your pointers in real time.",
-      xpReward: 150
+      explanation:
+        "Exactly! GDB is the ultimate tool for understanding what happens to your pointers in real time.",
+      xpReward: 150,
     },
     {
       id: "proc-maps-en",
       title: "Mapping RAM",
-      description: "Which virtual file in the `/proc` filesystem shows how a process's memory sections are mapped?",
+      description:
+        "Which virtual file in the `/proc` filesystem shows how a process's memory sections are mapped?",
       commands: ["cat /proc/self/maps"],
       expectedOutput: "00400000",
       hints: ["Look for 'maps' inside /proc/self"],
-      explanation: "Great! `/proc/self/maps` shows you the load addresses for code, stack, and heap.",
-      xpReward: 250
+      explanation:
+        "Great! `/proc/self/maps` shows you the load addresses for code, stack, and heap.",
+      xpReward: 250,
     },
     {
       id: "uname-arch-en",
       title: "Bus Width",
-      description: "Which command shows the machine architecture (e.g., x86_64), defining the size of your pointers?",
+      description:
+        "Which command shows the machine architecture (e.g., x86_64), defining the size of your pointers?",
       commands: ["uname -m"],
       expectedOutput: "64",
       hints: ["The option stands for 'machine'"],
-      explanation: "Perfect! On a 64-bit system, pointers occupy 8 bytes, while on a 32-bit system they occupy 4.",
-      xpReward: 150
-    }
+      explanation:
+        "Perfect! On a 64-bit system, pointers occupy 8 bytes, while on a 32-bit system they occupy 4.",
+      xpReward: 150,
+    },
   ]}
 />
-
-

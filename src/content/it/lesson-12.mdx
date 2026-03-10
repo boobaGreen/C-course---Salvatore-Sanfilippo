@@ -62,17 +62,29 @@ Se vogliamo creare dati che "sopravvivono" alle funzioni, o dati la cui grandezz
   ]}
 />
 
+<Callout type="pro" title="Geografia della Memoria">
+  In molti sistemi, lo **Stack** cresce verso il basso (indirizzi decrescenti),
+  mentre l'**Heap** cresce verso l'alto. Sono come due scavatori che partono dai
+  lati opposti di una montagna. Se si incontrano, hai finito lo spazio di
+  indirizzamento (ma oggi il Sistema Operativo usa la memoria virtuale per
+  evitare che si scontrino davvero).
+</Callout>
+
 ### Stack vs Heap: La Gran Battaglia
 
 <ComparisonTable
   title="Stack vs Heap"
   headers={["Caratteristica", "Stack", "Heap"]}
   rows={[
-    ["Durata", "Automata (limitata al blocco {})", "Manuale (fino alla free)"],
+    [
+      "Durata",
+      "Automatica (limitata al blocco {})",
+      "Manuale (fino alla free)",
+    ],
     [
       "Velocità",
-      "Molto Veloce (gestito da CPU)",
-      "Lenta (gestito da libreria C)",
+      "Istantanea (decremento di un registro CPU)",
+      "Lenta (ricerca di blocchi liberi/Syscall)",
     ],
     ["Dimensione", "Limitata (pochi MB)", "Enorme (tutta la RAM)"],
     ["Dati", "Noti a priori", "Dinamici / Ignoti"],
@@ -84,9 +96,11 @@ Per accedere allo Heap si usano funzioni della libreria standard `<stdlib.h>`:
 <Callout type="info" title="Malloc: Un Contratto col SO">
   Quando chiami `malloc`, stai chiedendo al Sistema Operativo un pezzo di RAM.
   Se il SO accetta, ti dà l'indirizzo di memoria (`void *`). Da quel momento,
-  **tu sei il padrone** di quei byte finché non chiami `free`. Se ti dimentichi
-  di liberarli, la memoria resta "spenta" per il resto del computer finché il
-  tuo programma non si chiude.
+  **tu sei il padrone** di quei byte finché non chiami `free`. **Il pericolo del
+  Leak**: Se non li liberi, la memoria resta occupata. Se il programma gira per
+  mesi (come un server), finirà per consumare tutta la RAM fisica, costringendo
+  il SO a usare il disco rigido (**Swapping**), rallentando tutto il computer di
+  mille volte!
 </Callout>
 
 ```c
@@ -376,5 +390,3 @@ language="c"
     },
   ]}
 />
-
-

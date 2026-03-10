@@ -1,243 +1,244 @@
-﻿import VideoEmbed from '../../components/content/VideoEmbed';
-import Callout from '../../components/content/Callout';
-import KeyConcepts from '../../components/content/KeyConcepts';
-import CodeEditor from '../../components/exercises/CodeEditor';
-import Quiz from '../../components/exercises/Quiz';
-import ProTerminal from '../../components/content/ProTerminal';
-import Infographic from '../../components/content/Infographic';
-import BinaryVisualizer from '../../components/content/BinaryVisualizer';
-import ComparisonTable from '../../components/content/ComparisonTable';
+﻿import VideoEmbed from "../../components/content/VideoEmbed";
+import Callout from "../../components/content/Callout";
+import KeyConcepts from "../../components/content/KeyConcepts";
+import CodeEditor from "../../components/exercises/CodeEditor";
+import Quiz from "../../components/exercises/Quiz";
+import ProTerminal from "../../components/content/ProTerminal";
+import Infographic from "../../components/content/Infographic";
+import BinaryVisualizer from "../../components/content/BinaryVisualizer";
+import ComparisonTable from "../../components/content/ComparisonTable";
 
 # Lezione 21: Unioni e Bitfield
 
-In questa lezione Salvatore affronta il "debito tecnico" accumulato parlando di strutture: le **Unioni** e i **Bitfield**. Questi strumenti ci permettono di avere un controllo ancora più granulare sulla memoria, permettendoci di sovrapporre variabili o di usare i singoli bit.
+In questa lezione Salvatore affronta il "debito tecnico" accumulato parlando di strutture: le **Unioni** e i **Bitfield**. Questi strumenti ci permettono di avere un controllo ancora più granulare sulla memoria, permettendoci di sovrapporre variabili o di usare i singoli bit per scopi di risparmio estremo o interazione con l'hardware.
 
 <VideoEmbed videoId="TM4jgODgdFY" title="Lezione 21: Unioni e Bitfield" />
 
-<KeyConcepts concepts={[
-  { title: "Unioni (union)", description: "Variabili che condividono lo stesso spazio di memoria. Utili per interpretare gli stessi byte in modi diversi o risparmiare spazio." },
-  { title: "Bitfield", description: "Specificare quanti bit deve occupare un campo di una struct. Ideale per flag booleani e protocolli di rete." },
-  { title: "Unioni Anonime", description: "Unioni senza nome all'interno di strutture per un accesso trasparente ai campi sovrapposti." }
-]} />
+<KeyConcepts
+  concepts={[
+    {
+      title: "Unioni (union)",
+      description:
+        "Variabili che condividono lo stesso spazio di memoria. Utili per interpretare gli stessi byte in modi diversi (Type Punning).",
+    },
+    {
+      title: "Bitfield",
+      description:
+        "Specificare quanti bit deve occupare un campo di una struct. Fondamentale per protocolli e registri hardware.",
+    },
+    {
+      title: "Strict Aliasing",
+      description:
+        "Le regole che dicono al compilatore se due puntatori di tipo diverso possono puntare alla stessa memoria.",
+    },
+  ]}
+/>
 
-## Cos'è una Union?
+## La Fisicità della Union
 
-Mentre in una `struct` ogni campo ha il suo indirizzo unico, in una `union` tutti i campi iniziano allo stesso **offset 0**. 
+Mentre in una `struct` ogni campo ha il suo indirizzo unico, in una `union` tutti i campi iniziano allo stesso **offset 0**. È come avere una stanza con più etichette sulla porta: il contenuto è uno solo, ma puoi chiamarlo in modi diversi.
 
-<ComparisonTable 
+<ComparisonTable
   title="Struct vs Union"
   headers={["Caratteristica", "Struct", "Union"]}
   rows={[
-    ["Memoria", "Somma delle dimensioni dei campi (più padding)", "Dimensione del campo più grande"],
-    ["Accesso", "Tutti i campi sono validi contemporaneamente", "Solo un campo alla volta è 'attivo'"],
-    ["Offset", "Ogni campo ha il suo offset progressivo", "Tutti i campi iniziano allo stesso indirizzo"]
+    [
+      "Memoria",
+      "Somma delle dimensioni (con padding)",
+      "Dimensione del campo più grande",
+    ],
+    [
+      "Accesso CPU",
+      "Tutti i campi accessibili indipendentemente",
+      "Un solo campo attivo (sovrapposizione totale)",
+    ],
+    [
+      "Utilizzo Hardware",
+      "Layout sequenziale di dati",
+      "Interpretazione multipla degli stessi bit",
+    ],
   ]}
 />
 
-### Esempio: Sovrapposizione di Memoria
+### Type Punning: Vedere i Bit di un Float
 
-<BinaryVisualizer 
-  title="Overlap in una Union"
-  description="Un intero e un array di 4 char che condividono la stessa RAM."
+Un trucco classico del C è usare una union per vedere come è fatto un `float` in memoria usando un `int` senza dover fare cast pericolosi.
+
+<BinaryVisualizer
+  title="Type Punning in Union"
+  description="L'intero e il float occupano la stessa RAM."
   data={[
-    { label: "int i (Valore 10)", bytes: ["0A", "00", "00", "00"], address: "0x400" },
-    { label: "unsigned char a[4]", bytes: ["0A", "00", "00", "00"], address: "0x400" }
+    {
+      label: "float f (3.14)",
+      bytes: ["C3", "F5", "48", "40"],
+      address: "0x400",
+    },
+    { label: "uint32_t i", bytes: ["C3", "F5", "48", "40"], address: "0x400" },
   ]}
 />
 
-<CodeEditor 
-  initialCode={`#include <stdio.h>
+---
 
-typedef union {
-    int i;
-    unsigned char a[4];
-} Foo;
+## Bitfield: Programmare il Silicio
 
-int main() {
-    Foo f;
-    f.i = 10; // Su Little Endian, il primo byte sarà 10
-    
-    printf("Intero f.i: %d\\n", f.i);
-    printf("Byte f.a[0]: %d (stesso di f.i!)\\n", f.a[0]);
-    
-    return 0;
-}`} 
-  language="c" 
-/>
+I Bitfield ti permettono di mappare i singoli bit di un byte a nomi di variabili. Questo è il pane quotidiano di chi scrive **Driver** o **Protocolli di Rete**.
 
-<Callout type="info" title="Esempio Reale: Redis Token">
-In Redis, un'espressione può essere un numero, una stringa o un comando. Usando una `union`, Redis occupa solo lo spazio del tipo più grande, invece di sommare lo spazio di tutti e tre. Su milioni di token, il risparmio è enorme.
+<Callout type="pro" title="Esempio: Registro Hardware">
+  Immagina un chip che controlla dei LED. Il suo registro è un byte: i bit 0-3 controllano il colore, il bit 4 è l'accensione.
+  ```c
+  struct LED_Register {
+      unsigned char color  : 4; // solo 4 bit
+      unsigned char active : 1; // 1 bit (0 o 1)
+      unsigned char unused : 3; // 3 bit di scarto
+  };
+  ```
+</Callout>
+
+### Il Rischio della Portabilità
+
+<Callout type="danger" title="Attenzione all'Endianness dei Bit">
+  Non solo i byte possono essere invertiti (Little/Big Endian), ma anche l'ordine dei bit all'interno di un bitfield dipende dal compilatore! Se scambi una struct con bitfield tra un PC x86 e un controller ARM, i bit potrebbero essere letti "al contrario". Per il codice di rete, usa sempre gli operatori bitwise (`&`, `|`, `<<`) che sono universali.
 </Callout>
 
 ---
 
-## Bitfield: Risparmiare l'Impossibile
+## Esercitazione: Endianness via Union
 
-Immagina di aver bisogno di un valore che va solo da 0 a 15. Ti servono solo 4 bit, ma un `char` ne occupa 8. Con i Bitfield puoi dire al C di usare solo lo spazio necessario.
+<CodeEditor 
+  initialCode={`#include <stdio.h>
+#include <stdint.h>
 
-<Infographic 
-  title="Anatomia di un Bitfield"
-  description="Impacchettare più valori in un singolo byte."
-  items={[
-    { label: "Campo A", value: "4 bit (0-15)", color: "blue" },
-    { label: "Campo B", value: "4 bit (0-15)", color: "emerald" },
-    { label: "Totale", value: "1 Byte!", color: "amber" }
-  ]}
+typedef union {
+uint32_t val;
+uint8_t bytes[4];
+} EndianCheck;
+
+int main() {
+EndianCheck ec;
+ec.val = 0x12345678;
+
+    printf("Dump dell'intero 0x12345678:\\n");
+    for(int i = 0; i < 4; i++) {
+        printf("Byte %d: 0x%02x\\n", i, ec.bytes[i]);
+    }
+
+    if (ec.bytes[0] == 0x78) {
+        printf("Sistema: LITTLE ENDIAN (il byte meno significativo è all'inizio)\\n");
+    } else {
+        printf("Sistema: BIG ENDIAN\\n");
+    }
+
+    return 0;
+
+}`}
+language="c"
 />
-
-<Callout type="warning" title="Portabilità">
-Il modo in cui i bit vengono impacchettati (ordine e allineamento) non è garantito dallo standard ANSI C e dipende dal compilatore e dall'architettura. Salvatore consiglia di usarli con cautela per protocolli di rete rigidi.
-</Callout>
-
-<Callout type="danger" title="Bitfields e il Network">
-  Non inviare mai una struct con bitfield direttamente su una connessione di rete! Se la macchina che riceve ha un'architettura diversa (es. Big Endian vs Little Endian) o un compilatore diverso, i bit potrebbe essere letti in ordine inverso o con padding differente. Per la rete, usa sempre operazioni manuali con `&` e `|`.
-</Callout>
-
-### L'Antenato: IP Header (1981)
-I Bitfield sono nati per gestire protocolli come l'IP (Internet Protocol), dove ogni bit conta. Ad esempio, la versione di IP (IPv4 vs IPv6) occupa esattamente 4 bit nell'intestazione del pacchetto.
 
 ---
 
 ## Esercitazione
 
-<Quiz 
-  title="Quiz Standard" 
+<Quiz
+  title="Quiz Standard"
   questions={[
     {
       question: "In una `union`, dove iniziano i campi in memoria?",
       options: [
-        "Uno dopo l'altro",
+        "In sequenza",
         "Tutti allo stesso indirizzo (offset 0)",
-        "In indirizzi scelti a caso dal compilatore",
-        "Dipende dalla dimensione dell'int"
+        "In posizioni casuali",
+        "Negli indirizzi pari",
       ],
       correctAnswer: 1,
-      explanation: "Per definizione, i campi di una union condividono l'inizio del blocco di memoria."
+      explanation:
+        "Tutti i membri di una union iniziano allo stesso indirizzo di memoria.",
     },
     {
-      question: "Qual è la dimensione di una `union` che contiene un `double c[2]` (16 byte) e un `int i` (4 byte)?",
+      question:
+        "Qual è la dimensione di una `union` che contiene un array di 100 char e un doppio?",
       options: [
-        "20 byte",
-        "4 byte",
-        "16 byte",
-        "8 byte"
-      ],
-      correctAnswer: 2,
-      explanation: "La dimensione di una union è pari alla dimensione del suo campo più grande (16 byte in questo caso)."
-    },
-    {
-      question: "Cosa succede se dichiari un campo `unsigned int flag : 1;`?",
-      options: [
-        "Ottieni un intero normale",
-        "Ottieni un bitfield che può contenere solo 0 o 1",
-        "È un errore di sintassi",
-        "L'intero viene moltiplicato per 1"
+        "108 byte",
+        "100 byte (dimensione dell'array)",
+        "8 byte",
+        "Varia in base al compilatore",
       ],
       correctAnswer: 1,
-      explanation: "La sintassi : n specifica il numero di bit dedicati a quel campo."
+      explanation:
+        "La union è grande quanto il suo membro più grande (l'array di 100 char).",
     },
     {
-      question: "Perché Salvatore usa le unioni nel parser di Redis?",
+      question: "Cosa si intende per 'Type Punning'?",
       options: [
-        "Per rendere il codice più complicato",
-        "Perché un token può essere UN solo tipo alla volta (numero O stringa), risparmiando memoria",
-        "Per crittografare i dati",
-        "Perché le struct sono lente"
+        "Un errore di battitura",
+        "Leggere lo stesso blocco di memoria come tipi diversi (es. leggere un float come int)",
+        "Cancellare la memoria",
+        "Cambiare il nome di una variabile",
       ],
       correctAnswer: 1,
-      explanation: "Usando le unioni, la memoria allocata è solo quella del tipo più grande, evitando lo spreco di allocare spazio per tutti i tipi contemporaneamente."
+      explanation:
+        "È la pratica di aggirare il sistema dei tipi del C per vedere la rappresentazione binaria dei dati.",
     },
-    {
-      question: "Cosa si intende per 'Unione Anonima'?",
-      options: [
-        "Una union dichiarata senza la parola chiave `union`",
-        "Una union dentro una struct a cui non viene dato un nome, permettendo l'accesso diretto ai suoi campi",
-        "Una union che non occupa memoria",
-        "Un errore del compilatore"
-      ],
-      correctAnswer: 1,
-      explanation: "Introdotte negli standard più recenti, permettono sintassi come `f.campo` invece di `f.u.campo`."
-    }
-  ]} 
+  ]}
 />
 
-<Quiz 
+<Quiz
   title="Pro Challenge"
   questions={[
     {
-      question: "Dato un `unsigned int x : 4;`, cosa succede se assegni `x = 17;`?",
+      question:
+        "Perché i bitfield sono rischiosi per lo scambio di dati tra macchine diverse?",
       options: [
-        "Il valore diventa 17",
-        "Il programma crasha",
-        "Viene troncato e diventa 1 (17 è 10001 in binario, i 4 bit bassi sono 0001)",
-        "Viene arrotondato a 15"
-      ],
-      correctAnswer: 2,
-      explanation: "I bit extra vengono ignorati. Poiché 17 in binario è 10001, solo i 4 bit meno significativi (0001) vengono salvati."
-    },
-    {
-      question: "Perché i bitfield sono 'poco portatili'?",
-      options: [
-        "Perché occupano troppo spazio",
-        "Perché l'ordine dei bit (Bit-endianness) varia tra le architetture",
-        "Perché non funzionano su Windows",
-        "Perché richiedono librerie speciali"
+        "Perché occupano troppa RAM",
+        "Perché l'ordine di impacchettamento dei bit (MSB vs LSB) non è standardizzato",
+        "Perché richiedono diritti di amministratore",
+        "Perché funzionano solo su file binari",
       ],
       correctAnswer: 1,
-      explanation: "Compilatori diversi possono impacchettare i bit da destra a sinistra o viceversa, rendendo difficile lo scambio di dati binari grezzi tra macchine diverse."
+      explanation:
+        "Compilatori e CPU diverse possono decidere di mettere il primo bit a destra o a sinistra nel byte.",
     },
     {
-      question: "Qual è il vantaggio di usare `union` per il casting (Type Punning) rispetto ai puntatori?",
+      question:
+        "Qual è il limite di valore di un bitfield definito come `unsigned int x : 3;`?",
       options: [
-        "È meno veloce",
-        "Evita alcune violazioni della 'Strict Aliasing Rule' ed è più leggibile",
-        "Nessuno",
-        "Permette di cambiare il valore del puntatore"
+        "Da 0 a 3",
+        "Da 0 a 7 (perché 2^3 = 8 valori)",
+        "Da 0 a 8",
+        "Qualsiasi valore int",
       ],
       correctAnswer: 1,
-      explanation: "Accedere ai byte di un intero tramite una union è un modo standard e pulito di ispezionare la memoria senza abusare di cast complessi di puntatori."
-    }
-  ]} 
+      explanation:
+        "Con 3 bit puoi rappresentare i numeri binari da 000 a 111 (ovvero 0-7).",
+    },
+  ]}
 />
 
-<ProTerminal 
+<ProTerminal
   challenges={[
     {
-        id: "check-endian",
-        title: "Il Rilevatore di Endianness",
-        description: "Usa una union per scrivere un programma C che stampi 'LITTLE' se il sistema è Little Endian, altrimenti 'BIG'.",
-        commands: [
-            "./check_endian"
-        ],
-        expectedOutput: "LITTLE",
-        hints: [
-            "Setta un int a 1 e controlla il primo byte dell'array di char."
-        ]
+      id: "check-endian",
+      simulatedSuccessOutput: `LITTLE`,
+      title: "Endian Detector",
+      description:
+        "Qual è l'output del programma di prova se girasse sul tuo PC (che quasi certamente è Intel/AMD)?",
+      commands: [],
+      expectedOutput: "LITTLE",
+      hints: ["x86_64 è un'architettura Little Endian."],
+      expectedCommand: "./endian_check",
     },
     {
-        id: "bits-size",
-        title: "Conta i Bit",
-        description: "Qual è la dimensione in byte di una struct con tre bitfield da 2, 3 e 3 bit usando `unsigned char` come tipo base?",
-        commands: [],
-        expectedOutput: "1",
-        hints: [
-            "2 + 3 + 3 = 8 bit. Quanti byte sono?"
-        ]
+      id: "struct-size-bits",
+      simulatedSuccessOutput: `1`,
+      title: "Compattazione Estrema",
+      description:
+        "Qual è la dimensione in byte di una struct che contiene 8 bitfield da 1 bit ciascuno, tutti di tipo `unsigned char`?",
+      commands: [],
+      expectedOutput: "1",
+      hints: ["8 bit = 1 byte."],
     },
-    {
-        id: "redis-object",
-        title: "Codice Sorgente",
-        description: "Se esamini il sorgente del noto database in-memory creato da Salvatore, troverai una struttura fondamentale altamente ottimizzata che utilizza i bitfield per ospitare il tipo, la codifica e il reference count nello spazio minimo possibile. Come si chiama il tipo di questo oggetto?",
-        commands: [],
-        expectedOutput: "unsigned type:4",
-        hints: [
-            "Cerca la definizione di 'robj' o 'redisObject' nel sorgente di Redis."
-        ],
-    }
-]}
+  ]}
 />
 
 ### Riassunto Finale
-Abbiamo imparato a spremere ogni singolo bit dalla nostra RAM. Le `union` ci permettono di vedere la memoria da angolazioni diverse, mentre i `bitfield` ci danno un controllo chirurgico sullo spazio. Insieme, queste tecniche rendono il C il linguaggio d'elezione per sistemi ad alte prestazioni come Redis.
 
-
+Abbiamo imparato a spremere ogni singolo bit dalla nostra RAM. Le `union` ci permettono di vedere la memoria da angolazioni diverse, mentre i `bitfield` ci danno un controllo chirurgico sullo spazio. Insieme, queste tecniche rendono il C il linguaggio d'elezione per sistemi ad alte prestazioni come Redis e per il controllo diretto dell'Hardware.

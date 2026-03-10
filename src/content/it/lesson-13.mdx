@@ -1,36 +1,56 @@
-﻿
-import VideoEmbed from '../../components/content/VideoEmbed';
-import KeyConcepts from '../../components/content/KeyConcepts';
-import Callout from '../../components/content/Callout';
-import CodeEditor from '../../components/exercises/CodeEditor';
-import Quiz from '../../components/exercises/Quiz';
-import ProTerminal from '../../components/content/ProTerminal';
-import Infographic from '../../components/content/Infographic';
-import PointerArithmetic from '../../components/content/PointerArithmetic';
-import ComparisonTable from '../../components/content/ComparisonTable';
-import BinaryVisualizer from '../../components/content/BinaryVisualizer';
+﻿import VideoEmbed from "../../components/content/VideoEmbed";
+import KeyConcepts from "../../components/content/KeyConcepts";
+import Callout from "../../components/content/Callout";
+import CodeEditor from "../../components/exercises/CodeEditor";
+import Quiz from "../../components/exercises/Quiz";
+import ProTerminal from "../../components/content/ProTerminal";
+import Infographic from "../../components/content/Infographic";
+import PointerArithmetic from "../../components/content/PointerArithmetic";
+import ComparisonTable from "../../components/content/ComparisonTable";
+import BinaryVisualizer from "../../components/content/BinaryVisualizer";
 
 # Lezione 13: Stringhe di Alto Livello e Metadati Nascosti
 
 Benvenuti ad una delle lezioni più cruciali del corso. Oggi impareremo a "scolpire" la memoria per creare oggetti intelligenti. Passeremo dalle semplici stringhe C a veri e propri oggetti stringa moderni (simili agli SDS di Redis), capaci di conoscere la propria lunghezza istantaneamente e di essere compatibili con tutto l'ecosistema C esistente.
 
-<VideoEmbed videoId="9AhaOdEBmPc" title="Lezione 13: Stringhe di Alto Livello" />
+<VideoEmbed
+  videoId="9AhaOdEBmPc"
+  title="Lezione 13: Stringhe di Alto Livello"
+/>
 
-<KeyConcepts concepts={[
-  { title: "Interoperabilità Totale", description: "Creare stringhe evolute che 'fingono' di essere stringhe C standard per funzionare con printf e librerie esterne." },
-  { title: "Metadata Hiding", description: "L'arte di nascondere informazioni tecniche (come la lunghezza o il ref count) 'dietro' il puntatore consegnato all'utente." },
-  { title: "Efficienza O(1)", description: "Smettere di contare i caratteri (O(N)) e iniziare a leggere la lunghezza direttamente dalla memoria in tempo costante." }
-]} />
+<KeyConcepts
+  concepts={[
+    {
+      title: "Interoperabilità Totale",
+      description:
+        "Creare stringhe evolute che 'fingono' di essere stringhe C standard per funzionare con printf e librerie esterne.",
+    },
+    {
+      title: "Metadata Hiding",
+      description:
+        "L'arte di nascondere informazioni tecniche (come la lunghezza o il ref count) 'dietro' il puntatore consegnato all'utente.",
+    },
+    {
+      title: "Efficienza O(1)",
+      description:
+        "Smettere di contare i caratteri (O(N)) e iniziare a leggere la lunghezza direttamente dalla memoria in tempo costante.",
+    },
+  ]}
+/>
 
 A differenza delle stringhe standard, le nostre PLS (Prefixed Length Strings) possono contenere byte a zero (`0x00`) nel mezzo del testo senza "rompersi", perché ci affidiamo al numero scritto nell'header invece di cercare il terminatore.
 
 <Callout type="warning" title="Sicurezza dei Metadati">
-  Salvando la lunghezza *prima* del puntatore, proteggiamo il nostro sistema. Se un utente malintenzionato prova a inviare una stringa troppo lunga tramite `strcpy`, sovrascriverà i dati *dopo* la stringa, ma non toccherà la lunghezza (che sta *prima*), rendendo più difficile corrompere la struttura logica del programma.
+  Salvando la lunghezza *prima* del puntatore, proteggiamo il nostro sistema. Se
+  un utente malintenzionato prova a inviare una stringa troppo lunga tramite
+  `strcpy`, sovrascriverà i dati *dopo* la stringa, ma non toccherà la lunghezza
+  (che sta *prima*), rendendo più difficile corrompere la struttura logica del
+  programma. È una forma primitiva di **Canary** (canarino di sicurezza).
 </Callout>
 
 ## Il Problema delle Stringhe Pascal
 
-Nella scorsa lezione abbiamo visto le stringhe a lunghezza prefissa. Funzionavano, ma avevano un difetto fatale: se passavi una stringa Pascal a `printf`, lei "impazziva" perché il primo byte (la lunghezza) veniva interpretato come un carattere. 
+Nella scorsa lezione abbiamo visto le stringhe a lunghezza prefissa. Funzionavano, ma avevano un difetto fatale: se passavi una stringa Pascal a `printf`, lei "impazziva" perché il primo byte (la lunghezza) veniva interpretato come un carattere.
 
 Salvatore ci insegna il **trucco del veterano**: spostare il prefisso **prima** dell'indirizzo di memoria che diamo all'utente.
 
@@ -38,30 +58,51 @@ Salvatore ci insegna il **trucco del veterano**: spostare il prefisso **prima** 
 
 Ecco come appare la memoria di una nostra stringa evoluta:
 
-<Infographic 
+<Infographic
   title="Layout di Memoria SDS-style"
   description="L'header è invisibile per l'utente, ma fondamentale per il sistema."
   items={[
-    { label: "Header (4+ byte)", value: "Contiene la Lunghezza (uint32_t) e potenzialmente il Ref Count.", color: "purple" },
-    { label: "Puntatore Utente", value: "Punta qui! Da qui in poi inizia il testo leggibile dal C standard.", color: "blue" },
-    { label: "Corpo della Stringa", value: "Il testo vero e proprio (es. 'esperto').", color: "emerald" },
-    { label: "Null Terminator", value: "Il byte '\\0' finale per la compatibilità.", color: "amber" }
+    {
+      label: "Header (4+ byte)",
+      value: "Contiene la Lunghezza (uint32_t) e potenzialmente il Ref Count.",
+      color: "purple",
+    },
+    {
+      label: "Puntatore Utente",
+      value:
+        "Punta qui! Da qui in poi inizia il testo leggibile dal C standard.",
+      color: "blue",
+    },
+    {
+      label: "Corpo della Stringa",
+      value: "Il testo vero e proprio (es. 'esperto').",
+      color: "emerald",
+    },
+    {
+      label: "Null Terminator",
+      value: "Il byte '\\0' finale per la compatibilità.",
+      color: "amber",
+    },
   ]}
 />
 
-<BinaryVisualizer 
+<BinaryVisualizer
   title="Memoria Reale di una Pro String"
   description="Ecco come i byte appaiono fisicamente in RAM (Little Endian)."
   data={[
-    { label: "Header + Testo", bytes: ["06", "00", "00", "00", "48", "61", "63", "6b", "65", "72", "00"], address: "0x200" }
+    {
+      label: "Header + Testo",
+      bytes: ["06", "00", "00", "00", "48", "61", "63", "6b", "65", "72", "00"],
+      address: "0x200",
+    },
   ]}
 />
 
-  - [x] Lesson 10: Pointer Arithmetic, Casting, Double Pointers
-  - [x] Lesson 11: Endianness, Memory Bases, Pointer Swapping
-  - [x] Lesson 12: Dynamic Memory, Malloc/Free, Custom Strings
-  - [/] Lesson 13: Reference Counting, Structs, Memory Headers
-  - [ ] Lessons 14-24: Queued
+- [x] Lesson 10: Pointer Arithmetic, Casting, Double Pointers
+- [x] Lesson 11: Endianness, Memory Bases, Pointer Swapping
+- [x] Lesson 12: Dynamic Memory, Malloc/Free, Custom Strings
+- [/] Lesson 13: Reference Counting, Structs, Memory Headers
+- [ ] Lessons 14-24: Queued
 
 ---
 
@@ -69,28 +110,47 @@ Ecco come appare la memoria di una nostra stringa evoluta:
 
 Per gestire questo layout, dobbiamo padroneggiare l'aritmetica dei puntatori. Non stiamo solo sommando numeri, stiamo navigando tra metadati e dati.
 
-<PointerArithmetic 
+<PointerArithmetic
   title="Navigazione Header-Dati"
   baseAddress="0x1000"
   steps={[
-    { offset: 0, label: "Inizio Allocazione (malloc)", description: "Qui salviamo la lunghezza (4 byte)." },
-    { offset: 4, label: "Indirizzo Utente (s + 4)", description: "L'indirizzo che restituiamo. Per il C, la stringa inizia qui." },
-    { offset: -4, label: "Ritorno all'Header (s - 4)", description: "Quando dobbiamo sapere la lunghezza o liberare memoria (free)." }
+    {
+      offset: 0,
+      label: "Inizio Allocazione (malloc)",
+      description: "Qui salviamo la lunghezza (4 byte).",
+    },
+    {
+      offset: 4,
+      label: "Indirizzo Utente (s + 4)",
+      description:
+        "L'indirizzo che restituiamo. Per il C, la stringa inizia qui.",
+    },
+    {
+      offset: -4,
+      label: "Ritorno all'Header (s - 4)",
+      description:
+        "Quando dobbiamo sapere la lunghezza o liberare memoria (free).",
+    },
   ]}
 />
 
 ### Perché `uint32_t` di `<stdint.h>`?
 
-Salvatore è categorico: non possiamo usare un semplice `int`. 
-Un `int` su un sistema a 16 bit occupa 2 byte, su uno a 32 bit ne occupa 4. Se vogliamo che le nostre stringhe siano portabili e che il nostro header occupi **sempre** lo stesso spazio, dobbiamo usare i tipi a dimensione fissa.
+Salvatore è categorico: non possiamo usare un semplice `int`.
+Un `int` su un sistema a 16 bit occupa 2 byte, su uno a 32 bit ne occupa 4. Se vogliamo che le nostre stringhe siano portabili e che il nostro header occupi **sempre** lo stesso spazio fisico in RAM e su disco, dobbiamo usare i tipi a dimensione fissa. Questo è lo standard per ogni **Protocollo Binario** (come i pacchetti internet o i salvataggi dei videogiochi).
 
-<ComparisonTable 
+<ComparisonTable
   title="Int Standard vs stdint.h"
   headers={["Tipo", "Dimensione", "Portabilità", "Utilizzo consigliato"]}
   rows={[
     ["int", "Variabile (2-4-8 byte)", "âŒ Bassa", "Contatori generici"],
-    ["uint32_t", "Sempre 4 byte (32 bit)", " Totale", "Headers, Protocolli, File binari"],
-    ["size_t", "Grandezza della RAM", " Buona", "Indici di array e malloc"]
+    [
+      "uint32_t",
+      "Sempre 4 byte (32 bit)",
+      " Totale",
+      "Headers, Protocolli, File binari",
+    ],
+    ["size_t", "Grandezza della RAM", " Buona", "Indici di array e malloc"],
   ]}
 />
 
@@ -98,23 +158,35 @@ Un `int` su un sistema a 16 bit occupa 2 byte, su uno a 32 bit ne occupa 4. Se v
 
 Ecco un confronto tra l'approccio classico del C e il nostro sistema a oggetti.
 
-<ComparisonTable 
+<ComparisonTable
   title="Performance e Funzionalità"
   headers={["Caratteristica", "Stringa C Standard", "Pro String (SDS-style)"]}
   rows={[
-    ["Calcolo Lunghezza", "O(N) - Lento (scansione)", "O(1) - Istantaneo (header)"],
-    ["Dati Binari", "Vietati (lo \\0 interrompe)", "Permessi (usa la lunghezza)"],
+    [
+      "Calcolo Lunghezza",
+      "O(N) - Lento (scansione)",
+      "O(1) - Istantaneo (header)",
+    ],
+    [
+      "Dati Binari",
+      "Vietati (lo \\0 interrompe)",
+      "Permessi (usa la lunghezza)",
+    ],
     ["Sicurezza", "Buffer Overflow facile", "Controlli sui limiti facilitati"],
-    ["Compatibilità", "Nativa", "Totale (punta al corpo del testo)"]
+    ["Compatibilità", "Nativa", "Totale (punta al corpo del testo)"],
   ]}
 />
 
 <Callout type="info" title="Oltre il C">
-  Questo approccio non è un esercizio accademico: è esattamente come linguaggi moderni (Java, Go, Python) gestiscono internamente le stringhe per essere veloci e sicure.
+  Questo approccio non è un esercizio accademico: è esattamente come linguaggi
+  moderni (Java, Go, Python) gestiscono internamente le stringhe per essere
+  veloci e sicure.
 </Callout>
 
 ### Verso le Struct
+
 Manipolare manualmente gli offset (come `s - 4` o `s - 8`) è "fragile" e prono a errori. Per questo Salvatore introduce le **Struct**: un modo per raggruppare dati diversi (lunghezza, refcount, testo) in un'unica entità logica.
+
 ```c
 struct ps_string {
     uint32_t len;
@@ -127,161 +199,161 @@ struct ps_string {
 
 ## Simulazione Performance: O(N) vs O(1)
 
-Immagina una stringa lunga 10 milioni di caratteri. 
-- `strlen` (Standard C) deve leggere **10.000.000 di byte** per trovare lo zero finale.
+Immagina una stringa lunga 10 milioni di caratteri.
+
+- `strlen` (Standard C) deve leggere **10.000.000 di byte** caricandoli in sequenza dal bus della memoria ai registri della CPU per trovare lo zero finale.
 - `ps_len` (Nostra) deve leggere **solo 1 numero** a un offset fisso.
 
-**Differenza di tempo:** Da millisecondi a nanosecondi. Su larga scala, questo cambia tutto.
+**Differenza di tempo:** Se `strlen` impiega 2 millisecondi, `ps_len` impiega circa 0.5 nanosecondi. È una differenza di **4 milioni di volte**!
 
 ---
 
 ## Esercitazione
 
-<Quiz 
+<Quiz
   title="Quiz Standard"
   questions={[
     {
-      question: "Perché restituiamo `p + 4` invece di `p` nella funzione `ps_create`?",
+      question:
+        "Perché restituiamo `p + 4` invece di `p` nella funzione `ps_create`?",
       options: [
         "Per sprecare memoria di proposito",
         "Per far sì che il puntatore punti all'inizio del testo, garantendo compatibilità con le funzioni C",
         "Perché le stringhe devono sempre iniziare a un indirizzo dispari",
-        "Per criptare la stringa"
+        "Per criptare la stringa",
       ],
       correctAnswer: 1,
-      explanation: "Restituendo l'indirizzo dopo l'header, le funzioni come `printf` iniziano a leggere i caratteri e non i metadati della lunghezza."
+      explanation:
+        "Restituendo l'indirizzo dopo l'header, le funzioni come `printf` iniziano a leggere i caratteri e non i metadati della lunghezza.",
     },
     {
-      question: "Qual è la dimensione massima teorica di una stringa se l'header della lunghezza è un `uint32_t`?",
+      question:
+        "Qual è la dimensione massima teorica di una stringa se l'header della lunghezza è un `uint32_t`?",
       options: [
         "64 Kilobyte",
         "2 Gigabyte",
         "4 Gigabyte (2^32 byte)",
-        "Illimitata"
+        "Illimitata",
       ],
       correctAnswer: 2,
-      explanation: "Un intero senza segno a 32 bit può rappresentare valori fino a 4.294.967.295."
+      explanation:
+        "Un intero senza segno a 32 bit può rappresentare valori fino a 4.294.967.295.",
     },
     {
-      question: "Cosa succede se dimentichi il `- HDR_SIZE` nella funzione `ps_free`?",
+      question:
+        "Cosa succede se dimentichi il `- HDR_SIZE` nella funzione `ps_free`?",
       options: [
         "Viene liberata solo una parte della memoria",
         "Crash immediato o corruzione dell'heap (Malloc Error)",
         "Il compilatore corregge l'errore",
-        "La stringa rimane in memoria per sempre (Leak leggero)"
+        "La stringa rimane in memoria per sempre (Leak leggero)",
       ],
       correctAnswer: 1,
-      explanation: "La funzione `free` accetta solo puntatori restituiti esattamente da `malloc`. Se passi un puntatore 'spostato', l'allocatore non sa più come gestire quel blocco."
+      explanation:
+        "La funzione `free` accetta solo puntatori restituiti esattamente da `malloc`. Se passi un puntatore 'spostato', l'allocatore non sa più come gestire quel blocco.",
     },
     {
-      question: "In termini di complessità computazionale (Notazione O), quanto è veloce `strlen`?",
-      options: [
-        "O(1)",
-        "O(log N)",
-        "O(N)",
-        "O(N^2)"
-      ],
+      question:
+        "In termini di complessità computazionale (Notazione O), quanto è veloce `strlen`?",
+      options: ["O(1)", "O(log N)", "O(N)", "O(N^2)"],
       correctAnswer: 2,
-      explanation: "`strlen` deve scansionare ogni singolo carattere (`N` caratteri) finché non trova lo zero."
+      explanation:
+        "`strlen` deve scansionare ogni singolo carattere (`N` caratteri) finché non trova lo zero.",
     },
     {
-      question: "Quale libreria dobbiamo includere per usare i tipi come `uint32_t`?",
-      options: [
-        "stdio.h",
-        "stdlib.h",
-        "stdint.h",
-        "string.h"
-      ],
+      question:
+        "Quale libreria dobbiamo includere per usare i tipi come `uint32_t`?",
+      options: ["stdio.h", "stdlib.h", "stdint.h", "string.h"],
       correctAnswer: 2,
-      explanation: "La libreria `stdint.h` (Standard Integer) definisce i tipi con dimensione garantita."
-    }
-  ]} 
+      explanation:
+        "La libreria `stdint.h` (Standard Integer) definisce i tipi con dimensione garantita.",
+    },
+  ]}
 />
 
-<Quiz 
+<Quiz
   title="Pro Challenge"
   questions={[
     {
-      question: "Se implementiamo il Reference Counting, quando dobbiamo chiamare effettivamente la `free`?",
+      question:
+        "Se implementiamo il Reference Counting, quando dobbiamo chiamare effettivamente la `free`?",
       options: [
         "Ogni volta che usiamo la stringa",
         "Mai, ci pensa il sistema operativo",
         "Solo quando il contatore delle referenze arriva a zero",
-        "Quando il programma finisce"
+        "Quando il programma finisce",
       ],
       correctAnswer: 2,
-      explanation: "Se il contatore è > 0, significa che qualcun altro sta ancora usando quella stringa. Liberarla causerebbe un segmentation fault altrove."
+      explanation:
+        "Se il contatore è > 0, significa che qualcun altro sta ancora usando quella stringa. Liberarla causerebbe un segmentation fault altrove.",
     },
     {
-      question: "Perché Salvatore dice che `s[j]` funziona ancora correttamente nonostante il puntatore sia spostato?",
+      question:
+        "Perché Salvatore dice che `s[j]` funziona ancora correttamente nonostante il puntatore sia spostato?",
       options: [
         "Per magia del compilatore",
         "Perché l'operatore `[]` usa l'indirizzo base del puntatore che gli diamo e aggiunge lo spiazzamento `j` ",
         "Perché abbiamo ricalcolato gli indici",
-        "Non funziona, è un errore nel video"
+        "Non funziona, è un errore nel video",
       ],
       correctAnswer: 1,
-      explanation: "L'operatore `s[j]` è equivalente a `*(s + j)`. Se `s` punta alla prima lettera, `s[0]` è la prima lettera, `s[1]` la seconda, e così via."
+      explanation:
+        "L'operatore `s[j]` è equivalente a `*(s + j)`. Se `s` punta alla prima lettera, `s[0]` è la prima lettera, `s[1]` la seconda, e così via.",
     },
     {
-      question: "Qual è lo svantaggio principale di questo approccio 'Header-Hidden' rispetto a una struct esplicita?",
+      question:
+        "Qual è lo svantaggio principale di questo approccio 'Header-Hidden' rispetto a una struct esplicita?",
       options: [
         "È più lento",
         "Usa meno memoria",
         "È meno leggibile nel codice (richiede molti cast e sottrazioni manuali)",
-        "Non è compatibile con Windows"
+        "Non è compatibile con Windows",
       ],
       correctAnswer: 2,
-      explanation: "Manipolare manualmente gli offset (come `s - 4`) è prono a errori. Per questo Salvatore introduce le `struct` come soluzione più pulita alla fine della lezione."
-    }
-  ]} 
+      explanation:
+        "Manipolare manualmente gli offset (come `s - 4`) è prono a errori. Per questo Salvatore introduce le `struct` come soluzione più pulita alla fine della lezione.",
+    },
+  ]}
 />
 
-<ProTerminal 
+<ProTerminal
   challenges={[
     {
-        id: "hexdump-string",
-        simulatedSuccessOutput: `00000000  03 00 00 00 41 42 43 00                           |....ABC.|`,
-        title: "Vedere l'Invisibile",
-        description: "Supponi di aver creato la stringa 'ABC' con l'header 3. Quale comando Linux useresti per vedere i byte grezzi di un file binario e confermare che i primi 4 byte contengono il valore 0x03?",
-        commands: [],
-        expectedOutput: "",
-        hints: [
-            "L'output mostra prima la lunghezza (little-endian) e poi i codici ASCII di A, B, C."
-        ],
-        expectedCommand: "hexdump -C string.bin"
+      id: "hexdump-string",
+      simulatedSuccessOutput: `00000000  03 00 00 00 41 42 43 00                           |....ABC.|`,
+      title: "Vedere l'Invisibile",
+      description:
+        "Supponi di aver creato la stringa 'ABC' con l'header 3. Quale comando Linux useresti per vedere i byte grezzi di un file binario e confermare che i primi 4 byte contengono il valore 0x03?",
+      commands: [],
+      expectedOutput: "",
+      hints: [
+        "L'output mostra prima la lunghezza (little-endian) e poi i codici ASCII di A, B, C.",
+      ],
+      expectedCommand: "hexdump -C string.bin",
     },
     {
-        id: "valgrind-check",
-        simulatedSuccessOutput: `==12345== Conditional jump or move depends on uninitialised value(s)\n==12345==    at 0x10915E: main (test.c:5)\n==12345==  Uninitialised value was created by a heap allocation\n==12345==    at 0x484DA83: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)\n==12345==    by 0x109139: main (test.c:4)`,
-        title: "Malloc Debugging",
-        description: "Un memory leak è difficile da tracciare se non sai chi ha originariamente richiesto quella memoria. Quale flag specifico di `valgrind` (da settare a `=yes`) forza il tracciamento dettagliato di chi ha chiamato la `malloc` iniziale?",
-        commands: [
-            "valgrind --leak-check=full --track-origins=yes"
-        ],
-        expectedOutput: "Address 0x... is inside a block of size 8 alloc'd",
-        hints: [
-            "L'opzione track-origins aiuta a risalire alla sorgente."
-        ]
+      id: "valgrind-check",
+      simulatedSuccessOutput: `==12345== Conditional jump or move depends on uninitialised value(s)\n==12345==    at 0x10915E: main (test.c:5)\n==12345==  Uninitialised value was created by a heap allocation\n==12345==    at 0x484DA83: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)\n==12345==    by 0x109139: main (test.c:4)`,
+      title: "Malloc Debugging",
+      description:
+        "Un memory leak è difficile da tracciare se non sai chi ha originariamente richiesto quella memoria. Quale flag specifico di `valgrind` (da settare a `=yes`) forza il tracciamento dettagliato di chi ha chiamato la `malloc` iniziale?",
+      commands: ["valgrind --leak-check=full --track-origins=yes"],
+      expectedOutput: "Address 0x... is inside a block of size 8 alloc'd",
+      hints: ["L'opzione track-origins aiuta a risalire alla sorgente."],
     },
     {
-        id: "grep-header",
-        simulatedSuccessOutput: `/usr/include/stdint.h`,
-        title: "Scavare nel Sistema",
-        description: "Trova dove si trova il file `stdint.h` sul tuo sistema Linux usando il comando `locate` o `find`.",
-        commands: [
-            "find /usr/include -name stdint.h",
-            "locate stdint.h"
-        ],
-        expectedOutput: "/usr/include/stdint.h",
-        hints: [
-            "Cerca nella directory standard degli include."
-        ]
-    }
-]}
+      id: "grep-header",
+      simulatedSuccessOutput: `/usr/include/stdint.h`,
+      title: "Scavare nel Sistema",
+      description:
+        "Trova dove si trova il file `stdint.h` sul tuo sistema Linux usando il comando `locate` o `find`.",
+      commands: ["find /usr/include -name stdint.h", "locate stdint.h"],
+      expectedOutput: "/usr/include/stdint.h",
+      hints: ["Cerca nella directory standard degli include."],
+    },
+  ]}
 />
 
 ### Riassunto Finale
+
 Oggi abbiamo scavato sotto la superficie. Abbiamo imparato che un puntatore è una bussola: se sappiamo dove stiamo puntando, possiamo muoverci avanti per vedere i dati o indietro per vedere i metadati. Questa tecnica è alla base di database come Redis e di molti linguaggi di alto livello (come Python) che devono gestire stringhe in modo efficiente.
-
-

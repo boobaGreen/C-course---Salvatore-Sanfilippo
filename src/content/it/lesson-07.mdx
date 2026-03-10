@@ -1,12 +1,12 @@
-﻿import VideoEmbed from '../../components/content/VideoEmbed';
-import Callout from '../../components/content/Callout';
-import KeyConcepts from '../../components/content/KeyConcepts';
-import RecursionVisualizer from '../../components/content/RecursionVisualizer';
-import SwitchBoard from '../../components/content/SwitchBoard';
-import CodeEditor from '../../components/exercises/CodeEditor';
-import Quiz from '../../components/exercises/Quiz';
-import ProTerminal from '../../components/content/ProTerminal';
-import Infographic from '../../components/content/Infographic';
+﻿import VideoEmbed from "../../components/content/VideoEmbed";
+import Callout from "../../components/content/Callout";
+import KeyConcepts from "../../components/content/KeyConcepts";
+import RecursionVisualizer from "../../components/content/RecursionVisualizer";
+import SwitchBoard from "../../components/content/SwitchBoard";
+import CodeEditor from "../../components/exercises/CodeEditor";
+import Quiz from "../../components/exercises/Quiz";
+import ProTerminal from "../../components/content/ProTerminal";
+import Infographic from "../../components/content/Infographic";
 
 # Lezione 7: Cicli, Ricorsione e Switch
 
@@ -14,25 +14,29 @@ A volte abbiamo bisogno di ripetere un'operazione migliaia di volte, o di scegli
 
 <VideoEmbed videoId="HCRthhjbfAg" title="Lezione 7: Cicli e Ricorsione" />
 
-<KeyConcepts 
+<KeyConcepts
   concepts={[
     {
       title: "Cicli (for, while, do-while)",
-      description: "Tre modi diversi per ripetere il codice. Il 'for' è ideale quando sai quanti giri fare, il 'while' quando attendi una condizione."
+      description:
+        "Tre modi diversi per ripetere il codice. Il 'for' è ideale quando sai quanti giri fare, il 'while' quando attendi una condizione.",
     },
     {
       title: "Ricorsione",
-      description: "Una funzione che chiama se stessa. È come una scatola russa (matrioska) di esecuzioni che si accumulano sullo stack."
+      description:
+        "Una funzione che chiama se stessa. È come una scatola russa (matrioska) di esecuzioni che si accumulano sullo stack.",
     },
     {
       title: "Switch",
-      description: "Un'alternativa pulita a molti 'if-else' concatenati. Funziona come una tabella di salto veloce."
-    }
-  ]} 
+      description:
+        "Un'alternativa pulita a molti 'if-else' concatenati. Funziona come una tabella di salto veloce.",
+    },
+  ]}
 />
 
 ## Cicli: for vs while
-Come spiega Salvatore, un ciclo `for` è spesso solo un modo più compatto di scrivere un `while`. 
+
+Come spiega Salvatore, un ciclo `for` è spesso solo un modo più compatto di scrivere un `while`.
 
 ```c
 // Versione WHILE
@@ -49,11 +53,15 @@ for (int i = 0; i < 5; i++) {
 ```
 
 <Callout type="info" title="Zucchero Sintattico">
-Il ciclo `for` è quello che i programmatori chiamano "Zucchero Sintattico": non aggiunge nuove funzionalità al linguaggio, ma rende solo più dolce (leggibile e compatta) una struttura che potevi già scrivere con il `while`.
+  Il ciclo `for` è quello che i programmatori chiamano "Zucchero Sintattico":
+  non aggiunge nuove funzionalità al linguaggio, ma rende solo più dolce
+  (leggibile e compatta) una struttura che potevi già scrivere con il `while`.
 </Callout>
 
 ### Trasformazione: Da For a While
+
 Per capire davvero il `for`, impara a smontarlo:
+
 1. La prima parte (inizializzazione) va **prima** del ciclo.
 2. La seconda parte (condizione) è il **motore** del `while`.
 3. La terza parte (incremento) va alla **fine** del blocco di codice.
@@ -65,12 +73,13 @@ In C, le tre parti del `for` (inizializzazione, condizione, incremento) sono opz
 - `for(;;)` è un modo idiomatico per scrivere un **loop infinito**.
 - Puoi omettere l'incremento se lo fai dentro il corpo del ciclo.
 
-<Callout type="warning" title="Loop Unrolling">
-  Il compilatore può decidere di "srotolare" un ciclo `for` corto (es. 4 iterazioni) scrivendo direttamente le 4 istruzioni una dopo l'altra. Questo elimina il costo del controllo della condizione `i < 4` a ogni giro.
+<Callout type="warning" title="Loop Unrolling (Srotolamento)">
+  Il compilatore può decidere di "srotolare" un ciclo `for` corto (es. 4 iterazioni) scrivendo direttamente le 4 istruzioni una dopo l'altra. Questo elimina il costo del controllo della condizione `i < 4` a ogni giro e aiuta la **Pipeline** della CPU a fluire senza interruzioni dovute ai salti.
 </Callout>
 </Callout>
 
 ### Esempio Pratico: Ricerca in un Array
+
 Salvatore ci mostra come usare il `break` per fermare un ciclo non appena troviamo quello che cerchiamo.
 
 ```c
@@ -85,11 +94,16 @@ else printf("Trovato in posizione %d\n", i);
 ```
 
 <Callout type="warning" title="Scope della Variabile i">
-Se dichiari `for (int i = 0; ...)` dentro il ciclo, la variabile `i` sparisce appena il ciclo finisce. Se ti serve sapere a che punto si è fermato il ciclo (come nel caso della ricerca dell'8 sopra), devi dichiarare la `i` **fuori** dal `for`.
+  Se dichiari `for (int i = 0; ...)` dentro il ciclo, la variabile `i` sparisce
+  appena il ciclo finisce. Se ti serve sapere a che punto si è fermato il ciclo
+  (come nel caso della ricerca dell'8 sopra), devi dichiarare la `i` **fuori**
+  dal `for`.
 </Callout>
 
 <Callout type="danger" title="Il Problema del 'Dangling Else'">
-Quando annidi degli `if` senza usare le graffe, l' `else` si lega sempre all' `if` più vicino. È una delle fonti di bug più bastarde del C. **Consiglio di Salvatore:** usa sempre le graffe `{}`, anche per una sola riga!
+  Quando annidi degli `if` senza usare le graffe, l' `else` si lega sempre all'
+  `if` più vicino. È una delle fonti di bug più bastarde del C. **Consiglio di
+  Salvatore:** usa sempre le graffe `{}`, anche per una sola riga!
 </Callout>
 
 ---
@@ -101,7 +115,15 @@ Quando una funzione chiama se stessa, il computer non ricomincia da zero. "Conge
 <RecursionVisualizer />
 
 <Callout type="pro" title="Tail Call Optimization (TCO)">
-Se l'ultima cosa che una funzione fa è chiamare se stessa, un buon compilatore può ottimizzarla trasformandola in un salto (`goto`), risparmiando memoria. Salvatore ci ha mostrato come farlo a mano per evitare di consumare lo stack:
+Se l'ultima cosa che una funzione fa è chiamare se stessa, un buon compilatore può ottimizzarla trasformandola in un salto (`goto`), risparmiando memoria.
+
+**Attenzione**: la TCO funziona solo se non c'è "lavoro residuo".
+
+- `return f(x);` -> Ottimizzabile.
+- `return 1 + f(x);` -> **NON** ottimizzabile (la CPU deve ricordarsi di aggiungere 1 dopo che la funzione torna).
+
+Salvatore ci ha mostrato come farlo a mano per evitare di consumare lo stack:
+
 ```c
 loop:
     if (start > end) return;
@@ -109,30 +131,41 @@ loop:
     start = start + 1;
     goto loop; // Ricorsione manuale (iterazione)!
 ```
+
 In questo modo l'indirizzo di memoria di `start` rimarrà sempre lo stesso, perché non creiamo nuovi frame.
+
 </Callout>
 
 <Callout type="warning" title="Stack Overflow">
-Se la ricorsione non ha una 'condizione di uscita' (base case), continuerà a creare nuovi frame fino a esaurire la memoria dedicata allo stack. Questo causa il famoso crash 'Stack Overflow'.
+  Se la ricorsione non ha una 'condizione di uscita' (base case), continuerà a
+  creare nuovi frame fino a esaurire la memoria dedicata allo stack. Questo
+  causa il famoso crash 'Stack Overflow'.
 </Callout>
 
 <SwitchBoard />
 
 <Callout type="pro" title="Jump Tables">
-Sotto il cofano, se i casi sono vicini (es. 1, 2, 3), il compilatore non fa tanti `if`. Crea una **Jump Table**: una tabella di indirizzi dove il processore "salta" istantaneamente al caso giusto. È incredibilmente veloce!
+Sotto il cofano, se i casi sono vicini (es. 1, 2, 3), il compilatore non fa tanti `if`. Crea una **Jump Table**: un array di indirizzi di memoria. Il processore prende il valore, lo usa come indice della tabella e salta direttamente al codice giusto. È incredibilmente veloce!
+
+**Il Limite**: Se i casi sono molto distanti (es. `case 1` e `case 1000000`), il compilatore non può creare una tabella così grande. In quel caso "torna indietro" e usa una serie di `if` o una ricerca binaria.
+
 </Callout>
 
 <Callout type="info" title="La Velocità dello Switch">
-  A differenza di una catena di `if-else` che è O(N), lo `switch` con Jump Table è **O(1)**. Non importa se hai 10 o 100 casi: il tempo per saltare a quello giusto rimane lo stesso.
+  A differenza di una catena di `if-else` che è **O(N)** (più casi hai, più
+  lento diventa), lo `switch` con Jump Table è **O(1)**. Non importa se hai 10 o
+  100 casi: il tempo per saltare a quello giusto rimane lo stesso.
 </Callout>
 
 <Callout type="info" title="L'importanza del break">
-Nello `switch`, se dimentichi il `break;`, il codice continuerà a eseguire anche i casi successivi! Questo comportamento si chiama 'fall-through'.
+  Nello `switch`, se dimentichi il `break;`, il codice continuerà a eseguire
+  anche i casi successivi! Questo comportamento si chiama 'fall-through'.
 </Callout>
 
 ---
 
 ## Codice Reale: Il Glob Matching di Redis
+
 Salvatore ci mostra come usa questi concetti nel codice vero. La sua funzione per il matching delle stringhe (es. `*`, `?`, `[a-z]`) usa sia lo `switch` che la ricorsione per gestire i vari caratteri del pattern.
 
 ```c
@@ -155,32 +188,36 @@ int glob_match(const char *pattern, const char *string) {
 
 Prova a trasformare questo ciclo `while` in un ciclo `for`.
 
-<CodeEditor 
+<CodeEditor
   initialCode={`#include <stdio.h>\n\nint main() {\n    int i = 0;\n    while (i < 5) {\n        printf("Giro numero %d\\n", i);\n        i++;\n    }\n    return 0;\n}`}
   language="c"
 />
 
 ## Quiz di Verifica
 
-<Quiz 
-  title="Quiz Standard" 
+<Quiz
+  title="Quiz Standard"
   questions={[
     {
-      question: "Quale di questi cicli garantisce ALMENO un'esecuzione del codice al suo interno?",
+      question:
+        "Quale di questi cicli garantisce ALMENO un'esecuzione del codice al suo interno?",
       options: ["`for`", "`while`", "`do-while`", "nessuno"],
       correctAnswer: 2,
-      explanation: "Il ciclo `do-while` controlla la condizione alla FINE, quindi esegue il corpo almeno una volta."
+      explanation:
+        "Il ciclo `do-while` controlla la condizione alla FINE, quindi esegue il corpo almeno una volta.",
     },
     {
-      question: "Cosa succede se dimentichi il `'break'` in un case dello `switch`?",
+      question:
+        "Cosa succede se dimentichi il `'break'` in un case dello `switch`?",
       options: [
         "Viene generato un errore di compilazione",
         "L'esecuzione si ferma",
         "L'esecuzione continua nel caso successivo (fall-through)",
-        "Il computer si riavvia"
+        "Il computer si riavvia",
       ],
       correctAnswer: 2,
-      explanation: "Senza il `break`, il C continua a eseguire le istruzioni del caso successivo finché non ne incontra uno o finisce lo `switch`."
+      explanation:
+        "Senza il `break`, il C continua a eseguire le istruzioni del caso successivo finché non ne incontra uno o finisce lo `switch`.",
     },
     {
       question: "Perché la ricorsione è utile?",
@@ -188,10 +225,11 @@ Prova a trasformare questo ciclo `while` in un ciclo `for`.
         "È sempre più veloce dei cicli",
         "Permette di risolvere problemi complessi dividendoli in sotto-problemi più semplici",
         "Non usa memoria",
-        "È obbligatoria in C"
+        "È obbligatoria in C",
       ],
       correctAnswer: 1,
-      explanation: "La ricorsione è ideale per strutture dati ricorsive (come alberi) e per l'approccio 'divide et impera'."
+      explanation:
+        "La ricorsione è ideale per strutture dati ricorsive (come alberi) e per l'approccio 'divide et impera'.",
     },
     {
       question: "Cosa fa l'istruzione `'continue'` dentro un ciclo?",
@@ -199,83 +237,105 @@ Prova a trasformare questo ciclo `while` in un ciclo `for`.
         "Ferma il programma",
         "Salta il resto del codice nel corpo del ciclo per questo giro e passa alla prossima iterazione",
         "Esce dal ciclo definitivamente",
-        "Ricomincia il programma da capo"
+        "Ricomincia il programma da capo",
       ],
       correctAnswer: 1,
-      explanation: "A differenza di `break`, `continue` non ferma il ciclo, ma passa solo al 'giro' successivo."
+      explanation:
+        "A differenza di `break`, `continue` non ferma il ciclo, ma passa solo al 'giro' successivo.",
     },
     {
-      question: "Perché Salvatore dice che `do { ... } while(0)` è utile nelle macro?",
+      question:
+        "Perché Salvatore dice che `do { ... } while(0)` è utile nelle macro?",
       options: [
         "Per renderle più lente",
         "Per permettere l'uso di variabili locali e garantire che la macro si comporti come una singola istruzione finendo col punto e virgola",
         "Perché è un errore di sintassi",
-        "Per confondere il compilatore"
+        "Per confondere il compilatore",
       ],
       correctAnswer: 1,
-      explanation: "È un trucco standard del C (usato molto in Redis o nel kernel Linux) per creare macro sicure che possono essere usate ovunque un'istruzione singola sia attesa (es. dopo un if senza graffe)."
-    }
+      explanation:
+        "È un trucco standard del C (usato molto in Redis o nel kernel Linux) per creare macro sicure che possono essere usate ovunque un'istruzione singola sia attesa (es. dopo un if senza graffe).",
+    },
   ]}
 />
 
 ---
 
-<KeyConcepts title="In Breve"
+<KeyConcepts
+  title="In Breve"
   concepts={[
     {
       title: "for = while",
-      description: "Il ciclo `for` è solo un modo più compatto per scrivere un `while` con inizializzazione e incremento."
+      description:
+        "Il ciclo `for` è solo un modo più compatto per scrivere un `while` con inizializzazione e incremento.",
     },
     {
       title: "Stack vs Ricorsione",
-      description: "Ogni chiamata ricorsiva occupa spazio sullo Stack (frame). Attenzione a non esaurirlo!"
+      description:
+        "Ogni chiamata ricorsiva occupa spazio sullo Stack (frame). Attenzione a non esaurirlo!",
     },
     {
       title: "Jump Tables",
-      description: "Lo `switch` è velocissimo perché usa tabelle di salto invece di una lunga serie di comparazioni individuali."
-    }
+      description:
+        "Lo `switch` è velocissimo perché usa tabelle di salto invece di una lunga serie di comparazioni individuali.",
+    },
   ]}
 />
 
-
-<Infographic 
+<Infographic
   title="Dichiarazione vs Definizione"
   description="La differenza cruciale per il compilatore C"
   items={[
-    { label: "Dichiarazione (Header)", value: "Promette che esiste: void miaFunzione();", color: "blue" },
-    { label: "Definizione (Sorgente)", value: "Spiega cosa fa: void miaFunzione() { ... }", color: "emerald" },
-    { label: "Inclusione (#include)", value: "Copia-incolla le dichiarazioni nel file", color: "purple" }
+    {
+      label: "Dichiarazione (Header)",
+      value: "Promette che esiste: void miaFunzione();",
+      color: "blue",
+    },
+    {
+      label: "Definizione (Sorgente)",
+      value: "Spiega cosa fa: void miaFunzione() { ... }",
+      color: "emerald",
+    },
+    {
+      label: "Inclusione (#include)",
+      value: "Copia-incolla le dichiarazioni nel file",
+      color: "purple",
+    },
   ]}
 />
 
-
 ### Pro Challenge
-<Quiz 
+
+<Quiz
   title="Pro Challenge: Final Quiz"
   questions={[
     {
       id: 1,
-      question: "Qual è la differenza fondamentale tra un ciclo infinito (`while(1);`) e una ricorsione infinita (una funzione che chiama se stessa senza mai fermarsi)?",
+      question:
+        "Qual è la differenza fondamentale tra un ciclo infinito (`while(1);`) e una ricorsione infinita (una funzione che chiama se stessa senza mai fermarsi)?",
       options: [
         "Nessuna, entrambi bloccano il computer allo stesso modo",
         "Il ciclo infinito consuma solo CPU, mentre la ricorsione consuma memoria (Stack) fino a causare un crash (Stack Overflow)",
         "La ricorsione è più veloce",
-        "Il ciclo infinito è più pericoloso per l'hardware"
+        "Il ciclo infinito è più pericoloso per l'hardware",
       ],
       correctAnswer: 1,
-      explanation: "Ogni volta che una funzione chiama se stessa, viene creato un nuovo 'Stack Frame' che occupa RAM. Se la ricorsione è infinita, lo spazio dedicato allo Stack si esaurisce rapidamente, portando al crash del programma. Un ciclo `while`, invece, non crea nuovi frame e può girare all'infinito senza consumare memoria aggiuntiva."
+      explanation:
+        "Ogni volta che una funzione chiama se stessa, viene creato un nuovo 'Stack Frame' che occupa RAM. Se la ricorsione è infinita, lo spazio dedicato allo Stack si esaurisce rapidamente, portando al crash del programma. Un ciclo `while`, invece, non crea nuovi frame e può girare all'infinito senza consumare memoria aggiuntiva.",
     },
     {
       id: 2,
-      question: "Perché lo `switch` è spesso preferito a una lunga catena di `if-else`?",
+      question:
+        "Perché lo `switch` è spesso preferito a una lunga catena di `if-else`?",
       options: [
         "Perché è più corto da scrivere",
         "Perché il compilatore può generare una 'Jump Table', rendendo il salto al caso corretto istantaneo (O(1)) indipendentemente dal numero di casi",
         "Perché `switch` non può sbagliare",
-        "Perché `if-else` non funziona con i numeri"
+        "Perché `if-else` non funziona con i numeri",
       ],
       correctAnswer: 1,
-      explanation: "Efficienza stellare! Con `if-else`, la CPU deve controllare ogni condizione una per una. Con `switch`, il compilatore crea una tabella di indirizzi: la CPU guarda il valore, calcola l'indice nella tabella e salta direttamente al codice giusto in un colpo solo."
+      explanation:
+        "Efficienza stellare! Con `if-else`, la CPU deve controllare ogni condizione una per una. Con `switch`, il compilatore crea una tabella di indirizzi: la CPU guarda il valore, calcola l'indice nella tabella e salta direttamente al codice giusto in un colpo solo.",
     },
     {
       id: 3,
@@ -284,15 +344,16 @@ Prova a trasformare questo ciclo `while` in un ciclo `for`.
         "Un tipo di processore",
         "Una tecnica che combina switch e cicli for/while per fare 'loop unrolling' e velocizzare operazioni seriali",
         "Un comando per formattare il disco",
-        "Un virus degli anni '80"
+        "Un virus degli anni '80",
       ],
       correctAnswer: 1,
-      explanation: "È una delle curiosità più famose del C. Sfrutta il fall-through dello switch per 'srotolare' un ciclo, riducendo il numero di controlli sulla condizione e aumentando le performance in casi critici."
-    }
+      explanation:
+        "È una delle curiosità più famose del C. Sfrutta il fall-through dello switch per 'srotolare' un ciclo, riducendo il numero di controlli sulla condizione e aumentando le performance in casi critici.",
+    },
   ]}
 />
 
-### Terminal Challenge: Pattern Searching 
+### Terminal Challenge: Pattern Searching
 
 <ProTerminal 
   challenges={[
@@ -339,9 +400,8 @@ Prova a trasformare questo ciclo `while` in un ciclo `for`.
         xpReward: 250,
         expectedCommand: "ls -R"
     }
+
 ]}
 />
 
 Ci vediamo alla prossima lezione!
-
-

@@ -44,6 +44,19 @@ Today, we won't learn many new theoretical concepts. Instead, we'll put everythi
   about knowing how to interpret and fix bugs.
 </Callout>
 
+<Callout type="pro" title="Double Buffering: Avoiding Chaos">
+  Why does Salvatore use two grids instead of one? If we modified the grid while reading it, cells calculated later would see neighbors already "dead" or "born," breaking the synchronicity of time.
+
+This is the principle of **Double Buffering**:
+
+1. **Back Buffer**: You calculate the future without disturbing the present.
+2. **Front Buffer**: You show the present.
+3. **Swap**: In the next turn, the future becomes the present.
+
+It's the same technique used by graphics cards to avoid "tearing" (flickering) while you play a video game!
+
+</Callout>
+
 ## The Rules of the Game
 
 The Game of Life is a cellular automaton. Each cell can be **ALIVE** (1) or **DEAD** (0). The next state depends only on its 8 neighbors.
@@ -73,10 +86,17 @@ Salvatore shows us how to "specialize the language" by creating a "ladder" of ab
   own tools before starting to work with wood.
 </Callout>
 
-### 1D Mapping: Memory is a Line
-
 Even though we think of the grid as a rectangle, computer RAM is a long linear tape. Salvatore teaches us the magic formula for moving along this tape:
 `index = (y * width) + x`
+
+<Callout type="pro" title="Row-Major Order and Cache Locality">
+  In C, this arrangement is called **Row-Major Order**. Why is it important?
+  Because the CPU reads memory in blocks. When you read cell `(0,0)`, the CPU
+  preloads into its **Cache** the cells `(0,1), (0,2)...` as well, because they
+  are physically close in RAM. If we read by columns (jumping one row each
+  time), the program would be 10 times slower because the CPU would have to
+  fetch data from the slow RAM at every step!
+</Callout>
 
 <Callout type="pro" title="The Pointer 'Cheat'">
   Even though we haven't formally studied them yet, Salvatore must use
@@ -170,6 +190,7 @@ Even though we think of the grid as a rectangle, computer RAM is a long linear t
 ---
 
 ### Pro Challenge
+
 <Quiz
   title="Pro Challenge: Game Logic & Systems"
   questions={[
@@ -212,7 +233,7 @@ Even though we think of the grid as a rectangle, computer RAM is a long linear t
   ]}
 />
 
-### Terminal Challenge: Time & Space 
+### Terminal Challenge: Time & Space
 
 <ProTerminal
   challenges={[
@@ -256,5 +277,3 @@ Even though we think of the grid as a rectangle, computer RAM is a long linear t
 />
 
 See you in the next lesson to dive into pointers!
-
-

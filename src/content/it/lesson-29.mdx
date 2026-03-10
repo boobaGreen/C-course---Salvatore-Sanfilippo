@@ -1,197 +1,199 @@
-﻿# Lezione 29: Makefile, Git e la Crescita del Progetto
+﻿import VideoEmbed from "../../components/content/VideoEmbed";
+import Callout from "../../components/content/Callout";
+import KeyConcepts from "../../components/content/KeyConcepts";
+import CodeEditor from "../../components/exercises/CodeEditor";
+import Quiz from "../../components/exercises/Quiz";
+import ProTerminal from "../../components/content/ProTerminal";
+import Infographic from "../../components/content/Infographic";
+import ComparisonTable from "../../components/content/ComparisonTable";
 
-Fino ad ora abbiamo compilato ToyFort con comandi lunghi e manuali. Man mano che il progetto cresce (siamo oltre le 400 righe!), gestire tutto a mano diventa un incubo. In questa lezione impariamo a usare gli strumenti dei professionisti: **Make** e **Git**.
+# Lezione 29: Makefile, Git e Professional Workflow
 
-<VideoEmbed videoId="nHzlRqPnlrE" title="ToyFort: Il Primo Programma e il Workflow" />
+Man mano che il progetto cresce (ToyFort ha superato le 500 righe!), gestire la compilazione manuale e le versioni del codice diventa insostenibile. In questa lezione impariamo a usare gli strumenti che trasformano un programmatore amatoriale in un professionista della produzione: **Make** e **Git**.
 
-## Perché automatizzare?
-
-Salvatore spiega che dover riscrivere ogni volta `cc toyfort.c -Wall -O2 -o toyfort` è inefficiente. Inoltre, durante lo sviluppo, è facile fare modifiche che "rompono" il codice e voler tornare indietro.
-
-### Il Makefile: La Ricetta della Compilazione
-
-Un `Makefile` è un file di testo che contiene le "istruzioni" per compilare il programma. È basato su **Target** e **Prerequisiti**.
-
-<CodeEditor 
-  initialCode={`# Il target di default (all) dipende da toyfort
-all: toyfort
-
-# toyfort dipende dal sorgente .c
-toyfort: toyfort.c
-	cc toyfort.c -Wall -O2 -o toyfort
-
-# Target per pulire i file generati
-clean:
-	rm -f toyfort`}
-  language="makefile"
+<VideoEmbed
+  videoId="vYODKK8TQGE"
+  title="Lezione 29: Makefile e Git in Action"
 />
 
-<Callout type="warning" title="L'importanza del Tab">
-Nei Makefile, le linee dei comandi **devono** iniziare con un carattere di Tabulazione reale, non con spazi! È uno dei pochi casi in cui il C (o meglio, gli strumenti intorno ad esso) è pignolo sugli spazi bianchi.
+<KeyConcepts
+  concepts={[
+    {
+      title: "Compilazione Incrementale",
+      description:
+        "Capire come `make` usi i timestamp del filesystem per ricompilare solo ciò che è realmente cambiato.",
+    },
+    {
+      title: "Ottimizzazioni (-O2)",
+      description:
+        "Perché il compilatore ha bisogno di tempo extra per riorganizzare le istruzioni macchina per la massima velocità.",
+    },
+    {
+      title: "Snapshot di Git",
+      description:
+        "Usare Git non solo come backup, ma come 'macchina del tempo' per navigare tra le diverse evoluzioni del codice.",
+    },
+    {
+      title: "Binary Stripping",
+      description:
+        "Rimuovere le informazioni di debug per ridurre drasticamente il peso del binario finale.",
+    },
+  ]}
+/>
+
+---
+
+## Makefile: La Fisica del Tempo
+
+Un `Makefile` non è solo uno script. È un grafo di dipendenze. `make` confronta la data di modifica (**mtime**) del file sorgente con quella del file binario.
+
+<Callout type="pro" title="Logica Hardware di Make">
+  Se `toyfort.c` ha un timestamp più recente di `toyfort` (il binario), `make`
+  lancia il comando di compilazione. Se il binario è più recente, `make` non fa
+  nulla. Questo risparmia ore di lavoro in progetti con migliaia di file.
+</Callout>
+
+### Ottimizzazioni in Produzione
+
+Usiamo il flag `-O2`. Questo non solo attiva ottimizzazioni matematiche, ma riorganizza il codice per favorire la **Pipeline della CPU** e la **Branch Prediction**.
+
+<ComparisonTable
+  title="Effetto del flag -O2 e Strip"
+  headers={["Compilazione", "Dimensione Binario", "Velocità Esecuzione"]}
+  rows={[
+    ["cc toyfort.c", "50 KB", "1.0x (Base)"],
+    ["cc -O2 toyfort.c", "45 KB", "1.5x - 2.0x"],
+    ["cc -O2 -s toyfort.c", "18 KB", "2.0x (Ottimale)"],
+  ]}
+/>
+
+---
+
+## Git: Il Sistema Nervoso del Team
+
+Git permette di lavorare senza paura. Ogni `commit` è un'ancora di salvezza hardware salvata nel database di Git.
+
+<Infographic
+  title="Ciclo di Vita del Codice"
+  description="Dalla modifica al repository."
+  items={[
+    { label: "Check", value: "git status: vedi cosa hai rotto", color: "blue" },
+    { label: "Stage", value: "git add: prepara lo snapshot", color: "purple" },
+    {
+      label: "Commit",
+      value: "git commit: firma il progresso",
+      color: "emerald",
+    },
+    { label: "History", value: "git log: guarda il passato", color: "amber" },
+  ]}
+/>
+
+<Callout type="warning" title=".gitignore e Sicurezza">
+  Non committare mai file binari o file che contengono chiavi segrete. Usa il
+  file `.gitignore` per dire a Git di ignorare `toyfort`, `a.out` e i file `.o`.
 </Callout>
 
 ---
 
-## Git: La Macchina del Tempo
+## Esercitazione
 
-Per gestire le versioni del software e non perdere mai il lavoro, usiamo **Git**.
-
-<Infographic 
-  title="Workflow Git Base"
-  type="process"
-  data={[
-    { label: "git init", detail: "Inizializza il repository nella cartella" },
-    { label: "git add", detail: "Mette i file nell'area di stage" },
-    { label: "git commit", detail: "Salva uno snapshot definitivo con un messaggio" },
-    { label: "git diff", detail: "Mostra le differenze rispetto all'ultimo salvataggio" }
+<Quiz
+  title="Quiz Standard"
+  questions={[
+    {
+      question: "Perché usiamo il comando 'make' invece di compilare a mano?",
+      options: [
+        "Perché è più divertente",
+        "Per automatizzare la ricompilazione solo dei file modificati",
+        "Perché il C non si compila senza make",
+        "Perché rende il binario più piccolo",
+      ],
+      correctAnswer: 1,
+      explanation:
+        "Make è un motore di dipendenze che evita lavoro inutile ricompilando solo il necessario.",
+    },
+    {
+      question: "Cosa fa il comando 'git add .'?",
+      options: [
+        "Invia il codice su internet",
+        "Aggiunge tutti i file modificati nell'area di preparazione (staging)",
+        "Cancella i file vecchi",
+        "Crea un nuovo file .c",
+      ],
+      correctAnswer: 1,
+      explanation:
+        "Mette le modifiche nel carrello prima di fare il 'commit' finale.",
+    },
+    {
+      question:
+        "In un Makefile, che carattere DEVE precedere i comandi di shell?",
+      options: [
+        "4 Spazi",
+        "Un carattere di Tabulazione (Tab)",
+        "Un punto e virgola",
+        "Un cancelletto (#)",
+      ],
+      correctAnswer: 1,
+      explanation:
+        "È un requisito storico di Make: senza Tab il comando non viene riconosciuto.",
+    },
   ]}
 />
 
-<Callout type="info" title="Perché Git è fondamentale?">
-Salvatore racconta come, durante la registrazione, avesse cancellato per errore una parte di codice necessaria. Grazie a un backup dei transcript (o nel nostro caso, grazie a Git), è possibile recuperare versioni precedenti in pochi secondi.
-</Callout>
-
-<Quiz 
-  title="Quiz Standard" 
-  questions={[
-    {
-      question: "Cosa succede se lanci 'make' senza argomenti?",
-      options: [
-        "Viene cancellato tutto",
-        "Viene eseguito il primo target nel Makefile",
-        "Viene stampato un errore",
-        "Viene eseguito il target 'clean'"
-      ],
-      correctAnswer: 1,
-      explanation: "Make esegue di default il primo target che trova nel file."
-    },
-    {
-      question: "In un Makefile, cosa sono i 'prerequisiti'?",
-      options: [
-        "Le librerie esterne",
-        "I file o i target da cui dipende il target corrente",
-        "I commenti iniziali",
-        "Le variabili d'ambiente"
-      ],
-      correctAnswer: 1,
-      explanation: "Make controlla la data di modifica dei prerequisiti: se sono più recenti del target, ricompila."
-    },
-    {
-      question: "Qual è il comando Git per vedere cosa è cambiato rispetto all'ultimo commit?",
-      options: [
-        "git log",
-        "git status",
-        "git diff",
-        "git check"
-      ],
-      correctAnswer: 2,
-      explanation: "git diff mostra riga per riga le modifiche non ancora committate."
-    },
-    {
-      question: "Perché usiamo il file .gitignore?",
-      options: [
-        "Per rendere il codice più veloce",
-        "Per dire a Git di non tracciare file binari o temporanei",
-        "Per nascondere il codice agli altri",
-        "È un file richiesto dal compilatore"
-      ],
-      correctAnswer: 1,
-      explanation: "Binari e file oggetto non vanno mai su Git per non sporcare il repository."
-    },
-    {
-      question: "Perché Salvatore preferisce definire TF_OK e TF_ERR?",
-      options: [
-        "Perché rendono il codice più leggibile rispetto a 0 e 1",
-        "Perché sono più veloci",
-        "Perché occupano meno memoria",
-        "È obbligatorio in C"
-      ],
-      correctAnswer: 0,
-      explanation: "Usare macro invece di numeri 'magici' chiarisce l'intento del programmatore."
-    }
-  ]} 
-/>
-
-<Quiz 
+<Quiz
   title="Pro Challenge"
   questions={[
     {
-      question: "Come accorciamo lo stack in ToyFort dopo un pop in modo efficiente?",
+      question:
+        "In termini di hardware, cosa fa l'opzione `-s` (strip) di gcc?",
       options: [
-        "Usando free()",
-        "Usando realloc() riducendo la dimensione (o nulla se siamo a 0)",
-        "Settando a NULL tutti gli elementi",
-        "Non si può fare"
+        "Restaura il codice cancellato",
+        "Rimuove la Symbol Table (nomi di funzioni e variabili) dal binario, rendendolo illeggibile per i debugger ma molto leggero",
+        "Aumenta la velocità della CPU",
+        "Sostituisce gli spazi con i tab",
       ],
       correctAnswer: 1,
-      explanation: "realloc può essere usata per restringere l'area di memoria, anche se in molti casi lo stack viene lasciato della stessa dimensione per riuso futuro."
+      explanation:
+        "Lo stripping rimuove i metadati necessari solo allo sviluppo, rendendo il binario 'asciutto' per la consegna.",
     },
     {
-      question: "Cosa succede se `make` trova che il binario è più recente del file .c?",
+      question: "Cos'è il timestamp mtime usato da Make?",
       options: [
-        "Ricompila comunque",
-        "Cancella il binario",
-        "Non fa nulla ('is up to date')",
-        "Genera un warning"
+        "Il manuale del tempo",
+        "La data di ultima modifica di un file registrata dal File System",
+        "Un errore del kernel",
+        "Il tempo impiegato dalla CPU per compilare",
       ],
-      correctAnswer: 2,
-      explanation: "La forza di Make è la compilazione incrementale: lavora solo se necessario."
+      correctAnswer: 1,
+      explanation:
+        "Make confronta gli mtime dei sorgenti e dei target per capire se ricompilare.",
     },
-    {
-      question: "Nel comando `cc -O2`, cosa fa -O2?",
-      options: [
-        "Ottimizza il codice per la velocità",
-        "Indica la versione 2 del compilatore",
-        "Attiva i warning di secondo livello",
-        "Genera un file di backup"
-      ],
-      correctAnswer: 0,
-      explanation: "-O2 è un flag di ottimizzazione che rende il programma sensibilmente più veloce senza ingrandire troppo il binario."
-    }
-  ]} 
+  ]}
 />
 
-<ProTerminal 
+<ProTerminal
   challenges={[
     {
-        id: "make-touch",
-        simulatedSuccessOutput: ``,
-        title: "Il Trucco di Touch",
-        description: "Sei nello sviluppo iterativo: `make` rifiuta di ricompilare perché reputa che il file oggetto sia più recente del sorgente `toyfort.c`. Per ingannarlo aggiornando articialmente il timestamp di modifica del sorgente a 'ora' (senza aprirlo in nessun editor), quale iconico comando UNIX usi?",
-        commands: [],
-        expectedOutput: "",
-        hints: [
-            "Inizia con 't' e finisce con 'h'."
-        ],
-        expectedCommand: "touch toyfort.c"
+      id: "git-diff-check",
+      title: "Ispettore di Modifiche",
+      description:
+        "Quale comando usi per vedere byte-per-byte le differenze tra il codice attuale e l'ultimo commit?",
+      commands: [],
+      expectedOutput: "git diff",
+      hints: ["Inizia per 'git d'."],
     },
     {
-        id: "git-commit",
-        simulatedSuccessOutput: `[main 4a8b23c] Initial commit of toyfort\n 1 file changed, 10 insertions(+)\n create mode 100644 toyfort.c`,
-        title: "Salvataggio",
-        description: "Qual è il comando per salvare le modifiche in Git specificando un messaggio?",
-        commands: [],
-        expectedOutput: "",
-        hints: [
-            "Usa il flag -m."
-        ],
-        expectedCommand: "git commit -m"
+      id: "make-clean",
+      title: "Tabula Rasa",
+      description:
+        "Qual è il nome convenzionale del target nel Makefile usato per cancellare i file binari generati?",
+      commands: [],
+      expectedOutput: "clean",
+      hints: ["Significa 'pulito' in inglese."],
     },
-    {
-        id: "makefile-syntax",
-        title: "Pulizia",
-        description: "Nel Makefile, come si chiama convenzionalmente il target per rimuovere i binari?",
-        commands: [
-            "clean"
-        ],
-        expectedOutput: "",
-        hints: [
-            "Significa 'pulire' in inglese."
-        ]
-    }
-]}
+  ]}
 />
 
-### Conclusione
-Abbiamo trasformato il nostro progetto da uno script isolato a un sistema professionale gestito con Makefile e Git. Nella prossima lezione esploreremo il concetto di **Reference Counting** con un approfondimento speciale guidato da Salvatore.
+### Riassunto Finale
 
+Abbiamo messo i "binari" di sicurezza al nostro progetto. Make gestisce la complessità temporale della compilazione, Git gestisce la complessità evolutiva del sorgente. Con questi strumenti, ToyFort è pronto per diventare un software distribuibile e robusto.

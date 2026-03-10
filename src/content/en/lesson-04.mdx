@@ -1,13 +1,13 @@
-﻿import VideoEmbed from '../../components/content/VideoEmbed';
-import Callout from '../../components/content/Callout';
-import KeyConcepts from '../../components/content/KeyConcepts';
-import LimitsExplorer from '../../components/content/LimitsExplorer';
-import BinaryVisualizer from '../../components/content/BinaryVisualizer';
-import Infographic from '../../components/content/Infographic';
-import CodeEditor from '../../components/exercises/CodeEditor';
-import Quiz from '../../components/exercises/Quiz';
-import ProTerminal from '../../components/content/ProTerminal';
-import ComparisonTable from '../../components/content/ComparisonTable';
+﻿import VideoEmbed from "../../components/content/VideoEmbed";
+import Callout from "../../components/content/Callout";
+import KeyConcepts from "../../components/content/KeyConcepts";
+import LimitsExplorer from "../../components/content/LimitsExplorer";
+import BinaryVisualizer from "../../components/content/BinaryVisualizer";
+import Infographic from "../../components/content/Infographic";
+import CodeEditor from "../../components/exercises/CodeEditor";
+import Quiz from "../../components/exercises/Quiz";
+import ProTerminal from "../../components/content/ProTerminal";
+import ComparisonTable from "../../components/content/ComparisonTable";
 
 # Lesson 4: Integers, Memory & Limits
 
@@ -15,42 +15,46 @@ Welcome to lesson four! Today we'll dig beneath the surface of C to understand h
 
 <VideoEmbed videoId="YNsXyasn4R4" title="Lesson 4: Integer Types and Memory" />
 
-<KeyConcepts 
+<KeyConcepts
   concepts={[
     {
       title: "sizeof",
-      description: "The fundamental operator to discover how many bytes a type occupies on your specific machine."
+      description:
+        "The fundamental operator to discover how many bytes a type occupies on your specific machine.",
     },
     {
       title: "limits.h",
-      description: "The standard library containing constants for the minimum and maximum values of each type."
+      description:
+        "The standard library containing constants for the minimum and maximum values of each type.",
     },
     {
       title: "Architecture",
-      description: "Type sizes (like long) change depending on whether you are on a 32 or 64-bit system."
-    }
-  ]} 
+      description:
+        "Type sizes (like long) change depending on whether you are on a 32 or 64-bit system.",
+    },
+  ]}
 />
 
 Unlike languages like Python, in C the size of an `int` is not fixed forever. It depends on your **platform** and C's historical ambition: to run on anything, from the **8-bit Z80** to 64-bit supercomputers.
 
-<ComparisonTable 
+<ComparisonTable
   title="Typical Sizes per Architecture"
   headers={["Type", "8-bit (Z80/6502)", "32-bit (x86)", "64-bit (x64)"]}
   rows={[
     ["char", "1 byte", "1 byte", "1 byte"],
     ["short", "2 bytes", "2 bytes", "2 bytes"],
     ["int", "2 bytes", "4 bytes", "4 bytes"],
-    ["long", "4 bytes", "4 bytes", "8 bytes"]
+    ["long", "4 bytes", "4 bytes", "8 bytes"],
   ]}
 />
 
 <LimitsExplorer />
 
 <Callout type="warning" title="Watch the Warning!">
-When using `sizeof` in `printf`, the compiler often expects `%lu` (long unsigned). If you want to use `%d`, you must perform **Casting**:
-`printf("%d", (int)sizeof(a));`
-Casting tells the compiler: "Trust me, temporarily convert this value to an integer."
+  When using `sizeof` in `printf`, the compiler often expects `%lu` (long
+  unsigned). If you want to use `%d`, you must perform **Casting**:
+  `printf("%d", (int)sizeof(a));` Casting tells the compiler: "Trust me,
+  temporarily convert this value to an integer."
 </Callout>
 
 ## The Dance of Bits
@@ -59,9 +63,9 @@ Every number you write is converted into a sequence of **0**s and **1**s. A 32-b
 
 <BinaryVisualizer />
 
-<Infographic 
-  src="/images/limits_table.png" 
-  alt="C type limits table" 
+<Infographic
+  src="/images/limits_table.png"
+  alt="C type limits table"
   caption="Quick comparison between various integer types and their typical ranges."
 />
 
@@ -69,38 +73,57 @@ Every number you write is converted into a sequence of **0**s and **1**s. A 32-b
 
 The computer doesn't just throw bytes randomly into RAM. It organizes them into cells, and often adds "padding" (empty space) to make access faster for the processor.
 
-<Infographic 
-  src="/images/memory_padding.png" 
-  alt="Memory visualization and padding" 
-  caption="How a mix of different types is stacked in RAM."
-/>
+<Callout type="pro" title="Why Alignment? (The Data Bus)">
+  The CPU doesn't read memory byte by byte like through a straw; it takes
+  "bites" (words) of 4 or 8 bytes (on x64). If a 4-byte integer started at an
+  "odd" address (not a multiple of 4), the CPU would have to perform two data
+  bus reads and "glue" the pieces together via software. This halves the speed!
+  The compiler prefers to "waste" a bit of RAM by adding empty bytes
+  (**padding**) to align data at the start of a word.
+</Callout>
+
+<Callout type="danger" title="Quantitative Proof: Order Matters!">
+Did you know that the order of variables can change the RAM occupied?
+```c
+struct A { char a; int b; char c; }; // Occupies 12 bytes (8 bytes of padding!)
+struct B { int b; char a; char c; }; // Occupies 8 bytes (only 2 bytes of padding!)
+```
+In C, the careful programmer puts larger types at the beginning to minimize memory "holes".
+</Callout>
 
 ## A Trip Down Memory Lane: VT100 and Escape Codes
+
 Salvatore showed us how to "clear the screen" not with a magic command, but by sending special bytes to the terminal. These are **Escape Codes**.
 
-<Callout type="info" title="VT100 and Vintage Terminals">
-  In the '70s, terminals were physical machines (like the **DEC VT100**). To make them move the cursor or clear the screen, you sent the byte `0x1B` (Escape) followed by a control sequence. Even today, our modern terminals emulate those same standards!
+<Callout type="info" title="Computer Archeology: TTY and VT100">
+  In the '70s, there were no modern monitors. People used **TeleTypes (TTY)**,
+  typewriters connected to a computer. To make them move the cursor or clear the
+  screen, you sent the `0x1B` byte (Escape) followed by a control sequence.
+  Physical terminals like the **DEC VT100** standardized these sequences. Even
+  today, when you open a shell on macOS or Linux, you are using a "terminal
+  emulator" pretending to be a piece of hardware from 1978!
 </Callout>
 
 ```c
 // Example sequence to clear the screen
-printf("\033[H\033[2J"); 
+printf("\033[H\033[2J");
 ```
+
 `\033` is the Escape character in octal. `[H` homes the cursor (top left), `[2J` clears the entire terminal.
 
 ## Code Lab
 
 Try experimenting with `sizeof` and the `limits.h` constants like `INT_MIN` and `INT_MAX`.
 
-<CodeEditor 
+<CodeEditor
   initialCode={`#include <stdio.h>\n#include <limits.h>\n\nint main() {\n    printf("int size: %lu bytes\\n", sizeof(int));\n    printf("int range: %d to %d\\n", INT_MIN, INT_MAX);\n    return 0;\n}`}
   language="c"
 />
 
 ## Review Quiz
 
-<Quiz 
-  title="Quiz Standard" 
+<Quiz
+  title="Quiz Standard"
   questions={[
     {
       question: "What does the sizeof operator return?",
@@ -108,33 +131,38 @@ Try experimenting with `sizeof` and the `limits.h` constants like `INT_MIN` and 
         "The maximum value of a variable",
         "The size in bits of a type",
         "The size in bytes of a type or variable",
-        "The memory address of the variable"
+        "The memory address of the variable",
       ],
       correctAnswer: 2,
-      explanation: "sizeof always returns the number of bytes (8-bit groups) occupied in memory."
+      explanation:
+        "sizeof always returns the number of bytes (8-bit groups) occupied in memory.",
     },
     {
       question: "Which header file contains the INT_MIN and INT_MAX constants?",
       options: ["stdio.h", "limits.h", "stdint.h", "stdlib.h"],
       correctAnswer: 1,
-      explanation: "limits.h defines architecture-specific limits for standard integer types."
+      explanation:
+        "limits.h defines architecture-specific limits for standard integer types.",
     },
     {
       question: "On a 64-bit system, how large is a 'long' usually?",
       options: ["2 bytes", "4 bytes", "8 bytes", "16 bytes"],
       correctAnswer: 2,
-      explanation: "On modern 64-bit systems, the long type usually follows the processor's word size, which is 8 bytes."
+      explanation:
+        "On modern 64-bit systems, the long type usually follows the processor's word size, which is 8 bytes.",
     },
     {
-      question: "What happens if you subtract 1 from an unsigned int variable that is 0?",
+      question:
+        "What happens if you subtract 1 from an unsigned int variable that is 0?",
       options: [
         "The program crashes",
         "The variable becomes -1",
         "The variable 'wraps around' (underflow) to the maximum possible value for that type (e.g., 4,294,967,295)",
-        "It stays 0"
+        "It stays 0",
       ],
       correctAnswer: 2,
-      explanation: "Unsigned types cannot be negative. Subtracting 1 from zero causes the bits to 'wrap around', bringing the variable to its maximum value."
+      explanation:
+        "Unsigned types cannot be negative. Subtracting 1 from zero causes the bits to 'wrap around', bringing the variable to its maximum value.",
     },
     {
       question: "In C, can the 'char' type be used to store small integers?",
@@ -142,102 +170,115 @@ Try experimenting with `sizeof` and the `limits.h` constants like `INT_MIN` and 
         "No, it's only for letters",
         "Yes, it is effectively an 8-bit integer",
         "Only if it's in quotes",
-        "Only if converted to float"
+        "Only if converted to float",
       ],
       correctAnswer: 1,
-      explanation: "A char is an 8-bit integer. It can contain values from -128 to 127 (signed) or 0-255 (unsigned)."
-    }
+      explanation:
+        "A char is an 8-bit integer. It can contain values from -128 to 127 (signed) or 0-255 (unsigned).",
+    },
   ]}
 />
 
 ---
 
 <KeyConcepts title="In Short">
-  - **sizeof**: The only safe way to know how much space a type actually occupies on your machine.
-  - **limits.h**: Contains constants (like `INT_MAX`) that describe the numeric limits of your compiler.
-  - **Padding**: The computer adds empty space ("dead" bytes) between data to make access faster for the CPU.
+  - **sizeof**: The only safe way to know how much space a type actually
+  occupies on your machine. - **limits.h**: Contains constants (like `INT_MAX`)
+  that describe the numeric limits of your compiler. - **Padding**: The computer
+  adds empty space ("dead" bytes) between data to make access faster for the
+  CPU.
 </KeyConcepts>
 
 ### Pro Challenge
-<Quiz 
+
+<Quiz
   title="Pro Challenge: Final Quiz"
   questions={[
     {
       id: 1,
-      question: "In C, what is the value of `sizeof('A')` on a machine where `int` is 4 bytes and `char` is 1 byte?",
+      question:
+        "In C, what is the value of `sizeof('A')` on a machine where `int` is 4 bytes and `char` is 1 byte?",
       options: [
         "1, because 'A' is a character",
         "4, because in C, character literals (like 'A') are treated as `int`",
         "8, because it's a constant",
-        "It depends on the font used"
+        "It depends on the font used",
       ],
       correctAnswer: 1,
-      explanation: "This is a subtle difference between C and C++. In C, a character constant like 'A' has type `int`, so its size is that of an integer (usually 4 bytes). If you had declared `char c = 'A';` and checked `sizeof(c)`, the result would have been 1."
+      explanation:
+        "This is a subtle difference between C and C++. In C, a character constant like 'A' has type `int`, so its size is that of an integer (usually 4 bytes). If you had declared `char c = 'A';` and checked `sizeof(c)`, the result would have been 1.",
     },
     {
       id: 2,
-      question: "Why does the compiler add 'padding' (empty space) between structure fields or between variables in memory?",
+      question:
+        "Why does the compiler add 'padding' (empty space) between structure fields or between variables in memory?",
       options: [
         "To waste memory and sell more RAM",
         "Because the CPU reads memory in blocks (words) and aligned data is much faster to read",
         "To better separate data for aesthetic reasons",
-        "It's a bug in old compilers"
+        "It's a bug in old compilers",
       ],
       correctAnswer: 1,
-      explanation: "Alignment is fundamental: a 64-bit CPU prefers to read data starting at addresses that are multiples of 8 bytes. If data were 'straddling' two blocks, the CPU would have to perform two reads instead of one, halving performance."
+      explanation:
+        "Alignment is fundamental: a 64-bit CPU prefers to read data starting at addresses that are multiples of 8 bytes. If data were 'straddling' two blocks, the CPU would have to perform two reads instead of one, halving performance.",
     },
     {
       id: 3,
-      question: "In a 32-bit signed integer, what is the role of the most significant bit (the leftmost one)?",
+      question:
+        "In a 32-bit signed integer, what is the role of the most significant bit (the leftmost one)?",
       options: [
         "Indicates whether the number is even or odd",
         "It is the sign bit (0 for positive, 1 for negative in Two's Complement)",
         "It is always 0",
-        "It is used for floating point"
+        "It is used for floating point",
       ],
       correctAnswer: 1,
-      explanation: "In Two's Complement representation, the highest bit determines the sign. If it is 1, the number is negative."
-    }
+      explanation:
+        "In Two's Complement representation, the highest bit determines the sign. If it is 1, the number is negative.",
+    },
   ]}
 />
 
-### Terminal Challenge: Header Hunting 
+### Terminal Challenge: Header Hunting
 
-<ProTerminal 
+<ProTerminal
   challenges={[
     {
       id: "limits-header-en",
       title: "The Guardian of Limits",
-      description: "What is the name of the standard header file that defines the minimum and maximum limits of integer types on your system?",
+      description:
+        "What is the name of the standard header file that defines the minimum and maximum limits of integer types on your system?",
       commands: ["ls /usr/include/limits.h"],
       expectedOutput: "limits.h",
       hints: ["It deals with numerical 'limits'"],
-      explanation: "Exactly! `limits.h` contains macros like `INT_MAX` and `CHAR_BIT`.",
-      xpReward: 150
+      explanation:
+        "Exactly! `limits.h` contains macros like `INT_MAX` and `CHAR_BIT`.",
+      xpReward: 150,
     },
     {
       id: "stdint-header-en",
       title: "Surgical Precision",
-      description: "To use types with guaranteed size (e.g., int32_t), which header file must you include?",
+      description:
+        "To use types with guaranteed size (e.g., int32_t), which header file must you include?",
       commands: ["ls /usr/include/stdint.h"],
       expectedOutput: "stdint.h",
       hints: ["Starts with 'std' and contains 'int'"],
       explanation: "Great! `stdint.h` is vital for code portability.",
-      xpReward: 200
+      xpReward: 200,
     },
     {
       id: "lscpu-endian-en",
       title: "The Byte Order",
-      description: "Which Linux command shows the CPU architecture and whether the system is Little or Big Endian?",
-      commands: ["lscpu | grep \"Byte Order\""],
+      description:
+        "Which Linux command shows the CPU architecture and whether the system is Little or Big Endian?",
+      commands: ['lscpu | grep "Byte Order"'],
       expectedOutput: "Little Endian",
       hints: ["Stands for 'List CPU'"],
-      explanation: "Perfect! `lscpu` reveals how your CPU organizes bytes in memory.",
-      xpReward: 250
-    }
+      explanation:
+        "Perfect! `lscpu` reveals how your CPU organizes bytes in memory.",
+      xpReward: 250,
+    },
   ]}
 />
 
 See you in the next lesson!
-
-

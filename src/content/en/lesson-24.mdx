@@ -1,233 +1,216 @@
-﻿import VideoEmbed from '../../components/content/VideoEmbed';
-import Callout from '../../components/content/Callout';
-import KeyConcepts from '../../components/content/KeyConcepts';
-import CodeEditor from '../../components/exercises/CodeEditor';
-import Quiz from '../../components/exercises/Quiz';
-import ProTerminal from '../../components/content/ProTerminal';
-import Infographic from '../../components/content/Infographic';
-import ComparisonTable from '../../components/content/ComparisonTable';
+﻿import VideoEmbed from "../../components/content/VideoEmbed";
+import Callout from "../../components/content/Callout";
+import KeyConcepts from "../../components/content/KeyConcepts";
+import CodeEditor from "../../components/exercises/CodeEditor";
+import Quiz from "../../components/exercises/Quiz";
+import ProTerminal from "../../components/content/ProTerminal";
+import Infographic from "../../components/content/Infographic";
+import ComparisonTable from "../../components/content/ComparisonTable";
 
-# Lesson 24: The ToyFort Interpreter (Part 2)
+# Lesson 24: The ToyFort Interpreter (Implementation)
 
-In this second part, we take our **ToyFort** interpreter to the next level. We move from simply defining data structures to building its "beating heart": the execution loop (**eval**) and the management of built-in functions.
+After designing the language's DNA, it's time to build its "beating heart": the execution loop (**eval**) and the function dispatch mechanism. We'll see how C transforms abstract symbols into concrete hardware actions.
 
-<VideoEmbed videoId="-QxrmHo-V7Y" title="Lesson 24: The ToyFort Interpreter (Part 2)" />
+<VideoEmbed videoId="-QxrmHo-V7Y" title="Lesson 24: ToyFort Implementation" />
 
-<KeyConcepts concepts={[
-  { title: "Eval Loop", description: "The loop that traverses program instructions and executes the correct action for each object." },
-  { title: "Function Dictionary", description: "Mapping symbol names (like '+', 'DUP') to their respective C functions." },
-  { title: "Argument Handling", description: "Popping values from the stack, checking their types, and handling runtime errors." }
-]} />
+<KeyConcepts
+  concepts={[
+    {
+      title: "Eval Loop Logic",
+      description:
+        "The algorithm that traverses the program. It decides whether to push a value onto the stack or invoke a C function associated with a symbol.",
+    },
+    {
+      title: "Built-in Functions",
+      description:
+        "Implementing the basic building blocks (+, -, DUP, PRINT) directly in C to give the language power.",
+    },
+    {
+      title: "Amortized Complexity",
+      description:
+        "Why over-allocating list memory makes adding elements incredibly fast.",
+    },
+    {
+      title: "Dispatch Overhead",
+      description:
+        "Understanding the computational cost of looking up a 'word' in the interpreter's dictionary.",
+    },
+  ]}
+/>
 
-## The Heart of the Interpreter: `eval()`
+## The Stack in C
 
-The `eval` function is responsible for deciding what to do with a ToyFort object. If it's a value (integer, string), it pushes it onto the stack. If it's a symbol, it looks up the function in the dictionary and executes it.
+In ToyFort, every C function receives a `TFContext`. This structure contains the data "Stack." When you write `+`, the corresponding C function must:
 
-<Infographic 
-  title="Eval Flow"
-  description="How the interpreter processes a symbol."
-  items={[
-    { label: "1. Reading", value: "Reads object from program list", color: "blue" },
-    { label: "2. Check", value: "Is it a Symbol? (e.g., '+')", color: "purple" },
-    { label: "3. Lookup", value: "Finds '+' in the dictionary", color: "amber" },
-    { label: "4. Execution", value: "Calls the associated C function", color: "emerald" }
+1. Verify there are at least 2 elements.
+2. Extract (POP) the values.
+3. Perform the operation.
+4. Insert (PUSH) the result.
+
+<Callout type="pro" title="Ownership Management">
+  Every `pop` from the stack gives you ownership of the object. If you forget to
+  call `tf_object_release()`, you've created a **Memory Leak**. If you call it
+  twice, you have a **Double Free**. Discipline is the C programmer's only
+  defense.
+</Callout>
+
+---
+
+## Amortized O(1): The Secret of Fast Lists
+
+Why doesn't Salvatore allocate exactly the space needed for every new element?
+If we had to call `realloc()` for every single element, we'd waste time copying data every time. Instead, we double the capacity whenever it gets full.
+
+<ComparisonTable
+  title="Allocation Strategies"
+  headers={["Method", "Worst-case Cost", "Average (Amortized) Cost"]}
+  rows={[
+    ["Exact Allocation", "O(N) (Copy entire list)", "O(N) (Extremely slow)"],
+    ["Capacity Doubling", "O(N) (Rarely)", "O(1) (Extremely fast)"],
   ]}
 />
 
 ---
 
-## Implementing Built-in Functions
-
-Every function in ToyFort must have a C counterpart. These functions interact directly with the `TFContext` (the stack).
+## Implementation: The Heart of Eval
 
 <CodeEditor 
   initialCode={`#include <stdio.h>
 #include <string.h>
 
-// Example implementation of the '+' (plus) function
-void tf_plus(TFContext *ctx) {
-    // 1. Pop the last two elements
-    TFObject *b = tf_stack_pop(ctx);
-    TFObject *a = tf_stack_pop(ctx);
-
-    if (a->type == TF_INT && b->type == TF_INT) {
-        // 2. Calculate the result
-        long long res = a->i + b->i;
-        // 3. Create a new object and PUSH it onto the stack
-        tf_stack_push(ctx, create_int_object(res));
-    } else {
-        fprintf(stderr, "Runtime Error: + expects two integers\\n");
-    }
-
-    // 4. Memory management (Reference Counting)
-    tf_object_release(a);
-    tf_object_release(b);
+void tf_eval(TFContext *ctx, TFObject *obj) {
+if (obj->type == TF_INT || obj->type == TF_STR || obj->type == TF_LIST) {
+// Literal value: push it onto the stack
+tf_stack_push(ctx, tf_object_retain(obj));
+} else if (obj->type == TF_SYM) {
+// Symbol: look it up in the dictionary
+TFFunc f = tf_dict_lookup(ctx, obj->s);
+if (f) {
+f(ctx); // Execute the associated C function
+} else {
+fprintf(stderr, "Error: Unknown symbol '%s'\\n", obj->s);
 }
-`} 
-  language="c" 
+}
+}
+`}
+language="c"
 />
 
-<Callout type="info" title="Amortized Complexity">
-When we use `realloc` to grow the list (as seen in `list_push`), Salvatore explains that we over-allocate or use powers of two. This makes the append operation **amortized O(1)**â€”as efficient as a linked list but with the cache-speed advantages of an array.
+<Callout type="warning" title="Branch Prediction">
+  The `eval` loop is a challenge for the CPU. Because the called functions
+  change constantly, the **Branch Predictor** struggles to predict where the
+  code will jump. This "dispatch overhead" is the price of flexibility in an
+  interpreter compared to compiled code.
 </Callout>
-
-<Callout type="warning" title="Memory Safety">
-Remember: every time you `pop` from the stack, you are taking ownership of that pointer. It is critical to call `release` (or `free`) at the end of the function to avoid memory leaks!
-</Callout>
-
----
-
-## Parsing Lists and Programs
-
-In ToyFort, a program is itself a **list** of objects. This allows for the implementation of conditionals and loops by passing entire lists as parameters to other functions.
-
-<ComparisonTable 
-  title="Symbols vs Lists"
-  headers={["Concept", "Interpretation", "Usage"]}
-  rows={[
-    ["Symbol (+)", "Immediate Action", "Arithmetic, logic operations"],
-    ["List [ ... ]", "Data (Program)", "IF branches, loop bodies"],
-    ["Numbers/Strings", "Literal Values", "Automatic push to stack"]
-  ]}
-/>
-
-### The Hand-Written Parser
-Salvatore implements a "character-by-character" parser. Functions like `skipSpaces` and `parsNumber` advance the pointer within the source string. This is the same approach used by professional compilers (like GCC or Clang) for maximum control over errors and speed.
 
 ---
 
 ## Exercises
 
-<Quiz 
-  title="Quiz Standard" 
+<Quiz
+  title="Standard Quiz"
   questions={[
     {
-      question: "What is the primary task of the 'eval' loop?",
+      question:
+        "What happens if the interpreter tries to `pop` from an empty stack?",
       options: [
-        "To translate code into machine language",
-        "To sequentially execute objects in a ToyFort program",
-        "To manage the interpreter's graphical interface",
-        "To encrypt source code"
+        "It returns 0",
+        "Stack Underflow (potential crash if unhandled)",
+        "The program waits for input",
+        "The interpreter restarts",
       ],
       correctAnswer: 1,
-      explanation: "Eval traverses the list representing the program and decides whether to push a value onto the stack or execute a function for each element."
+      explanation:
+        "Accessing a non-existent element is illegal memory access. A good interpreter always checks depth before popping.",
     },
     {
-      question: "What happens if the interpreter encounters a symbol not defined in the dictionary?",
+      question: "What is the advantage of 'capacity doubling' in lists?",
       options: [
-        "It reverses the stack",
-        "It generates a runtime error (Unknown symbol)",
-        "It ignores it and continues",
-        "It shuts down the computer"
+        "It uses less total memory",
+        "It drastically reduces the number of `realloc()` calls, making appending amortized O(1)",
+        "It makes strings more readable",
+        "It has no advantages",
       ],
       correctAnswer: 1,
-      explanation: "The interpreter must report that it does not know the requested 'word' (function) to avoid unpredictable behavior."
+      explanation:
+        "We sacrifice a bit of space to gain immense computational speed.",
     },
     {
-      question: "Why is it necessary to release objects after a 'pop'?",
+      question: "In ToyFort, lists behave like:",
       options: [
-        "Because they take up too much CPU",
-        "Because we implemented Reference Counting and want to avoid leaks",
-        "Because C doesn't allow too many pointers",
-        "It is an optional choice"
+        "Arrays of chars",
+        "Data that can be executed as code (Homoiconicity)",
+        "Simple comments",
+        "Global variables",
       ],
       correctAnswer: 1,
-      explanation: "Pop extracts the object from the stack. If we don't release it after use, its counter will never drop to zero and memory will never be freed."
+      explanation:
+        "This is the characteristic of Lisp-like or Forth-like languages: code is a manipulatable data structure.",
     },
-    {
-      question: "In ToyFort, is a list `[ 1 2 + ]` executed immediately when encountered?",
-      options: [
-        "Yes, always",
-        "No, it's pushed onto the stack as a single list object",
-        "Only if followed by a semicolon",
-        "It depends on text color"
-      ],
-      correctAnswer: 1,
-      explanation: "Lists are data. They can contain code, but are only executed if a function (like `exec` or `if`) decides to 'evaluate' them."
-    },
-    {
-      question: "What does using a function dictionary allow?",
-      options: [
-        "It makes the program heavier",
-        "It allows adding new 'words' to the language without changing the core eval loop",
-        "It's only for spell checking",
-        "It's for translating ToyFort to English"
-      ],
-      correctAnswer: 1,
-      explanation: "The dictionary abstracts execution: eval looks up a name and calls a function pointer, making the language easily extensible."
-    }
-  ]} 
-/>
-
-<Quiz 
-  title="Pro Challenge"
-  questions={[
-    {
-      question: "If you were to implement the `DUP` function in C, what should you do to the object's reference counter?",
-      options: [
-        "Decrement it",
-        "Increment it (tf_object_retain)",
-        "Leave it unchanged",
-        "Zero it"
-      ],
-      correctAnswer: 1,
-      explanation: "DUP creates a new reference to the same object in the stack. We must increment the ref_count to indicate there are now two owners."
-    },
-    {
-      question: "How would you handle a type error (e.g., string instead of integer) inside a built-in function?",
-      options: [
-        "By exiting the program with exit(1)",
-        "By printing an error and perhaps clearing the stack or stopping the current eval",
-        "By pretending nothing happened",
-        "By restarting the stack"
-      ],
-      correctAnswer: 1,
-      explanation: "A good interpreter reports the error informatively (Runtime Error) and handles the cleanup of the involved memory."
-    },
-    {
-      question: "What is the advantage of passing a `TFContext*` to all functions?",
-      options: [
-        "It's a compiler requirement",
-        "It allows having multiple isolated interpreter instances (multithreading or different contexts)",
-        "None, it would be better to use global variables",
-        "It makes the .c file smaller"
-      ],
-      correctAnswer: 1,
-      explanation: "Avoiding global variables is a best practice: it allows running multiple independent ToyFort programs in the same C process."
-    }
-  ]} 
-/>
-
-<ProTerminal 
-  challenges={[
-    {
-      id: "eval-trace-en",
-      title: "Eval Debug",
-      description: "Analyze the program `5 [ 10 + ] exec`. What value ends up on the stack? (exec runs the top list)",
-      commands: ["15"],
-      expectedOutput: "15",
-      hints: ["5 goes onto the stack, the list [10 +] goes onto the stack, exec pops it and runs it."]
-    },
-    {
-      id: "ref-count-logic-en",
-      title: "Ref Count Logic",
-      description: "If an object has ref_count=1 and is PUSHed onto the stack, what should the ref_count become?",
-      commands: ["1"],
-      expectedOutput: "1",
-      hints: ["It depends on the implementation: if the stack takes ownership from the allocator, it stays 1. If it adds as a new owner, it becomes 2."]
-    },
-    {
-      id: "symbol-lookup-en",
-      title: "Symbol Lookup",
-      description: "Which C function would you use to compare the symbol name in the dictionary?",
-      commands: ["strcmp"],
-      expectedOutput: "strcmp",
-      hints: ["Standard string comparison."]
-    }
   ]}
 />
 
-### Conclusion
-We have built the engine of ToyFort! Now the language can 'reason' and execute complex operations. In future lessons, we will see how to further extend the dictionary and handle programs loaded from external files.
+<Quiz
+  title="Pro Challenge"
+  questions={[
+    {
+      question:
+        "Why is `tf_object_retain()` necessary when pushing an existing object onto the stack?",
+      options: [
+        "To make it faster",
+        "To signal to the Reference Counting system that there is a new owner of the object",
+        "To encrypt the data",
+        "To change the object type",
+      ],
+      correctAnswer: 1,
+      explanation:
+        "If the stack didn't increment the ref_count, the object could be prematurely deallocated by someone else.",
+    },
+    {
+      question: "What is a 'hand-written' parser?",
+      options: [
+        "A program written on paper",
+        "A parser that does not use automatic generators (like Lex/Yacc), ensuring maximum performance and error control",
+        "A very slow parser",
+        "A parser for handwritten messages",
+      ],
+      correctAnswer: 1,
+      explanation:
+        "Major compilers and databases (like Redis) prefer manual parsers for extreme efficiency.",
+    },
+  ]}
+/>
 
+<ProTerminal
+  challenges={[
+    {
+      id: "dd-create-en",
+      title: "Speed Test",
+      description:
+        "Use `dd` to create a 1MB file by writing small blocks (bs=1) vs. large blocks (bs=1024). Note the difference in system call cost.",
+      commands: [
+        "time dd if=/dev/zero of=test bs=1 count=100000",
+        "time dd if=/dev/zero of=test bs=1024 count=100",
+      ],
+      expectedOutput: "real",
+      hints: [
+        "More calls = more overhead. This is the same reason for buffering in ToyFort.",
+      ],
+    },
+    {
+      id: "strcmp-logic-en",
+      title: "Symbol Search",
+      description:
+        "If your dictionary has 1000 symbols, what is the 'energy' cost of searching for one using a linear string comparison (`strcmp`)?",
+      commands: ["O(N)"],
+      expectedOutput: "O(N)",
+      hints: [
+        "Each string must be compared one by one until you find the right one.",
+      ],
+    },
+  ]}
+/>
 
+### Final Summary
+
+We have brought ToyFort to life. Now the interpreter doesn't just 'see' objects; it 'operates' them. You've learned that behind every abstraction (like a '+' command) lies a rigorous logic of memory management and call optimization. You are ready to make ToyFort even more powerful.

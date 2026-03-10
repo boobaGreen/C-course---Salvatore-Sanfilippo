@@ -1,210 +1,207 @@
-﻿import Infographic from '../../components/content/Infographic';
-import VideoEmbed from '../../components/content/VideoEmbed';
-import SpectrumMemoryVisualizer from '../../components/content/SpectrumMemoryVisualizer';
-import AttributeGrid from '../../components/content/AttributeGrid';
-import ZXPalette from '../../components/content/ZXPalette';
-import Callout from '../../components/content/Callout';
-import EvoSimulator from '../../components/content/EvoSimulator';
-import Quiz from '../../components/exercises/Quiz';
-import ProTerminal from '../../components/content/ProTerminal';
+﻿import Infographic from "../../components/content/Infographic";
+import VideoEmbed from "../../components/content/VideoEmbed";
+import SpectrumMemoryVisualizer from "../../components/content/SpectrumMemoryVisualizer";
+import AttributeGrid from "../../components/content/AttributeGrid";
+import ZXPalette from "../../components/content/ZXPalette";
+import Callout from "../../components/content/Callout";
+import EvoSimulator from "../../components/content/EvoSimulator";
+import Quiz from "../../components/exercises/Quiz";
+import ProTerminal from "../../components/content/ProTerminal";
+import ComparisonTable from "../../components/content/ComparisonTable";
 
-# Lezione 30: Estetica Evolutiva e Hardware Antico
+# Lezione 30: Estetica Evolutiva e Hardware Antico (ZX Spectrum)
 
-In questa lezione "notturna", Salvatore ci porta in un viaggio nel tempo e nello spazio (quello della memoria RAM), esplorando come il C possa manipolare i bit per interfacciarsi con hardware di 40 anni fa: lo **ZX Spectrum**.
+In questa lezione "notturna", Salvatore ci porta in un viaggio nel tempo e nello spazio (quello della memoria RAM), esplorando come il C possa manipolare i bit per interfacciarsi con i limiti brutali di un hardware di 40 anni fa: lo **ZX Spectrum**.
 
+<VideoEmbed
+  videoId="D1U3uCe-kok"
+  title="Lezione 30: Algoritmi Evolutivi e ZX Spectrum"
+/>
 
-<VideoEmbed videoId="D1U3uCe-kok" title="Lezione 30: Algoritmi Evolutivi e ZX Spectrum" />
-
-## Il Vincolo come Opportunità
-
-Lo ZX Spectrum aveva una gestione della memoria video estremamente creativa per risparmiare RAM. Con soli **6.75 KB** riusciva a gestire uno schermo da 256x192 pixel. 
-
-### La Mappa della Memoria
-La memoria non è sequenziale: i pixel sono in una zona, i colori (attributi) in un'altra.
-
-<SpectrumMemoryVisualizer />
+<KeyConcepts
+  concepts={[
+    {
+      title: "Architettura ULA",
+      description:
+        "Capire come lo ZX Spectrum gestiva la grafica con soli 6.75 KB di RAM grazie a una divisione ingeniosa tra pixel e attributi.",
+    },
+    {
+      title: "Indirizzamento Non-Lineare",
+      description:
+        "Perché scrivere un pixel a Y=1 non significa scrivere all'indirizzo successivo di Y=0 (la fisica dei registri del 1982).",
+    },
+    {
+      title: "Simulated Annealing",
+      description:
+        "Usare algoritmi ispirati alla metallurgia per trovare la miglior immagine possibile sotto vincoli hardware estremi.",
+    },
+    {
+      title: "Ottimizzazione della Fitness",
+      description:
+        "Perché eliminare una `sqrt()` può raddoppiare la velocità del tuo algoritmo di ottimizzazione.",
+    },
+  ]}
+/>
 
 ---
 
-## Il Problema degli Attributi (Attribute Clash)
+## Il Vincolo come Opportunità: 6.75 KB di RAM
 
-A differenza dei computer moderni, dove ogni pixel può avere il suo colore, lo Spectrum assegna i colori a blocchi **8x8**. Ogni blocco ha un solo byte che definisce tutto:
+Lo ZX Spectrum usava un trucco per risparmiare memoria: la risoluzione 256x192 è monocromatica (1 bit per pixel), mentre i colori sono applicati a blocchi 8x8.
 
-<AttributeGrid />
-
-<ZXPalette />
-
-<Callout type="warning" title="Limiti Hardware">
-In un blocco 8x8 puoi avere solo **due colori**: uno per lo sfondo (PAPER) e uno per i pixel accesi (INK). Se un personaggio colorato passa sopra uno sfondo di un altro colore, i colori "si scontrano" (clash).
+<Callout type="pro" title="Analisi Quantitativa della Memoria">
+  Il calcolo esatto dello spazio video è: - **Bitmap**: (256 * 192) / 8 bit =
+  **6144 byte** (6 KB) - **Attributi**: (32 * 24) blocchi = **768 byte** (0.75
+  KB) - **Totale**: 6912 byte = **6.75 KB**. Un moderno smartphone ha milioni di
+  volte questa memoria!
 </Callout>
+
+### La Mappa della Memoria "Labirintica"
+
+A differenza dei computer moderni, la memoria video dello Spectrum non è sequenziale. Se scrivi in `$4000`, accendi il primo pixel in alto a sinistra. Ma `$4001` non è il pixel sotto di lui, è il pixel a destra. Per scendere di una riga, devi fare calcoli complessi sui bit dell'indirizzo.
 
 ---
 
 ## Algoritmi Evolutivi: Simulated Annealing
 
-Come possiamo trasformare una foto moderna (PNG) in un'immagine che rispetti questi limiti brutali? Salvatore usa un **Algoritmo Evolutivo**.
+Come trasformare una foto moderna in un'immagine Spectrum senza errori? Salvatore usa il **Simulated Annealing** (Tempra Simulata).
 
-1. **Mutazione**: Cambiamo a caso alcuni bit nella memoria dello Spectrum.
-2. **Rendering**: Trasformiamo quella memoria in un'immagine.
-3. **Fitness**: Confrontiamo l'immagine ottenuta con l'originale.
-4. **Selezione**: Se la nuova immagine è "più vicina" all'originale, la teniamo.
+1. **Mutazione**: Cambia un bit a caso nella "finta RAM" dello Spectrum.
+2. **Fitness**: Calcola quanto la nuova immagine somiglia all'originale.
+3. **Selezione**: Se è migliore, accetta lo scambio. Se è peggiore, accettalo solo se la "Temperatura" è alta (per evitare di bloccarsi).
 
 <EvoSimulator />
 
-### Il Curriculum Learning
-Invece di ottimizzare tutto subito, Salvatore usa una strategia a fasi:
-- **Fase 1**: Ottimizza solo i pixel (bianco e nero).
-- **Fase 2**: Fissa i pixel e ottimizza i colori.
-- **Fase 3**: Ottimizza tutto insieme per i ritocchi fini.
-
----
-
-## Il Codice: Calcolare la Distanza
-
-La funzione `compute_diff` è il cuore del programma. Tratta i colori RGB come coordinate in uno spazio 3D e calcola la distanza euclidea.
-
-### Misurare la Differenza
-
-Per decidere se una mutazione è 'migliore', l'algoritmo calcola quanto ogni pixel dello Spectrum sia diverso dall'originale usando la distanza Euclidea.
-
-<Infographic 
-  title="Logica della Fitness Function"
-  description="Come l'algoritmo calcola l'errore."
-  items={[
-    { label: "Canali RGB", value: "Sottrae i valori R, G, B tra le due immagini", color: "blue" },
-    { label: "Quadrato", value: "Eleva al quadrato per pesare di più le grandi differenze", color: "purple" },
-    { label: "Fitness", value: "Somma tutte le differenze: più il numero è basso, più l'immagine è simile", color: "emerald" }
+<ComparisonTable
+  title="Evoluzione del Rendering"
+  headers={["Fase", "Obiettivo", "Risultato Visivo"]}
+  rows={[
+    [
+      "Bitmap Only",
+      "Ottimizza i contorni in B/N",
+      "Immagine definita ma grigia",
+    ],
+    [
+      "Attributes Only",
+      "Assegna i colori migliori ai blocchi",
+      "Colori vivaci ma piatti",
+    ],
+    [
+      "Global Tuning",
+      "Ritocchi finali su tutto",
+      "Effetto 'Retro-Gold' perfetto",
+    ],
   ]}
 />
 
-<Callout type="pro" title="Velocità vs Accuratezza">
-  Salvatore evita di usare la radice quadrata (`sqrt`) nel calcolo della distanza: è un'operazione lenta per la CPU e, ai fini del confronto, `a² + b² + c²` è più che sufficiente per capire quale immagine sia più vicina all'originale.
+---
+
+## Ottimizzazione Hardware: La Distanza Euclidea
+
+Per misurare la "somiglianza" tra due colori RGB (R1, G1, B1) e (R2, G2, B2), usiamo la geometria 3D.
+
+<Callout type="danger" title="Evita la Radice Quadrata!">
+  La formula della distanza sarebbe: {'$\\sqrt{\\Delta R^2 + \\Delta G^2 + \\Delta B^2}$'}.
+  Tuttavia, estrarre una radice quadrata è un'operazione pesante per la CPU. Salvatore usa solo la somma dei quadrati. Poiché se $a^2 > b^2$ allora $a > b$, il risultato del confronto resta identico ma il codice è **molto più veloce**.
 </Callout>
 
 ---
 
 ## Esercitazione
 
-<Quiz 
-  title="Quiz Standard" 
+<Quiz
+  title="Quiz Standard"
   questions={[
     {
-      question: "Quanti KB occupa la memoria video dello ZX Spectrum?",
-      options: ["1.5 KB", "6.75 KB", "64 KB", "1 MB"],
+      question:
+        "Perché lo ZX Spectrum usava blocchi di colore 8x8 invece di 1x1?",
+      options: [
+        "Perché i colori erano troppo luminosi",
+        "Per risparmiare RAM (soli 768 byte per tutti i colori dello schermo)",
+        "Perché era un requisito televisivo",
+        "Perché i programmatori erano pigri",
+      ],
       correctAnswer: 1,
-      explanation: "Sono circa 6KB per i pixel e meno di 1KB per gli attributi di colore."
+      explanation:
+        "Dividere i colori dai pixel permise di avere colori su uno schermo 256x192 con pochissima memoria.",
     },
     {
       question: "Cos'è l'Attribute Clash?",
       options: [
-        "Un errore del processore Z80",
-        "Il limite di 2 colori per blocco 8x8",
-        "Un comando di Git",
-        "Un tipo di puntatore doppio"
+        "Un errore di compilazione del C",
+        "Il limite di avere solo 2 colori in ogni blocco 8x8",
+        "Un problema di Git",
+        "Il surriscaldamento del processore",
       ],
       correctAnswer: 1,
-      explanation: "È il limite fisico della ULA dello Spectrum che non permette più di due colori in ogni griglia 8x8."
+      explanation:
+        "Essendoci solo 2 colori per blocco (INK e PAPER), non si possono avere 3 colori diversi vicini.",
     },
     {
-      question: "Qual è lo scopo del Simulated Annealing in questo contesto?",
+      question: "In simulated annealing, perché usiamo una 'Temperatura'?",
       options: [
-        "Raffreddare il processore",
-        "Trovare la migliore combinazione di bit per approssimare l'immagine",
-        "Comprimere l'immagine in JPEG",
-        "Cancellare la RAM"
+        "Per simulare il calore della CPU",
+        "Per permettere all'algoritmo di accettare soluzioni peggiori all'inizio e non restare bloccato",
+        "Per cuocere i dati",
+        "Per accelerare il clock hardware",
       ],
       correctAnswer: 1,
-      explanation: "Simula il processo di raffreddamento dei metalli per trovare un minimo globale di errore."
+      explanation:
+        "L'esplorazione (accettare errori) permette di trovare il 'minimo globale' invece di un mediocre 'minimo locale'.",
     },
-    {
-      question: "Cosa si intende per 'Curriculum Learning'?",
-      options: [
-        "Studiare per l'esame di C",
-        "Risolvere problemi complessi step-by-step (es. prima pixel, poi colori)",
-        "Stampare il proprio CV in C",
-        "Un algoritmo di ordinamento"
-      ],
-      correctAnswer: 1,
-      explanation: "È una tecnica dove l'algoritmo impara compiti sempre più difficili in sequenza."
-    },
-    {
-      question: "Perché usiamo il quadrato della differenza (r*r) invece del valore assoluto?",
-      options: [
-        "Perché è più figo",
-        "Per eliminare i segni negativi e pesare di più le grandi differenze",
-        "Perché il C non ha il valore assoluto",
-        "Per risparmiare corrente"
-      ],
-      correctAnswer: 1,
-      explanation: "Il quadrato rende positivi i valori e 'punisce' maggiormente i pixel molto diversi (distanza Euclidea)."
-    }
-  ]} 
+  ]}
 />
 
-<Quiz 
+<Quiz
   title="Pro Challenge"
   questions={[
     {
-      question: "Quale parte del byte di attributo definisce se il colore è 'acceso'?",
-      options: ["Bit 0", "Bit 6 (Bright)", "Bit 7 (Flash)", "Bit 4"],
-      correctAnswer: 1,
-      explanation: "Il bit 6 attiva la modalità 'Bright' che aumenta la luminosità dei colori."
-    },
-    {
-      question: "In simulated annealing, cosa succede quando la 'temperatura' è alta?",
+      question:
+        "Se eliminiamo la `sqrt()` dal calcolo della distanza, il risultato del confronto cambia?",
       options: [
-        "Il programma crasha",
-        "Si accettano più facilmente soluzioni peggiorative per uscire dai minimi locali",
-        "L'immagine diventa rossa",
-        "Il computer scalda"
+        "Sì, diventa impreciso",
+        "No, perché l'ordine di grandezza tra quadrati preserva la relazione di parentela",
+        "Sì, ma solo per numeri grandi",
+        "Sì, ma solo su architetture ARM",
       ],
       correctAnswer: 1,
-      explanation: "L'alta temperatura permette l'esplorazione di soluzioni non ottimali per non restare bloccati in 'vicoli ciechi' algoritmici."
+      explanation:
+        "È un'ottimizzazione matematica classica: risparmi cicli CPU senza perdere efficienza decisionale.",
     },
     {
-      question: "Qual è la risoluzione standard dello ZX Spectrum?",
-      options: ["320x240", "256x192", "640x480", "800x600"],
-      correctAnswer: 1,
-      explanation: "256x192 pixel, divisa in 32x24 blocchi di attributi."
-    }
-  ]} 
+      question:
+        "Qual è l'offset esatto degli attributi in RAM Spectrum partendo da $4000?",
+      options: ["$5800", "$6000", "$5000", "$4800"],
+      correctAnswer: 0,
+      explanation:
+        "La zona attributi inizia dopo i 6144 byte di bitmap ($4000 + 6144 = $5800).",
+    },
+  ]}
 />
 
-<ProTerminal 
+<ProTerminal
   challenges={[
     {
-        id: "spectrum-bits",
-        title: "Bit Math",
-        description: "Quanti pixel sono controllati da un singolo byte nella zona BITMAP?",
-        commands: [],
-        expectedOutput: "8",
-        hints: [
-            "1 bit = 1 pixel. 1 byte = ?"
-        ]
+      id: "spectrum-calc",
+      title: "Contachilometri di Pixel",
+      description:
+        "Quanti pixel totali gestisce lo ZX Spectrum in una schermata?",
+      commands: [],
+      expectedOutput: "49152",
+      hints: ["256 * 192 = ?"],
     },
     {
-        id: "attr-math",
-        title: "Attribute Offset",
-        description: "Se la bitmap finisce all'indirizzo 6143, a che indirizzo inizia il primo byte di attributo?",
-        commands: [],
-        expectedOutput: "6144",
-        hints: [
-            "È l'indirizzo immediatamente successivo."
-        ]
+      id: "bit-clash",
+      title: "Bit Inspector",
+      description:
+        "Se un byte di attributo è 0x47 (01000111), il bit 'Bright' (bit 6) è attivo?",
+      commands: [],
+      expectedOutput: "si",
+      hints: ["Controlla il secondo bit da sinistra."],
     },
-    {
-        id: "color-count",
-        title: "Spectrum Colors",
-        description: "Considerando BRIGHT, quanti colori totali può visualizzare lo Spectrum (inclusi i neri)?",
-        commands: [],
-        expectedOutput: "15",
-        hints: [
-            "8 colori base x 2 (normal/bright). Ma il nero bright è uguale al nero normale..."
-        ]
-    }
-]}
+  ]}
 />
 
-### Conclusione
-Oggi abbiamo visto come il C non sia solo per "aziende e database", ma un bisturi di precisione per manipolare la realtà (o almeno i pixel di 40 anni fa). Nella prossima lezione vedremo come ottimizzare drasticamente questo algoritmo usando la **Programmazione Assistita**.
+### Riassunto Finale
 
+Abbiamo visto come il C sia lo strumento perfetto per domare l'hardware, antico o moderno che sia. Hai imparato che i limiti fisici (RAM ridotta) portano a soluzioni algoritmiche brillanti (Evoluzione e Simulated Annealing). Nella prossima lezione, vedremo come spingere ToyFort verso l'intelligenza artificiale.

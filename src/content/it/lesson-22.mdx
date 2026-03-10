@@ -1,235 +1,235 @@
-﻿import VideoEmbed from '../../components/content/VideoEmbed';
-import Callout from '../../components/content/Callout';
-import KeyConcepts from '../../components/content/KeyConcepts';
-import CodeEditor from '../../components/exercises/CodeEditor';
-import Quiz from '../../components/exercises/Quiz';
-import ProTerminal from '../../components/content/ProTerminal';
-import Infographic from '../../components/content/Infographic';
+﻿import VideoEmbed from "../../components/content/VideoEmbed";
+import Callout from "../../components/content/Callout";
+import KeyConcepts from "../../components/content/KeyConcepts";
+import CodeEditor from "../../components/exercises/CodeEditor";
+import Quiz from "../../components/exercises/Quiz";
+import ProTerminal from "../../components/content/ProTerminal";
+import Infographic from "../../components/content/Infographic";
 
 # Lezione 22: Puntatori a Funzioni
 
-Fino ad ora abbiamo visto puntatori che puntano a dati (interi, stringhe, strutture). Ma in C, anche le funzioni risiedono in memoria e hanno un indirizzo. Un **Puntatore a Funzione** ci permette di trattare il codice come se fosse un dato, aprendo le porte a callback e astrazioni avanzate.
+Fino ad ora abbiamo visto puntatori che puntano a dati (interi, stringhe, strutture). Ma in C, anche il codice risiede in memoria (nella sezione **.text**) e ha un indirizzo. Un **Puntatore a Funzione** ci permette di trattare il codice come se fosse un dato.
 
 <VideoEmbed videoId="OIseV5lcx8w" title="Lezione 22: Puntatori a Funzioni" />
 
-<KeyConcepts concepts={[
-  { title: "Funzioni come Indirizzi", description: "Il nome di una funzione, proprio come quello di un array, è tecnicamente un puntatore al suo punto di ingresso in memoria." },
-  { title: "Sintassi Meccanica", description: "Capire come dichiarare un puntatore rispettando il prototipo (tipo di ritorno e parametri)." },
-  { title: "Astrazione con Callback", description: "Usare i puntatori a funzione per scrivere algoritmi generici (come qsort) che non conoscono i dati che manipolano." }
-]} />
-
-## La Sintassi "Strana"
-
-Dichiarare un puntatore a funzione può sembrare intimidatorio. La regola d'oro di Salvatore è: "Prendi il prototipo, avvolgi il nome tra parentesi e mettici un asterisco davanti".
-
-<Infographic 
-  title="Anatomia di un Puntatore a Funzione"
-  description="Come leggere la dichiarazione `int (*f)(int, int)`"
-  items={[
-    { label: "int", value: "Tipo di ritorno", color: "blue" },
-    { label: "(*f)", value: "Questo è un puntatore chiamato f", color: "purple" },
-    { label: "(int, int)", value: "Parametri che riceve", color: "emerald" }
+<KeyConcepts
+  concepts={[
+    {
+      title: "Funzioni come Indirizzi",
+      description:
+        "Il nome di una funzione è tecnicamente un puntatore all'indirizzo della sua prima istruzione assembly.",
+    },
+    {
+      title: "Sintassi Meccanica",
+      description:
+        "Dichiarare un puntatore che rispecchia il prototipo: `tipo_ritorno (*nome)(parametri)`.",
+    },
+    {
+      title: "Jump Tables",
+      description:
+        "Array di puntatori a funzione per creare dispacciamento O(1), molto più veloci di lunghi cicli if/else.",
+    },
+    {
+      title: "Callback e Astrazione",
+      description:
+        "Passare 'comportamento' ad altre funzioni, come il criterio di ordinamento in qsort.",
+    },
   ]}
 />
 
-### Esempio Base: Chiamare tramite Puntatore
+## La Sezione .text e il Registro EIP/RIP
+
+Quando compili il tuo programma, le funzioni finiscono in una zona di memoria chiamata **.text**, che è marcata come **Sola Lettura** ed **Eseguibile**. Un puntatore a funzione non è altro che l'indirizzo della prima istruzione di quella funzione.
+
+<Callout type="pro" title="Cosa succede nella CPU?">
+  Quando chiami una funzione tramite puntatore, la CPU esegue una chiamata
+  **indiretta**. Invece di saltare a un indirizzo fisso, legge l'indirizzo da un
+  registro o dalla RAM e lo carica nel registro **RIP** (Instruction Pointer). È
+  qui che nasce la magia del polimorfismo!
+</Callout>
+
+---
+
+## Jump Tables: Velocità Pura
+
+Sostituire 100 `if-else` con un array di puntatori a funzione trasforma il tempo di ricerca da lineare (O(N)) a costante (O(1)). È la tecnica usata nei kernel, negli emulatori e nei motori grafici.
+
+<Infographic
+  title="Evoluzione: Switch vs Jump Table"
+  description="Perché i puntatori a funzione sono più veloci."
+  items={[
+    {
+      label: "Switch/If-else",
+      value: "La CPU deve testare ogni condizione una alla volta.",
+      color: "amber",
+    },
+    {
+      label: "Jump Table",
+      value:
+        "Usi un indice per saltare direttamente alla funzione corretta (O(1)).",
+      color: "emerald",
+    },
+  ]}
+/>
+
+### Esempio: Array di Funzioni (Jump Table)
 
 <CodeEditor 
   initialCode={`#include <stdio.h>
 
-void hello() {
-    printf("Ciao mondo!\\n");
-}
+void add() { printf("Azione 0: Aggiunta\\n"); }
+void del() { printf("Azione 1: Eliminazione\\n"); }
+void save() { printf("Azione 2: Salvataggio\\n"); }
 
 int main() {
-    // Dichiarazione: void (*ptr)()
-    void (*ptr)() = hello;
-    
-    // Chiamata
-    ptr(); 
-    
+// Array di 3 puntatori a funzione che non tornano nulla
+void (\*comandi[])() = {add, del, save};
+
+    int scelta = 1; // Immagina venga dall'utente
+
+    if(scelta >= 0 && scelta < 3) {
+        comandi[scelta](); // Salto diretto O(1)!
+    }
+
     return 0;
-}`} 
-  language="c" 
+
+}`}
+language="c"
 />
 
 ---
 
-## Il Vero Potere: QSort e Interfacce
+## Callback: qsort
 
-Il caso d'uso più celebre è la funzione `qsort` della libreria standard. `qsort` sa come ordinare qualsiasi cosa, ma non sa *come* confrontare i tuoi dati specifici. Per questo, ti chiede un puntatore a funzione di comparazione.
+La funzione `qsort` della libreria standard è l'esempio perfetto: sa ordinare tutto, ma delega a te la logica del confronto tramite una callback.
 
 <CodeEditor 
   initialCode={`#include <stdio.h>
 #include <stdlib.h>
 
-// Callback di comparazione
-int compare(const void *a, const void *b) {
-    return (*(int*)a - *(int*)b);
+// I parametri sono void* perché qsort è universale
+int compare_ints(const void *a, const void _b) {
+int arg1 = _(const int*)a;
+int arg2 = *(const int\*)b;
+return (arg1 > arg2) - (arg1 < arg2);
 }
 
 int main() {
-    int array[] = {7, 1, 9, 3, 5};
-    int n = 5;
+int d[] = {10, -5, 100, 2, 0};
+qsort(d, 5, sizeof(int), compare_ints);
 
-    qsort(array, n, sizeof(int), compare);
-
-    for(int i=0; i<n; i++) printf("%d ", array[i]);
+    for(int i=0; i<5; i++) printf("%d ", d[i]);
     return 0;
-}`} 
-  language="c" 
+
+}`}
+language="c"
 />
 
 ---
 
 ## Esercitazione
 
-<Quiz 
-  title="Quiz Standard" 
+<Quiz
+  title="Quiz Standard"
   questions={[
     {
-      question: "Cosa succede se stampi il nome di una funzione con `%p` in C?",
-      options: [
-        "Ottieni un errore di compilazione",
-        "Stampa l'indirizzo di memoria dove risiede il codice della funzione",
-        "Stampa il valore di ritorno della funzione",
-        "Stampa il nome della funzione come stringa"
-      ],
-      correctAnswer: 1,
-      explanation: "Il nome di una funzione decade a puntatore all'indirizzo di memoria della funzione stessa."
+      question:
+        "In quale sezione della memoria risiede solitamente il codice delle funzioni?",
+      options: [".data", ".bss", ".text", ".stack"],
+      correctAnswer: 2,
+      explanation:
+        "La sezione .text (o .code) contiene le istruzioni eseguibili caricate dal disco.",
     },
     {
-      question: "Come si dichiara un puntatore a una funzione che riceve un `float` e restituisce un `int`?",
+      question:
+        "Qual è il vantaggio di una Jump Table rispetto a un lungo `switch`?",
       options: [
-        "int *f(float);",
-        "int (*f)(float);",
-        "int f*(float);",
-        "void *f(int, float);"
+        "Usa meno memoria",
+        "Esegue il salto in tempo costante O(1) indipendentemente dal numero di casi",
+        "È più facile da scrivere",
+        "Evita i crash del programma",
       ],
       correctAnswer: 1,
-      explanation: "Le parentesi intorno a `*f` sono obbligatorie, altrimenti dichiareresti una funzione che restituisce un `int*`."
+      explanation:
+        "Con un indice, la CPU salta direttamente all'indirizzo desiderato senza fare test logici.",
     },
     {
-      question: "Perché `qsort` accetta i parametri come `const void *`?",
+      question:
+        "Come si dichiara un puntatore a funzione che prende un int e torna un char?",
       options: [
-        "Perché `void` è più veloce",
-        "Per poter accettare puntatori a qualsiasi tipo di dato (int, struct, stringhe)",
-        "Perché è un errore storico",
-        "Perché i puntatori a funzione lo richiedono"
+        "char *f(int);",
+        "char (*f)(int);",
+        "int (*f)(char);",
+        "void f(int, char);",
       ],
       correctAnswer: 1,
-      explanation: "`void*` è il puntatore generico in C, permettendo alla funzione di essere polimorfica (universale)."
+      explanation:
+        "Le parentesi intorno a `*f` dicono al compilatore che l'asterisco si applica al nome, rendendolo un puntatore.",
     },
-    {
-      question: "Qual è il vantaggio principale dei puntatori a funzione?",
-      options: [
-        "Rendono il programma più piccolo",
-        "Permettono di scrivere codice generico che può eseguire funzioni diverse a runtime (polimorfismo)",
-        "Accellerano l'esecuzione della CPU",
-        "Sostituiscono i cicli for"
-      ],
-      correctAnswer: 1,
-      explanation: "Permettono di passare 'comportamento' come se fosse un parametro, proprio come le lambda o le callback nei linguaggi moderni."
-    },
-    {
-      question: "Cosa succede se chiami un puntatore a funzione che è settato a `NULL`?",
-      options: [
-        "Il programma stampa 'NULL'",
-        "Segmentation Fault (crash)",
-        "La funzione non viene eseguita e il programma continua",
-        "Il compilatore lo corregge da solo"
-      ],
-      correctAnswer: 1,
-      explanation: "Cercare di eseguire codice all'indirizzo 0 (NULL) è un accesso illegale alla memoria."
-    }
-  ]} 
+  ]}
 />
 
-<Quiz 
+<Quiz
   title="Pro Challenge"
   questions={[
     {
-      question: "Cosa rappresenta `void (*f[10])(int);`?",
+      question:
+        "Cosa succede tecnicamente se chiami un puntatore a funzione non inizializzato (wild pointer)?",
       options: [
-        "Una funzione che restituisce 10 interi",
-        "Un array di 10 puntatori a funzione che ricevono un int e restituiscono void",
-        "Un puntatore a un array di 10 interi",
-        "Sintassi invalida"
+        "Il programma stampa NULL",
+        "La CPU prova a eseguire dati casuali come istruzioni, portando quasi certamente a un crash o a falle di sicurezza",
+        "La funzione ritorna 0",
+        "Il compilatore lo impedisce sempre",
       ],
       correctAnswer: 1,
-      explanation: "È un array di puntatori a funzione, utilissimo per creare 'jump tables' o gestire stati di un gioco."
+      explanation:
+        "Eseguire 'dati' come se fossero 'codice' è una fonte primaria di vulnerabilità (Exploit).",
     },
     {
-      question: "In `qsort(..., compare)`, perché non mettiamo le parentesi `compare()`?",
+      question:
+        "In C++, le 'vtable' per implementare le classi sono realizzate internamente con:",
       options: [
-        "Perché è una questione estetica",
-        "Perché con le parentesi chiameresti la funzione subito, mentre noi vogliamo passare l'indirizzo della funzione stessa",
-        "Perché non ci sono parametri",
-        "Perché il compilatore le aggiungerebbe comunque"
+        "Liste concatenate",
+        "Array di puntatori a funzione (Jump Tables)",
+        "Database SQL",
+        "Semplici variabili intere",
       ],
       correctAnswer: 1,
-      explanation: "Passando il nome senza parentesi passiamo il puntatore (l'indirizzo). Con le parentesi invocheremmo la funzione."
+      explanation:
+        "Il C++ automatizza quello che nel C facciamo a mano con le jump tables.",
     },
-    {
-      question: "Cosa si intende per 'Table of Function Pointers'?",
-      options: [
-        "Un database SQL scritto in C",
-        "Una tecnica per implementare il polimorfismo o macchine a stati caricando le funzioni in un array",
-        "Un insieme di regole per nominare le funzioni",
-        "Un trucco per risparmiare memoria heap"
-      ],
-      correctAnswer: 1,
-      explanation: "È alla base di come i compilatori C++ implementano le `vtable` per le classi."
-    }
-  ]} 
+  ]}
 />
 
-<Callout type="pro" title="Jump Tables: La velocità del C++ in C">
-  Usando un array di puntatori a funzione, puoi implementare un `switch` super-veloce. Se hai 100 comandi diversi, invece di fare 100 `if`, puoi usare il codice del comando come indice dell'array e saltare istantaneamente alla funzione corretta. È così che gli interpreti professionali raggiungono velocità incredibili.
-</Callout>
-
-<ProTerminal 
+<ProTerminal
   challenges={[
     {
-        id: "nm-symbols",
-        simulatedSuccessOutput: `0000000000001130 T main\n                 U puts@GLIBC_2.2.5\n0000000000001000 t _init`,
-        title: "Caccia ai Simboli",
-        description: "Usa il comando `nm` su un binario compilato. Quale lettera indica una funzione che si trova nella sezione 'Text' (eseguibile)?",
-        commands: [],
-        expectedOutput: "",
-        hints: [
-            "Cerca la T (Text/Code)."
-        ],
-        expectedCommand: "nm a.out | grep main"
+      id: "nm-symbols",
+      simulatedSuccessOutput: `0000000000001140 T main`,
+      title: "Ispettore di Binari",
+      description:
+        "Usa il comando `nm` su un binario. Quale lettera indica una funzione che appartiene alla sezione .text (codice)?",
+      commands: [],
+      expectedOutput: "T",
+      hints: ["T sta per Text."],
+      expectedCommand: "nm ./a.out",
     },
     {
-        id: "objdump-disas",
-        title: "Raggi X al Codice",
-        description: "Quando disassembli un eseguibile, ogni funzione è contrassegnata da un'etichetta (es. `<main>:`). Quando passi in C l'indirizzo di una funzione come 'callback', verso quale elemento esatto della memoria della macchina statale punta tecnicamente quel valore?",
-        commands: [
-            "objdump -d a.out | grep -A 5 '<main>:'"
-        ],
-        expectedOutput: "main>:",
-        hints: [
-            "Punta esattamente all'indirizzo della prima istruzione della funzione."
-        ]
+      id: "objdump-main",
+      simulatedSuccessOutput: `0000000000001140 <main>:`,
+      title: "Punto di Ingresso",
+      description:
+        "Usa `objdump -d` per trovare l'indirizzo esatto dove inizia la funzione main. Quell'indirizzo è il valore numerico che il puntatore a funzione conterrà.",
+      commands: [],
+      expectedOutput: "<main>:",
+      hints: [
+        "Cerca la riga che inizia con l'indirizzo esadecimale e il nome della funzione tra parentesi acute.",
+      ],
+      expectedCommand: "objdump -d ./a.out | grep '<main>:'",
     },
-    {
-        id: "ldd-check",
-        simulatedSuccessOutput: `\tlinux-vdso.so.1 (0x00007ffcc1154000)\n\tlibc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f3bb6a00000)\n\t/lib64/ld-linux-x86-64.so.2 (0x00007f3bb6e32000)`,
-        title: "Dipendenze Dinamiche",
-        description: "Quale comando Linux mostra quali librerie condivise (che contengono funzioni esterne) sono caricate dal tuo programma?",
-        commands: [],
-        expectedOutput: "",
-        hints: [
-            "ldd = List Dynamic Dependencies."
-        ],
-        expectedCommand: "ldd ./a.out"
-    }
-]}
+  ]}
 />
 
 ### Riassunto Finale
-Abbiamo rotto l'ultima barriera tra codice e dati. I puntatori a funzione ci permettono di creare sistemi flessibili, algoritmi universali e persino di emulare comportamenti ad oggetti in puro C. È il segreto che permette a librerie come la standard library di essere così potenti e riutilizzabili.
 
-
+Abbiamo rotto l'ultima barriera tra codice e dati. I puntatori a funzione ci permettono di creare sistemi flessibili, algoritmi universali e persino di emulare comportamenti ad oggetti in puro C. È il segreto che permette alle grandi librerie di essere scalabili e performanti.
