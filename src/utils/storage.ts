@@ -12,6 +12,7 @@ export const STORAGE_KEYS = {
     LESSON_SCROLL: (slug: string) => `lesson_scroll_${slug}`,
     QUIZ_STATE: (slug: string, title: string) => `quiz_state_${slug}_${title.replace(/\s+/g, '_').toLowerCase()}`,
     PRO_TERMINAL_STATE: (slug: string) => `ht_state_${slug}`,
+    VIDEO_PROGRESS: (videoId: string) => `video_progress_${videoId}`,
 };
 
 const storage = {
