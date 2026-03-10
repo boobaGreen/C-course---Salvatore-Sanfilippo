@@ -78,10 +78,13 @@ Questo progetto è rilasciato sotto licenza **GNU General Public License (GPL)**
 
 ### v1.0.2 (10-03-2026)
 
-- **Espansione del Curriculum**: Divisa la Lezione 2 in due parti distinte: Base (Fondamenti del C) e Appendice (Deep Dive Low-Level/Assembly).
-- **Apprendimento Low-Level Interattivo**: Aggiunta una lezione dedicata all'architettura del microprocessore 6502, ai registri e all'I/O mappato in memoria.
-- **Quiz Potenziati**: Riprogettati i quiz della lezione per essere specifici al 100% rispetto ai rispettivi contenuti, seguendo la master formula 5+3+3.
-- **Simulatori Didattici**: Integrati `MicroRegisters` e `StackVisualizer` nella nuova appendice per una migliore visualizzazione dell'interazione CPU/Memoria.
+- **Espansione del Curriculum**: Consolidata la Lezione 2 come due unità distinte: **Base (Fondamenti del C)** e **Appendice (Deep Dive Low-Level)**.
+- **Ripristino Lezione 2**: Reintegrata la profondità originale sulla programmazione C (include, printf, espressioni, prototipi), evitando perdite di contenuti.
+- **Miglioramenti Simulatori Interattivi**:
+  - Aggiunta una legenda colori chiara e descrizione logica al **Micro-Emulatore 6502**.
+  - Rifattorizzato il **Visualizzatore Stack** per supportare diversi scenari didattici (C alto livello vs Assembly basso livello).
+- **Deep Dive Didattico**: Appendice arricchita con tutti i concetti della trascrizione (registri, memory mapping, convenzioni EBP).
+- **Quiz Mirati**: Segmentati quiz e sfide terminali per essere pertinenti al 100% al contenuto specifico delle due unità.
 
 ### v1.0.1 (10-03-2026)
 

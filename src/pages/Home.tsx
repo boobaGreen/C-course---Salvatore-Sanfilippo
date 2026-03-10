@@ -116,6 +116,14 @@ export default function Home() {
                             <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[var(--color-brand-primary)] shrink-0" />
                             <span>{t('home.changelog.video_persistence')}</span>
                         </li>
+                        <li className="flex items-start gap-3 text-sm text-slate-600 dark:text-zinc-400">
+                            <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[var(--color-brand-primary)] shrink-0" />
+                            <span>{t('home.changelog.lesson_02_restoration')}</span>
+                        </li>
+                        <li className="flex items-start gap-3 text-sm text-slate-600 dark:text-zinc-400">
+                            <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[var(--color-brand-primary)] shrink-0" />
+                            <span>{t('home.changelog.simulator_improvements')}</span>
+                        </li>
                     </ul>
                 </div>
             </div>

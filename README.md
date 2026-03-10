@@ -78,10 +78,13 @@ This project is licensed under the **GNU General Public License (GPL)**. The kno
 
 ### v1.0.2 (2026-03-10)
 
-- **Curriculum Expansion**: Split Lesson 2 into two distinct parts: Base (C Fundamentals) and Appendix (Low-Level/Assembly Deep Dive).
-- **Interactive Low-Level Learning**: Added a dedicated lesson for 6502 microprocessor architecture, registers, and memory-mapped I/O.
-- **Enhanced Quizzes**: Redesigned lesson quizzes to be 100% specific to their respective content, following the 5+3+3 master formula.
-- **Educational Simulators**: Integrated `MicroRegisters` and `StackVisualizer` into the new appendix for better visualization of CPU/Memory interaction.
+- **Curriculum Expansion**: Established Lesson 2 as two distinct entries: **Base (C Fundamentals)** and **Appendix (Low-Level Deep Dive)**.
+- **Lesson 2 Restoration**: Restored original C programming depth in Lesson 2, including `#include`, `printf`, expressions, and function prototypes.
+- **Interactive Simulator Improvements**:
+  - Added a clear color legend and logic description to the **Micro-Emulator 6502**.
+  - Refactored the **Stack Visualizer** to support multiple didactic scenarios (High-level C vs Low-level Assembly).
+- **Educational Deep Dive**: Enriched the Appendix with comprehensive assembly concepts, memory mapping, and the EBP-based calling convention from the professor's transcript.
+- **Dedicated Quizzes**: Segmented quizzes and Terminal challenges to be 100% relevant to the specific content of each lesson.
 
 ### v1.0.1 (2026-03-10)
 
