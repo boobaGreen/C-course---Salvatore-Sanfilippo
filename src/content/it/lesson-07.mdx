@@ -1,4 +1,4 @@
-﻿import VideoEmbed from "../../components/content/VideoEmbed";
+import VideoEmbed from "../../components/content/VideoEmbed";
 import Callout from "../../components/content/Callout";
 import KeyConcepts from "../../components/content/KeyConcepts";
 import RecursionVisualizer from "../../components/content/RecursionVisualizer";
@@ -7,6 +7,7 @@ import CodeEditor from "../../components/exercises/CodeEditor";
 import Quiz from "../../components/exercises/Quiz";
 import ProTerminal from "../../components/content/ProTerminal";
 import Infographic from "../../components/content/Infographic";
+import StackAttack from "../../components/games/StackAttack";
 
 # Lezione 7: Cicli, Ricorsione e Switch
 
@@ -113,6 +114,8 @@ else printf("Trovato in posizione %d\n", i);
 Quando una funzione chiama se stessa, il computer non ricomincia da zero. "Congela" la funzione attuale e ne apre una nuova sopra di essa (un nuovo "frame").
 
 <RecursionVisualizer />
+
+<StackAttack />
 
 <Callout type="pro" title="Tail Call Optimization (TCO)">
 Se l'ultima cosa che una funzione fa è chiamare se stessa, un buon compilatore può ottimizzarla trasformandola in un salto (`goto`), risparmiando memoria.

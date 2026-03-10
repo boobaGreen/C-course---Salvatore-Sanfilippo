@@ -223,36 +223,47 @@ Salvatore shows how the compiler transforms `sum(10, 20)` into assembly.
 
 ### Terminal Challenge: Binary Investigation
 
-<ProTerminal 
-  challenges={[
-    {
-        id: "asm-nm-en",
-        title: "The Name List",
-        description: "Salvatore mentioned that every function becomes a 'symbol'. Which command lists function names in `a.out`?",
-        hints: ["Two letters, short for 'names'"],
-        explanation: "Correct! `nm` (name list) shows you all functions defined in the executable.",
-        xpReward: 150,
-        expectedCommand: "nm a.out"
-    },
-    {
-        id: "hex-dump-en",
-        title: "See the Bytes",
-        description: "Which command would you use to see the actual content of a binary file in hexadecimal format?",
-        hints: ["Starts with 'x'"],
-        explanation: "Perfect. `xxd` is the preferred tool for hackers and low-level developers.",
-        xpReward: 200,
-        expectedCommand: "xxd a.out"
-    },
-    {
-        id: "objdump-f-en",
-        title: "Entry Point",
-        description: "Which `objdump` flag would you use to see the 'file header' and find the entry point?",
-        hints: ["A single letter"],
-        explanation: "Great! `objdump -f` shows the executable's architecture and entry point.",
-        xpReward: 250,
-        expectedCommand: "objdump -f a.out"
-    }
 ]}
+/>
+
+### Pro Challenge
+<Quiz
+  title="Architectural Challenge"
+  questions={[
+    {
+      question: "Why does the Stack grow downwards (decreasing addresses) in many architectures?",
+      options: [
+        "Because the designers were left-handed",
+        "To avoid collisions with the Heap, which grows upwards",
+        "Because it's faster to subtract than to add",
+        "For compatibility with magnetic tapes"
+      ],
+      correctAnswer: 1,
+      explanation: "Placing the Stack and Heap at opposite ends of memory allows both to grow without overlapping until no free space remains in the middle."
+    },
+    {
+      question: "What happens if a recursive function has no exit condition?",
+      options: [
+        "The computer shuts down",
+        "Stack Overflow: the stack runs out of space and overwrites data or crashes",
+        "The program becomes an AI",
+        "RAM increases automatically"
+      ],
+      correctAnswer: 1,
+      explanation: "Each call adds a frame; without exit, the stack space is consumed rapidly."
+    },
+    {
+      question: "If a register is 8-bit (like in the 6502), what is the maximum value it can hold?",
+      options: [
+        "100",
+        "255",
+        "65535",
+        "8"
+      ],
+      correctAnswer: 1,
+      explanation: "2 to the 8th power minus 1 (0 to 255)."
+    }
+  ]}
 />
 
 Congratulations! You have completed the deepest technical appendix of the course!

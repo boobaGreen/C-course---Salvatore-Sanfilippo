@@ -98,29 +98,56 @@ Why does dithering look so good on an old TV?
   title="Final Master Quiz"
   questions={[
     {
-      question: "What is the function of the Checksum in a TAP data block?",
+      question: "Why does Salvatore use penalties for dyschromia between adjacent blocks?",
       options: [
-        "Make the file larger",
-        "Verify data integrity after loading from tape (XOR of bytes)",
-        "Change colors",
-        "Compress the image",
+        "Because identical blocks are faster to render",
+        "To avoid sharp color shifts that would disturb the perception of the image",
+        "To reduce the TAP file size",
+        "Because the Spectrum cannot support more than 2 colors nearby"
       ],
       correctAnswer: 1,
-      explanation:
-        "On magnetic tapes, noise was common; the checksum is the final hardware defense against signal corruption.",
+      explanation: "The human eye is very sensitive to sharp edges; encouraging color coherence makes the image look more natural."
     },
     {
-      question: "What is the purpose of Saturation Boost before evolution?",
+      question: "How does the CRT's blur (beam focus) affect the image?",
       options: [
-        "To heat up the CPU",
-        "To push colors toward the Spectrum palette extremes, compensating for missing intermediate shades",
-        "To make the image darker",
-        "To clear memory",
+        "It makes the image unreadable and reduces its value",
+        "It performs a natural anti-aliasing that softens the edges of dithering",
+        "It increases the actual resolution of the screen",
+        "It erases off-axis pixels"
       ],
       correctAnswer: 1,
-      explanation:
-        "Without a boost, the algorithm would tend to choose grayish colors instead of the brilliant Spectrum colors.",
+      explanation: "The horizontal jump between pixels is not sharp on a CRT, creating gradients that look like distinct blocks on an LCD."
     },
+    {
+      question: "What happens if a TAP file's checksum does not match the XOR of the data?",
+      options: [
+        "Loading continues but the colors are wrong",
+        "The computer reports a loading error (Tape error) and stops",
+        "The image is automatically corrected by the hardware",
+        "The file is deleted from the tape"
+      ],
+      correctAnswer: 1,
+      explanation: "The checksum is vital for detecting errors caused by electromagnetic tape noise."
+    }
+  ]}
+/>
+
+<KeyConcepts
+  title="Hardware Artistry"
+  concepts={[
+    {
+      title: "TAP Ecology",
+      description: "The format that physically simulates the magnetic pulses of a 1982 cassette."
+    },
+    {
+      title: "CRT Physics",
+      description: "How phosphor persistence and analog anti-aliasing improve digital design."
+    },
+    {
+      title: "Algorithmic Aesthetics",
+      description: "The use of visual heuristics to compensate for technical CPU limits."
+    }
   ]}
 />
 
@@ -128,23 +155,41 @@ Why does dithering look so good on an old TV?
   lessonSlug="lesson-31-appendix"
   challenges={[
     {
-      id: "tap-header-size-en",
-      title: "Dump Machine",
-      description:
-        "How many bytes does the header of a data block in a TAP file occupy?",
-      commands: ["19"],
-      expectedOutput: "19",
-      hints: ["It is an odd number between 15 and 20."],
+      id: "tap-generate-en",
+      title: "TAP Generation",
+      description: "Use the fictional utility to generate a TAP file from the image 'output.scr'.",
+      hints: ["The command is 'tap-tool generate' followed by input and output"],
+      explanation: "Perfect! You've created the physical container for your code.",
+      xpReward: 150,
+      expectedCommand: "tap-tool generate --input output.scr --output result.tap"
     },
     {
-      id: "pixel-xor-check-en",
-      title: "Security XOR",
-      description:
-        "If the checksum is an XOR of all bytes, and you have two identical bytes (e.g., 0xAA and 0xAA), what will their partial XOR be?",
-      commands: ["0"],
-      expectedOutput: "0",
-      hints: ["XOR of identical bits always returns zero."],
-    },
+      id: "tape-verify-en",
+      title: "Integrity Check",
+      description: "Verify that the generated TAP file is intact by running the checksum check.",
+      hints: ["Use the 'verify' flag"],
+      explanation: "Great! Checksum matches, the tape is ready for loading.",
+      xpReward: 200,
+      expectedCommand: "tap-tool verify result.tap"
+    }
+  ]}
+/>
+
+### Pro Challenge
+<Quiz
+  title="Researcher Challenge"
+  questions={[
+    {
+      question: "If you had to emulate CRT latency in React, which CSS property would you use as a visual approximation?",
+      options: [
+        "z-index",
+        "backdrop-filter: blur()",
+        "transition-duration",
+        "filter: drop-shadow()"
+      ],
+      correctAnswer: 1,
+      explanation: "Blur simulates the light diffusion of the electron beam on pixel edges."
+    }
   ]}
 />
 

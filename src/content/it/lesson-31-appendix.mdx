@@ -103,29 +103,56 @@ Perché il dithering sembra così bello su un vecchio televisore?
   title="Final Master Quiz"
   questions={[
     {
-      question: "Qual è la funzione del Checksum in un blocco dati TAP?",
+      question: "Perché Salvatore usa penalità per le discromie tra blocchi adiacenti?",
       options: [
-        "Rendere il file più grande",
-        "Verificare l'integrità dei dati dopo il caricamento da nastro (XOR dei byte)",
-        "Cambiare i colori",
-        "Comprimere l'immagine",
+        "Perché i blocchi uguali sono più veloci da renderizzare",
+        "Per evitare stacchi di colore troppo netti che disturberebbero la percezione dell'immagine",
+        "Per ridurre la dimensione del file TAP",
+        "Perché lo Spectrum non supporta più di 2 colori vicini"
       ],
       correctAnswer: 1,
-      explanation:
-        "Nelle cassette magnetiche il rumore era comune; il checksum è l'ultima difesa hardware contro la corruzione del segnale.",
+      explanation: "L'occhio umano è molto sensibile ai bordi netti; incoraggiare la coerenza cromatica rende l'immagine più naturale."
     },
     {
-      question: "A cosa serve il Saturation Boost prima dell'evoluzione?",
+      question: "Come influisce la sfocatura (beam focus) del CRT sull'immagine?",
       options: [
-        "A scaldare la CPU",
-        "A spingere i colori verso gli estremi della palette Spectrum, compensando la mancanza di sfumature intermedie",
-        "A rendere l'immagine più scura",
-        "A cancellare la memoria",
+        "Rende l'immagine illeggibile e ne riduce il valore",
+        "Esegue un anti-aliasing naturale che ammorbidisce i bordi del dithering",
+        "Aumenta la risoluzione effettiva dello schermo",
+        "Cancella i pixel fuori asse"
       ],
       correctAnswer: 1,
-      explanation:
-        "Senza boost, l'algoritmo tenderebbe a scegliere colori grigiastri invece dei colori brillanti dello Spectrum.",
+      explanation: "Il salto tra pixel non è netto su un CRT, creando sfumature che su LCD appaiono come blocchi distinti."
     },
+    {
+      question: "Cosa succede se il checksum di un file TAP non corrisponde all'XOR dei dati?",
+      options: [
+        "Il caricamento prosegue ma i colori sono sbagliati",
+        "Il computer segnala un errore di caricamento (Tape error) e si ferma",
+        "L'immagine viene corretta automaticamente dall'hardware",
+        "Il file viene cancellato dal nastro"
+      ],
+      correctAnswer: 1,
+      explanation: "Il checksum è fondamentale per rilevare errori causati dal rumore del nastro magnetico."
+    }
+  ]}
+/>
+
+<KeyConcepts
+  title="L'Arte dell'Hardware"
+  concepts={[
+    {
+      title: "TAP Ecology",
+      description: "Il formato che simula fisicamente gli impulsi magnetici di una cassetta del 1982."
+    },
+    {
+      title: "CRT Physics",
+      description: "Come la persistenza dei fosfori e l'anti-aliasing analogico migliorano il design digitale."
+    },
+    {
+      title: "Estetica Algoritmica",
+      description: "L'uso di euristiche visive per compensare i limiti tecnici della CPU."
+    }
   ]}
 />
 
@@ -133,23 +160,41 @@ Perché il dithering sembra così bello su un vecchio televisore?
   lessonSlug="lesson-31-appendix"
   challenges={[
     {
-      id: "tap-header-size",
-      title: "Dump Machine",
-      description:
-        "Quanti byte occupa esattamente l'header di un blocco dati in un file TAP?",
-      commands: [],
-      expectedOutput: "19",
-      hints: ["È un numero dispari tra 15 e 20."],
+      id: "tap-generate",
+      title: "Generazione TAP",
+      description: "Usa l'utility fittizia per generare un file TAP dall'immagine 'output.scr'.",
+      hints: ["Il comando è 'tap-tool generate' seguito da input e output"],
+      explanation: "Perfetto! Hai creato il contenitore fisico per il tuo codice.",
+      xpReward: 150,
+      expectedCommand: "tap-tool generate --input output.scr --output result.tap"
     },
     {
-      id: "pixel-xor-check",
-      title: "Security XOR",
-      description:
-        "Se il checksum è un XOR di tutti i byte, e hai due byte uguali (es. 0xAA e 0xAA), quanto varrà il loro XOR parziale?",
-      commands: [],
-      expectedOutput: "0",
-      hints: ["XOR di bit identici restituisce sempre zero."],
-    },
+      id: "tape-verify",
+      title: "Verifica Integrità",
+      description: "Verifica che il file TAP generato sia integro eseguendo il controllo del checksum.",
+      hints: ["Usa il flag 'verify'"],
+      explanation: "Ottimo! Il checksum corrisponde, il nastro è pronto per il caricamento.",
+      xpReward: 200,
+      expectedCommand: "tap-tool verify result.tap"
+    }
+  ]}
+/>
+
+### Pro Challenge
+<Quiz
+  title="Sfida per Ricercatori"
+  questions={[
+    {
+      question: "Se dovessi emulare la latenza di un CRT in React, quale proprietà CSS useresti come approssimazione visuale?",
+      options: [
+        "z-index",
+        "backdrop-filter: blur()",
+        "transition-duration",
+        "filter: drop-shadow()"
+      ],
+      correctAnswer: 1,
+      explanation: "Il blur simula la diffusione della luce del pennello elettronico sui bordi dei pixel."
+    }
   ]}
 />
 

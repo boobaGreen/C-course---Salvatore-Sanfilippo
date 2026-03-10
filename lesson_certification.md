@@ -14,7 +14,8 @@ Questo file tiene traccia dello stato di revisione e certificazione delle lezion
 | :---------------------- | :----------------- | :------------------ | :--------------------------------------------------------- |
 | **Lezione 01**          | ✅ CERTIFICATA     | 2026-03-10          | Revisione completa contenuti base (C overview).            |
 | **Lezione 02**          | ✅ CERTIFICATA     | 2026-03-10          | Revisione completa (C fundamentals, main, stack).          |
-| **Lezione 02-Appendix** | ⏳ IN ATTESA       | -                   | In attesa di verifica utente (revisione tecnica 6502/asm). |
+| **Lezione 02-Appendix** | ⏳ IN ATTESA       | -                   | In attesa di verifica utente (di cui revisione tecnica 6502/asm). |
+| **Lezione 31-Appendix** | ⏳ IN ATTESA       | -                   | In attesa di verifica utente (evoluzione, TAP, CRT).              |
 | **Lezione 03**          | 🔍 SOTTO REVISIONE | -                   | Audit completato. Richiede approfondimento hardware.       |
 | **Lezione 04**          | 🔍 SOTTO REVISIONE | -                   | Richiede calcoli quantitativi e analisi stack.             |
 | **Lezione 05**          | 🔍 SOTTO REVISIONE | -                   | Sintassi presente, manca contestualizzazione didattica.    |

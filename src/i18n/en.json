@@ -85,8 +85,19 @@
         },
         "changelog": {
             "title": "Changelog",
-            "latest_title": "Latest Updates (v1.0.2)",
+            "latest_title": "Latest Updates (v1.1.0)",
             "history_title": "Previous Versions",
+            "v110": {
+                "interactive_tools": "New interactive games: StackAttack, EndianSwapper, FunctionPointerDispatcher.",
+                "visualizers": "Advanced technical visualizers: StructLayout, EvalTracer, MakefileFlowchart.",
+                "appendix_revamp": "Complete appendix overhaul with new Pro Challenges and expanded quizzes."
+            },
+            "v103": {
+                "title": "Version 1.0.3",
+                "appendix_completion": "Completion of Lesson 02 and 31 Appendices (IT/EN).",
+                "pro_challenges": "Introduced Pro Challenges for deep architectural research.",
+                "terminal_revamp": "Pro Terminal Challenges revamped with realistic commands."
+            },
             "v102": {
                 "lesson_02_restoration": "Restored original Lesson 2 depth and created technical Appendix.",
                 "simulator_improvements": "Improvements to interactive simulators (6502 and Stack)."

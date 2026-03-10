@@ -243,42 +243,46 @@ Salvatore mostra come il compilatore trasforma `sum(10, 20)` in assembly.
 
 ### Terminal Challenge: Investigazione sui Binari
 
-<ProTerminal
-  lessonSlug="lesson-02-appendix"
-  challenges={[
+  ]}
+/>
+
+### Pro Challenge
+<Quiz
+  title="Sfida Architetturale"
+  questions={[
     {
-      id: "asm-nm",
-      title: "La Lista dei Nomi",
-      description:
-        "Salvatore ha menzionato che ogni funzione diventa un 'simbolo'. Quale comando elenca i nomi delle funzioni in `a.out`?",
-      hints: ["Due lettere, abbreviazione di 'names'"],
-      explanation:
-        "Esatto! `nm` (name list) ti mostra tutte le funzioni definite nell'eseguibile.",
-      xpReward: 150,
-      expectedCommand: "nm a.out",
+      question: "Perché lo Stack cresce verso il basso (indirizzi decrescenti) in molte architetture?",
+      options: [
+        "Perché i progettisti erano mancini",
+        "Per evitare collisioni con l'Heap che cresce verso l'alto",
+        "Perché è più veloce da sottrarre che da sommare",
+        "Per compatibilità con i nastri magnetici"
+      ],
+      correctAnswer: 1,
+      explanation: "Separare Stack e Heap alle estremità della memoria permette a entrambi di crescere senza sovrapporsi finché c'è spazio libero al centro."
     },
     {
-      id: "hex-dump",
-      title: "Vedere i Byte",
-      description:
-        "Quale comando useresti per vedere il contenuto reale di un file binario in formato esadecimale?",
-      hints: ["Inizia con 'x'"],
-      explanation:
-        "Perfetto. `xxd` è lo strumento preferito dagli hacker e sviluppatori low-level.",
-      xpReward: 200,
-      expectedCommand: "xxd a.out",
+      question: "Cosa succede se una funzione ricorsiva non ha una condizione di uscita?",
+      options: [
+        "Il computer si spegne",
+        "Stack Overflow: lo stack finisce lo spazio e sovrascrive altri dati o crasha",
+        "Il programma diventa un'AI",
+        "La RAM aumenta automaticamente"
+      ],
+      correctAnswer: 1,
+      explanation: "Ogni chiamata aggiunge un frame; senza uscita, lo spazio dedicato allo stack viene esaurito rapidamente."
     },
     {
-      id: "objdump-f",
-      title: "Punto di Ingresso",
-      description:
-        "Quale flag del comando `objdump` useresti per vedere il 'file header' e trovare l'entry point?",
-      hints: ["Una singola lettera"],
-      explanation:
-        "Ottimo! `objdump -f` mostra l'architettura e l'entry point dell'eseguibile.",
-      xpReward: 250,
-      expectedCommand: "objdump -f a.out",
-    },
+      question: "Se un registro è a 8 bit (come nel 6502), qual è il valore massimo che può contenere?",
+      options: [
+        "100",
+        "255",
+        "65535",
+        "8"
+      ],
+      correctAnswer: 1,
+      explanation: "2 elevato alla ottava potenza meno 1 (da 0 a 255)."
+    }
   ]}
 />
 

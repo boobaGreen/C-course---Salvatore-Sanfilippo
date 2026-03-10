@@ -1,4 +1,5 @@
-﻿import VideoEmbed from "../../components/content/VideoEmbed";
+import StructLayoutVisualizer from "../../components/content/StructLayoutVisualizer";
+import VideoEmbed from "../../components/content/VideoEmbed";
 import KeyConcepts from "../../components/content/KeyConcepts";
 import Callout from "../../components/content/Callout";
 import CodeEditor from "../../components/exercises/CodeEditor";
@@ -77,6 +78,8 @@ What happens if we add a `char` (1 byte) to our struct? We would expect a size o
     ],
   ]}
 />
+
+<StructLayoutVisualizer />
 
 <Callout type="pro" title="Why does the CPU hate misalignment?">
   A 64-bit processor reads RAM in complete 8-byte blocks. If an `int` is saved

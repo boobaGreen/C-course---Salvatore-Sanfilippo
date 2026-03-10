@@ -1,4 +1,4 @@
-﻿import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Terminal, Code2, Info, BookOpen, Zap, ChevronDown, Clock } from 'lucide-react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -11,7 +11,9 @@ export default function Home() {
     const [showHistory, setShowHistory] = useState(false);
     const { t } = useTranslation();
 
-    const latestChanges = t('home.changelog.v102', { returnObjects: true }) as Record<string, string>;
+    const latestChanges = t('home.changelog.v110', { returnObjects: true }) as Record<string, string>;
+    const history103 = t('home.changelog.v103', { returnObjects: true }) as Record<string, string>;
+    const history102 = t('home.changelog.v102', { returnObjects: true }) as Record<string, string>;
     const history101 = t('home.changelog.v101', { returnObjects: true }) as Record<string, string>;
 
     return (
@@ -150,7 +152,35 @@ export default function Home() {
                                     transition={{ duration: 0.3, ease: "easeInOut" }}
                                     className="bg-black/10 dark:bg-white/5 border-t border-black/5 dark:border-white/5"
                                 >
-                                    <div className="p-6 space-y-6">
+                                    <div className="p-6 space-y-8">
+                                        <div className="space-y-3">
+                                            <h4 className="text-xs font-bold text-zinc-400 flex items-center gap-2">
+                                                <div className="w-1 h-1 rounded-full bg-zinc-500" />
+                                                {history103.title}
+                                            </h4>
+                                            <ul className="space-y-2 ml-3">
+                                                {Object.entries(history103).filter(([k]) => k !== 'title').map(([key, value]) => (
+                                                    <li key={key} className="flex items-start gap-3 text-xs text-slate-500 dark:text-zinc-500">
+                                                        <div className="mt-1.5 w-1 h-1 rounded-full bg-zinc-700 shrink-0" />
+                                                        <span>{value}</span>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                        <div className="space-y-3">
+                                            <h4 className="text-xs font-bold text-zinc-400 flex items-center gap-2">
+                                                <div className="w-1 h-1 rounded-full bg-zinc-500" />
+                                                {history102.title}
+                                            </h4>
+                                            <ul className="space-y-2 ml-3">
+                                                {Object.entries(history102).filter(([k]) => k !== 'title').map(([key, value]) => (
+                                                    <li key={key} className="flex items-start gap-3 text-xs text-slate-500 dark:text-zinc-500">
+                                                        <div className="mt-1.5 w-1 h-1 rounded-full bg-zinc-700 shrink-0" />
+                                                        <span>{value}</span>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
                                         <div className="space-y-3">
                                             <h4 className="text-xs font-bold text-zinc-400 flex items-center gap-2">
                                                 <div className="w-1 h-1 rounded-full bg-zinc-500" />

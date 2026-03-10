@@ -85,8 +85,19 @@
         },
         "changelog": {
             "title": "Registro Modifiche",
-            "latest_title": "Ultimi Aggiornamenti (v1.0.2)",
+            "latest_title": "Ultimi Aggiornamenti (v1.1.0)",
             "history_title": "Versioni Precedenti",
+            "v110": {
+                "interactive_tools": "Nuovi strumenti e giochi interattivi (StackAttack, EndianSwapper, FunctionPointerDispatcher).",
+                "visualizers": "Visualizzatori tecnici avanzati (StructLayout, EvalTracer, MakefileFlowchart).",
+                "appendix_revamp": "Rifacimento completo appendici con nuove Pro Challenge e quiz espansi."
+            },
+            "v103": {
+                "title": "Versione 1.0.3",
+                "appendix_completion": "Completamento appendici Lezioni 02 e 31 (IT/EN).",
+                "pro_challenges": "Introdotte Pro Challenge per ricerca architetturale profonda.",
+                "terminal_revamp": "Sfide Pro nel Terminale rinnovate con comandi realistici."
+            },
             "v102": {
                 "lesson_02_restoration": "Ripristino profondità originale Lezione 2 e creazione Appendice tecnica.",
                 "simulator_improvements": "Miglioramenti ai simulatori interattivi (6502 e Stack)."

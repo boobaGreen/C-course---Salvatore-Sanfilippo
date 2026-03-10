@@ -2,7 +2,7 @@
 
 **An interactive, professional bilingual (IT/EN) platform to master C programming, inspired by the legendary lessons of Salvatore Sanfilippo.**
 
-[![Project Version](https://img.shields.io/badge/version-1.0.2-blue.svg)](file:///c:/Users/ClaudioDall'Ara/Desktop/c/temp_c_course/package.json)
+[![Project Version](https://img.shields.io/badge/version-1.1.0-blue.svg)](file:///c:/Users/ClaudioDall'Ara/Desktop/c/temp_c_course/package.json)
 [![License: GPL](https://img.shields.io/badge/License-GPL-yellow.svg)](https://opensource.org/licenses/GPL-3.0)
 
 ---
@@ -75,7 +75,16 @@ This project is licensed under the **GNU General Public License (GPL)**. The kno
 ---
 
 ## Changelog
-
+ 
+### v1.0.3 (2026-03-11)
+ 
+- **Educational Content Completion**: Fully implemented Lesson 02 and 31 Appendices.
+- **Advanced Assessment**:
+  - Expanded Lesson 31 questions (5+ standard) to meet the quality baseline.
+  - Introduced **Pro Challenges** for Appendices 02 and 31 (deep architectural research tasks).
+  - Revamped **Pro Terminal Challenges** with realistic shell commands (`tap-tool`, binary analysis).
+- **Documentation & Governance**: Updated certification logs, internal task tracking, and bilinguism alignment.
+ 
 ### v1.0.2 (2026-03-10)
 
 - **Curriculum Expansion**: Established Lesson 2 as two distinct entries: **Base (C Fundamentals)** and **Appendix (Low-Level Deep Dive)**.

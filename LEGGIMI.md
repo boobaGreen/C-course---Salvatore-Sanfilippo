@@ -2,7 +2,7 @@
 
 **Una piattaforma didattica interattiva e professionale (IT/EN) per padroneggiare il linguaggio C, ispirata alle leggendarie lezioni di Salvatore Sanfilippo.**
 
-[![Project Version](https://img.shields.io/badge/versione-1.0.2-blue.svg)](file:///c:/Users/ClaudioDall'Ara/Desktop/c/temp_c_course/package.json)
+[![Project Version](https://img.shields.io/badge/versione-1.1.0-blue.svg)](file:///c:/Users/ClaudioDall'Ara/Desktop/c/temp_c_course/package.json)
 [![License: GPL](https://img.shields.io/badge/Licenza-GPL-yellow.svg)](https://opensource.org/licenses/GPL-3.0)
 
 ---
@@ -75,8 +75,17 @@ Questo progetto è rilasciato sotto licenza **GNU General Public License (GPL)**
 ---
 
 ## Changelog
-
-### v1.0.2 (10-03-2026)
+ 
+ ### v1.0.3 (11-03-2026)
+ 
+ - **Completamento Contenuti Didattici**: Implementazione completa delle appendici delle Lezioni 02 e 31.
+ - **Valutazione Avanzata**:
+   - Espansione quiz Lezione 31 (5+ domande standard) per allineamento qualitativo.
+   - Introdotte **Pro Challenge** per le appendici 02 e 31 (ricerca architetturale profonda).
+   - Rinnovate le **Sfide Pro nel Terminale** con comandi shell realistici (`tap-tool`, analisi binaria).
+ - **Documentazione e Governance**: Aggiornati i log di certificazione, il tracciamento dei task e l'allineamento bilingue.
+ 
+ ### v1.0.2 (10-03-2026)
 
 - **Espansione del Curriculum**: Consolidata la Lezione 2 come due unità distinte: **Base (Fondamenti del C)** e **Appendice (Deep Dive Low-Level)**.
 - **Ripristino Lezione 2**: Reintegrata la profondità originale sulla programmazione C (include, printf, espressioni, prototipi), evitando perdite di contenuti.

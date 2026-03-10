@@ -1,4 +1,4 @@
-﻿import VideoEmbed from "../../components/content/VideoEmbed";
+import StructLayoutVisualizer from "../../components/content/StructLayoutVisualizer";
 import KeyConcepts from "../../components/content/KeyConcepts";
 import Callout from "../../components/content/Callout";
 import CodeEditor from "../../components/exercises/CodeEditor";
@@ -82,6 +82,8 @@ Cosa succede se aggiungiamo un `char` (1 byte) alla nostra struct? Ci aspetterem
     ],
   ]}
 />
+
+<StructLayoutVisualizer />
 
 <Callout type="pro" title="Perché la CPU odia il disallineamento?">
   Un processore a 64-bit legge la RAM in blocchi completi di 8 byte. Se un `int`
