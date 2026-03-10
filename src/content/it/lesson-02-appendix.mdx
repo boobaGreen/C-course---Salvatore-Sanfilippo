@@ -1,0 +1,258 @@
+import VideoEmbed from '../../components/content/VideoEmbed';
+import Callout from '../../components/content/Callout';
+import KeyConcepts from '../../components/content/KeyConcepts';
+import Quiz from '../../components/exercises/Quiz';
+import ProTerminal from '../../components/content/ProTerminal';
+import Infographic from '../../components/content/Infographic';
+import ComparisonTable from '../../components/content/ComparisonTable';
+import StackVisualizer from '../../components/content/StackVisualizer';
+import MicroRegisters from '../../components/content/MicroRegisters';
+
+# Appendice 2: Sotto il Cofano (CPU, Registri e Stack)
+
+Bentornati! In questa appendice facciamo un salto nel tempo — e nello spazio — per capire cosa succede fisicamente dentro il computer quando eseguiamo un programma C. Salvatore ci guida attraverso due mondi: quello dei **Registri** e quello dello **Stack**.
+
+<VideoEmbed videoId="r6mU_IHXEps" title="Appendice Lezione 2: La vita delle variabili locali" />
+
+## Registri vs RAM: I Due Pilastri
+
+Tutti i microprocessori (dal leggendario **6502** del Commodore 64 all'**M3** di un moderno MacBook) hanno due modi per elaborare i dati:
+
+1. **Registri CPU**: Piccole variabili (pochi byte) situate *dentro* il core del processore. Sono istantanee.
+2. **RAM (Memoria)**: Un magazzino esterno molto grande ma molto più lento.
+
+<Callout type="info" title="Velocità e Efficienza">
+Le istruzioni della CPU possono operare direttamente sui registri. Per usare i dati nella RAM, il processore deve spesso prima "caricarli" in un registro, fare il calcolo, e poi "salvarli" di nuovo in RAM.
+</Callout>
+
+---
+
+## 1. Il Mondo dei Registri (Il Modello 6502)
+
+Il 6502 è un processore di 40 anni fa, perfetto per imparare perché è semplicissimo. Ha solo tre registri principali: **A** (Accumulatore), **X** e **Y**.
+
+### Simulatore: Scrivere in Memoria Video
+In questa architettura, lo schermo è **Memory Mapped**. Significa che alcune celle di RAM sono collegate fisicamente allo schermo. Se scriviamo il valore `5` all'indirizzo `$0200`, quel pixel diventerà **Verde** (usa la **Legenda** dei colori qui sotto per sperimentare).
+
+<MicroRegisters />
+
+Ecco come appare il codice assembly scritto da Salvatore per riempire lo schermo:
+```assembly
+LDA #$05    ; Carica il colore 5 (Verde) nel registro A
+TAX         ; Trasferisci A nel registro X (lo useremo come contatore)
+LDY #$00    ; Azzera il registro Y (indice di posizione)
+
+LOOP:
+  STA $0200, Y  ; Memorizza il colore all'indirizzo $0200 + Y
+  INY           ; Incrementa Y (prossimo pixel)
+  DEX           ; Decrementa X (quanti ne mancano?)
+  BNE LOOP      ; Se X non è zero, continua il ciclo
+```
+
+<Callout type="pro" title="Variabili Effimere">
+Notate come i registri vengano sovrascritti continuamente. Se una funzione chiama un'altra funzione e quella usa il registro **A**, il valore originale è perso per sempre se non lo salviamo da qualche parte.
+</Callout>
+
+---
+
+## 2. Lo Stack: Meccanismo della CPU (Modello 386)
+
+Nel C e nei processori moderni, lo Stack non è solo un concetto astratto, ma un meccanismo fisico gestito da istruzioni assembly come `PUSH` e `POP`.
+
+### Convenzione di Chiamata (Calling Convention)
+Quando chiami `sum(10, 20)`, il compilatore genera una sequenza precisa per preparare lo Stack. Guarda questa simulazione che mostra i passaggi a basso livello (Push dei parametri e salvataggio dell'EBP).
+
+<StackVisualizer 
+  title="Visualizzatore Stack Assembly (x86)"
+  customSteps={[
+    {
+      action: 'push_arg2',
+      label: 'push 20 (Argomento 2)',
+      frame: {
+        id: 'prep',
+        label: 'Chiamata sum',
+        variables: [
+          { name: 'Arg 2', value: '20', address: 'ESP' }
+        ]
+      }
+    },
+    {
+      action: 'push_arg1',
+      label: 'push 10 (Argomento 1)',
+      update: {
+        id: 'prep',
+        variables: [
+          { name: 'Arg 1', value: '10', address: 'ESP' },
+          { name: 'Arg 2', value: '20', address: 'ESP+4' }
+        ]
+      }
+    },
+    {
+      action: 'push_ret',
+      label: 'call sum (Salva Indirizzo Ritorno)',
+      update: {
+        id: 'prep',
+        variables: [
+          { name: 'RET ADDR', value: '0x00401A20', address: 'ESP' },
+          { name: 'Arg 1', value: '10', address: 'ESP+4' },
+          { name: 'Arg 2', value: '20', address: 'ESP+8' }
+        ]
+      }
+    },
+    {
+      action: 'push_ebp',
+      label: 'push ebp (Salva Base Pointer)',
+      frame: {
+        id: 'sum_frame',
+        label: 'sum() Prologue',
+        variables: [
+          { name: 'OLD EBP', value: '0x7ffd...e0', address: 'EBP' },
+          { name: 'RET ADDR', value: '0x00401A20', address: 'EBP+4' },
+          { name: 'Arg 1', value: '10', address: 'EBP+8' }
+        ]
+      }
+    }
+  ]}
+/>
+
+### I Fantasmi (Garbage) nello Stack
+Quando una funzione finisce (`return`), lo Stack Pointer torna semplicemente indietro. Il "cassetto" non viene svuotato fisicamente per motivi di velocità. I dati rimangono lì finché un'altra funzione non ci scrive sopra.
+Se dichiari `int x;` senza dargli un valore, leggerai i **"fantasmi"** delle funzioni precedenti!
+
+---
+
+## 3. La Convenzione di Chiamata (Dettaglio)
+
+Salvatore mostra come il compilatore trasforma `sum(10, 20)` in assembly. 
+1. **Push 20**: Mette il secondo argomento nello Stack.
+2. **Push 10**: Mette il primo argomento nello Stack.
+3. **Call sum**: Salta alla funzione salvando l'indirizzo di ritorno.
+4. **Prologo**: La funzione salva il `Base Pointer` (EBP) per sapere dove si trovano i suoi argomenti.
+
+---
+
+<KeyConcepts 
+  title="Concetti Low-Level"
+  concepts={[
+    {
+        title: "Registri",
+        description: "PICCOLE variabili interne alla CPU, velocissime (A, X, Y, EAX)."
+    },
+    {
+        title: "Memory Mapping",
+        description: "L'hardware (come il video) viene controllato scrivendo in specifici indirizzi di RAM."
+    },
+    {
+        title: "Stack Frame",
+        description: "Uno spazio temporaneo in memoria creato ad ogni chiamata di funzione."
+    },
+    {
+        title: "Calling Convention",
+        description: "Lo standard che decide come passare i parametri tra C e Assembly."
+    }
+  ]}
+/>
+
+## Verifica dell'Appendice
+
+<Quiz 
+  title="Quiz Appendice: Registri e Stack" 
+  questions={[
+    {
+      id: 1,
+      question: "In assembly 6502, cosa fa l'istruzione TAX?",
+      options: [
+        "Calcola le tasse del sistema",
+        "Trasferisce il valore dal registro A al registro X",
+        "Spegne il simulatore",
+        "Carica un valore dalla RAM"
+      ],
+      correctAnswer: 1,
+      explanation: "TAX sta per Transfer A to X."
+    },
+    {
+      id: 2,
+      question: "Perché l'I/O 'mappato in memoria' è potente?",
+      options: [
+        "Perché consuma meno corrente",
+        "Perché permette di controllare l'hardware usando normali istruzioni di memoria",
+        "Perché cancella i virus",
+        "Perché aumenta la RAM"
+      ],
+      correctAnswer: 1,
+      explanation: "Scrivere in memoria diventa un comando per la scheda video, il disco o la rete."
+    },
+    {
+      id: 3,
+      question: "Qual è la funzione del registro EBP (Base Pointer)?",
+      options: [
+        "Gestire l'output audio",
+        "Fornire un punto di riferimento fisso per accedere ai parametri della funzione nello Stack",
+        "Contare i bit dello schermo",
+        "Ottimizzare il ciclo di vita delle variabili globali"
+      ],
+      correctAnswer: 1,
+      explanation: "L'EBP non cambia durante l'esecuzione della funzione, permettendo di trovare i parametri con offset costanti."
+    },
+    {
+      id: 4,
+      question: "Cosa accade fisicamente quando eseguiamo una 'Pop' dallo Stack?",
+      options: [
+        "Il valore viene cancellato fisicamente",
+        "Il valore viene rimosso logicamente incrementando lo Stack Pointer",
+        "La CPU va in crash",
+        "Viene creato un nuovo frame"
+      ],
+      correctAnswer: 1,
+      explanation: "Pop non azzera la memoria, sposta solo il puntatore, rendendo lo spazio riutilizzabile."
+    },
+    {
+      id: 5,
+      question: "Cosa significa 'Undefined Behavior' nel contesto della printf?",
+      options: [
+        "Che il programma chiede aiuto all'utente",
+        "Che il comportamento non è garantito e può portare a crash o bug imprevedibili",
+        "Che il programma si ferma correttamente",
+        "Che il compilatore riscrive il codice"
+      ],
+      correctAnswer: 1,
+      explanation: "Se la printf cerca parametri nello Stack che non esistono, leggerà dati casuali."
+    }
+  ]}
+/>
+
+### Terminal Challenge: Investigazione sui Binari
+
+<ProTerminal 
+  challenges={[
+    {
+        id: "asm-nm",
+        title: "La Lista dei Nomi",
+        description: "Salvatore ha menzionato che ogni funzione diventa un 'simbolo'. Quale comando elenca i nomi delle funzioni in `a.out`?",
+        hints: ["Due lettere, abbreviazione di 'names'"],
+        explanation: "Esatto! `nm` (name list) ti mostra tutte le funzioni definite nell'eseguibile.",
+        xpReward: 150,
+        expectedCommand: "nm a.out"
+    },
+    {
+        id: "hex-dump",
+        title: "Vedere i Byte",
+        description: "Quale comando useresti per vedere il contenuto reale di un file binario in formato esadecimale?",
+        hints: ["Inizia con 'x'"],
+        explanation: "Perfetto. `xxd` è lo strumento preferito dagli hacker e sviluppatori low-level.",
+        xpReward: 200,
+        expectedCommand: "xxd a.out"
+    },
+    {
+        id: "objdump-f",
+        title: "Punto di Ingresso",
+        description: "Quale flag del comando `objdump` useresti per vedere il 'file header' e trovare l'entry point?",
+        hints: ["Una singola lettera"],
+        explanation: "Ottimo! `objdump -f` mostra l'architettura e l'entry point dell'eseguibile.",
+        xpReward: 250,
+        expectedCommand: "objdump -f a.out"
+    }
+]}
+/>
+
+Complimenti! Hai completato l'appendice tecnica più profonda del corso!

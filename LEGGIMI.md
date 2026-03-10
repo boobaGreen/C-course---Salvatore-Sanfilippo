@@ -2,7 +2,7 @@
 
 **Una piattaforma didattica interattiva e professionale (IT/EN) per padroneggiare il linguaggio C, ispirata alle leggendarie lezioni di Salvatore Sanfilippo.**
 
-[![Project Version](https://img.shields.io/badge/versione-1.0.1-blue.svg)](file:///c:/Users/ClaudioDall'Ara/Desktop/c/temp_c_course/package.json)
+[![Project Version](https://img.shields.io/badge/versione-1.0.2-blue.svg)](file:///c:/Users/ClaudioDall'Ara/Desktop/c/temp_c_course/package.json)
 [![License: GPL](https://img.shields.io/badge/Licenza-GPL-yellow.svg)](https://opensource.org/licenses/GPL-3.0)
 
 ---
@@ -75,6 +75,13 @@ Questo progetto è rilasciato sotto licenza **GNU General Public License (GPL)**
 ---
 
 ## Changelog
+
+### v1.0.2 (10-03-2026)
+
+- **Espansione del Curriculum**: Divisa la Lezione 2 in due parti distinte: Base (Fondamenti del C) e Appendice (Deep Dive Low-Level/Assembly).
+- **Apprendimento Low-Level Interattivo**: Aggiunta una lezione dedicata all'architettura del microprocessore 6502, ai registri e all'I/O mappato in memoria.
+- **Quiz Potenziati**: Riprogettati i quiz della lezione per essere specifici al 100% rispetto ai rispettivi contenuti, seguendo la master formula 5+3+3.
+- **Simulatori Didattici**: Integrati `MicroRegisters` e `StackVisualizer` nella nuova appendice per una migliore visualizzazione dell'interazione CPU/Memoria.
 
 ### v1.0.1 (10-03-2026)
 

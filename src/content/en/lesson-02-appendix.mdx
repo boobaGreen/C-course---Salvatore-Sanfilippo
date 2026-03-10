@@ -1,0 +1,258 @@
+import VideoEmbed from '../../components/content/VideoEmbed';
+import Callout from '../../components/content/Callout';
+import KeyConcepts from '../../components/content/KeyConcepts';
+import Quiz from '../../components/exercises/Quiz';
+import ProTerminal from '../../components/content/ProTerminal';
+import Infographic from '../../components/content/Infographic';
+import ComparisonTable from '../../components/content/ComparisonTable';
+import StackVisualizer from '../../components/content/StackVisualizer';
+import MicroRegisters from '../../components/content/MicroRegisters';
+
+# Appendix 2: Under the Hood (CPU, Registers, and Stack)
+
+Welcome back! In this appendix, we take a leap through time — and space — to understand what physically happens inside the computer when we run a C program. Salvatore guides us through two worlds: **Registers** and the **Stack**.
+
+<VideoEmbed videoId="r6mU_IHXEps" title="Appendix Lesson 2: The life of local variables" />
+
+## Registers vs RAM: The Two Pillars
+
+All microprocessors (from the legendary **6502** in the Commodore 64 to the **M3** in a modern MacBook) have two ways of processing data:
+
+1. **CPU Registers**: Tiny variables (a few bytes) located *inside* the processor core. They are instantaneous.
+2. **RAM (Memory)**: A large external warehouse that is much slower.
+
+<Callout type="info" title="Speed and Efficiency">
+CPU instructions can operate directly on registers. To use data in RAM, the processor must often "load" it into a register, perform the calculation, and then "save" it back to RAM.
+</Callout>
+
+---
+
+## 1. The World of Registers (The 6502 Model)
+
+The 6502 is a 40-year-old processor, perfect for learning because it is incredibly simple. It has only three main registers: **A** (Accumulator), **X**, and **Y**.
+
+### Simulator: Writing to Video Memory
+In this architecture, the screen is **Memory Mapped**. This means some RAM cells are physically connected to the screen. If we write the value `5` to address `$0200`, that pixel will turn **Green** (use the **Legend** below to experiment with colors).
+
+<MicroRegisters />
+
+Here is the assembly code Salvatore wrote to fill the screen:
+```assembly
+LDA #$05    ; Load color 5 (Green) into register A
+TAX         ; Transfer A to register X (we'll use it as a counter)
+LDY #$00    ; Clear register Y (position index)
+
+LOOP:
+  STA $0200, Y  ; Store the color at address $0200 + Y
+  INY           ; Increment Y (next pixel)
+  DEX           ; Decrement X (how many left?)
+  BNE LOOP      ; If X is not zero, continue the loop
+```
+
+<Callout type="pro" title="Ephemeral Variables">
+Notice how registers are continuously overwritten. If one function calls another and that one uses register **A**, the original value is lost forever unless we save it somewhere first.
+</Callout>
+
+---
+
+## 2. The Stack: CPU Mechanism (386 Model)
+
+In C and modern processors, the Stack is not just an abstract concept but a physical mechanism managed by assembly instructions like `PUSH` and `POP`.
+
+### Calling Convention
+When you call `sum(10, 20)`, the compiler generates a precise sequence to prepare the Stack. Watch this simulation showing the low-level steps (Pushing parameters and saving the EBP).
+
+<StackVisualizer 
+  title="Assembly Stack Visualizer (x86)"
+  customSteps={[
+    {
+      action: 'push_arg2',
+      label: 'push 20 (Argument 2)',
+      frame: {
+        id: 'prep',
+        label: 'Calling sum',
+        variables: [
+          { name: 'Arg 2', value: '20', address: 'ESP' }
+        ]
+      }
+    },
+    {
+      action: 'push_arg1',
+      label: 'push 10 (Argument 1)',
+      update: {
+        id: 'prep',
+        variables: [
+          { name: 'Arg 1', value: '10', address: 'ESP' },
+          { name: 'Arg 2', value: '20', address: 'ESP+4' }
+        ]
+      }
+    },
+    {
+      action: 'push_ret',
+      label: 'call sum (Save Return Address)',
+      update: {
+        id: 'prep',
+        variables: [
+          { name: 'RET ADDR', value: '0x00401A20', address: 'ESP' },
+          { name: 'Arg 1', value: '10', address: 'ESP+4' },
+          { name: 'Arg 2', value: '20', address: 'ESP+8' }
+        ]
+      }
+    },
+    {
+      action: 'push_ebp',
+      label: 'push ebp (Save Base Pointer)',
+      frame: {
+        id: 'sum_frame',
+        label: 'sum() Prologue',
+        variables: [
+          { name: 'OLD EBP', value: '0x7ffd...e0', address: 'EBP' },
+          { name: 'RET ADDR', value: '0x00401A20', address: 'EBP+4' },
+          { name: 'Arg 1', value: '10', address: 'EBP+8' }
+        ]
+      }
+    }
+  ]}
+/>
+
+### Ghosts (Garbage) in the Stack
+When a function finishes (`return`), the Stack Pointer moves back. The "drawer" is not physically emptied for speed reasons. The data stays there until another function writes over it.
+If you declare `int x;` without giving it a value, you'll read the **"ghosts"** of previous functions!
+
+---
+
+## 3. The Calling Convention (Details)
+
+Salvatore shows how the compiler transforms `sum(10, 20)` into assembly.
+1. **Push 20**: Puts the second argument onto the Stack.
+2. **Push 10**: Puts the first argument onto the Stack.
+3. **Call sum**: Jumps to the function while saving the return address.
+4. **Prologue**: The function saves the `Base Pointer` (EBP) to know where its arguments are located.
+
+---
+
+<KeyConcepts 
+  title="Low-Level Concepts"
+  concepts={[
+    {
+        title: "Registers",
+        description: "TINY variables inside the CPU, ultra-fast (A, X, Y, EAX)."
+    },
+    {
+        title: "Memory Mapping",
+        description: "Hardware (like video) is controlled by writing to specific RAM addresses."
+    },
+    {
+        title: "Stack Frame",
+        description: "A temporary space in memory created at every function call."
+    },
+    {
+        title: "Calling Convention",
+        description: "The standard that decides how to pass parameters between C and Assembly."
+    }
+  ]}
+/>
+
+## Appendix Verification
+
+<Quiz 
+  title="Appendix Quiz: Registers and Stack" 
+  questions={[
+    {
+      id: 1,
+      question: "In 6502 assembly, what does the TAX instruction do?",
+      options: [
+        "Calculates system taxes",
+        "Transfers the value from register A to register X",
+        "Turns off the simulator",
+        "Loads a value from RAM"
+      ],
+      correctAnswer: 1,
+      explanation: "TAX stands for Transfer A to X."
+    },
+    {
+      id: 2,
+      question: "Why is 'memory-mapped I/O' powerful?",
+      options: [
+        "It consumes less power",
+        "It allows controlling hardware using standard memory instructions",
+        "It deletes viruses",
+        "It increases RAM"
+      ],
+      correctAnswer: 1,
+      explanation: "Writing to memory becomes a command for the graphics card, disk, or network."
+    },
+    {
+      id: 3,
+      question: "What is the function of the EBP (Base Pointer) register?",
+      options: [
+        "Manages audio output",
+        "Provides a fixed reference point to access function parameters on the Stack",
+        "Counts screen bits",
+        "Optimizes the lifecycle of global variables"
+      ],
+      correctAnswer: 1,
+      explanation: "EBP does not change during function execution, making it easy to find parameters with constant offsets."
+    },
+    {
+      id: 4,
+      question: "What physically happens when we execute a 'Pop' from the Stack?",
+      options: [
+        "The value is physically deleted",
+        "The value is logically removed by incrementing the Stack Pointer",
+        "The CPU crashes",
+        "A new frame is created"
+      ],
+      correctAnswer: 1,
+      explanation: "Pop does not zero out the memory; it only moves the pointer, making the space reusable."
+    },
+    {
+      id: 5,
+      question: "What does 'Undefined Behavior' mean in the context of printf?",
+      options: [
+        "The program asks the user for help",
+        "Behavior is not guaranteed and can lead to crashes or unpredictable bugs",
+        "The program stops correctly",
+        "The compiler rewrites the code"
+      ],
+      correctAnswer: 1,
+      explanation: "If printf looks for parameters on the Stack that don't exist, it will read random data."
+    }
+  ]}
+/>
+
+### Terminal Challenge: Binary Investigation
+
+<ProTerminal 
+  challenges={[
+    {
+        id: "asm-nm-en",
+        title: "The Name List",
+        description: "Salvatore mentioned that every function becomes a 'symbol'. Which command lists function names in `a.out`?",
+        hints: ["Two letters, short for 'names'"],
+        explanation: "Correct! `nm` (name list) shows you all functions defined in the executable.",
+        xpReward: 150,
+        expectedCommand: "nm a.out"
+    },
+    {
+        id: "hex-dump-en",
+        title: "See the Bytes",
+        description: "Which command would you use to see the actual content of a binary file in hexadecimal format?",
+        hints: ["Starts with 'x'"],
+        explanation: "Perfect. `xxd` is the preferred tool for hackers and low-level developers.",
+        xpReward: 200,
+        expectedCommand: "xxd a.out"
+    },
+    {
+        id: "objdump-f-en",
+        title: "Entry Point",
+        description: "Which `objdump` flag would you use to see the 'file header' and find the entry point?",
+        hints: ["A single letter"],
+        explanation: "Great! `objdump -f` shows the executable's architecture and entry point.",
+        xpReward: 250,
+        expectedCommand: "objdump -f a.out"
+    }
+]}
+/>
+
+Congratulations! You have completed the deepest technical appendix of the course!

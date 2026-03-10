@@ -35,14 +35,16 @@ Salvatore often uses both: `gcc -Wall -Wextra file.c`. If the compiler "complain
 </Callout>
 
 
-### The main Function and C Constraints
-The `main` function is the heart of the program. It is the entry point from which the operating system begins execution. In C, **all executable code must reside within a function**.
+### The `main` Function and C Constraints
+The `main` function is the heart of the program. It is the entry point from which the operating system begins execution. In C, **all executable code must reside within a function**. 
 
 <Callout type="warning" title="No 'Free-Floating' Code">
 Unlike Python or Bash, you cannot write a `printf` directly at the top of the file. If you try, the compiler will give you an error like `expected declaration or statement`.
 </Callout>
 
 ```c
+#include <stdio.h>
+
 int main(void) {
     // Your code must stay inside here!
     return 0;
@@ -52,11 +54,33 @@ int main(void) {
 - `int`: Indicates that the function returns an integer to the operating system (0 means success).
 - `void`: Explicitly indicates that the function takes no input arguments.
 
+### A Complete Example: The `sum` Function
+
+Here is the first real program Salvatore showed us. It combines inclusion, function definition, and output:
+
+```c
+#include <stdio.h>
+
+// Definition of a function that sums two integers
+int sum(int a, int b) {
+    return a + b;
+}
+
+int main(void) {
+    // Call the sum function and print the result
+    printf("Hello World %d\n", sum(10, 20));
+    return 0;
+}
+```
+
+Running this code will yield:
+`Hello World 30`
+
 ---
 
 ## printf: The Magic of Formatting
 
-The name `printf` stands for **Print Formatted**. It is an extremely powerful function because it is **variadic**: it can accept a variable number of arguments.
+The name `printf` stands for **Print Formatted**. It is an extremely powerful function because it accepts a **variable number of arguments** (technically called a variadic function).
 
 ### Printing Values with Placeholders
 
@@ -95,6 +119,17 @@ printf("Hello %s, result is %d\n", "User", 30);
 </Callout>
 
 
+### The Concept of Expression
+
+Why can we write `sum(10, 20)` inside the `printf`? The answer lies in the **concept of expression**.
+
+In programming, an expression is a piece of code that, once executed by the computer, "becomes a value." This process is called **evaluation**.
+
+- `10 + 20` is an expression evaluated as `30`.
+- `sum(10, 20)` is an expression that "calls" the function, executes it, and is replaced by its result (the `return` value), becoming `30`.
+
+When `printf` executes, it no longer sees the function call, but receives the number `30` directly.
+
 ---
 
 ## Functions: Prototype vs. Definition
@@ -121,7 +156,7 @@ In C, unlike languages like Python or JavaScript, you must **explicitly declare*
 ```c
 int a = 10;   // Declaration and Initialization (assigns 10 during creation)
 int b;        // Declaration only (contains RAM "garbage")
-b = 20;       // Subsequent assignment (overwrites previous value)
+b = 20;       // Assignment (overwrites previous value)
 int c = a + b; // Initialization via expression
 ```
 
@@ -146,34 +181,24 @@ Specifying the type (e.g., `int`) allows the compiler to know exactly how many b
 What happens when you call a function? Where do local variables end up?
 Variables defined inside a function live in a memory area called the **Stack**.
 
-<StackVisualizer />
+<StackVisualizer title="Stack Concept (Function Call Stack)" />
 
 When a function is called, a **Stack Frame** is created. 
 
 <Callout type="info" title="Creation and Destruction">
-  Local variables (including function arguments) are created "on the fly" every time you call the function. When the function returns, the space is released. Note: "released" does not mean "deleted"! The data stays there until another function overwrites it, which is why uninitialized variables are dangerous.
+  Local variables (including function arguments) are created "on the fly" every time you call the function. When the function returns, the space is released.
 </Callout>
 
-When the function ends (`return`), its frame is "destroyed" and the memory is freed.
+<Callout type="warning" title="The Ghost in the Stack">
+  **Warning**: "released" does not mean "deleted"! In C, for speed, memory is not wiped when a function ends. Data stays there until another function overwrites it. If you declare `int x;` without initializing it, you'll read the "ghosts" of whoever used that space before.
+</Callout>
 
 ---
-
-## Registers and Microprocessor (Appendix)
-
-In this appendix, Salvatore takes us back in time with the **6502** microprocessor to explain the difference between registers and RAM.
-
-<VideoEmbed videoId="r6mU_IHXEps" title="Appendix Lesson 2: The life of local variables" />
-
-<MicroRegisters />
-
-<Callout type="pro" title="Memory Mapped I/O">
-  In the screen above, we are writing directly to RAM at address `$0200`. The microprocessor doesn't "know" it's drawing: it's just moving bytes. It's the video hardware that interprets those bytes as pixel colors. This is the foundation of embedded systems and old consoles.
-</Callout>
 
 ## The `main` Return Value
 
 Why does `main` return an `int`? It's used to tell the **Operating System** if the program finished successfully.
-- `return 0;` means "Success".
+- `return 0;` means "Everything ok".
 - `return 1;` (or others) signals an error.
 
 <Callout type="tip">
@@ -183,20 +208,36 @@ On Linux, you can see the return value of the last command by typing `echo $?` i
 ### Return Codes and Shell Logic
 The return value of `main` is not just a formality. In Unix-like systems, it allows chaining programs based on their success.
 - **Logical AND (`&&`)**: `command1 && command2` -> `command2` is executed only if `command1` returns **0** (success).
-- **Logical OR (`||`)**: `command1 || command2` -> `command2` is executed only if `command1` fails (non-zero code).
-
-This "short-circuit" mechanism is fundamental for automating complex tasks where each step depends on the previous one.
-
-<Callout type="tip">
-**Registers** are tiny, lightning-fast "variables" inside the CPU. **RAM** is larger but slower. The C compiler tries to use registers as much as possible to speed up your code.
-</Callout>
+- **Logical OR (`||`)**: `command1 || command2` -> `command2` is executed only if `command1` fails (non-zero).
 
 ---
+
+<KeyConcepts 
+  title="In Brief"
+  concepts={[
+    {
+        title: "Explicit Typing",
+        description: "In C, every variable has a fixed type. This ensures safety and total control over memory."
+    },
+    {
+        title: "Stack Frames",
+        description: "Function memory is organized like a stack: the last call is the first one to be removed."
+    },
+    {
+        title: "Compiler Warnings",
+        description: "Always use -Wall. A 'complaining' compiler is one that is helping you."
+    },
+    {
+        title: "The main Value",
+        description: "The final zero tells the OS that the program terminated successfully."
+    }
+  ]}
+/>
 
 ## Verification Exercises
 
 <Quiz 
-  title="Quiz Standard" 
+  title="Standard Quiz" 
   questions={[
     {
       id: 1,
@@ -236,135 +277,109 @@ This "short-circuit" mechanism is fundamental for automating complex tasks where
     },
     {
       id: 4,
-      question: "What is the main difference between a Register and RAM?",
+      question: "What is the correct placeholder for an integer expression?",
       options: [
-        "Registers are slower",
-        "RAM is inside the CPU",
-        "Registers are inside the CPU and ultra-fast, RAM is external and larger",
-        "There is no difference"
+        "%s",
+        "%f",
+        "%d",
+        "%p"
       ],
       correctAnswer: 2,
-      explanation: "Registers are small memory units inside the CPU used for immediate operations. RAM is the system's main memory."
+      explanation: "%d (Decimal) is used for integers."
     },
     {
       id: 5,
-      question: "Why do we initialize variables (e.g., int a = 0)?",
+      question: "Why do we initialize variables (e.g., int a = 0;)?",
       options: [
         "Because C always requires it",
         "To prevent the variable from containing 'garbage' (old values left on the stack)",
         "To make the code longer",
         "To help the linker"
       ],
-     }
+      correctAnswer: 1,
+      explanation: "In C, uninitialized local variables contain random values (garbage) left on the stack."
+    }
   ]}
 />
 
 ---
 
-## In Short
-
-<KeyConcepts 
-  title="In Short"
-  concepts={[
-    {
-        title: "Explicit Typing",
-        description: "In C, every variable has a fixed type. This ensures safety and total control over memory."
-    },
-    {
-        title: "Stack Frames",
-        description: "Function memory is organized like a stack: the last call is the first to be removed."
-    },
-    {
-        title: "Compiler Warnings",
-        description: "Always use -Wall. A 'complaining' compiler is a compiler that is helping you."
-    },
-    {
-        title: "Registers vs RAM",
-        description: "Registers are internal to the CPU and ultra-fast; RAM is external and larger."
-    }
-  ]}
-/>
-
 ### Pro Challenge
+
 <Quiz 
-  title="Pro Challenge: Final Quiz"
+  title="Pro Challenge: Fundamentals"
   questions={[
     {
       id: 1,
-      question: "Why is an uninitialized local variable (e.g., `int x;`) considered dangerous even if the program seems to work initially?",
+      question: "Why is an uninitialized local variable dangerous even if the program seems to work initially?",
       options: [
-        "Because it occupies more RAM",
-        "Because it contains 'garbage', which is the residual value from whoever used that piece of Stack previously (Stack Reuse)",
-        "Because the compiler deletes the file if it finds it",
-        "Because it makes the computer hotter"
+        "It occupies more RAM",
+        "It contains values left by whoever used that part of the stack before (Stack Reuse)",
+        "The compiler deletes the file if it finds it",
+        "It makes the computer run hotter"
       ],
       correctAnswer: 1,
-      explanation: "The Stack is a memory area that is continuously reused. When a function finishes, its space is freed but the data is not wiped (for speed). The next function that uses that space will find the 'ghosts' of the previous function."
+      explanation: "The stack is continuously reused. Data isn't wiped for speed; the next function will find 'ghosts' of the previous one."
     },
     {
       id: 2,
       question: "What physically happens when we call a function in C?",
       options: [
         "The function's code is copied to the point of call",
-        "A new 'Stack Frame' is created containing the function's parameters and local variables",
+        "A new 'Stack Frame' is created containing parameters and local variables",
         "The CPU stops working until the function terminates",
         "Variables are saved to the hard disk"
       ],
       correctAnswer: 1,
-      explanation: "A function call creates a structure in the Stack called a 'Frame'. It is like a temporary drawer where the function puts everything it needs. When the function 'returns', the drawer is emptied (or rather, removed from the stack)."
+      explanation: "A function call creates a structure in the stack called a 'Frame', a temporary 'drawer' for the function's data."
     },
     {
       id: 3,
-      question: "Why do we sometimes use the `volatile` keyword before a variable?",
+      question: "What happens if you run 'gcc main.c && ./a.out'?",
       options: [
-        "To make it faster",
-        "To tell the compiler not to optimize it (e.g., not put it in a register), because its value could change unexpectedly (e.g., external hardware)",
-        "To delete it from memory after use",
-        "To protect it from viruses"
+        "Both are executed simultaneously",
+        "The program starts only if compilation succeeds without errors",
+        "The second command deletes the first",
+        "It is a unique C command"
       ],
       correctAnswer: 1,
-      explanation: "The C compiler is very aggressive. If it sees you read a variable twice without writing anything in between, it might think the value is the same and not re-read it from RAM. `volatile` forces the compiler to re-read the value every single time, essential for interacting with hardware or threads."
+      explanation: "The && operator ensures the program runs only if gcc finishes with success (exit code 0)."
     }
   ]}
 />
 
-### Terminal Challenge: Investigating Memory 
+### Terminal Challenge: Environment Investigation
 
 <ProTerminal 
   challenges={[
     {
-      id: "xxd-dump-en",
-      title: "Seeing the Unseen",
-      description: "Salvatore mentioned a tool to look 'inside' executables. Which command would you use to see the hexadecimal content of `a.out`?",
-      commands: ["xxd a.out"],
-      expectedOutput: "00000000:",
-      hints: ["It starts with 'x' and performs a hex dump"],
-      explanation: "Great! `xxd` is fundamental for seeing the actual bytes of a binary.",
-      xpReward: 150
+        id: "check-bin-en",
+        title: "Binary Logic",
+        description: "If you compile with `gcc main.c`, what is the default executable filename?",
+        hints: ["It's the standard Linux binary name"],
+        explanation: "Correct! `a.out` is the historical name inherited from the first Unix versions.",
+        xpReward: 100,
+        expectedCommand: "a.out"
     },
     {
-      id: "nm-symbols-en",
-      title: "The Name List",
-      description: "Every function becomes a 'symbol'. Which command lists all symbols (function and variable names) in `a.out`?",
-      commands: ["nm a.out"],
-      expectedOutput: "0000000000001000 T main",
-      hints: ["Two-letter command, short for 'names'"],
-      explanation: "Exactly! `nm` lets you see which functions are defined in your code.",
-      xpReward: 200
+        id: "ls-l-details-en",
+        title: "See the Details",
+        description: "Which `ls` option would you use to see execution permissions and file timestamps?",
+        hints: ["Long format"],
+        explanation: "Perfect. `ls -l` is fundamental for every C programmer.",
+        xpReward: 150,
+        expectedCommand: "ls -l"
     },
     {
-      id: "objdump-header-en",
-      title: "The Header",
-      description: "Which command would you use to view the executable header and find its entry point?",
-      commands: ["objdump -f a.out"],
-      expectedOutput: "start address",
-      hints: ["Starts with 'obj'"],
-      explanation: "Perfect! `objdump -f` shows vital binary metadata.",
-      xpReward: 250
+        id: "echo-status-en",
+        title: "Exit Status",
+        description: "Which Linux shell variable contains the return value of the last executed program?",
+        hints: ["Starts with a dollar and a special character"],
+        explanation: "Exactly! `$?` lets you verify if your `return 0;` worked.",
+        xpReward: 200,
+        expectedCommand: "echo $?"
     }
-  ]}
+]}
 />
 
-See you in the next lesson!
-
-
+See you in the appendix for a journey inside the CPU!

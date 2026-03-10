@@ -138,9 +138,19 @@ export default function MicroRegisters() {
                         ))}
                     </div>
 
-                    <div className="mt-8 flex gap-4 text-[9px] uppercase font-bold tracking-widest text-zinc-600">
-                        <div className="flex items-center gap-1"><div className="w-2 h-2 rounded-full bg-orange-500 opacity-50"></div> CPU Cache</div>
-                        <div className="flex items-center gap-1"><div className="w-2 h-2 rounded-full bg-cyan-500 opacity-50"></div> Bus State</div>
+                    <div className="mt-8 grid grid-cols-4 sm:grid-cols-8 gap-2 w-full max-w-sm">
+                        {colors.slice(1).map((color, i) => (
+                            <div key={i} className="flex flex-col items-center gap-1">
+                                <div className={`w-6 h-6 rounded border border-white/10 ${color}`}></div>
+                                <span className="text-[8px] font-mono text-zinc-500">#{i + 1}</span>
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className="mt-6 p-3 rounded-lg bg-white/5 border border-white/5 text-center">
+                        <p className="text-[10px] text-zinc-500 uppercase tracking-tighter">
+                            {t('lesson.micro.hint', 'The emulator writes Register A into RAM starting at $0200 for Register X times.')}
+                        </p>
                     </div>
                 </div>
             </div>

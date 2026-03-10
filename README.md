@@ -2,7 +2,7 @@
 
 **An interactive, professional bilingual (IT/EN) platform to master C programming, inspired by the legendary lessons of Salvatore Sanfilippo.**
 
-[![Project Version](https://img.shields.io/badge/version-1.0.1-blue.svg)](file:///c:/Users/ClaudioDall'Ara/Desktop/c/temp_c_course/package.json)
+[![Project Version](https://img.shields.io/badge/version-1.0.2-blue.svg)](file:///c:/Users/ClaudioDall'Ara/Desktop/c/temp_c_course/package.json)
 [![License: GPL](https://img.shields.io/badge/License-GPL-yellow.svg)](https://opensource.org/licenses/GPL-3.0)
 
 ---
@@ -75,6 +75,13 @@ This project is licensed under the **GNU General Public License (GPL)**. The kno
 ---
 
 ## Changelog
+
+### v1.0.2 (2026-03-10)
+
+- **Curriculum Expansion**: Split Lesson 2 into two distinct parts: Base (C Fundamentals) and Appendix (Low-Level/Assembly Deep Dive).
+- **Interactive Low-Level Learning**: Added a dedicated lesson for 6502 microprocessor architecture, registers, and memory-mapped I/O.
+- **Enhanced Quizzes**: Redesigned lesson quizzes to be 100% specific to their respective content, following the 5+3+3 master formula.
+- **Educational Simulators**: Integrated `MicroRegisters` and `StackVisualizer` into the new appendix for better visualization of CPU/Memory interaction.
 
 ### v1.0.1 (2026-03-10)
 

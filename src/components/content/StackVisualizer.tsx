@@ -10,12 +10,32 @@ interface StackFrame {
     isReturning?: boolean;
 }
 
-export default function StackVisualizer() {
+interface StackStep {
+    action: string;
+    label: string;
+    frame?: {
+        id: string;
+        label: string;
+        variables: { name: string; value: string; address: string }[];
+    };
+    update?: {
+        id: string;
+        variables: { name: string; value: string; address: string }[];
+    };
+    pop?: boolean;
+}
+
+interface StackVisualizerProps {
+    title?: string;
+    customSteps?: StackStep[];
+}
+
+export default function StackVisualizer({ title, customSteps }: StackVisualizerProps) {
     const { t } = useTranslation();
     const [stack, setStack] = useState<StackFrame[]>([]);
     const [step, setStep] = useState(0);
 
-    const steps = [
+    const defaultSteps: StackStep[] = [
         {
             action: 'push_main',
             label: 'Chiamo main()',
@@ -59,6 +79,8 @@ export default function StackVisualizer() {
         }
     ];
 
+    const steps = customSteps || defaultSteps;
+
     const nextStep = () => {
         if (step >= steps.length) return;
 
@@ -84,7 +106,7 @@ export default function StackVisualizer() {
             <div className="bg-white/5 px-6 py-4 border-b border-white/10 flex justify-between items-center">
                 <div className="flex items-center gap-2">
                     <Layers size={18} className="text-[var(--color-brand-primary)]" />
-                    <h4 className="text-sm font-bold uppercase tracking-widest text-white">{t('lesson.stack.title', 'Stack Memory Visualizer')}</h4>
+                    <h4 className="text-sm font-bold uppercase tracking-widest text-white">{title || t('lesson.stack.title', 'Stack Memory Visualizer')}</h4>
                 </div>
                 <div className="flex gap-2">
                     <button
