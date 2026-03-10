@@ -26,3 +26,7 @@ node_modules/
 dist/
 .env
 venv/
+
+# Audio and Transcriptions
+*.mp3
+transcriptions/raw/
