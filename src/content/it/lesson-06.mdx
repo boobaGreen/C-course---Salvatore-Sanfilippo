@@ -118,11 +118,47 @@ Una funzione può chiamare se stessa. È un modo elegante per contare o risolver
       correctAnswer: 2,
       explanation: "Il goto può creare un flusso 'intrecciato' (spaghetti code) che rompe la struttura logica del programma."
     },
+<Quiz 
+  title="Quiz Standard" 
+  questions={[
     {
-      question: "Cosa si intende per 'Cortocircuito' (short-circuit) negli operatori logici && e ||?",
+      question: "Cosa succede se dichiari una variabile con lo stesso nome di una esterna dentro un blocco {}?",
+      options: [
+        "Il compilatore dà errore",
+        "La variabile esterna viene cancellata",
+        "La variabile interna 'nasconde' quella esterna finché il blocco è aperto",
+        "Le due variabili si sommano"
+      ],
+      correctAnswer: 2,
+      explanation: "Questo fenomeno si chiama 'shadowing'. La variabile più interna ha la precedenza nello scope locale."
+    },
+    {
+      question: "In C, cosa è considerato 'Falso' in una condizione if?",
+      options: [
+        "Solo la parola chiave false",
+        "Qualsiasi numero negativo",
+        "Esattamente il valore 0",
+        "Solo il carattere '\\0'"
+      ],
+      correctAnswer: 2,
+      explanation: "In C non esiste un tipo booleano nativo classico; lo 0 è falso, tutto il resto è vero."
+    },
+    {
+      question: "Perché l'uso del `goto` è solitamente sconsigliato?",
+      options: [
+        "Perché è lento",
+        "Perché consuma troppa RAM",
+        "Perché rende il flusso del programma difficile da prevedere e debuggare",
+        "Perché non funziona sui sistemi moderni"
+      ],
+      correctAnswer: 2,
+      explanation: "Il `goto` può creare un flusso 'intrecciato' (spaghetti code) che rompe la struttura logica del programma."
+    },
+    {
+      question: "Cosa si intende per 'Cortocircuito' (short-circuit) negli operatori logici `&&` e `||`?",
       options: [
         "Che il processore si surriscalda",
-        "Che se il risultato è già determinato dal primo termine (es. Falso per &&), il secondo termine non viene nemmeno valutato",
+        "Che se il risultato è già determinato dal primo termine (es. Falso per `&&`), il secondo termine non viene nemmeno valutato",
         "Che il codice viene saltato casualmente",
         "È un errore di memoria"
       ],
@@ -130,15 +166,15 @@ Una funzione può chiamare se stessa. È un modo elegante per contare o risolver
       explanation: "Se hai `(0 && funzione())`, la funzione non verrà mai chiamata perché il risultato dell'AND sarà comunque 0. È fondamentale per la performance e per evitare crash (es. controllare se un puntatore è nullo prima di usarlo)."
     },
     {
-      question: "Qual è la sintassi corretta dell'operatore ternario (l'if abbreviato)?",
+      question: "Qual è la sintassi corretta dell'operatore ternario (l'`if` abbreviato)?",
       options: [
-        "condizione ? vero : falso",
-        "if condizione then vero else falso",
-        "condizione : vero ? falso",
-        "vero ? falso : condizione"
+        "`condizione ? vero : falso`",
+        "`if condizione then vero else falso`",
+        "`condizione : vero ? falso`",
+        "`vero ? falso : condizione`"
       ],
       correctAnswer: 0,
-      explanation: "L'operatore ternario `? :` permette di scrivere piccoli blocchi if-else in una sola riga, assegnando un valore in base a una condizione."
+      explanation: "L'operatore ternario `? :` permette di scrivere piccoli blocchi `if-else` in una sola riga, assegnando un valore in base a una condizione."
     }
   ]}
 />
@@ -207,13 +243,13 @@ Una funzione può chiamare se stessa. È un modo elegante per contare o risolver
       id: 3,
       question: "In presenza di `if` annidati senza parentesi graffe, a quale `if` si riferisce un `else`?",
       options: [
-        "Al primo if (quello più esterno)",
-        "Al più vicino if precedente che non ha ancora un else",
+        "Al primo `if` (quello più esterno)",
+        "Al più vicino `if` precedente che non ha ancora un `else`",
         "A nessuno, dà errore",
         "A entrambi contemporaneamente"
       ],
       correctAnswer: 1,
-      explanation: "Questo è il problema del 'Dangling Else'. Senza graffe, l'else si lega sempre all'if più vicino. È una fonte comune di bug logici, per questo Salvatore consiglia di usare sempre le graffe!"
+      explanation: "Questo è il problema del 'Dangling Else'. Senza graffe, l'`else` si lega sempre all'`if` più vicino. È una fonte comune di bug logici, per questo Salvatore consiglia di usare sempre le graffe!"
     }
   ]}
 />

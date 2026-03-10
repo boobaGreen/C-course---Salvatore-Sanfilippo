@@ -167,12 +167,12 @@ Prova a trasformare questo ciclo `while` in un ciclo `for`.
   questions={[
     {
       question: "Quale di questi cicli garantisce ALMENO un'esecuzione del codice al suo interno?",
-      options: ["for", "while", "do-while", "nessuno"],
+      options: ["`for`", "`while`", "`do-while`", "nessuno"],
       correctAnswer: 2,
-      explanation: "Il ciclo do-while controlla la condizione alla FINE, quindi esegue il corpo almeno una volta."
+      explanation: "Il ciclo `do-while` controlla la condizione alla FINE, quindi esegue il corpo almeno una volta."
     },
     {
-      question: "Cosa succede se dimentichi il 'break' in un case dello switch?",
+      question: "Cosa succede se dimentichi il `'break'` in un case dello `switch`?",
       options: [
         "Viene generato un errore di compilazione",
         "L'esecuzione si ferma",
@@ -180,7 +180,7 @@ Prova a trasformare questo ciclo `while` in un ciclo `for`.
         "Il computer si riavvia"
       ],
       correctAnswer: 2,
-      explanation: "Senza il break, il C continua a eseguire le istruzioni del caso successivo finché non ne incontra uno o finisce lo switch."
+      explanation: "Senza il `break`, il C continua a eseguire le istruzioni del caso successivo finché non ne incontra uno o finisce lo `switch`."
     },
     {
       question: "Perché la ricorsione è utile?",
@@ -194,7 +194,7 @@ Prova a trasformare questo ciclo `while` in un ciclo `for`.
       explanation: "La ricorsione è ideale per strutture dati ricorsive (come alberi) e per l'approccio 'divide et impera'."
     },
     {
-      question: "Cosa fa l'istruzione 'continue' dentro un ciclo?",
+      question: "Cosa fa l'istruzione `'continue'` dentro un ciclo?",
       options: [
         "Ferma il programma",
         "Salta il resto del codice nel corpo del ciclo per questo giro e passa alla prossima iterazione",
@@ -202,7 +202,7 @@ Prova a trasformare questo ciclo `while` in un ciclo `for`.
         "Ricomincia il programma da capo"
       ],
       correctAnswer: 1,
-      explanation: "A differenza di break, continue non ferma il ciclo, ma passa solo al 'giro' successivo."
+      explanation: "A differenza di `break`, `continue` non ferma il ciclo, ma passa solo al 'giro' successivo."
     },
     {
       question: "Perché Salvatore dice che `do { ... } while(0)` è utile nelle macro?",
@@ -300,7 +300,7 @@ Prova a trasformare questo ciclo `while` in un ciclo `for`.
         id: "grep-while",
         simulatedSuccessOutput: `main.c:    while (1) {`,
         title: "Caccia ai Pattern",
-        description: "Salvatore analizza spesso il codice per trovare pattern. Quale comando useresti per cercare la parola 'while' in tutti i file .c della cartella?",
+        description: "Salvatore analizza spesso il codice per trovare pattern. Quale comando useresti per cercare la parola `'while'` in tutti i file `.c` della cartella?",
         commands: [],
         expectedOutput: "",
         hints: [
@@ -310,6 +310,7 @@ Prova a trasformare questo ciclo `while` in un ciclo `for`.
         xpReward: 150,
         expectedCommand: "grep \"while\" *.c"
     },
+
     {
         id: "time-perf",
         simulatedSuccessOutput: `real\t0m0.002s\nuser\t0m0.001s\nsys\t0m0.001s`,

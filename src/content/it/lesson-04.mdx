@@ -107,7 +107,7 @@ Prova a sperimentare con `sizeof` e le costanti di `limits.h` come `INT_MIN` e `
   title="Quiz Standard" 
   questions={[
     {
-      question: "Cosa ritorna l'operatore sizeof?",
+      question: "Cosa ritorna l'operatore `sizeof`?",
       options: [
         "Il valore massimo di una variabile",
         "La dimensione in bit di un tipo",
@@ -115,22 +115,22 @@ Prova a sperimentare con `sizeof` e le costanti di `limits.h` come `INT_MIN` e `
         "L'indirizzo di memoria della variabile"
       ],
       correctAnswer: 2,
-      explanation: "sizeof ritorna sempre il numero di byte (gruppi di 8 bit) occupati in memoria."
+      explanation: "`sizeof` ritorna sempre il numero di byte (gruppi di 8 bit) occupati in memoria."
     },
     {
-      question: "Quale file header contiene le costanti INT_MIN e INT_MAX?",
-      options: ["stdio.h", "limits.h", "stdint.h", "stdlib.h"],
+      question: "Quale file header contiene le costanti `INT_MIN` e `INT_MAX`?",
+      options: ["`stdio.h`", "`limits.h`", "`stdint.h`", "`stdlib.h`"],
       correctAnswer: 1,
-      explanation: "limits.h definisce i limiti specifici dell'architettura per i tipi interi standard."
+      explanation: "`limits.h` definisce i limiti specifici dell'architettura per i tipi interi standard."
     },
     {
-      question: "In un sistema a 64 bit, quanto è grande solitamente un 'long'?",
+      question: "In un sistema a 64 bit, quanto è grande solitamente un `long`?",
       options: ["2 byte", "4 byte", "8 byte", "16 byte"],
       correctAnswer: 2,
-      explanation: "Sui sistemi moderni a 64 bit, il tipo long solitamente segue la dimensione della parola del processore, ovvero 8 byte."
+      explanation: "Sui sistemi moderni a 64 bit, il tipo `long` solitamente segue la dimensione della parola del processore, ovvero 8 byte."
     },
     {
-      question: "Cosa succede se sottrai 1 da una variabile unsigned int che vale 0?",
+      question: "Cosa succede se sottrai 1 da una variabile `unsigned int` che vale 0?",
       options: [
         "Il programma va in crash",
         "La variabile diventa -1",
@@ -138,10 +138,10 @@ Prova a sperimentare con `sizeof` e le costanti di `limits.h` come `INT_MIN` e `
         "Resta 0"
       ],
       correctAnswer: 2,
-      explanation: "I tipi unsigned non possono essere negativi. Sottraendo 1 dallo zero, i bit 'ruotano' verso l'alto, portando la variabile al suo valore massimo."
+      explanation: "I tipi `unsigned` non possono essere negativi. Sottraendo 1 dallo zero, i bit 'ruotano' verso l'alto, portando la variabile al suo valore massimo."
     },
     {
-      question: "In C, il tipo 'char' può essere usato per memorizzare piccoli numeri interi?",
+      question: "In C, il tipo `char` può essere usato per memorizzare piccoli numeri interi?",
       options: [
         "No, serve solo per le lettere",
         "Sì, è a tutti gli effetti un intero a 8 bit",
@@ -149,14 +149,16 @@ Prova a sperimentare con `sizeof` e le costanti di `limits.h` come `INT_MIN` e `
         "Solo se convertito in float"
       ],
       correctAnswer: 1,
-      explanation: "Un char è un intero a 8 bit. Può contenere valori da -128 a 127 (signed) o 0-255 (unsigned)."
+      explanation: "Un `char` è un intero a 8 bit. Può contenere valori da -128 a 127 (`signed`) o 0-255 (`unsigned`)."
     }
   ]}
 />
 
 ---
 
-<KeyConcepts title="Concetti Avanzati"
+<KeyConcepts 
+  title="Concetti Avanzati"
+
   concepts={[
     {
       title: "sizeof",

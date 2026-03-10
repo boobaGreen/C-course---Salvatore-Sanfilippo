@@ -161,7 +161,7 @@ I **Registri** sono piccole "variabili" dentro la CPU, velocissime. La **RAM** √
   questions={[
     {
       id: 1,
-      question: "Cosa significa il 'void' tra le parentesi di int main(void)?",
+      question: "Cosa significa il `'void'` tra le parentesi di `int main(void)`?",
       options: [
         "Che la funzione non restituisce nulla",
         "Che la funzione non accetta parametri",
@@ -169,7 +169,7 @@ I **Registri** sono piccole "variabili" dentro la CPU, velocissime. La **RAM** √
         "Che la funzione √® un errore"
       ],
       correctAnswer: 1,
-      explanation: "L'uso di 'void' indica esplicitamente che la funzione main non riceve argomenti."
+      explanation: "L'uso di `'void'` indica esplicitamente che la funzione `main` non riceve argomenti."
     },
     {
       id: 2,
@@ -187,13 +187,13 @@ I **Registri** sono piccole "variabili" dentro la CPU, velocissime. La **RAM** √
       id: 3,
       question: "Quale flag del compilatore abilita tutti i warning comuni?",
       options: [
-        "-Werror",
-        "-O3",
-        "-Wall",
-        "-all"
+        "`-Werror`",
+        "`-O3`",
+        "`-Wall`",
+        "`-all`"
       ],
       correctAnswer: 2,
-      explanation: "-Wall (Warn All) √® fondamentale per individuare potenziali bug prima di eseguire il programma."
+      explanation: "`-Wall` (Warn All) √® fondamentale per individuare potenziali bug prima di eseguire il programma."
     },
     {
       id: 4,
@@ -209,7 +209,7 @@ I **Registri** sono piccole "variabili" dentro la CPU, velocissime. La **RAM** √
     },
     {
       id: 5,
-      question: "Perch√© inizializziamo le variabili (es. int a = 0)?",
+      question: "Perch√© inizializziamo le variabili (es. `int a = 0;`)?",
       options: [
         "Perch√© il C lo richiede sempre",
         "Per evitare che la variabile contenga 'immondizia' (vecchi valori rimasti nello stack)",
@@ -224,8 +224,6 @@ I **Registri** sono piccole "variabili" dentro la CPU, velocissime. La **RAM** √
 
 ---
 
-## Concetti Avanzati
-
 <KeyConcepts 
   title="Concetti Avanzati"
   concepts={[
@@ -233,6 +231,7 @@ I **Registri** sono piccole "variabili" dentro la CPU, velocissime. La **RAM** √
         title: "Tipizzazione Esplicita",
         description: "In C ogni variabile ha un tipo fisso. Questo garantisce sicurezza e controllo totale sulla memoria."
     },
+
     {
         title: "Stack Frames",
         description: "La memoria delle funzioni √® organizzata come una pila: l'ultima chiamata √® la prima ad essere rimossa."
@@ -288,6 +287,7 @@ I **Registri** sono piccole "variabili" dentro la CPU, velocissime. La **RAM** √
       correctAnswer: 1,
       explanation: "Il compilatore C √® molto aggressivo. Se vede che leggi una variabile due volte senza scriverci nulla in mezzo, potrebbe pensare che il valore sia lo stesso e non rileggerlo dalla RAM. `volatile` forza il compilatore a rileggere il valore ogni singola volta, essenziale per interagire con l'hardware o con i thread."
     }
+
   ]}
 />
 

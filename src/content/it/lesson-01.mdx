@@ -196,62 +196,55 @@ Il prototipo serve a dire al compilatore: _"Esiste una funzione chiamata `printf
   questions={[
     {
       id: 1,
-      question:
-        "Cosa succede quando compili con il flag -O2 se il codice contiene un semplice printf con \\n?",
+      question: "Cosa succede quando compili con il flag `-O2` se il codice contiene un semplice `printf` con `\\n`?",
       options: [
         "Viene generato un errore di compilazione",
-        "Il compilatore sostituisce printf con puts per ottimizzare le performance",
+        "Il compilatore sostituisce `printf` con `puts` per ottimizzare le performance",
         "La stringa non viene stampata",
         "Il programma diventa più lento",
       ],
       correctAnswer: 1,
-      explanation:
-        "I compilatori moderni come GCC o Clang riconoscono pattern semplici. puts è più efficiente di printf per stringhe statiche semplici.",
+      explanation: "I compilatori moderni come GCC o Clang riconoscono pattern semplici. `puts` è più efficiente di `printf` per stringhe statiche semplici.",
     },
     {
       id: 2,
-      question: "A cosa serve una direttiva #include <stdio.h>?",
+      question: "A cosa serve una direttiva `#include <stdio.h>`?",
       options: [
-        "A definire la funzione main",
+        "A definire la funzione `main`",
         "A importare i file binari della libreria standard",
         "A fornire al compilatore i prototipi delle funzioni di Input/Output",
         "A scrivere il codice Assembly per noi",
       ],
       correctAnswer: 2,
-      explanation:
-        "La direttiva informa il preprocessore di includere l'header che contiene i prototipi (firme) delle funzioni.",
+      explanation: "La direttiva informa il preprocessore di includere l'header che contiene i prototipi (firme) delle funzioni.",
     },
     {
       id: 3,
-      question: "Qual è la differenza principale tra printf e puts?",
+      question: "Qual è la differenza principale tra `printf` e `puts`?",
       options: [
-        "puts aggiunge automaticamente un ritorno a capo (\\n), printf no",
-        "printf è più veloce di puts",
-        "Solo printf può stampare stringhe",
+        "`puts` aggiunge automaticamente un ritorno a capo (`\\n`), `printf` no",
+        "`printf` è più veloce di `puts`",
+        "Solo `printf` può stampare stringhe",
         "Nessuna, sono esattamente uguali",
       ],
       correctAnswer: 0,
-      explanation:
-        "puts stampa la stringa e aggiunge un newline alla fine. printf stampa esattamente ciò che gli viene passato.",
+      explanation: "`puts` stampa la stringa e aggiunge un newline alla fine. `printf` stampa esattamente ciò che gli viene passato.",
     },
     {
       id: 4,
-      question:
-        'Perché il compilatore trasforma printf("Hello\\n") in puts("Hello") ma NON trasforma printf("Voto: % d\\n", 10) in puts?',
+      question: "Perché il compilatore trasforma `printf(\"Hello\\n\")` in `puts(\"Hello\")` ma NON trasforma `printf(\"Voto: %d\\n\", 10)` in `puts`?",
       options: [
-        "Perché puts non supporta i numeri",
-        "Perché puts non supporta le stringhe di formato (come %d)",
-        "Perché printf è più moderno",
+        "Perché `puts` non supporta i numeri",
+        "Perché `puts` non supporta le stringhe di formato (come `%d`)",
+        "Perché `printf` è più moderno",
         "Perché non c'è spazio nell'eseguibile",
       ],
       correctAnswer: 1,
-      explanation:
-        "puts stampa solo stringhe statiche. printf ha un intero motore di parsing per gestire i placeholder (%d, %s, etc.).",
+      explanation: "`puts` stampa solo stringhe statiche. `printf` ha un intero motore di parsing per gestire i placeholder (`%d`, `%s`, etc.).",
     },
     {
       id: 5,
-      question:
-        "Cosa succede se dimentichi il punto e virgola alla fine di un prototipo in un file .h?",
+      question: "Cosa succede se dimentichi il punto e virgola alla fine di un prototipo in un file `.h`?",
       options: [
         "Il programma crasha all'esecuzione",
         "Il preprocessore ignora il problema",
@@ -259,11 +252,11 @@ Il prototipo serve a dire al compilatore: _"Esiste una funzione chiamata `printf
         "Il computer si spegne",
       ],
       correctAnswer: 2,
-      explanation:
-        "Il punto e virgola è obbligatorio nei prototipi per separare le dichiarazioni.",
+      explanation: "Il punto e virgola è obbligatorio nei prototipi per separare le dichiarazioni.",
     },
   ]}
 />
+
 
 ---
 
@@ -291,18 +284,17 @@ Il prototipo serve a dire al compilatore: _"Esiste una funzione chiamata `printf
   questions={[
     {
       id: 1,
-      question:
-        "Supponiamo di ricevere una stringa dall'utente e volerla stampare. Perché `puts(buffer)` è più sicuro di `printf(buffer)`?",
+      question: "Supponiamo di ricevere una stringa dall'utente e volerla stampare. Perché `puts(buffer)` è più sicuro di `printf(buffer)`?",
       options: [
         "puts è più veloce",
-        "printf interpreterebbe eventuali simboli '%' nella stringa come segnaposto, cercando di leggere dati casuali dallo stack (Format String Attack)",
+        "`printf` interpreterebbe eventuali simboli `%` nella stringa come segnaposto, cercando di leggere dati casuali dallo stack (Format String Attack)",
         "puts cripta la stringa automaticamente",
         "Non c'è differenza di sicurezza",
       ],
       correctAnswer: 1,
-      explanation:
-        "Questo è un classico attacco di sicurezza. Se l'utente inserisce '%s%s%s', printf cercherà di leggere stringhe dall'indirizzo di memoria puntato da valori casuali sullo stack, causando un crash o un furto di dati. puts invece stampa la stringa 'così com'è', ignorando i simboli speciali.",
+      explanation: "Questo è un classico attacco di sicurezza. Se l'utente inserisce `%s%s%s`, `printf` cercherà di leggere stringhe dall'indirizzo di memoria puntato da valori casuali sullo stack, causando un crash o un furto di dati. `puts` invece stampa la stringa 'così com'è', ignorando i simboli speciali.",
     },
+
     {
       id: 2,
       question: "Qual è il ruolo del compilatore C rispetto all'Assembly?",
@@ -340,18 +332,17 @@ Il prototipo serve a dire al compilatore: _"Esiste una funzione chiamata `printf
       id: "opt-trap",
         simulatedSuccessOutput: `        call    puts@PLT`,
       title: "L'Ottimizzazione Subdola",
-      description:
-        "Hai compilato un programma che stampa 'Hello World' con `printf`. Se guardi l'assembly generato con `-O2`, noterai che il compilatore ha sostituito la chiamata originale con una funzione più veloce per gestire stringhe costanti. Usa `grep` per cercare la riga che chiama una funzione (contiene 'call') all'interno del file assembly `hello.s`.",
+      description: "Hai compilato un programma che stampa 'Hello World' con `printf`. Se guardi l'assembly generato con `-O2`, noterai che il compilatore ha sostituito la chiamata originale con una funzione più veloce per gestire stringhe costanti.\nUsa `grep` per cercare la riga che chiama una funzione (contiene `'call'`) all'interno del file assembly `hello.s`.",
       commands: [],
       expectedOutput: "",
       hints: [
         "Il compilatore 'declassa' la funzione se non ci sono formattazioni",
       ],
-      explanation:
-        "Esatto! Il compilatore sostituisce printf con puts per stringhe statiche semplici, poiché è molto più efficiente.",
+      explanation: "Esatto! Il compilatore sostituisce `printf` con `puts` per stringhe statiche semplici, poiché è molto più efficiente.",
       xpReward: 150,
       expectedCommand: "grep 'call' hello.s",
     },
+
     {
       id: "elf-check",
         simulatedSuccessOutput: `a.out: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=..., for GNU/Linux 3.2.0, not stripped`,
