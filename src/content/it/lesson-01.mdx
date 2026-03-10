@@ -9,7 +9,6 @@ import ComparisonTable from "../../components/content/ComparisonTable";
 import AssemblyExplorer from "../../components/content/AssemblyExplorer";
 import TerminalSimulation from "../../components/content/TerminalSimulation";
 
-
 # Lezione 1: Introduzione al C e "Hello World"
 
 <VideoEmbed videoId="HjXBXBgfKyk" title="Introduzione al C - antirez" />
@@ -25,20 +24,24 @@ Benvenuti! In questa prima lezione inauguriamo il corso sul linguaggio C. Questo
 
 L'approccio sarà **estremamente operativo**: impareremo a programmare, programmando. Le spiegazioni teoriche arriveranno come "effetto collaterale" della scrittura del codice.
 
-<KeyConcepts title="Cosa impareremo oggi"
+<KeyConcepts
+  title="Cosa impareremo oggi"
   concepts={[
     {
       title: "Hello World",
-      description: "Scrivere il primo programma e capire il processo di compilazione."
+      description:
+        "Scrivere il primo programma e capire il processo di compilazione.",
     },
     {
       title: "Dietro le Quinte",
-      description: "Esplorare cosa fa il compilatore (anche a livello di Assembly) e scoprire la storia del C."
+      description:
+        "Esplorare cosa fa il compilatore (anche a livello di Assembly) e scoprire la storia del C.",
     },
     {
       title: "Costrutti Base",
-      description: "Comprendere le direttive del preprocessore (#include) e i prototipi di funzione."
-    }
+      description:
+        "Comprendere le direttive del preprocessore (#include) e i prototipi di funzione.",
+    },
   ]}
 />
 
@@ -196,7 +199,8 @@ Il prototipo serve a dire al compilatore: _"Esiste una funzione chiamata `printf
   questions={[
     {
       id: 1,
-      question: "Cosa succede quando compili con il flag `-O2` se il codice contiene un semplice `printf` con `\\n`?",
+      question:
+        "Cosa succede quando compili con il flag `-O2` se il codice contiene un semplice `printf` con `\\n`?",
       options: [
         "Viene generato un errore di compilazione",
         "Il compilatore sostituisce `printf` con `puts` per ottimizzare le performance",
@@ -204,7 +208,8 @@ Il prototipo serve a dire al compilatore: _"Esiste una funzione chiamata `printf
         "Il programma diventa più lento",
       ],
       correctAnswer: 1,
-      explanation: "I compilatori moderni come GCC o Clang riconoscono pattern semplici. `puts` è più efficiente di `printf` per stringhe statiche semplici.",
+      explanation:
+        "I compilatori moderni come GCC o Clang riconoscono pattern semplici. `puts` è più efficiente di `printf` per stringhe statiche semplici.",
     },
     {
       id: 2,
@@ -216,7 +221,8 @@ Il prototipo serve a dire al compilatore: _"Esiste una funzione chiamata `printf
         "A scrivere il codice Assembly per noi",
       ],
       correctAnswer: 2,
-      explanation: "La direttiva informa il preprocessore di includere l'header che contiene i prototipi (firme) delle funzioni.",
+      explanation:
+        "La direttiva informa il preprocessore di includere l'header che contiene i prototipi (firme) delle funzioni.",
     },
     {
       id: 3,
@@ -228,11 +234,13 @@ Il prototipo serve a dire al compilatore: _"Esiste una funzione chiamata `printf
         "Nessuna, sono esattamente uguali",
       ],
       correctAnswer: 0,
-      explanation: "`puts` stampa la stringa e aggiunge un newline alla fine. `printf` stampa esattamente ciò che gli viene passato.",
+      explanation:
+        "`puts` stampa la stringa e aggiunge un newline alla fine. `printf` stampa esattamente ciò che gli viene passato.",
     },
     {
       id: 4,
-      question: "Perché il compilatore trasforma `printf(\"Hello\\n\")` in `puts(\"Hello\")` ma NON trasforma `printf(\"Voto: %d\\n\", 10)` in `puts`?",
+      question:
+        'Perché il compilatore trasforma `printf("Hello\\n")` in `puts("Hello")` ma NON trasforma `printf("Voto: %d\\n", 10)` in `puts`?',
       options: [
         "Perché `puts` non supporta i numeri",
         "Perché `puts` non supporta le stringhe di formato (come `%d`)",
@@ -240,11 +248,13 @@ Il prototipo serve a dire al compilatore: _"Esiste una funzione chiamata `printf
         "Perché non c'è spazio nell'eseguibile",
       ],
       correctAnswer: 1,
-      explanation: "`puts` stampa solo stringhe statiche. `printf` ha un intero motore di parsing per gestire i placeholder (`%d`, `%s`, etc.).",
+      explanation:
+        "`puts` stampa solo stringhe statiche. `printf` ha un intero motore di parsing per gestire i placeholder (`%d`, `%s`, etc.).",
     },
     {
       id: 5,
-      question: "Cosa succede se dimentichi il punto e virgola alla fine di un prototipo in un file `.h`?",
+      question:
+        "Cosa succede se dimentichi il punto e virgola alla fine di un prototipo in un file `.h`?",
       options: [
         "Il programma crasha all'esecuzione",
         "Il preprocessore ignora il problema",
@@ -252,33 +262,35 @@ Il prototipo serve a dire al compilatore: _"Esiste una funzione chiamata `printf
         "Il computer si spegne",
       ],
       correctAnswer: 2,
-      explanation: "Il punto e virgola è obbligatorio nei prototipi per separare le dichiarazioni.",
+      explanation:
+        "Il punto e virgola è obbligatorio nei prototipi per separare le dichiarazioni.",
     },
   ]}
 />
-
 
 ---
 
-<KeyConcepts title="In Breve"
+<KeyConcepts
+  title="In Breve"
   concepts={[
     {
       title: "Compilato, non eseguito",
-      description: "Il C non è eseguito, ma compilato. Il compilatore sa ottimizzare il codice in modo intelligente (es. trasformando printf in puts)."
+      description:
+        "Il C non è eseguito, ma compilato. Il compilatore sa ottimizzare il codice in modo intelligente (es. trasformando printf in puts).",
     },
     {
       title: "Il Preprocessore",
-      description: "Prepara il file prima della compilazione vera e propria."
+      description: "Prepara il file prima della compilazione vera e propria.",
     },
     {
       title: "File Header (.h)",
-      description: "Contengono i prototipi (firme) delle funzioni."
-    }
+      description: "Contengono i prototipi (firme) delle funzioni.",
+    },
   ]}
 />
 
-
 ### Pro Challenge
+
 <Quiz
   title="Pro Challenge: Final Quiz"
   questions={[
@@ -321,12 +333,14 @@ Il prototipo serve a dire al compilatore: _"Esiste una funzione chiamata `printf
       explanation:
         "Il linking statico copia il codice delle funzioni di libreria (come printf) direttamente nel tuo binario. Questo lo rende indipendente dalle versioni delle librerie installate sul sistema, ma ne aumenta notevolmente la dimensione.",
     },
-  ]}
+
+]}
 />
 
-### Terminal Challenge: The Optimization Trap 
+### Terminal Challenge: The Optimization Trap
 
 <ProTerminal
+  lessonSlug="lesson-01"
   challenges={[
     {
       id: "opt-trap",
@@ -371,9 +385,8 @@ Il prototipo serve a dire al compilatore: _"Esiste una funzione chiamata `printf
       xpReward: 250,
       expectedCommand: "strip a.out",
     },
-  ]}
+
+]}
 />
 
 Ci vediamo alla prossima lezione!
-
-

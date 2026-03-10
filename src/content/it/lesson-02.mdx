@@ -1,13 +1,13 @@
-﻿import VideoEmbed from '../../components/content/VideoEmbed';
-import Callout from '../../components/content/Callout';
-import KeyConcepts from '../../components/content/KeyConcepts';
-import CodeEditor from '../../components/exercises/CodeEditor';
-import Quiz from '../../components/exercises/Quiz';
-import ProTerminal from '../../components/content/ProTerminal';
-import Infographic from '../../components/content/Infographic';
-import ComparisonTable from '../../components/content/ComparisonTable';
-import StackVisualizer from '../../components/content/StackVisualizer';
-import MicroRegisters from '../../components/content/MicroRegisters';
+﻿import VideoEmbed from "../../components/content/VideoEmbed";
+import Callout from "../../components/content/Callout";
+import KeyConcepts from "../../components/content/KeyConcepts";
+import CodeEditor from "../../components/exercises/CodeEditor";
+import Quiz from "../../components/exercises/Quiz";
+import ProTerminal from "../../components/content/ProTerminal";
+import Infographic from "../../components/content/Infographic";
+import ComparisonTable from "../../components/content/ComparisonTable";
+import StackVisualizer from "../../components/content/StackVisualizer";
+import MicroRegisters from "../../components/content/MicroRegisters";
 
 # Lezione 2: Variabili, Funzioni e Memoria
 
@@ -20,26 +20,32 @@ Benvenuti alla seconda lezione! Oggi andremo a fondo nella struttura di un progr
 Ogni programma C inizia spesso con delle direttive al preprocessore. La più comune è `#include <stdio.h>`.
 
 <Callout type="info" title="Standard I/O">
-`stdio.h` sta per **Standard Input/Output**. Contiene le definizioni di funzioni fondamentali come `printf`. Senza questo include, il compilatore non saprebbe come gestire l'output a video.
+  `stdio.h` sta per **Standard Input/Output**. Contiene le definizioni di
+  funzioni fondamentali come `printf`. Senza questo include, il compilatore non
+  saprebbe come gestire l'output a video.
 </Callout>
 
 ### Il Compilatore ti aiuta: -Wall e -Wextra
 
 Dato che il C ti lascia molta libertà (anche quella di sbagliare), è facile commettere errori logici che non bloccano la compilazione ma causano bug a runtime. Per questo motivo, Salvatore consiglia di usare sempre dei **flag** (opzioni) durante la compilazione per attivare gli avvisi:
 
-- `-Wall`: Sta per **Warn All**. Nonostante il nome, abilita una vasta collezione di avvisi *comuni* e fondamentali.
+- `-Wall`: Sta per **Warn All**. Nonostante il nome, abilita una vasta collezione di avvisi _comuni_ e fondamentali.
 - `-Wextra`: Abilita ancora più avvisi per casi particolari e sottili che `-Wall` non copre.
 
 <Callout type="pro" title="Massima Sicurezza">
-Salvatore li usa spesso entrambi: `gcc -Wall -Wextra file.c`. Se il compilatore "si lamenta", non ignorarlo: ti sta segnalando un potenziale bug prima ancora che tu esegua il programma.
+  Salvatore li usa spesso entrambi: `gcc -Wall -Wextra file.c`. Se il
+  compilatore "si lamenta", non ignorarlo: ti sta segnalando un potenziale bug
+  prima ancora che tu esegua il programma.
 </Callout>
 
-
 ### La Funzione `main` e i Vincoli del C
-La funzione `main` è il cuore del programma. È il punto di ingresso (entry point) da cui il sistema operativo inizia l'esecuzione. In C, **tutto il codice eseguibile deve trovarsi all'interno di una funzione**. 
+
+La funzione `main` è il cuore del programma. È il punto di ingresso (entry point) da cui il sistema operativo inizia l'esecuzione. In C, **tutto il codice eseguibile deve trovarsi all'interno di una funzione**.
 
 <Callout type="warning" title="Niente Codice 'Volante'">
-A differenza di Python o Bash, non puoi scrivere una `printf` direttamente all'inizio del file. Se provi a farlo, il compilatore ti darà un errore del tipo `expected declaration or statement`.
+  A differenza di Python o Bash, non puoi scrivere una `printf` direttamente
+  all'inizio del file. Se provi a farlo, il compilatore ti darà un errore del
+  tipo `expected declaration or statement`.
 </Callout>
 
 ```c
@@ -104,20 +110,22 @@ printf("Ciao %s, il risultato è %d\n", "User", 30);
 //      [FORMAT]           [ARG 1]     [ARG 2]
 ```
 
-<ComparisonTable 
+<ComparisonTable
   title="Corrispondenza Parametri"
   headers={["Segnaposto", "Tipo di Dato", "Esempio Argomento"]}
   rows={[
     ["%d", "Intero (int)", "30, -5, sum(10, 20)"],
-    ["%s", "Stringa (testo)", "\"Ciao\", \"User\""],
-    ["%f", "Numero con virgola (float)", "3.14"]
+    ["%s", "Stringa (testo)", '"Ciao", "User"'],
+    ["%f", "Numero con virgola (float)", "3.14"],
   ]}
 />
 
 <Callout type="danger" title="Attenzione: Undefined Behavior">
-  Se dici alla `printf` che stamperai due interi (`%d %d`) ma gliene passi solo uno, il C non si fermerà! Leggerà "immondizia" dalla memoria o andrà in crash. Questo è il primo assaggio della cosiddetta **Undefined Behavior** (Comportamento Indefinito).
+  Se dici alla `printf` che stamperai due interi (`%d %d`) ma gliene passi solo
+  uno, il C non si fermerà! Leggerà "immondizia" dalla memoria o andrà in crash.
+  Questo è il primo assaggio della cosiddetta **Undefined Behavior**
+  (Comportamento Indefinito).
 </Callout>
-
 
 ### Il Concetto di Espressione
 
@@ -136,14 +144,18 @@ Quando la `printf` viene eseguita, non vede più la chiamata alla funzione, ma r
 
 Salvatore ci ha mostrato come definire una funzione per sommare due numeri. È importante distinguere tra come la funzione viene "annunciata" e come viene "scritta".
 
-<ComparisonTable 
+<ComparisonTable
   title="Anatomia di una Funzione"
   headers={["Elemento", "Esempio", "Descrizione"]}
   rows={[
     ["Tipo Ritorno", "int", "Il tipo di dato che la funzione 'restituisce'."],
     ["Nome", "sum", "L'identificatore usato per chiamare la funzione."],
     ["Parametri", "(int a, int b)", "I dati che la funzione riceve in input."],
-    ["Corpo", "{ return a + b; }", "Le istruzioni racchiuse tra parentesi graffe."]
+    [
+      "Corpo",
+      "{ return a + b; }",
+      "Le istruzioni racchiuse tra parentesi graffe.",
+    ],
   ]}
 />
 
@@ -160,18 +172,32 @@ b = 20;       // Assegnazione (sovrascrive il valore precedente)
 int c = a + b; // Inizializzazione tramite espressione
 ```
 
-<ComparisonTable 
+<ComparisonTable
   title="Dichiarazione vs Inizializzazione"
   headers={["Operazione", "Esempio", "Effetto in Memoria"]}
   rows={[
-    ["Dichiarazione", "<code>int x;</code>", "Prenota lo spazio, ma il contenuto è casuale."],
-    ["Inizializzazione", "<code>int x = 10;</code>", "Prenota lo spazio e scrive subito il valore."],
-    ["Assegnazione", "<code>x = 20;</code>", "Cambia il valore di uno spazio già esistente."]
+    [
+      "Dichiarazione",
+      "<code>int x;</code>",
+      "Prenota lo spazio, ma il contenuto è casuale.",
+    ],
+    [
+      "Inizializzazione",
+      "<code>int x = 10;</code>",
+      "Prenota lo spazio e scrive subito il valore.",
+    ],
+    [
+      "Assegnazione",
+      "<code>x = 20;</code>",
+      "Cambia il valore di uno spazio già esistente.",
+    ],
   ]}
 />
 
 <Callout type="pro" title="Expert Mindset">
-Specificare il tipo (es. `int`) permette al compilatore di sapere esattamente quanti byte riservare in memoria e come interpretarli. Questo è il segreto delle performance del C!
+  Specificare il tipo (es. `int`) permette al compilatore di sapere esattamente
+  quanti byte riservare in memoria e come interpretarli. Questo è il segreto
+  delle performance del C!
 </Callout>
 
 ---
@@ -183,14 +209,20 @@ Le variabili definite dentro una funzione vivono in una zona di memoria chiamata
 
 <StackVisualizer title="Concetto di Stack (Pila delle Funzioni)" />
 
-Quando una funzione viene chiamata, viene creato un **Stack Frame**. 
+Quando una funzione viene chiamata, viene creato un **Stack Frame**.
 
 <Callout type="info" title="Creazione e Distruzione">
-  Le variabili locali (inclusi gli argomenti della funzione) vengono create "al volo" ogni volta che chiami la funzione. Quando la funzione ritorna con `return`, lo spazio viene liberato. 
+  Le variabili locali (inclusi gli argomenti della funzione) vengono create "al
+  volo" ogni volta che chiami la funzione. Quando la funzione ritorna con
+  `return`, lo spazio viene liberato.
 </Callout>
 
 <Callout type="warning" title="The Ghost in the Stack">
-  **Attenzione**: "liberato" non significa "cancellato"! In C, per motivi di performance, la memoria non viene azzerata quando una funzione termina. I dati rimangono lì finché un'altra funzione non sovrascrive quel pezzetto di Stack. Se dichiari `int x;` senza inizializzarla, leggerai i "fantasmi" di chi ha usato quel posto prima di te.
+  **Attenzione**: "liberato" non significa "cancellato"! In C, per motivi di
+  performance, la memoria non viene azzerata quando una funzione termina. I dati
+  rimangono lì finché un'altra funzione non sovrascrive quel pezzetto di Stack.
+  Se dichiari `int x;` senza inizializzarla, leggerai i "fantasmi" di chi ha
+  usato quel posto prima di te.
 </Callout>
 
 ---
@@ -198,58 +230,68 @@ Quando una funzione viene chiamata, viene creato un **Stack Frame**.
 ## Il valore di ritorno di `main`
 
 Perché `main` ritorna un `int`? Serve a comunicare al **Sistema Operativo** se il programma è terminato correttamente.
+
 - `return 0;` significa "Tutto ok".
 - `return 1;` (o altro) segnala un errore.
 
 <Callout type="tip">
-Su Linux, puoi vedere il valore di ritorno dell'ultimo comando digitando `echo $?` nel terminale.
+  Su Linux, puoi vedere il valore di ritorno dell'ultimo comando digitando `echo
+  $?` nel terminale.
 </Callout>
 
 ### Codici di Ritorno e Logica Shell
+
 Il valore di ritorno di `main` non è solo una formalità. In sistemi Unix, permette di concatenare programmi in base al loro successo.
+
 - **AND Logico (`&&`)**: `comando1 && comando2` -> `comando2` viene eseguito solo se `comando1` ritorna **0** (successo).
 - **OR Logico (`||`)**: `comando1 || comando2` -> `comando2` viene eseguito solo se `comando1` fallisce (diverso da 0).
 
 ---
 
-<KeyConcepts 
+<KeyConcepts
   title="In Breve"
   concepts={[
     {
-        title: "Tipizzazione Esplicita",
-        description: "In C ogni variabile ha un tipo fisso. Questo garantisce sicurezza e controllo totale sulla memoria."
+      title: "Tipizzazione Esplicita",
+      description:
+        "In C ogni variabile ha un tipo fisso. Questo garantisce sicurezza e controllo totale sulla memoria.",
     },
     {
-        title: "Stack Frames",
-        description: "La memoria delle funzioni è organizzata come una pila: l'ultima chiamata è la prima ad essere rimossa."
+      title: "Stack Frames",
+      description:
+        "La memoria delle funzioni è organizzata come una pila: l'ultima chiamata è la prima ad essere rimossa.",
     },
     {
-        title: "Compiler Warnings",
-        description: "Usa sempre -Wall. Un compilatore che 'si lamenta' è un compilatore che ti sta aiutando."
+      title: "Compiler Warnings",
+      description:
+        "Usa sempre -Wall. Un compilatore che 'si lamenta' è un compilatore che ti sta aiutando.",
     },
     {
-        title: "Il Valore di main",
-        description: "Lo zero finale comunica al sistema operativo che il programma è terminato con successo."
-    }
+      title: "Il Valore di main",
+      description:
+        "Lo zero finale comunica al sistema operativo che il programma è terminato con successo.",
+    },
   ]}
 />
 
 ## Esercizi di Verifica
 
-<Quiz 
-  title="Quiz Standard" 
+<Quiz
+  title="Quiz Standard"
   questions={[
     {
       id: 1,
-      question: "Cosa significa il `'void'` tra le parentesi di `int main(void)`?",
+      question:
+        "Cosa significa il `'void'` tra le parentesi di `int main(void)`?",
       options: [
         "Che la funzione non restituisce nulla",
         "Che la funzione non accetta parametri",
         "Che il programma è vuoto",
-        "Che la funzione è un errore"
+        "Che la funzione è un errore",
       ],
       correctAnswer: 1,
-      explanation: "L'uso di `'void'` indica esplicitamente che la funzione `main` non riceve argomenti."
+      explanation:
+        "L'uso di `'void'` indica esplicitamente che la funzione `main` non riceve argomenti.",
     },
     {
       id: 2,
@@ -258,34 +300,27 @@ Il valore di ritorno di `main` non è solo una formalità. In sistemi Unix, perm
         "Nell'Hard Disk",
         "Nella memoria Video",
         "Nello Stack (Pila)",
-        "Nei Registri Globali"
+        "Nei Registri Globali",
       ],
       correctAnswer: 2,
-      explanation: "Le variabili locali vivono nello Stack e vengono rimosse quando la funzione termina."
+      explanation:
+        "Le variabili locali vivono nello Stack e vengono rimosse quando la funzione termina.",
     },
     {
       id: 3,
       question: "Quale flag del compilatore abilita tutti i warning comuni?",
-      options: [
-        "`-Werror`",
-        "`-O3`",
-        "`-Wall`",
-        "`-all`"
-      ],
+      options: ["`-Werror`", "`-O3`", "`-Wall`", "`-all`"],
       correctAnswer: 2,
-      explanation: "`-Wall` (Warn All) è fondamentale per individuare potenziali bug prima di eseguire il programma."
+      explanation:
+        "`-Wall` (Warn All) è fondamentale per individuare potenziali bug prima di eseguire il programma.",
     },
     {
       id: 4,
-      question: "Qual è il segnaposto corretto per stampare un'espressione intera?",
-      options: [
-        "%s",
-        "%f",
-        "%d",
-        "%p"
-      ],
+      question:
+        "Qual è il segnaposto corretto per stampare un'espressione intera?",
+      options: ["%s", "%f", "%d", "%p"],
       correctAnswer: 2,
-      explanation: "%d (Decimal) è usato per gli interi."
+      explanation: "%d (Decimal) è usato per gli interi.",
     },
     {
       id: 5,
@@ -294,11 +329,12 @@ Il valore di ritorno di `main` non è solo una formalità. In sistemi Unix, perm
         "Perché il C lo richiede sempre",
         "Per evitare che la variabile contenga 'immondizia' (vecchi valori rimasti nello stack)",
         "Per rendere il codice più lungo",
-        "Per aiutare il linker"
+        "Per aiutare il linker",
       ],
       correctAnswer: 1,
-      explanation: "In C, le variabili locali non inizializzate contengono valori casuali (garbage) rimasti nello stack."
-    }
+      explanation:
+        "In C, le variabili locali non inizializzate contengono valori casuali (garbage) rimasti nello stack.",
+    },
   ]}
 />
 
@@ -306,20 +342,22 @@ Il valore di ritorno di `main` non è solo una formalità. In sistemi Unix, perm
 
 ### Pro Challenge
 
-<Quiz 
+<Quiz
   title="Pro Challenge: Fondamentali"
   questions={[
     {
       id: 1,
-      question: "Perché una variabile locale non inizializzata è considerata pericolosa anche se il programma sembra funzionare inizialmente?",
+      question:
+        "Perché una variabile locale non inizializzata è considerata pericolosa anche se il programma sembra funzionare inizialmente?",
       options: [
         "Perché occupa più RAM",
         "Perché contiene il valore rimasuglio di chi ha usato quel pezzetto di Stack precedentemente (Stack Reuse)",
         "Perché il compilatore cancella il file se la trova",
-        "Perché rende il computer più caldo"
+        "Perché rende il computer più caldo",
       ],
       correctAnswer: 1,
-      explanation: "Lo Stack è una zona di memoria che viene continuamente riutilizzata. I dati non vengono cancellati per velocità; la funzione successiva troverà i 'fantasmi' della precedente."
+      explanation:
+        "Lo Stack è una zona di memoria che viene continuamente riutilizzata. I dati non vengono cancellati per velocità; la funzione successiva troverà i 'fantasmi' della precedente.",
     },
     {
       id: 2,
@@ -328,10 +366,11 @@ Il valore di ritorno di `main` non è solo una formalità. In sistemi Unix, perm
         "Il codice della funzione viene copiato nel punto di chiamata",
         "Viene creato un nuovo 'Stack Frame' che contiene i parametri e le variabili locali",
         "La CPU smette di funzionare finché la funzione non termina",
-        "Le variabili vengono salvate sul disco fisso"
+        "Le variabili vengono salvate sul disco fisso",
       ],
       correctAnswer: 1,
-      explanation: "La chiamata a funzione crea una struttura nello Stack chiamata 'Frame', un cassetto temporaneo per i dati della funzione."
+      explanation:
+        "La chiamata a funzione crea una struttura nello Stack chiamata 'Frame', un cassetto temporaneo per i dati della funzione.",
     },
     {
       id: 3,
@@ -340,46 +379,53 @@ Il valore di ritorno di `main` non è solo una formalità. In sistemi Unix, perm
         "Vengono eseguiti entrambi contemporaneamente",
         "Il programma parte solo se la compilazione non ha dato errori",
         "Il secondo comando cancella il primo",
-        "È un comando unico del C"
+        "È un comando unico del C",
       ],
       correctAnswer: 1,
-      explanation: "L'operatore && assicura che il programma parta solo se gcc finisce con successo (ritorno 0)."
-    }
+      explanation:
+        "L'operatore && assicura che il programma parta solo se gcc finisce con successo (ritorno 0).",
+    },
   ]}
 />
 
 ### Terminal Challenge: Investigazione Ambientale
 
-<ProTerminal 
+<ProTerminal
+  lessonSlug="lesson-02"
   challenges={[
     {
-        id: "check-bin",
-        title: "Logica dei Binari",
-        description: "Se compili con `gcc main.c`, come si chiama il file eseguibile di default?",
-        hints: ["È il nome standard di un binario Linux"],
-        explanation: "Esatto! `a.out` è il nome storico ereditato dalle prime versioni di Unix.",
-        xpReward: 100,
-        expectedCommand: "a.out"
+      id: "check-bin",
+      title: "Logica dei Binari",
+      description:
+        "Se compili con `gcc main.c`, come si chiama il file eseguibile di default?",
+      hints: ["È il nome standard di un binario Linux"],
+      explanation:
+        "Esatto! `a.out` è il nome storico ereditato dalle prime versioni di Unix.",
+      xpReward: 100,
+      expectedCommand: "a.out",
     },
     {
-        id: "ls-l-details",
-        title: "Vedere i Dettagli",
-        description: "Quale opzione del comando `ls` useresti per vedere i permessi di esecuzione e la data di creazione dei file?",
-        hints: ["Format lungo"],
-        explanation: "Perfetto. `ls -l` è fondamentale per ogni programmatore C.",
-        xpReward: 150,
-        expectedCommand: "ls -l"
+      id: "ls-l-details",
+      title: "Vedere i Dettagli",
+      description:
+        "Quale opzione del comando `ls` useresti per vedere i permessi di esecuzione e la data di creazione dei file?",
+      hints: ["Format lungo"],
+      explanation: "Perfetto. `ls -l` è fondamentale per ogni programmatore C.",
+      xpReward: 150,
+      expectedCommand: "ls -l",
     },
     {
-        id: "echo-status",
-        title: "Stato di uscita",
-        description: "Quale variabile della shell Linux contiene il valore di ritorno dell'ultimo programma eseguito?",
-        hints: ["Inizia con un dollaro e un carattere speciale"],
-        explanation: "Esatto! `$?` ti permette di verificare se il tuo `return 0;` ha funzionato.",
-        xpReward: 200,
-        expectedCommand: "echo $?"
-    }
-]}
+      id: "echo-status",
+      title: "Stato di uscita",
+      description:
+        "Quale variabile della shell Linux contiene il valore di ritorno dell'ultimo programma eseguito?",
+      hints: ["Inizia con un dollaro e un carattere speciale"],
+      explanation:
+        "Esatto! `$?` ti permette di verificare se il tuo `return 0;` ha funzionato.",
+      xpReward: 200,
+      expectedCommand: "echo $?",
+    },
+  ]}
 />
 
 Ci vediamo nell'appendice per un viaggio dentro la CPU!

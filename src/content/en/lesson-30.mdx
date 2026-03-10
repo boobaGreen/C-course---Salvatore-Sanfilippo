@@ -97,7 +97,7 @@ How do you transform a modern photo into a pixel-perfect Spectrum image? Salvato
 To measure the "similarity" between two RGB colors (R1, G1, B1) and (R2, G2, B2), we use 3D geometry.
 
 <Callout type="danger" title="Avoid the Square Root!">
-  The distance formula would be: $\sqrt{\Delta R^2 + \Delta G^2 + \Delta B^2}$.
+  The distance formula would be: {'$\\sqrt{\\Delta R^2 + \\Delta G^2 + \\Delta B^2}$'}.
   However, extracting a square root is a heavy operation for the CPU. Salvatore uses only the sum of squares. Since if $a^2 > b^2$ then $a > b$, the result of the comparison remains identical but the code is **much faster**.
 </Callout>
 

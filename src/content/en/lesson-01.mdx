@@ -25,11 +25,24 @@ Welcome! In this first lesson, we launch our journey through the C language. Thi
 
 The approach will be **extremely operational**: we'll learn to program by programming. Theoretical explanations will come as a "side effect" of writing the code.
 
-<KeyConcepts title="What we'll learn today"
+<KeyConcepts
+  title="What we'll learn today"
   concepts={[
-    { title: "Hello World", description: "Writing your first 'Hello World' program and understanding the compilation process." },
-    { title: "Behind the Scenes", description: "Exploring what the compiler does (down to the Assembly level) and the democratization of C." },
-    { title: "Core Concepts", description: "Understanding preprocessor directives (#include) and discovering function prototypes." }
+    {
+      title: "Hello World",
+      description:
+        "Writing your first 'Hello World' program and understanding the compilation process.",
+    },
+    {
+      title: "Behind the Scenes",
+      description:
+        "Exploring what the compiler does (down to the Assembly level) and the democratization of C.",
+    },
+    {
+      title: "Core Concepts",
+      description:
+        "Understanding preprocessor directives (#include) and discovering function prototypes.",
+    },
   ]}
 />
 
@@ -260,31 +273,38 @@ Thanks to the prototype, the compiler knows exactly how to prepare data in memor
     },
     {
       id: 6,
-      question:
-        "What is the value of an uninitialized local variable in C?",
-      options: [
-        "0",
-        "A random value (garbage)",
-        "Null",
-        "Undefined",
-      ],
+      question: "What is the value of an uninitialized local variable in C?",
+      options: ["0", "A random value (garbage)", "Null", "Undefined"],
       correctAnswer: 1,
-      explanation: "In C, uninitialized local variables contain random values (garbage) left in that stack memory location."
-    }
+      explanation:
+        "In C, uninitialized local variables contain random values (garbage) left in that stack memory location.",
+    },
   ]}
 />
 
 See you in the next lesson!
 
-<KeyConcepts title="In Short"
+<KeyConcepts
+  title="In Short"
   concepts={[
-    { title: "Compiled, not executed", description: "C is not executed, but compiled. The compiler can optimize code intelligently (e.g., turning printf into puts)." },
-    { title: "The Preprocessor", description: "Prepares the file before compilation." },
-    { title: "Header Files", description: "Header files (.h) contain function prototypes." }
+    {
+      title: "Compiled, not executed",
+      description:
+        "C is not executed, but compiled. The compiler can optimize code intelligently (e.g., turning printf into puts).",
+    },
+    {
+      title: "The Preprocessor",
+      description: "Prepares the file before compilation.",
+    },
+    {
+      title: "Header Files",
+      description: "Header files (.h) contain function prototypes.",
+    },
   ]}
 />
 
 ### Pro Challenge
+
 <Quiz
   title="Pro Challenge: Final Quiz"
   questions={[
@@ -330,12 +350,14 @@ See you in the next lesson!
       explanation:
         "Static linking copies the code of library functions (like printf) directly into your binary. This makes it independent of the versions of libraries installed on the system, but significantly increases its size.",
     },
-  ]}
+
+]}
 />
 
-### Terminal Challenge: The Optimization Trap 
+### Terminal Challenge: The Optimization Trap
 
 <ProTerminal
+  lessonSlug="lesson-01"
   challenges={[
     {
       id: "opt-trap-en",
@@ -382,9 +404,8 @@ See you in the next lesson!
         "Perfect! `strip` makes the binary smaller and harder to analyze with reverse engineering.",
       xpReward: 250,
     },
-  ]}
+
+]}
 />
 
 See you in the next lesson!
-
-

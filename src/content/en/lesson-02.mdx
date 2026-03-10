@@ -1,13 +1,13 @@
-﻿import VideoEmbed from '../../components/content/VideoEmbed';
-import Callout from '../../components/content/Callout';
-import KeyConcepts from '../../components/content/KeyConcepts';
-import CodeEditor from '../../components/exercises/CodeEditor';
-import Quiz from '../../components/exercises/Quiz';
-import ProTerminal from '../../components/content/ProTerminal';
-import Infographic from '../../components/content/Infographic';
-import ComparisonTable from '../../components/content/ComparisonTable';
-import StackVisualizer from '../../components/content/StackVisualizer';
-import MicroRegisters from '../../components/content/MicroRegisters';
+﻿import VideoEmbed from "../../components/content/VideoEmbed";
+import Callout from "../../components/content/Callout";
+import KeyConcepts from "../../components/content/KeyConcepts";
+import CodeEditor from "../../components/exercises/CodeEditor";
+import Quiz from "../../components/exercises/Quiz";
+import ProTerminal from "../../components/content/ProTerminal";
+import Infographic from "../../components/content/Infographic";
+import ComparisonTable from "../../components/content/ComparisonTable";
+import StackVisualizer from "../../components/content/StackVisualizer";
+import MicroRegisters from "../../components/content/MicroRegisters";
 
 # Lesson 2: Variables, Functions, and Memory
 
@@ -20,26 +20,32 @@ Welcome to the second lesson! Today we'll go deep into the structure of a C prog
 Every C program often starts with preprocessor directives. The most common one is `#include <stdio.h>`.
 
 <Callout type="info" title="Standard I/O">
-`stdio.h` stands for **Standard Input/Output**. It contains the definitions of fundamental functions like `printf`. Without this include, the compiler wouldn't know how to handle screen output.
+  `stdio.h` stands for **Standard Input/Output**. It contains the definitions of
+  fundamental functions like `printf`. Without this include, the compiler
+  wouldn't know how to handle screen output.
 </Callout>
 
 ### The Compiler is Your Friend: -Wall and -Wextra
 
 Since C gives you a lot of freedom (including the freedom to make mistakes), it's easy to commit logical errors that don't block compilation but cause runtime bugs. For this reason, Salvatore recommends always using **flags** (options) during compilation to enable warnings:
 
-- `-Wall`: Stands for **Warn All**. Despite the name, it enables a vast collection of *common* and fundamental warnings.
+- `-Wall`: Stands for **Warn All**. Despite the name, it enables a vast collection of _common_ and fundamental warnings.
 - `-Wextra`: Enables even more warnings for subtle and particular cases that `-Wall` doesn't cover.
 
 <Callout type="pro" title="Maximum Security">
-Salvatore often uses both: `gcc -Wall -Wextra file.c`. If the compiler "complains," don't ignore it: it's flagging a potential bug before you even run the program.
+  Salvatore often uses both: `gcc -Wall -Wextra file.c`. If the compiler
+  "complains," don't ignore it: it's flagging a potential bug before you even
+  run the program.
 </Callout>
 
-
 ### The `main` Function and C Constraints
-The `main` function is the heart of the program. It is the entry point from which the operating system begins execution. In C, **all executable code must reside within a function**. 
+
+The `main` function is the heart of the program. It is the entry point from which the operating system begins execution. In C, **all executable code must reside within a function**.
 
 <Callout type="warning" title="No 'Free-Floating' Code">
-Unlike Python or Bash, you cannot write a `printf` directly at the top of the file. If you try, the compiler will give you an error like `expected declaration or statement`.
+  Unlike Python or Bash, you cannot write a `printf` directly at the top of the
+  file. If you try, the compiler will give you an error like `expected
+  declaration or statement`.
 </Callout>
 
 ```c
@@ -104,20 +110,21 @@ printf("Hello %s, result is %d\n", "User", 30);
 //      [FORMAT]         [ARG 1]    [ARG 2]
 ```
 
-<ComparisonTable 
+<ComparisonTable
   title="Parameter Correspondence"
   headers={["Placeholder", "Data Type", "Argument Example"]}
   rows={[
     ["%d", "Integer (int)", "30, -5, sum(10, 20)"],
-    ["%s", "String (text)", "\"Hello\", \"User\""],
-    ["%f", "Floating point (float)", "3.14"]
+    ["%s", "String (text)", '"Hello", "User"'],
+    ["%f", "Floating point (float)", "3.14"],
   ]}
 />
 
 <Callout type="danger" title="Warning: Undefined Behavior">
-  If you tell `printf` you will print two integers (`%d %d`) but only pass one, C will not stop you! It will read "garbage" from memory or crash. This is your first taste of **Undefined Behavior**.
+  If you tell `printf` you will print two integers (`%d %d`) but only pass one,
+  C will not stop you! It will read "garbage" from memory or crash. This is your
+  first taste of **Undefined Behavior**.
 </Callout>
-
 
 ### The Concept of Expression
 
@@ -136,14 +143,18 @@ When `printf` executes, it no longer sees the function call, but receives the nu
 
 Salvatore showed us how to define a function to sum two numbers. It's important to distinguish between how the function is "announced" and how it is "written."
 
-<ComparisonTable 
+<ComparisonTable
   title="Function Anatomy"
   headers={["Element", "Example", "Description"]}
   rows={[
     ["Return Type", "int", "The type of data the function 'returns'."],
     ["Name", "sum", "The identifier used to call the function."],
-    ["Parameters", "(int a, int b)", "The data the function receives as input."],
-    ["Body", "{ return a + b; }", "The instructions enclosed in curly braces."]
+    [
+      "Parameters",
+      "(int a, int b)",
+      "The data the function receives as input.",
+    ],
+    ["Body", "{ return a + b; }", "The instructions enclosed in curly braces."],
   ]}
 />
 
@@ -160,18 +171,32 @@ b = 20;       // Assignment (overwrites previous value)
 int c = a + b; // Initialization via expression
 ```
 
-<ComparisonTable 
+<ComparisonTable
   title="Declaration vs Initialization"
   headers={["Operation", "Example", "Effect in Memory"]}
   rows={[
-    ["Declaration", "<code>int x;</code>", "Reserves space, but content is random."],
-    ["Initialization", "<code>int x = 10;</code>", "Reserves space and writes the value immediately."],
-    ["Assignment", "<code>x = 20;</code>", "Changes the value of an existing space."]
+    [
+      "Declaration",
+      "<code>int x;</code>",
+      "Reserves space, but content is random.",
+    ],
+    [
+      "Initialization",
+      "<code>int x = 10;</code>",
+      "Reserves space and writes the value immediately.",
+    ],
+    [
+      "Assignment",
+      "<code>x = 20;</code>",
+      "Changes the value of an existing space.",
+    ],
   ]}
 />
 
 <Callout type="pro" title="Expert Mindset">
-Specifying the type (e.g., `int`) allows the compiler to know exactly how many bytes to reserve in memory and how to interpret them. This is the secret to C's performance!
+  Specifying the type (e.g., `int`) allows the compiler to know exactly how many
+  bytes to reserve in memory and how to interpret them. This is the secret to
+  C's performance!
 </Callout>
 
 ---
@@ -183,14 +208,18 @@ Variables defined inside a function live in a memory area called the **Stack**.
 
 <StackVisualizer title="Stack Concept (Function Call Stack)" />
 
-When a function is called, a **Stack Frame** is created. 
+When a function is called, a **Stack Frame** is created.
 
 <Callout type="info" title="Creation and Destruction">
-  Local variables (including function arguments) are created "on the fly" every time you call the function. When the function returns, the space is released.
+  Local variables (including function arguments) are created "on the fly" every
+  time you call the function. When the function returns, the space is released.
 </Callout>
 
 <Callout type="warning" title="The Ghost in the Stack">
-  **Warning**: "released" does not mean "deleted"! In C, for speed, memory is not wiped when a function ends. Data stays there until another function overwrites it. If you declare `int x;` without initializing it, you'll read the "ghosts" of whoever used that space before.
+  **Warning**: "released" does not mean "deleted"! In C, for speed, memory is
+  not wiped when a function ends. Data stays there until another function
+  overwrites it. If you declare `int x;` without initializing it, you'll read
+  the "ghosts" of whoever used that space before.
 </Callout>
 
 ---
@@ -198,46 +227,54 @@ When a function is called, a **Stack Frame** is created.
 ## The `main` Return Value
 
 Why does `main` return an `int`? It's used to tell the **Operating System** if the program finished successfully.
+
 - `return 0;` means "Everything ok".
 - `return 1;` (or others) signals an error.
 
 <Callout type="tip">
-On Linux, you can see the return value of the last command by typing `echo $?` in the terminal.
+  On Linux, you can see the return value of the last command by typing `echo $?`
+  in the terminal.
 </Callout>
 
 ### Return Codes and Shell Logic
+
 The return value of `main` is not just a formality. In Unix-like systems, it allows chaining programs based on their success.
+
 - **Logical AND (`&&`)**: `command1 && command2` -> `command2` is executed only if `command1` returns **0** (success).
 - **Logical OR (`||`)**: `command1 || command2` -> `command2` is executed only if `command1` fails (non-zero).
 
 ---
 
-<KeyConcepts 
+<KeyConcepts
   title="In Brief"
   concepts={[
     {
-        title: "Explicit Typing",
-        description: "In C, every variable has a fixed type. This ensures safety and total control over memory."
+      title: "Explicit Typing",
+      description:
+        "In C, every variable has a fixed type. This ensures safety and total control over memory.",
     },
     {
-        title: "Stack Frames",
-        description: "Function memory is organized like a stack: the last call is the first one to be removed."
+      title: "Stack Frames",
+      description:
+        "Function memory is organized like a stack: the last call is the first one to be removed.",
     },
     {
-        title: "Compiler Warnings",
-        description: "Always use -Wall. A 'complaining' compiler is one that is helping you."
+      title: "Compiler Warnings",
+      description:
+        "Always use -Wall. A 'complaining' compiler is one that is helping you.",
     },
     {
-        title: "The main Value",
-        description: "The final zero tells the OS that the program terminated successfully."
-    }
+      title: "The main Value",
+      description:
+        "The final zero tells the OS that the program terminated successfully.",
+    },
   ]}
 />
 
 ## Verification Exercises
 
-<Quiz 
-  title="Standard Quiz" 
+<Quiz
+  title="Standard Quiz"
   questions={[
     {
       id: 1,
@@ -246,10 +283,11 @@ The return value of `main` is not just a formality. In Unix-like systems, it all
         "The function returns nothing",
         "The function accepts no parameters",
         "The program is empty",
-        "The function is an error"
+        "The function is an error",
       ],
       correctAnswer: 1,
-      explanation: "Using 'void' explicitly indicates that the main function receives no arguments."
+      explanation:
+        "Using 'void' explicitly indicates that the main function receives no arguments.",
     },
     {
       id: 2,
@@ -258,34 +296,26 @@ The return value of `main` is not just a formality. In Unix-like systems, it all
         "In the Hard Disk",
         "In the Video Memory",
         "On the Stack",
-        "In Global Registers"
+        "In Global Registers",
       ],
       correctAnswer: 2,
-      explanation: "Local variables live on the Stack and are removed when the function concludes."
+      explanation:
+        "Local variables live on the Stack and are removed when the function concludes.",
     },
     {
       id: 3,
       question: "Which compiler flag enables all common warnings?",
-      options: [
-        "-Werror",
-        "-O3",
-        "-Wall",
-        "-all"
-      ],
+      options: ["-Werror", "-O3", "-Wall", "-all"],
       correctAnswer: 2,
-      explanation: "-Wall (Warn All) is essential for catching potential bugs before running the program."
+      explanation:
+        "-Wall (Warn All) is essential for catching potential bugs before running the program.",
     },
     {
       id: 4,
       question: "What is the correct placeholder for an integer expression?",
-      options: [
-        "%s",
-        "%f",
-        "%d",
-        "%p"
-      ],
+      options: ["%s", "%f", "%d", "%p"],
       correctAnswer: 2,
-      explanation: "%d (Decimal) is used for integers."
+      explanation: "%d (Decimal) is used for integers.",
     },
     {
       id: 5,
@@ -294,11 +324,12 @@ The return value of `main` is not just a formality. In Unix-like systems, it all
         "Because C always requires it",
         "To prevent the variable from containing 'garbage' (old values left on the stack)",
         "To make the code longer",
-        "To help the linker"
+        "To help the linker",
       ],
       correctAnswer: 1,
-      explanation: "In C, uninitialized local variables contain random values (garbage) left on the stack."
-    }
+      explanation:
+        "In C, uninitialized local variables contain random values (garbage) left on the stack.",
+    },
   ]}
 />
 
@@ -306,20 +337,22 @@ The return value of `main` is not just a formality. In Unix-like systems, it all
 
 ### Pro Challenge
 
-<Quiz 
+<Quiz
   title="Pro Challenge: Fundamentals"
   questions={[
     {
       id: 1,
-      question: "Why is an uninitialized local variable dangerous even if the program seems to work initially?",
+      question:
+        "Why is an uninitialized local variable dangerous even if the program seems to work initially?",
       options: [
         "It occupies more RAM",
         "It contains values left by whoever used that part of the stack before (Stack Reuse)",
         "The compiler deletes the file if it finds it",
-        "It makes the computer run hotter"
+        "It makes the computer run hotter",
       ],
       correctAnswer: 1,
-      explanation: "The stack is continuously reused. Data isn't wiped for speed; the next function will find 'ghosts' of the previous one."
+      explanation:
+        "The stack is continuously reused. Data isn't wiped for speed; the next function will find 'ghosts' of the previous one.",
     },
     {
       id: 2,
@@ -328,10 +361,11 @@ The return value of `main` is not just a formality. In Unix-like systems, it all
         "The function's code is copied to the point of call",
         "A new 'Stack Frame' is created containing parameters and local variables",
         "The CPU stops working until the function terminates",
-        "Variables are saved to the hard disk"
+        "Variables are saved to the hard disk",
       ],
       correctAnswer: 1,
-      explanation: "A function call creates a structure in the stack called a 'Frame', a temporary 'drawer' for the function's data."
+      explanation:
+        "A function call creates a structure in the stack called a 'Frame', a temporary 'drawer' for the function's data.",
     },
     {
       id: 3,
@@ -340,46 +374,52 @@ The return value of `main` is not just a formality. In Unix-like systems, it all
         "Both are executed simultaneously",
         "The program starts only if compilation succeeds without errors",
         "The second command deletes the first",
-        "It is a unique C command"
+        "It is a unique C command",
       ],
       correctAnswer: 1,
-      explanation: "The && operator ensures the program runs only if gcc finishes with success (exit code 0)."
-    }
+      explanation:
+        "The && operator ensures the program runs only if gcc finishes with success (exit code 0).",
+    },
   ]}
 />
 
 ### Terminal Challenge: Environment Investigation
 
-<ProTerminal 
+<ProTerminal
+  lessonSlug="lesson-02"
   challenges={[
     {
-        id: "check-bin-en",
-        title: "Binary Logic",
-        description: "If you compile with `gcc main.c`, what is the default executable filename?",
-        hints: ["It's the standard Linux binary name"],
-        explanation: "Correct! `a.out` is the historical name inherited from the first Unix versions.",
-        xpReward: 100,
-        expectedCommand: "a.out"
+      id: "check-bin-en",
+      title: "Binary Logic",
+      description:
+        "If you compile with `gcc main.c`, what is the default executable filename?",
+      hints: ["It's the standard Linux binary name"],
+      explanation:
+        "Correct! `a.out` is the historical name inherited from the first Unix versions.",
+      xpReward: 100,
+      expectedCommand: "a.out",
     },
     {
-        id: "ls-l-details-en",
-        title: "See the Details",
-        description: "Which `ls` option would you use to see execution permissions and file timestamps?",
-        hints: ["Long format"],
-        explanation: "Perfect. `ls -l` is fundamental for every C programmer.",
-        xpReward: 150,
-        expectedCommand: "ls -l"
+      id: "ls-l-details-en",
+      title: "See the Details",
+      description:
+        "Which `ls` option would you use to see execution permissions and file timestamps?",
+      hints: ["Long format"],
+      explanation: "Perfect. `ls -l` is fundamental for every C programmer.",
+      xpReward: 150,
+      expectedCommand: "ls -l",
     },
     {
-        id: "echo-status-en",
-        title: "Exit Status",
-        description: "Which Linux shell variable contains the return value of the last executed program?",
-        hints: ["Starts with a dollar and a special character"],
-        explanation: "Exactly! `$?` lets you verify if your `return 0;` worked.",
-        xpReward: 200,
-        expectedCommand: "echo $?"
-    }
-]}
+      id: "echo-status-en",
+      title: "Exit Status",
+      description:
+        "Which Linux shell variable contains the return value of the last executed program?",
+      hints: ["Starts with a dollar and a special character"],
+      explanation: "Exactly! `$?` lets you verify if your `return 0;` worked.",
+      xpReward: 200,
+      expectedCommand: "echo $?",
+    },
+  ]}
 />
 
 See you in the appendix for a journey inside the CPU!

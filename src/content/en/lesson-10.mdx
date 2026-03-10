@@ -108,7 +108,8 @@ When you write `p + n`, the CPU doesn't do a simple addition. The compiler trans
 - `int *p; p + 1` -> Jumps **4 bytes**.
 - `double *p; p + 1` -> Jumps **8 bytes**.
 - `p2 - p1` -> Does not return bytes, but the **number of elements** between the two!
-  </Callout>
+
+</Callout>
 
 ### Pro String: Metadata "Behind" the Pointer
 
@@ -276,6 +277,7 @@ Challenge yourself: can you reach address 0x10F by following only the correct po
 ### Terminal Challenge: Exploration
 
 <ProTerminal
+  lessonSlug="lesson-10"
   challenges={[
     {
       id: "hexdump-bin-en",
