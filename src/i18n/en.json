@@ -84,11 +84,18 @@
             "description": "Basic questions (Quizzes) cover topics from the video, the transcript, or the lesson text. The \"Pro Terminal Challenge\" questions, on the other hand, are designed to push you further: they may cover material not explicitly taught and will require active research on external sources."
         },
         "changelog": {
-            "title": "What's New in Version 1.0.2",
-            "page_persistence": "Automatic saving of lesson reading progress.",
-            "video_persistence": "Videos now automatically resume from the last watched second.",
-            "lesson_02_restoration": "Restored original Lesson 2 depth and created technical Appendix.",
-            "simulator_improvements": "Improvements to interactive simulators (6502 and Stack)."
+            "title": "Changelog",
+            "latest_title": "Latest Updates (v1.0.2)",
+            "history_title": "Previous Versions",
+            "v102": {
+                "lesson_02_restoration": "Restored original Lesson 2 depth and created technical Appendix.",
+                "simulator_improvements": "Improvements to interactive simulators (6502 and Stack)."
+            },
+            "v101": {
+                "title": "Version 1.0.1",
+                "page_persistence": "Automatic saving of lesson reading progress.",
+                "video_persistence": "Videos now automatically resume from the last watched second."
+            }
         }
     },
     "footer": {

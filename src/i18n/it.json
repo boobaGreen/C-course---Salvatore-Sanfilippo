@@ -84,11 +84,18 @@
             "description": "Le domande base (Quiz) vertono sugli argomenti del video, della trascrizione o del testo della lezione. Le domande \"Sfida Pro Terminale\", invece, sono pensate per spingerti oltre: possono riguardare materiale non trattato esplicitamente e richiederanno una ricerca attiva su fonti esterne."
         },
         "changelog": {
-            "title": "Novità Versione 1.0.2",
-            "page_persistence": "Salvataggio automatico del progresso di lettura della lezione.",
-            "video_persistence": "Il video riprende automaticamente dall'ultimo secondo visualizzato.",
-            "lesson_02_restoration": "Ripristino profondità originale Lezione 2 e creazione Appendice tecnica.",
-            "simulator_improvements": "Miglioramenti ai simulatori interattivi (6502 e Stack)."
+            "title": "Registro Modifiche",
+            "latest_title": "Ultimi Aggiornamenti (v1.0.2)",
+            "history_title": "Versioni Precedenti",
+            "v102": {
+                "lesson_02_restoration": "Ripristino profondità originale Lezione 2 e creazione Appendice tecnica.",
+                "simulator_improvements": "Miglioramenti ai simulatori interattivi (6502 e Stack)."
+            },
+            "v101": {
+                "title": "Versione 1.0.1",
+                "page_persistence": "Salvataggio automatico del progresso di lettura della lezione.",
+                "video_persistence": "Il video riprende automaticamente dall'ultimo secondo visualizzato."
+            }
         }
     },
     "footer": {

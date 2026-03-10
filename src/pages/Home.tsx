@@ -1,13 +1,18 @@
 ﻿import { Link } from 'react-router-dom';
-import { Terminal, Code2, Info, BookOpen, Zap } from 'lucide-react';
+import { Terminal, Code2, Info, BookOpen, Zap, ChevronDown, Clock } from 'lucide-react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { lessons } from '../data/lessons';
+import { motion, AnimatePresence } from 'framer-motion';
 import AboutAuthorModal from '../components/content/AboutAuthorModal';
 
 export default function Home() {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [showHistory, setShowHistory] = useState(false);
     const { t } = useTranslation();
+
+    const latestChanges = t('home.changelog.v102', { returnObjects: true }) as Record<string, string>;
+    const history101 = t('home.changelog.v101', { returnObjects: true }) as Record<string, string>;
 
     return (
         <div className="w-full min-h-[calc(100vh-4rem)] flex flex-col items-center justify-center p-8 relative overflow-hidden">
@@ -101,30 +106,70 @@ export default function Home() {
                     </div>
                 </div>
 
-                {/* Changelog Section */}
-                <div className="mt-12 p-6 rounded-2xl border border-black/5 dark:border-white/5 bg-black/5 dark:bg-white/5">
-                    <h3 className="text-sm font-black uppercase tracking-widest text-[var(--color-brand-primary)] mb-4 flex items-center gap-2">
-                        <Zap size={16} />
-                        {t('home.changelog.title')}
-                    </h3>
-                    <ul className="space-y-3">
-                        <li className="flex items-start gap-3 text-sm text-slate-600 dark:text-zinc-400">
-                            <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[var(--color-brand-primary)] shrink-0" />
-                            <span>{t('home.changelog.page_persistence')}</span>
-                        </li>
-                        <li className="flex items-start gap-3 text-sm text-slate-600 dark:text-zinc-400">
-                            <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[var(--color-brand-primary)] shrink-0" />
-                            <span>{t('home.changelog.video_persistence')}</span>
-                        </li>
-                        <li className="flex items-start gap-3 text-sm text-slate-600 dark:text-zinc-400">
-                            <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[var(--color-brand-primary)] shrink-0" />
-                            <span>{t('home.changelog.lesson_02_restoration')}</span>
-                        </li>
-                        <li className="flex items-start gap-3 text-sm text-slate-600 dark:text-zinc-400">
-                            <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[var(--color-brand-primary)] shrink-0" />
-                            <span>{t('home.changelog.simulator_improvements')}</span>
-                        </li>
-                    </ul>
+                {/* Modern Changelog Section */}
+                <div className="mt-12 space-y-4">
+                    <div className="p-6 rounded-2xl border border-black/5 dark:border-white/5 bg-black/5 dark:bg-white/5">
+                        <h3 className="text-sm font-black uppercase tracking-widest text-[var(--color-brand-primary)] mb-4 flex items-center gap-2">
+                            <Zap size={16} />
+                            {t('home.changelog.latest_title')}
+                        </h3>
+                        <ul className="space-y-3">
+                            {Object.entries(latestChanges).map(([key, value]) => (
+                                <li key={key} className="flex items-start gap-3 text-sm text-slate-600 dark:text-zinc-400">
+                                    <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[var(--color-brand-primary)] shrink-0" />
+                                    <span>{value}</span>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
+                    {/* Historical Accordion */}
+                    <div className="rounded-2xl border border-black/5 dark:border-white/5 overflow-hidden">
+                        <button
+                            onClick={() => setShowHistory(!showHistory)}
+                            className="w-full p-4 flex items-center justify-between bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 transition-colors group"
+                        >
+                            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-zinc-500 group-hover:text-[var(--color-brand-primary)] transition-colors">
+                                <Clock size={14} />
+                                {t('home.changelog.history_title')}
+                            </div>
+                            <motion.div
+                                animate={{ rotate: showHistory ? 180 : 0 }}
+                                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                            >
+                                <ChevronDown size={14} className="text-zinc-500" />
+                            </motion.div>
+                        </button>
+
+                        <AnimatePresence>
+                            {showHistory && (
+                                <motion.div
+                                    initial={{ height: 0, opacity: 0 }}
+                                    animate={{ height: "auto", opacity: 1 }}
+                                    exit={{ height: 0, opacity: 0 }}
+                                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                                    className="bg-black/10 dark:bg-white/5 border-t border-black/5 dark:border-white/5"
+                                >
+                                    <div className="p-6 space-y-6">
+                                        <div className="space-y-3">
+                                            <h4 className="text-xs font-bold text-zinc-400 flex items-center gap-2">
+                                                <div className="w-1 h-1 rounded-full bg-zinc-500" />
+                                                {history101.title}
+                                            </h4>
+                                            <ul className="space-y-2 ml-3">
+                                                {Object.entries(history101).filter(([k]) => k !== 'title').map(([key, value]) => (
+                                                    <li key={key} className="flex items-start gap-3 text-xs text-slate-500 dark:text-zinc-500">
+                                                        <div className="mt-1.5 w-1 h-1 rounded-full bg-zinc-700 shrink-0" />
+                                                        <span>{value}</span>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
+                    </div>
                 </div>
             </div>
 
@@ -132,4 +177,5 @@ export default function Home() {
         </div>
     );
 }
+
 
