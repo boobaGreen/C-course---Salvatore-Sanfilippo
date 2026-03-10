@@ -1,5 +1,5 @@
 ﻿import { Link } from 'react-router-dom';
-import { Terminal, Code2, Info, BookOpen } from 'lucide-react';
+import { Terminal, Code2, Info, BookOpen, Zap } from 'lucide-react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { lessons } from '../data/lessons';
@@ -99,6 +99,24 @@ export default function Home() {
                             {t('home.questions_info.description')}
                         </p>
                     </div>
+                </div>
+
+                {/* Changelog Section */}
+                <div className="mt-12 p-6 rounded-2xl border border-black/5 dark:border-white/5 bg-black/5 dark:bg-white/5">
+                    <h3 className="text-sm font-black uppercase tracking-widest text-[var(--color-brand-primary)] mb-4 flex items-center gap-2">
+                        <Zap size={16} />
+                        {t('home.changelog.title')}
+                    </h3>
+                    <ul className="space-y-3">
+                        <li className="flex items-start gap-3 text-sm text-slate-600 dark:text-zinc-400">
+                            <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[var(--color-brand-primary)] shrink-0" />
+                            <span>{t('home.changelog.page_persistence')}</span>
+                        </li>
+                        <li className="flex items-start gap-3 text-sm text-slate-600 dark:text-zinc-400">
+                            <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[var(--color-brand-primary)] shrink-0" />
+                            <span>{t('home.changelog.video_persistence')}</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
 

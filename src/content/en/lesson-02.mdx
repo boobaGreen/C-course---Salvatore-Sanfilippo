@@ -19,9 +19,19 @@ Welcome to the second lesson! Today we'll go deep into the structure of a C prog
 
 Every C program often starts with preprocessor directives. The most common one is `#include <stdio.h>`.
 
-<Callout type="info" title="Standard I/O">
-`stdio.h` stands for **Standard Input/Output**. It contains the definitions of fundamental functions like `printf`. Without this include, the compiler wouldn't know how to handle screen output.
 </Callout>
+
+### The Compiler is Your Friend: -Wall and -Wextra
+
+Since C gives you a lot of freedom (including the freedom to make mistakes), it's easy to commit logical errors that don't block compilation but cause runtime bugs. For this reason, Salvatore recommends always using **flags** (options) during compilation to enable warnings:
+
+- `-Wall`: Stands for **Warn All**. Despite the name, it enables a vast collection of *common* and fundamental warnings.
+- `-Wextra`: Enables even more warnings for subtle and particular cases that `-Wall` doesn't cover.
+
+<Callout type="pro" title="Maximum Security">
+Salvatore often uses both: `gcc -Wall -Wextra file.c`. If the compiler "complains," don't ignore it: it's flagging a potential bug before you even run the program.
+</Callout>
+
 
 ### The main Function and C Constraints
 The `main` function is the heart of the program. It is the entry point from which the operating system begins execution. In C, **all executable code must reside within a function**.
@@ -46,14 +56,42 @@ int main(void) {
 
 The name `printf` stands for **Print Formatted**. It is an extremely powerful function because it is **variadic**: it can accept a variable number of arguments.
 
-<Callout type="danger" title="Variadic Dangers">
-If you tell `printf` you will print two integers (`%d %d`) but only pass one, C will not stop you! It will read "garbage" from memory or crash. This is your first taste of **Undefined Behavior**.
-</Callout>
+### Printing Values with Placeholders
+
+To print the result of a function or a variable's value, we must tell `printf` what type of data is expected using **placeholders** (format specifiers) that start with the `%` symbol.
+
+In the `sum` function example, we used `%d`:
+
+```c
+printf("Hello World %d\n", sum(10, 20));
+```
+
+- `%d`: Stands for **Decimal**. Tells `printf` to expect an integer.
+- `\n`: Represents the "newline" character.
+
+### More Parameters, More Power
+
+We can pass many parameters to the same `printf`. It's crucial that the order of the placeholders matches exactly the order of the variables passed after the format string.
 
 ```c
 printf("Hello %s, result is %d\n", "User", 30);
 //      [FORMAT]         [ARG 1]    [ARG 2]
 ```
+
+<ComparisonTable 
+  title="Parameter Correspondence"
+  headers={["Placeholder", "Data Type", "Argument Example"]}
+  rows={[
+    ["%d", "Integer (int)", "30, -5, sum(10, 20)"],
+    ["%s", "String (text)", "\"Hello\", \"User\""],
+    ["%f", "Floating point (float)", "3.14"]
+  ]}
+/>
+
+<Callout type="danger" title="Warning: Undefined Behavior">
+  If you tell `printf` you will print two integers (`%d %d`) but only pass one, C will not stop you! It will read "garbage" from memory or crash. This is your first taste of **Undefined Behavior**.
+</Callout>
+
 
 ---
 

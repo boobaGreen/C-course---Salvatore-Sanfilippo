@@ -19,9 +19,19 @@ Benvenuti alla seconda lezione! Oggi andremo a fondo nella struttura di un progr
 
 Ogni programma C inizia spesso con delle direttive al preprocessore. La più comune è `#include <stdio.h>`.
 
-<Callout type="info" title="Standard I/O">
-`stdio.h` sta per **Standard Input/Output**. Contiene le definizioni di funzioni fondamentali come `printf`. Senza questo include, il compilatore non saprebbe come gestire l'output a video.
 </Callout>
+
+### Il Compilatore ti aiuta: -Wall e -Wextra
+
+Dato che il C ti lascia molta libertà (anche quella di sbagliare), è facile commettere errori logici che non bloccano la compilazione ma causano bug a runtime. Per questo motivo, Salvatore consiglia di usare sempre dei **flag** (opzioni) durante la compilazione per attivare gli avvisi:
+
+- `-Wall`: Sta per **Warn All**. Nonostante il nome, abilita una vasta collezione di avvisi *comuni* e fondamentali.
+- `-Wextra`: Abilita ancora più avvisi per casi particolari e sottili che `-Wall` non copre.
+
+<Callout type="pro" title="Massima Sicurezza">
+Salvatore li usa spesso entrambi: `gcc -Wall -Wextra file.c`. Se il compilatore "si lamenta", non ignorarlo: ti sta segnalando un potenziale bug prima ancora che tu esegua il programma.
+</Callout>
+
 
 ### La Funzione `main` e i Vincoli del C
 La funzione `main` è il cuore del programma. È il punto di ingresso (entry point) da cui il sistema operativo inizia l'esecuzione. In C, **tutto il codice eseguibile deve trovarsi all'interno di una funzione**. 
@@ -68,27 +78,42 @@ Eseguendo questo codice, otterrai:
 
 Il nome `printf` sta per **Print Formatted**. È una funzione estremamente potente perché accetta un **numero variabile di argomenti** (tecnicamente detta funzione variadica).
 
-### Il Compilatore ti aiuta: `-Wall` e `-Wextra`
+### Stampare Valori con i Segnaposto
 
-Dato che la `printf` è così flessibile, è facile commettere errori (come passare un numero sbagliato di argomenti). Di base, il compilatore C potrebbe non segnalarti questi errori logici e generare comunque un programma che va in crash o stampa valori casuali.
+Per stampare il risultato di una funzione o il valore di una variabile, dobbiamo dire alla `printf` che tipo di dato si aspetta usando dei **segnaposto** (format specifier) che iniziano con il simbolo `%`.
 
-Per questo motivo, Salvatore consiglia di usare sempre dei **flag** (opzioni) durante la compilazione per attivare gli avvisi:
-- `-Wall`: Sta per **Warn All**. Nonostante il nome, abilita una vasta collezione di avvisi *comuni* e fondamentali.
-- `-Wextra` (storicamente indicato anche solo come `-W`): Abilita ancora più avvisi per casi particolari e sottili che `-Wall` non copre.
+Nell'esempio della funzione `sum`, abbiamo usato `%d`:
 
-<Callout type="pro" title="Massima Sicurezza">
-Salvatore li usa spesso entrambi: `gcc -Wall -Wextra file.c`. Se il compilatore "si lamenta", non ignorarlo: ti sta segnalando un potenziale bug prima ancora che tu esegua il programma. È come avere un correttore automatico molto severo ma utilissimo.
-</Callout>
+```c
+printf("Hello World %d\n", sum(10, 20));
+```
 
+- `%d`: Sta per **Decimal**. Dice alla `printf` di aspettarsi un numero intero.
+- `\n`: Rappresenta il carattere di "nuova riga".
 
-<Callout type="danger" title="Attenzione agli argomenti di printf">
-Se dici alla `printf` che stamperai due interi (`%d %d`) ma gliene passi solo uno, il C non si fermerà! Leggerà "immondizia" dalla memoria o andrà in crash. Questo è il primo assaggio della cosiddetta **Undefined Behavior** (Comportamento Indefinito).
-</Callout>
+### Più Parametri, Più Potere
+
+Possiamo passare molti parametri alla stessa `printf`. L'importante è che l'ordine dei segnaposto corrisponda esattamente all'ordine delle variabili passate dopo la stringa di formato.
 
 ```c
 printf("Ciao %s, il risultato è %d\n", "User", 30);
 //      [FORMAT]           [ARG 1]     [ARG 2]
 ```
+
+<ComparisonTable 
+  title="Corrispondenza Parametri"
+  headers={["Segnaposto", "Tipo di Dato", "Esempio Argomento"]}
+  rows={[
+    ["%d", "Intero (int)", "30, -5, sum(10, 20)"],
+    ["%s", "Stringa (testo)", "\"Ciao\", \"User\""],
+    ["%f", "Numero con virgola (float)", "3.14"]
+  ]}
+/>
+
+<Callout type="danger" title="Attenzione: Undefined Behavior">
+  Se dici alla `printf` che stamperai due interi (`%d %d`) ma gliene passi solo uno, il C non si fermerà! Leggerà "immondizia" dalla memoria o andrà in crash. Questo è il primo assaggio della cosiddetta **Undefined Behavior** (Comportamento Indefinito).
+</Callout>
+
 
 ### Il Concetto di Espressione
 

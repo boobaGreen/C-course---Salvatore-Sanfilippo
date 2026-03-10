@@ -2,7 +2,7 @@
 
 **Una piattaforma didattica interattiva e professionale (IT/EN) per padroneggiare il linguaggio C, ispirata alle leggendarie lezioni di Salvatore Sanfilippo.**
 
-[![Project Version](https://img.shields.io/badge/versione-1.0.0-blue.svg)](file:///c:/Users/ClaudioDall'Ara/Desktop/c/temp_c_course/package.json)
+[![Project Version](https://img.shields.io/badge/versione-1.0.1-blue.svg)](file:///c:/Users/ClaudioDall'Ara/Desktop/c/temp_c_course/package.json)
 [![License: GPL](https://img.shields.io/badge/Licenza-GPL-yellow.svg)](https://opensource.org/licenses/GPL-3.0)
 
 ---
@@ -71,3 +71,19 @@ src/
 ## Licenza
 
 Questo progetto è rilasciato sotto licenza **GNU General Public License (GPL)**. La conoscenza deve rimanere aperta, libera e accessibile a tutti per lo studio e la distribuzione.
+
+---
+
+## Changelog
+
+### v1.0.1 (10-03-2026)
+
+- **Persistenza Avanzata**: Aggiunto il salvataggio automatico del progresso di lettura delle lezioni.
+- **Ripresa Video Intelligente**: Integrazione API IFrame di YouTube per riprendere i video dall'ultimo istante visualizzato.
+- **Rifiniture Tecniche**: Risolti errori di linting TypeScript e ottimizzata la gestione dello stato nel componente `VideoEmbed`.
+
+### v1.0.0 (Lancio)
+
+- Rilascio iniziale con supporto bilingue (IT/EN).
+- Compilatore WASM per C integrato.
+- Visualizzatori di memoria interattivi e giochi didattici.

@@ -79,7 +79,7 @@ export default function Header() {
 
                     <div className="flex items-center gap-2">
                         <span className="hidden lg:inline text-[10px] font-mono text-slate-400 dark:text-zinc-500 uppercase tracking-widest border border-black/5 dark:border-white/5 bg-black/5 dark:bg-white/5 px-2 py-0.5 rounded">
-                            v1.0.0
+                            v1.0.1
                         </span>
                         <button
                             onClick={() => i18n.language === 'it' ? changeLanguage('en') : changeLanguage('it')}

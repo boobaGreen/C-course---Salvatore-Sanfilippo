@@ -2,7 +2,7 @@
 
 **An interactive, professional bilingual (IT/EN) platform to master C programming, inspired by the legendary lessons of Salvatore Sanfilippo.**
 
-[![Project Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](file:///c:/Users/ClaudioDall'Ara/Desktop/c/temp_c_course/package.json)
+[![Project Version](https://img.shields.io/badge/version-1.0.1-blue.svg)](file:///c:/Users/ClaudioDall'Ara/Desktop/c/temp_c_course/package.json)
 [![License: GPL](https://img.shields.io/badge/License-GPL-yellow.svg)](https://opensource.org/licenses/GPL-3.0)
 
 ---
@@ -71,3 +71,19 @@ src/
 ## License
 
 This project is licensed under the **GNU General Public License (GPL)**. The knowledge remains open, free, and accessible for everyone to study and distribute.
+
+---
+
+## Changelog
+
+### v1.0.1 (2026-03-10)
+
+- **Enhanced Persistence**: Added automatic saving of reading progress for lessons.
+- **Smart Video Resume**: Integrated YouTube IFrame API to automatically resume videos from the last watched position.
+- **Technical Polish**: Fixed TypeScript linting errors and optimized state management in the `VideoEmbed` component.
+
+### v1.0.0 (Launch)
+
+- Initial release with bilingual support (IT/EN).
+- Integrated WASM compiler for C.
+- Interactive memory visualizers and educational games.
