@@ -31,36 +31,32 @@ Before we can read, we must know how to write. A ToyFort list can contain other 
     label: "LIST [ 1 [ 2 3 ] 4 ]",
     children: [
       { label: "INT: 1" },
-      { 
-        label: "LIST: [ 2 3 ]", 
-        children: [{ label: "INT: 2" }, { label: "INT: 3" }] 
+      {
+        label: "LIST: [ 2 3 ]",
+        children: [{ label: "INT: 2" }, { label: "INT: 3" }]
       },
       { label: "INT: 4" }
     ]
   }}
 />
 
-<CodeEditor 
-  initialCode={`void print_object(TFObject *o) {
-    switch(o->type) {
-        case TF_INT:
-            printf("%lld", o->i);
-            break;
-        case TF_LIST:
-            printf("[ ");
-            for (size_t i = 0; i < o->l.len; i++) {
-                print_object(o->l.ele[i]); // RECURSIVE call
-                if (i < o->l.len - 1) printf(" ");
-            }
-            printf(" ]");
-            break;
-        case TF_SYM:
-            printf("%s", o->s.ptr);
-            break;
-    }
-}`}
-  language="c"
+### Printing Logic
+
+The `print_object` function navigates the object tree. For each data type, it decides how to format the output.
+
+<Infographic 
+  title="print_object Logic"
+  description="How different types are displayed."
+  items={[
+    { label: "TF_INT", value: "Printed as long long integer (%lld)", color: "blue" },
+    { label: "TF_STR", value: "Adds double quotes (\"string\")", color: "purple" },
+    { label: "TF_LIST", value: "Opens '[', calls itself for each element, closes ']'", color: "emerald" }
+  ]}
 />
+
+<Callout type="pro" title="Elegance of Recursion">
+  In a single function of just a few lines, we've implemented a visualizer capable of printing an entire database of nested lists. This is the power of C when paired with recursive algorithms.
+</Callout>
 
 <Callout type="warning" title="The Newline Secret">
 Salvatore notes that without a final `\\n`, the shell (like Z-shell or `zsh`) might show a `%` character or an inverted symbol at the end of the output. This is why we add a `printf("\\n")` only in the main caller, not inside the recursive function!

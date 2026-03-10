@@ -74,20 +74,23 @@ Invece di ottimizzare tutto subito, Salvatore usa una strategia a fasi:
 
 La funzione `compute_diff` è il cuore del programma. Tratta i colori RGB come coordinate in uno spazio 3D e calcola la distanza euclidea.
 
-<CodeEditor 
-  initialCode={`long long compute_diff(unsigned char *a, unsigned char *b) {
-    long long diff = 0;
-    for (int i = 0; i < WIDTH * HEIGHT * 3; i += 3) {
-        int r = a[i] - b[i];
-        int g = a[i+1] - b[i+1];
-        int b = a[i+2] - b[i+2];
-        // Distanza quadratica (più veloce della radice)
-        diff += (r*r) + (g*g) + (b*b);
-    }
-    return diff;
-}`}
-  language="c"
+### Misurare la Differenza
+
+Per decidere se una mutazione è 'migliore', l'algoritmo calcola quanto ogni pixel dello Spectrum sia diverso dall'originale usando la distanza Euclidea.
+
+<Infographic 
+  title="Logica della Fitness Function"
+  description="Come l'algoritmo calcola l'errore."
+  items={[
+    { label: "Canali RGB", value: "Sottrae i valori R, G, B tra le due immagini", color: "blue" },
+    { label: "Quadrato", value: "Eleva al quadrato per pesare di più le grandi differenze", color: "purple" },
+    { label: "Fitness", value: "Somma tutte le differenze: più il numero è basso, più l'immagine è simile", color: "emerald" }
+  ]}
 />
+
+<Callout type="pro" title="Velocità vs Accuratezza">
+  Salvatore evita di usare la radice quadrata (`sqrt`) nel calcolo della distanza: è un'operazione lenta per la CPU e, ai fini del confronto, `a² + b² + c²` è più che sufficiente per capire quale immagine sia più vicina all'originale.
+</Callout>
 
 ---
 

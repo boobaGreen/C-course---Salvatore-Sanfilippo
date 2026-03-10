@@ -49,63 +49,41 @@ In ToyFort, se vuoi sommare 5 e 5, scrivi `5 5 +`.
 
 Per rappresentare i dati di ToyFort (interi, stringhe, simboli, liste), usiamo le **Unioni** e il **Reference Counting** che abbiamo imparato nelle lezioni precedenti.
 
-<CodeEditor 
-  initialCode={`#include <stdio.h>
-#include <stdlib.h>
+### Progettazione dell'Oggetto ToyFort
 
-typedef enum { TF_INT, TF_STR, TF_SYM, TF_LIST } TFType;
+Per gestire tipi diversi (numeri, stringhe, liste), usiamo una `struct` con una `union` interna e un `enum` per distinguere il tipo.
 
-// L'oggetto principale di ToyFort
-typedef struct TFObject {
-    TFType type;
-    int ref_count;
-    union {
-        long long i;
-        struct { char *ptr; size_t len; } s; // Stringhe e Simboli
-        struct { struct TFObject **ele; size_t len; } l; // Liste (Programmi)
-    };
-} TFObject;
-
-// Stato del Parser durante la lettura del codice
-typedef struct TFParser {
-    char *prg;              // Il testo intero del programma
-    char *next_token;       // Il punto dove siamo arrivati a leggere
-} TFParser;
-`} 
-  language="c" 
+<Infographic 
+  title="Anatomia di un TFObject"
+  description="Come ToyFort impacchetta dati eterogenei in un unico oggetto."
+  items={[
+    { label: "Type (TFType)", value: "Enum che dice se è INT, STR, SYM o LIST", color: "blue" },
+    { label: "Ref Count", value: "Gestione memoria automatica (Lezione 13)", color: "purple" },
+    { label: "Data (Union)", value: "Occupa lo spazio dell'elemento più grande", color: "emerald" }
+  ]}
 />
 
 <Callout type="pro" title="Perché i due asterischi?">
 `TFObject **ele` è un puntatore a un array di puntatori. In C, per avere una lista che contiene oggetti di diverso tipo (eterogenea), non salviamo gli oggetti direttamente, ma i loro indirizzi. Rimuovendo un asterisco (`ele[0]`), otteniamo il puntatore al singolo oggetto.
 </Callout>
 
-<CodeEditor 
-  initialCode={`
-// Contesto di Esecuzione (permette più interpreti isolati)
-typedef struct TFContext {
-    TFObject *stack;        // La nostra lista globale (usata come stack)
-} TFContext;
+### Inizializzazione e Caricamento
 
-// Funzione helper per allocazione sicura (xmalloc)
-void* xmalloc(size_t size) {
-    void *ptr = malloc(size);
-    if (!ptr) { 
-        fprintf(stderr, "Fatal: Out of memory\\n"); 
-        exit(1); 
-    }
-    return ptr;
-}
+L'interprete legge il programma da una stringa e alloca gli oggetti necessari.
 
-int main(int argc, char **argv) {
-    if (argc < 2) {
-        fprintf(stderr, "Usage: %s <program_file>\\n", argv[0]);
-        return 1;
-    }
-    printf("Interprete ToyFort inizializzato per %s\\n", argv[1]);
-    return 0;
-}`} 
-  language="c" 
+<Infographic 
+  title="Bootstrapping dell'Interprete"
+  description="Il processo di avvio di ToyFort."
+  items={[
+    { label: "Argv[1]", value: "Il codice sorgente passato dal terminale", color: "blue" },
+    { label: "Context", value: "Allocazione della struttura globale TFContext", color: "emerald" },
+    { label: "Eval Loop", description: "Inizio del ciclo 'Leggi-Esegui-Stampa'", color: "amber" }
+  ]}
 />
+
+<Callout type="pro" title="Evoluzione Continua">
+  A questo punto il nostro interprete è 'vivo'. Può non sembrare differente dai programmi delle prime lezioni, ma la differenza è radicale: ora abbiamo un sistema che **interpreta** ed **esegue** istruzioni arbitrarie definite dall'utente finale.
+</Callout>
 
 <Callout type="tip" title="xmalloc & Panic">
 Salvatore introduce `xmalloc`: un wrapper intorno a `malloc` che interrompe il programma se la memoria finisce. È una pratica comune nei sistemi dove non è possibile gestire l'errore di memoria in modo sensato.

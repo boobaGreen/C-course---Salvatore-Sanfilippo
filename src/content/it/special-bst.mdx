@@ -38,73 +38,23 @@ Un **Binary Search Tree** è una struttura dati dove ogni nodo ha al massimo due
   }}
 />
 
----
+### Struttura del Nodo
 
-## L'Implementazione in C
+Ogni elemento dell'albero è una piccola 'isola' di memoria che contiene un valore e due puntatori ai suoi figli.
 
-Salvatore definisce la struttura base in modo molto pulito:
-
-<CodeEditor 
-  initialCode={`struct node {
-    int val;
-    struct node *left;
-    struct node *right;
-};
-
-// Creazione di un nuovo nodo
-struct node *create_node(int val) {
-    struct node *n = malloc(sizeof(struct node));
-    n->val = val;
-    n->left = n->right = NULL;
-    return n;
-}`}
-  language="c"
+<Infographic 
+  title="Anatomia di un Nodo BST"
+  description="Come sono organizzati i dati nella Heap."
+  items={[
+    { label: "Value (int)", value: "Il dato numerico memorizzato", color: "blue" },
+    { label: "Left (*node)", value: "Indirizzo del figlio minore (o NULL)", color: "emerald" },
+    { label: "Right (*node)", value: "Indirizzo del figlio maggiore (o NULL)", color: "purple" }
+  ]}
 />
 
-### L'Inserimento (Iterativo)
-
-Per inserire un valore, "scendiamo" nell'albero confrontando il valore con ogni nodo finché non troviamo un posto vuoto (`NULL`).
-
-<CodeEditor 
-  initialCode={`struct node *insert(struct node *root, int val) {
-    if (root == NULL) return create_node(val);
-    struct node *curr = root;
-    while (1) {
-        if (val < curr->val) {
-            if (curr->left == NULL) {
-                curr->left = create_node(val);
-                break;
-            }
-            curr = curr->left;
-        } else {
-            if (curr->right == NULL) {
-                curr->right = create_node(val);
-                break;
-            }
-            curr = curr->right;
-        }
-    }
-    return root;
-}`}
-  language="c"
-/>
-
----
-
-## L'Eleganza della Ricorsione: Stampa Ordinata
-
-Il momento più magico della lezione è quando Salvatore mostra come stampare i valori dell'albero dal più piccolo al più grande con pochissime righe di codice. Si chiama **In-order Traversal**.
-
-<CodeEditor 
-  initialCode={`void print_sorted(struct node *root) {
-    if (root == NULL) return;
-    
-    print_sorted(root->left);   // 1. Vai a sinistra (valori minori)
-    printf("%d ", root->val);   // 2. Stampa il nodo attuale
-    print_sorted(root->right);  // 3. Vai a destra (valori maggiori)
-}`}
-  language="c"
-/>
+<Callout type="pro" title="Inizializzazione a NULL">
+  Dimenticare di inizializzare i puntatori `left` e `right` a `NULL` è il bug più comune. Senza questo passaggio, il C userebbe indirizzi 'spazzatura', portando il programma a crashare non appena proviamo a capire se un nodo ha figli o meno.
+</Callout>
 
 <Callout type="info" title="L'algoritmo emerge dalla struttura">
 Salvatore sottolinea come non serva imparare il codice a memoria: se capisci che i valori piccoli sono a sinistra, la funzione ricorsiva "si scrive da sola". È l'eleganza dell'informatica.

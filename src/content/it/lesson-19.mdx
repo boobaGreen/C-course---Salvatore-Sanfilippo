@@ -59,37 +59,19 @@ Il Kernel è pigro (o meglio, efficiente). Non vuole gestire stringhe lunghe per
   ]}
 />
 
----
+### Il Viaggio di una System Call
 
-## Esempio: Scrittura a Basso Livello
+Quando il tuo codice chiama `write()`, inizia un viaggio attraverso i livelli del sistema operativo.
 
-Usiamo `open` e `write` invece delle funzioni standard. Nota come dobbiamo gestire i permessi ottali (es. 0644).
-
-<CodeEditor 
-  initialCode={`#include <stdio.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <errno.h>
-#include <string.h>
-
-int main() {
-    // Apriamo un file in sola scrittura, creandolo se manca
-    int fd = open("low_level.txt", O_WRONLY | O_CREAT | O_TRUNC, 0644);
-    
-    if (fd == -1) {
-        perror("Errore nell'apertura");
-        return 1;
-    }
-
-    char *msg = "Saluti dal Kernel!\\n";
-    if (write(fd, msg, strlen(msg)) == -1) {
-        perror("Errore nella scrittura");
-    }
-
-    close(fd);
-    return 0;
-}`} 
-  language="c" 
+<WorkflowDiagram 
+  title="Percorso della System Call write()"
+  description="Come i dati passano dallo User Space all'Hardware."
+  steps={[
+    { title: "Chiamata C", description: "Il tuo codice invoca write(fd, buf, len).", color: "blue" },
+    { title: "Trap/Interrupt", description: "La CPU passa in modalità Kernel (Privileged Mode).", color: "purple" },
+    { title: "Kernel Handler", description: "Il Kernel verifica i permessi e individua il file.", color: "emerald" },
+    { title: "Hardware Write", description: "I dati vengono scritti fisicamente sul disco o terminale.", color: "amber" }
+  ]}
 />
 
 <Callout type="pro" title="Ancestrale ma Attuale">
@@ -97,7 +79,6 @@ Le system calls che vedi qui (come `open`) sono state definite negli anni '70 pe
 </Callout>
 
 ### errno e perror
-Quando una syscall fallisce (ritorna -1), il Kernel imposta un numero globale chiamato `errno`. La funzione `perror` legge quel numero e lo traduce in un messaggio umano (es. "No such file or directory").
 
 <Callout type="warning" title="Costo delle Syscalls">
   Chiamare una syscall è "costoso". La CPU deve fermare il tuo programma, cambiare modalità (da User a Kernel), fare il lavoro e tornare indietro. È per questo che `printf` usa un buffer: accumula i dati e fa una sola `write()` finale invece di cento piccole chiamate, risparmiando tempo prezioso.

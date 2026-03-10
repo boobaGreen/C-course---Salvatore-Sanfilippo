@@ -80,29 +80,22 @@ Salvatore chiede all'AI di cambiare la logica: invece di calcolare la differenza
 
 <PerformanceChart />
 
-<CodeEditor 
-  initialCode={`#include <stdio.h>
+### L'Evoluzione della Complessità
 
-#define WIDTH 256
-#define HEIGHT 192
+Passando dal ricalcolo totale a quello locale, abbiamo trasformato un algoritmo pesante in una serie di micro-operazioni istantanee.
 
-// O(N): Scansione globale (lenta)
-void compute_diff_global() {
-printf("Analisi di %d pixel in corso...\\n", WIDTH \* HEIGHT);
-}
-
-// O(1): Scansione locale 8x8 (istantanea)
-void compute_diff_local() {
-printf("Analisi di 64 pixel (blocco 8x8) in corso...\\n");
-}
-
-int main() {
-compute_diff_local();
-return 0;
-}
-`}
-language="c"
+<ComparisonTable 
+  title="Ottimizzazione: Globale vs Locale"
+  headers={["Metodo", "Complessità", "Costo CPU", "Impatto"]}
+  rows={[
+    ["Scansione Globale", "O(WIDTH * HEIGHT)", "Molto Alto (~50k pixel)", "Lento, rinfresco a scatti"],
+    ["Scansione Locale", "O(1) (fisso 8x8)", "Basso (64 pixel)", "Fluido, migliaia di mutazioni al secondo"]
+  ]}
 />
+
+<Callout type="pro" title="Il segreto del Profiling">
+  Usando il comando `sample` su Mac, Salvatore ha scoperto che il 94% del tempo veniva perso in cicli inutili. Questa è la vera ingegneria: non ottimizzare a caso, ma usare dati scientifici per capire dove 'tagliare' la complessità.
+</Callout>
 
 ---
 

@@ -29,30 +29,18 @@ In questa lezione entriamo nel vivo dell'esecuzione. Vedremo come l'interprete t
 
 L'interprete ToyFort cicla su una lista. Se trova un valore, lo "puscia" sullo stack; se trova un simbolo, lo esegue.
 
-<StackVisualizer 
-  title="Esecuzione: 5 10 plus"
-  initialStack={[]}
-  steps={[
-    { action: "PUSH 5", result: "[ 5 ]" },
-    { action: "PUSH 10", result: "[ 5 10 ]" },
-    { action: "CALL 'plus'", result: "[ 15 ]", highlight: true }
-  ]}
-/>
+### Anatomia del Ciclo Eval
 
-<CodeEditor 
-  initialCode={`void execute_program(TFContext *ctx, TFObject *prg) {
-    assert(prg->type == TF_LIST); // Assicurati che sia una lista!
-    for (size_t i = 0; i < prg->l.len; i++) {
-        TFObject *word = prg->l.ele[i];
-        if (word->type == TF_SYM) {
-            call_symbol(ctx, word);
-        } else {
-            retain_object(word); 
-            list_push(ctx->stack, word);
-        }
-    }
-}`}
-  language="c"
+Il 'cuore' di ToyFort è una singola funzione che processa ogni 'parola' del programma decidendo se metterla nello stack o eseguirla.
+
+<Infographic 
+  title="Il Motore di Esecuzione"
+  description="Come ToyFort processa il codice."
+  items={[
+    { label: "Asserzione", value: "Verifica che l'input sia una lista valida", color: "blue" },
+    { label: "Symbol", value: "Se è una parola, chiama la funzione corrispondente", color: "purple" },
+    { label: "Data", value: "Se è un numero/stringa, lo sposta nello stack (Retain)", color: "emerald" }
+  ]}
 />
 
 <Callout type="pro" title="Perché xrealloc?">

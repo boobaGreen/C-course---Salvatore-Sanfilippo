@@ -80,24 +80,23 @@ When you write `p++` on an `int *p`, the address doesn't increase by 1, but by `
 - `int *p; p++` -> +4 bytes
 </Callout>
 
-<CodeEditor 
-  initialCode={`#include <stdio.h>
+### Pro String: Metadata "Behind" the Pointer
 
-void print_string(char *p) {
-    while (*p != '\\0') {
-        putchar(*p); // Print current character
-        p++;         // Move to next byte
-    }
-    putchar('\\n');
-}
+Instead of counting characters (O(N)), we can save the length **before** the text. This is the secret of libraries like SDS (used in Redis).
 
-int main() {
-    char *greeting = "esperto World";
-    print_string(greeting);
-    return 0;
-}`}
-  language="c"
+<Infographic 
+  title="SDS Layout: 'Hulk'"
+  description="How data is physically stored in memory."
+  items={[
+    { label: "Offset -4", value: "Length: 4 (uint32_t)", color: "purple" },
+    { label: "Offset 0", value: "Text: 'H' 'u' 'l' 'k'", color: "blue" },
+    { label: "Offset +4", value: "Terminator: '\\0'", color: "amber" }
+  ]}
 />
+
+<Callout type="pro" title="O(1) Access">
+  Since we know the length is exactly 4 bytes before the string address, we can retrieve it instantaneously with a simple cast: `*(uint32_t*)(s - 4)`. We no longer need to scan the entire string!
+</Callout>
 
 ---
 

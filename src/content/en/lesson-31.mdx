@@ -66,29 +66,22 @@ Salvatore asks the AI to change the logic: instead of calculating the global dif
 
 <PerformanceChart />
 
-<CodeEditor 
-  initialCode={`#include <stdio.h>
+### Complexity Evolution
 
-#define WIDTH 256
-#define HEIGHT 192
+By moving from total to local recalculation, we've transformed a heavy algorithm into a series of instantaneous micro-operations.
 
-// O(N): Global scan (slow)
-void compute_diff_global() {
-printf("Analyzing %d pixels...\\n", WIDTH \* HEIGHT);
-}
-
-// O(1): Local 8x8 scan (instant)
-void compute_diff_local() {
-printf("Analyzing 64 pixels (8x8 block)...\\n");
-}
-
-int main() {
-compute_diff_local();
-return 0;
-}
-`}
-language="c"
+<ComparisonTable 
+  title="Optimization: Global vs Local"
+  headers={["Method", "Complexity", "CPU Cost", "Impact"]}
+  rows={[
+    ["Global Scan", "O(WIDTH * HEIGHT)", "Very High (~50k pixels)", "Slow, stuttering refresh"],
+    ["Local Scan", "O(1) (fixed 8x8)", "Low (64 pixels)", "Fluid, thousands of mutations per second"]
+  ]}
 />
+
+<Callout type="pro" title="The Secret of Profiling">
+  Using the `sample` command on Mac, Salvatore discovered that 94% of the time was spent in useless loops. This is true engineering: don't optimize randomly, use scientific data to identify where to 'cut' complexity.
+</Callout>
 
 ---
 

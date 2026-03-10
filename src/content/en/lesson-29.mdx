@@ -51,30 +51,6 @@ To manage software versions and never lose work, we use **Git**.
 Salvatore recounts how, during recording, he accidentally deleted a piece of necessary code. Thanks to transcript backups (or in our case, thanks to Git), it's possible to recover previous versions in seconds.
 </Callout>
 
----
-
-## Evolution of ToyFort: `list_pop_type`
-
-While improving the workflow, we also improve the interpreter. We introduce a version of `pop` that checks the object's type as it extracts it.
-
-<CodeEditor 
-  initialCode={`TFObject *list_pop_type(TFContext *ctx, int type) {
-    if (ctx->stack_len == 0) return NULL;
-    TFObject *o = ctx->stack[ctx->stack_len-1];
-    
-    // If the type doesn't match (and we didn't ask for 'any'), error
-    if (type != TF_ANY && o->type != type) return NULL;
-    
-    ctx->stack_len--;
-    return o;
-}`}
-  language="c"
-/>
-
----
-
-## Exercises
-
 <Quiz 
   title="Quiz Standard" 
   questions={[

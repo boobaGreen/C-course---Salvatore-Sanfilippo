@@ -3,24 +3,6 @@ import Callout from '../../components/content/Callout';
 import KeyConcepts from '../../components/content/KeyConcepts';
 import CodeEditor from '../../components/exercises/CodeEditor';
 import Quiz from '../../components/exercises/Quiz';
-import ProTerminal from '../../components/content/ProTerminal';
-import Infographic from '../../components/content/Infographic';
-import ComparisonTable from '../../components/content/ComparisonTable';
-
-# Lesson 18: Typedef & Standard File I/O
-
-#  - [x] Lesson 18: Typedefs, Opaque Types, File I/O
-  - [x] Lesson 19: POSIX, System Calls, File Descriptors
-  - [x] Lesson 20: Buffering, M-MAP, Scheduler
-  - [x] Lesson 21: Unions, Bitfields, Function Pointers (Intro)
-  - [x] Lesson 22: Function Pointers, Callbacks, Qsort
-  - [x] Lesson 23: ToyFort Design, Recursive Types, Refcounting
-  - [x] Lesson 24: Parsing, Compilation, Execution (ToyFort Final)
-In this lesson, we will make a qualitative leap toward professional C. We will learn how to hide complexity using `typedef` and how to interact with the outside world by saving and reading data on disk using the standard library.
-
-<VideoEmbed videoId="3w73xjUSUEU" title="Lesson 18: Typedef & File I/O" />
-
-<KeyConcepts concepts={[
   { title: "Type Aliasing (typedef)", description: "Creating mnemonic names for complex types to make code more readable and easier to maintain." },
   { title: "Standard FILE API", description: "Mastering fopen, fread, fwrite, and fclose for universal file management in C." },
   { title: "Opaque Types", description: "The technique of hiding the internal implementation of structs to create clean interfaces." }
@@ -87,40 +69,33 @@ The `FILE` type is the first example of an **Opaque Type** we encounter. We don'
   ]}
 />
 
-### Example: Writing and Reading a Binary
+### Structures and Typedef: Memory Clarity
 
-<CodeEditor 
-  initialCode={`#include <stdio.h>
-#include <stdint.h>
+Instead of manually printing every field, we use `typedef` to create clear abstractions. When we save a struct to disk, C copies the exact bytes as they are in memory.
 
-typedef struct {
-    uint32_t id;
-    float score;
-} Player;
-
-int main() {
-    Player p1 = {1, 95.5f};
-    
-    // Writing
-    FILE *fout = fopen("save.dat", "wb");
-    if (fout) {
-        fwrite(&p1, sizeof(Player), 1, fout);
-        fclose(fout);
-    }
-    
-    // Reading
-    Player loaded;
-    FILE *fin = fopen("save.dat", "rb");
-    if (fin) {
-        fread(&loaded, sizeof(Player), 1, fin);
-        printf("ID: %u, Score: %.1f\\n", loaded.id, loaded.score);
-        fclose(fin);
-    }
-    
-    return 0;
-}`} 
-  language="c" 
+<Infographic 
+  title="Anatomy of a Struct: Player"
+  description="How fields are packed in memory."
+  items={[
+    { label: "uint32_t id", value: "4 bytes (Offset 0)", color: "blue" },
+    { label: "float score", value: "4 bytes (Offset 4)", color: "emerald" },
+    { label: "Total Size", value: "8 bytes total", color: "purple" }
+  ]}
 />
+
+<ComparisonTable 
+  title="I/O: Text vs Binary"
+  headers={["Action", "Text File (fprintf)", "Binary File (fwrite)"]}
+  rows={[
+    ["Speed", "Slower (conversion)", "Instant (RAM copy)"],
+    ["Readability", "Easy (editable with Notepad)", "Difficult (requires xdump)"],
+    ["Precision", "Float rounding risk", "Absolute bit precision"]
+  ]}
+/>
+
+<Callout type="pro" title="The Power of Binary">
+  Using `fwrite(&player, sizeof(Player), 1, fp)` is incredibly powerful: you are saving the entire state of your object in one go. This is the foundation of any save system in video games or databases.
+</Callout>
 
 ---
 

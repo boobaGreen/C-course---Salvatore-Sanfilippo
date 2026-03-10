@@ -80,24 +80,23 @@ Quando scrivi `p++` su un `int *p`, l'indirizzo non aumenta di 1, ma di `sizeof(
 - `int *p; p++` -> +4 byte
 </Callout>
 
-<CodeEditor 
-  initialCode={`#include <stdio.h>
+### Pro String: Metadati "dietro" il puntatore
 
-void stampa_stringa(char *p) {
-    while (*p != '\\0') {
-        putchar(*p); // Stampa il carattere corrente
-        p++;         // Passa al prossimo byte
-    }
-    putchar('\\n');
-}
+Invece di contare i caratteri (O(N)), possiamo salvare la lunghezza **prima** del testo. Questo è il segreto di librerie come SDS (usata in Redis).
 
-int main() {
-    char *saluto = "esperto World";
-    stampa_stringa(saluto);
-    return 0;
-}`}
-  language="c"
+<Infographic 
+  title="Layout SDS: 'Hulk'"
+  description="Come i dati sono salvati fisicamente in memoria."
+  items={[
+    { label: "Offset -4", value: "Lunghezza: 4 (uint32_t)", color: "purple" },
+    { label: "Offset 0", value: "Testo: 'H' 'u' 'l' 'k'", color: "blue" },
+    { label: "Offset +4", value: "Terminatore: '\\0'", color: "amber" }
+  ]}
 />
+
+<Callout type="pro" title="Accesso O(1)">
+  Poiché sappiamo che la lunghezza è esattamente 4 byte prima dell'indirizzo della stringa, possiamo recuperarla istantaneamente con un semplice cast: `*(uint32_t*)(s - 4)`. Non dobbiamo più scansionare l'intera stringa!
+</Callout>
 
 ---
 

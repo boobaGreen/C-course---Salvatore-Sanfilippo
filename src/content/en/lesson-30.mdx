@@ -74,20 +74,23 @@ Instead of optimizing everything at once, Salvatore uses a phased strategy:
 
 The `compute_diff` function is the heart of the program. It treats RGB colors as coordinates in 3D space and calculates the Euclidean distance.
 
-<CodeEditor 
-  initialCode={`long long compute_diff(unsigned char *a, unsigned char *b) {
-    long long diff = 0;
-    for (int i = 0; i < WIDTH * HEIGHT * 3; i += 3) {
-        int r = a[i] - b[i];
-        int g = a[i+1] - b[i+1];
-        int b = a[i+2] - b[i+2];
-        // Quadratic distance (faster than square root)
-        diff += (r*r) + (g*g) + (b*b);
-    }
-    return diff;
-}`}
-  language="c"
+### Measuring the Difference
+
+To decide if a mutation is 'better', the algorithm calculates how much each Spectrum pixel differs from the original using Euclidean distance.
+
+<Infographic 
+  title="Fitness Function Logic"
+  description="How the algorithm calculates error."
+  items={[
+    { label: "RGB Channels", value: "Subtracts R, G, B values between images", color: "blue" },
+    { label: "Squaring", value: "Squares differences to weigh large errors more heavily", color: "purple" },
+    { label: "Fitness", value: "Sums all differences: the lower the number, the closer the image", color: "emerald" }
+  ]}
 />
+
+<Callout type="pro" title="Speed vs Accuracy">
+  Salvatore avoids using the square root (`sqrt`) in distance calculation: it's CPU-intensive and, for comparison purposes, `a² + b² + c²` is perfectly sufficient to determine which image is closer to the original.
+</Callout>
 
 ---
 

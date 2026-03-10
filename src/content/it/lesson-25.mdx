@@ -40,27 +40,23 @@ Prima di leggere, dobbiamo saper scrivere. Una lista ToyFort può contenere altr
   }}
 />
 
-<CodeEditor 
-  initialCode={`void print_object(TFObject *o) {
-    switch(o->type) {
-        case TF_INT:
-            printf("%lld", o->i);
-            break;
-        case TF_LIST:
-            printf("[ ");
-            for (size_t i = 0; i < o->l.len; i++) {
-                print_object(o->l.ele[i]); // Chiamata RICORSIVA
-                if (i < o->l.len - 1) printf(" ");
-            }
-            printf(" ]");
-            break;
-        case TF_SYM:
-            printf("%s", o->s.ptr);
-            break;
-    }
-}`}
-  language="c"
+### La Logica di Stampa
+
+La funzione `print_object` naviga nell'albero degli oggetti. Per ogni tipo di dato, decide come formattare l'output.
+
+<Infographic 
+  title="Logica di print_object"
+  description="Come i diversi tipi vengono visualizzati."
+  items={[
+    { label: "TF_INT", value: "Stampa come intero long long (%lld)", color: "blue" },
+    { label: "TF_STR", value: "Aggiunge doppi apici (\"string\")", color: "purple" },
+    { label: "TF_LIST", value: "Apre '[', richiama se stessa per ogni elemento, chiude ']'", color: "emerald" }
+  ]}
 />
+
+<Callout type="pro" title="Eleganza della Ricorsione">
+  In una sola funzione di poche righe, abbiamo implementato un visualizzatore capace di stampare un intero database di liste annidate. È il potere del C quando si sposa con algoritmi ricorsivi.
+</Callout>
 
 <Callout type="warning" title="Il segreto del Newline">
 Salvatore nota che senza un `\\n` finale, la shell (come la Z-shell o `zsh`) potrebbe mostrare un carattere `%` o invertito alla fine dell'output. Per questo aggiungiamo un `printf("\\n")` solo nel chiamante principale, non dentro la funzione ricorsiva!

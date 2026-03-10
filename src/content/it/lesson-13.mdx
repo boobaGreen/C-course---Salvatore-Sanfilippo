@@ -94,71 +94,23 @@ Un `int` su un sistema a 16 bit occupa 2 byte, su uno a 32 bit ne occupa 4. Se v
   ]}
 />
 
----
+### Pro String vs C String
 
-## Implementazione della Libreria `ps_string`
+Ecco un confronto tra l'approccio classico del C e il nostro sistema a oggetti.
 
-Ecco il codice completo discusso da Salvatore, con la logica di **creazione**, **accesso O(1)** e **liberazione corretta**.
-
-<CodeEditor 
-  initialCode={`#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdint.h>
-
-// Definiamo un header da 4 byte (uint32_t)
-#define HDR_SIZE sizeof(uint32_t)
-
-// Crea una stringa evoluta da una stringa C
-char *ps_create(char *init) {
-    uint32_t len = strlen(init);
-    // Allochiamo: Lunghezza (4) + Testo + '\\0' (1)
-    char *p = malloc(HDR_SIZE + len + 1);
-    if (!p) return NULL;
-
-    // Scriviamo la lunghezza all'inizio
-    *((uint32_t*)p) = len;
-
-    // Puntiamo al testo (saltiamo l'header)
-    char *s = p + HDR_SIZE;
-    // Copiamo il testo (inclusa la compatibilità C)
-    strcpy(s, init);
-    
-    return s;
-}
-
-// Ritorna la lunghezza in tempo COSTANTE O(1)
-uint32_t ps_len(char *s) {
-    // Torniamo indietro di 4 byte e leggiamo il valore
-    return *((uint32_t*)(s - HDR_SIZE));
-}
-
-// Libera la memoria correttamente
-void ps_free(char *s) {
-    // CRITICO: Dobbiamo liberare dall'indirizzo ORIGINALE (p)
-    free(s - HDR_SIZE);
-}
-
-int main() {
-    char *my_str = ps_create("Salvatore C Course");
-    
-    // Interoperabilità: printf vede una normale stringa C!
-    printf("Testo: %s\\n", my_str);
-    
-    // Potenza: Sappiamo la lunghezza senza scansionare la stringa
-    printf("Lunghezza (O(1)): %u\\n", ps_len(my_str));
-    
-    ps_free(my_str);
-    return 0;
-}`} 
-  language="c" 
+<ComparisonTable 
+  title="Performance e Funzionalità"
+  headers={["Caratteristica", "Stringa C Standard", "Pro String (SDS-style)"]}
+  rows={[
+    ["Calcolo Lunghezza", "O(N) - Lento (scansione)", "O(1) - Istantaneo (header)"],
+    ["Dati Binari", "Vietati (lo \\0 interrompe)", "Permessi (usa la lunghezza)"],
+    ["Sicurezza", "Buffer Overflow facile", "Controlli sui limiti facilitati"],
+    ["Compatibilità", "Nativa", "Totale (punta al corpo del testo)"]
+  ]}
 />
 
-<Callout type="pro" title="Reference Counting">
-Salvatore introduce una tecnica fondamentale per gestire la memoria condivisa: il **Reference Counting**. Invece di duplicare una stringa ogni volta che un nuovo puntatore la referenzia, incrementiamo un contatore nell'header.
-- Quando aggiungi un riferimento: `count++`
-- Quando rimuovi un riferimento: `count--`
-- Quando `count == 0`: chiami veramente la `free()`.
+<Callout type="info" title="Oltre il C">
+  Questo approccio non è un esercizio accademico: è esattamente come linguaggi moderni (Java, Go, Python) gestiscono internamente le stringhe per essere veloci e sicure.
 </Callout>
 
 ### Verso le Struct

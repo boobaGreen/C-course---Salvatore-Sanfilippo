@@ -84,7 +84,11 @@ void log_error(const char *fmt, ...) {
 Salvatore shows how to use these functions to manipulate output creatively, for example, by centering text in the terminal.
 
 <CodeEditor 
-  initialCode={`void print_centered(int width, const char *fmt, ...) {
+  initialCode={`#include <stdio.h>
+#include <stdarg.h>
+#include <string.h>
+
+void print_centered(int width, const char *fmt, ...) {
     char buffer[1024];
     va_list ap;
     

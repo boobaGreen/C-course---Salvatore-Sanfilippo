@@ -25,12 +25,13 @@ Welcome! In this first lesson, we launch our journey through the C language. Thi
 
 The approach will be **extremely operational**: we'll learn to program by programming. Theoretical explanations will come as a "side effect" of writing the code.
 
-<KeyConcepts title="What we'll learn today">
-  - Writing your first "Hello World" program - Understanding the **compilation**
-  process - Exploring what the compiler does (down to the Assembly level) - The
-  democratization of C: from Stallman to GCC - Understanding **preprocessor**
-  directives (#include) - Discovering **function prototypes**
-</KeyConcepts>
+<KeyConcepts title="What we'll learn today"
+  concepts={[
+    { title: "Hello World", description: "Writing your first 'Hello World' program and understanding the compilation process." },
+    { title: "Behind the Scenes", description: "Exploring what the compiler does (down to the Assembly level) and the democratization of C." },
+    { title: "Core Concepts", description: "Understanding preprocessor directives (#include) and discovering function prototypes." }
+  ]}
+/>
 
 <Callout type="info" title="Course Philosophy">
   This course follows an **instinctive** style. There is no obsessive
@@ -275,14 +276,13 @@ Thanks to the prototype, the compiler knows exactly how to prepare data in memor
 
 See you in the next lesson!
 
-<KeyConcepts title="In Short">
-  - Compiled, not executed: C is not executed, but **compiled**.
-  - Smart optimization: The compiler can optimize code
-  intelligently (e.g., turning `printf` into `puts`).
-  - The Preprocessor: Prepares the file before compilation.
-  - Header Files: **Header files (`.h`)** contain
-  function **prototypes**.
-</KeyConcepts>
+<KeyConcepts title="In Short"
+  concepts={[
+    { title: "Compiled, not executed", description: "C is not executed, but compiled. The compiler can optimize code intelligently (e.g., turning printf into puts)." },
+    { title: "The Preprocessor", description: "Prepares the file before compilation." },
+    { title: "Header Files", description: "Header files (.h) contain function prototypes." }
+  ]}
+/>
 
 ### Pro Challenge
 <Quiz

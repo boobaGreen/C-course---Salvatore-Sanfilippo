@@ -36,33 +36,19 @@ Salvatore risolve un grande dubbio: perché usare `char str[]` invece di `char *
   ]}
 />
 
+### xdump: Vedere la Memoria
+
+Invece di scrivere codice complesso, usiamo il concetto di `xdump` per visualizzare i byte. In C, questo significa iterare su un puntatore `unsigned char*`.
+
 <Infographic 
-  title="Layout di Memoria a Confronto"
-  description="Visualizzazione dei due approcci nel RAM."
+  title="Anatomia di un Memory Dump"
+  description="Come visualizziamo i byte grezzi (es. l'intero 0x41424344)."
   items={[
-    { label: "Approccio Pointer", value: "[Header] ... [Intervallo] ... [Testo]", color: "amber" },
-    { label: "Approccio Flexible", value: "[Header][Testo]", color: "emerald" }
+    { label: "Esadecimale", value: "44 43 42 41 (Little Endian)", color: "blue" },
+    { label: "ASCII", value: "D C B A", color: "emerald" },
+    { label: "Padding", value: "Eventuali byte vuoti (00) aggiunti dal compilatore", color: "amber" }
   ]}
 />
-
-## Implementare xdump
-
-Salvatore ci mostra come trasformare un puntatore `void *` in una serie di byte leggibili. L'obiettivo è stampare sia il valore esadecimale che il carattere ASCII (se stampabile).
-
-<CodeEditor 
-  initialCode={`#include <stdio.h>
-#include <string.h>
-#include <ctype.h>
-
-void xdump(void *p, int len) {
-    unsigned char *c = p;
-    for (int i = 0; i < len; i++) {
-        // Operatore ternario: se stampabile mostra il char, altrimenti un punto
-        printf("%02x (%c) ", c[i], isprint(c[i]) ? c[i] : '.');
-        if ((i + 1) % 8 == 0) printf("\\n");
-    }
-    printf("\\n");
-}
 
 <ComparisonTable 
   title="char vs unsigned char"
@@ -73,19 +59,19 @@ void xdump(void *p, int len) {
   ]}
 />
 
-int main() {
-    int x = 0x41424344; // "ABCD" in hex
-    xdump(&x, sizeof(x));
-    return 0;
-}`} 
-  language="c" 
+<Callout type="pro" title="Perché unsigned char?">
+  Usiamo `unsigned char` per i dump di memoria perché vogliamo vedere il **valore reale** del byte (0-255) senza che il bit del segno (usato nei `char` standard) sporchi i nostri calcoli o la visualizzazione.
+</Callout>
+
+<Infographic 
+  title="Layout di Memoria a Confronto"
+  description="Visualizzazione dei due approcci nel RAM."
+  items={[
+    { label: "Approccio Pointer", value: "[Header] ... [Intervallo] ... [Testo]", color: "amber" },
+    { label: "Approccio Flexible", value: "[Header][Testo]", color: "emerald" }
+  ]}
 />
 
----
-
-## L'Operatore Ternario: `? :`
-
-È la versione "esperto" dell'if-else. Salvatore lo usa spesso per decisioni rapide:
 `condizione ? valore_se_vero : valore_se_falso`
 
 Esempio:

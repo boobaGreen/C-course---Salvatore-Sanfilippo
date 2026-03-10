@@ -44,49 +44,40 @@ A **Binary Search Tree** is a data structure where each node has at most two chi
 
 Salvatore defines the base structure very cleanly:
 
-<CodeEditor 
-  initialCode={`struct node {
-    int val;
-    struct node *left;
-    struct node *right;
-};
+### Node Structure
 
-// Creating a new node
-struct node *create_node(int val) {
-    struct node *n = malloc(sizeof(struct node));
-    n->val = val;
-    n->left = n->right = NULL;
-    return n;
-}`}
-  language="c"
+Each element in the tree is a small 'island' of memory containing a value and two pointers to its children.
+
+<Infographic 
+  title="Anatomy of a BST Node"
+  description="How data is organized in the Heap."
+  items={[
+    { label: "Value (int)", value: "The numeric data stored", color: "blue" },
+    { label: "Left (*node)", value: "Address of the smaller child (or NULL)", color: "emerald" },
+    { label: "Right (*node)", value: "Address of the larger child (or NULL)", color: "purple" }
+  ]}
 />
+
+<Callout type="pro" title="Initialization to NULL">
+  Forgetting to initialize `left` and `right` pointers to `NULL` is the most common bug. Without this step, C would use 'garbage' addresses, causing the program to crash as soon as we try to determine if a node has children.
+</Callout>
 
 ### Insertion (Iterative)
 
 To insert a value, we "descend" into the tree by comparing the value with each node until we find an empty spot (`NULL`).
 
-<CodeEditor 
-  initialCode={`struct node *insert(struct node *root, int val) {
-    if (root == NULL) return create_node(val);
-    struct node *curr = root;
-    while (1) {
-        if (val < curr->val) {
-            if (curr->left == NULL) {
-                curr->left = create_node(val);
-                break;
-            }
-            curr = curr->left;
-        } else {
-            if (curr->right == NULL) {
-                curr->right = create_node(val);
-                break;
-            }
-            curr = curr->right;
-        }
-    }
-    return root;
-}`}
-  language="c"
+### Insertion Logic
+
+To insert a value, we 'descend' into the tree by comparing the value with each node until we find an empty spot.
+
+<Infographic 
+  title="The Path of Insertion"
+  description="How the BST decides where to put a value."
+  items={[
+    { label: "Comparison", value: "Is the new value smaller or larger than the current one?", color: "blue" },
+    { label: "Traversal", value: "Move left if smaller, right if larger", color: "purple" },
+    { label: "Placement", value: "Once a NULL spot is found, attach the new node there", color: "emerald" }
+  ]}
 />
 
 ---
@@ -95,15 +86,18 @@ To insert a value, we "descend" into the tree by comparing the value with each n
 
 The most magical moment of the lesson is when Salvatore shows how to print the tree's values from smallest to largest with just a few lines of code. This is called **In-order Traversal**.
 
-<CodeEditor 
-  initialCode={`void print_sorted(struct node *root) {
-    if (root == NULL) return;
-    
-    print_sorted(root->left);   // 1. Go left (smaller values)
-    printf("%d ", root->val);   // 2. Print current node
-    print_sorted(root->right);  // 3. Go right (larger values)
-}`}
-  language="c"
+### Sorted Printing
+
+The real magic happens during printing. By following a specific order, we can display the tree's values perfectly sorted.
+
+<Infographic 
+  title="In-order Traversal"
+  description="The three steps of sorted printing."
+  items={[
+    { label: "1. Left", value: "Recursively visit all smaller values", color: "blue" },
+    { label: "2. Root", value: "Print the current value", color: "purple" },
+    { label: "3. Right", value: "Recursively visit all larger values", color: "emerald" }
+  ]}
 />
 
 <Callout type="info" title="The algorithm emerges from the structure">

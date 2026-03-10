@@ -45,63 +45,41 @@ In ToyFort, if you want to add 5 and 5, you write `5 5 +`.
 
 To represent ToyFort's data (integers, strings, symbols, lists), we use **Unions** and **Reference Counting** learned in previous lessons.
 
-<CodeEditor 
-  initialCode={`#include <stdio.h>
-#include <stdlib.h>
+### ToyFort Object Design
 
-typedef enum { TF_INT, TF_STR, TF_SYM, TF_LIST } TFType;
+To manage different types (numbers, strings, lists), we use a `struct` with an internal `union` and an `enum` to distinguish the type.
 
-// The main object of ToyFort
-typedef struct TFObject {
-    TFType type;
-    int ref_count;
-    union {
-        long long i;
-        struct { char *ptr; size_t len; } s; // Strings and Symbols
-        struct { struct TFObject **ele; size_t len; } l; // Lists (Programs)
-    };
-} TFObject;
-
-// Parser state during code reading
-typedef struct TFParser {
-    char *prg;              // Full program text
-    char *next_token;       // Current reading point
-} TFParser;
-`} 
-  language="c" 
+<Infographic 
+  title="TFObject Anatomy"
+  description="How ToyFort packs heterogeneous data into a single object."
+  items={[
+    { label: "Type (TFType)", value: "Enum indicating if it's INT, STR, SYM, or LIST", color: "blue" },
+    { label: "Ref Count", value: "Automatic memory management (Lesson 13)", color: "purple" },
+    { label: "Data (Union)", value: "Takes the space of the largest element", color: "emerald" }
+  ]}
 />
 
 <Callout type="pro" title="Why two asterisks?">
 `TFObject **ele` is a pointer to an array of pointers. In C, to have a list that contains objects of different types (heterogeneous), we don't save the objects directly but their addresses. By removing one asterisk (`ele[0]`), we get the pointer to the individual object.
 </Callout>
 
-<CodeEditor 
-  initialCode={`
-// Execution Context (allows multiple isolated interpreters)
-typedef struct TFContext {
-    TFObject *stack;        // Our global list (used as a stack)
-} TFContext;
+### Initialization and Loading
 
-// Helper function for safe allocation (xmalloc)
-void* xmalloc(size_t size) {
-    void *ptr = malloc(size);
-    if (!ptr) { 
-        fprintf(stderr, "Fatal: Out of memory\\n"); 
-        exit(1); 
-    }
-    return ptr;
-}
+The interpreter reads the program from a string and allocates the necessary objects.
 
-int main(int argc, char **argv) {
-    if (argc < 2) {
-        fprintf(stderr, "Usage: %s <program_file>\\n", argv[0]);
-        return 1;
-    }
-    printf("ToyFort interpreter initialized for %s\\n", argv[1]);
-    return 0;
-}`} 
-  language="c" 
+<Infographic 
+  title="Interpreter Bootstrapping"
+  description="The ToyFort startup process."
+  items={[
+    { label: "Argv[1]", value: "Source code passed from the terminal", color: "blue" },
+    { label: "Context", value: "Allocation of the global TFContext structure", color: "emerald" },
+    { label: "Eval Loop", description: "Start of the 'Read-Eval-Print' cycle", color: "amber" }
+  ]}
 />
+
+<Callout type="pro" title="Continuous Evolution">
+  By this point, our interpreter is 'alive.' It may not look different from scripts in early lessons, but the difference is radical: we now have a system that **interprets** and **executes** arbitrary user-defined instructions.
+</Callout>
 
 <Callout type="tip" title="xmalloc & Panic">
 Salvatore introduces `xmalloc`: a wrapper around `malloc` that halts the program if memory runs out. It's a common practice in systems where handling out-of-memory errors gracefully is not feasible.

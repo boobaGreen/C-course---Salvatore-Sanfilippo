@@ -38,20 +38,18 @@ The ToyFort interpreter loops over a list. If it finds a value, it "pushes" it o
   ]}
 />
 
-<CodeEditor 
-  initialCode={`void execute_program(TFContext *ctx, TFObject *prg) {
-    assert(prg->type == TF_LIST); // Ensure it's a list!
-    for (size_t i = 0; i < prg->l.len; i++) {
-        TFObject *word = prg->l.ele[i];
-        if (word->type == TF_SYM) {
-            call_symbol(ctx, word);
-        } else {
-            retain_object(word); 
-            list_push(ctx->stack, word);
-        }
-    }
-}`}
-  language="c"
+### Anatomy of the Eval Cycle
+
+The 'heart' of ToyFort is a single function that processes each 'word' of the program, deciding whether to push it onto the stack or execute it.
+
+<Infographic 
+  title="The Execution Engine"
+  description="How ToyFort processes code."
+  items={[
+    { label: "Assertion", value: "Verifies the input is a valid list", color: "blue" },
+    { label: "Symbol", value: "If it's a word, calls the corresponding function", color: "purple" },
+    { label: "Data", value: "If it's a number/string, pushes it to the stack (Retain)", color: "emerald" }
+  ]}
 />
 
 <Callout type="pro" title="Why xrealloc?">

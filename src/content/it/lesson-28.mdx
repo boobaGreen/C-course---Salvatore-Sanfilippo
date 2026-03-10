@@ -77,14 +77,12 @@ void log_error(const char *fmt, ...) {
   language="c"
 />
 
----
-
-## Esempio Pratico: Testo Centrato
-
-Salvatore mostra come usare queste funzioni per manipolare l'output in modo creativo, ad esempio centrando il testo nel terminale.
-
 <CodeEditor 
-  initialCode={`void print_centered(int width, const char *fmt, ...) {
+  initialCode={`#include <stdarg.h>
+#include <stdio.h>
+#include <string.h>
+
+void print_centered(int width, const char *fmt, ...) {
     char buffer[1024];
     va_list ap;
     

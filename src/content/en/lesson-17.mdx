@@ -36,33 +36,19 @@ Salvatore resolves a major doubt: why use `char str[]` instead of `char *str`?
   ]}
 />
 
+### xdump: Seeing the Memory
+
+Instead of writing complex code, we use the concept of `xdump` to visualize bytes. In C, this means iterating over an `unsigned char*` pointer.
+
 <Infographic 
-  title="Memory Layout Comparison"
-  description="Visualization of the two approaches in RAM."
+  title="Anatomy of a Memory Dump"
+  description="How we visualize raw bytes (e.g., the integer 0x41424344)."
   items={[
-    { label: "Pointer Approach", value: "[Header] ... [Gap] ... [Text]", color: "amber" },
-    { label: "Flexible Approach", value: "[Header][Text]", color: "emerald" }
+    { label: "Hexadecimal", value: "44 43 42 41 (Little Endian)", color: "blue" },
+    { label: "ASCII", value: "D C B A", color: "emerald" },
+    { label: "Padding", value: "Any empty bytes (00) added by the compiler", color: "amber" }
   ]}
 />
-
-## Implementing xdump
-
-Salvatore shows us how to transform a `void *` pointer into a series of readable bytes. The goal is to print both the hexadecimal value and the ASCII character (if printable).
-
-<CodeEditor 
-  initialCode={`#include <stdio.h>
-#include <string.h>
-#include <ctype.h>
-
-void xdump(void *p, int len) {
-    unsigned char *c = p;
-    for (int i = 0; i < len; i++) {
-        // Ternary operator: if printable show char, otherwise a dot
-        printf("%02x (%c) ", c[i], isprint(c[i]) ? c[i] : '.');
-        if ((i + 1) % 8 == 0) printf("\\n");
-    }
-    printf("\\n");
-}
 
 <ComparisonTable 
   title="char vs unsigned char"
@@ -73,19 +59,19 @@ void xdump(void *p, int len) {
   ]}
 />
 
-int main() {
-    int x = 0x41424344; // "ABCD" in hex
-    xdump(&x, sizeof(x));
-    return 0;
-}`} 
-  language="c" 
+<Callout type="pro" title="Why unsigned char?">
+  We use `unsigned char` for memory dumps because we want to see the **actual value** of the byte (0-255) without the sign bit (used in standard `char`) messing up our calculations or visualization.
+</Callout>
+
+<Infographic 
+  title="Memory Layout Comparison"
+  description="Visualization of the two approaches in RAM."
+  items={[
+    { label: "Pointer Approach", value: "[Header] ... [Gap] ... [Text]", color: "amber" },
+    { label: "Flexible Approach", value: "[Header][Text]", color: "emerald" }
+  ]}
 />
 
----
-
-## The Ternary Operator: `? :`
-
-It is the "esperto" version of the if-else. Salvatore often uses it for quick decisions:
 `condition ? value_if_true : value_if_false`
 
 Example:

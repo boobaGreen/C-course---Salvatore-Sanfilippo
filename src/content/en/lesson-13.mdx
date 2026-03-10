@@ -74,71 +74,23 @@ An `int` on a 16-bit system occupies 2 bytes, on a 32-bit one it's 4. If we want
   ]}
 />
 
----
+### Pro String vs C String
 
-## Implementing the `ps_string` Library
+Here is a comparison between the classic C approach and our object-oriented system.
 
-Here is the complete code discussed by Salvatore, including the logic for **creation**, **O(1) access**, and **correct freeing**.
-
-<CodeEditor 
-  initialCode={`#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdint.h>
-
-// Define a 4-byte header (uint32_t)
-#define HDR_SIZE sizeof(uint32_t)
-
-// Create an evolved string from a C string
-char *ps_create(char *init) {
-    uint32_t len = strlen(init);
-    // Allocate: Length (4) + Text + '\\0' (1)
-    char *p = malloc(HDR_SIZE + len + 1);
-    if (!p) return NULL;
-
-    // Write the length at the start
-    *((uint32_t*)p) = len;
-
-    // Point to the text (skip the header)
-    char *s = p + HDR_SIZE;
-    // Copy the text (including C compatibility)
-    strcpy(s, init);
-    
-    return s;
-}
-
-// Return length in CONSTANT O(1) time
-uint32_t ps_len(char *s) {
-    // Go back 4 bytes and read the value
-    return *((uint32_t*)(s - HDR_SIZE));
-}
-
-// Correctly free the memory
-void ps_free(char *s) {
-    // CRITICAL: We must free from the ORIGINAL address (p)
-    free(s - HDR_SIZE);
-}
-
-int main() {
-    char *my_str = ps_create("Salvatore C Course");
-    
-    // Interoperability: printf sees a normal C string!
-    printf("Text: %s\\n", my_str);
-    
-    // Power: We know the length without scanning the string
-    printf("Length (O(1)): %u\\n", ps_len(my_str));
-    
-    ps_free(my_str);
-    return 0;
-}`} 
-  language="c" 
+<ComparisonTable 
+  title="Performance and Features"
+  headers={["Feature", "Standard C String", "Pro String (SDS-style)"]}
+  rows={[
+    ["Length Calculation", "O(N) - Slow (scanning)", "O(1) - Instant (header)"],
+    ["Binary Data", "Forbidden (\\0 stops it)", "Allowed (uses explicit length)"],
+    ["Security", "Easy Buffer Overflow", "Simplified bounds checking"],
+    ["Compatibility", "Native", "Total (points to the text body)"]
+  ]}
 />
 
-<Callout type="pro" title="Reference Counting">
-Salvatore introduces a fundamental technique for managing shared memory: **Reference Counting**. Instead of duplicating a string every time a new pointer references it, we increment a counter in the header.
-- When adding a reference: `count++`
-- When removing a reference: `count--`
-- When `count == 0`: actually call `free()`.
+<Callout type="info" title="Beyond C">
+  This approach isn't an academic exercise: it's exactly how modern languages (Java, Go, Python) internally manage strings to be fast and safe.
 </Callout>
 
 ### Towards Structs
