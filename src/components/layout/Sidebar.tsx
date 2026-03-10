@@ -45,6 +45,11 @@ export default function Sidebar() {
                                         {/* Handle simple title or i18n object */}
                                         {typeof lesson.title === 'string' ? lesson.title : lesson.title[i18n.language as 'it' | 'en'] || lesson.title['it']}
                                     </span>
+
+                                    {/* Custom Premium Tooltip */}
+                                    <div className="sidebar-tooltip">
+                                        {typeof lesson.title === 'string' ? lesson.title : lesson.title[i18n.language as 'it' | 'en'] || lesson.title['it']}
+                                    </div>
                                 </>
                             )}
                         </NavLink>

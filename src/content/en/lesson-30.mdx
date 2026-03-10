@@ -56,6 +56,8 @@ The ZX Spectrum used a trick to save memory: its 256x192 resolution is monochrom
   has millions of times this memory!
 </Callout>
 
+<AttributeGrid />
+
 ### The "Labyrinthine" Memory Map
 
 Unlike modern computers, the Spectrum's video memory is not sequential. If you write to `$4000`, you turn on the top-left pixel. However, `$4001` isn't the pixel below it; it's the pixel to the right. To move down one row, you must perform complex bitwise calculations on the memory address.
