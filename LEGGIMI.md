@@ -7,7 +7,7 @@
 
 ---
 
-##  La Visione: Dalla Video-Lezione all'Interazione
+## La Visione: Dalla Video-Lezione all'Interazione
 
 Questo progetto è un tributo tecnico all'eredità educativa di **Salvatore Sanfilippo** (@antirez), creatore di Redis. Il corso di C di Salvatore su YouTube è un capolavoro di comunicazione tecnica, focalizzato non solo sulla sintassi, ma sull'"anima low-level" dell'informatica: layout della memoria, registri CPU e l'arte dello sviluppo professionale in C.
 
@@ -15,9 +15,9 @@ Questo progetto è un tributo tecnico all'eredità educativa di **Salvatore Sanf
 
 ---
 
-##  Funzionalità Chiave
+## Funzionalità Chiave
 
-###  Giochi Didattici e Visualizzatori
+### Giochi Didattici e Visualizzatori
 
 Abbiamo integrato una suite di strumenti React personalizzati per demistificare i concetti più ostici del C:
 
@@ -27,7 +27,7 @@ Abbiamo integrato una suite di strumenti React personalizzati per demistificare 
 - **[EvoSimulator](file:///c:/Users/ClaudioDall'Ara/Desktop/c/temp_c_course/src/components/content/EvoSimulator.tsx)**: Un visualizzatore per gli algoritmi evolutivi e la grafica dello ZX Spectrum.
 - **Visualizzatori Stack & Heap**: Rappresentazione in tempo reale dell'allocazione di memoria e della crescita dello stack.
 
-###  La Master Formula (5 + 3 + 3)
+### La Master Formula (5 + 3 + 3)
 
 Ogni lezione è strutturata sistematicamente per garantire il massimo apprendimento:
 
@@ -35,11 +35,12 @@ Ogni lezione è strutturata sistematicamente per garantire il massimo apprendime
 2. **3 Quiz Pro**: Approfondimenti su casi limite e teoria avanzata.
 3. **3 Sfide Pro nel Terminale**: Task pratici nel terminale che richiedono ricerca attiva e padronanza della shell.
 
-###  Eccellenza Tecnica
+### Eccellenza Tecnica
 
 - **Compilatore WASM**: Compila ed esegui codice C direttamente nel browser grazie a WebAssembly.
 - **Nucleo Bilingue**: Integrazione fluida tra contenuti originali in Italiano e traduzioni in Inglese.
 - **Stack Tecnologico Moderno**: Vite, React 19, TailwindCSS v4 e MDX per un'esperienza fluida e veloce.
+- **Persistenza e Stato**: Gestione centralizzata del `localStorage` con namespacing (`c_course_`) e migrazione automatizzata dai vecchi formati di storage.
 
 ---
 
@@ -56,7 +57,8 @@ src/
 │   ├── it/         # File MDX delle lezioni (Italiano)
 │   └── en/         # File MDX delle lezioni (Inglese)
 ├── data/           # Mapping del corso e metadati lezioni
-└── hooks/          # Gamification (XP, Progressi) e Navigazione
+├── hooks/          # Gamification (XP, Progressi) e Navigazione
+└── utils/          # Utility di storage, formattatori e helper
 ```
 
 ---
@@ -66,8 +68,6 @@ src/
 - **Contenuti Originali e Insegnamento**: Salvatore Sanfilippo ([antirez](http://invece.org/))
 - **Architettura e Sviluppo Piattaforma**: [Claudio Dall'Ara](https://claudiodallara.it) ([@boobaGreen](https://github.com/boobaGreen))
 
-_Questo progetto è costruito da esperti, per gli esperti._
-
-##  Licenza
+## Licenza
 
 Questo progetto è rilasciato sotto licenza **GNU General Public License (GPL)**. La conoscenza deve rimanere aperta, libera e accessibile a tutti per lo studio e la distribuzione.

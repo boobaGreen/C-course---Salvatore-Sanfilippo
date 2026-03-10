@@ -40,6 +40,7 @@ Every lesson is systematically structured for perfect retention:
 - **WASM-Powered Compiler**: Compile and run C code directly in the browser using WebAssembly.
 - **Bilingual Core**: Seamless integration of Italian (Original) and English (Translated) content.
 - **Modern Tech Stack**: Vite, React 19, TailwindCSS v4, and MDX for a blazingly fast development-to-learning pipeline.
+- **Persistence & State**: Centralized `localStorage` management with namespacing (`c_course_`) and automated migration from legacy storage layouts.
 
 ---
 
@@ -56,7 +57,8 @@ src/
 │   ├── it/         # Lesson MDX files (Italian)
 │   └── en/         # Lesson MDX files (English)
 ├── data/           # Course mapping and lesson metadata
-└── hooks/          # Gamification (XP, Progress) & Navigation
+├── hooks/          # Gamification (XP, Progress) & Navigation
+└── utils/          # Storage utility, formatters, and helpers
 ```
 
 ---
