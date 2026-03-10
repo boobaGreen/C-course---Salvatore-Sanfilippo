@@ -1,4 +1,7 @@
-﻿# Lezione 31: Il Programmatore C Moderno e l'IA
+﻿import BigOExplorer from "../../components/content/BigOExplorer";
+import DitheringSimulator from "../../components/content/DitheringSimulator";
+
+# Lezione 31: Il Programmatore C Moderno e l'IA
 
 In questa lezione, Salvatore abbandona l'approccio classico per mostrarci come lavora _oggi_ un programmatore esperto: non più scrivendo ogni singola linea a mano, ma guidando un agente AI (come Claude Code o Cursor) come un direttore d'orchestra.
 
@@ -63,24 +66,29 @@ Riprendiamo il programma della scorsa lezione. Il problema era la lentezza: ogni
 
 Salvatore chiede all'AI di cambiare la logica: invece di calcolare la differenza globale, lavoriamo su un singolo **blocco 8x8 alla volta**.
 
-<PerformanceChart />
+<BigOExplorer />
 
 <CodeEditor 
-  initialCode={`// Prima: O(N) dove N è l'intera immagine
-long long compute_diff_global() {
-    long long diff = 0;
-    for (int i = 0; i < WIDTH * HEIGHT * 3; i++) { ... }
-    return diff;
+  initialCode={`#include <stdio.h>
+
+#define WIDTH 256
+#define HEIGHT 192
+
+// O(N): Scansione globale (lenta)
+void compute_diff_global() {
+printf("Analisi di %d pixel in corso...\\n", WIDTH \* HEIGHT);
 }
 
-// Dopo (con l'aiuto dell'AI): O(1) indipendente dalla grandezza dell'immagine!
-long long compute_block_diff(int start_x, int start_y) {
-long long diff = 0;
-for (int y = start_y; y < start_y + 8; y++) {
-for (int x = start_x; x < start_x + 8; x++) { ... }
+// O(1): Scansione locale 8x8 (istantanea)
+void compute_diff_local() {
+printf("Analisi di 64 pixel (blocco 8x8) in corso...\\n");
 }
-return diff;
-}`}
+
+int main() {
+compute_diff_local();
+return 0;
+}
+`}
 language="c"
 />
 
@@ -103,6 +111,8 @@ Inizia quindi una vera **conversazione tecnica** con l'AI:
   volta (un kernel), il Simulated Annealing capisce quando due pixel vicini
   stanno creando una buona sfumatura.
 </Callout>
+
+<DitheringSimulator />
 
 ---
 
@@ -261,4 +271,3 @@ Inizia quindi una vera **conversazione tecnica** con l'AI:
 ### Conclusione
 
 Questo video rappresenta un punto di svolta. Abbiamo esplorato come il C, linguaggio di 50 anni fa, interagisce con le sfide del futuro e l'automazione. Non smettete di scrivere codice a mano per imparare, ma siate pronti a dirigere le macchine per produrre. Alla prossima!
-
