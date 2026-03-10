@@ -26,13 +26,42 @@ In this lesson, we will link ToyFort symbols (like `+` or `print`) to real C fun
 
 Every command in ToyFort is an "entry" in a table. When the interpreter encounters a symbol, it looks for it in this list and, if found, calls the associated function.
 
-<Infographic 
+<Infographic
   title="Lookup Flow"
   description="How a symbol becomes an action."
   items={[
     { label: "1. Match", value: "Search for 'SUM' in the table", color: "blue" },
-<Quiz 
-  title="Quiz Standard" 
+    { label: "2. Pointer", value: "Retrieve the C function address", color: "purple" },
+    { label: "3. Action", value: "Execute the function with stack arguments", color: "emerald" }
+  ]}
+/>
+
+<Callout type="pro" title="The Power of SIMD">
+  `memcmp` doesn't compare one byte at a time. Modern CPUs have **SIMD** instructions (like AVX or NEON) that can compare 16, 32, or even 64 bytes in a single blink. Using standard functions means taking advantage of the full power of modern hardware for free.
+</Callout>
+
+<Callout type="info" title="String Interning">
+  In many interpreters, instead of comparing strings every time, "String Interning" is used: every unique string is saved in a global table, and only its address is used. If two addresses are equal, the strings are equal. This turns an $O(N)$ comparison into an instant $O(1)$.
+</Callout>
+
+```c
+int compare_string_objects(TFObject *a, TFObject *b) {
+    size_t min_len = (a->s.len < b->s.len) ? a->s.len : b->s.len;
+    int res = memcmp(a->s.ptr, b->s.ptr, min_len);
+    if (res == 0) {
+        if (a->s.len == b->s.len) return 0;
+        return (a->s.len > b->s.len) ? 1 : -1;
+    }
+    return (res > 0) ? 1 : -1;
+}
+```
+
+---
+
+## Exercises
+
+<Quiz
+  title="Quiz Standard"
   questions={[
     {
       question: "What is a Function Table in the ToyFort interpreter?",

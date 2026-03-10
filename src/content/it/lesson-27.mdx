@@ -31,6 +31,10 @@ Ogni comando in ToyFort è una "entry" in una tabella. Quando l'interprete incon
   description="Come un simbolo diventa un'azione."
   items={[
     { label: "1. Match", value: "Cerca 'SUM' nella tabella", color: "blue" },
+    { label: "2. Puntatore", value: "Recupera l'indirizzo della funzione C", color: "purple" },
+    { label: "3. Azione", value: "Esegue la funzione con gli argomenti dello stack", color: "emerald" }
+  ]}
+/>
 <Callout type="pro" title="Potenza delle SIMD">
   `memcmp` non confronta un byte alla volta. Le CPU moderne hanno istruzioni **SIMD** (come AVX o NEON) che possono confrontare 16, 32 o persino 64 byte in un solo colpo d'occhio. Usare le funzioni standard significa sfruttare gratuitamente tutta la potenza dell'hardware moderno.
 </Callout>
