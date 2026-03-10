@@ -1,5 +1,15 @@
-﻿import BigOExplorer from "../../components/content/BigOExplorer";
+﻿import Infographic from '../../components/content/Infographic';
+import VideoEmbed from '../../components/content/VideoEmbed';
+import KeyConcepts from '../../components/content/KeyConcepts';
+import ComparisonTable from '../../components/content/ComparisonTable';
+import Callout from '../../components/content/Callout';
+import BigOExplorer from "../../components/content/BigOExplorer";
+import PerformanceChart from "../../components/content/PerformanceChart";
+import CodeEditor from '../../components/exercises/CodeEditor';
 import DitheringSimulator from "../../components/content/DitheringSimulator";
+import Quiz from '../../components/exercises/Quiz';
+import ProTerminal from '../../components/content/ProTerminal';
+import WorkflowDiagram from "../../components/content/WorkflowDiagram";
 
 # Lesson 31: The Modern C Programmer and AI
 
@@ -53,6 +63,8 @@ Let's return to the program from the last lesson. The problem was slowness: ever
 Salvatore asks the AI to change the logic: instead of calculating the global difference, we work on a single **8x8 block at a time**.
 
 <BigOExplorer />
+
+<PerformanceChart />
 
 <CodeEditor 
   initialCode={`#include <stdio.h>

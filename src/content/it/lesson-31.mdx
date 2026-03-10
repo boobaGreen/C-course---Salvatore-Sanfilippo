@@ -1,5 +1,15 @@
-﻿import BigOExplorer from "../../components/content/BigOExplorer";
+﻿import Infographic from '../../components/content/Infographic';
+import VideoEmbed from '../../components/content/VideoEmbed';
+import KeyConcepts from '../../components/content/KeyConcepts';
+import ComparisonTable from '../../components/content/ComparisonTable';
+import Callout from '../../components/content/Callout';
+import BigOExplorer from "../../components/content/BigOExplorer";
+import PerformanceChart from "../../components/content/PerformanceChart";
+import CodeEditor from '../../components/exercises/CodeEditor';
 import DitheringSimulator from "../../components/content/DitheringSimulator";
+import Quiz from '../../components/exercises/Quiz';
+import ProTerminal from '../../components/content/ProTerminal';
+import WorkflowDiagram from "../../components/content/WorkflowDiagram";
 
 # Lezione 31: Il Programmatore C Moderno e l'IA
 
@@ -67,6 +77,8 @@ Riprendiamo il programma della scorsa lezione. Il problema era la lentezza: ogni
 Salvatore chiede all'AI di cambiare la logica: invece di calcolare la differenza globale, lavoriamo su un singolo **blocco 8x8 alla volta**.
 
 <BigOExplorer />
+
+<PerformanceChart />
 
 <CodeEditor 
   initialCode={`#include <stdio.h>

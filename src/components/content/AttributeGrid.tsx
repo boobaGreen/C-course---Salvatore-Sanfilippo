@@ -44,22 +44,27 @@ export default function AttributeGrid() {
                 ))}
             </div>
 
-            <div className="mt-6 p-4 rounded-xl bg-emerald-500/5 border border-emerald-500/20 flex items-center justify-center gap-8">
-                <div className="flex flex-col items-center">
-                    <div className="w-12 h-12 rounded border-2 border-dashed border-white/20 flex items-center justify-center mb-1">
-                        <div className="w-4 h-4 bg-emerald-500 rounded-sm" />
+            <div className="mt-6 p-4 rounded-xl bg-emerald-500/5 border border-emerald-500/20 flex flex-col items-center gap-4">
+                <div className="flex items-center gap-8">
+                    <div className="flex flex-col items-center">
+                        <div className="w-12 h-12 rounded border-2 border-dashed border-white/20 flex items-center justify-center mb-1 bg-emerald-500/10">
+                            <div className="w-4 h-4 bg-emerald-500 rounded-sm shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
+                        </div>
+                        <span className="text-[9px] text-zinc-500 uppercase tracking-widest font-bold">1 Pixel</span>
                     </div>
-                    <span className="text-[9px] text-zinc-500 uppercase tracking-widest font-bold">1 Pixel</span>
-                </div>
-                <div className="text-zinc-600 text-xl font-mono">/</div>
-                <div className="flex flex-col items-center">
-                    <div className="grid grid-cols-8 gap-0.5 mb-1">
-                        {Array.from({ length: 16 }).map((_, i) => (
-                          <div key={i} className="w-2 h-2 bg-zinc-800 rounded-[1px]" />
-                        ))}
+                    <div className="text-zinc-600 text-xl font-mono">/</div>
+                    <div className="flex flex-col items-center group cursor-help">
+                        <div className="grid grid-cols-8 gap-0.5 mb-1 p-1 bg-zinc-900 rounded border border-white/5 transition-colors group-hover:border-emerald-500/50">
+                            {Array.from({ length: 64 }).map((_, i) => (
+                              <div key={i} className="w-2 h-2 bg-zinc-800 rounded-[1px] transition-colors group-hover:bg-emerald-500/40" />
+                            ))}
+                        </div>
+                        <span className="text-[9px] text-zinc-500 uppercase tracking-widest font-bold">8x8 Block</span>
                     </div>
-                    <span className="text-[9px] text-zinc-500 uppercase tracking-widest font-bold">8x8 Block</span>
                 </div>
+                <p className="text-[10px] text-emerald-400 font-medium animate-pulse">
+                    Hover the block: one attribute byte controls all 64 pixels!
+                </p>
             </div>
             
             <p className="mt-4 text-[10px] text-zinc-600 italic text-center">
