@@ -257,15 +257,30 @@ Thanks to the prototype, the compiler knows exactly how to prepare data in memor
       explanation:
         "The semicolon is mandatory in prototypes to separate declarations.",
     },
+    {
+      id: 6,
+      question:
+        "What is the value of an uninitialized local variable in C?",
+      options: [
+        "0",
+        "A random value (garbage)",
+        "Null",
+        "Undefined",
+      ],
+      correctAnswer: 1,
+      explanation: "In C, uninitialized local variables contain random values (garbage) left in that stack memory location."
+    }
   ]}
 />
 
 See you in the next lesson!
 
-<KeyConcepts title="Concetti Avanzati">
-  - C is not executed, but **compiled**. - The compiler can optimize code
-  intelligently (e.g., turning `printf` into `puts`). - The **preprocessor**
-  prepares the file before compilation. - **Header files (`.h`)** contain
+<KeyConcepts title="In Short">
+  - Compiled, not executed: C is not executed, but **compiled**.
+  - Smart optimization: The compiler can optimize code
+  intelligently (e.g., turning `printf` into `puts`).
+  - The Preprocessor: Prepares the file before compilation.
+  - Header Files: **Header files (`.h`)** contain
   function **prototypes**.
 </KeyConcepts>
 
@@ -287,6 +302,7 @@ See you in the next lesson!
       explanation:
         "This is a classic security attack. If a user enters '%s%s%s', printf will try to read strings from memory addresses pointed to by random values on the stack, causing a crash or data theft. puts, however, prints the string 'as is', ignoring special symbols.",
     },
+
     {
       id: 2,
       question: "What is the role of the C compiler relative to Assembly?",
@@ -337,6 +353,7 @@ See you in the next lesson!
         "Exactly! The compiler replaces printf with puts for simple static strings because it's much more efficient.",
       xpReward: 150,
     },
+
     {
       id: "elf-check-en",
       title: "Binary Anatomy",
