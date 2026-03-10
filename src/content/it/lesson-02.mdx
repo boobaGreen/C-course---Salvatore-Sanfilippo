@@ -44,9 +44,22 @@ int main(void) {
 
 ## printf: La Magia della Formattazione
 
-Il nome `printf` sta per **Print Formatted**. È una funzione estremamente potente perché è **variadica**: può accettare un numero variabile di argomenti.
+Il nome `printf` sta per **Print Formatted**. È una funzione estremamente potente perché accetta un **numero variabile di argomenti** (tecnicamente detta funzione variadica).
 
-<Callout type="danger" title="Pericoli Variadici">
+### Il Compilatore ti aiuta: `-Wall`
+
+Dato che la `printf` è così flessibile, è facile commettere errori (come passare un numero sbagliato di argomenti). Di base, il compilatore C potrebbe non segnalarti questi errori logici e generare comunque un programma che va in crash o stampa valori casuali.
+
+Per questo motivo, Salvatore consiglia di usare sempre dei **flag** (opzioni) durante la compilazione:
+- `-W`: Abilita i warning (avvisi) di base.
+- `-Wall`: Sta per **Warn All**. Abilita quasi tutti i messaggi di avviso che il compilatore può generare.
+
+<Callout type="pro" title="Usa sempre -Wall">
+Prendi l'abitudine di compilare con `gcc -Wall file.c`. Se il compilatore "si lamenta", non ignorarlo: ti sta segnalando un potenziale bug prima ancora che tu esegua il programma.
+</Callout>
+
+
+<Callout type="danger" title="Attenzione agli argomenti di printf">
 Se dici alla `printf` che stamperai due interi (`%d %d`) ma gliene passi solo uno, il C non si fermerà! Leggerà "immondizia" dalla memoria o andrà in crash. Questo è il primo assaggio della cosiddetta **Undefined Behavior** (Comportamento Indefinito).
 </Callout>
 
