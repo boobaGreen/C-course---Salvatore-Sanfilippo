@@ -86,6 +86,7 @@ export default function VideoEmbed({ videoId, title = "YouTube Video" }: VideoEm
         playerRef.current = new window.YT.Player(containerRef.current, {
             videoId: videoId,
             playerVars: {
+                autoplay: 0,
                 start: savedTime,
                 rel: 0,
                 modestbranding: 1,
@@ -96,7 +97,8 @@ export default function VideoEmbed({ videoId, title = "YouTube Video" }: VideoEm
                 onReady: (event: YTEvent) => {
                     // Double check seek if start param failed for some reason
                     if (savedTime > 0) {
-                        event.target.seekTo(savedTime, true);
+                        // Use allowSeekAhead: false to avoid auto-play triggers in some browsers
+                        event.target.seekTo(savedTime, false);
                     }
                 }
             },
