@@ -97,8 +97,7 @@ export default function VideoEmbed({ videoId, title = "YouTube Video" }: VideoEm
                 onReady: (event: YTEvent) => {
                     // Double check seek if start param failed for some reason
                     if (savedTime > 0) {
-                        // Use allowSeekAhead: false to avoid auto-play triggers in some browsers
-                        event.target.seekTo(savedTime, false);
+                        event.target.seekTo(savedTime, true);
                     }
                 }
             },
