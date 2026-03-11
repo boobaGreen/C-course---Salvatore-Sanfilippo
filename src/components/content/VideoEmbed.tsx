@@ -12,6 +12,7 @@ interface YTPlayer {
     getCurrentTime: () => number;
     getPlayerState: () => number;
     seekTo: (seconds: number, allowSeekAhead: boolean) => void;
+    pauseVideo: () => void;
 }
 
 interface YTEvent {
@@ -99,6 +100,7 @@ export default function VideoEmbed({ videoId, title = "YouTube Video" }: VideoEm
                     if (savedTime > 0) {
                         event.target.seekTo(savedTime, true);
                     }
+                    event.target.pauseVideo();
                 }
             },
         });
