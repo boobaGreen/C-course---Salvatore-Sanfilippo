@@ -1,8 +1,11 @@
-﻿import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { FunctionComponent } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import storage, { STORAGE_KEYS } from '../utils/storage';
+import { lessons } from '../data/lessons';
+import LessonHeader from '../components/layout/LessonHeader';
+import LessonNav from '../components/layout/LessonNav';
 import CodeBlock from '../components/content/CodeBlock';
 import VideoEmbed from '../components/content/VideoEmbed';
 import KeyConcepts from '../components/content/KeyConcepts';
@@ -46,15 +49,15 @@ import ZXPalette from '../components/content/ZXPalette';
 // Mappa componenti MDX
 // Mappa base componenti MDX (statici)
 const mdxComponents = {
-    h1: (props: React.HTMLAttributes<HTMLHeadingElement>) => <h1 className="text-3xl font-bold mt-8 mb-4 text-[var(--color-brand-primary)]" {...props} />,
+    h1: (props: React.HTMLAttributes<HTMLHeadingElement>) => <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight mt-2 mb-6 text-slate-900 dark:text-zinc-50" {...props} />,
     h2: (props: React.HTMLAttributes<HTMLHeadingElement>) => <h2 className="text-2xl font-bold mt-8 mb-4 border-b border-black/10 dark:border-white/10 pb-2" {...props} />,
     h3: (props: React.HTMLAttributes<HTMLHeadingElement>) => <h3 className="text-xl font-bold mt-6 mb-3" {...props} />,
-    p: (props: React.HTMLAttributes<HTMLParagraphElement>) => <p className="mb-4 leading-relaxed" {...props} />,
-    ul: (props: React.HTMLAttributes<HTMLUListElement>) => <ul className="list-disc list-inside mb-4 space-y-1" {...props} />,
-    ol: (props: React.HTMLAttributes<HTMLOListElement>) => <ol className="list-decimal list-inside mb-4 space-y-1" {...props} />,
-    li: (props: React.HTMLAttributes<HTMLLIElement>) => <li className="text-opacity-90" {...props} />,
+    p: (props: React.HTMLAttributes<HTMLParagraphElement>) => <p className="mb-4 leading-relaxed text-slate-700 dark:text-zinc-300" {...props} />,
+    ul: (props: React.HTMLAttributes<HTMLUListElement>) => <ul className="list-disc pl-6 mb-4 space-y-1.5 marker:text-[var(--color-brand-secondary)]" {...props} />,
+    ol: (props: React.HTMLAttributes<HTMLOListElement>) => <ol className="list-decimal pl-6 mb-4 space-y-1.5 marker:text-[var(--color-brand-secondary)] marker:font-mono" {...props} />,
+    li: (props: React.HTMLAttributes<HTMLLIElement>) => <li className="text-slate-700 dark:text-zinc-300 leading-relaxed" {...props} />,
     a: (props: React.AnchorHTMLAttributes<HTMLAnchorElement>) => <a className="text-[var(--color-brand-secondary)] hover:underline" {...props} />,
-    blockquote: (props: React.BlockquoteHTMLAttributes<HTMLQuoteElement>) => <blockquote className="border-l-4 border-[var(--color-brand-accent)] pl-4 italic opacity-80 my-4 bg-black/5 dark:bg-white/5 py-2 pr-2" {...props} />,
+    blockquote: (props: React.BlockquoteHTMLAttributes<HTMLQuoteElement>) => <blockquote className="border-l-4 border-[var(--color-brand-accent)] pl-4 italic my-5 bg-black/5 dark:bg-white/5 py-3 pr-3 rounded-r-lg text-slate-700 dark:text-zinc-300" {...props} />,
     code: (props: React.HTMLAttributes<HTMLElement>) => {
         const isInline = !props.className?.includes('language-');
         if (isInline) {
@@ -126,6 +129,17 @@ export default function Lesson() {
     };
 
 
+    // 0. Remember the last visited lesson + document title
+    useEffect(() => {
+        if (!slug) return;
+        const meta = lessons.find((l) => l.slug === slug);
+        if (!meta) return;
+        storage.set(STORAGE_KEYS.LAST_LESSON, slug);
+        const lang = i18n.language === 'en' ? 'en' : 'it';
+        document.title = `${meta.title[lang]} · Learn C`;
+        return () => { document.title = 'Corso di C / Learn C - Claudio Dall\'Ara'; };
+    }, [slug, i18n.language]);
+
     // 1. Data Loading Effect
     useEffect(() => {
         if (!slug) return;
@@ -194,12 +208,12 @@ export default function Lesson() {
     }, [slug]);
 
     if (loading) {
-        return <div className="p-8 flex justify-center"><div className="animate-spin h-8 w-8 border-4 border-[var(--color-brand-primary)] border-t-transparent rounded-full"></div></div>;
+        return <div className="p-8 flex justify-center" aria-busy="true"><div className="animate-spin h-8 w-8 border-4 border-[var(--color-brand-primary)] border-t-transparent rounded-full"></div></div>;
     }
 
-    if (error || !LessonContent) {
+    if (error || !LessonContent || !slug) {
         return (
-            <div className="p-8 text-center">
+            <div className="p-8 text-center" role="alert">
                 <h2 className="text-2xl font-bold mb-4 text-red-500">Lezione non trovata / Lesson not found</h2>
                 <button onClick={() => navigate('/')} className="text-[var(--color-brand-secondary)] hover:underline">
                     Torna alla Home / Back to Home
@@ -209,11 +223,13 @@ export default function Lesson() {
     }
 
     return (
-        <div className="p-8 max-w-4xl mx-auto pb-24">
-            <div className="prose prose-invert max-w-none">
+        <article className="max-w-4xl mx-auto pb-16 min-w-0">
+            <LessonHeader slug={slug} />
+            <div className="lesson-body max-w-none">
                 <LessonContent components={components} />
             </div>
-        </div>
+            <LessonNav slug={slug} />
+        </article>
     );
 }
 

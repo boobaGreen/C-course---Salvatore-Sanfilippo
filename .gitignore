@@ -30,3 +30,4 @@ venv/
 # Audio and Transcriptions
 *.mp3
 transcriptions/raw/
+.shots

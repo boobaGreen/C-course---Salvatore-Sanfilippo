@@ -24,7 +24,7 @@ const LinkedListSurgeon = () => {
         { id: "B", label: "Valore: 20", next: null, bg: "bg-blue-600" },
         { id: "C", label: "Valore: 30\n(Nuovo Nodo)", next: null, bg: "bg-emerald-600" }
       ],
-      validate: (nodes: any[]) => {
+      validate: (nodes: SurgeryTask['initialNodes']) => {
         const a = nodes.find(n => n.id === "A");
         const b = nodes.find(n => n.id === "B");
         const c = nodes.find(n => n.id === "C");
@@ -41,7 +41,7 @@ const LinkedListSurgeon = () => {
         { id: "B", label: "Valore: 20", next: null, bg: "bg-blue-600" },
         { id: "C", label: "Valore: 15\n(Nuovo Nodo)", next: null, bg: "bg-emerald-600" }
       ],
-      validate: (nodes: any[]) => {
+      validate: (nodes: SurgeryTask['initialNodes']) => {
         const a = nodes.find(n => n.id === "A");
         const c = nodes.find(n => n.id === "C");
         return a?.next === "C" && c?.next === "B";
@@ -57,7 +57,7 @@ const LinkedListSurgeon = () => {
         { id: "B", label: "Valore: 99\n(Buggy!)", next: "C", bg: "bg-red-600" },
         { id: "C", label: "Valore: 2", next: null, bg: "bg-blue-600" }
       ],
-      validate: (nodes: any[]) => {
+      validate: (nodes: SurgeryTask['initialNodes']) => {
         const a = nodes.find(n => n.id === "A");
         return a?.next === "C";
       },
@@ -70,13 +70,6 @@ const LinkedListSurgeon = () => {
   const [selectedNode, setSelectedNode] = useState<string | null>(null);
   const [isSuccess, setIsSuccess] = useState(false);
 
-  // Reset nodes when task changes
-  // eslint-disable-next-line
-  useState(() => {
-    setNodes(tasks[activeTask].initialNodes);
-    setIsSuccess(false);
-    setSelectedNode(null);
-  });
 
   const loadTask = (index: number) => {
     setActiveTask(index);

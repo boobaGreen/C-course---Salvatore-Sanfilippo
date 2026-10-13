@@ -8,17 +8,17 @@ export default function EvoSimulator() {
     const [noiseLevel, setNoiseLevel] = useState(1);
 
     useEffect(() => {
-        let timer: any;
-        if (running && gen < 100) {
-            timer = setInterval(() => {
-                setGen(prev => prev + 1);
-                setNoiseLevel(Math.max(0, 1 - (gen / 80)));
-            }, 50);
-        } else if (gen >= 100) {
-            setRunning(false);
-        }
+        if (!running) return undefined;
+        const timer = setInterval(() => {
+            setGen(prev => {
+                const next = prev + 1;
+                setNoiseLevel(Math.max(0, 1 - (next / 80)));
+                if (next >= 100) setRunning(false);
+                return next;
+            });
+        }, 50);
         return () => clearInterval(timer);
-    }, [running, gen]);
+    }, [running]);
 
     const reset = () => {
         setGen(0);

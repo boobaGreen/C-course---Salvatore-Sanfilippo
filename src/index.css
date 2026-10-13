@@ -4,6 +4,8 @@
   --color-brand-primary: #10b981;
   --color-brand-secondary: #0ea5e9;
   --color-brand-accent: #8b5cf6;
+  /* theme-aware tokens used by content components */
+  --color-border-color: var(--border-color);
 
   --font-sans: "Inter", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
@@ -11,6 +13,19 @@
 
 /* Enable class-based dark mode for Tailwind v4 */
 @custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --border-color: rgba(0, 0, 0, 0.1);
+  --surface-color: rgba(255, 255, 255, 0.7);
+  --bg-color: #ffffff;
+  color-scheme: light;
+}
+.dark {
+  --border-color: rgba(255, 255, 255, 0.1);
+  --surface-color: rgba(24, 24, 27, 0.7);
+  --bg-color: #0c0c0e;
+  color-scheme: dark;
+}
 
 @layer base {
   body {
@@ -20,35 +35,28 @@
       background-color 0.3s ease,
       color 0.3s ease;
     background-image:
-      radial-gradient(
-        circle at 50% 0%,
-        rgba(14, 165, 233, 0.05) 0%,
-        transparent 50%
-      ),
-      radial-gradient(
-        circle at 100% 100%,
-        rgba(16, 185, 129, 0.05) 0%,
-        transparent 50%
-      );
+      radial-gradient(circle at 50% 0%, rgba(14, 165, 233, 0.05) 0%, transparent 50%),
+      radial-gradient(circle at 100% 100%, rgba(16, 185, 129, 0.05) 0%, transparent 50%);
     background-attachment: fixed;
   }
 
-  /* Custom styling for scrollbars */
-  ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+  /* Keyboard-only focus ring */
+  :focus-visible {
+    outline: 2px solid var(--color-brand-secondary);
+    outline-offset: 2px;
+    border-radius: 6px;
   }
 
-  ::-webkit-scrollbar-track {
-    @apply bg-slate-50 dark:bg-[#09090b];
-  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { @apply bg-transparent; }
+  ::-webkit-scrollbar-thumb { @apply bg-black/10 dark:bg-white/10 rounded-full; }
+  ::-webkit-scrollbar-thumb:hover { @apply bg-black/20 dark:bg-white/20; }
 
-  ::-webkit-scrollbar-thumb {
-    @apply bg-black/10 dark:bg-white/10 rounded-full;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    @apply bg-black/20 dark:bg-white/20;
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }
 
@@ -56,4 +64,17 @@
   .glass-panel {
     @apply bg-white/70 dark:bg-[#18181b]/70 backdrop-blur-md border border-black/10 dark:border-white/10;
   }
+  .skip-link {
+    @apply sr-only;
+  }
+  .skip-link:focus {
+    position: fixed; top: 0.75rem; left: 0.75rem; z-index: 100;
+    width: auto; height: auto; padding: 0.5rem 0.75rem; margin: 0; clip: auto; overflow: visible; white-space: normal;
+    @apply bg-[var(--color-brand-primary)] text-black rounded-lg text-xs font-bold;
+  }
+}
+
+/* Shiki code blocks: let the theme background show through our container */
+.shiki {
+  background: transparent !important;
 }

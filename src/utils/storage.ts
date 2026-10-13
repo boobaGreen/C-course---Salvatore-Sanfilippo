@@ -9,6 +9,7 @@ export const STORAGE_KEYS = {
     LANGUAGE: 'language',
     THEME: 'theme',
     PROGRESSION: 'progression',
+    LAST_LESSON: 'last_lesson',
     LESSON_SCROLL: (slug: string) => `lesson_scroll_${slug}`,
     QUIZ_STATE: (slug: string, title: string) => `quiz_state_${slug}_${title.replace(/\s+/g, '_').toLowerCase()}`,
     PRO_TERMINAL_STATE: (slug: string) => `ht_state_${slug}`,

@@ -4,7 +4,16 @@
         "course_index": "Course Index",
         "lessons": "Lessons",
         "theme_light": "Light Theme",
-        "theme_dark": "Dark Theme"
+        "theme_dark": "Dark Theme",
+        "progress": "Progress",
+        "lessons_done": "{{done}}/{{total}} lessons",
+        "level": "Level",
+        "to_next": "{{xp}} XP to next",
+        "total_xp": "Total experience",
+        "menu": "Lesson menu",
+        "close": "Close",
+        "language": "Change language",
+        "skip": "Skip to content"
     },
     "course": {
         "title": "Learn C with antirez",
@@ -73,7 +82,7 @@
         "watch_youtube": "Watch on YouTube",
         "features": {
             "editor_title": "Integrated Editor",
-            "editor_desc": "Write C code directly in the browser, compilation happens via WebAssembly.",
+            "editor_desc": "Write C in the browser and preview its output: ideal for trying the examples on the fly.",
             "games_title": "Educational Games",
             "games_desc": "Challenge yourself with interactive games designed to test your knowledge in a fun way.",
             "simulations_title": "Interactive Simulations",
@@ -85,12 +94,13 @@
         },
         "changelog": {
             "title": "Changelog",
-            "latest_title": "Latest Updates (v1.1.0)",
+            "latest_title": "Latest updates (v1.2.0)",
             "history_title": "Previous Versions",
             "v110": {
                 "interactive_tools": "New interactive games: StackAttack, EndianSwapper, FunctionPointerDispatcher.",
                 "visualizers": "Advanced technical visualizers: StructLayout, EvalTracer, MakefileFlowchart.",
-                "appendix_revamp": "Complete appendix overhaul with new Pro Challenges and expanded quizzes."
+                "appendix_revamp": "Complete appendix overhaul with new Pro Challenges and expanded quizzes.",
+                "title": "Version 1.1.0"
             },
             "v103": {
                 "title": "Version 1.0.3",
@@ -100,18 +110,81 @@
             },
             "v102": {
                 "lesson_02_restoration": "Restored original Lesson 2 depth and created technical Appendix.",
-                "simulator_improvements": "Improvements to interactive simulators (6502 and Stack)."
+                "simulator_improvements": "Improvements to interactive simulators (6502 and Stack).",
+                "title": "Version 1.0.2"
             },
             "v101": {
                 "title": "Version 1.0.1",
                 "page_persistence": "Automatic saving of lesson reading progress.",
                 "video_persistence": "Videos now automatically resume from the last watched second."
+            },
+            "v120": {
+                "title": "Version 1.2.0",
+                "design": "New home with the course path, resume-from-last-lesson and an index with progress.",
+                "lesson_nav": "Header and previous/next navigation in every lesson, with completion state.",
+                "videos": "Fixed the videos of lessons 25-28 (they were duplicates) and lesson 6.",
+                "light": "Readable light theme in quizzes and interactive components; accessibility improvements."
             }
-        }
+        },
+        "continue": "Resume: {{title}}",
+        "curriculum_title": "The path",
+        "curriculum_desc": "{{count}} lessons based on the original videos, with quizzes, games and simulations.",
+        "stats": {
+            "lessons": "lessons",
+            "hours": "hours of video",
+            "games": "games & visualizers",
+            "free": "free, forever"
+        },
+        "changelog_title": "What's new",
+        "lesson_done": "Completed",
+        "lesson_visited": "Visited",
+        "github": "Source code on GitHub"
     },
     "footer": {
         "developed_by": "Developed by",
         "dev_name": "Claudio Dall'Ara",
         "license": "Released under GPL License"
+    },
+    "lesson_page": {
+        "lesson": "Lesson",
+        "of": "of",
+        "duration": "Video length",
+        "completed": "Completed",
+        "mark_complete": "Mark as completed",
+        "mark_complete_hint": "+100 XP",
+        "prev": "Previous lesson",
+        "next": "Next lesson",
+        "back_home": "Back to the course",
+        "index": "Index"
+    },
+    "quiz": {
+        "reward": "Reward"
+    },
+    "pro": {
+        "reveal_title": "Show solution",
+        "reveal_body": "Revealing the solution forfeits the XP reward for this challenge. Continue?",
+        "cancel": "Cancel",
+        "reveal": "Reveal (0 XP)",
+        "reveal_tip": "Reveal solution",
+        "wrong": "The output or command you entered does not match. Check the syntax and try again.",
+        "retry": "Try again",
+        "hint": "Show hint",
+        "context": "Context / hint",
+        "task": "Task {{n}} of {{total}}",
+        "type_command": "Type the command:",
+        "predict_output": "Predict the output:",
+        "success": "Success",
+        "granted": "Access granted!",
+        "denied": "Access denied",
+        "simulated": "Simulated output"
+    },
+    "editor": {
+        "title": "C Playground",
+        "subtitle": "simulated output (printf preview)",
+        "run": "Run",
+        "placeholder": "// Output will appear here...",
+        "compiling": "Compiling...",
+        "no_output": "Program finished with no visible output.",
+        "ansi": "(The program uses ANSI codes not supported in this preview)"
     }
 }

@@ -7,24 +7,15 @@ const TARGET_COLOR = '#10b981'; // emerald-500
 const START_COLOR = '#3f3f46';  // zinc-700
 
 export default function SimulatedAnnealingVisualizer() {
-  const [grid, setGrid] = useState<string[]>([]);
+  const [grid, setGrid] = useState<string[]>(() => Array(GRID_SIZE * GRID_SIZE).fill(START_COLOR));
   const [temp, setTemp] = useState(1);
-  const [score, setScore] = useState(0);
+  const score = Math.round((grid.filter(c => c === TARGET_COLOR).length / (GRID_SIZE * GRID_SIZE)) * 100);
   const [running, setRunning] = useState(false);
   const [generation, setGeneration] = useState(0);
 
   const initGrid = useCallback(() => {
     const newGrid = Array(GRID_SIZE * GRID_SIZE).fill(START_COLOR);
     setGrid(newGrid);
-    setScore(0);
-    setGeneration(0);
-    setTemp(1);
-  }, []);
-
-  useEffect(() => {
-    const newGrid = Array(GRID_SIZE * GRID_SIZE).fill(START_COLOR);
-    setGrid(newGrid);
-    setScore(0);
     setGeneration(0);
     setTemp(1);
   }, []);
@@ -50,16 +41,9 @@ export default function SimulatedAnnealingVisualizer() {
         setGeneration(g => g + 1);
         setTemp(t => Math.max(0.01, t * 0.98));
       }, 50);
-    } else if (score >= 100) {
-      setRunning(false);
     }
     return () => clearInterval(timer);
   }, [running, score, temp]);
-
-  useEffect(() => {
-    const hits = grid.filter(c => c === TARGET_COLOR).length;
-    setScore(Math.round((hits / (GRID_SIZE * GRID_SIZE)) * 100));
-  }, [grid]);
 
   return (
     <div className="glass-panel p-6 rounded-2xl border-white/10 my-8">
@@ -137,7 +121,7 @@ export default function SimulatedAnnealingVisualizer() {
              </div>
              <div className="font-mono text-[10px] text-zinc-500">
                 <div>GEN: {generation.toString().padStart(6, '0')}</div>
-                <div>STATE: {running ? 'MUTATING' : score >= 100 ? 'STABLE' : 'IDLE'}</div>
+                <div>STATE: {running && score < 100 ? 'MUTATING' : score >= 100 ? 'STABLE' : 'IDLE'}</div>
              </div>
           </div>
         </div>

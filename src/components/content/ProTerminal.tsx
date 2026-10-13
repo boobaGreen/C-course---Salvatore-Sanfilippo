@@ -33,11 +33,16 @@ export interface ProTerminalProps {
   lessonSlug?: string;
 }
 
+interface SavedProState {
+  currentStep?: number;
+  completedTasks?: Record<string, boolean>;
+}
+
 export default function ProTerminal({ challenges, lessonSlug = "unknown" }: ProTerminalProps) {
   const storageKey = STORAGE_KEYS.PRO_TERMINAL_STATE(lessonSlug);
   
   const [currentStep, setCurrentStep] = useState<number>(() => {
-    const saved = storage.get<any>(storageKey);
+    const saved = storage.get<SavedProState>(storageKey);
     if (saved) return saved.currentStep || 0;
     return 0;
   });
@@ -45,7 +50,7 @@ export default function ProTerminal({ challenges, lessonSlug = "unknown" }: ProT
   const [inputValue, setInputValue] = useState("");
   
   const [completedTasks, setCompletedTasks] = useState<Record<string, boolean>>(() => {
-    const saved = storage.get<any>(storageKey);
+    const saved = storage.get<SavedProState>(storageKey);
     if (saved) return saved.completedTasks || {};
     return {};
   });
@@ -137,23 +142,23 @@ export default function ProTerminal({ challenges, lessonSlug = "unknown" }: ProT
             >
               <div className="flex items-center gap-3 text-red-500 mb-4">
                 <ShieldAlert size={24} />
-                <h4 className="font-bold text-lg">Mostra Soluzione</h4>
+                <h4 className="font-bold text-lg">{t("pro.reveal_title")}</h4>
               </div>
               <p className="text-zinc-300 text-sm mb-6 leading-relaxed">
-                Visualizzare la soluzione annullerà la ricompensa in XP per questa sfida. Vuoi procedere?
+                {t("pro.reveal_body")}
               </p>
               <div className="flex justify-end gap-3">
                 <button
                   onClick={() => setShowConfirmModal(false)}
                   className="px-4 py-2 rounded-lg text-sm font-bold text-zinc-400 hover:text-white hover:bg-white/5 transition-colors"
                 >
-                  Annulla
+                  {t("pro.cancel")}
                 </button>
                 <button
                   onClick={confirmReveal}
                   className="px-4 py-2 rounded-lg text-sm font-bold bg-red-500 text-white shadow-[0_0_15px_rgba(239,68,68,0.3)] hover:bg-red-600 transition-colors flex items-center gap-2"
                 >
-                  <Eye size={16} /> Rivela (0 XP)
+                  <Eye size={16} /> {t("pro.reveal")}
                 </button>
               </div>
             </motion.div>
@@ -214,11 +219,11 @@ export default function ProTerminal({ challenges, lessonSlug = "unknown" }: ProT
         <div className="mb-6">
           <div className="flex items-center gap-2 mb-2">
             <span className="px-2 py-0.5 rounded bg-red-500/10 text-red-500 text-[10px] font-bold uppercase tracking-wider border border-red-500/20 whitespace-nowrap shrink-0">
-              Task {currentStep + 1} of {challenges.length}
+              {t("pro.task", { n: currentStep + 1, total: challenges.length })}
             </span>
             {completedTasks[currentChallenge.id] && (
               <span className="flex items-center gap-1 text-green-500 text-[10px] font-bold uppercase tracking-wider">
-                <CheckCircle2 size={12} /> Complete
+                <CheckCircle2 size={12} /> {t("lesson_page.completed")}
               </span>
             )}
           </div>
@@ -253,7 +258,7 @@ export default function ProTerminal({ challenges, lessonSlug = "unknown" }: ProT
             {isCommandMode && isRevealed && currentChallenge.expectedOutput && (
               <div className="bg-black/40 rounded-xl p-4 border border-white/5 flex flex-col gap-2 group">
                 <div className="text-xs text-zinc-500 font-bold uppercase tracking-wider mb-2">
-                  Contesto / Indizio:
+                  {t("pro.context")}:
                 </div>
                 <code className="text-zinc-300 font-mono text-sm whitespace-pre-wrap">
                   {currentChallenge.expectedOutput}
@@ -265,7 +270,7 @@ export default function ProTerminal({ challenges, lessonSlug = "unknown" }: ProT
 
         <form onSubmit={handleSubmit} className="relative mt-8">
           <label className="block text-xs font-bold text-zinc-500 uppercase tracking-widest mb-2 ml-1">
-            {isCommandMode ? "Type the command:" : "Predict System Output:"}
+            {isCommandMode ? t("pro.type_command") : t("pro.predict_output")}
           </label>
           <div className="flex flex-wrap gap-3">
             {isCommandMode && (
@@ -311,7 +316,7 @@ export default function ProTerminal({ challenges, lessonSlug = "unknown" }: ProT
                     type="button"
                     onClick={handleReveal}
                     className="px-4 py-3 bg-red-500/10 border border-red-500/20 text-red-500 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-red-500/20 transition-all min-w-[50px]"
-                    title="Rivela soluzione"
+                    title={t("pro.reveal_tip")} aria-label={t("pro.reveal_tip")}
                   >
                     <Eye size={18} />
                   </button>
@@ -319,7 +324,7 @@ export default function ProTerminal({ challenges, lessonSlug = "unknown" }: ProT
               </div>
             ) : (
               <div className="w-full sm:w-auto px-6 py-3 bg-green-500/10 text-green-500 border border-green-500/20 rounded-xl font-bold flex items-center justify-center gap-2 min-w-max animate-in fade-in zoom-in duration-300">
-                <CheckCircle2 size={18} /> SUCCESS
+                <CheckCircle2 size={18} /> {t("pro.success")}
               </div>
             )}
           </div>
@@ -347,8 +352,8 @@ export default function ProTerminal({ challenges, lessonSlug = "unknown" }: ProT
                       className={`text-lg font-bold mb-2 ${isCorrect[currentChallenge.id] ? "text-green-400" : "text-red-400"}`}
                     >
                       {isCorrect[currentChallenge.id]
-                        ? "Access Granted!"
-                        : "Access Denied"}
+                        ? t("pro.granted")
+                        : t("pro.denied")}
                     </h4>
                     <div className="text-zinc-400 text-sm leading-relaxed space-y-4">
                       {isCorrect[currentChallenge.id] ? (
@@ -362,7 +367,7 @@ export default function ProTerminal({ challenges, lessonSlug = "unknown" }: ProT
                               <div className="bg-black/60 rounded-xl p-4 border border-green-500/20 font-mono text-sm shadow-inner mt-4">
                                 <div className="text-[10px] text-green-500/70 font-bold uppercase tracking-wider mb-2 flex items-center gap-2">
                                   <TerminalIcon size={12} />
-                                  Simulated Output
+                                  {t("pro.simulated")}
                                 </div>
                                 <div className="text-zinc-300 whitespace-pre-wrap">
                                   {currentChallenge.simulatedSuccessOutput ||
@@ -390,15 +395,14 @@ export default function ProTerminal({ challenges, lessonSlug = "unknown" }: ProT
                       ) : (
                         <div>
                           <p>
-                            L'output o il comando inserito non corrisponde.
-                            Controlla la sintassi e riprova.
+                            {t("pro.wrong")}
                           </p>
                           <div className="flex flex-wrap gap-2 mt-4">
                             <button
                               onClick={handleRetry}
                               className="px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-white text-xs font-bold uppercase tracking-wider hover:bg-white/10 transition-all"
                             >
-                              Try Again
+                              {t("pro.retry")}
                             </button>
 
                             {!showHint[currentChallenge.id] && currentChallenge.hints && (
@@ -411,7 +415,7 @@ export default function ProTerminal({ challenges, lessonSlug = "unknown" }: ProT
                                 }
                                 className="px-4 py-2 bg-[var(--color-brand-secondary)]/10 border border-[var(--color-brand-secondary)]/20 rounded-lg text-[var(--color-brand-secondary)] text-xs font-bold uppercase tracking-wider hover:bg-[var(--color-brand-secondary)]/20 transition-all"
                               >
-                                Mostra Aiuto
+                                {t("pro.hint")}
                               </button>
                             )}
 

@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CheckCircle2, Zap } from 'lucide-react';
 import { useProgression } from '../../hooks/useProgression';
@@ -30,12 +30,6 @@ export default function TypeMatcher({ lessonSlug = "unknown" }: TypeMatcherProps
     const shuffledTypes = useMemo(() => shuffleArray(TYPES), []);
     const shuffledValues = useMemo(() => shuffleArray(VALUES_DATA), []);
 
-    useEffect(() => {
-        if (Object.keys(matches).length === shuffledValues.length && !isCompleted) {
-            setIsCompleted(true);
-            addXP(100, `activity-type-matcher-${lessonSlug}`);
-        }
-    }, [matches, isCompleted, addXP, shuffledValues.length, lessonSlug]);
 
     const handleTypeClick = (type: string) => {
         setSelectedType(type === selectedType ? null : type);
@@ -45,8 +39,13 @@ export default function TypeMatcher({ lessonSlug = "unknown" }: TypeMatcherProps
         if (!selectedType) return;
 
         if (valItem.type === selectedType) {
-            setMatches((prev) => ({ ...prev, [valItem.val]: selectedType }));
+            const nextMatches = { ...matches, [valItem.val]: selectedType };
+            setMatches(nextMatches);
             setSelectedType(null);
+            if (Object.keys(nextMatches).length === shuffledValues.length && !isCompleted) {
+                setIsCompleted(true);
+                addXP(100, `activity-type-matcher-${lessonSlug}`);
+            }
         } else {
             const el = document.getElementById(`val-${valItem.val}`);
             el?.classList.add('animate-shake', 'bg-red-500/20', 'border-red-500');

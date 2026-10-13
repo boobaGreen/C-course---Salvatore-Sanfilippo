@@ -94,8 +94,9 @@ export function ProgressionProvider({ children }: { children: ReactNode }) {
         if (state.completedLessons.includes(lessonSlug)) return;
         setState(prev => ({
             ...prev,
-            completedLessons: [...prev.completedLessons, lessonSlug]
+            completedLessons: prev.completedLessons.includes(lessonSlug) ? prev.completedLessons : [...prev.completedLessons, lessonSlug]
         }));
+        addXP(100, `activity-lesson-${lessonSlug}`);
     };
 
     const revealSolution = (activityId: string) => {

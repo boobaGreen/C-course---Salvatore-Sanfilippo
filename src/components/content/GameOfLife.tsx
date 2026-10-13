@@ -1,4 +1,4 @@
-﻿import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Play, Pause, RotateCcw, FastForward, Info, Binary, Maximize2 } from 'lucide-react';
 
@@ -29,7 +29,7 @@ export default function GameOfLife() {
     const [isRunning, setIsRunning] = useState(false);
     const [generation, setGeneration] = useState(0);
     const [speed] = useState(200);
-    const timerRef = useRef<any>(null);
+    const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
     const getNeighbors = (grid: number[][], x: number, y: number) => {
         let count = 0;

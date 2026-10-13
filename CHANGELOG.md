@@ -5,6 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0] - 2026-10-13
+
+### Added
+- **Lesson page chrome**: breadcrumb, lesson counter (N of 36), video length, course progress bar, "mark as completed" (+100 XP) and previous/next navigation at the bottom of every lesson.
+- **Home redesign**: resume-from-last-lesson CTA, course stats, the full curriculum grid with completion state, collapsible changelog.
+- **Course index** (sidebar + mobile drawer) with numbering, completion check marks and overall progress; the active lesson scrolls into view.
+- Accessibility: skip link, visible focus ring, ARIA roles/labels, `prefers-reduced-motion`, `<html lang>` follows the UI language, document title per lesson.
+- App version injected from `package.json` (`__APP_VERSION__`).
+
+### Fixed
+- **Wrong videos** embedded in lessons 25, 26, 27 and 28 (they all pointed to lesson 23 / 29); lesson 6 video id and several durations in `data/lessons.ts` corrected from the official playlist.
+- Light theme: quizzes, XP toast, code playground and lesson typography were hard-coded for dark backgrounds.
+- `completeLesson` existed but was never reachable from the UI; it now awards XP once.
+- Undefined `border-border-color` / `--surface-color` / `--bg-color` tokens used by CodeBlock, CodeEditor and VideoEmbed.
+- 24 ESLint errors (unsafe `any`, setState-in-effect, case declarations, a bogus `useState` reset hack in LinkedListSurgeon) and a parse error in `scripts/`; lint and `tsc` are clean.
+- Hard-coded Italian/English strings in ProTerminal, XpToast and CodeEditor moved to i18n.
+
+### Changed
+- Code playground is now labelled honestly as a simulated run (printf preview); Tab inserts indentation.
+- Removed dead code: `App.css` (Vite template leftovers), `ProgressionSidebar`.
+
 ## [1.1.0] - 2026-03-11
 
 ### Added

@@ -2,7 +2,7 @@
 
 **An interactive, professional bilingual (IT/EN) platform to master C programming, inspired by the legendary lessons of Salvatore Sanfilippo.**
 
-[![Project Version](https://img.shields.io/badge/version-1.1.0-blue.svg)](file:///c:/Users/ClaudioDall'Ara/Desktop/c/temp_c_course/package.json)
+[![Project Version](https://img.shields.io/badge/version-1.2.0-blue.svg)](package.json)
 [![License: GPL](https://img.shields.io/badge/License-GPL-yellow.svg)](https://opensource.org/licenses/GPL-3.0)
 
 ---
@@ -21,10 +21,10 @@ This platform is a technical tribute to the educational legacy of **Salvatore Sa
 
 We've integrated a suite of custom-built React tools to demystify complex C concepts:
 
-- **[PointerMaze](file:///c:/Users/ClaudioDall'Ara/Desktop/c/temp_c_course/src/components/games/PointerMaze.tsx)**: A maze-based puzzle where survival depends on understanding pointer dereferencing.
-- **[LinkedListSurgeon](file:///c:/Users/ClaudioDall'Ara/Desktop/c/temp_c_course/src/components/games/LinkedListSurgeon.tsx)**: An interactive lab for drag-and-drop manipulation of nodes and `next` pointers.
-- **[FormatStringExploit](file:///c:/Users/ClaudioDall'Ara/Desktop/c/temp_c_course/src/components/games/FormatStringExploit.tsx)**: A safe environment to learn about `printf` vulnerabilities.
-- **[EvoSimulator](file:///c:/Users/ClaudioDall'Ara/Desktop/c/temp_c_course/src/components/content/EvoSimulator.tsx)**: A visualizer for the evolution algorithms and ZX Spectrum graphics discussed in the final lessons.
+- **[PointerMaze](src/components/games/PointerMaze.tsx)**: A maze-based puzzle where survival depends on understanding pointer dereferencing.
+- **[LinkedListSurgeon](src/components/games/LinkedListSurgeon.tsx)**: An interactive lab for drag-and-drop manipulation of nodes and `next` pointers.
+- **[FormatStringExploit](src/components/games/FormatStringExploit.tsx)**: A safe environment to learn about `printf` vulnerabilities.
+- **[EvoSimulator](src/components/content/EvoSimulator.tsx)**: A visualizer for the evolution algorithms and ZX Spectrum graphics discussed in the final lessons.
 - **Stack & Heap Visualizers**: Real-time representation of memory allocation and stack frame growth.
 
 ### The Master Formula (5 + 3 + 3)
@@ -37,7 +37,7 @@ Every lesson is systematically structured for perfect retention:
 
 ### Technical Excellence
 
-- **WASM-Powered Compiler**: Compile and run C code directly in the browser using WebAssembly.
+- **C Playground**: edit the examples in the browser and preview their output (a lightweight `printf` simulation, not a full compiler).
 - **Bilingual Core**: Seamless integration of Italian (Original) and English (Translated) content.
 - **Modern Tech Stack**: Vite, React 19, TailwindCSS v4, and MDX for a blazingly fast development-to-learning pipeline.
 - **Persistence & State**: Centralized `localStorage` management with namespacing (`c_course_`) and automated migration from legacy storage layouts.
@@ -73,6 +73,14 @@ src/
 This project is licensed under the **GNU General Public License (GPL)**. The knowledge remains open, free, and accessible for everyone to study and distribute.
 
 ---
+
+## What's new in 1.2.0
+
+- Lesson header with breadcrumb, counter, progress bar, "mark as completed" and previous/next navigation.
+- Home redesign: resume CTA, stats, full curriculum grid with completion state.
+- Course index with numbering and check marks (sidebar + mobile drawer).
+- Fixed the wrong videos embedded in lessons 25-28 and lesson 6.
+- Readable light theme, accessibility pass, lint/tsc clean. Full list in [CHANGELOG.md](CHANGELOG.md).
 
 ## Changelog
  

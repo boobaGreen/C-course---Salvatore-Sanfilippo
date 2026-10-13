@@ -10,11 +10,15 @@ export default function BigOExplorer() {
   const [localBlock, setLocalBlock] = useState(false);
   const [opsCount, setOpsCount] = useState(0);
 
+  const switchMode = (mode: 'scan' | 'local') => {
+    setActiveMode(mode);
+    setOpsCount(0);
+    setScanIndex(mode === 'scan' ? 0 : -1);
+  };
+
   useEffect(() => {
     let interval: ReturnType<typeof setInterval>;
     if (activeMode === 'scan') {
-      setOpsCount(0);
-      setScanIndex(0);
       interval = setInterval(() => {
         setScanIndex(prev => {
           if (prev >= GRID_N * GRID_N - 1) {
@@ -25,8 +29,6 @@ export default function BigOExplorer() {
         });
       }, 20);
     } else {
-      setScanIndex(-1);
-      setOpsCount(0);
       interval = setInterval(() => {
         setLocalBlock(true);
         setOpsCount(64); // Fixed 8x8 cost
@@ -50,13 +52,13 @@ export default function BigOExplorer() {
         </div>
         <div className="flex bg-zinc-900 rounded-lg p-1">
           <button 
-            onClick={() => setActiveMode('scan')}
+            onClick={() => switchMode('scan')}
             className={`px-3 py-1.5 rounded-md text-[10px] font-bold uppercase transition-all ${activeMode === 'scan' ? 'bg-blue-500 text-white shadow-lg' : 'text-zinc-500 hover:text-zinc-300'}`}
           >
             Global Scan
           </button>
           <button 
-            onClick={() => setActiveMode('local')}
+            onClick={() => switchMode('local')}
             className={`px-3 py-1.5 rounded-md text-[10px] font-bold uppercase transition-all ${activeMode === 'local' ? 'bg-emerald-500 text-white shadow-lg' : 'text-zinc-500 hover:text-zinc-300'}`}
           >
             Local 8x8

@@ -1,62 +1,49 @@
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { Play, Clock } from 'lucide-react';
-import AnimatedPreview from './AnimatedPreview';
+import { Clock, CheckCircle2, Star, ArrowRight } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 interface LessonCardProps {
     lesson: {
         id: number;
         slug: string;
-        title: {
-            it: string;
-            en: string;
-        };
+        title: { it: string; en: string };
         duration: string;
     };
     language: string;
+    isDone?: boolean;
+    isLast?: boolean;
 }
 
-export default function LessonCard({ lesson, language }: LessonCardProps) {
-    const title = language === 'it' ? lesson.title.it : lesson.title.en;
+export default function LessonCard({ lesson, language, isDone = false, isLast = false }: LessonCardProps) {
+    const { t } = useTranslation();
+    const full = language === 'it' ? lesson.title.it : lesson.title.en;
+    const [kicker, ...rest] = full.split(':');
+    const title = rest.length ? rest.join(':').trim() : full;
+    const isSpecial = lesson.slug.startsWith('special') || lesson.slug.includes('appendix');
 
     return (
-        <Link to={`/lesson/${lesson.slug}`} className="block group">
-            <motion.div
-                whileHover={{ y: -5 }}
-                className="glass-panel p-5 rounded-2xl border-white/10 hover:border-[var(--color-brand-primary)]/50 transition-all duration-300 shadow-lg hover:shadow-[var(--color-brand-primary)]/10"
-            >
-                {/* Visual Preview Area */}
-                <div className="mb-4 relative rounded-xl overflow-hidden aspect-video bg-zinc-900/50 flex items-center justify-center border border-white/5">
-                    <AnimatedPreview slug={lesson.slug} />
-
-                    {/* Play Overlay on Hover */}
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        whileHover={{ opacity: 1 }}
-                        className="absolute inset-0 bg-black/40 flex items-center justify-center backdrop-blur-[2px] transition-opacity"
-                    >
-                        <div className="w-12 h-12 rounded-full bg-[var(--color-brand-primary)] text-black flex items-center justify-center shadow-lg shadow-[var(--color-brand-primary)]/30">
-                            <Play size={24} fill="currentColor" />
-                        </div>
-                    </motion.div>
+        <Link
+            to={`/lesson/${lesson.slug}`}
+            className={`group glass-panel rounded-2xl p-4 flex items-center gap-4 transition-all hover:-translate-y-0.5 hover:border-[var(--color-brand-secondary)]/50 ${isLast ? 'ring-1 ring-[var(--color-brand-secondary)]/40' : ''}`}
+            aria-label={`${full}${isDone ? `, ${t('home.lesson_done')}` : ''}`}
+        >
+            <div className={`w-11 h-11 shrink-0 rounded-xl flex items-center justify-center font-mono font-bold text-sm ${isDone
+                ? 'bg-[var(--color-brand-primary)]/15 text-[var(--color-brand-primary)]'
+                : isSpecial
+                    ? 'bg-[var(--color-brand-accent)]/10 text-[var(--color-brand-accent)]'
+                    : 'bg-black/5 dark:bg-white/5 text-slate-500 dark:text-zinc-400'
+                }`} aria-hidden>
+                {isDone ? <CheckCircle2 size={20} /> : isSpecial && !/\d/.test(kicker) ? <Star size={18} /> : (kicker.match(/\d+/)?.[0] ?? '•').padStart(2, '0')}
+            </div>
+            <div className="min-w-0 flex-1">
+                <div className="flex items-center gap-2 text-[10px] uppercase tracking-wider font-bold text-slate-500 dark:text-zinc-500">
+                    <span className={isSpecial ? 'text-[var(--color-brand-accent)]' : ''}>{kicker}</span>
+                    <span className="inline-flex items-center gap-1 font-mono normal-case tracking-normal"><Clock size={11} aria-hidden /> {lesson.duration}</span>
+                    {isLast && !isDone && <span className="text-[var(--color-brand-secondary)]">· {t('home.lesson_visited')}</span>}
                 </div>
-
-                {/* Content */}
-                <div className="space-y-2">
-                    <div className="flex items-center justify-between">
-                        <span className="text-[10px] font-black tracking-widest uppercase text-zinc-500">
-                            Lesson {lesson.id.toString().padStart(2, '0')}
-                        </span>
-                        <div className="flex items-center gap-1 text-zinc-500 text-[10px] font-mono">
-                            <Clock size={12} />
-                            {lesson.duration}
-                        </div>
-                    </div>
-                    <h4 className="font-bold text-lg text-slate-900 dark:text-zinc-100 leading-tight group-hover:text-[var(--color-brand-primary)] transition-colors">
-                        {title}
-                    </h4>
-                </div>
-            </motion.div>
+                <h4 className="font-semibold text-[15px] leading-snug text-slate-900 dark:text-zinc-100 group-hover:text-[var(--color-brand-secondary)] transition-colors truncate">{title}</h4>
+            </div>
+            <ArrowRight size={16} className="shrink-0 text-slate-300 dark:text-zinc-600 group-hover:text-[var(--color-brand-secondary)] group-hover:translate-x-0.5 transition-all" aria-hidden />
         </Link>
     );
 }

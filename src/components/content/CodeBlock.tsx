@@ -13,6 +13,7 @@ export default function CodeBlock({ code, language = 'c' }: CodeBlockProps) {
 
     useEffect(() => {
         async function highlight() {
+            if (!code) { setHtml(''); return; }
             try {
                 const isDark = document.documentElement.classList.contains('dark');
                 const theme = isDark ? 'github-dark' : 'github-light';
@@ -28,11 +29,7 @@ export default function CodeBlock({ code, language = 'c' }: CodeBlockProps) {
                 setHtml(`<pre>${code}</pre>`);
             }
         }
-        if (code) {
-            highlight();
-        } else {
-            setHtml('');
-        }
+        highlight();
     }, [code, language]);
 
     const handleCopy = () => {

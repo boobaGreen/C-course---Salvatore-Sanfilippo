@@ -24,7 +24,7 @@ const MemoryCaster = () => {
           dec: memoryBytes[0], 
           bytesUsed: 1 
         };
-      case 'short*':   
+      case 'short*': {
         const shortVal = endianness === 'little' 
           ? (memoryBytes[1] << 8) | memoryBytes[0]   // 0x3344
           : (memoryBytes[0] << 8) | memoryBytes[1];  // 0x4433
@@ -33,7 +33,8 @@ const MemoryCaster = () => {
           dec: shortVal, 
           bytesUsed: 2 
         };
-      case 'int*':     
+      }
+      case 'int*': {
         const intVal = endianness === 'little'
           ? (memoryBytes[3] << 24) | (memoryBytes[2] << 16) | (memoryBytes[1] << 8) | memoryBytes[0] // 0x11223344
           : (memoryBytes[0] << 24) | (memoryBytes[1] << 16) | (memoryBytes[2] << 8) | memoryBytes[3]; // 0x44332211
@@ -42,6 +43,7 @@ const MemoryCaster = () => {
           dec: intVal, 
           bytesUsed: 4 
         };
+      }
     }
   };
 
