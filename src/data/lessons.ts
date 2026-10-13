@@ -262,5 +262,12 @@ export const lessons = [
         title: { it: 'Appendice 31: L\'Evoluzione Finale', en: 'Appendix 31: The Final Evolution' },
         videoId: 'xaEr-XSlWfo',
         duration: '8:36',
-    }
+    },
+    {
+        id: 37,
+        slug: 'lesson-32',
+        title: { it: 'Lezione 32: Rudimenti di Grafica 3D', en: 'Lesson 32: 3D Graphics Fundamentals' },
+        videoId: '4EofabMH41M',
+        duration: '1:23:19',
+    },
 ];

@@ -76,6 +76,7 @@ This project is licensed under the **GNU General Public License (GPL)**. The kno
 
 ## What's new in 1.2.0
 
+- New Lesson 32 (3D graphics fundamentals) with an interactive perspective/rotation visualizer; Infographic cards finally render.
 - Lesson header with breadcrumb, counter, progress bar, "mark as completed" and previous/next navigation.
 - Home redesign: resume CTA, stats, full curriculum grid with completion state.
 - Course index with numbering and check marks (sidebar + mobile drawer).

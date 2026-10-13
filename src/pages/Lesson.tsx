@@ -45,6 +45,7 @@ import WorkflowDiagram from '../components/content/WorkflowDiagram';
 import RefcountCycleSim from '../components/content/RefcountCycleSim';
 import BSTBalanceSim from '../components/content/BSTBalanceSim';
 import ZXPalette from '../components/content/ZXPalette';
+import Projection3DVisualizer from '../components/content/Projection3DVisualizer';
 
 // Mappa componenti MDX
 // Mappa base componenti MDX (statici)
@@ -103,6 +104,7 @@ const mdxComponents = {
     RefcountCycleSim,
     BSTBalanceSim,
     ZXPalette,
+    Projection3DVisualizer,
 };
 
 

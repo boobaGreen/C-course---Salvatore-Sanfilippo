@@ -120,6 +120,7 @@
             },
             "v120": {
                 "title": "Versione 1.2.0",
+                "lesson32": "Nuova Lezione 32: Rudimenti di Grafica 3D (frame buffer SDL, prospettiva, rotazione) con visualizzatore 3D interattivo.",
                 "design": "Nuova home con percorso del corso, ripresa dall'ultima lezione e indice con avanzamento.",
                 "lesson_nav": "Intestazione e navigazione precedente/successiva in ogni lezione, con stato di completamento.",
                 "videos": "Corretti i video delle lezioni 25-28 (erano duplicati) e della lezione 6.",

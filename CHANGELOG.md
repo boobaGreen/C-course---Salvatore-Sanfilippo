@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.2.0] - 2026-10-13
 
 ### Added
+- **Lesson 32: 3D Graphics Fundamentals** (IT/EN), written from the new video in the playlist: SDL frame buffer, pixel addressing, sine/cosine circle, perspective projection, rotation around Y, persistence-of-vision fade. Includes the new `Projection3DVisualizer` (canvas point cloud with perspective and speed controls), a 5-question quiz, a 3-question Pro Challenge and 3 terminal challenges.
 - **Lesson page chrome**: breadcrumb, lesson counter (N of 36), video length, course progress bar, "mark as completed" (+100 XP) and previous/next navigation at the bottom of every lesson.
 - **Home redesign**: resume-from-last-lesson CTA, course stats, the full curriculum grid with completion state, collapsible changelog.
 - **Course index** (sidebar + mobile drawer) with numbering, completion check marks and overall progress; the active lesson scrolls into view.
@@ -15,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - App version injected from `package.json` (`__APP_VERSION__`).
 
 ### Fixed
+- **Infographic** component only accepted an image, while all 26 lessons pass `items`: every infographic rendered as a broken image. It now renders the item cards (and still supports `src`).
 - **Wrong videos** embedded in lessons 25, 26, 27 and 28 (they all pointed to lesson 23 / 29); lesson 6 video id and several durations in `data/lessons.ts` corrected from the official playlist.
 - Light theme: quizzes, XP toast, code playground and lesson typography were hard-coded for dark backgrounds.
 - `completeLesson` existed but was never reachable from the UI; it now awards XP once.

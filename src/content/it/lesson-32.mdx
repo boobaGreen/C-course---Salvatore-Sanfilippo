@@ -1,0 +1,406 @@
+import VideoEmbed from "../../components/content/VideoEmbed";
+import KeyConcepts from "../../components/content/KeyConcepts";
+import Callout from "../../components/content/Callout";
+import ComparisonTable from "../../components/content/ComparisonTable";
+import Infographic from "../../components/content/Infographic";
+import CodeEditor from "../../components/exercises/CodeEditor";
+import Projection3DVisualizer from "../../components/content/Projection3DVisualizer";
+import Quiz from "../../components/exercises/Quiz";
+import ProTerminal from "../../components/content/ProTerminal";
+
+# Lezione 32: Rudimenti di Grafica 3D
+
+Dopo una lunga pausa il corso torna con una puntata "da laboratorio": in circa **160 righe di C**, senza nessuna libreria grafica oltre a SDL per aprire la finestra, Salvatore scrive da zero un frame buffer, una nuvola di punti tridimensionale, la **prospettiva** e la **rotazione**. Matematica da primo liceo (seno, coseno, una divisione) applicata fino a ottenere un'animazione 3D.
+
+<VideoEmbed videoId="4EofabMH41M" title="Lezione 32: rudimenti di grafica 3D" />
+
+<KeyConcepts
+  concepts={[
+    {
+      title: "Frame buffer",
+      description:
+        "La superficie SDL è un semplice array di byte: 4 byte per pixel in ordine BGRA, una riga ogni `pitch` byte. Scrivere un pixel significa calcolare un offset.",
+    },
+    {
+      title: "Trigonometria applicata",
+      description:
+        "Seno e coseno di un angolo crescente disegnano un cerchio. Da qui nasce la formula di rotazione di un punto.",
+    },
+    {
+      title: "Prospettiva",
+      description:
+        "Per simulare la profondità basta dividere X e Y per `1 + z / K`: più il punto è lontano, più si stringe verso il centro.",
+    },
+    {
+      title: "Persistenza visiva",
+      description:
+        "Invece di cancellare il frame buffer, sottrai qualche unità a ogni byte: i pixel si spengono lentamente e lasciano una scia.",
+    },
+  ]}
+/>
+
+---
+
+## Lo scheletro SDL: una finestra e un array di byte
+
+Salvatore non ricorda a memoria le chiamate SDL e lo dice apertamente: le ha fatte generare a un LLM, usandolo al posto delle pagine di manuale. Il programma iniziale fa solo quattro cose: `SDL_Init(SDL_INIT_VIDEO)`, `SDL_CreateWindow(...)` a 640x480, `SDL_GetWindowSurface()` per ottenere la superficie su cui disegnare e un ciclo che consuma gli eventi fino a `SDL_QUIT`, con una `SDL_Delay(16)` per avvicinarsi ai 60 fotogrammi al secondo.
+
+<Callout type="pro" title="Niente lock se non serve">
+  Il codice generato chiamava `SDL_LockSurface` e `SDL_UnlockSurface` attorno a
+  ogni disegno. Salvatore controlla la macro `SDL_MUSTLOCK(surface)`: ritorna
+  **0**, quindi la superficie si può leggere e scrivere in qualsiasi momento. Le
+  due chiamate spariscono. Morale: non copiare il boilerplate, verifica cosa
+  fa davvero.
+</Callout>
+
+La parte interessante è `surface->pixels`: un puntatore alla memoria del frame buffer. Ogni pixel occupa 4 byte nell'ordine **B, G, R, A** (la macchina è little endian), e ogni riga è lunga `surface->pitch` byte. In questo caso `pitch` vale esattamente `width * 4`, ma su certi hardware può includere un padding a destra: usa sempre il valore che SDL ti dà.
+
+<Infographic
+  title="Anatomia di un pixel"
+  description="Come arrivare al byte giusto nel frame buffer."
+  items={[
+    {
+      label: "Offset",
+      value: "`y * pitch + x * 4`: la riga, poi la colonna. Ogni pixel sono 4 byte.",
+      color: "blue",
+    },
+    {
+      label: "Ordine dei canali",
+      value: "`fb[off+0]=B`, `fb[off+1]=G`, `fb[off+2]=R`, `fb[off+3]=A` (alpha sempre a 255: niente trasparenza).",
+      color: "emerald",
+    },
+    {
+      label: "Bounds check",
+      value: "Se `x` o `y` escono da `[0, width)` e `[0, height)` la funzione ritorna: mai scrivere nella memoria a casaccio.",
+      color: "amber",
+    },
+  ]}
+/>
+
+Da qui nascono tre funzioni piccolissime: `pixel(surface, x, y, r, g, b)`, `clear(surface)` che fa una `memset` di `pitch * height` byte a zero, e `draw(surface)` che viene chiamata a ogni fotogramma prima di `SDL_UpdateWindowSurface()`.
+
+<Callout type="warning" title="Il primo bug: il frame buffer sporco">
+  Al primo tentativo compare una riga che non dovrebbe esserci. La memoria
+  della superficie **non è inizializzata**: contiene quello che c'era prima.
+  Una `clear()` all'inizio di ogni `draw()` risolve tutto. Ricorda la lezione
+  sulla memoria: il C non azzera nulla per te.
+</Callout>
+
+---
+
+## Dal gradiente al cerchio: seno e coseno
+
+Il primo disegno è un gradiente: la componente rossa cresce con X, la verde con Y, il blu resta fisso a 128. Salvatore prova a far variare anche il blu, ma il risultato è peggiore. Il motivo è geometrico: stiamo mappando uno spazio dei colori **tridimensionale** (RGB) su uno schermo **bidimensionale** (XY). Tenere una componente fissa è la scelta più sensata.
+
+Poi arrivano 100 pixel bianchi a coordinate casuali: `x = rand() % width`. Il resto della divisione per `n` restituisce sempre un valore tra `0` e `n - 1`, quindi il pixel cade dentro la finestra.
+
+Il passo decisivo è un ciclo in cui l'angolo `alpha` cresce piano piano e il pixel viene disegnato in:
+
+```c
+x = cx + sin(alpha) * 50;
+y = cy + cos(alpha) * 50;
+```
+
+Il risultato è un cerchio di raggio 50 centrato in `(cx, cy)`. Seno e coseno sono la stessa funzione sfasata di 90 gradi: per ogni angolo descrivono un punto sul cerchio unitario.
+
+<Callout type="tip" title="Perché il cerchio conta">
+  Ruotare un punto significa farlo "camminare" lungo il cerchio che passa per
+  quel punto e ha centro nell'origine. Da questa intuizione si ricava la
+  formula di rotazione: `x' = x·cos(a) − y·sin(a)`, `y' = x·sin(a) + y·cos(a)`.
+  Il segno dell'angolo decide solo il verso, orario o antiorario.
+</Callout>
+
+---
+
+## Il modello 3D: una `struct` e 1000 punti
+
+Un punto nello spazio è una struttura di tre `float`:
+
+```c
+typedef struct { float x, y, z; } P3;
+#define NUM_POINTS 1000
+P3 Model[NUM_POINTS];
+```
+
+`create_model()` riempie l'array. Prima con numeri casuali da −50 a 50 (`-50 + rand() % 100`), poi con una griglia regolare: X e Z da −10 a 10, Y fissa un po' sotto l'occhio dell'osservatore. Disegnando solo X e Y la nuvola sembra piatta: manca qualcosa che faccia percepire la Z.
+
+### La prospettiva in una riga
+
+Un oggetto lontano appare più piccolo. Quindi le coordinate X e Y vanno **divise** per un fattore che cresce con la profondità:
+
+```c
+float zf = 1 + Model[j].z / 400;   /* 400: fattore di "zoom prospettico" */
+int sx = cx + Model[j].x / zf;
+int sy = cy + Model[j].y / zf;
+```
+
+Con `z = 0` il divisore vale 1 e il punto resta dov'è. Con `z` positiva (lontano) il divisore cresce e il punto si stringe verso il centro. Con `z` negativa (verso lo spettatore) il divisore scende sotto 1 e il punto si allarga. Il **400** regola quanto è estremo l'effetto: più è grande, più la scena è piatta e quasi ortogonale.
+
+<ComparisonTable
+  title="Effetto del fattore prospettico"
+  headers={["Fattore K", "Divisore con z = 150", "Risultato visivo"]}
+  rows={[
+    ["100", "2.5", "Prospettiva esagerata, il fronte diventa enorme e il fondo un puntino"],
+    ["400", "1.375", "Equilibrio usato nel video: profondità leggibile senza distorsioni"],
+    ["4000", "1.04", "Quasi nessuna prospettiva, sembra una proiezione ortogonale"],
+  ]}
+/>
+
+<Projection3DVisualizer />
+
+<Callout type="danger" title="Il bug del float dimenticato">
+  Quando trasforma il piano in un'onda (`y = 10·sin(x/100·2π)·cos(z/100·2π)`)
+  Salvatore vede una strana **quantizzazione**: l'onda ha gradini. Dopo diversi
+  tentativi chiede a Claude e la risposta è immediata: le coordinate della
+  griglia erano `int`, quindi `x / 100` faceva una divisione **intera** e
+  valeva quasi sempre 0. Dichiarate `float`, l'onda diventa liscia. È lo stesso
+  errore di promozione dei tipi della Lezione 3, trent'anni dopo.
+</Callout>
+
+---
+
+## Rotazione attorno all'asse Y
+
+Ruotare in 3D attorno a un asse è una rotazione 2D sulle altre due coordinate. Per l'asse Y la Y non cambia e la formula diventa:
+
+```c
+rotated[j].x = Model[j].x * cos(alpha) + Model[j].z * sin(alpha);
+rotated[j].y = Model[j].y;
+rotated[j].z = -Model[j].x * sin(alpha) + Model[j].z * cos(alpha);
+```
+
+Due dettagli di design sono importanti quanto la formula:
+
+1. **Non ruotare il modello su se stesso.** Esiste un secondo array `rotated[]` che viene ricalcolato dal modello originale a ogni fotogramma. Ruotare ripetutamente gli stessi punti accumulerebbe errori in virgola mobile.
+2. **L'angolo dipende dal tempo.** Un contatore `time` cresce di 1 a ogni fotogramma, e `alpha = time * (2π / 60) * 0.15`: a 60 fps un giro completo ogni secondo, scalato al 15% per una rotazione lenta. Salvatore sbaglia il conto una prima volta (divide invece di moltiplicare) e lo corregge contando a voce i fotogrammi.
+
+<Callout type="pro" title="La linea fantasma">
+  Prima della rotazione, traslando il modello in profondità compare una riga
+  verticale di punti più densa al centro. Non è un errore numerico: i punti
+  della griglia con `x = 0` restano esattamente su `x = 0` anche dopo la
+  prospettiva e **collassano su una linea**, mentre gli altri si disperdono.
+  Appena la rotazione li sposta, l'artefatto sparisce. Capire un artefatto è
+  spesso più istruttivo che eliminarlo.
+</Callout>
+
+<CodeEditor
+  initialCode={`#include <stdio.h>
+#include <math.h>
+
+typedef struct { float x, y, z; } P3;
+
+/* Rotazione attorno a Y + proiezione prospettica, come nel video. */
+void project(P3 p, float alpha, float k, int cx, int cy, int *sx, int *sy) {
+    float rx =  p.x * cosf(alpha) + p.z * sinf(alpha);
+    float rz = -p.x * sinf(alpha) + p.z * cosf(alpha);
+    float zf = 1 + rz / k;
+    *sx = cx + (int)(rx / zf);
+    *sy = cy + (int)(p.y / zf);
+}
+
+int main(void) {
+    P3 p = {100, 20, 0};
+    int sx, sy;
+    project(p, 0.0f, 400, 320, 240, &sx, &sy);
+    printf("alpha=0    -> (%d, %d)\\n", sx, sy);
+    project(p, 3.14159f / 2, 400, 320, 240, &sx, &sy);
+    printf("alpha=pi/2 -> (%d, %d)\\n", sx, sy);
+    return 0;
+}`}
+/>
+
+---
+
+## Persistenza visiva: `fade()` al posto di `clear()`
+
+L'ultimo tocco è un effetto da demoscene. Invece di azzerare il frame buffer, `fade()` scorre tutti i `pitch * height` byte e li abbassa:
+
+```c
+for (int j = 0; j < num_bytes; j++) {
+    if (fb[j] > 15) fb[j] -= 15; else fb[j] = 0;
+}
+```
+
+I pixel disegnati nei fotogrammi precedenti si spengono gradualmente e i punti in movimento lasciano una scia. Il primo tentativo (`fb[j] /= 2`) spegne tutto in pochi fotogrammi e non si vede nulla; sottrarre una costante piccola rende la scia lunga e leggibile. Con la nuvola casuale ingrandita a ±150 l'effetto ricorda uno sciame di droni.
+
+<Infographic
+  title="Da 160 righe a un motore 3D"
+  description="Cosa manca, in ordine, per passare dai punti a un gioco."
+  items={[
+    {
+      label: "Punti → segmenti",
+      value: "Unire i vertici con un algoritmo di linea (Bresenham) e ottenere un wireframe.",
+      color: "blue",
+    },
+    {
+      label: "Segmenti → triangoli",
+      value: "Riempire triangoli e scartare le facce nascoste con uno Z-buffer.",
+      color: "purple",
+    },
+    {
+      label: "Triangoli → mondo",
+      value: "Matrici di trasformazione, camera, luci: le stesse formule di oggi, moltiplicate.",
+      color: "emerald",
+    },
+  ]}
+/>
+
+<Callout type="tip" title="Il discorsone finale">
+  Salvatore chiude con una riflessione: queste sono cose **facilissime**,
+  matematica da liceo applicata. Eppure uno studente con 10 in matematica
+  spesso non sa che seno, coseno e una divisione bastano per un'animazione 3D.
+  Il valore sta nella sperimentazione: partire da cose banali, costruire un
+  piccolo engine, e solo poi capire davvero cosa fa una libreria scaricata da
+  internet. Il codice è su GitHub: scaricalo e modificalo.
+</Callout>
+
+---
+
+## Esercitazione
+
+<Quiz
+  title="Quiz Standard"
+  questions={[
+    {
+      question:
+        "In che ordine sono memorizzati i canali di un pixel nella superficie SDL del video (macchina little endian)?",
+      options: ["R, G, B, A", "A, R, G, B", "B, G, R, A", "G, B, R, A"],
+      correctAnswer: 2,
+      explanation:
+        "Il frame buffer è in formato BGRA: il byte 0 è il blu, l'1 il verde, il 2 il rosso e il 3 il canale alpha.",
+    },
+    {
+      question: "Cosa rappresenta il campo `pitch` di una SDL_Surface?",
+      options: [
+        "Il numero di pixel per riga",
+        "Il numero di byte per riga, padding compreso",
+        "L'altezza della finestra",
+        "La frequenza di aggiornamento",
+      ],
+      correctAnswer: 1,
+      explanation:
+        "Il pitch è la lunghezza in byte di una riga. Spesso vale width*4, ma alcuni hardware aggiungono padding: usa sempre il valore fornito da SDL.",
+    },
+    {
+      question:
+        "Perché disegnando `x = cx + sin(a)*r`, `y = cy + cos(a)*r` per angoli crescenti si ottiene un cerchio?",
+      options: [
+        "Perché seno e coseno sono funzioni casuali",
+        "Perché per ogni angolo seno e coseno sono le coordinate di un punto sul cerchio unitario",
+        "Perché il compilatore ottimizza il ciclo",
+        "Perché r è una potenza di due",
+      ],
+      correctAnswer: 1,
+      explanation:
+        "Seno e coseno sono la stessa onda sfasata di 90 gradi: insieme parametrizzano il cerchio di raggio 1, che viene poi scalato di r e centrato.",
+    },
+    {
+      question:
+        "Con la formula `zf = 1 + z/400`, cosa succede a un punto con z negativa (verso lo spettatore)?",
+      options: [
+        "Viene nascosto",
+        "Si stringe verso il centro",
+        "Si allarga, perché divide per un numero minore di 1",
+        "Resta identico",
+      ],
+      correctAnswer: 2,
+      explanation:
+        "Con z negativa il divisore scende sotto 1, quindi X e Y crescono: l'oggetto vicino appare più grande.",
+    },
+    {
+      question:
+        "Perché Salvatore tiene un array `rotated[]` separato invece di ruotare direttamente `Model[]` a ogni fotogramma?",
+      options: [
+        "Per usare più memoria",
+        "Per evitare di accumulare errori in virgola mobile ruotando ripetutamente gli stessi punti",
+        "Perché SDL lo richiede",
+        "Per rendere il codice più lento",
+      ],
+      correctAnswer: 1,
+      explanation:
+        "Ogni fotogramma ricalcola la rotazione dal modello originale con l'angolo corrente: nessun errore si somma al precedente.",
+    },
+  ]}
+/>
+
+<Quiz
+  title="Pro Challenge"
+  questions={[
+    {
+      question:
+        "L'onda `y = 10*sin(x/100*2π)` appariva quantizzata a gradini. Qual era la causa?",
+      options: [
+        "La frequenza di refresh troppo bassa",
+        "x era un int, quindi x/100 era una divisione intera che valeva quasi sempre 0",
+        "sin() non è precisa con i float",
+        "Il frame buffer era troppo piccolo",
+      ],
+      correctAnswer: 1,
+      explanation:
+        "Divisione intera: 57/100 vale 0 in C. Dichiarare le coordinate come float risolve. È la promozione dei tipi della Lezione 3.",
+    },
+    {
+      question:
+        "Il primo tentativo di fade (`fb[j] /= 2` a ogni fotogramma) non mostrava alcuna scia. Perché?",
+      options: [
+        "Perché la divisione per 2 è vietata sui byte",
+        "Perché dimezzare ogni fotogramma spegne un pixel in circa 8 fotogrammi, troppo in fretta per vedere la scia",
+        "Perché il canale alpha diventava 0",
+        "Perché SDL ripristina il buffer",
+      ],
+      correctAnswer: 1,
+      explanation:
+        "255 → 127 → 63 → ... → 0 in 8 passi: a 60 fps è un ottavo di secondo. Sottrarre una costante piccola (15) rende la scia lunga.",
+    },
+    {
+      question:
+        "Perché prima della rotazione compariva una linea verticale densa al centro della nuvola traslata in profondità?",
+      options: [
+        "Un bug di SDL",
+        "I punti con x = 0 restano su x = 0 anche dopo la prospettiva e collassano tutti su una linea",
+        "Il seno di 0 non è definito",
+        "Il pitch era sbagliato",
+      ],
+      correctAnswer: 1,
+      explanation:
+        "La prospettiva divide X: zero diviso qualsiasi cosa resta zero. Gli altri punti si disperdono, quelli a x = 0 no. Con la rotazione nessun punto resta esattamente a x = 0.",
+    },
+  ]}
+/>
+
+<ProTerminal
+  lessonSlug="lesson-32"
+  challenges={[
+    {
+      id: "mustlock",
+      title: "Lock o non lock?",
+      description:
+        "Quale macro di SDL ha controllato Salvatore per scoprire che la superficie non richiede lock prima di scrivere i pixel? (ritornava 0)",
+      commands: [],
+      expectedOutput: "SDL_MUSTLOCK",
+      hints: ["Inizia con SDL_MUST..."],
+    },
+    {
+      id: "bytes-per-pixel",
+      title: "Aritmetica del frame buffer",
+      description:
+        "Con una finestra 640x480 in formato BGRA e nessun padding, quanti byte occupa l'intero frame buffer? Scrivi solo il numero.",
+      commands: [],
+      expectedOutput: "1228800",
+      hints: ["640 * 480 pixel, 4 byte ciascuno."],
+    },
+    {
+      id: "quit-event",
+      title: "Chiudere la finestra",
+      description:
+        "Qual è il tipo di evento SDL che il ciclo principale intercetta per terminare il programma quando l'utente chiude la finestra?",
+      commands: [],
+      expectedOutput: "SDL_QUIT",
+      hints: ["Lo stesso nome della chiamata di chiusura, in maiuscolo."],
+    },
+  ]}
+/>
+
+### Riassunto Finale
+
+Un frame buffer è un array di byte, un pixel è un offset, un cerchio è seno e coseno, la prospettiva è una divisione e la rotazione sono due moltiplicazioni. Con questi mattoni, e la disciplina di verificare ogni riga generata o copiata, hai tutto quello che serve per costruire il tuo primo motore 3D.

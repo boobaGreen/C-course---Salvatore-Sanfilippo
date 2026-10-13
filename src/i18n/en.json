@@ -120,6 +120,7 @@
             },
             "v120": {
                 "title": "Version 1.2.0",
+                "lesson32": "New Lesson 32: 3D Graphics Fundamentals (SDL frame buffer, perspective, rotation) with an interactive 3D visualizer.",
                 "design": "New home with the course path, resume-from-last-lesson and an index with progress.",
                 "lesson_nav": "Header and previous/next navigation in every lesson, with completion state.",
                 "videos": "Fixed the videos of lessons 25-28 (they were duplicates) and lesson 6.",
